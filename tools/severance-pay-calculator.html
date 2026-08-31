@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>퇴직금 계산기 - 평균임금 기준 자동 계산</title>
+<meta name="description" content="입사일·퇴사일과 최근 3개월 급여만 입력하면 근로기준법 평균임금 방식으로 퇴직금을 계산합니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700&family=Pretendard:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #ECE8DC;
+    --paper-light: #F7F4EA;
+    --ink: #16233D;
+    --ink-soft: #45516A;
+    --muted: #6E6656;
+    --line: #B7AF98;
+    --stamp: #B23A2E;
+  }
+  *{ box-sizing: border-box; }
+  body{
+    margin:0;
+    padding: 40px 20px 70px;
+    background: var(--paper);
+    background-image: repeating-linear-gradient(0deg, rgba(0,0,0,0.015) 0px, rgba(0,0,0,0.015) 1px, transparent 1px, transparent 3px);
+    font-family: 'Pretendard', -apple-system, sans-serif;
+    color: var(--ink);
+    display:flex;
+    justify-content:center;
+  }
+  .stub{ width:100%; max-width: 560px; }
+  .kicker{ font-size:13px; color:var(--muted); margin-bottom:6px; }
+  h1{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:30px; line-height:1.35; margin:0 0 8px; }
+  .lede{ font-size:14.5px; color:var(--ink-soft); line-height:1.6; margin:0 0 32px; max-width:46ch; }
+  .card{ background:var(--paper-light); border:1px solid var(--line); border-radius:14px; padding:32px; margin-bottom:28px; }
+  .field{ margin-bottom:20px; }
+  .field:last-child{ margin-bottom:0; }
+  .field label{ display:block; font-size:13.5px; color:var(--ink-soft); margin-bottom:8px; }
+  .field-hint{ display:block; font-size:12px; color:var(--muted); margin-top:6px; }
+  .input-row{ display:flex; align-items:baseline; border-bottom:1.5px solid var(--ink); padding-bottom:6px; }
+  .input-row input{ flex:1; border:none; background:transparent; font-family:'IBM Plex Mono', monospace; font-size:20px; font-weight:600; color:var(--ink); outline:none; padding:4px 0; width:100%; }
+  .calc-btn{ width:100%; padding:16px; margin-top:8px; background:var(--ink); color:var(--paper-light); border:none; border-radius:14px; font-weight:600; font-size:15.5px; cursor:pointer; box-shadow:0 4px 0 rgba(0,0,0,0.28); }
+  .calc-btn:hover{ background:var(--ink-soft); }
+  .calc-btn:active{ transform:translateY(3px); box-shadow:0 1px 0 rgba(0,0,0,0.28); }
+  .result-card{ padding-top:32px; }
+  .result-card.hidden{ display:none; }
+  .result-label{ font-size:13.5px; color:var(--ink-soft); margin-bottom:4px; }
+  .result-amount{ font-family:'IBM Plex Mono', monospace; font-weight:600; font-size:38px; color:var(--stamp); line-height:1.1; margin-bottom:4px; }
+  .result-amount .unit{ font-size:18px; margin-left:2px; }
+  .breakdown{ border-top:1px solid var(--line); padding-top:20px; margin-top:16px; }
+  .breakdown-row{ display:flex; justify-content:space-between; align-items:baseline; font-size:14px; padding:9px 0; color:var(--ink-soft); }
+  .breakdown-row .amount{ font-family:'IBM Plex Mono', monospace; color:var(--ink); font-weight:600; font-size:16px; }
+  .disclaimer{ font-size:11.5px; color:var(--muted); line-height:1.6; margin-top:24px; padding-top:16px; border-top:1px dotted var(--line); }
+  .slot{ border:1.5px dashed var(--line); border-radius:10px; padding:18px; text-align:center; font-size:12px; color:var(--muted); margin-top:24px; }
+  @media (max-width:480px){ .card{ padding:24px; } h1{ font-size:25px; } .result-amount{ font-size:32px; } }
+
+  .info-block{ margin-top:40px; }
+  .info-block h2{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:18px; margin:0 0 12px; }
+  .info-block p{ font-size:13.5px; line-height:1.7; color:var(--ink-soft); margin:0 0 14px; }
+  .faq-item{ margin-bottom:16px; }
+  .faq-item .q{ font-size:14px; font-weight:600; margin-bottom:5px; }
+  .faq-item .a{ font-size:13.5px; line-height:1.65; color:var(--ink-soft); }
+
+  .related{ margin-top:32px; padding-top:20px; border-top:1px solid var(--line); }
+  .related-title{ font-size:12.5px; color:var(--muted); margin-bottom:10px; }
+  .related-links{ display:flex; flex-wrap:wrap; gap:8px; }
+  .related-links a{ padding:8px 14px; border:1.5px solid var(--line); border-radius:999px; font-size:13px; color:var(--ink); text-decoration:none; }
+  .related-links a:hover{ border-color:var(--ink); }
+</style>
+<!-- Google AdSense: 승인 후 ca-pub-XXXXXXXXXXXXXXXX 를 실제 게시자 ID로 교체하세요 -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div class="stub">
+  <div class="kicker">퇴사·이직</div>
+  <h1>퇴직금 계산기</h1>
+  <p class="lede">입사일, 퇴사일, 최근 3개월 급여만 입력하면 근로기준법상 평균임금 방식으로 예상 퇴직금을 계산합니다.</p>
+
+  <div class="card">
+    <div class="field">
+      <label for="joinDate">입사일</label>
+      <div class="input-row">
+        <input type="date" id="joinDate">
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="leaveDate">퇴사일 (마지막 근무일 다음날)</label>
+      <div class="input-row">
+        <input type="date" id="leaveDate">
+      </div>
+      <span class="field-hint">보통 퇴사일은 마지막 근무일의 다음날로 처리합니다.</span>
+    </div>
+
+    <div class="field">
+      <label for="wage3m">최근 3개월간 받은 급여 총액 (세전, 만원)</label>
+      <div class="input-row">
+        <input type="number" id="wage3m" placeholder="예: 1200" inputmode="numeric">
+        <span class="unit" style="font-size:14px;color:var(--muted);margin-left:8px;">만원</span>
+      </div>
+      <span class="field-hint">기본급, 각종 수당, 정기 상여금을 포함한 퇴사 직전 3개월 총 지급액입니다.</span>
+    </div>
+
+    <button class="calc-btn" id="calcBtn">퇴직금 계산하기</button>
+  </div>
+
+  <div class="card result-card hidden" id="resultCard">
+    <div class="result-label">예상 퇴직금</div>
+    <div class="result-amount" id="severanceAmount">0<span class="unit">원</span></div>
+
+    <div class="breakdown" id="breakdown"></div>
+
+    <div class="disclaimer">
+      이 계산은 근로기준법 제34조 평균임금 방식(1일 평균임금 × 30일 × 재직일수/365)에 기반한 근사치입니다. 연차수당, 성과급 포함 여부 등에 따라 실제 금액과 차이가 있을 수 있으니 정확한 금액은 회사 인사팀 또는 고용노동부에 확인하세요.
+    </div>
+  </div>
+
+  <!-- ===== 광고 삽입 영역 ===== -->
+  <ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+     data-ad-slot="0000000000"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+
+  <div class="info-block">
+    <h2>퇴직금은 어떻게 계산되나요?</h2>
+    <p>퇴직금은 '1일 평균임금 × 30일 × (재직일수 ÷ 365)'로 계산합니다. 1일 평균임금은 퇴사 직전 3개월 동안 받은 임금 총액을 그 3개월의 실제 날짜 수로 나눈 값입니다. 즉 평균적으로 한 달치 월급만큼을 근속연수에 비례해서 받는 구조입니다.</p>
+
+    <div class="faq-item">
+      <div class="q">1년 미만 근무해도 퇴직금을 받을 수 있나요?</div>
+      <div class="a">아니요, 근로기준법상 퇴직금은 계속근로기간이 1년 이상이고 4주 평균 1주 소정근로시간이 15시간 이상인 근로자에게만 발생합니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">상여금이나 연차수당도 포함되나요?</div>
+      <div class="a">정기적·일률적으로 지급되는 상여금은 평균임금에 포함됩니다. 다만 연차수당은 퇴직 전전연도 미사용분만 포함되는 등 세부 기준이 있어 정확한 금액은 급여 담당자와 확인하는 것이 좋습니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">퇴직금은 언제까지 받아야 하나요?</div>
+      <div class="a">근로기준법상 퇴직일로부터 14일 이내에 지급하는 것이 원칙입니다. 당사자 간 합의로 기한을 연장할 수 있습니다.</div>
+    </div>
+  </div>
+
+  <div class="related">
+    <div class="related-title">함께 보면 좋은 도구</div>
+    <div class="related-links">
+      <a href="/tools/unemployment-benefit-calculator.html">실업급여 계산기</a>
+      <a href="/tools/salary-calculator.html">연봉 실수령액 계산기</a>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const $ = (id) => document.getElementById(id);
+
+  function calculate(){
+    const joinVal = $('joinDate').value;
+    const leaveVal = $('leaveDate').value;
+    const wage3m = (parseFloat($('wage3m').value) || 0) * 10000;
+
+    if (!joinVal || !leaveVal || wage3m <= 0){
+      $('resultCard').classList.add('hidden');
+      return;
+    }
+
+    const joinDate = new Date(joinVal + 'T00:00:00');
+    const leaveDate = new Date(leaveVal + 'T00:00:00');
+    if (leaveDate <= joinDate){
+      $('resultCard').classList.add('hidden');
+      return;
+    }
+
+    const tenureDays = Math.round((leaveDate - joinDate) / 86400000);
+
+    const periodStart = new Date(leaveDate);
+    periodStart.setMonth(periodStart.getMonth() - 3);
+    const periodDays = Math.round((leaveDate - periodStart) / 86400000);
+
+    const dailyAvgWage = wage3m / periodDays;
+    const severance = dailyAvgWage * 30 * (tenureDays / 365);
+
+    render({ severance, tenureDays, periodDays, dailyAvgWage });
+  }
+
+  function won(n){
+    return Math.round(n).toLocaleString('ko-KR');
+  }
+
+  function render(r){
+    $('severanceAmount').innerHTML = won(r.severance) + '<span class="unit">원</span>';
+    $('breakdown').innerHTML = `
+      <div class="breakdown-row"><span>재직일수</span><span class="amount">${r.tenureDays.toLocaleString('ko-KR')}일</span></div>
+      <div class="breakdown-row"><span>평균임금 산정기간</span><span class="amount">${r.periodDays}일</span></div>
+      <div class="breakdown-row"><span>1일 평균임금</span><span class="amount">${won(r.dailyAvgWage)}원</span></div>
+    `;
+    $('resultCard').classList.remove('hidden');
+  }
+
+  $('calcBtn').addEventListener('click', calculate);
+})();
+</script>
+
+</body>
+</html>

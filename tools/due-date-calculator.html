@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>출산 예정일 계산기 - 임신 주수/삼분기 한번에</title>
+<meta name="description" content="마지막 생리 시작일만 입력하면 출산 예정일, 현재 임신 주수, 삼분기 구간을 계산합니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700&family=Pretendard:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #ECE8DC;
+    --paper-light: #F7F4EA;
+    --ink: #16233D;
+    --ink-soft: #45516A;
+    --muted: #6E6656;
+    --line: #B7AF98;
+    --stamp: #B23A2E;
+  }
+  *{ box-sizing: border-box; }
+  body{
+    margin:0;
+    padding: 40px 20px 70px;
+    background: var(--paper);
+    background-image: repeating-linear-gradient(0deg, rgba(0,0,0,0.015) 0px, rgba(0,0,0,0.015) 1px, transparent 1px, transparent 3px);
+    font-family: 'Pretendard', -apple-system, sans-serif;
+    color: var(--ink);
+    display:flex;
+    justify-content:center;
+  }
+  .stub{ width:100%; max-width: 560px; }
+  .kicker{ font-size:13px; color:var(--muted); margin-bottom:6px; }
+  h1{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:30px; line-height:1.35; margin:0 0 8px; }
+  .lede{ font-size:14.5px; color:var(--ink-soft); line-height:1.6; margin:0 0 32px; max-width:46ch; }
+  .card{ background:var(--paper-light); border:1px solid var(--line); border-radius:14px; padding:32px; margin-bottom:28px; }
+  .field{ margin-bottom:20px; }
+  .field:last-child{ margin-bottom:0; }
+  .field label{ display:block; font-size:13.5px; color:var(--ink-soft); margin-bottom:8px; }
+  .field-hint{ display:block; font-size:12px; color:var(--muted); margin-top:6px; }
+  .input-row{ display:flex; align-items:baseline; border-bottom:1.5px solid var(--ink); padding-bottom:6px; }
+  .input-row input{ flex:1; border:none; background:transparent; font-family:'IBM Plex Mono', monospace; font-size:20px; font-weight:600; color:var(--ink); outline:none; padding:4px 0; width:100%; }
+  .calc-btn{ width:100%; padding:16px; margin-top:8px; background:var(--ink); color:var(--paper-light); border:none; border-radius:14px; font-weight:600; font-size:15.5px; cursor:pointer; box-shadow:0 4px 0 rgba(0,0,0,0.28); }
+  .calc-btn:hover{ background:var(--ink-soft); }
+  .calc-btn:active{ transform:translateY(3px); box-shadow:0 1px 0 rgba(0,0,0,0.28); }
+  .result-card{ padding-top:32px; }
+  .result-card.hidden{ display:none; }
+  .result-label{ font-size:13.5px; color:var(--ink-soft); margin-bottom:4px; }
+  .result-amount{ font-family:'IBM Plex Mono', monospace; font-weight:600; font-size:36px; color:var(--stamp); line-height:1.1; margin-bottom:4px; }
+  .result-amount .unit{ font-size:18px; margin-left:2px; }
+  .breakdown{ border-top:1px solid var(--line); padding-top:20px; margin-top:16px; }
+  .breakdown-row{ display:flex; justify-content:space-between; align-items:baseline; font-size:14px; padding:9px 0; color:var(--ink-soft); }
+  .breakdown-row .amount{ font-family:'IBM Plex Mono', monospace; color:var(--ink); font-weight:600; font-size:16px; }
+  .disclaimer{ font-size:11.5px; color:var(--muted); line-height:1.6; margin-top:24px; padding-top:16px; border-top:1px dotted var(--line); }
+  .slot{ border:1.5px dashed var(--line); border-radius:10px; padding:18px; text-align:center; font-size:12px; color:var(--muted); margin-top:24px; }
+  @media (max-width:480px){ .card{ padding:24px; } h1{ font-size:25px; } .result-amount{ font-size:30px; } }
+
+  .info-block{ margin-top:40px; }
+  .info-block h2{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:18px; margin:0 0 12px; }
+  .info-block p{ font-size:13.5px; line-height:1.7; color:var(--ink-soft); margin:0 0 14px; }
+  .faq-item{ margin-bottom:16px; }
+  .faq-item .q{ font-size:14px; font-weight:600; margin-bottom:5px; }
+  .faq-item .a{ font-size:13.5px; line-height:1.65; color:var(--ink-soft); }
+
+  .related{ margin-top:32px; padding-top:20px; border-top:1px solid var(--line); }
+  .related-title{ font-size:12.5px; color:var(--muted); margin-bottom:10px; }
+  .related-links{ display:flex; flex-wrap:wrap; gap:8px; }
+  .related-links a{ padding:8px 14px; border:1.5px solid var(--line); border-radius:999px; font-size:13px; color:var(--ink); text-decoration:none; }
+  .related-links a:hover{ border-color:var(--ink); }
+</style>
+<!-- Google AdSense: 승인 후 ca-pub-XXXXXXXXXXXXXXXX 를 실제 게시자 ID로 교체하세요 -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div class="stub">
+  <div class="kicker">임신·출산</div>
+  <h1>출산 예정일 계산기</h1>
+  <p class="lede">마지막 생리 시작일을 입력하면 네겔 법칙(Naegele's rule)으로 출산 예정일과 현재 임신 주수를 계산합니다.</p>
+
+  <div class="card">
+    <div class="field">
+      <label for="lmp">마지막 생리 시작일</label>
+      <div class="input-row">
+        <input type="date" id="lmp">
+      </div>
+      <span class="field-hint">생리 주기가 28일인 경우를 기준으로 계산합니다.</span>
+    </div>
+
+    <div class="field">
+      <label for="cycle">평균 생리 주기</label>
+      <div class="input-row">
+        <input type="number" id="cycle" value="28" min="20" max="45" inputmode="numeric">
+        <span class="unit" style="font-size:14px;color:var(--muted);margin-left:8px;">일</span>
+      </div>
+      <span class="field-hint">28일이 아니라면 본인 평균 주기를 입력하세요. 예정일 계산에 반영됩니다.</span>
+    </div>
+
+    <button class="calc-btn" id="calcBtn">예정일 계산하기</button>
+  </div>
+
+  <div class="card result-card hidden" id="resultCard">
+    <div class="result-label">출산 예정일</div>
+    <div class="result-amount" id="dueDate">-</div>
+
+    <div class="breakdown" id="breakdown"></div>
+
+    <div class="disclaimer">
+      네겔 법칙은 마지막 생리 시작일에 280일(40주)을 더해 추정하는 일반적인 계산 방식입니다. 실제 출산일은 초음파 검사 등을 통한 의료진의 판단에 따라 달라질 수 있으니 참고용으로만 활용하세요.
+    </div>
+  </div>
+
+  <!-- ===== 광고 삽입 영역 ===== -->
+  <ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+     data-ad-slot="0000000000"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+
+  <div class="info-block">
+    <h2>왜 마지막 생리일로 계산하나요?</h2>
+    <p>배란일이나 수정일을 정확히 알기 어렵기 때문에, 임신 주수는 관례적으로 마지막 생리 시작일을 임신 0주 0일로 놓고 계산합니다. 여기에 280일(40주)을 더한 날이 통계적으로 가장 흔한 출산 시점, 즉 출산 예정일입니다.</p>
+
+    <div class="faq-item">
+      <div class="q">예정일에 정확히 태어나나요?</div>
+      <div class="a">아니요, 예정일 전후 2주(38~42주) 사이에 태어나는 경우가 대부분입니다. 예정일은 통계적 중앙값일 뿐 확정된 날짜가 아닙니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">생리 주기가 불규칙하면 어떻게 하나요?</div>
+      <div class="a">주기가 28일보다 길거나 짧으면 배란일도 그만큼 달라져 예정일 오차가 커질 수 있습니다. 이런 경우 병원 초음파 검사를 통한 재태연령 측정이 더 정확합니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">삼분기(trimester)는 어떻게 나누나요?</div>
+      <div class="a">1분기는 1~13주, 2분기는 14~27주, 3분기는 28주부터 출산까지로 구분하는 것이 일반적입니다. 분기마다 검사·관리 항목이 달라지니 산부인과 안내를 따라주세요.</div>
+    </div>
+  </div>
+
+  <div class="related">
+    <div class="related-title">함께 보면 좋은 도구</div>
+    <div class="related-links">
+      <a href="/fun/baby-name-generator.html">태명 짓기 생성기</a>
+      <a href="/tools/parental-leave-calculator.html">육아휴직급여 계산기</a>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const $ = (id) => document.getElementById(id);
+
+  function fmt(d){
+    return `${d.getFullYear()}.${String(d.getMonth()+1).padStart(2,'0')}.${String(d.getDate()).padStart(2,'0')}`;
+  }
+
+  function calculate(){
+    const lmpVal = $('lmp').value;
+    if (!lmpVal){
+      $('resultCard').classList.add('hidden');
+      return;
+    }
+
+    const cycle = parseInt($('cycle').value, 10) || 28;
+    const cycleAdjust = cycle - 28;
+
+    const lmp = new Date(lmpVal + 'T00:00:00');
+    const dueDate = new Date(lmp);
+    dueDate.setDate(dueDate.getDate() + 280 + cycleAdjust);
+
+    const today = new Date();
+    today.setHours(0,0,0,0);
+    const daysSince = Math.floor((today - lmp) / 86400000);
+
+    let weekLabel, trimester, dday;
+    if (daysSince < 0){
+      weekLabel = '아직 시작 전';
+      trimester = '-';
+    } else {
+      const weeks = Math.floor(daysSince / 7);
+      const days = daysSince % 7;
+      weekLabel = `${weeks}주 ${days}일`;
+      trimester = weeks <= 13 ? '1분기 (1~13주)' : weeks <= 27 ? '2분기 (14~27주)' : '3분기 (28주~)';
+    }
+
+    const diffToDue = Math.round((dueDate - today) / 86400000);
+    dday = diffToDue >= 0 ? `D-${diffToDue}` : `D+${Math.abs(diffToDue)}`;
+
+    render({ dueDate, weekLabel, trimester, dday });
+  }
+
+  function render(r){
+    $('dueDate').textContent = fmt(r.dueDate);
+    $('breakdown').innerHTML = `
+      <div class="breakdown-row"><span>현재 임신 주수</span><span class="amount">${r.weekLabel}</span></div>
+      <div class="breakdown-row"><span>삼분기 구간</span><span class="amount">${r.trimester}</span></div>
+      <div class="breakdown-row"><span>예정일까지</span><span class="amount">${r.dday}</span></div>
+    `;
+    $('resultCard').classList.remove('hidden');
+  }
+
+  $('calcBtn').addEventListener('click', calculate);
+})();
+</script>
+
+</body>
+</html>

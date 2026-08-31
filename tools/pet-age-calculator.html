@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>반려동물 나이 계산기 - 강아지/고양이 나이를 사람 나이로</title>
+<meta name="description" content="강아지, 고양이의 나이를 사람 나이로 환산해줍니다. 견종 크기별 계산 공식 반영.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700&family=Pretendard:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #ECE8DC;
+    --paper-light: #F7F4EA;
+    --ink: #16233D;
+    --ink-soft: #45516A;
+    --muted: #6E6656;
+    --line: #B7AF98;
+    --stamp: #B23A2E;
+  }
+  *{ box-sizing: border-box; }
+  body{
+    margin:0;
+    padding: 40px 20px 70px;
+    background: var(--paper);
+    background-image: repeating-linear-gradient(0deg, rgba(0,0,0,0.015) 0px, rgba(0,0,0,0.015) 1px, transparent 1px, transparent 3px);
+    font-family: 'Pretendard', -apple-system, sans-serif;
+    color: var(--ink);
+    display:flex;
+    justify-content:center;
+  }
+  .stub{ width:100%; max-width: 560px; }
+  .kicker{ font-size:13px; color:var(--muted); margin-bottom:6px; }
+  h1{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:30px; line-height:1.35; margin:0 0 8px; }
+  .lede{ font-size:14.5px; color:var(--ink-soft); line-height:1.6; margin:0 0 32px; max-width:46ch; }
+  .card{ background:var(--paper-light); border:1px solid var(--line); border-radius:14px; padding:32px; margin-bottom:28px; }
+  .field{ margin-bottom:20px; }
+  .field label{ display:block; font-size:13.5px; color:var(--ink-soft); margin-bottom:8px; }
+  .field-hint{ display:block; font-size:12px; color:var(--muted); margin-top:6px; }
+  .input-row{ display:flex; align-items:baseline; border-bottom:1.5px solid var(--ink); padding-bottom:6px; }
+  .input-row input{ flex:1; border:none; background:transparent; font-family:'IBM Plex Mono', monospace; font-size:20px; font-weight:600; color:var(--ink); outline:none; padding:4px 0; width:100%; }
+  .seg{ display:flex; gap:8px; }
+  .seg button{ flex:1; padding:10px; border:1.5px solid var(--line); border-radius:10px; background:var(--paper-light); color:var(--ink-soft); font-size:13.5px; font-weight:600; cursor:pointer; }
+  .seg button.active{ background:var(--ink); border-color:var(--ink); color:var(--paper-light); }
+  .calc-btn{ width:100%; padding:16px; margin-top:8px; background:var(--ink); color:var(--paper-light); border:none; border-radius:14px; font-weight:600; font-size:15.5px; cursor:pointer; box-shadow:0 4px 0 rgba(0,0,0,0.28); }
+  .calc-btn:hover{ background:var(--ink-soft); }
+  .calc-btn:active{ transform:translateY(3px); box-shadow:0 1px 0 rgba(0,0,0,0.28); }
+  .result-card{ padding-top:32px; }
+  .result-card.hidden{ display:none; }
+  .result-label{ font-size:13.5px; color:var(--ink-soft); margin-bottom:4px; }
+  .result-amount{ font-family:'IBM Plex Mono', monospace; font-weight:600; font-size:42px; color:var(--stamp); line-height:1.1; margin-bottom:4px; }
+  .result-amount .unit{ font-size:20px; margin-left:2px; }
+  .result-note{ font-size:13.5px; color:var(--muted); margin-bottom:8px; }
+  .disclaimer{ font-size:11.5px; color:var(--muted); line-height:1.6; margin-top:24px; padding-top:16px; border-top:1px dotted var(--line); }
+  .slot{ border:1.5px dashed var(--line); border-radius:10px; padding:18px; text-align:center; font-size:12px; color:var(--muted); margin-top:24px; }
+  @media (max-width:480px){ .card{ padding:24px; } h1{ font-size:25px; } .result-amount{ font-size:34px; } }
+
+  .info-block{ margin-top:40px; }
+  .info-block h2{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:18px; margin:0 0 12px; }
+  .info-block p{ font-size:13.5px; line-height:1.7; color:var(--ink-soft); margin:0 0 14px; }
+  .faq-item{ margin-bottom:16px; }
+  .faq-item .q{ font-size:14px; font-weight:600; margin-bottom:5px; }
+  .faq-item .a{ font-size:13.5px; line-height:1.65; color:var(--ink-soft); }
+
+  .related{ margin-top:32px; padding-top:20px; border-top:1px solid var(--line); }
+  .related-title{ font-size:12.5px; color:var(--muted); margin-bottom:10px; }
+  .related-links{ display:flex; flex-wrap:wrap; gap:8px; }
+  .related-links a{ padding:8px 14px; border:1.5px solid var(--line); border-radius:999px; font-size:13px; color:var(--ink); text-decoration:none; }
+  .related-links a:hover{ border-color:var(--ink); }
+</style>
+<!-- Google AdSense: 승인 후 ca-pub-XXXXXXXXXXXXXXXX 를 실제 게시자 ID로 교체하세요 -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div class="stub">
+  <div class="kicker">반려동물</div>
+  <h1>반려동물 나이 계산기</h1>
+  <p class="lede">강아지, 고양이의 나이를 사람 나이로 환산합니다. 견종 크기에 따라 노화 속도가 달라 계산 방식이 다릅니다.</p>
+
+  <div class="card">
+    <div class="field">
+      <label>동물 종류</label>
+      <div class="seg" id="speciesSeg">
+        <button type="button" class="active" data-value="dog">강아지 🐶</button>
+        <button type="button" data-value="cat">고양이 🐱</button>
+      </div>
+    </div>
+
+    <div class="field" id="sizeField">
+      <label>견종 크기</label>
+      <div class="seg" id="sizeSeg">
+        <button type="button" class="active" data-value="small">소형견</button>
+        <button type="button" data-value="medium">중형견</button>
+        <button type="button" data-value="large">대형견</button>
+      </div>
+      <span class="field-hint">소형(~10kg) · 중형(10~25kg) · 대형(25kg~) 기준입니다.</span>
+    </div>
+
+    <div class="field">
+      <label for="years">나이 (년)</label>
+      <div class="input-row">
+        <input type="number" id="years" placeholder="예: 3" min="0" inputmode="numeric">
+        <span class="unit" style="font-size:14px;color:var(--muted);margin-left:8px;">년</span>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="months">나이 (개월, 선택)</label>
+      <div class="input-row">
+        <input type="number" id="months" placeholder="예: 6" min="0" max="11" inputmode="numeric">
+        <span class="unit" style="font-size:14px;color:var(--muted);margin-left:8px;">개월</span>
+      </div>
+    </div>
+
+    <button class="calc-btn" id="calcBtn">사람 나이로 환산하기</button>
+  </div>
+
+  <div class="card result-card hidden" id="resultCard">
+    <div class="result-label">사람 나이로 환산하면</div>
+    <div class="result-amount" id="humanAge">0<span class="unit">세</span></div>
+    <div class="result-note" id="resultNote"></div>
+
+    <div class="disclaimer">
+      이 계산 결과는 일반적인 통계에 기반한 추정치이며, 품종과 개체 건강 상태에 따라 실제 노화 속도는 다를 수 있습니다. 정확한 건강 상태는 수의사와 상담하세요.
+    </div>
+  </div>
+
+  <!-- ===== 광고 삽입 영역 ===== -->
+  <ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+     data-ad-slot="0000000000"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+
+  <div class="info-block">
+    <h2>왜 견종 크기별로 계산이 다른가요?</h2>
+    <p>강아지는 몸집이 클수록 노화가 빨리 진행되는 경향이 있습니다. 생후 2년까지는 소형·중형·대형견 모두 비슷한 속도로 성장하지만, 그 이후부터는 대형견일수록 매년 사람 나이 환산치가 더 크게 늘어납니다. 반면 고양이는 품종별 체구 차이가 상대적으로 적어 크기 구분 없이 하나의 공식을 사용합니다.</p>
+
+    <div class="faq-item">
+      <div class="q">첫 1~2년이 유독 빨리 늙는 걸로 나오는 이유는?</div>
+      <div class="a">강아지와 고양이 모두 태어난 지 1년 안에 사람의 청소년기에 해당하는 신체적 성숙을 마칩니다. 그래서 첫 1년은 사람 나이로 약 15세, 2년째까지는 24세 전후로 훌쩍 뛰는 것처럼 계산됩니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">노령견·노령묘 기준은 몇 살부터인가요?</div>
+      <div class="a">일반적으로 사람 나이 환산 55~60세 전후부터 노령기로 보며, 이 시기부터는 정기 건강검진 주기를 앞당기는 것이 권장됩니다. 견종·품종에 따라 차이가 크니 참고용으로만 활용하세요.</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">이 계산이 실제 건강 상태를 보장하나요?</div>
+      <div class="a">아니요, 통계적 평균에 기반한 참고용 추정치입니다. 실제 노화 속도와 건강 상태는 유전, 관리, 질병 이력에 따라 크게 달라지므로 정확한 진단은 수의사와 상담하세요.</div>
+    </div>
+  </div>
+
+  <div class="related">
+    <div class="related-title">함께 보면 좋은 도구</div>
+    <div class="related-links">
+      <a href="/tools/pet-food-calculator.html">반려동물 사료량 계산기</a>
+      <a href="/fun/pet-name-generator.html">반려동물 이름 생성기</a>
+      <a href="/tools/age-calculator.html">만 나이 계산기</a>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const $ = (id) => document.getElementById(id);
+  let species = 'dog';
+  let size = 'small';
+
+  document.querySelectorAll('#speciesSeg button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      species = btn.dataset.value;
+      document.querySelectorAll('#speciesSeg button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      $('sizeField').style.display = species === 'dog' ? 'block' : 'none';
+    });
+  });
+
+  document.querySelectorAll('#sizeSeg button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      size = btn.dataset.value;
+      document.querySelectorAll('#sizeSeg button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+
+  function catAge(age){
+    if (age <= 0) return 0;
+    if (age <= 1) return age * 15;
+    if (age <= 2) return 15 + (age - 1) * 9;
+    return 24 + (age - 2) * 4;
+  }
+
+  function dogAge(age, size){
+    if (age <= 0) return 0;
+    if (age <= 1) return age * 15;
+    if (age <= 2) return 15 + (age - 1) * 9;
+    const perYear = size === 'small' ? 4 : size === 'medium' ? 5 : 7;
+    return 24 + (age - 2) * perYear;
+  }
+
+  function calculate(){
+    const years = parseFloat($('years').value) || 0;
+    const months = parseFloat($('months').value) || 0;
+    const age = years + months / 12;
+
+    if (age <= 0){
+      $('resultCard').classList.add('hidden');
+      return;
+    }
+
+    const human = species === 'cat' ? catAge(age) : dogAge(age, size);
+    render(human);
+  }
+
+  function render(human){
+    $('humanAge').innerHTML = Math.round(human) + '<span class="unit">세</span>';
+    const label = species === 'cat' ? '고양이' : ({small:'소형견', medium:'중형견', large:'대형견'})[size];
+    $('resultNote').textContent = `${label} 기준 환산 결과입니다.`;
+    $('resultCard').classList.remove('hidden');
+  }
+
+  $('calcBtn').addEventListener('click', calculate);
+})();
+</script>
+
+</body>
+</html>

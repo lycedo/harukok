@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>오늘 뭐 마시지? - 카페음료 뽑기</title>
+<meta name="description" content="커피, 티&에이드, 스무디까지 다양한 카페 음료 중 오늘 마실 메뉴를 무작위로 추천해줍니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Pretendard:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #ECE8DC;
+    --bg-soft: #F7F4EA;
+    --matcha: #8FB86A;
+    --espresso: #6B4A32;
+    --ticket: #FFFFFF;
+    --ticket-line: #DDD8C0;
+    --ink: #26301F;
+    --cream-text: #EFEEDF;
+    --muted: #6E7864;
+    --line: #CBBFA0;
+  }
+  *{ box-sizing: border-box; }
+  body{
+    margin:0;
+    padding: 40px 20px 70px;
+    background: var(--bg);
+    background-image: radial-gradient(circle at 50% 0%, var(--bg-soft), var(--bg) 70%);
+    font-family: 'Pretendard', sans-serif;
+    color: var(--ink);
+    display:flex;
+    justify-content:center;
+  }
+  .page{ width:100%; max-width: 480px; text-align:center; }
+  h1{ font-family:'Do Hyeon', sans-serif; font-size:38px; color:var(--espresso); margin:0 0 6px; letter-spacing:0.01em; }
+  .lede{ font-size:14px; color:var(--muted); margin:0 0 24px; }
+
+  .group-label{ font-size:12.5px; color:var(--muted); margin-bottom:8px; text-align:left; }
+  .chips{ display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-bottom:22px; }
+  .chip{ padding:8px 16px; border:1.5px solid var(--line); border-radius:999px; background:transparent; color:var(--ink); font-size:13.5px; font-weight:500; cursor:pointer; }
+  .chip.active{ background:var(--matcha); border-color:var(--matcha); color:var(--ink); font-weight:700; }
+
+  .machine{
+    position: relative; width:220px; height:220px; margin:0 auto 24px; border-radius:50%;
+    background: radial-gradient(circle at 35% 30%, #33402C, #171F14 75%);
+    border: 6px solid #141A11;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow: inset 0 0 30px rgba(0,0,0,0.6), 0 10px 18px rgba(0,0,0,0.35);
+  }
+  .capsule{ width:150px; height:150px; border-radius:50%; background:var(--ticket); display:flex; flex-direction:column; align-items:center; justify-content:center; padding:10px; transition: transform 0.2s ease; }
+  .capsule .emoji{ font-size:44px; line-height:1; margin-bottom:6px; }
+  .capsule .name{ font-family:'Do Hyeon', sans-serif; font-size:18px; color:var(--ink); line-height:1.2; }
+  .capsule.spinning .emoji{ animation: spin-blur 0.22s ease-in-out infinite; }
+  @keyframes spin-blur{ 0%, 100%{transform:scale(1) rotate(0deg);} 50%{transform:scale(1.1) rotate(9deg);} }
+  .capsule.landed{ animation: capsule-pop 0.36s cubic-bezier(.34,1.56,.64,1); }
+  @keyframes capsule-pop{ 0%{transform:scale(0.86);} 55%{transform:scale(1.08);} 100%{transform:scale(1);} }
+
+  .pull-btn{
+    width:100%; padding:18px; background:var(--espresso); color:var(--cream-text); border:none; border-radius:14px;
+    font-family:'Do Hyeon', sans-serif; font-size:19px; letter-spacing:0.01em; cursor:pointer;
+    box-shadow: 0 4px 0 #4A331F;
+  }
+  .pull-btn:active{ transform:translateY(3px); box-shadow:0 1px 0 #4A331F; }
+  .pull-btn:disabled{ opacity:0.6; cursor:default; }
+
+  .history{ margin-top:36px; text-align:left; }
+  .history-title{ font-size:13.5px; color:var(--muted); margin-bottom:10px; text-align:center; }
+  .ticket-row{ display:flex; align-items:center; justify-content:space-between; background:var(--ticket); border:1px solid var(--ticket-line); color:var(--ink); border-radius:8px; padding:10px 14px; margin-bottom:8px; font-size:13.5px; }
+  .ticket-row .drink{ display:flex; align-items:center; gap:8px; font-weight:600; }
+  .ticket-row .date{ font-size:12px; color:#7A6E55; }
+  .empty-history{ text-align:center; color:var(--muted); font-size:13px; padding:16px 0; }
+
+  .slot{ border:1.5px dashed var(--line); border-radius:10px; padding:16px; text-align:center; font-size:12px; color:var(--muted); margin-top:28px; }
+
+  .info-block{ margin-top:40px; text-align:left; }
+  .info-block h2{ font-family:'Do Hyeon', sans-serif; font-size:18px; color:var(--espresso); margin:0 0 10px; font-weight:400; }
+  .info-block p{ font-size:13.5px; line-height:1.65; color:var(--muted); margin:0 0 14px; }
+  .faq-item{ margin-bottom:14px; }
+  .faq-item .q{ font-size:14px; font-weight:700; color:var(--ink); margin-bottom:5px; }
+  .faq-item .a{ font-size:13.5px; line-height:1.6; color:var(--muted); }
+
+  .related{ margin-top:32px; padding-top:20px; border-top:1px solid var(--line); text-align:left; }
+  .related-title{ font-size:12.5px; color:var(--muted); margin-bottom:10px; }
+  .related-links{ display:flex; flex-wrap:wrap; gap:8px; }
+  .related-links a{ padding:8px 14px; border:1.5px solid var(--line); border-radius:999px; font-size:13px; color:var(--ink); text-decoration:none; }
+  .related-links a:hover{ border-color:var(--ink); }
+</style>
+<!-- Google AdSense: 승인 후 ca-pub-XXXXXXXXXXXXXXXX 를 실제 게시자 ID로 교체하세요 -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div class="page">
+  <h1>오늘 뭐 마시지?</h1>
+  <p class="lede">카테고리 고르고 캡슐 뽑으면 오늘의 음료가 정해집니다.</p>
+
+  <div class="group-label">카테고리</div>
+  <div class="chips" id="catChips"></div>
+
+  <div class="machine">
+    <div class="capsule" id="capsule">
+      <div class="emoji" id="capsuleEmoji">🎲</div>
+      <div class="name" id="capsuleName">뽑기 대기중</div>
+    </div>
+  </div>
+
+  <button class="pull-btn" id="pullBtn">오늘 음료 뽑기</button>
+
+  <div class="history">
+    <div class="history-title">최근 뽑기 기록</div>
+    <div id="historyList"></div>
+  </div>
+
+  <!-- ===== 광고 삽입 영역 ===== -->
+  <ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+     data-ad-slot="0000000000"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+
+  <p style="font-size:11px;color:var(--muted);margin-top:16px;">* 메뉴 구성은 매장/시즌에 따라 실제와 다를 수 있습니다. 참고용 추천입니다.</p>
+
+  <div class="info-block">
+    <h2>메뉴는 어떻게 구성했나요?</h2>
+    <p>여러 카페에서 흔히 볼 수 있는 인기 음료들을 커피, 티&에이드, 스무디&블렌디드 3개 카테고리로 정리했습니다. 특정 브랜드에 국한하지 않고 겹치는 메뉴는 하나로 합쳐 총 39종을 준비했습니다.</p>
+
+    <div class="faq-item">
+      <div class="q">카페인이 부담스러운데 논커피만 뽑을 수 있나요?</div>
+      <div class="a">네, '티&에이드' 카테고리를 선택하면 커피가 섞이지 않고 논카페인 위주 음료만 뽑힙니다. 스무디&블렌디드 카테고리에도 일부 논카페인 메뉴가 포함돼 있습니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">실제로 그 메뉴를 파는 카페가 있나요?</div>
+      <div class="a">대부분 여러 카페에서 흔히 판매하는 대중적인 메뉴명이지만, 매장·시즌에 따라 실제 판매 여부는 다를 수 있습니다. 방문 전 매장에 미리 확인하는 걸 추천합니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">시즌 메뉴도 추가되나요?</div>
+      <div class="a">현재는 사계절 내내 흔히 볼 수 있는 스테디 메뉴 위주로 구성돼 있습니다. 계절 한정 메뉴는 추후 업데이트를 통해 추가할 예정입니다.</div>
+    </div>
+  </div>
+
+  <div class="related">
+    <div class="related-title">이런 뽑기도 있어요</div>
+    <div class="related-links">
+      <a href="/fun/lunch-picker.html">오늘 뭐 먹지?</a>
+      <a href="/fun/dinner-picker.html">오늘 저녁 뭐 먹지?</a>
+      <a href="/fun/night-snack-picker.html">오늘 야식 뭐 먹지?</a>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const MENU = {
+    '커피': [
+      ['아메리카노','☕'], ['카페라떼','🥛'], ['카푸치노','☕'], ['바닐라라떼','🥛'], ['카라멜마키아토','🍮'],
+      ['콜드브루','🧊'], ['플랫화이트','☕'], ['아인슈페너','☕'], ['카페모카','🍫'], ['헤이즐넛라떼','🥜'],
+      ['연유라떼','🥛'], ['흑당라떼','🧋'], ['고구마라떼','🍠'], ['에스프레소','☕'], ['더블샷아메리카노','☕']
+    ],
+    '티&에이드': [
+      ['유자민트티','🍋'], ['자몽허니블랙티','🍊'], ['그린티라떼','🍵'], ['밀크티','🧋'], ['녹차라떼','🍵'],
+      ['레몬에이드','🍋'], ['청포도에이드','🍇'], ['자몽에이드','🍊'], ['복숭아아이스티','🍑'], ['캐모마일티','🌼'],
+      ['얼그레이티','🍂'], ['페퍼민트티','🌿'], ['홍차라떼','🍵']
+    ],
+    '스무디&블렌디드': [
+      ['딸기요거트스무디','🍓'], ['망고요거트스무디','🥭'], ['초코칩스무디','🍫'], ['스트로베리초콜릿','🍓'],
+      ['초코라떼','🍫'], ['딸기라떼','🍓'], ['망고스무디','🥭'], ['딸기스무디','🍓'], ['초코나나','🍌'],
+      ['아사이스무디','🫐'], ['블루베리스무디','🫐']
+    ]
+  };
+
+  const $ = (id) => document.getElementById(id);
+  const catChipsEl = $('catChips');
+  let activeCategory = '아무거나';
+
+  function renderCatChips(){
+    catChipsEl.innerHTML = '';
+    const cats = Object.keys(MENU).concat(['아무거나']);
+    cats.forEach(cat => {
+      const btn = document.createElement('button');
+      btn.className = 'chip' + (cat === activeCategory ? ' active' : '');
+      btn.textContent = cat;
+      btn.addEventListener('click', () => {
+        activeCategory = cat;
+        renderCatChips();
+      });
+      catChipsEl.appendChild(btn);
+    });
+  }
+
+  renderCatChips();
+
+  function pool(){
+    if (activeCategory === '아무거나') return Object.values(MENU).flat();
+    return MENU[activeCategory];
+  }
+
+  function pickRandom(arr){
+    return arr[Math.floor(Math.random() * arr.length)];
+  }
+
+  const STORAGE_KEY = 'pickday-cafe-history';
+
+  function loadHistory(){
+    try{
+      const raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : [];
+    }catch(e){ return []; }
+  }
+  function saveHistory(list){
+    try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(list)); }catch(e){}
+  }
+  function formatDate(d){
+    const date = new Date(d);
+    return `${date.getMonth()+1}/${date.getDate()}`;
+  }
+
+  function renderHistory(){
+    const list = loadHistory();
+    const el = $('historyList');
+    if (!list.length){
+      el.innerHTML = '<div class="empty-history">아직 뽑은 기록이 없어요. 첫 캡슐을 뽑아보세요!</div>';
+      return;
+    }
+    el.innerHTML = list.slice(0, 5).map(item => `
+      <div class="ticket-row">
+        <span class="drink"><span>${item.emoji}</span><span>${item.name}</span></span>
+        <span class="date">${formatDate(item.date)}</span>
+      </div>
+    `).join('');
+  }
+
+  let spinning = false;
+
+  $('pullBtn').addEventListener('click', () => {
+    if (spinning) return;
+    spinning = true;
+    $('pullBtn').disabled = true;
+
+    const capsule = $('capsule');
+    const emojiEl = $('capsuleEmoji');
+    const nameEl = $('capsuleName');
+    const candidates = pool();
+
+    capsule.classList.add('spinning');
+    const totalTicks = 18;
+    let tick = 0;
+
+    function nextTick(){
+      const [name, emoji] = pickRandom(candidates);
+      emojiEl.textContent = emoji;
+      nameEl.textContent = name;
+      tick++;
+
+      if (tick < totalTicks){
+        const progress = tick / totalTicks;
+        const delay = 60 + Math.pow(progress, 3) * 260;
+        setTimeout(nextTick, delay);
+      } else {
+        capsule.classList.remove('spinning');
+        capsule.classList.add('landed');
+        setTimeout(() => capsule.classList.remove('landed'), 360);
+        spinning = false;
+        $('pullBtn').disabled = false;
+
+        const newList = [{ name, emoji, date: Date.now() }, ...loadHistory()].slice(0, 20);
+        saveHistory(newList);
+        renderHistory();
+      }
+    }
+
+    nextTick();
+  });
+
+  renderHistory();
+})();
+</script>
+
+</body>
+</html>

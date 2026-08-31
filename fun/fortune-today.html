@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>오늘의 운세 - 하루 운세 무료 뽑기</title>
+<meta name="description" content="버튼 하나로 오늘의 총운, 애정운, 금전운, 건강운, 직장운, 행운의 아이템까지 확인할 수 있습니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@700&family=Pretendard:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #ECE8DC;
+    --bg-soft: #F7F4EA;
+    --gold: #E8B85C;
+    --plum: #8A5FBF;
+    --ticket: #FFFFFF;
+    --ticket-line: #E5DCEE;
+    --ink: #2B2038;
+    --cream-text: #F2ECFB;
+    --muted: #756B87;
+    --line: #D6CBE0;
+  }
+  *{ box-sizing: border-box; }
+  body{
+    margin:0;
+    padding: 40px 20px 70px;
+    background: var(--bg);
+    background-image: radial-gradient(circle at 50% 0%, var(--bg-soft), var(--bg) 70%);
+    font-family: 'Pretendard', sans-serif;
+    color: var(--ink);
+    display:flex;
+    justify-content:center;
+  }
+  .page{ width:100%; max-width: 480px; text-align:center; }
+  h1{ font-family:'Do Hyeon', sans-serif; font-size:38px; color:var(--plum); margin:0 0 6px; letter-spacing:0.01em; }
+  .lede{ font-size:14px; color:var(--muted); margin:0 0 28px; }
+
+  .scroll{
+    width: 200px; height: 200px; margin: 0 auto 24px; border-radius: 16px;
+    background: radial-gradient(circle at 35% 30%, #3A2F55, #1A1526 75%);
+    border: 6px solid #16121F;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow: inset 0 0 30px rgba(0,0,0,0.6), 0 10px 18px rgba(0,0,0,0.35);
+    transition: transform 0.2s ease;
+  }
+  .scroll .emoji{ font-size:64px; }
+  .scroll.spinning .emoji{ animation: spin-blur 0.22s ease-in-out infinite; }
+  @keyframes spin-blur{ 0%, 100%{transform:scale(1) rotate(0deg);} 50%{transform:scale(1.1) rotate(9deg);} }
+  .scroll.landed{ animation: scroll-pop 0.36s cubic-bezier(.34,1.56,.64,1); }
+  @keyframes scroll-pop{ 0%{transform:scale(0.86);} 55%{transform:scale(1.08);} 100%{transform:scale(1);} }
+
+  .pull-btn{
+    width:100%; padding:18px; background:var(--plum); color:var(--cream-text); border:none; border-radius:14px;
+    font-family:'Do Hyeon', sans-serif; font-size:19px; letter-spacing:0.01em; cursor:pointer;
+    box-shadow: 0 4px 0 #5F3F8A;
+  }
+  .pull-btn:active{ transform:translateY(3px); box-shadow:0 1px 0 #5F3F8A; }
+  .pull-btn:disabled{ opacity:0.6; cursor:default; }
+
+  .result{ margin-top:28px; display:none; text-align:left; }
+  .result.visible{ display:block; }
+  .result-date{ text-align:center; font-size:12.5px; color:var(--muted); margin-bottom:14px; }
+  .fortune-card{ background:var(--ticket); border:1px solid var(--ticket-line); color:var(--ink); border-radius:10px; padding:18px 20px; margin-bottom:10px; }
+  .fortune-card .label{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:13.5px; color:var(--plum); margin-bottom:6px; }
+  .fortune-card .text{ font-size:14.5px; line-height:1.55; }
+  .lucky-row{ display:flex; gap:10px; }
+  .lucky-row .fortune-card{ flex:1; text-align:center; }
+
+  .slot{ border:1.5px dashed var(--line); border-radius:10px; padding:16px; text-align:center; font-size:12px; color:var(--muted); margin-top:28px; }
+
+  .info-block{ margin-top:40px; text-align:left; }
+  .info-block h2{ font-family:'Do Hyeon', sans-serif; font-size:18px; color:var(--plum); margin:0 0 10px; font-weight:400; }
+  .info-block p{ font-size:13.5px; line-height:1.65; color:var(--muted); margin:0 0 14px; }
+  .faq-item{ margin-bottom:14px; }
+  .faq-item .q{ font-size:14px; font-weight:700; color:var(--ink); margin-bottom:5px; }
+  .faq-item .a{ font-size:13.5px; line-height:1.6; color:var(--muted); }
+
+  .related{ margin-top:32px; padding-top:20px; border-top:1px solid var(--line); text-align:left; }
+  .related-title{ font-size:12.5px; color:var(--muted); margin-bottom:10px; }
+  .related-links{ display:flex; flex-wrap:wrap; gap:8px; }
+  .related-links a{ padding:8px 14px; border:1.5px solid var(--line); border-radius:999px; font-size:13px; color:var(--ink); text-decoration:none; }
+  .related-links a:hover{ border-color:var(--ink); }
+</style>
+<!-- Google AdSense: 승인 후 ca-pub-XXXXXXXXXXXXXXXX 를 실제 게시자 ID로 교체하세요 -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div class="page">
+  <h1>오늘의 운세</h1>
+  <p class="lede">버튼을 눌러 오늘의 기운을 확인해보세요.</p>
+
+  <div class="scroll" id="scroll">
+    <div class="emoji" id="scrollEmoji">🔮</div>
+  </div>
+
+  <button class="pull-btn" id="pullBtn">오늘의 운세 보기</button>
+
+  <div class="result" id="result">
+    <div class="result-date" id="resultDate"></div>
+    <div class="fortune-card"><div class="label">총운</div><div class="text" id="fGeneral"></div></div>
+    <div class="fortune-card"><div class="label">애정운</div><div class="text" id="fLove"></div></div>
+    <div class="fortune-card"><div class="label">금전운</div><div class="text" id="fMoney"></div></div>
+    <div class="fortune-card"><div class="label">건강운</div><div class="text" id="fHealth"></div></div>
+    <div class="fortune-card"><div class="label">직장·학업운</div><div class="text" id="fWork"></div></div>
+    <div class="lucky-row">
+      <div class="fortune-card"><div class="label">행운의 색</div><div class="text" id="fColor"></div></div>
+      <div class="fortune-card"><div class="label">행운의 숫자</div><div class="text" id="fNumber"></div></div>
+    </div>
+  </div>
+
+  <!-- ===== 광고 삽입 영역 ===== -->
+  <ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+     data-ad-slot="0000000000"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+
+  <div class="info-block">
+    <h2>오늘의 운세, 어떻게 보나요?</h2>
+    <p>완성된 문장을 통째로 뽑는 대신, 문장을 도입부·상황·조언 3개 조각으로 나눠 각각 무작위로 골라 조합합니다. 총운·애정운·금전운·건강운·직장·학업운 5개 영역마다 수백 가지 조합이 가능해서, 뽑을 때마다 다른 문장을 만나게 됩니다. 특정 개인정보나 사주 데이터를 사용하지 않는 순수 오락용 콘텐츠이니, 하루를 시작하는 가벼운 참고 정도로 즐겨주세요.</p>
+
+    <div class="faq-item">
+      <div class="q">오늘 다시 뽑으면 결과가 바뀌나요?</div>
+      <div class="a">네, 버튼을 누를 때마다 매번 새로 무작위로 뽑힙니다. 하루에 한 번만 보고 싶다면 처음 뽑은 결과를 스크린샷으로 저장해두는 것도 방법입니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">실제 사주나 점술과 관련이 있나요?</div>
+      <div class="a">아니요, 전통 사주·명리학적 근거 없이 재미로 만든 무작위 문구 모음입니다. 중요한 결정은 이 결과에 의존하지 마세요.</div>
+    </div>
+  </div>
+
+  <div class="related">
+    <div class="related-title">운을 시험해보고 싶다면</div>
+    <div class="related-links">
+      <a href="/fun/lotto-generator.html">로또 번호 생성기</a>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const $ = (id) => document.getElementById(id);
+
+  // 조각(opener/situation/advice)을 무작위로 조합해 문장을 만듭니다.
+  const TEMPLATES = {
+    GENERAL: {
+      opener: ['오늘은', '오늘 하루는', '지금 이 흐름은', '이 시간대는'],
+      situation: [
+        '새로운 기회가 찾아올 조짐이 보여요', '작은 변화가 생기기 쉬운 흐름이에요', '평소와 다른 선택이 필요할 수 있어요',
+        '뜻밖의 인연이나 소식이 있을 수 있어요', '마음이 평소보다 차분해지는 날이에요', '예상치 못한 곳에서 좋은 결과가 나올 수 있어요',
+        '작은 실수가 생기기 쉬우니 조심하는 게 좋아요', '컨디션이 오르락내리락할 수 있어요', '계획이 순조롭게 풀릴 가능성이 높아요',
+        '주변 사람의 조언이 큰 도움이 될 수 있어요',
+      ],
+      advice: [
+        '여유를 갖고 천천히 움직여보세요', '주변 사람의 말에 귀 기울여보세요', '자신감을 갖고 도전해보세요',
+        '무리하지 말고 페이스를 조절하세요', '직감을 믿고 행동해도 좋아요', '계획을 다시 한번 점검해보세요',
+      ],
+    },
+    LOVE: {
+      opener: ['오늘 애정운은', '마음의 방향에서는', '관계 흐름을 보면', '가까운 사이에서는'],
+      situation: [
+        '솔직한 대화가 관계를 한 단계 발전시킬 수 있어요', '뜻밖의 만남이 새로운 인연으로 이어질 수 있어요',
+        '작은 오해가 생기기 쉬운 흐름이에요', '혼자만의 시간이 오히려 편안하게 느껴질 수 있어요',
+        '예전 인연이 다시 떠오를 수 있어요', '가벼운 배려가 큰 의미로 다가갈 수 있어요',
+      ],
+      advice: [
+        '먼저 다가가보세요', '상대의 이야기를 충분히 들어보세요', '너무 재지 말고 마음 가는 대로 움직여보세요',
+        '질투보다 신뢰를 먼저 보여주세요', '작은 이벤트를 준비해보는 것도 좋아요',
+      ],
+    },
+    MONEY: {
+      opener: ['오늘 금전운은', '지갑 사정을 보면', '재물 흐름에서는', '돈 관련해서는'],
+      situation: [
+        '충동적인 지출이 생기기 쉬운 흐름이에요', '뜻밖의 수입이 들어올 가능성이 있어요',
+        '고정 지출을 점검해볼 타이밍이에요', '작은 할인이나 혜택을 발견할 수 있어요',
+        '동업이나 공동 투자 얘기가 나올 수 있어요', '저축 계획을 세우기 좋은 흐름이에요',
+      ],
+      advice: [
+        '큰 지출은 하루 정도 미루고 결정하세요', '가계부를 한번 점검해보세요', '충동구매보다 계획적인 소비를 해보세요',
+        '금전 거래는 명확하게 정리하고 넘어가세요', '여유 자금이 있다면 저축을 늘려보세요',
+      ],
+    },
+    HEALTH: {
+      opener: ['오늘 컨디션은', '몸 상태를 보면', '건강 흐름에서는'],
+      situation: [
+        '무리한 일정이 컨디션에 영향을 줄 수 있어요', '수면 부족이 느껴지기 쉬운 날이에요',
+        '스트레스가 쌓이기 쉬운 흐름이에요', '가벼운 활동만으로도 컨디션이 좋아질 수 있어요',
+        '소화가 더딜 수 있는 날이에요', '작은 통증이나 불편함이 느껴질 수 있어요',
+      ],
+      advice: [
+        '몸이 보내는 신호에 귀 기울이세요', '가벼운 스트레칭이나 산책을 해보세요', '일찍 쉬면서 컨디션을 회복하세요',
+        '물을 조금 더 챙겨 마셔보세요', '과식은 피하는 게 좋겠어요',
+      ],
+    },
+    WORK: {
+      opener: ['오늘 직장·학업운은', '업무나 공부 흐름에서는', '일적인 부분에서는'],
+      situation: [
+        '집중력이 평소보다 좋아지는 날이에요', '동료나 팀원과의 협업에서 좋은 성과가 나올 수 있어요',
+        '급하게 처리하다 실수가 생기기 쉬운 흐름이에요', '새로운 아이디어가 잘 떠오르는 날이에요',
+        '윗사람에게 좋은 평가를 받을 수 있어요', '미뤄뒀던 일을 처리하기 좋은 타이밍이에요',
+      ],
+      advice: [
+        '중요한 일을 먼저 처리해보세요', '마무리를 한번 더 점검하세요', '자기 PR을 해도 좋은 반응을 얻을 수 있어요',
+        '협업이 필요한 일에 적극적으로 나서보세요', '무리한 욕심보다 차근차근 진행하세요',
+      ],
+    },
+  };
+  const COLORS = ['빨강','주황','노랑','초록','파랑','남색','보라','하늘색','민트','라벤더','베이지','와인','블랙','화이트','골드'];
+
+  function pick(arr){
+    return arr[Math.floor(Math.random() * arr.length)];
+  }
+
+  function compose(key){
+    const t = TEMPLATES[key];
+    return `${pick(t.opener)} ${pick(t.situation)}. ${pick(t.advice)}.`;
+  }
+
+  let spinning = false;
+
+  $('pullBtn').addEventListener('click', () => {
+    if (spinning) return;
+    spinning = true;
+    $('pullBtn').disabled = true;
+
+    const scroll = $('scroll');
+    const emojiEl = $('scrollEmoji');
+    const emojis = ['🔮','✨','🌙','⭐','🍀','🎴'];
+
+    scroll.classList.add('spinning');
+    const totalTicks = 16;
+    let tick = 0;
+
+    function nextTick(){
+      emojiEl.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      tick++;
+
+      if (tick < totalTicks){
+        const progress = tick / totalTicks;
+        const delay = 60 + Math.pow(progress, 3) * 240;
+        setTimeout(nextTick, delay);
+      } else {
+        scroll.classList.remove('spinning');
+        scroll.classList.add('landed');
+        setTimeout(() => scroll.classList.remove('landed'), 360);
+        emojiEl.textContent = '🔮';
+        spinning = false;
+        $('pullBtn').disabled = false;
+        reveal();
+      }
+    }
+
+    nextTick();
+  });
+
+  function reveal(){
+    $('fGeneral').textContent = compose('GENERAL');
+    $('fLove').textContent = compose('LOVE');
+    $('fMoney').textContent = compose('MONEY');
+    $('fHealth').textContent = compose('HEALTH');
+    $('fWork').textContent = compose('WORK');
+    $('fColor').textContent = pick(COLORS);
+    $('fNumber').textContent = 1 + Math.floor(Math.random() * 45);
+
+    const d = new Date();
+    $('resultDate').textContent = `${d.getFullYear()}년 ${d.getMonth()+1}월 ${d.getDate()}일의 운세`;
+
+    $('result').classList.add('visible');
+  }
+})();
+</script>
+
+</body>
+</html>

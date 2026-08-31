@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>픽데이 - 매일 쓰는 실용 도구와 잠깐 즐기는 재미 도구</title>
+<meta name="description" content="연봉 실수령액 계산기부터 오늘의 점심 뽑기까지, 매일 필요한 도구와 잠깐 즐길 거리를 한 곳에 모았습니다.">
+<meta property="og:title" content="픽데이 - 오늘 필요한 도구, 오늘 즐길 거리">
+<meta property="og:description" content="실용 계산기와 재미있는 뽑기 도구를 한 곳에서.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@700&family=Pretendard:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #F2EEE4;
+    --ink: #201C18;
+    --muted: #6E6656;
+    --navy: #16233D;
+    --navy-soft: #EDEAE0;
+    --charcoal: #241F1B;
+    --mustard: #F0AD3D;
+    --stamp: #B23A2E;
+  }
+  *{ box-sizing: border-box; }
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Pretendard', sans-serif;
+    display:flex;
+    justify-content:center;
+    padding: 56px 20px 80px;
+  }
+  .wrap{ width:100%; max-width: 720px; }
+
+  header{ text-align:center; margin-bottom: 48px; }
+
+  .brand{
+    font-family: 'Do Hyeon', sans-serif;
+    font-size: 46px;
+    color: var(--ink);
+    margin: 0 0 10px;
+  }
+  .brand span{ color: var(--stamp); }
+
+  .tagline{
+    font-size: 15px;
+    color: var(--muted);
+    margin:0;
+  }
+
+  section{ margin-bottom: 44px; }
+
+  .section-label{
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #D9D2BF;
+  }
+
+  .subsection{ margin-bottom: 28px; }
+  .subsection:last-child{ margin-bottom: 0; }
+  .subsection-label{
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 10px;
+    padding-left: 2px;
+  }
+
+  .cards{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  @media (max-width: 520px){
+    .cards{ grid-template-columns: 1fr; }
+  }
+
+  .card{
+    display:block;
+    text-decoration:none;
+    color: inherit;
+    padding: 22px;
+    border-radius: 4px;
+  }
+
+  .card.utility{
+    background: var(--navy);
+    color: var(--navy-soft);
+  }
+  .card.fun{
+    background: var(--charcoal);
+    color: #F3ECDD;
+  }
+
+  .card .icon{ font-size: 26px; margin-bottom: 12px; display:block; }
+
+  .card .name{
+    font-family: 'Noto Serif KR', serif;
+    font-weight: 700;
+    font-size: 18px;
+    margin-bottom: 6px;
+  }
+  .card.fun .name{
+    font-family: 'Do Hyeon', sans-serif;
+    font-weight: 400;
+  }
+
+  .card .desc{
+    font-size: 13px;
+    opacity: 0.75;
+    line-height: 1.5;
+  }
+
+  .card.soon{
+    background: transparent;
+    border: 1.5px dashed #C7BFA8;
+    color: var(--muted);
+  }
+
+  footer{
+    text-align:center;
+    font-size: 12.5px;
+    color: var(--muted);
+    padding-top: 24px;
+    border-top: 1px solid #D9D2BF;
+  }
+  footer a{ color: var(--muted); margin: 0 8px; }
+
+  .ad-slot{ margin-bottom: 44px; }
+
+  .about{
+    background: var(--navy-soft);
+    border-radius: 4px;
+    padding: 24px 26px;
+    margin-bottom: 44px;
+  }
+  .about h2{
+    font-family: 'Noto Serif KR', serif;
+    font-weight: 700;
+    font-size: 16px;
+    margin: 0 0 10px;
+  }
+  .about p{
+    font-size: 13.5px;
+    line-height: 1.7;
+    color: var(--muted);
+    margin: 0;
+  }
+</style>
+<!-- Google AdSense: 승인 후 ca-pub-XXXXXXXXXXXXXXXX 를 실제 게시자 ID로 교체하세요 -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1 class="brand">픽<span>데이</span></h1>
+    <p class="tagline">오늘 필요한 계산, 오늘 즐길 거리 — 한 곳에서 3초 만에.</p>
+  </header>
+
+  <div class="about">
+    <h2>픽데이는 이런 곳이에요</h2>
+    <p>회원가입이나 로그인 없이, 필요한 도구를 바로 쓸 수 있게 만든 사이트입니다. 실용 계산기는 최신 요율·법령을 반영해 만들었고, 재미 도구는 고민되는 순간을 가볍게 해결해드립니다. 입력한 정보는 서버로 전송되지 않고 이 기기 안에서만 처리됩니다.</p>
+  </div>
+
+  <section>
+    <div class="section-label">실용 도구</div>
+
+    <div class="subsection">
+      <div class="subsection-label">급여·재무</div>
+      <div class="cards">
+        <a class="card utility" href="/tools/salary-calculator.html">
+          <span class="icon">💼</span>
+          <div class="name">연봉 실수령액 계산기</div>
+          <div class="desc">2026년 4대보험 요율 반영, 월급에서 실제로 얼마 남는지 바로 확인</div>
+        </a>
+        <a class="card utility" href="/tools/severance-pay-calculator.html">
+          <span class="icon">📦</span>
+          <div class="name">퇴직금 계산기</div>
+          <div class="desc">입사일·퇴사일·최근 급여로 예상 퇴직금 계산</div>
+        </a>
+        <a class="card utility" href="/tools/unemployment-benefit-calculator.html">
+          <span class="icon">🧭</span>
+          <div class="name">실업급여 계산기</div>
+          <div class="desc">평균임금·근속기간으로 구직급여 예상액 계산</div>
+        </a>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-label">나이·날짜</div>
+      <div class="cards">
+        <a class="card utility" href="/tools/age-calculator.html">
+          <span class="icon">🎂</span>
+          <div class="name">만 나이 계산기</div>
+          <div class="desc">생년월일만 입력하면 만나이·세는나이·연나이 한번에</div>
+        </a>
+        <a class="card utility" href="/tools/dday-calculator.html">
+          <span class="icon">📅</span>
+          <div class="name">디데이(D-Day) 계산기</div>
+          <div class="desc">기념일, 시험일까지 남은 날짜 바로 확인</div>
+        </a>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-label">반려동물</div>
+      <div class="cards">
+        <a class="card utility" href="/tools/pet-age-calculator.html">
+          <span class="icon">🐾</span>
+          <div class="name">반려동물 나이 계산기</div>
+          <div class="desc">강아지·고양이 나이를 사람 나이로 환산</div>
+        </a>
+        <a class="card utility" href="/tools/pet-food-calculator.html">
+          <span class="icon">🍖</span>
+          <div class="name">반려동물 사료량 계산기</div>
+          <div class="desc">체중·생애주기 입력하면 하루 권장 급여량 계산</div>
+        </a>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-label">임신·출산</div>
+      <div class="cards">
+        <a class="card utility" href="/tools/due-date-calculator.html">
+          <span class="icon">🤰</span>
+          <div class="name">출산 예정일 계산기</div>
+          <div class="desc">마지막 생리일 입력하면 예정일·임신 주수 계산</div>
+        </a>
+        <a class="card utility" href="/tools/parental-leave-calculator.html">
+          <span class="icon">👶</span>
+          <div class="name">육아휴직급여 계산기</div>
+          <div class="desc">6+6 부모육아휴직제 특례·일반 육아휴직 급여 계산</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-label">재미 도구</div>
+
+    <div class="subsection">
+      <div class="subsection-label">오늘 뭐 하지? (뽑기)</div>
+      <div class="cards">
+        <a class="card fun" href="/fun/lunch-picker.html">
+          <span class="icon">🎲</span>
+          <div class="name">오늘 뭐 먹지?</div>
+          <div class="desc">고민되는 점심, 캡슐 하나로 3초 만에 결정</div>
+        </a>
+        <a class="card fun" href="/fun/dinner-picker.html">
+          <span class="icon">🌆</span>
+          <div class="name">오늘 저녁 뭐 먹지?</div>
+          <div class="desc">퇴근길 최대 고민, 캡슐 하나로 3초 만에 결정</div>
+        </a>
+        <a class="card fun" href="/fun/night-snack-picker.html">
+          <span class="icon">🌙</span>
+          <div class="name">오늘 야식 뭐 먹지?</div>
+          <div class="desc">참을까 말까, 캡슐 뽑고 바로 결정</div>
+        </a>
+        <a class="card fun" href="/fun/cafe-drink-picker.html">
+          <span class="icon">☕</span>
+          <div class="name">오늘 뭐 마시지?</div>
+          <div class="desc">커피부터 스무디까지, 오늘 마실 카페 음료 뽑기</div>
+        </a>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-label">운세·확률</div>
+      <div class="cards">
+        <a class="card fun" href="/fun/lotto-generator.html">
+          <span class="icon">🎱</span>
+          <div class="name">로또 번호 생성기</div>
+          <div class="desc">1~45 무작위 6개, 클릭 한 번이면 끝</div>
+        </a>
+        <a class="card fun" href="/fun/fortune-today.html">
+          <span class="icon">🔮</span>
+          <div class="name">오늘의 운세</div>
+          <div class="desc">버튼 하나로 오늘의 총운·애정운·금전운·건강운 확인</div>
+        </a>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-label">반려동물</div>
+      <div class="cards">
+        <a class="card fun" href="/fun/pet-name-generator.html">
+          <span class="icon">🐾</span>
+          <div class="name">반려동물 이름 생성기</div>
+          <div class="desc">스타일 고르고 뽑으면 조합으로 이름 완성</div>
+        </a>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-label">임신·출산</div>
+      <div class="cards">
+        <a class="card fun" href="/fun/baby-name-generator.html">
+          <span class="icon">👶</span>
+          <div class="name">태명 짓기 생성기</div>
+          <div class="desc">테마 고르고 뽑으면 우리 아기 태명 추천</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 광고 삽입 영역 ===== -->
+  <div class="ad-slot">
+    <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+       data-ad-slot="0000000000"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+
+  <footer>
+    <a href="/privacy.html">개인정보처리방침</a>·<a href="mailto:contact@example.com">문의하기</a>
+    <p style="margin-top:10px;">© 2026 픽데이</p>
+  </footer>
+
+</div>
+</body>
+</html>

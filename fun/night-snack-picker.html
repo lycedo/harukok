@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>오늘 야식 뭐 먹지? - 야식 뽑기</title>
+<meta name="description" content="참을까 말까 고민되는 야식, 캡슐 하나로 3초 만에 결정하세요. 치킨/족발/분식/안주 랜덤 뽑기.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Pretendard:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #ECE8DC;
+    --bg-soft: #F7F4EA;
+    --neon: #F5C242;
+    --chili: #E5484D;
+    --ticket: #FFFFFF;
+    --ticket-line: #E3D5B0;
+    --ink: #211C14;
+    --cream-text: #F1ECDD;
+    --muted: #766D70;
+    --line: #D9CFC4;
+  }
+
+  *{ box-sizing: border-box; }
+
+  body{
+    margin:0;
+    padding: 40px 20px 70px;
+    background: var(--bg);
+    background-image: radial-gradient(circle at 50% 0%, var(--bg-soft), var(--bg) 70%);
+    font-family: 'Pretendard', sans-serif;
+    color: var(--ink);
+    display:flex;
+    justify-content:center;
+  }
+
+  .page{ width:100%; max-width: 480px; text-align:center; }
+
+  h1{
+    font-family: 'Do Hyeon', sans-serif;
+    font-size: 40px;
+    color: var(--chili);
+    margin: 0 0 6px;
+    letter-spacing: 0.01em;
+  }
+
+  .lede{
+    font-size: 14px;
+    color: var(--muted);
+    margin: 0 0 28px;
+  }
+
+  .chips{
+    display:flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content:center;
+    margin-bottom: 28px;
+  }
+
+  .chip{
+    padding: 8px 16px;
+    border: 1.5px solid var(--line);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--ink);
+    font-size: 13.5px;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  .chip.active{
+    background: var(--neon);
+    border-color: var(--neon);
+    color: var(--ink);
+    font-weight: 700;
+  }
+
+  .machine{
+    position: relative;
+    width: 220px;
+    height: 220px;
+    margin: 0 auto 24px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #2C2A3E, #100F17 75%);
+    border: 6px solid #0E0D13;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow: inset 0 0 30px rgba(0,0,0,0.6), 0 10px 18px rgba(0,0,0,0.35);
+  }
+
+  .capsule{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: var(--ticket);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding: 10px;
+    transition: transform 0.2s ease;
+  }
+
+  .capsule .emoji{
+    font-size: 44px;
+    line-height:1;
+    margin-bottom: 6px;
+  }
+
+  .capsule .name{
+    font-family: 'Do Hyeon', sans-serif;
+    font-size: 19px;
+    color: var(--ink);
+    line-height: 1.2;
+  }
+
+  .capsule.spinning .emoji{
+    animation: spin-blur 0.22s ease-in-out infinite;
+  }
+  @keyframes spin-blur{
+    0%, 100%{ transform: scale(1) rotate(0deg); }
+    50%{ transform: scale(1.1) rotate(9deg); }
+  }
+  .capsule.landed{
+    animation: capsule-pop 0.36s cubic-bezier(.34,1.56,.64,1);
+  }
+  @keyframes capsule-pop{
+    0%{ transform: scale(0.86); }
+    55%{ transform: scale(1.08); }
+    100%{ transform: scale(1); }
+  }
+
+  .pull-btn{
+    width: 100%;
+    padding: 18px;
+    background: var(--chili);
+    color: var(--cream-text);
+    border: none;
+    border-radius: 14px;
+    font-family: 'Do Hyeon', sans-serif;
+    font-size: 19px;
+    letter-spacing: 0.01em;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #A83236;
+  }
+  .pull-btn:active{
+    transform: translateY(3px);
+    box-shadow: 0 1px 0 #A83236;
+  }
+  .pull-btn:disabled{
+    opacity: 0.6;
+    cursor: default;
+  }
+
+  .history{
+    margin-top: 36px;
+    text-align: left;
+  }
+
+  .history-title{
+    font-size: 13.5px;
+    color: var(--muted);
+    margin-bottom: 10px;
+    text-align:center;
+  }
+
+  .ticket-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background: var(--ticket);
+    border: 1px solid var(--ticket-line);
+    color: var(--ink);
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin-bottom: 8px;
+    font-size: 14px;
+  }
+
+  .ticket-row .food{
+    display:flex;
+    align-items:center;
+    gap: 8px;
+    font-weight: 600;
+  }
+
+  .ticket-row .date{
+    font-size: 12px;
+    color: #837A5B;
+  }
+
+  .empty-history{
+    text-align:center;
+    color: var(--muted);
+    font-size: 13px;
+    padding: 16px 0;
+  }
+
+  .slot{
+    border: 1.5px dashed var(--line);
+    border-radius: 10px;
+    padding: 16px;
+    text-align:center;
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 28px;
+  }
+
+  .info-block{ margin-top:40px; text-align:left; }
+  .info-block h2{ font-family:'Do Hyeon', sans-serif; font-size:18px; color:var(--chili); margin:0 0 10px; font-weight:400; }
+  .info-block p{ font-size:13.5px; line-height:1.65; color:var(--muted); margin:0 0 14px; }
+  .faq-item{ margin-bottom:14px; }
+  .faq-item .q{ font-size:14px; font-weight:700; color:var(--ink); margin-bottom:5px; }
+  .faq-item .a{ font-size:13.5px; line-height:1.6; color:var(--muted); }
+
+  .related{ margin-top:32px; padding-top:20px; border-top:1px solid var(--line); text-align:left; }
+  .related-title{ font-size:12.5px; color:var(--muted); margin-bottom:10px; }
+  .related-links{ display:flex; flex-wrap:wrap; gap:8px; }
+  .related-links a{ padding:8px 14px; border:1.5px solid var(--line); border-radius:999px; font-size:13px; color:var(--ink); text-decoration:none; }
+  .related-links a:hover{ border-color:var(--ink); }
+</style>
+<!-- Google AdSense: 승인 후 ca-pub-XXXXXXXXXXXXXXXX 를 실제 게시자 ID로 교체하세요 -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div class="page">
+  <h1>오늘 야식 뭐 먹지?</h1>
+  <p class="lede">참을까, 말까 — 고민 말고 캡슐부터 뽑으세요.</p>
+
+  <div class="chips" id="chips"></div>
+
+  <div class="machine">
+    <div class="capsule" id="capsule">
+      <div class="emoji" id="capsuleEmoji">🎲</div>
+      <div class="name" id="capsuleName">뽑기 대기중</div>
+    </div>
+  </div>
+
+  <button class="pull-btn" id="pullBtn">오늘 야식 뽑기</button>
+
+  <div class="history">
+    <div class="history-title">최근 뽑기 기록</div>
+    <div id="historyList"></div>
+  </div>
+
+  <!-- ===== 광고 삽입 영역 ===== -->
+  <ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+     data-ad-slot="0000000000"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+
+  <!-- ===== 제휴 링크 삽입 영역 (배달앱 등) ===== -->
+  <div class="slot">근처 야식 / 배달 링크 영역</div>
+
+  <div class="info-block">
+    <h2>야식은 왜 못 참을까요?</h2>
+    <p>늦은 밤엔 이성적인 판단을 담당하는 뇌 영역의 활동이 줄어들어 자극적인 음식에 대한 욕구가 강해진다고 알려져 있습니다. 참을지 먹을지 고민하는 시간 대신, 치킨·분식·안주·면류·매콤·가벼운것 6개 카테고리 중에서 바로 뽑아보세요.</p>
+
+    <div class="faq-item">
+      <div class="q">'가벼운것' 카테고리는 왜 있나요?</div>
+      <div class="a">야식이 부담스러운 날을 위해 상대적으로 가벼운 디저트·과일 위주 메뉴를 따로 모았습니다. 죄책감을 조금 덜고 싶을 때 골라보세요.</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">배달비나 재고 여부도 알려주나요?</div>
+      <div class="a">아니요, 이 도구는 메뉴 선택을 도와주는 용도이며 실제 주문 가능 여부·가격·배달비는 이용하시는 배달 앱에서 별도로 확인해야 합니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">밤에 야식을 먹어도 괜찮을까요?</div>
+      <div class="a">가끔 즐기는 야식은 큰 문제가 없지만, 잦은 야식은 수면의 질과 소화에 영향을 줄 수 있습니다. 적당히, 즐거운 마음으로 즐기시길 권합니다.</div>
+    </div>
+  </div>
+
+  <div class="related">
+    <div class="related-title">이런 뽑기도 있어요</div>
+    <div class="related-links">
+      <a href="/fun/dinner-picker.html">오늘 저녁 뭐 먹지?</a>
+      <a href="/fun/lunch-picker.html">오늘 뭐 먹지?</a>
+      <a href="/fun/cafe-drink-picker.html">오늘 뭐 마시지?</a>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const MENU = {
+    치킨: [ ["후라이드치킨","🍗"], ["양념치킨","🍗"], ["반반치킨","🍗"], ["치즈볼","🧀"], ["닭강정","🍗"], ["순살치킨","🍗"], ["마늘치킨","🧄"], ["파닭","🍗"] ],
+    분식: [ ["떡볶이","🌶️"], ["튀김","🍤"], ["순대","🥟"], ["김말이","🍢"], ["라볶이","🍜"], ["오뎅","🍢"], ["계란빵","🥚"], ["핫도그","🌭"] ],
+    안주: [ ["족발","🍖"], ["보쌈","🥘"], ["곱창","🍢"], ["회","🐟"], ["골뱅이무침","🐌"], ["오징어볶음","🦑"], ["노가리","🐟"], ["감자튀김","🍟"], ["육포","🥩"] ],
+    면류: [ ["라면","🍜"], ["짬뽕","🍜"], ["우동","🍥"], ["쌀국수","🍜"], ["짜파구리","🍜"], ["열라면","🌶️"], ["잔치국수","🍜"], ["카레우동","🍛"] ],
+    매콤: [ ["마라탕","🌶️"], ["불닭","🔥"], ["매운탕","🍲"], ["엽떡","🌶️"], ["불족발","🔥"], ["마라샹궈","🌶️"], ["청양고추김밥","🌶️"], ["부대찌개","🍲"] ],
+    가벼운것: [ ["편의점디저트","🍮"], ["아이스크림","🍦"], ["과일","🍓"], ["컵라면","🍜"], ["젤리","🍬"], ["초콜릿","🍫"], ["요거트","🥛"] ]
+  };
+
+  const $ = (id) => document.getElementById(id);
+  const chipsEl = $('chips');
+  const categories = Object.keys(MENU).concat(['아무거나']);
+  let activeCategory = '아무거나';
+
+  categories.forEach(cat => {
+    const btn = document.createElement('button');
+    btn.className = 'chip' + (cat === activeCategory ? ' active' : '');
+    btn.textContent = cat;
+    btn.addEventListener('click', () => {
+      activeCategory = cat;
+      document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+    });
+    chipsEl.appendChild(btn);
+  });
+
+  function pool(){
+    if (activeCategory === '아무거나') return Object.values(MENU).flat();
+    return MENU[activeCategory];
+  }
+
+  function pickRandom(arr){
+    return arr[Math.floor(Math.random() * arr.length)];
+  }
+
+  const STORAGE_KEY = 'pickday-night-snack-history';
+
+  function loadHistory(){
+    try{
+      const raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : [];
+    }catch(e){
+      return [];
+    }
+  }
+
+  function saveHistory(list){
+    try{
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+    }catch(e){ /* storage unavailable, ignore */ }
+  }
+
+  function formatDate(d){
+    const date = new Date(d);
+    return `${date.getMonth()+1}/${date.getDate()}`;
+  }
+
+  function renderHistory(){
+    const list = loadHistory();
+    const el = $('historyList');
+    if (!list.length){
+      el.innerHTML = '<div class="empty-history">아직 뽑은 기록이 없어요. 첫 캡슐을 뽑아보세요!</div>';
+      return;
+    }
+    el.innerHTML = list.slice(0, 5).map(item => `
+      <div class="ticket-row">
+        <span class="food"><span>${item.emoji}</span><span>${item.name}</span></span>
+        <span class="date">${formatDate(item.date)}</span>
+      </div>
+    `).join('');
+  }
+
+  let spinning = false;
+
+  $('pullBtn').addEventListener('click', () => {
+    if (spinning) return;
+    spinning = true;
+    $('pullBtn').disabled = true;
+
+    const capsule = $('capsule');
+    const emojiEl = $('capsuleEmoji');
+    const nameEl = $('capsuleName');
+    const candidates = pool();
+
+    capsule.classList.add('spinning');
+    const totalTicks = 18;
+    let tick = 0;
+
+    function nextTick(){
+      const [name, emoji] = pickRandom(candidates);
+      emojiEl.textContent = emoji;
+      nameEl.textContent = name;
+      tick++;
+
+      if (tick < totalTicks){
+        const progress = tick / totalTicks;
+        const delay = 60 + Math.pow(progress, 3) * 260;
+        setTimeout(nextTick, delay);
+      } else {
+        capsule.classList.remove('spinning');
+        capsule.classList.add('landed');
+        setTimeout(() => capsule.classList.remove('landed'), 360);
+        spinning = false;
+        $('pullBtn').disabled = false;
+
+        const newList = [{ name, emoji, date: Date.now() }, ...loadHistory()].slice(0, 20);
+        saveHistory(newList);
+        renderHistory();
+      }
+    }
+
+    nextTick();
+  });
+
+  renderHistory();
+})();
+</script>
+
+</body>
+</html>

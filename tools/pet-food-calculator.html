@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>반려동물 사료량 계산기 - 강아지/고양이 하루 급여량</title>
+<meta name="description" content="체중과 생애주기, 활동량을 입력하면 강아지·고양이의 하루 권장 사료 급여량을 계산합니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700&family=Pretendard:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #ECE8DC;
+    --paper-light: #F7F4EA;
+    --ink: #16233D;
+    --ink-soft: #45516A;
+    --muted: #6E6656;
+    --line: #B7AF98;
+    --stamp: #B23A2E;
+  }
+  *{ box-sizing: border-box; }
+  body{
+    margin:0;
+    padding: 40px 20px 70px;
+    background: var(--paper);
+    background-image: repeating-linear-gradient(0deg, rgba(0,0,0,0.015) 0px, rgba(0,0,0,0.015) 1px, transparent 1px, transparent 3px);
+    font-family: 'Pretendard', -apple-system, sans-serif;
+    color: var(--ink);
+    display:flex;
+    justify-content:center;
+  }
+  .stub{ width:100%; max-width: 560px; }
+  .kicker{ font-size:13px; color:var(--muted); margin-bottom:6px; }
+  h1{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:30px; line-height:1.35; margin:0 0 8px; }
+  .lede{ font-size:14.5px; color:var(--ink-soft); line-height:1.6; margin:0 0 32px; max-width:46ch; }
+  .card{ background:var(--paper-light); border:1px solid var(--line); border-radius:14px; padding:32px; margin-bottom:28px; }
+  .field{ margin-bottom:20px; }
+  .field:last-child{ margin-bottom:0; }
+  .field label{ display:block; font-size:13.5px; color:var(--ink-soft); margin-bottom:8px; }
+  .field-hint{ display:block; font-size:12px; color:var(--muted); margin-top:6px; }
+  .input-row{ display:flex; align-items:baseline; border-bottom:1.5px solid var(--ink); padding-bottom:6px; }
+  .input-row input{ flex:1; border:none; background:transparent; font-family:'IBM Plex Mono', monospace; font-size:20px; font-weight:600; color:var(--ink); outline:none; padding:4px 0; width:100%; }
+  .seg{ display:flex; gap:8px; flex-wrap:wrap; }
+  .seg button{ flex:1; min-width:80px; padding:10px; border:1.5px solid var(--line); border-radius:10px; background:var(--paper-light); color:var(--ink-soft); font-size:13px; font-weight:600; cursor:pointer; }
+  .seg button.active{ background:var(--ink); border-color:var(--ink); color:var(--paper-light); }
+  .calc-btn{ width:100%; padding:16px; margin-top:8px; background:var(--ink); color:var(--paper-light); border:none; border-radius:14px; font-weight:600; font-size:15.5px; cursor:pointer; box-shadow:0 4px 0 rgba(0,0,0,0.28); }
+  .calc-btn:hover{ background:var(--ink-soft); }
+  .calc-btn:active{ transform:translateY(3px); box-shadow:0 1px 0 rgba(0,0,0,0.28); }
+  .result-card{ padding-top:32px; }
+  .result-card.hidden{ display:none; }
+  .result-label{ font-size:13.5px; color:var(--ink-soft); margin-bottom:4px; }
+  .result-amount{ font-family:'IBM Plex Mono', monospace; font-weight:600; font-size:42px; color:var(--stamp); line-height:1.1; margin-bottom:4px; }
+  .result-amount .unit{ font-size:20px; margin-left:2px; }
+  .breakdown{ border-top:1px solid var(--line); padding-top:20px; margin-top:16px; }
+  .breakdown-row{ display:flex; justify-content:space-between; align-items:baseline; font-size:14px; padding:9px 0; color:var(--ink-soft); }
+  .breakdown-row .amount{ font-family:'IBM Plex Mono', monospace; color:var(--ink); font-weight:600; font-size:16px; }
+  .disclaimer{ font-size:11.5px; color:var(--muted); line-height:1.6; margin-top:24px; padding-top:16px; border-top:1px dotted var(--line); }
+  .slot{ border:1.5px dashed var(--line); border-radius:10px; padding:18px; text-align:center; font-size:12px; color:var(--muted); margin-top:24px; }
+
+  .info-block{ margin-top:40px; }
+  .info-block h2{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:18px; margin:0 0 12px; }
+  .info-block p{ font-size:13.5px; line-height:1.7; color:var(--ink-soft); margin:0 0 14px; }
+  .faq-item{ margin-bottom:16px; }
+  .faq-item .q{ font-size:14px; font-weight:600; margin-bottom:5px; }
+  .faq-item .a{ font-size:13.5px; line-height:1.65; color:var(--ink-soft); }
+
+  .related{ margin-top:32px; padding-top:20px; border-top:1px solid var(--line); }
+  .related-title{ font-size:12.5px; color:var(--muted); margin-bottom:10px; }
+  .related-links{ display:flex; flex-wrap:wrap; gap:8px; }
+  .related-links a{ padding:8px 14px; border:1.5px solid var(--line); border-radius:999px; font-size:13px; color:var(--ink); text-decoration:none; }
+  .related-links a:hover{ border-color:var(--ink); }
+
+  @media (max-width:480px){ .card{ padding:24px; } h1{ font-size:25px; } .result-amount{ font-size:34px; } }
+</style>
+<!-- Google AdSense: 승인 후 ca-pub-XXXXXXXXXXXXXXXX 를 실제 게시자 ID로 교체하세요 -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div class="stub">
+  <div class="kicker">반려동물</div>
+  <h1>반려동물 사료량 계산기</h1>
+  <p class="lede">체중, 생애주기, 활동량을 입력하면 하루 권장 급여량을 계산합니다. 수의영양학에서 쓰는 RER(안정시 에너지 요구량) 공식을 기반으로 합니다.</p>
+
+  <div class="card">
+    <div class="field">
+      <label>동물 종류</label>
+      <div class="seg" id="speciesSeg">
+        <button type="button" class="active" data-value="dog">강아지 🐶</button>
+        <button type="button" data-value="cat">고양이 🐱</button>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="weight">체중 (kg)</label>
+      <div class="input-row">
+        <input type="number" id="weight" placeholder="예: 5.5" min="0" step="0.1" inputmode="decimal">
+        <span class="unit" style="font-size:14px;color:var(--muted);margin-left:8px;">kg</span>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>생애주기</label>
+      <div class="seg" id="stageSeg">
+        <button type="button" data-value="baby">새끼</button>
+        <button type="button" class="active" data-value="adult">성체</button>
+        <button type="button" data-value="senior">노령</button>
+        <button type="button" data-value="diet">다이어트</button>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>활동량</label>
+      <div class="seg" id="activitySeg">
+        <button type="button" data-value="low">낮음</button>
+        <button type="button" class="active" data-value="normal">보통</button>
+        <button type="button" data-value="high">높음</button>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="density">사료 칼로리 밀도 (kcal/100g)</label>
+      <div class="input-row">
+        <input type="number" id="density" value="350" min="1" inputmode="numeric">
+        <span class="unit" style="font-size:14px;color:var(--muted);margin-left:8px;">kcal/100g</span>
+      </div>
+      <span class="field-hint">사료 포장지의 대사 에너지(ME) 표시를 확인하세요. 모르면 기본값(건식 사료 평균)을 사용하세요.</span>
+    </div>
+
+    <button class="calc-btn" id="calcBtn">급여량 계산하기</button>
+  </div>
+
+  <div class="card result-card hidden" id="resultCard">
+    <div class="result-label">하루 권장 급여량</div>
+    <div class="result-amount" id="dailyGram">0<span class="unit">g</span></div>
+    <div class="breakdown" id="breakdown"></div>
+
+    <div class="disclaimer">
+      이 계산은 일반적인 수의영양학 공식(RER × 생애주기·활동량 계수)에 기반한 추정치입니다. 실제 필요량은 품종, 중성화 여부, 건강 상태에 따라 달라질 수 있으니 정확한 급여량은 수의사와 상담하세요.
+    </div>
+  </div>
+
+  <!-- ===== 광고 삽입 영역 ===== -->
+  <ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+     data-ad-slot="0000000000"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+
+  <div class="info-block">
+    <h2>어떻게 계산되나요?</h2>
+    <p>먼저 체중을 기반으로 안정시 에너지 요구량(RER = 70 × 체중<sup>0.75</sup>)을 구합니다. 여기에 생애주기·활동량에 따른 계수를 곱해 하루 유지 에너지(MER)를 계산하고, 사료의 칼로리 밀도로 나눠 그램(g) 단위 급여량을 산출합니다.</p>
+
+    <div class="faq-item">
+      <div class="q">다이어트가 필요한 아이는 어떻게 설정하나요?</div>
+      <div class="a">생애주기에서 '다이어트'를 선택하면 유지 열량보다 낮은 계수를 적용해 체중 감량에 맞는 급여량을 계산합니다. 급격한 다이어트는 건강에 해로울 수 있으니 수의사와 함께 진행하세요.</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">습식 사료도 같은 방식으로 계산되나요?</div>
+      <div class="a">네, 사료 종류와 무관하게 칼로리 밀도(kcal/100g)만 정확히 입력하면 동일한 공식이 적용됩니다. 습식은 보통 건식보다 밀도가 낮아 급여 그램 수가 더 많이 나옵니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">하루에 몇 번 나눠 줘야 하나요?</div>
+      <div class="a">일반적으로 성체는 하루 2회, 새끼는 3~4회로 나눠 급여하는 것이 소화에 좋습니다. 계산된 하루 총량을 급여 횟수로 나눠 주세요.</div>
+    </div>
+  </div>
+
+  <div class="related">
+    <div class="related-title">함께 보면 좋은 도구</div>
+    <div class="related-links">
+      <a href="/tools/pet-age-calculator.html">반려동물 나이 계산기</a>
+      <a href="/fun/pet-name-generator.html">반려동물 이름 생성기</a>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const $ = (id) => document.getElementById(id);
+  let species = 'dog';
+  let stage = 'adult';
+  let activity = 'normal';
+
+  function bindSeg(id, onChange){
+    document.querySelectorAll('#' + id + ' button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#' + id + ' button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        onChange(btn.dataset.value);
+      });
+    });
+  }
+
+  bindSeg('speciesSeg', (v) => species = v);
+  bindSeg('stageSeg', (v) => stage = v);
+  bindSeg('activitySeg', (v) => activity = v);
+
+  // MER factor = stage factor, adjusted slightly by activity
+  const STAGE_FACTOR = {
+    dog: { baby: 3.0, adult: 1.6, senior: 1.4, diet: 1.0 },
+    cat: { baby: 2.5, adult: 1.2, senior: 1.1, diet: 1.0 }
+  };
+  const ACTIVITY_ADJUST = { low: 0.9, normal: 1.0, high: 1.2 };
+
+  function calculate(){
+    const weight = parseFloat($('weight').value) || 0;
+    const density = parseFloat($('density').value) || 350;
+
+    if (weight <= 0){
+      $('resultCard').classList.add('hidden');
+      return;
+    }
+
+    const rer = 70 * Math.pow(weight, 0.75);
+    const factor = STAGE_FACTOR[species][stage] * ACTIVITY_ADJUST[activity];
+    const mer = rer * factor;
+    const grams = (mer / density) * 100;
+
+    render({ rer, mer, grams });
+  }
+
+  function num(n, digits){
+    return n.toLocaleString('ko-KR', { maximumFractionDigits: digits ?? 0 });
+  }
+
+  function render(r){
+    $('dailyGram').innerHTML = num(r.grams) + '<span class="unit">g</span>';
+    $('breakdown').innerHTML = `
+      <div class="breakdown-row"><span>안정시 에너지 요구량(RER)</span><span class="amount">${num(r.rer)} kcal</span></div>
+      <div class="breakdown-row"><span>하루 유지 에너지(MER)</span><span class="amount">${num(r.mer)} kcal</span></div>
+    `;
+    $('resultCard').classList.remove('hidden');
+  }
+
+  $('calcBtn').addEventListener('click', calculate);
+})();
+</script>
+
+</body>
+</html>

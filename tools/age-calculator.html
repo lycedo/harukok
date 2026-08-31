@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>만 나이 계산기 - 세는나이/연나이 한번에</title>
+<meta name="description" content="생년월일만 입력하면 만 나이, 세는나이, 연 나이를 한번에 계산합니다. 2023년 만나이 통일법 기준.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700&family=Pretendard:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #ECE8DC;
+    --paper-light: #F7F4EA;
+    --ink: #16233D;
+    --ink-soft: #45516A;
+    --muted: #6E6656;
+    --line: #B7AF98;
+    --stamp: #B23A2E;
+  }
+  *{ box-sizing: border-box; }
+  body{
+    margin:0;
+    padding: 40px 20px 70px;
+    background: var(--paper);
+    background-image: repeating-linear-gradient(0deg, rgba(0,0,0,0.015) 0px, rgba(0,0,0,0.015) 1px, transparent 1px, transparent 3px);
+    font-family: 'Pretendard', -apple-system, sans-serif;
+    color: var(--ink);
+    display:flex;
+    justify-content:center;
+  }
+  .stub{ width:100%; max-width: 560px; }
+  .kicker{ font-size:13px; color:var(--muted); margin-bottom:6px; }
+  h1{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:30px; line-height:1.35; margin:0 0 8px; }
+  .lede{ font-size:14.5px; color:var(--ink-soft); line-height:1.6; margin:0 0 32px; max-width:46ch; }
+  .card{ background:var(--paper-light); border:1px solid var(--line); border-radius:14px; padding:32px; margin-bottom:28px; }
+  .field{ margin-bottom:20px; }
+  .field label{ display:block; font-size:13.5px; color:var(--ink-soft); margin-bottom:8px; }
+  .field-hint{ display:block; font-size:12px; color:var(--muted); margin-top:6px; }
+  .input-row{ display:flex; align-items:baseline; border-bottom:1.5px solid var(--ink); padding-bottom:6px; }
+  .input-row input{ flex:1; border:none; background:transparent; font-family:'IBM Plex Mono', monospace; font-size:20px; font-weight:600; color:var(--ink); outline:none; padding:4px 0; width:100%; }
+  .calc-btn{ width:100%; padding:16px; margin-top:8px; background:var(--ink); color:var(--paper-light); border:none; border-radius:14px; font-weight:600; font-size:15.5px; cursor:pointer; box-shadow:0 4px 0 rgba(0,0,0,0.28); }
+  .calc-btn:hover{ background:var(--ink-soft); }
+  .calc-btn:active{ transform:translateY(3px); box-shadow:0 1px 0 rgba(0,0,0,0.28); }
+  .result-card{ padding-top:32px; }
+  .result-card.hidden{ display:none; }
+  .result-label{ font-size:13.5px; color:var(--ink-soft); margin-bottom:4px; }
+  .result-amount{ font-family:'IBM Plex Mono', monospace; font-weight:600; font-size:42px; color:var(--stamp); line-height:1.1; margin-bottom:4px; }
+  .result-amount .unit{ font-size:20px; margin-left:2px; }
+  .breakdown{ border-top:1px solid var(--line); padding-top:20px; margin-top:16px; }
+  .breakdown-row{ display:flex; justify-content:space-between; align-items:baseline; font-size:14px; padding:9px 0; color:var(--ink-soft); }
+  .breakdown-row .amount{ font-family:'IBM Plex Mono', monospace; color:var(--ink); font-weight:600; font-size:16px; }
+  .disclaimer{ font-size:11.5px; color:var(--muted); line-height:1.6; margin-top:24px; padding-top:16px; border-top:1px dotted var(--line); }
+  .slot{ border:1.5px dashed var(--line); border-radius:10px; padding:18px; text-align:center; font-size:12px; color:var(--muted); margin-top:24px; }
+  @media (max-width:480px){ .card{ padding:24px; } h1{ font-size:25px; } .result-amount{ font-size:34px; } }
+
+  .info-block{ margin-top:40px; }
+  .info-block h2{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:18px; margin:0 0 12px; }
+  .info-block p{ font-size:13.5px; line-height:1.7; color:var(--ink-soft); margin:0 0 14px; }
+  .faq-item{ margin-bottom:16px; }
+  .faq-item .q{ font-size:14px; font-weight:600; margin-bottom:5px; }
+  .faq-item .a{ font-size:13.5px; line-height:1.65; color:var(--ink-soft); }
+
+  .related{ margin-top:32px; padding-top:20px; border-top:1px solid var(--line); }
+  .related-title{ font-size:12.5px; color:var(--muted); margin-bottom:10px; }
+  .related-links{ display:flex; flex-wrap:wrap; gap:8px; }
+  .related-links a{ padding:8px 14px; border:1.5px solid var(--line); border-radius:999px; font-size:13px; color:var(--ink); text-decoration:none; }
+  .related-links a:hover{ border-color:var(--ink); }
+</style>
+<!-- Google AdSense: 승인 후 ca-pub-XXXXXXXXXXXXXXXX 를 실제 게시자 ID로 교체하세요 -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div class="stub">
+  <div class="kicker">나이 계산</div>
+  <h1>만 나이 계산기</h1>
+  <p class="lede">생년월일만 입력하면 만 나이, 세는나이(한국식), 연 나이를 한번에 계산합니다. 2023년 6월 시행된 만나이 통일법 기준입니다.</p>
+
+  <div class="card">
+    <div class="field">
+      <label for="birth">생년월일</label>
+      <div class="input-row">
+        <input type="date" id="birth">
+      </div>
+      <span class="field-hint">본인 또는 확인하고 싶은 사람의 생년월일을 선택하세요.</span>
+    </div>
+
+    <div class="field">
+      <label for="baseDate">기준일</label>
+      <div class="input-row">
+        <input type="date" id="baseDate">
+      </div>
+      <span class="field-hint">기본값은 오늘 날짜입니다. 특정 시점의 나이를 알고 싶다면 변경하세요.</span>
+    </div>
+
+    <button class="calc-btn" id="calcBtn">나이 계산하기</button>
+  </div>
+
+  <div class="card result-card hidden" id="resultCard">
+    <div class="result-label">만 나이</div>
+    <div class="result-amount" id="internationalAge">0<span class="unit">세</span></div>
+
+    <div class="breakdown" id="breakdown"></div>
+
+    <div class="disclaimer">
+      만 나이는 생일이 지나면 한 살을 더하는 국제 통용 방식입니다. 세는나이는 태어난 해를 1살로 보는 한국 전통 방식, 연 나이는 현재 연도에서 출생 연도를 빼는 방식(병역법·청소년보호법 등에서 사용)입니다.
+    </div>
+  </div>
+
+  <!-- ===== 광고 삽입 영역 ===== -->
+  <ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+     data-ad-slot="0000000000"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+
+  <div class="info-block">
+    <h2>만 나이 통일법이 뭔가요?</h2>
+    <p>2023년 6월 28일부터 시행된 만 나이 통일법으로, 법령이나 계약서에 별도 표기가 없다면 모든 나이는 만 나이로 계산합니다. 태어난 날을 0살로 시작해 생일이 지날 때마다 한 살씩 늘어나는 국제 통용 방식이라, 같은 해에 태어난 사람이라도 생일 전후로 나이가 다르게 계산될 수 있습니다.</p>
+
+    <div class="faq-item">
+      <div class="q">세는나이는 왜 아직도 쓰나요?</div>
+      <div class="a">일상 대화나 술자리 등 비공식적인 자리에서 관습적으로 쓰이는 경우가 많습니다. 법적·행정적 효력은 없으며, 태어난 해를 1살로 치고 새해가 될 때마다 한 살씩 더하는 방식입니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">연 나이는 어디에 쓰이나요?</div>
+      <div class="a">병역법, 청소년보호법, 민방위기본법 등 일부 법령은 여전히 '연 나이'(해당 연도 - 출생 연도)를 기준으로 삼습니다. 예를 들어 청소년 보호 대상 여부는 생일과 무관하게 연 나이로 판단합니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">만 나이는 생일 당일부터 바뀌나요?</div>
+      <div class="a">네, 생일 당일 0시부터 새로운 나이가 적용됩니다. 이 계산기는 기준일을 직접 입력할 수 있어 특정 날짜의 나이를 미리 확인할 때도 활용할 수 있습니다.</div>
+    </div>
+  </div>
+
+  <div class="related">
+    <div class="related-title">함께 보면 좋은 도구</div>
+    <div class="related-links">
+      <a href="/tools/pet-age-calculator.html">반려동물 나이 계산기</a>
+      <a href="/tools/dday-calculator.html">디데이 계산기</a>
+      <a href="/tools/salary-calculator.html">연봉 실수령액 계산기</a>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const $ = (id) => document.getElementById(id);
+
+  const today = new Date();
+  $('baseDate').value = today.toISOString().slice(0, 10);
+
+  function calculate(){
+    const birthVal = $('birth').value;
+    const baseVal = $('baseDate').value;
+    if (!birthVal || !baseVal) return;
+
+    const birth = new Date(birthVal + 'T00:00:00');
+    const base = new Date(baseVal + 'T00:00:00');
+    if (birth > base){
+      $('resultCard').classList.add('hidden');
+      return;
+    }
+
+    let intlAge = base.getFullYear() - birth.getFullYear();
+    const hadBirthdayThisYear =
+      (base.getMonth() > birth.getMonth()) ||
+      (base.getMonth() === birth.getMonth() && base.getDate() >= birth.getDate());
+    if (!hadBirthdayThisYear) intlAge--;
+
+    const countingAge = base.getFullYear() - birth.getFullYear() + 1;
+    const yearAge = base.getFullYear() - birth.getFullYear();
+
+    render({ intlAge, countingAge, yearAge });
+  }
+
+  function render(r){
+    $('internationalAge').innerHTML = r.intlAge + '<span class="unit">세</span>';
+    $('breakdown').innerHTML = `
+      <div class="breakdown-row"><span>세는나이 (한국식)</span><span class="amount">${r.countingAge}세</span></div>
+      <div class="breakdown-row"><span>연 나이 (병역법 등)</span><span class="amount">${r.yearAge}세</span></div>
+    `;
+    $('resultCard').classList.remove('hidden');
+  }
+
+  $('calcBtn').addEventListener('click', calculate);
+})();
+</script>
+
+</body>
+</html>

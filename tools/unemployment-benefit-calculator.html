@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>실업급여(구직급여) 계산기 - 소정급여일수 자동 반영</title>
+<meta name="description" content="평균임금, 나이, 고용보험 가입기간을 입력하면 예상 구직급여일액과 총 수급액을 계산합니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700&family=Pretendard:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #ECE8DC;
+    --paper-light: #F7F4EA;
+    --ink: #16233D;
+    --ink-soft: #45516A;
+    --muted: #6E6656;
+    --line: #B7AF98;
+    --stamp: #B23A2E;
+  }
+  *{ box-sizing: border-box; }
+  body{
+    margin:0;
+    padding: 40px 20px 70px;
+    background: var(--paper);
+    background-image: repeating-linear-gradient(0deg, rgba(0,0,0,0.015) 0px, rgba(0,0,0,0.015) 1px, transparent 1px, transparent 3px);
+    font-family: 'Pretendard', -apple-system, sans-serif;
+    color: var(--ink);
+    display:flex;
+    justify-content:center;
+  }
+  .stub{ width:100%; max-width: 560px; }
+  .kicker{ font-size:13px; color:var(--muted); margin-bottom:6px; }
+  h1{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:30px; line-height:1.35; margin:0 0 8px; }
+  .lede{ font-size:14.5px; color:var(--ink-soft); line-height:1.6; margin:0 0 32px; max-width:46ch; }
+  .card{ background:var(--paper-light); border:1px solid var(--line); border-radius:14px; padding:32px; margin-bottom:28px; }
+  .field{ margin-bottom:20px; }
+  .field:last-child{ margin-bottom:0; }
+  .field label{ display:block; font-size:13.5px; color:var(--ink-soft); margin-bottom:8px; }
+  .field-hint{ display:block; font-size:12px; color:var(--muted); margin-top:6px; }
+  .input-row{ display:flex; align-items:baseline; border-bottom:1.5px solid var(--ink); padding-bottom:6px; }
+  .input-row input{ flex:1; border:none; background:transparent; font-family:'IBM Plex Mono', monospace; font-size:20px; font-weight:600; color:var(--ink); outline:none; padding:4px 0; width:100%; }
+  .seg{ display:flex; gap:8px; }
+  .seg button{ flex:1; padding:10px; border:1.5px solid var(--line); border-radius:10px; background:var(--paper-light); color:var(--ink-soft); font-size:13px; font-weight:600; cursor:pointer; }
+  .seg button.active{ background:var(--ink); border-color:var(--ink); color:var(--paper-light); }
+  .seg.wrap{ flex-wrap:wrap; }
+  .seg.wrap button{ flex: 1 1 30%; min-width: 90px; }
+  .calc-btn{ width:100%; padding:16px; margin-top:8px; background:var(--ink); color:var(--paper-light); border:none; border-radius:14px; font-weight:600; font-size:15.5px; cursor:pointer; box-shadow:0 4px 0 rgba(0,0,0,0.28); }
+  .calc-btn:hover{ background:var(--ink-soft); }
+  .calc-btn:active{ transform:translateY(3px); box-shadow:0 1px 0 rgba(0,0,0,0.28); }
+  .result-card{ padding-top:32px; }
+  .result-card.hidden{ display:none; }
+  .result-label{ font-size:13.5px; color:var(--ink-soft); margin-bottom:4px; }
+  .result-amount{ font-family:'IBM Plex Mono', monospace; font-weight:600; font-size:38px; color:var(--stamp); line-height:1.1; margin-bottom:4px; }
+  .result-amount .unit{ font-size:18px; margin-left:2px; }
+  .breakdown{ border-top:1px solid var(--line); padding-top:20px; margin-top:16px; }
+  .breakdown-row{ display:flex; justify-content:space-between; align-items:baseline; font-size:14px; padding:9px 0; color:var(--ink-soft); }
+  .breakdown-row .amount{ font-family:'IBM Plex Mono', monospace; color:var(--ink); font-weight:600; font-size:16px; }
+  .disclaimer{ font-size:11.5px; color:var(--muted); line-height:1.6; margin-top:24px; padding-top:16px; border-top:1px dotted var(--line); }
+  .slot{ border:1.5px dashed var(--line); border-radius:10px; padding:18px; text-align:center; font-size:12px; color:var(--muted); margin-top:24px; }
+  @media (max-width:480px){ .card{ padding:24px; } h1{ font-size:25px; } .result-amount{ font-size:32px; } }
+
+  .info-block{ margin-top:40px; }
+  .info-block h2{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:18px; margin:0 0 12px; }
+  .info-block p{ font-size:13.5px; line-height:1.7; color:var(--ink-soft); margin:0 0 14px; }
+  .faq-item{ margin-bottom:16px; }
+  .faq-item .q{ font-size:14px; font-weight:600; margin-bottom:5px; }
+  .faq-item .a{ font-size:13.5px; line-height:1.65; color:var(--ink-soft); }
+
+  .related{ margin-top:32px; padding-top:20px; border-top:1px solid var(--line); }
+  .related-title{ font-size:12.5px; color:var(--muted); margin-bottom:10px; }
+  .related-links{ display:flex; flex-wrap:wrap; gap:8px; }
+  .related-links a{ padding:8px 14px; border:1.5px solid var(--line); border-radius:999px; font-size:13px; color:var(--ink); text-decoration:none; }
+  .related-links a:hover{ border-color:var(--ink); }
+</style>
+<!-- Google AdSense: 승인 후 ca-pub-XXXXXXXXXXXXXXXX 를 실제 게시자 ID로 교체하세요 -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div class="stub">
+  <div class="kicker">퇴사·이직</div>
+  <h1>실업급여(구직급여) 계산기</h1>
+  <p class="lede">퇴사 전 평균임금, 나이, 고용보험 가입기간을 입력하면 예상 구직급여일액과 총 수급 예상액을 계산합니다.</p>
+
+  <div class="card">
+    <div class="field">
+      <label for="wage3m">퇴사 전 3개월 평균 월급 (세전, 만원)</label>
+      <div class="input-row">
+        <input type="number" id="wage3m" placeholder="예: 300" inputmode="numeric">
+        <span class="unit" style="font-size:14px;color:var(--muted);margin-left:8px;">만원</span>
+      </div>
+      <span class="field-hint">기본급 + 각종 수당을 포함한 월 평균 급여입니다.</span>
+    </div>
+
+    <div class="field">
+      <label>나이</label>
+      <div class="seg" id="ageSeg">
+        <button type="button" class="active" data-value="under50">50세 미만</button>
+        <button type="button" data-value="over50">50세 이상 · 장애인</button>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>고용보험 가입기간(근속기간)</label>
+      <div class="seg wrap" id="tenureSeg">
+        <button type="button" data-value="1" class="active">1년 미만</button>
+        <button type="button" data-value="3">1~3년</button>
+        <button type="button" data-value="5">3~5년</button>
+        <button type="button" data-value="10">5~10년</button>
+        <button type="button" data-value="99">10년 이상</button>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="capUpper">구직급여 상한액 (원/일)</label>
+      <div class="input-row">
+        <input type="number" id="capUpper" value="68100" inputmode="numeric">
+      </div>
+      <span class="field-hint">2026년 기준 68,100원(6년 만에 인상). 매년 바뀌니 최신 금액으로 수정해서 계산하세요.</span>
+    </div>
+
+    <div class="field">
+      <label for="capLower">구직급여 하한액 (원/일)</label>
+      <div class="input-row">
+        <input type="number" id="capLower" value="66048" inputmode="numeric">
+      </div>
+      <span class="field-hint">2026년 최저임금(시급 10,320원) × 8시간 × 80% 기준입니다. 매년 바뀝니다.</span>
+    </div>
+
+    <button class="calc-btn" id="calcBtn">구직급여 계산하기</button>
+  </div>
+
+  <div class="card result-card hidden" id="resultCard">
+    <div class="result-label">총 예상 구직급여</div>
+    <div class="result-amount" id="totalAmount">0<span class="unit">원</span></div>
+
+    <div class="breakdown" id="breakdown"></div>
+
+    <div class="disclaimer">
+      이 계산은 평균임금의 60% 지급, 소정급여일수(연령·가입기간별) 기준의 근사치이며, 상한·하한액은 매년 고용노동부가 새로 고시합니다. 실제 수급 여부와 정확한 금액은 고용센터 또는 고용보험 홈페이지에서 확인하세요.
+    </div>
+  </div>
+
+  <!-- ===== 광고 삽입 영역 ===== -->
+  <ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+     data-ad-slot="0000000000"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+
+  <div class="info-block">
+    <h2>구직급여는 어떻게 계산되나요?</h2>
+    <p>구직급여일액은 퇴사 전 평균임금의 60%이며, 정해진 상한액과 하한액 사이로 제한됩니다. 여기에 나이와 고용보험 가입기간에 따라 정해지는 소정급여일수(120~270일)를 곱하면 총 예상 수급액이 나옵니다. 자발적 퇴사가 아닌 비자발적 이직(권고사직, 계약만료, 폐업 등)인 경우에만 수급 자격이 주어집니다.</p>
+
+    <div class="faq-item">
+      <div class="q">자발적 퇴사도 실업급여를 받을 수 있나요?</div>
+      <div class="a">원칙적으로는 어렵지만, 임금체불·근로조건 악화·통근 곤란 등 정당한 이직 사유로 인정되면 자발적 퇴사도 수급 자격이 인정될 수 있습니다. 고용센터에서 개별 심사합니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">소정급여일수는 왜 사람마다 다른가요?</div>
+      <div class="a">나이(50세 기준)와 고용보험 가입기간(1년 미만~10년 이상 5단계)의 조합으로 정해집니다. 가입기간이 길고 50세 이상일수록 더 오래 받을 수 있습니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">퇴직금과 실업급여를 같이 받을 수 있나요?</div>
+      <div class="a">네, 둘은 별개의 제도라 요건을 충족하면 퇴직금과 구직급여를 함께 받을 수 있습니다. 다만 실업급여는 근로 의사와 능력이 있는 상태에서 적극적으로 구직활동을 해야 계속 지급됩니다.</div>
+    </div>
+  </div>
+
+  <div class="related">
+    <div class="related-title">함께 보면 좋은 도구</div>
+    <div class="related-links">
+      <a href="/tools/severance-pay-calculator.html">퇴직금 계산기</a>
+      <a href="/tools/salary-calculator.html">연봉 실수령액 계산기</a>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const $ = (id) => document.getElementById(id);
+  let ageGroup = 'under50';
+  let tenureGroup = '1';
+
+  document.querySelectorAll('#ageSeg button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      ageGroup = btn.dataset.value;
+      document.querySelectorAll('#ageSeg button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+  document.querySelectorAll('#tenureSeg button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      tenureGroup = btn.dataset.value;
+      document.querySelectorAll('#tenureSeg button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+
+  const BENEFIT_DAYS = {
+    under50: { 1: 120, 3: 150, 5: 180, 10: 210, 99: 240 },
+    over50:  { 1: 120, 3: 150, 5: 180, 10: 240, 99: 270 }
+  };
+
+  function calculate(){
+    const monthlyWage = (parseFloat($('wage3m').value) || 0) * 10000;
+    if (monthlyWage <= 0){
+      $('resultCard').classList.add('hidden');
+      return;
+    }
+    const capUpper = parseFloat($('capUpper').value) || 66000;
+    const capLower = parseFloat($('capLower').value) || 64192;
+
+    const dailyWage = monthlyWage / 30;
+    const rawDaily = dailyWage * 0.6;
+    const dailyBenefit = Math.min(capUpper, Math.max(capLower, rawDaily));
+
+    const days = BENEFIT_DAYS[ageGroup][tenureGroup];
+    const total = dailyBenefit * days;
+
+    render({ dailyBenefit, days, total });
+  }
+
+  function won(n){
+    return Math.round(n).toLocaleString('ko-KR');
+  }
+
+  function render(r){
+    $('totalAmount').innerHTML = won(r.total) + '<span class="unit">원</span>';
+    $('breakdown').innerHTML = `
+      <div class="breakdown-row"><span>구직급여일액</span><span class="amount">${won(r.dailyBenefit)}원</span></div>
+      <div class="breakdown-row"><span>소정급여일수</span><span class="amount">${r.days}일</span></div>
+    `;
+    $('resultCard').classList.remove('hidden');
+  }
+
+  $('calcBtn').addEventListener('click', calculate);
+})();
+</script>
+
+</body>
+</html>

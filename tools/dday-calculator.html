@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>디데이(D-Day) 계산기 - 남은 날짜/지난 날짜 계산</title>
+<meta name="description" content="기념일, 수능, 여행일까지 남은 날짜를 계산합니다. 지난 날짜는 며칠이 지났는지도 확인 가능.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700&family=Pretendard:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #ECE8DC;
+    --paper-light: #F7F4EA;
+    --ink: #16233D;
+    --ink-soft: #45516A;
+    --muted: #6E6656;
+    --line: #B7AF98;
+    --stamp: #B23A2E;
+  }
+  *{ box-sizing: border-box; }
+  body{
+    margin:0;
+    padding: 40px 20px 70px;
+    background: var(--paper);
+    background-image: repeating-linear-gradient(0deg, rgba(0,0,0,0.015) 0px, rgba(0,0,0,0.015) 1px, transparent 1px, transparent 3px);
+    font-family: 'Pretendard', -apple-system, sans-serif;
+    color: var(--ink);
+    display:flex;
+    justify-content:center;
+  }
+  .stub{ width:100%; max-width: 560px; }
+  .kicker{ font-size:13px; color:var(--muted); margin-bottom:6px; }
+  h1{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:30px; line-height:1.35; margin:0 0 8px; }
+  .lede{ font-size:14.5px; color:var(--ink-soft); line-height:1.6; margin:0 0 32px; max-width:46ch; }
+  .card{ background:var(--paper-light); border:1px solid var(--line); border-radius:14px; padding:32px; margin-bottom:28px; }
+  .field{ margin-bottom:20px; }
+  .field:last-of-type{ margin-bottom:0; }
+  .field label{ display:block; font-size:13.5px; color:var(--ink-soft); margin-bottom:8px; }
+  .input-row{ display:flex; align-items:baseline; border-bottom:1.5px solid var(--ink); padding-bottom:6px; }
+  .input-row input{ flex:1; border:none; background:transparent; font-family:'IBM Plex Mono', monospace; font-size:20px; font-weight:600; color:var(--ink); outline:none; padding:4px 0; width:100%; }
+  .quick{ display:flex; flex-wrap:wrap; gap:8px; margin-top:14px; }
+  .quick button{ padding:7px 13px; border:1.5px solid var(--line); border-radius:999px; background:transparent; color:var(--ink-soft); font-size:12.5px; cursor:pointer; }
+  .quick button:hover{ border-color:var(--ink); color:var(--ink); }
+  .calc-btn{ width:100%; padding:16px; margin-top:24px; background:var(--ink); color:var(--paper-light); border:none; border-radius:14px; font-weight:600; font-size:15.5px; cursor:pointer; box-shadow:0 4px 0 rgba(0,0,0,0.28); }
+  .calc-btn:hover{ background:var(--ink-soft); }
+  .calc-btn:active{ transform:translateY(3px); box-shadow:0 1px 0 rgba(0,0,0,0.28); }
+  .result-card{ padding-top:32px; text-align:center; }
+  .result-card.hidden{ display:none; }
+  .result-label{ font-size:13.5px; color:var(--ink-soft); margin-bottom:4px; }
+  .result-amount{ font-family:'IBM Plex Mono', monospace; font-weight:600; font-size:52px; color:var(--stamp); line-height:1.1; margin-bottom:4px; }
+  .result-note{ font-size:13.5px; color:var(--muted); }
+  .slot{ border:1.5px dashed var(--line); border-radius:10px; padding:18px; text-align:center; font-size:12px; color:var(--muted); margin-top:24px; }
+  @media (max-width:480px){ .card{ padding:24px; } h1{ font-size:25px; } .result-amount{ font-size:40px; } }
+
+  .info-block{ margin-top:40px; text-align:left; }
+  .info-block h2{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:18px; margin:0 0 12px; }
+  .info-block p{ font-size:13.5px; line-height:1.7; color:var(--ink-soft); margin:0 0 14px; }
+  .faq-item{ margin-bottom:16px; }
+  .faq-item .q{ font-size:14px; font-weight:600; margin-bottom:5px; }
+  .faq-item .a{ font-size:13.5px; line-height:1.65; color:var(--ink-soft); }
+
+  .related{ margin-top:32px; padding-top:20px; border-top:1px solid var(--line); }
+  .related-title{ font-size:12.5px; color:var(--muted); margin-bottom:10px; }
+  .related-links{ display:flex; flex-wrap:wrap; gap:8px; }
+  .related-links a{ padding:8px 14px; border:1.5px solid var(--line); border-radius:999px; font-size:13px; color:var(--ink); text-decoration:none; }
+  .related-links a:hover{ border-color:var(--ink); }
+</style>
+<!-- Google AdSense: 승인 후 ca-pub-XXXXXXXXXXXXXXXX 를 실제 게시자 ID로 교체하세요 -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div class="stub">
+  <div class="kicker">날짜 계산</div>
+  <h1>디데이(D-Day) 계산기</h1>
+  <p class="lede">기념일, 시험일, 여행일까지 며칠 남았는지, 혹은 며칠이 지났는지 바로 확인하세요.</p>
+
+  <div class="card">
+    <div class="field">
+      <label for="targetDate">기준이 되는 날짜</label>
+      <div class="input-row">
+        <input type="date" id="targetDate">
+      </div>
+      <div class="quick" id="quickButtons"></div>
+    </div>
+
+    <button class="calc-btn" id="calcBtn">디데이 계산하기</button>
+  </div>
+
+  <div class="card result-card hidden" id="resultCard">
+    <div class="result-label" id="resultLabel">오늘까지</div>
+    <div class="result-amount" id="ddayAmount">D+0</div>
+    <div class="result-note" id="resultNote"></div>
+  </div>
+
+  <!-- ===== 광고 삽입 영역 ===== -->
+  <ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+     data-ad-slot="0000000000"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+
+  <div class="info-block">
+    <h2>디데이는 어떻게 세나요?</h2>
+    <p>디데이는 기준일 당일을 0으로 두고, 그 이전은 D-, 이후는 D+로 표시하는 방식입니다. 예를 들어 시험일이 10일 남았다면 D-10, 여행에서 돌아온 지 3일 됐다면 D+3으로 표기합니다. 이 계산기는 오늘 날짜와 기준일의 차이를 자동으로 계산해 두 표기 모두 보여줍니다.</p>
+
+    <div class="faq-item">
+      <div class="q">기준일 당일은 D-1인가요, D-DAY인가요?</div>
+      <div class="a">기준일 당일은 D-DAY로 표시합니다. 하루 전날이 D-1이고, 그 다음날부터는 D+1, D+2로 늘어납니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">과거 날짜를 입력해도 되나요?</div>
+      <div class="a">네, 지난 날짜를 입력하면 오늘까지 며칠이 지났는지 D+ 형식으로 알려줍니다. 기념일이 지난 지 며칠 됐는지 확인할 때 유용합니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">매년 반복되는 날짜(생일, 명절)는 어떻게 계산되나요?</div>
+      <div class="a">빠른 선택 버튼의 크리스마스, 수능일 등은 이미 지난 날짜라면 자동으로 다음 해 같은 날짜로 계산됩니다. 직접 입력할 때도 원하는 연도의 날짜를 자유롭게 선택할 수 있습니다.</div>
+    </div>
+  </div>
+
+  <div class="related">
+    <div class="related-title">함께 보면 좋은 도구</div>
+    <div class="related-links">
+      <a href="/tools/age-calculator.html">만 나이 계산기</a>
+      <a href="/tools/salary-calculator.html">연봉 실수령액 계산기</a>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const $ = (id) => document.getElementById(id);
+
+  function fmt(d){ return d.toISOString().slice(0, 10); }
+
+  const today = new Date();
+  today.setHours(0,0,0,0);
+
+  function nextOccurrence(month, day){
+    let d = new Date(today.getFullYear(), month - 1, day);
+    if (d < today) d = new Date(today.getFullYear() + 1, month - 1, day);
+    return d;
+  }
+
+  const QUICK = [
+    { label: '올해 크리스마스', date: () => nextOccurrence(12, 25) },
+    { label: '내년 1월 1일', date: () => new Date(today.getFullYear() + 1, 0, 1) },
+    { label: '올해 수능(11/13)', date: () => nextOccurrence(11, 13) },
+    { label: '30일 뒤', date: () => { const d = new Date(today); d.setDate(d.getDate() + 30); return d; } },
+    { label: '100일 뒤', date: () => { const d = new Date(today); d.setDate(d.getDate() + 100); return d; } },
+  ];
+
+  const quickEl = $('quickButtons');
+  QUICK.forEach(q => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.textContent = q.label;
+    btn.addEventListener('click', () => {
+      $('targetDate').value = fmt(q.date());
+      calculate();
+    });
+    quickEl.appendChild(btn);
+  });
+
+  $('targetDate').value = fmt(today);
+
+  function calculate(){
+    const val = $('targetDate').value;
+    if (!val) return;
+
+    const target = new Date(val + 'T00:00:00');
+    const diffDays = Math.round((target - today) / 86400000);
+
+    render(diffDays, target);
+  }
+
+  function render(diffDays, target){
+    const dateLabel = `${target.getFullYear()}년 ${target.getMonth()+1}월 ${target.getDate()}일`;
+
+    if (diffDays === 0){
+      $('resultLabel').textContent = dateLabel;
+      $('ddayAmount').textContent = 'D-DAY';
+      $('resultNote').textContent = '바로 오늘입니다!';
+    } else if (diffDays > 0){
+      $('resultLabel').textContent = dateLabel + '까지';
+      $('ddayAmount').textContent = 'D-' + diffDays;
+      $('resultNote').textContent = `${diffDays}일 남았습니다.`;
+    } else {
+      $('resultLabel').textContent = dateLabel + '로부터';
+      $('ddayAmount').textContent = 'D+' + Math.abs(diffDays);
+      $('resultNote').textContent = `${Math.abs(diffDays)}일이 지났습니다.`;
+    }
+
+    $('resultCard').classList.remove('hidden');
+  }
+
+  $('calcBtn').addEventListener('click', calculate);
+})();
+</script>
+
+</body>
+</html>

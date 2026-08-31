@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>육아휴직급여 계산기 - 6+6 부모육아휴직제 반영</title>
+<meta name="description" content="통상임금과 육아휴직 개월차를 입력하면 6+6 부모육아휴직제·일반 육아휴직 급여를 계산합니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700&family=Pretendard:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #ECE8DC;
+    --paper-light: #F7F4EA;
+    --ink: #16233D;
+    --ink-soft: #45516A;
+    --muted: #6E6656;
+    --line: #B7AF98;
+    --stamp: #B23A2E;
+  }
+  *{ box-sizing: border-box; }
+  body{
+    margin:0;
+    padding: 40px 20px 70px;
+    background: var(--paper);
+    background-image: repeating-linear-gradient(0deg, rgba(0,0,0,0.015) 0px, rgba(0,0,0,0.015) 1px, transparent 1px, transparent 3px);
+    font-family: 'Pretendard', -apple-system, sans-serif;
+    color: var(--ink);
+    display:flex;
+    justify-content:center;
+  }
+  .stub{ width:100%; max-width: 560px; }
+  .kicker{ font-size:13px; color:var(--muted); margin-bottom:6px; }
+  h1{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:30px; line-height:1.35; margin:0 0 8px; }
+  .lede{ font-size:14.5px; color:var(--ink-soft); line-height:1.6; margin:0 0 32px; max-width:46ch; }
+  .card{ background:var(--paper-light); border:1px solid var(--line); border-radius:14px; padding:32px; margin-bottom:28px; }
+  .field{ margin-bottom:20px; }
+  .field:last-child{ margin-bottom:0; }
+  .field label{ display:block; font-size:13.5px; color:var(--ink-soft); margin-bottom:8px; }
+  .field-hint{ display:block; font-size:12px; color:var(--muted); margin-top:6px; }
+  .input-row{ display:flex; align-items:baseline; border-bottom:1.5px solid var(--ink); padding-bottom:6px; }
+  .input-row input{ flex:1; border:none; background:transparent; font-family:'IBM Plex Mono', monospace; font-size:20px; font-weight:600; color:var(--ink); outline:none; padding:4px 0; width:100%; }
+  .seg{ display:flex; gap:8px; }
+  .seg button{ flex:1; padding:10px; border:1.5px solid var(--line); border-radius:10px; background:var(--paper-light); color:var(--ink-soft); font-size:13px; font-weight:600; cursor:pointer; }
+  .seg button.active{ background:var(--ink); border-color:var(--ink); color:var(--paper-light); }
+  .stepper-row{ display:flex; align-items:center; gap:14px; }
+  .stepper-row .input-row{ flex:1; }
+  .step-btn{ width:34px; height:34px; border:1.5px solid var(--ink); border-radius:50%; background:var(--paper-light); color:var(--ink); font-size:17px; font-family:'IBM Plex Mono', monospace; cursor:pointer; line-height:1; flex-shrink:0; }
+  .step-btn:active{ background:var(--ink); color:var(--paper-light); }
+  .calc-btn{ width:100%; padding:16px; margin-top:8px; background:var(--ink); color:var(--paper-light); border:none; border-radius:14px; font-weight:600; font-size:15.5px; cursor:pointer; box-shadow:0 4px 0 rgba(0,0,0,0.28); }
+  .calc-btn:hover{ background:var(--ink-soft); }
+  .calc-btn:active{ transform:translateY(3px); box-shadow:0 1px 0 rgba(0,0,0,0.28); }
+  .result-card{ padding-top:32px; }
+  .result-card.hidden{ display:none; }
+  .result-label{ font-size:13.5px; color:var(--ink-soft); margin-bottom:4px; }
+  .result-amount{ font-family:'IBM Plex Mono', monospace; font-weight:600; font-size:42px; color:var(--stamp); line-height:1.1; margin-bottom:4px; }
+  .result-amount .unit{ font-size:20px; margin-left:2px; }
+  .breakdown{ border-top:1px solid var(--line); padding-top:20px; margin-top:16px; }
+  .breakdown-row{ display:flex; justify-content:space-between; align-items:baseline; font-size:14px; padding:9px 0; color:var(--ink-soft); }
+  .breakdown-row .amount{ font-family:'IBM Plex Mono', monospace; color:var(--ink); font-weight:600; font-size:16px; }
+  .disclaimer{ font-size:11.5px; color:var(--muted); line-height:1.6; margin-top:24px; padding-top:16px; border-top:1px dotted var(--line); }
+  .slot{ border:1.5px dashed var(--line); border-radius:10px; padding:18px; text-align:center; font-size:12px; color:var(--muted); margin-top:24px; }
+  @media (max-width:480px){ .card{ padding:24px; } h1{ font-size:25px; } .result-amount{ font-size:34px; } }
+
+  .info-block{ margin-top:40px; }
+  .info-block h2{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:18px; margin:0 0 12px; }
+  .info-block p{ font-size:13.5px; line-height:1.7; color:var(--ink-soft); margin:0 0 14px; }
+  .faq-item{ margin-bottom:16px; }
+  .faq-item .q{ font-size:14px; font-weight:600; margin-bottom:5px; }
+  .faq-item .a{ font-size:13.5px; line-height:1.65; color:var(--ink-soft); }
+
+  .related{ margin-top:32px; padding-top:20px; border-top:1px solid var(--line); }
+  .related-title{ font-size:12.5px; color:var(--muted); margin-bottom:10px; }
+  .related-links{ display:flex; flex-wrap:wrap; gap:8px; }
+  .related-links a{ padding:8px 14px; border:1.5px solid var(--line); border-radius:999px; font-size:13px; color:var(--ink); text-decoration:none; }
+  .related-links a:hover{ border-color:var(--ink); }
+</style>
+<!-- Google AdSense: 승인 후 ca-pub-XXXXXXXXXXXXXXXX 를 실제 게시자 ID로 교체하세요 -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div class="stub">
+  <div class="kicker">임신·출산</div>
+  <h1>육아휴직급여 계산기</h1>
+  <p class="lede">통상임금과 육아휴직 개월차를 입력하면 '6+6 부모육아휴직제' 특례와 일반 육아휴직 급여를 각각 계산합니다.</p>
+
+  <div class="card">
+    <div class="field">
+      <label>육아휴직 유형</label>
+      <div class="seg" id="typeSeg">
+        <button type="button" class="active" data-value="special">부모 함께 사용 (6+6 특례)</button>
+        <button type="button" data-value="normal">일반 육아휴직</button>
+      </div>
+      <span class="field-hint">생후 18개월 내 자녀를 부모가 함께(순차 포함) 육아휴직하면 첫 6개월은 특례가 적용됩니다.</span>
+    </div>
+
+    <div class="field">
+      <label for="wage">월 통상임금 (세전, 만원)</label>
+      <div class="input-row">
+        <input type="number" id="wage" placeholder="예: 350" inputmode="numeric">
+        <span class="unit" style="font-size:14px;color:var(--muted);margin-left:8px;">만원</span>
+      </div>
+    </div>
+
+    <div class="field" id="monthField">
+      <label for="month">육아휴직 몇 개월차인가요</label>
+      <div class="stepper-row">
+        <button type="button" class="step-btn" id="monthMinus">−</button>
+        <div class="input-row">
+          <input type="number" id="month" value="1" min="1" max="6" inputmode="numeric" readonly>
+        </div>
+        <button type="button" class="step-btn" id="monthPlus">+</button>
+      </div>
+      <span class="field-hint" id="monthHint">특례는 부모 각각 최대 6개월까지 적용됩니다.</span>
+    </div>
+
+    <button class="calc-btn" id="calcBtn">급여 계산하기</button>
+  </div>
+
+  <div class="card result-card hidden" id="resultCard">
+    <div class="result-label">이번 달 예상 육아휴직급여</div>
+    <div class="result-amount" id="benefitAmount">0<span class="unit">만원</span></div>
+
+    <div class="breakdown" id="breakdown"></div>
+
+    <div class="disclaimer">
+      이 계산은 2026년 개편된 육아휴직급여 기준(1~3개월 상한 250만원, 4~6개월 상한 200만원, 7개월 이후 통상임금 80%·상한 160만원, 하한 70만원)과 6+6 부모육아휴직제 특례를 반영한 근사치입니다. 실제 지급액은 고용보험 홈페이지의 최신 공고와 개별 심사 결과에 따라 달라질 수 있으니 정확한 금액은 고용센터에 문의하세요.
+    </div>
+  </div>
+
+  <!-- ===== 광고 삽입 영역 ===== -->
+  <ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+     data-ad-slot="0000000000"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+
+  <div class="info-block">
+    <h2>2026년 육아휴직급여, 뭐가 바뀌었나요?</h2>
+    <p>2026년부터 일반 육아휴직급여도 구간별로 개편됐습니다. 1~3개월차는 통상임금 100%(상한 250만원), 4~6개월차도 100%(상한 200만원)까지 받을 수 있고, 7개월차부터는 통상임금 80%(상한 160만원)로 낮아집니다. 하한액 70만원은 전체 기간 동일하게 적용됩니다. 여기에 더해 생후 18개월 이내 자녀를 부모가 함께 육아휴직하면, 첫 6개월은 '6+6 부모육아휴직제' 특례로 더 높은 상한액(1개월 250만원~6개월 450만원)이 적용됩니다.</p>
+
+    <div class="faq-item">
+      <div class="q">부모 둘 다 6+6 특례를 받을 수 있나요?</div>
+      <div class="a">네, 부모가 각자 6개월씩 사용하면 각자 개월차별 상한액을 적용받아, 부부 합산으로 훨씬 많은 금액을 받을 수 있습니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">한 부모만 육아휴직을 쓰면 어떻게 되나요?</div>
+      <div class="a">6+6 특례는 받을 수 없고, 처음부터 일반 육아휴직 구간별 기준(1~3개월 250만원, 4~6개월 200만원, 7개월 이후 160만원)이 적용됩니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">복직 후 나머지 금액을 나중에 받던 '사후지급금' 제도는 어떻게 됐나요?</div>
+      <div class="a">2026년부터 사후지급금 제도가 폐지되어, 육아휴직 기간 중 급여를 한 번에 전액 지급받습니다.</div>
+    </div>
+  </div>
+
+  <div class="related">
+    <div class="related-title">함께 보면 좋은 도구</div>
+    <div class="related-links">
+      <a href="/tools/due-date-calculator.html">출산 예정일 계산기</a>
+      <a href="/fun/baby-name-generator.html">태명 짓기 생성기</a>
+      <a href="/tools/salary-calculator.html">연봉 실수령액 계산기</a>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const $ = (id) => document.getElementById(id);
+  let type = 'special';
+  const MAX_MONTH = { special: 6, normal: 18 };
+  const HINTS = {
+    special: '특례는 부모 각각 최대 6개월까지 적용됩니다.',
+    normal: '2026년부터 육아휴직 기간이 최대 1년 6개월(18개월)로 늘었습니다.'
+  };
+
+  document.querySelectorAll('#typeSeg button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      type = btn.dataset.value;
+      document.querySelectorAll('#typeSeg button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      $('monthHint').textContent = HINTS[type];
+      const monthEl = $('month');
+      monthEl.max = MAX_MONTH[type];
+      monthEl.value = Math.min(parseInt(monthEl.value, 10) || 1, MAX_MONTH[type]);
+    });
+  });
+
+  $('monthMinus').addEventListener('click', () => {
+    const el = $('month');
+    el.value = Math.max(1, parseInt(el.value, 10) - 1);
+  });
+  $('monthPlus').addEventListener('click', () => {
+    const el = $('month');
+    el.value = Math.min(MAX_MONTH[type], parseInt(el.value, 10) + 1);
+  });
+
+  const SPECIAL_CAP = { 1: 250, 2: 250, 3: 300, 4: 350, 5: 400, 6: 450 };
+  const FLOOR = 70;
+
+  function generalTier(month){
+    if (month <= 3) return { rate: 1.0, cap: 250, label: '1~3개월차 (통상임금 100%)' };
+    if (month <= 6) return { rate: 1.0, cap: 200, label: '4~6개월차 (통상임금 100%)' };
+    return { rate: 0.8, cap: 160, label: '7개월차 이후 (통상임금 80%)' };
+  }
+
+  function calculate(){
+    const wage = parseFloat($('wage').value) || 0;
+    if (wage <= 0){
+      $('resultCard').classList.add('hidden');
+      return;
+    }
+
+    const month = Math.min(MAX_MONTH[type], Math.max(1, parseInt($('month').value, 10) || 1));
+
+    if (type === 'special'){
+      const cap = SPECIAL_CAP[month];
+      const benefit = Math.min(cap, Math.max(FLOOR, wage));
+      render({
+        benefit,
+        rows: [
+          [`${month}개월차 상한액`, `${cap}만원`],
+          ['지급률', '통상임금의 100%'],
+          ['적용 유형', '6+6 부모육아휴직제 특례']
+        ]
+      });
+    } else {
+      const tier = generalTier(month);
+      const raw = wage * tier.rate;
+      const benefit = Math.min(tier.cap, Math.max(FLOOR, raw));
+      render({
+        benefit,
+        rows: [
+          [`${month}개월차 구간`, tier.label],
+          ['상한액', `${tier.cap}만원`],
+          ['하한액', `${FLOOR}만원`]
+        ]
+      });
+    }
+  }
+
+  function render(r){
+    $('benefitAmount').innerHTML = Math.round(r.benefit).toLocaleString('ko-KR') + '<span class="unit">만원</span>';
+    $('breakdown').innerHTML = r.rows.map(([label, val]) =>
+      `<div class="breakdown-row"><span>${label}</span><span class="amount">${val}</span></div>`
+    ).join('');
+    $('resultCard').classList.remove('hidden');
+  }
+
+  $('calcBtn').addEventListener('click', calculate);
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>로또 번호 생성기 - 무료 자동 번호 추첨</title>
+<meta name="description" content="1~45 사이 로또 번호 6개를 클릭 한 번으로 무작위 생성합니다. 최근 생성 기록도 확인 가능.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Pretendard:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #ECE8DC;
+    --bg-soft: #F7F4EA;
+    --gold: #F0AD3D;
+    --ticket: #FFFFFF;
+    --ticket-line: #DDD8C0;
+    --ink: #1B2431;
+    --cream-text: #EDEFF3;
+    --muted: #6E6656;
+    --line: #CFC5A6;
+    --yellow: #F5C242;
+    --blue: #4F8FE0;
+    --red: #E5484D;
+    --gray: #7A8492;
+    --green: #4FAE6F;
+  }
+  *{ box-sizing: border-box; }
+  body{
+    margin:0;
+    padding: 40px 20px 70px;
+    background: var(--bg);
+    background-image: radial-gradient(circle at 50% 0%, var(--bg-soft), var(--bg) 70%);
+    font-family: 'Pretendard', sans-serif;
+    color: var(--ink);
+    display:flex;
+    justify-content:center;
+  }
+  .page{ width:100%; max-width: 480px; text-align:center; }
+  h1{ font-family:'Do Hyeon', sans-serif; font-size:38px; color:var(--red); margin:0 0 6px; letter-spacing:0.01em; }
+  .lede{ font-size:14px; color:var(--muted); margin:0 0 28px; }
+
+  .pull-btn{
+    width:100%; padding:18px; background:var(--gold); color:var(--ink); border:none; border-radius:14px;
+    font-family:'Do Hyeon', sans-serif; font-size:19px; letter-spacing:0.01em; cursor:pointer;
+    box-shadow: 0 4px 0 #B8811C; margin-bottom: 28px;
+  }
+  .pull-btn:active{ transform:translateY(3px); box-shadow:0 1px 0 #B8811C; }
+  .pull-btn:disabled{ opacity:0.6; cursor:default; }
+
+  .games{ display:flex; flex-direction:column; gap:12px; margin-bottom: 30px; }
+  .game-row{
+    background: var(--ticket); border:1px solid var(--ticket-line); border-radius:10px; padding:14px; display:flex; align-items:center; justify-content:center; gap:8px;
+  }
+  .ball{
+    width:38px; height:38px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+    font-weight:700; font-size:14px; color:#fff; flex-shrink:0;
+  }
+  .ball.tick{ animation: ball-tick 0.18s ease-out; }
+  @keyframes ball-tick{ 0%{ transform: scale(0.7); } 60%{ transform: scale(1.12); } 100%{ transform: scale(1); } }
+  .ball.landed{ animation: ball-pop 0.4s cubic-bezier(.34,1.56,.64,1); }
+  @keyframes ball-pop{ 0%{ transform: scale(0.6) rotate(-10deg); } 60%{ transform: scale(1.15) rotate(4deg); } 100%{ transform: scale(1) rotate(0deg); } }
+  .ball.yellow{ background:var(--yellow); color:var(--ink); }
+  .ball.blue{ background:var(--blue); }
+  .ball.red{ background:var(--red); }
+  .ball.gray{ background:var(--gray); }
+  .ball.green{ background:var(--green); }
+
+  .ball.pending{ background:#DCD6C4; color:#9C93B5; }
+
+  .history{ margin-top: 36px; text-align:left; }
+  .history-title{ font-size:13.5px; color:var(--muted); margin-bottom:10px; text-align:center; }
+  .history-row{ display:flex; align-items:center; justify-content:space-between; background:var(--ticket); border:1px solid var(--ticket-line); color:var(--ink); border-radius:8px; padding:10px 14px; margin-bottom:8px; font-size:12.5px; }
+  .history-row .balls{ display:flex; gap:4px; }
+  .history-row .ball{ width:24px; height:24px; font-size:10.5px; }
+  .history-row .date{ font-size:11px; color:#7A6E55; flex-shrink:0; margin-left:8px; }
+  .empty-history{ text-align:center; color:var(--muted); font-size:13px; padding:16px 0; }
+
+  .slot{ border:1.5px dashed var(--line); border-radius:10px; padding:16px; text-align:center; font-size:12px; color:var(--muted); margin-top:28px; }
+
+  .info-block{ margin-top:40px; text-align:left; }
+  .info-block h2{ font-family:'Do Hyeon', sans-serif; font-size:18px; color:var(--red); margin:0 0 10px; font-weight:400; }
+  .info-block p{ font-size:13.5px; line-height:1.65; color:var(--muted); margin:0 0 14px; }
+  .faq-item{ margin-bottom:14px; }
+  .faq-item .q{ font-size:14px; font-weight:700; color:var(--ink); margin-bottom:5px; }
+  .faq-item .a{ font-size:13.5px; line-height:1.6; color:var(--muted); }
+
+  .related{ margin-top:32px; padding-top:20px; border-top:1px solid var(--line); text-align:left; }
+  .related-title{ font-size:12.5px; color:var(--muted); margin-bottom:10px; }
+  .related-links{ display:flex; flex-wrap:wrap; gap:8px; }
+  .related-links a{ padding:8px 14px; border:1.5px solid var(--line); border-radius:999px; font-size:13px; color:var(--ink); text-decoration:none; }
+  .related-links a:hover{ border-color:var(--ink); }
+</style>
+<!-- Google AdSense: 승인 후 ca-pub-XXXXXXXXXXXXXXXX 를 실제 게시자 ID로 교체하세요 -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div class="page">
+  <h1>로또 번호 생성기</h1>
+  <p class="lede">1~45 중 무작위 6개, 클릭 한 번이면 끝.</p>
+
+  <button class="pull-btn" id="genBtn">번호 생성하기</button>
+
+  <div class="games" id="games"></div>
+
+  <div class="history">
+    <div class="history-title">최근 생성 기록</div>
+    <div id="historyList"></div>
+  </div>
+
+  <!-- ===== 광고 삽입 영역 ===== -->
+  <ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+     data-ad-slot="0000000000"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+
+  <div class="info-block">
+    <h2>번호는 어떻게 만들어지나요?</h2>
+    <p>브라우저의 난수 생성 기능(Math.random)을 이용해 1~45 사이 숫자 중 중복 없이 6개를 뽑습니다. 실제 로또 추첨기처럼 모든 번호가 동일한 확률로 나오도록 설계되어 있고, 서버로 전송되는 데이터 없이 기기 안에서 즉시 계산됩니다.</p>
+
+    <div class="faq-item">
+      <div class="q">당첨 확률이 더 높아지나요?</div>
+      <div class="a">아닙니다. 어떤 방식으로 번호를 골라도 당첨 확률은 동일합니다. 이 도구는 번호를 고민하는 시간을 줄여주는 용도로만 사용해주세요.</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">같은 번호가 또 나올 수 있나요?</div>
+      <div class="a">네, 매번 완전히 새로 뽑기 때문에 이전과 같은 조합이 다시 나올 수도 있습니다. 통계적으로는 지극히 낮은 확률입니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">여러 게임을 한번에 만들 수 없나요?</div>
+      <div class="a">한 번 클릭에 한 게임씩, 최근 뽑기 기록에 최대 30개까지 자동으로 쌓입니다. 필요한 만큼 여러 번 눌러서 기록에서 확인하세요.</div>
+    </div>
+  </div>
+
+  <div class="related">
+    <div class="related-title">오늘의 운도 확인해보세요</div>
+    <div class="related-links">
+      <a href="/fun/fortune-today.html">오늘의 운세</a>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const $ = (id) => document.getElementById(id);
+
+  function colorFor(n){
+    if (n <= 10) return 'yellow';
+    if (n <= 20) return 'blue';
+    if (n <= 30) return 'red';
+    if (n <= 40) return 'gray';
+    return 'green';
+  }
+
+  function generateGame(){
+    const nums = new Set();
+    while (nums.size < 6){
+      nums.add(1 + Math.floor(Math.random() * 45));
+    }
+    return [...nums].sort((a,b) => a-b);
+  }
+
+  const STORAGE_KEY = 'pickday-lotto-history';
+
+  function loadHistory(){
+    try{
+      const raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : [];
+    }catch(e){ return []; }
+  }
+  function saveHistory(list){
+    try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(list)); }catch(e){}
+  }
+  function formatDate(d){
+    const date = new Date(d);
+    return `${date.getMonth()+1}/${date.getDate()}`;
+  }
+
+  function ballHTML(n, extraClass, extraStyle){
+    return `<span class="ball ${colorFor(n)} ${extraClass || ''}" style="${extraStyle || ''}">${n}</span>`;
+  }
+
+  function renderHistory(){
+    const list = loadHistory();
+    const el = $('historyList');
+    if (!list.length){
+      el.innerHTML = '<div class="empty-history">아직 생성 기록이 없어요. 첫 번호를 뽑아보세요!</div>';
+      return;
+    }
+    el.innerHTML = list.slice(0, 8).map(item => `
+      <div class="history-row">
+        <div class="balls">${item.nums.map(n => ballHTML(n)).join('')}</div>
+        <span class="date">${formatDate(item.date)}</span>
+      </div>
+    `).join('');
+  }
+
+  let spinning = false;
+
+  $('genBtn').addEventListener('click', () => {
+    if (spinning) return;
+    spinning = true;
+    $('genBtn').disabled = true;
+
+    const gamesEl = $('games');
+    const row = document.createElement('div');
+    row.className = 'game-row';
+    row.innerHTML = Array(6).fill('<span class="ball pending">?</span>').join('');
+    gamesEl.innerHTML = '';
+    gamesEl.appendChild(row);
+
+    const totalTicks = 14;
+    let tick = 0;
+    const finalGame = generateGame();
+
+    function nextTick(){
+      tick++;
+      if (tick < totalTicks){
+        row.innerHTML = generateGame().map(n => ballHTML(n, 'tick')).join('');
+        const progress = tick / totalTicks;
+        const delay = 55 + Math.pow(progress, 3) * 220;
+        setTimeout(nextTick, delay);
+      } else {
+        row.innerHTML = finalGame.map((n, i) => ballHTML(n, 'landed', `animation-delay:${i * 40}ms`)).join('');
+        spinning = false;
+        $('genBtn').disabled = false;
+
+        const newList = [{ nums: finalGame, date: Date.now() }, ...loadHistory()].slice(0, 30);
+        saveHistory(newList);
+        renderHistory();
+      }
+    }
+
+    nextTick();
+  });
+
+  renderHistory();
+})();
+</script>
+
+</body>
+</html>
