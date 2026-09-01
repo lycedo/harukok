@@ -236,9 +236,9 @@
   function shareResult(getText){
     const text = getText();
     if (navigator.share){
-      navigator.share({ title: '하루콕', text, url: location.href }).catch(() => {});
+      navigator.share({ title: '하루콕', text, url: location.href }).catch(() => showToast('공유를 지원하지 않는 환경이에요'));
     } else if (navigator.clipboard){
-      navigator.clipboard.writeText(text + ' ' + location.href).then(() => showToast('결과가 복사되었어요')).catch(() => {});
+      navigator.clipboard.writeText(text + ' ' + location.href).then(() => showToast('결과가 복사되었어요')).catch(() => showToast('공유를 지원하지 않는 환경이에요'));
     }
   }
 
