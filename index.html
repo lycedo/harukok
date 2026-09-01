@@ -266,7 +266,7 @@
           <div class="name">주휴수당 계산기</div>
           <div class="desc">시급·주 근로시간 입력하면 2026년 기준 주휴수당 계산</div>
         </a>
-        <a class="card utility" href="/tools/annual-leave-pay-calculator" data-keywords="연차 휴가 미사용연차">
+        <a class="card utility" href="/tools/annual-leave-pay-calculator" data-keywords="연차 휴가 미사용연차 월차">
           <span class="icon">🏖️</span>
           <div class="name">연차수당 계산기</div>
           <div class="desc">월 통상임금·미사용 연차일수로 연차수당 계산</div>
@@ -276,7 +276,7 @@
           <div class="name">시급 계산기</div>
           <div class="desc">시급↔월급 환산하고 2026년 최저임금 미달 여부 확인</div>
         </a>
-        <a class="card utility" href="/tools/year-end-tax-calculator" data-keywords="세금 환급 13월의월급 소득세">
+        <a class="card utility" href="/tools/year-end-tax-calculator" data-keywords="세금 환급 13월의월급 소득세 세액공제 환급금">
           <span class="icon">🧾</span>
           <div class="name">연말정산 예상세액 계산기</div>
           <div class="desc">총급여·부양가족 수로 2026년 기준 예상 결정세액 계산</div>
@@ -308,7 +308,7 @@
           <div class="name">비밀번호 생성기</div>
           <div class="desc">안전한 랜덤 비밀번호를 즉시 생성하고 강도까지 확인</div>
         </a>
-        <a class="card utility" href="/tools/unit-converter" data-keywords="평수 제곱미터 환산 킬로그램 파운드 화씨 섭씨">
+        <a class="card utility" href="/tools/unit-converter" data-keywords="평수 제곱미터 환산 킬로그램 파운드 화씨 섭씨 인치 센티미터 리터 킬로미터">
           <span class="icon">📐</span>
           <div class="name">단위 변환기</div>
           <div class="desc">평수·제곱미터, 길이, 무게, 온도, 부피 즉시 변환</div>
@@ -319,12 +319,12 @@
     <details class="subsection" data-cat="image">
       <summary class="subsection-label">이미지 도구</summary>
       <div class="cards">
-        <a class="card utility" href="/tools/background-remover" data-keywords="누끼 투명배경 png 배경지우기">
+        <a class="card utility" href="/tools/background-remover" data-keywords="누끼 투명배경 png 배경지우기 배경투명화 이미지편집">
           <span class="icon">🖼️</span>
           <div class="name">배경 제거기</div>
           <div class="desc">흰 배경 이미지를 브라우저에서 바로 투명 배경으로 변환</div>
         </a>
-        <a class="card utility" href="/tools/image-grid-splitter" data-keywords="캐릭터시트 스프라이트 압축 zip 자르기">
+        <a class="card utility" href="/tools/image-grid-splitter" data-keywords="캐릭터시트 스프라이트 압축 zip 자르기 이미지분할 사진자르기">
           <span class="icon">✂️</span>
           <div class="name">이미지 격자 분할기</div>
           <div class="desc">캐릭터 시트를 격자로 나눠 한 번에 ZIP으로 다운로드</div>
@@ -351,7 +351,7 @@
     <details class="subsection" data-cat="baby">
       <summary class="subsection-label">임신·출산</summary>
       <div class="cards">
-        <a class="card utility" href="/tools/due-date-calculator" data-keywords="임신 예정일 임신주수">
+        <a class="card utility" href="/tools/due-date-calculator" data-keywords="임신 예정일 임신주수 임신개월수 출산일">
           <span class="icon">🤰</span>
           <div class="name">출산 예정일 계산기</div>
           <div class="desc">마지막 생리일 입력하면 예정일·임신 주수 계산</div>
@@ -376,7 +376,7 @@
           <div class="name">오늘 뭐 먹지?</div>
           <div class="desc">고민되는 점심, 캡슐 하나로 3초 만에 결정</div>
         </a>
-        <a class="card fun" href="/fun/dinner-picker" data-keywords="저녁메뉴 퇴근길">
+        <a class="card fun" href="/fun/dinner-picker" data-keywords="저녁메뉴 퇴근길 저녁메뉴추천">
           <span class="icon">🌆</span>
           <div class="name">오늘 저녁 뭐 먹지?</div>
           <div class="desc">퇴근길 최대 고민, 캡슐 하나로 3초 만에 결정</div>
@@ -407,7 +407,7 @@
           <div class="name">로또 번호 생성기</div>
           <div class="desc">1~45 무작위 6개, 클릭 한 번이면 끝</div>
         </a>
-        <a class="card fun" href="/fun/fortune-today" data-keywords="타로 운세 오늘운세">
+        <a class="card fun" href="/fun/fortune-today" data-keywords="타로 운세 오늘운세 별자리운세 사주">
           <span class="icon">🔮</span>
           <div class="name">오늘의 운세</div>
           <div class="desc">버튼 하나로 오늘의 총운·애정운·금전운·건강운 확인</div>
@@ -502,7 +502,9 @@
       return;
     }
 
+    const stripPunct = (s) => s.replace(/[\s·\/\-()&,]/g, '');
     const tokens = q.split(/\s+/).filter(Boolean);
+    const compactQ = stripPunct(q);
     let anyMatch = false;
 
     subsections.forEach(sec => {
@@ -512,7 +514,8 @@
         const desc = card.querySelector('.desc')?.textContent.toLowerCase() || '';
         const keywords = (card.dataset.keywords || '').toLowerCase();
         const haystack = name + ' ' + desc + ' ' + keywords;
-        const match = tokens.every(t => haystack.includes(t));
+        const compactHaystack = stripPunct(haystack);
+        const match = tokens.every(t => haystack.includes(t)) || (compactQ && compactHaystack.includes(compactQ));
         card.classList.toggle('hidden', !match);
         if (match) sectionHasMatch = true;
       });
