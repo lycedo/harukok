@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>이미지 격자 분할기 - 여백 자동 정리로 중앙 정렬까지, 캐릭터 시트 자르기</title>
-<meta name="description" content="캐릭터 시트, 스티커 시트를 격자로 나누고 ZIP으로 한 번에 다운로드. 조각 안 그림이 삐뚤게 잘리지 않도록 여백을 자동으로 정리해 중앙 정렬까지 해주는 기능은 다른 곳에 없습니다.">
+<title>이미지 격자 분할기 - 캐릭터 시트, 스프라이트 자르기</title>
+<meta name="description" content="캐릭터 시트, 스티커 시트 같은 이미지를 격자로 자유롭게 나눠 한 번에 ZIP으로 다운로드합니다. 서버 업로드 없이 브라우저에서 처리됩니다.">
 <link rel="canonical" href="https://harukok.com/tools/image-grid-splitter">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700&family=Pretendard:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
@@ -35,17 +35,6 @@
   .lede{ font-size:14.5px; color:var(--ink-soft); line-height:1.6; margin:0 0 32px; max-width:52ch; }
   .card{ background:var(--paper-light); border:1px solid var(--line); border-radius:14px; padding:32px; margin-bottom:28px; }
 
-  .demo-card{ text-align:center; }
-  .demo-header{ display:flex; align-items:center; justify-content:center; gap:8px; margin-bottom:16px; flex-wrap:wrap; }
-  .demo-title{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:16px; }
-  .demo-compare{ display:flex; align-items:flex-start; justify-content:center; gap:20px; flex-wrap:wrap; }
-  .demo-col-label{ font-size:12px; color:var(--muted); margin-bottom:10px; }
-  .demo-cells{ display:flex; gap:6px; flex-wrap:wrap; justify-content:center; max-width:150px; }
-  .demo-cell{ position:relative; width:62px; height:62px; background:#fff; border:1.5px dashed var(--line); border-radius:8px; }
-  .demo-cell.trimmed{ width:44px; height:44px; border-style:solid; border-color:var(--stamp); border-width:2px; align-self:center; }
-  .demo-icon{ position:absolute; font-size:20px; }
-  .demo-icon.center{ top:50%; left:50%; transform:translate(-50%,-50%); font-size:26px; }
-  .demo-arrow{ font-size:20px; color:var(--muted); align-self:center; margin-top:14px; }
 
   .drop-zone{
     border:2px dashed var(--line); border-radius:16px; padding:48px 20px; text-align:center; cursor:pointer;
@@ -183,33 +172,6 @@
   <div class="kicker">이미지 도구</div>
   <h1>이미지 격자 분할기</h1>
   <p class="lede">캐릭터 시트, 스티커 시트 같은 이미지를 격자로 나눠서 한 번에 ZIP으로 받아보세요. 서버 업로드 없이 브라우저에서 바로 처리됩니다.</p>
-
-  <div class="card demo-card">
-    <div class="demo-header">
-      <div class="demo-title">여백 자동 정리, 이렇게 달라져요</div>
-    </div>
-    <div class="demo-compare">
-      <div class="demo-col">
-        <div class="demo-col-label">적용 전 (격자로만 자름)</div>
-        <div class="demo-cells">
-          <div class="demo-cell"><span class="demo-icon" style="top:6px; left:6px;">☕</span></div>
-          <div class="demo-cell"><span class="demo-icon" style="bottom:8px; right:6px;">🪴</span></div>
-          <div class="demo-cell"><span class="demo-icon" style="top:10px; right:8px;">💻</span></div>
-          <div class="demo-cell"><span class="demo-icon" style="bottom:6px; left:10px;">📱</span></div>
-        </div>
-      </div>
-      <div class="demo-arrow">→</div>
-      <div class="demo-col">
-        <div class="demo-col-label">적용 후 (여백 자동 정리)</div>
-        <div class="demo-cells">
-          <div class="demo-cell trimmed"><span class="demo-icon center">☕</span></div>
-          <div class="demo-cell trimmed"><span class="demo-icon center">🪴</span></div>
-          <div class="demo-cell trimmed"><span class="demo-icon center">💻</span></div>
-          <div class="demo-cell trimmed"><span class="demo-icon center">📱</span></div>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <div class="card">
     <div class="drop-zone" id="dropZone">
