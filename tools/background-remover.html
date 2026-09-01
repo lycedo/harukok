@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>배경 제거기 - 흰 배경 무료로 투명하게 만들기</title>
-<meta name="description" content="흰 배경 이미지를 브라우저에서 바로 투명 배경으로 만들어 PNG로 저장합니다. 업로드 없이 기기 안에서만 처리됩니다.">
+<meta name="description" content="흰 배경 이미지 여러 장을 한 번에 브라우저에서 투명 배경으로 만들어 PNG로 저장합니다. 업로드 없이 기기 안에서만 처리됩니다.">
 <link rel="canonical" href="https://harukok.com/tools/background-remover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700&family=Pretendard:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
@@ -61,25 +61,30 @@
   .workspace.sample-mode .sample-tag{ display:block; }
   .workspace.sample-mode .editor-only{ display:none; }
 
-  .canvas-row{ display:flex; gap:14px; margin-bottom:20px; flex-wrap:wrap; }
-  .canvas-box{ flex:1; min-width:180px; text-align:center; }
-  .canvas-box .caption{ font-size:12.5px; color:var(--muted); margin-bottom:6px; }
-  .checker-bg{
-    background-image: linear-gradient(45deg, #ccc 25%, transparent 25%), linear-gradient(-45deg, #ccc 25%, transparent 25%),
-      linear-gradient(45deg, transparent 75%, #ccc 75%), linear-gradient(-45deg, transparent 75%, #ccc 75%);
-    background-size: 16px 16px;
-    background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
-    background-color: #fff;
-    border:1px solid var(--line); border-radius:8px; display:inline-block; max-width:100%;
-  }
-  canvas{ display:block; max-width:100%; height:auto; border-radius:8px; }
-
   .field{ margin-bottom:16px; }
   .field label{ display:block; font-size:13.5px; color:var(--ink-soft); margin-bottom:8px; }
   .field-hint{ display:block; font-size:12px; color:var(--muted); margin-top:6px; }
   .slider-row{ display:flex; align-items:center; gap:12px; }
   .slider-row input[type="range"]{ flex:1; }
   .slider-row .value{ font-family:'IBM Plex Mono', monospace; font-size:14px; font-weight:600; width:40px; text-align:right; }
+
+  .results-grid{ display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin-bottom:16px; }
+  .result-card{ background:#fff; border:1px solid var(--line); border-radius:8px; padding:8px; text-align:center; width:110px; flex-shrink:0; }
+  .result-thumb{
+    height:100px; display:flex; align-items:center; justify-content:center; margin-bottom:6px; border-radius:6px; overflow:hidden;
+    background-image: linear-gradient(45deg, #ccc 25%, transparent 25%), linear-gradient(-45deg, #ccc 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, #ccc 75%), linear-gradient(-45deg, transparent 75%, #ccc 75%);
+    background-size: 14px 14px;
+    background-position: 0 0, 0 7px, 7px -7px, -7px 0px;
+    background-color: #fff;
+  }
+  .result-thumb canvas{ max-width:100%; max-height:100%; display:block; }
+  .result-card .idx{ font-size:11px; color:var(--muted); margin-bottom:6px; }
+  .result-download-btn{
+    width:100%; padding:5px 0; border:1px solid var(--line); border-radius:6px; background:var(--paper-light);
+    color:var(--ink-soft); font-size:11px; font-weight:600; cursor:pointer;
+  }
+  .result-download-btn:active{ transform:translateY(1px); }
 
   .btn-row{ display:flex; gap:10px; flex-wrap:wrap; }
   .calc-btn{ flex:1; min-width:140px; padding:14px; background:var(--ink); color:var(--paper-light); border:none; border-radius:12px; font-weight:600; font-size:14.5px; cursor:pointer; box-shadow:0 4px 0 rgba(0,0,0,0.28); }
@@ -112,6 +117,7 @@
 </style>
 <!-- Google AdSense -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6883245122372170" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" defer></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -127,10 +133,10 @@
     },
     {
       "@type": "Question",
-      "name": "어떤 배경이든 다 지워지나요?",
+      "name": "여러 장을 한 번에 처리할 수 있나요?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "아니요, 흰색이나 밝은 단색 배경에 최적화된 방식입니다. 사진처럼 배경이 복잡하거나 피사체와 배경 색이 비슷하면 깔끔하게 지워지지 않을 수 있습니다."
+        "text": "네, 이미지를 여러 장 동시에 올리면 같은 민감도 기준으로 한 번에 모두 처리됩니다. 개별로 저장하거나 '전체 ZIP으로 저장'으로 한 번에 내려받을 수 있습니다."
       }
     },
     {
@@ -138,7 +144,7 @@
       "name": "민감도는 어떻게 조절하나요?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "민감도 값보다 밝은 픽셀만 투명하게 처리됩니다. 배경이 다 안 지워지면 값을 낮추고, 피사체 일부가 같이 지워지면 값을 높여보세요."
+        "text": "민감도 값보다 밝은 픽셀만 투명하게 처리됩니다. 배경이 다 안 지워지면 값을 낮추고, 피사체 일부가 같이 지워지면 값을 높여보세요. 여러 장을 올렸다면 모든 이미지에 같은 민감도가 적용됩니다."
       }
     }
   ]
@@ -151,15 +157,15 @@
   <a href="/" class="back-home">← 하루콕 홈으로</a>
   <div class="kicker">이미지 도구</div>
   <h1>배경 제거기</h1>
-  <p class="lede">흰 배경 이미지를 업로드하면 브라우저에서 바로 투명 배경으로 바꿔드립니다. 서버로 전송되지 않고 이 기기 안에서만 처리됩니다.</p>
+  <p class="lede">흰 배경 이미지를 여러 장 한 번에 업로드하면 브라우저에서 바로 투명 배경으로 바꿔드립니다. 서버로 전송되지 않고 이 기기 안에서만 처리됩니다.</p>
 
   <div class="card">
     <div class="drop-zone" id="dropZone">
       <div class="drop-icon">🖼️</div>
       <div class="drop-title"><strong>클릭</strong>하거나 이미지를 이 영역에 <strong>드래그</strong>해서 올려주세요</div>
-      <div class="drop-sub">PNG · JPG · WEBP 지원</div>
+      <div class="drop-sub">PNG · JPG · WEBP 지원 · 여러 장 한 번에 가능</div>
     </div>
-    <input type="file" id="fileInput" accept="image/*">
+    <input type="file" id="fileInput" accept="image/*" multiple>
 
     <div class="workspace" id="workspace">
       <div class="sample-tag" id="sampleTag">👀 예시 미리보기 — 실제로는 이렇게 나와요</div>
@@ -170,22 +176,13 @@
           <input type="range" id="thresholdRange" min="200" max="255" value="245">
           <span class="value" id="thresholdValue">245</span>
         </div>
-        <span class="field-hint">배경이 안 지워지면 값을 낮추고, 피사체가 같이 지워지면 값을 높여보세요.</span>
+        <span class="field-hint">배경이 안 지워지면 값을 낮추고, 피사체가 같이 지워지면 값을 높여보세요. 올린 이미지 전체에 같은 값이 적용됩니다.</span>
       </div>
 
-      <div class="canvas-row">
-        <div class="canvas-box">
-          <div class="caption">원본</div>
-          <canvas id="originalCanvas"></canvas>
-        </div>
-        <div class="canvas-box">
-          <div class="caption">결과 (투명 배경)</div>
-          <div class="checker-bg"><canvas id="resultCanvas"></canvas></div>
-        </div>
-      </div>
+      <div class="results-grid" id="resultsGrid"></div>
 
       <div class="btn-row">
-        <button class="calc-btn" id="downloadBtn">PNG로 저장</button>
+        <button class="calc-btn" id="downloadZipBtn">전체 ZIP으로 저장</button>
         <button class="calc-btn secondary" id="resetBtn">다른 이미지 열기</button>
       </div>
     </div>
@@ -202,19 +199,19 @@
 
   <div class="info-block">
     <h2>어떻게 배경을 지우나요?</h2>
-    <p>이미지의 모든 픽셀을 검사해서, 설정한 민감도보다 밝은(흰색에 가까운) 픽셀을 투명하게 바꿉니다. 흰 배경에 촬영·스캔한 상품 사진, 캐릭터 시트, 로고처럼 배경과 피사체의 색 차이가 뚜렷한 이미지에 잘 맞습니다. 인물 사진처럼 배경이 복잡한 경우는 정확도가 떨어질 수 있습니다.</p>
+    <p>이미지의 모든 픽셀을 검사해서, 설정한 민감도보다 밝은(흰색에 가까운) 픽셀을 투명하게 바꿉니다. 흰 배경에 촬영·스캔한 상품 사진, 캐릭터 시트, 로고처럼 배경과 피사체의 색 차이가 뚜렷한 이미지에 잘 맞습니다. 인물 사진처럼 배경이 복잡한 경우는 정확도가 떨어질 수 있습니다. 이미지를 여러 장 올리면 모두 같은 민감도로 한 번에 처리됩니다.</p>
 
     <div class="faq-item">
       <div class="q">업로드한 이미지가 서버로 전송되나요?</div>
       <div class="a">아니요. 이 도구는 이미지를 서버로 전송하지 않고, 브라우저 안에서만 픽셀을 계산해 처리합니다. 인터넷 연결을 끊어도 이미 불러온 이미지는 계속 처리할 수 있습니다.</div>
     </div>
     <div class="faq-item">
-      <div class="q">어떤 배경이든 다 지워지나요?</div>
-      <div class="a">아니요, 흰색이나 밝은 단색 배경에 최적화된 방식입니다. 사진처럼 배경이 복잡하거나 피사체와 배경 색이 비슷하면 깔끔하게 지워지지 않을 수 있습니다.</div>
+      <div class="q">여러 장을 한 번에 처리할 수 있나요?</div>
+      <div class="a">네, 이미지를 여러 장 동시에 올리면 같은 민감도 기준으로 한 번에 모두 처리됩니다. 개별로 저장하거나 '전체 ZIP으로 저장'으로 한 번에 내려받을 수 있습니다.</div>
     </div>
     <div class="faq-item">
       <div class="q">민감도는 어떻게 조절하나요?</div>
-      <div class="a">민감도 값보다 밝은 픽셀만 투명하게 처리됩니다. 배경이 다 안 지워지면 값을 낮추고, 피사체 일부가 같이 지워지면 값을 높여보세요.</div>
+      <div class="a">민감도 값보다 밝은 픽셀만 투명하게 처리됩니다. 배경이 다 안 지워지면 값을 낮추고, 피사체 일부가 같이 지워지면 값을 높여보세요. 여러 장을 올렸다면 모든 이미지에 같은 민감도가 적용됩니다.</div>
     </div>
   </div>
 
@@ -234,12 +231,11 @@
   const dropZone = $('dropZone');
   const fileInput = $('fileInput');
   const workspace = $('workspace');
-  const originalCanvas = $('originalCanvas');
-  const resultCanvas = $('resultCanvas');
+  const resultsGrid = $('resultsGrid');
   const thresholdRange = $('thresholdRange');
   const thresholdValue = $('thresholdValue');
 
-  let currentImage = null;
+  let images = []; // [{ img: Image, name: string }]
 
   dropZone.addEventListener('click', () => fileInput.click());
   dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('dragover'); });
@@ -247,103 +243,54 @@
   dropZone.addEventListener('drop', (e) => {
     e.preventDefault();
     dropZone.classList.remove('dragover');
-    if (e.dataTransfer.files && e.dataTransfer.files[0]) loadFile(e.dataTransfer.files[0]);
+    if (e.dataTransfer.files && e.dataTransfer.files.length) loadFiles(e.dataTransfer.files);
   });
   fileInput.addEventListener('change', () => {
-    if (fileInput.files && fileInput.files[0]) loadFile(fileInput.files[0]);
+    if (fileInput.files && fileInput.files.length) loadFiles(fileInput.files);
   });
 
-  function showImage(img){
-    currentImage = img;
-    const maxW = 480;
-    const scale = Math.min(1, maxW / img.width);
-    const w = Math.round(img.width * scale);
-    const h = Math.round(img.height * scale);
-
-    originalCanvas.width = w;
-    originalCanvas.height = h;
-    originalCanvas.getContext('2d').drawImage(img, 0, 0, w, h);
-
-    resultCanvas.width = w;
-    resultCanvas.height = h;
-
-    workspace.classList.add('visible');
-    applyThreshold();
+  function readImageFile(file){
+    return new Promise((resolve, reject) => {
+      if (!file.type.startsWith('image/')){ resolve(null); return; }
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => resolve({ img, name: file.name.replace(/\.[^.]+$/, '') });
+        img.onerror = () => resolve(null);
+        img.src = e.target.result;
+      };
+      reader.onerror = () => resolve(null);
+      reader.readAsDataURL(file);
+    });
   }
 
-  function loadFile(file){
-    if (!file.type.startsWith('image/')){
+  async function loadFiles(fileList){
+    const files = Array.from(fileList);
+    const loaded = await Promise.all(files.map(readImageFile));
+    const valid = loaded.filter(Boolean);
+    if (!valid.length){
       alert('이미지 파일만 업로드할 수 있어요.');
       return;
     }
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const img = new Image();
-      img.onload = () => {
-        workspace.classList.remove('sample-mode');
-        showImage(img);
-      };
-      img.src = e.target.result;
-    };
-    reader.readAsDataURL(file);
+    workspace.classList.remove('sample-mode');
+    images = valid;
+    workspace.classList.add('visible');
+    renderResults();
   }
 
-  // 페이지 진입 시 바로 예시로 보여줄 샘플 이미지 생성 (흰 배경 + 사과 이모지)
-  function buildSampleDataUrl(){
-    const sc = document.createElement('canvas');
-    sc.width = 300;
-    sc.height = 300;
-    const sctx = sc.getContext('2d');
-    sctx.fillStyle = '#ffffff';
-    sctx.fillRect(0, 0, sc.width, sc.height);
-    sctx.font = '150px sans-serif';
-    sctx.textAlign = 'center';
-    sctx.textBaseline = 'middle';
-    sctx.fillText('🍎', sc.width / 2, sc.height / 2 + 6);
-    return sc.toDataURL('image/png');
-  }
+  // 픽셀 단위로 밝은 배경을 투명하게 만든 새 캔버스를 반환
+  function processImage(img, threshold, maxW){
+    const scale = maxW ? Math.min(1, maxW / img.width) : 1;
+    const w = Math.round(img.width * scale);
+    const h = Math.round(img.height * scale);
 
-  function loadSample(){
-    const img = new Image();
-    img.onload = () => {
-      workspace.classList.add('sample-mode');
-      showImage(img);
-    };
-    img.src = buildSampleDataUrl();
-  }
+    const c = document.createElement('canvas');
+    c.width = w;
+    c.height = h;
+    const ctx = c.getContext('2d');
+    ctx.drawImage(img, 0, 0, w, h);
 
-  function applyThreshold(){
-    if (!currentImage) return;
-    const threshold = parseInt(thresholdRange.value, 10);
-    thresholdValue.textContent = threshold;
-
-    const w = originalCanvas.width;
-    const h = originalCanvas.height;
-    const srcCtx = originalCanvas.getContext('2d');
-    const imageData = srcCtx.getImageData(0, 0, w, h);
-    const data = imageData.data;
-
-    for (let i = 0; i < data.length; i += 4){
-      const r = data[i], g = data[i + 1], b = data[i + 2];
-      if (r >= threshold && g >= threshold && b >= threshold){
-        data[i + 3] = 0;
-      }
-    }
-
-    resultCanvas.getContext('2d').putImageData(imageData, 0, 0);
-  }
-
-  thresholdRange.addEventListener('input', applyThreshold);
-
-  $('downloadBtn').addEventListener('click', () => {
-    // 원본 해상도로 다시 처리해서 저장 (미리보기는 축소본이라 화질 손실 방지)
-    const threshold = parseInt(thresholdRange.value, 10);
-    const fullCanvas = document.createElement('canvas');
-    fullCanvas.width = currentImage.width;
-    fullCanvas.height = currentImage.height;
-    const ctx = fullCanvas.getContext('2d');
-    ctx.drawImage(currentImage, 0, 0);
-    const imageData = ctx.getImageData(0, 0, fullCanvas.width, fullCanvas.height);
+    const imageData = ctx.getImageData(0, 0, w, h);
     const data = imageData.data;
     for (let i = 0; i < data.length; i += 4){
       const r = data[i], g = data[i + 1], b = data[i + 2];
@@ -352,21 +299,117 @@
       }
     }
     ctx.putImageData(imageData, 0, 0);
+    return c;
+  }
 
+  function renderResults(){
+    const threshold = parseInt(thresholdRange.value, 10);
+    thresholdValue.textContent = threshold;
+
+    resultsGrid.innerHTML = '';
+    images.forEach((entry, idx) => {
+      const thumbCanvas = processImage(entry.img, threshold, 140);
+
+      const card = document.createElement('div');
+      card.className = 'result-card';
+      const thumbWrap = document.createElement('div');
+      thumbWrap.className = 'result-thumb';
+      thumbWrap.appendChild(thumbCanvas);
+
+      card.appendChild(thumbWrap);
+
+      const idxEl = document.createElement('div');
+      idxEl.className = 'idx';
+      idxEl.textContent = `#${idx + 1}`;
+      card.appendChild(idxEl);
+
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'result-download-btn';
+      btn.textContent = '저장';
+      btn.dataset.index = idx;
+      card.appendChild(btn);
+
+      resultsGrid.appendChild(card);
+    });
+  }
+
+  thresholdRange.addEventListener('input', renderResults);
+
+  resultsGrid.addEventListener('click', (e) => {
+    const btn = e.target.closest('.result-download-btn');
+    if (!btn) return;
+    const idx = parseInt(btn.dataset.index, 10);
+    const entry = images[idx];
+    if (!entry) return;
+
+    const threshold = parseInt(thresholdRange.value, 10);
+    const fullCanvas = processImage(entry.img, threshold, null);
     const link = document.createElement('a');
-    link.download = '하루콕-배경제거.png';
+    link.download = `${entry.name || '하루콕-배경제거'}.png`;
     link.href = fullCanvas.toDataURL('image/png');
     link.click();
   });
 
+  $('downloadZipBtn').addEventListener('click', async () => {
+    if (!images.length) return;
+    if (typeof JSZip === 'undefined'){
+      alert('압축 기능을 아직 불러오는 중이에요. 잠시 후 다시 시도해주세요.');
+      return;
+    }
+    const threshold = parseInt(thresholdRange.value, 10);
+    const zip = new JSZip();
+
+    for (let i = 0; i < images.length; i++){
+      const fullCanvas = processImage(images[i].img, threshold, null);
+      const blob = await new Promise(resolve => fullCanvas.toBlob(resolve, 'image/png'));
+      const name = images[i].name || `image_${i + 1}`;
+      zip.file(`${name}.png`, blob);
+    }
+
+    const content = await zip.generateAsync({ type: 'blob' });
+    const link = document.createElement('a');
+    link.download = '하루콕-배경제거.zip';
+    link.href = URL.createObjectURL(content);
+    link.click();
+  });
+
   $('resetBtn').addEventListener('click', () => {
-    currentImage = null;
+    images = [];
     workspace.classList.remove('visible');
     workspace.classList.remove('sample-mode');
     fileInput.value = '';
   });
 
-  // 페이지 진입 시 바로 예시로 샘플 결과를 보여줌
+  // 페이지 진입 시 바로 예시로 샘플 이미지 3장을 자동으로 보여줌 (여러 장 처리 가능함을 보여주기 위함)
+  function buildSampleDataUrl(emoji){
+    const sc = document.createElement('canvas');
+    sc.width = 260;
+    sc.height = 260;
+    const sctx = sc.getContext('2d');
+    sctx.fillStyle = '#ffffff';
+    sctx.fillRect(0, 0, sc.width, sc.height);
+    sctx.font = '130px sans-serif';
+    sctx.textAlign = 'center';
+    sctx.textBaseline = 'middle';
+    sctx.fillText(emoji, sc.width / 2, sc.height / 2 + 6);
+    return sc.toDataURL('image/png');
+  }
+
+  function loadSample(){
+    const emojis = ['🍎', '🍌', '🍇'];
+    Promise.all(emojis.map(emoji => new Promise(resolve => {
+      const img = new Image();
+      img.onload = () => resolve({ img, name: '샘플' });
+      img.src = buildSampleDataUrl(emoji);
+    }))).then(loaded => {
+      images = loaded;
+      workspace.classList.add('sample-mode');
+      workspace.classList.add('visible');
+      renderResults();
+    });
+  }
+
   loadSample();
 })();
 </script>
