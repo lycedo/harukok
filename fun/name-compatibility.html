@@ -50,27 +50,26 @@
     position:relative; overflow:hidden;
     box-shadow: inset 0 0 30px rgba(0,0,0,0.6), 0 10px 18px rgba(0,0,0,0.35);
   }
-  .thread-svg{ width:180px; height:150px; overflow:visible; }
-  .node{ fill:#fff; }
-  .node-glow{ fill:none; stroke:rgba(255,156,184,0.35); stroke-width:0; transition: stroke-width 0.3s ease 0.75s; }
-  .scroll.merged .node-glow{ stroke-width:6; }
-  .node-label{
-    font-family:'Do Hyeon', sans-serif; font-size:15px; fill:var(--ink);
-    text-anchor:middle; dominant-baseline:middle;
-  }
-  .thread{
-    fill:none; stroke:#E8425F; stroke-width:2.5; stroke-linecap:round;
-    transition: stroke-dashoffset 0.9s cubic-bezier(.4,0,.2,1);
-  }
-  .knot{
+  .puzzle-svg{ width:180px; height:150px; overflow:visible; }
+  .piece{ transition: transform 0.8s cubic-bezier(.4,0,.2,1); transform-origin: center; }
+  .piece-left{ transform:translateX(-28px); }
+  .piece-right{ transform:translateX(28px); }
+  .scroll.closing .piece-left,
+  .scroll.closing .piece-right{ transform:translateX(0); }
+  .scroll.merged .piece{ animation: piece-settle 0.4s cubic-bezier(.34,1.56,.64,1) both; }
+  @keyframes piece-settle{ 0%{transform:scale(1);} 45%{transform:scale(1.06);} 100%{transform:scale(1);} }
+  .piece-shape{ stroke:#150A0E; stroke-width:2; }
+  .piece-left .piece-shape{ fill:var(--plum); }
+  .piece-right .piece-shape{ fill:#FCEFF4; }
+  .piece-label{ font-family:'Do Hyeon', sans-serif; font-size:16px; text-anchor:middle; dominant-baseline:middle; }
+  .piece-left .piece-label{ fill:#fff; }
+  .piece-right .piece-label{ fill:var(--plum); }
+  .spark{
     font-size:0; opacity:0; text-anchor:middle; dominant-baseline:middle;
-    transition: font-size 0.3s ease, opacity 0.3s ease;
+    transition: font-size 0.25s ease, opacity 0.25s ease;
   }
-  .scroll.merged .knot{
-    font-size:30px; opacity:1;
-    animation: knot-pop 0.4s cubic-bezier(.34,1.56,.64,1) 0.75s both;
-  }
-  @keyframes knot-pop{ 0%{ transform:scale(0.3); } 55%{ transform:scale(1.25); } 100%{ transform:scale(1); } }
+  .scroll.merged .spark{ font-size:22px; opacity:1; }
+  .scroll.merged .spark.spark-2{ transition-delay:0.08s; }
   .scroll.landed{ animation: scroll-pop 0.36s cubic-bezier(.34,1.56,.64,1); }
   @keyframes scroll-pop{ 0%{transform:scale(0.86);} 55%{transform:scale(1.08);} 100%{transform:scale(1);} }
 
@@ -148,15 +147,17 @@
   </div>
 
   <div class="scroll" id="scroll">
-    <svg class="thread-svg" viewBox="0 0 180 150">
-      <path id="threadPath" class="thread" d="M28,75 C75,35 105,115 152,75" />
-      <circle class="node-glow" cx="28" cy="75" r="19" />
-      <circle class="node-glow" cx="152" cy="75" r="19" />
-      <circle class="node" cx="28" cy="75" r="17" />
-      <circle class="node" cx="152" cy="75" r="17" />
-      <text class="node-label" id="labelLeft" x="28" y="76">?</text>
-      <text class="node-label" id="labelRight" x="152" y="76">?</text>
-      <text class="knot" id="knotEmoji" x="90" y="78">🧵</text>
+    <svg class="puzzle-svg" viewBox="0 0 200 130">
+      <g class="piece piece-left">
+        <path class="piece-shape" d="M16,30 L86,30 L86,51 A14,14 0 0 1 86,79 L86,100 L16,100 Z" />
+        <text class="piece-label" id="labelLeft" x="46" y="66">?</text>
+      </g>
+      <g class="piece piece-right">
+        <path class="piece-shape" d="M156,30 L86,30 L86,51 A14,14 0 0 0 86,79 L86,100 L156,100 Z" />
+        <text class="piece-label" id="labelRight" x="126" y="66">?</text>
+      </g>
+      <text class="spark spark-1" x="70" y="38">✨</text>
+      <text class="spark spark-2" x="102" y="94">✨</text>
     </svg>
   </div>
 
@@ -249,12 +250,6 @@
 
   let spinning = false;
 
-  // 실이 그려지는 길이를 미리 측정해서 dasharray/dashoffset에 반영
-  const threadPath = $('threadPath');
-  const threadLength = threadPath.getTotalLength();
-  threadPath.style.strokeDasharray = threadLength;
-  threadPath.style.strokeDashoffset = threadLength;
-
   $('pullBtn').addEventListener('click', () => {
     if (spinning) return;
 
@@ -270,21 +265,18 @@
 
     const scroll = $('scroll');
 
-    // 애니메이션 초기화: 실이 아직 그려지지 않은 상태로 되돌림
-    scroll.classList.remove('merged', 'landed');
+    // 애니메이션 초기화: 두 퍼즐 조각이 각자 이름 첫 글자를 달고 떨어져서 시작
+    scroll.classList.remove('closing', 'merged', 'landed');
     $('labelLeft').textContent = n1.charAt(0);
     $('labelRight').textContent = n2.charAt(0);
-    threadPath.style.transition = 'none';
-    threadPath.style.strokeDashoffset = threadLength;
-    void threadPath.getBoundingClientRect(); // 리플로우 강제 (트랜지션 재시작용)
-    threadPath.style.transition = '';
+    void scroll.offsetWidth; // 리플로우 강제 (트랜지션 재시작용)
 
-    // 붉은 실이 두 이름 사이를 이어준 뒤 매듭이 지어지는 연출
-    threadPath.style.strokeDashoffset = 0;
+    // 두 퍼즐 조각이 가운데로 다가와 딱 맞물리는 연출
+    scroll.classList.add('closing');
 
     setTimeout(() => {
       scroll.classList.add('merged');
-    }, 900);
+    }, 800);
 
     setTimeout(() => {
       scroll.classList.add('landed');
@@ -292,7 +284,7 @@
       spinning = false;
       $('pullBtn').disabled = false;
       reveal(n1, n2);
-    }, 900 + 450);
+    }, 800 + 400);
   });
 
   function reveal(n1, n2){
