@@ -192,6 +192,32 @@
   details.subsection .cards{
     padding: 0 2px 4px;
   }
+
+  .search-row{ margin-bottom: 20px; }
+  #toolSearch{
+    width: 100%;
+    font-family: 'Pretendard', sans-serif;
+    font-size: 14px;
+    color: var(--ink);
+    background: #fff;
+    border: 1.5px solid #DCD6C1;
+    border-radius: 6px;
+    padding: 12px 14px;
+    outline: none;
+    transition: border-color 0.15s ease;
+  }
+  #toolSearch::placeholder{ color: var(--muted); }
+  #toolSearch:focus{ border-color: var(--navy); }
+
+  .no-result{
+    text-align: center;
+    font-size: 13.5px;
+    color: var(--muted);
+    padding: 28px 0;
+  }
+
+  .card.hidden{ display: none !important; }
+  details.subsection.hidden{ display: none !important; }
 </style>
 <!-- Google AdSense -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6883245122372170" crossorigin="anonymous"></script>
@@ -208,6 +234,11 @@
     <h2>하루콕는 이런 곳이에요</h2>
     <p>회원가입이나 로그인 없이, 필요한 도구를 바로 쓸 수 있게 만든 사이트입니다. 실용 계산기는 최신 요율·법령을 반영해 만들었고, 재미 도구는 고민되는 순간을 가볍게 해결해드립니다. 입력한 정보는 서버로 전송되지 않고 이 기기 안에서만 처리됩니다.</p>
   </div>
+
+  <div class="search-row">
+    <input type="text" id="toolSearch" placeholder="도구 이름으로 검색 (예: 연봉, 반려동물, 로또)">
+  </div>
+  <div class="no-result" id="noSearchResult" style="display:none;">검색 결과가 없어요. 다른 키워드로 찾아보세요.</div>
 
   <section id="sectionUtility">
     <div class="section-label">실용 도구</div>
@@ -444,6 +475,52 @@
       toast.classList.add('visible');
       setTimeout(() => toast.classList.remove('visible'), 2200);
     }).catch(() => { /* 클립보드 권한 없으면 조용히 무시, mailto는 그대로 동작 */ });
+  });
+})();
+</script>
+
+<script>
+(function(){
+  const input = document.getElementById('toolSearch');
+  const noResult = document.getElementById('noSearchResult');
+  const subsections = Array.from(document.querySelectorAll('details.subsection'));
+  if (!input || !subsections.length) return;
+
+  const openState = new WeakMap();
+  subsections.forEach(sec => openState.set(sec, sec.hasAttribute('open')));
+
+  input.addEventListener('input', () => {
+    const q = input.value.trim().toLowerCase();
+
+    if (!q) {
+      subsections.forEach(sec => {
+        sec.classList.remove('hidden');
+        sec.querySelectorAll('.card').forEach(card => card.classList.remove('hidden'));
+        sec.open = openState.get(sec);
+      });
+      noResult.style.display = 'none';
+      return;
+    }
+
+    let anyMatch = false;
+
+    subsections.forEach(sec => {
+      let sectionHasMatch = false;
+      sec.querySelectorAll('.card').forEach(card => {
+        const name = card.querySelector('.name')?.textContent.toLowerCase() || '';
+        const desc = card.querySelector('.desc')?.textContent.toLowerCase() || '';
+        const match = name.includes(q) || desc.includes(q);
+        card.classList.toggle('hidden', !match);
+        if (match) sectionHasMatch = true;
+      });
+      sec.classList.toggle('hidden', !sectionHasMatch);
+      if (sectionHasMatch) {
+        sec.open = true;
+        anyMatch = true;
+      }
+    });
+
+    noResult.style.display = anyMatch ? 'none' : 'block';
   });
 })();
 </script>
