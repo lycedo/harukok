@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>시급 계산기 - 2026년 최저임금 자동 비교</title>
+<meta name="description" content="시급으로 월급을, 월급으로 시급을 서로 환산하고 2026년 최저임금(10,320원) 미달 여부를 바로 확인합니다.">
+<link rel="canonical" href="https://harukok.com/tools/hourly-wage-calculator">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700&family=Pretendard:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #ECE8DC;
+    --paper-light: #F7F4EA;
+    --ink: #16233D;
+    --ink-soft: #45516A;
+    --muted: #6E6656;
+    --line: #B7AF98;
+    --stamp: #B23A2E;
+  }
+  *{ box-sizing: border-box; }
+  body{
+    margin:0;
+    padding: 40px 20px 70px;
+    background: var(--paper);
+    background-image: repeating-linear-gradient(0deg, rgba(0,0,0,0.015) 0px, rgba(0,0,0,0.015) 1px, transparent 1px, transparent 3px);
+    font-family: 'Pretendard', -apple-system, sans-serif;
+    color: var(--ink);
+    display:flex;
+    justify-content:center;
+  }
+  .stub{ width:100%; max-width: 560px; }
+  .kicker{ font-size:13px; color:var(--muted); margin-bottom:6px; }
+  h1{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:30px; line-height:1.35; margin:0 0 8px; }
+  .lede{ font-size:14.5px; color:var(--ink-soft); line-height:1.6; margin:0 0 32px; max-width:46ch; }
+  .card{ background:var(--paper-light); border:1px solid var(--line); border-radius:14px; padding:32px; margin-bottom:28px; }
+  .field{ margin-bottom:20px; }
+  .field:last-child{ margin-bottom:0; }
+  .field.hidden{ display:none; }
+  .field label{ display:block; font-size:13.5px; color:var(--ink-soft); margin-bottom:8px; }
+  .field-hint{ display:block; font-size:12px; color:var(--muted); margin-top:6px; }
+  .input-row{ display:flex; align-items:baseline; border-bottom:1.5px solid var(--ink); padding-bottom:6px; }
+  .input-row input{ flex:1; border:none; background:transparent; font-family:'IBM Plex Mono', monospace; font-size:20px; font-weight:600; color:var(--ink); outline:none; padding:4px 0; width:100%; }
+  .input-row .unit{ font-size:14px; color:var(--muted); margin-left:8px; }
+  .seg{ display:flex; gap:8px; margin-bottom:24px; }
+  .seg button{ flex:1; padding:10px; border:1.5px solid var(--line); border-radius:10px; background:var(--paper-light); color:var(--ink-soft); font-size:13px; font-weight:600; cursor:pointer; }
+  .seg button.active{ background:var(--ink); border-color:var(--ink); color:var(--paper-light); }
+  .calc-btn{ width:100%; padding:16px; margin-top:8px; background:var(--ink); color:var(--paper-light); border:none; border-radius:14px; font-weight:600; font-size:15.5px; cursor:pointer; box-shadow:0 4px 0 rgba(0,0,0,0.28); }
+  .calc-btn:hover{ background:var(--ink-soft); }
+  .calc-btn:active{ transform:translateY(3px); box-shadow:0 1px 0 rgba(0,0,0,0.28); }
+  .result-card{ padding-top:32px; }
+  .result-card.hidden{ display:none; }
+  .result-label{ font-size:13.5px; color:var(--ink-soft); margin-bottom:4px; }
+  .result-amount{ font-family:'IBM Plex Mono', monospace; font-weight:600; font-size:38px; color:var(--stamp); line-height:1.1; margin-bottom:4px; }
+  .result-amount .unit{ font-size:18px; margin-left:2px; }
+  .breakdown{ border-top:1px solid var(--line); padding-top:20px; margin-top:16px; }
+  .breakdown-row{ display:flex; justify-content:space-between; align-items:baseline; font-size:14px; padding:9px 0; color:var(--ink-soft); }
+  .breakdown-row .amount{ font-family:'IBM Plex Mono', monospace; color:var(--ink); font-weight:600; font-size:16px; }
+  .warning{ background:#FBEFE9; border:1px solid #E3B79E; border-radius:10px; padding:16px; font-size:13.5px; color:#8A3E1F; line-height:1.6; margin-top:16px; }
+  .ok-badge{ background:#EAF3EA; border:1px solid #B7D3B7; border-radius:10px; padding:16px; font-size:13.5px; color:#2F5D2F; line-height:1.6; margin-top:16px; }
+  .disclaimer{ font-size:11.5px; color:var(--muted); line-height:1.6; margin-top:24px; padding-top:16px; border-top:1px dotted var(--line); }
+  .slot{ border:1.5px dashed var(--line); border-radius:10px; padding:18px; text-align:center; font-size:12px; color:var(--muted); margin-top:24px; }
+  @media (max-width:480px){ .card{ padding:24px; } h1{ font-size:25px; } .result-amount{ font-size:32px; } }
+
+  .info-block{ margin-top:40px; }
+  .info-block h2{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:18px; margin:0 0 12px; }
+  .info-block p{ font-size:13.5px; line-height:1.7; color:var(--ink-soft); margin:0 0 14px; }
+  .faq-item{ margin-bottom:16px; }
+  .faq-item .q{ font-size:14px; font-weight:600; margin-bottom:5px; }
+  .faq-item .a{ font-size:13.5px; line-height:1.65; color:var(--ink-soft); }
+
+  .related{ margin-top:32px; padding-top:20px; border-top:1px solid var(--line); }
+  .related-title{ font-size:12.5px; color:var(--muted); margin-bottom:10px; }
+  .related-links{ display:flex; flex-wrap:wrap; gap:8px; }
+  .related-links a{ padding:8px 14px; border:1.5px solid var(--line); border-radius:999px; font-size:13px; color:var(--ink); text-decoration:none; }
+  .related-links a:hover{ border-color:var(--ink); }
+
+  .back-home{ display:inline-block; font-size:12.5px; color:var(--muted); text-decoration:none; margin-bottom:14px; }
+  .back-home:hover{ color:var(--ink); }
+</style>
+<!-- Google AdSense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6883245122372170" crossorigin="anonymous"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "2026년 최저시급은 얼마인가요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "2026년 최저시급은 10,320원입니다. 주 40시간 근무 기준 최저월급은 주휴수당을 포함해 약 2,156,880원입니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "월급을 시급으로 환산할 때 왜 주휴시간을 더하나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "월급에는 실제 근무한 시간 외에 유급으로 처리되는 주휴수당분도 포함되어 있는 경우가 많아, 정확한 시급을 구하려면 주휴시간을 포함한 총 근로시간으로 나눠야 합니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "최저임금보다 낮으면 어떻게 해야 하나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "최저임금 미달은 근로기준법 위반으로, 사업주는 형사처벌 대상이 될 수 있습니다. 고용노동부 고객상담센터(국번없이 1350)나 사업장 관할 노동청에 신고할 수 있습니다."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<div class="stub">
+  <a href="/" class="back-home">← 하루콕 홈으로</a>
+  <div class="kicker">급여·근로</div>
+  <h1>시급 계산기</h1>
+  <p class="lede">시급↔월급을 서로 환산하고, 2026년 최저임금(10,320원) 미달 여부를 바로 확인합니다.</p>
+
+  <div class="card">
+    <div class="seg" id="modeSeg">
+      <button type="button" class="active" data-value="toMonthly">시급 → 월급</button>
+      <button type="button" data-value="toHourly">월급 → 시급</button>
+    </div>
+
+    <div class="field" id="hourlyWageField">
+      <label for="hourlyWage">시급 (원)</label>
+      <div class="input-row">
+        <input type="number" id="hourlyWage" value="10320" inputmode="numeric">
+      </div>
+      <span class="field-hint">2026년 최저시급은 10,320원입니다.</span>
+    </div>
+
+    <div class="field hidden" id="monthlyWageField">
+      <label for="monthlyWage">월급 (세전, 만원)</label>
+      <div class="input-row">
+        <input type="number" id="monthlyWage" placeholder="예: 220" inputmode="numeric">
+        <span class="unit">만원</span>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="dailyHours">하루 근무시간 (시간)</label>
+      <div class="input-row">
+        <input type="number" id="dailyHours" placeholder="예: 8" inputmode="numeric">
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="weeklyDays">주 근무일수 (일)</label>
+      <div class="input-row">
+        <input type="number" id="weeklyDays" placeholder="예: 5" inputmode="numeric">
+      </div>
+      <span class="field-hint">주 15시간 이상이면 주휴수당이 자동으로 포함되어 계산됩니다.</span>
+    </div>
+
+    <button class="calc-btn" id="calcBtn">계산하기</button>
+  </div>
+
+  <div class="card result-card hidden" id="resultCard"></div>
+
+  <!-- ===== 광고 삽입 영역 ===== -->
+  <ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-6883245122372170"
+     data-ad-slot="0000000000"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+
+  <div class="info-block">
+    <h2>월급은 어떻게 계산되나요?</h2>
+    <p>주 소정근로시간이 15시간 이상이면 주휴수당(주 소정근로시간 ÷ 40, 최대 1 × 8시간분)이 유급으로 추가됩니다. 여기에 한 달 평균 주 수(4.345주)를 곱해 월급으로 환산합니다. 반대로 월급을 시급으로 환산할 때도 같은 방식으로 주휴시간을 포함한 총 근로시간으로 나눕니다.</p>
+
+    <div class="faq-item">
+      <div class="q">2026년 최저시급은 얼마인가요?</div>
+      <div class="a">2026년 최저시급은 10,320원입니다. 주 40시간 근무 기준 최저월급은 주휴수당을 포함해 약 2,156,880원입니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">월급을 시급으로 환산할 때 왜 주휴시간을 더하나요?</div>
+      <div class="a">월급에는 실제 근무한 시간 외에 유급으로 처리되는 주휴수당분도 포함되어 있는 경우가 많아, 정확한 시급을 구하려면 주휴시간을 포함한 총 근로시간으로 나눠야 합니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">최저임금보다 낮으면 어떻게 해야 하나요?</div>
+      <div class="a">최저임금 미달은 근로기준법 위반으로, 사업주는 형사처벌 대상이 될 수 있습니다. 고용노동부 고객상담센터(국번없이 1350)나 사업장 관할 노동청에 신고할 수 있습니다.</div>
+    </div>
+  </div>
+
+  <div class="related">
+    <div class="related-title">함께 보면 좋은 도구</div>
+    <div class="related-links">
+      <a href="/tools/weekly-holiday-pay-calculator">주휴수당 계산기</a>
+      <a href="/tools/salary-calculator">연봉 실수령액 계산기</a>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const $ = (id) => document.getElementById(id);
+  const MIN_WAGE_2026 = 10320;
+  const WEEKS_PER_MONTH = 4.345;
+
+  let mode = 'toMonthly';
+
+  document.querySelectorAll('#modeSeg button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      mode = btn.dataset.value;
+      document.querySelectorAll('#modeSeg button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      $('hourlyWageField').classList.toggle('hidden', mode !== 'toMonthly');
+      $('monthlyWageField').classList.toggle('hidden', mode !== 'toHourly');
+      $('resultCard').classList.add('hidden');
+    });
+  });
+
+  function won(n){
+    return Math.round(n).toLocaleString('ko-KR');
+  }
+
+  function weeklyHolidayHours(weeklyHours){
+    if (weeklyHours < 15) return 0;
+    return Math.min(weeklyHours / 40, 1) * 8;
+  }
+
+  function calculate(){
+    const dailyHours = parseFloat($('dailyHours').value) || 0;
+    const weeklyDays = parseFloat($('weeklyDays').value) || 0;
+    const resultCard = $('resultCard');
+
+    if (dailyHours <= 0 || weeklyDays <= 0){
+      resultCard.classList.add('hidden');
+      return;
+    }
+
+    const weeklyHours = dailyHours * weeklyDays;
+    const holidayHours = weeklyHolidayHours(weeklyHours);
+    const totalWeeklyHours = weeklyHours + holidayHours;
+    const monthlyHours = totalWeeklyHours * WEEKS_PER_MONTH;
+
+    if (mode === 'toMonthly'){
+      const hourlyWage = parseFloat($('hourlyWage').value) || 0;
+      if (hourlyWage <= 0){ resultCard.classList.add('hidden'); return; }
+
+      const monthlyPay = hourlyWage * monthlyHours;
+      const belowMinWage = hourlyWage < MIN_WAGE_2026;
+
+      resultCard.innerHTML = `
+        <div class="result-label">예상 월급 (세전)</div>
+        <div class="result-amount">${won(monthlyPay)}<span class="unit">원</span></div>
+        <div class="breakdown">
+          <div class="breakdown-row"><span>주 근로시간</span><span class="amount">${weeklyHours}시간</span></div>
+          <div class="breakdown-row"><span>주휴시간(주휴수당분)</span><span class="amount">${holidayHours.toFixed(1)}시간</span></div>
+          <div class="breakdown-row"><span>월 환산 근로시간</span><span class="amount">${monthlyHours.toFixed(1)}시간</span></div>
+        </div>
+        ${belowMinWage
+          ? `<div class="warning">입력한 시급 ${won(hourlyWage)}원은 2026년 최저시급(10,320원)보다 낮습니다.</div>`
+          : `<div class="ok-badge">2026년 최저시급(10,320원) 이상입니다.</div>`}
+        <div class="disclaimer">소정근로일을 개근했다는 전제의 근사치이며, 실제 급여명세서와는 차이가 있을 수 있습니다.</div>
+      `;
+    } else {
+      const monthlyWage = (parseFloat($('monthlyWage').value) || 0) * 10000;
+      if (monthlyWage <= 0){ resultCard.classList.add('hidden'); return; }
+
+      const impliedHourly = monthlyWage / monthlyHours;
+      const belowMinWage = impliedHourly < MIN_WAGE_2026;
+
+      resultCard.innerHTML = `
+        <div class="result-label">환산 시급</div>
+        <div class="result-amount">${won(impliedHourly)}<span class="unit">원</span></div>
+        <div class="breakdown">
+          <div class="breakdown-row"><span>주 근로시간</span><span class="amount">${weeklyHours}시간</span></div>
+          <div class="breakdown-row"><span>주휴시간(주휴수당분)</span><span class="amount">${holidayHours.toFixed(1)}시간</span></div>
+          <div class="breakdown-row"><span>월 환산 근로시간</span><span class="amount">${monthlyHours.toFixed(1)}시간</span></div>
+        </div>
+        ${belowMinWage
+          ? `<div class="warning">환산 시급이 2026년 최저시급(10,320원)보다 낮습니다.</div>`
+          : `<div class="ok-badge">2026년 최저시급(10,320원) 이상입니다.</div>`}
+        <div class="disclaimer">소정근로일을 개근했다는 전제의 근사치이며, 실제 급여명세서와는 차이가 있을 수 있습니다.</div>
+      `;
+    }
+
+    resultCard.classList.remove('hidden');
+  }
+
+  $('calcBtn').addEventListener('click', calculate);
+})();
+</script>
+
+</body>
+</html>
