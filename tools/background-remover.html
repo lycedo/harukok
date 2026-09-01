@@ -54,6 +54,13 @@
   .workspace{ display:none; margin-top:24px; }
   .workspace.visible{ display:block; }
 
+  .sample-tag{
+    display:none; background:var(--paper); border:1px dashed var(--line); border-radius:10px;
+    padding:9px 12px; font-size:12.5px; color:var(--ink-soft); text-align:center; margin-bottom:16px; font-weight:600;
+  }
+  .workspace.sample-mode .sample-tag{ display:block; }
+  .workspace.sample-mode .editor-only{ display:none; }
+
   .canvas-row{ display:flex; gap:14px; margin-bottom:20px; flex-wrap:wrap; }
   .canvas-box{ flex:1; min-width:180px; text-align:center; }
   .canvas-box .caption{ font-size:12.5px; color:var(--muted); margin-bottom:6px; }
@@ -155,7 +162,9 @@
     <input type="file" id="fileInput" accept="image/*">
 
     <div class="workspace" id="workspace">
-      <div class="field" style="margin-top:20px;">
+      <div class="sample-tag" id="sampleTag">👀 예시 미리보기 — 실제로는 이렇게 나와요</div>
+
+      <div class="field editor-only" style="margin-top:20px;">
         <label for="thresholdRange">민감도 (밝을수록 많이 지워짐)</label>
         <div class="slider-row">
           <input type="range" id="thresholdRange" min="200" max="255" value="245">
@@ -244,6 +253,24 @@
     if (fileInput.files && fileInput.files[0]) loadFile(fileInput.files[0]);
   });
 
+  function showImage(img){
+    currentImage = img;
+    const maxW = 480;
+    const scale = Math.min(1, maxW / img.width);
+    const w = Math.round(img.width * scale);
+    const h = Math.round(img.height * scale);
+
+    originalCanvas.width = w;
+    originalCanvas.height = h;
+    originalCanvas.getContext('2d').drawImage(img, 0, 0, w, h);
+
+    resultCanvas.width = w;
+    resultCanvas.height = h;
+
+    workspace.classList.add('visible');
+    applyThreshold();
+  }
+
   function loadFile(file){
     if (!file.type.startsWith('image/')){
       alert('이미지 파일만 업로드할 수 있어요.');
@@ -253,25 +280,36 @@
     reader.onload = (e) => {
       const img = new Image();
       img.onload = () => {
-        currentImage = img;
-        const maxW = 480;
-        const scale = Math.min(1, maxW / img.width);
-        const w = Math.round(img.width * scale);
-        const h = Math.round(img.height * scale);
-
-        originalCanvas.width = w;
-        originalCanvas.height = h;
-        originalCanvas.getContext('2d').drawImage(img, 0, 0, w, h);
-
-        resultCanvas.width = w;
-        resultCanvas.height = h;
-
-        workspace.classList.add('visible');
-        applyThreshold();
+        workspace.classList.remove('sample-mode');
+        showImage(img);
       };
       img.src = e.target.result;
     };
     reader.readAsDataURL(file);
+  }
+
+  // 페이지 진입 시 바로 예시로 보여줄 샘플 이미지 생성 (흰 배경 + 사과 이모지)
+  function buildSampleDataUrl(){
+    const sc = document.createElement('canvas');
+    sc.width = 300;
+    sc.height = 300;
+    const sctx = sc.getContext('2d');
+    sctx.fillStyle = '#ffffff';
+    sctx.fillRect(0, 0, sc.width, sc.height);
+    sctx.font = '150px sans-serif';
+    sctx.textAlign = 'center';
+    sctx.textBaseline = 'middle';
+    sctx.fillText('🍎', sc.width / 2, sc.height / 2 + 6);
+    return sc.toDataURL('image/png');
+  }
+
+  function loadSample(){
+    const img = new Image();
+    img.onload = () => {
+      workspace.classList.add('sample-mode');
+      showImage(img);
+    };
+    img.src = buildSampleDataUrl();
   }
 
   function applyThreshold(){
@@ -324,8 +362,12 @@
   $('resetBtn').addEventListener('click', () => {
     currentImage = null;
     workspace.classList.remove('visible');
+    workspace.classList.remove('sample-mode');
     fileInput.value = '';
   });
+
+  // 페이지 진입 시 바로 예시로 샘플 결과를 보여줌
+  loadSample();
 })();
 </script>
 
