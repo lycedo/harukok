@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>연차수당 계산기 - 미사용 연차 통상임금 자동 계산</title>
+<meta name="description" content="월 통상임금과 미사용 연차일수를 입력하면 1일 통상임금과 총 연차수당을 바로 계산합니다.">
+<link rel="canonical" href="https://harukok.com/tools/annual-leave-pay-calculator">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700&family=Pretendard:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #ECE8DC;
+    --paper-light: #F7F4EA;
+    --ink: #16233D;
+    --ink-soft: #45516A;
+    --muted: #6E6656;
+    --line: #B7AF98;
+    --stamp: #B23A2E;
+  }
+  *{ box-sizing: border-box; }
+  body{
+    margin:0;
+    padding: 40px 20px 70px;
+    background: var(--paper);
+    background-image: repeating-linear-gradient(0deg, rgba(0,0,0,0.015) 0px, rgba(0,0,0,0.015) 1px, transparent 1px, transparent 3px);
+    font-family: 'Pretendard', -apple-system, sans-serif;
+    color: var(--ink);
+    display:flex;
+    justify-content:center;
+  }
+  .stub{ width:100%; max-width: 560px; }
+  .kicker{ font-size:13px; color:var(--muted); margin-bottom:6px; }
+  h1{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:30px; line-height:1.35; margin:0 0 8px; }
+  .lede{ font-size:14.5px; color:var(--ink-soft); line-height:1.6; margin:0 0 32px; max-width:46ch; }
+  .card{ background:var(--paper-light); border:1px solid var(--line); border-radius:14px; padding:32px; margin-bottom:28px; }
+  .field{ margin-bottom:20px; }
+  .field:last-child{ margin-bottom:0; }
+  .field label{ display:block; font-size:13.5px; color:var(--ink-soft); margin-bottom:8px; }
+  .field-hint{ display:block; font-size:12px; color:var(--muted); margin-top:6px; }
+  .input-row{ display:flex; align-items:baseline; border-bottom:1.5px solid var(--ink); padding-bottom:6px; }
+  .input-row input{ flex:1; border:none; background:transparent; font-family:'IBM Plex Mono', monospace; font-size:20px; font-weight:600; color:var(--ink); outline:none; padding:4px 0; width:100%; }
+  .input-row .unit{ font-size:14px; color:var(--muted); margin-left:8px; }
+  .calc-btn{ width:100%; padding:16px; margin-top:8px; background:var(--ink); color:var(--paper-light); border:none; border-radius:14px; font-weight:600; font-size:15.5px; cursor:pointer; box-shadow:0 4px 0 rgba(0,0,0,0.28); }
+  .calc-btn:hover{ background:var(--ink-soft); }
+  .calc-btn:active{ transform:translateY(3px); box-shadow:0 1px 0 rgba(0,0,0,0.28); }
+  .result-card{ padding-top:32px; }
+  .result-card.hidden{ display:none; }
+  .result-label{ font-size:13.5px; color:var(--ink-soft); margin-bottom:4px; }
+  .result-amount{ font-family:'IBM Plex Mono', monospace; font-weight:600; font-size:38px; color:var(--stamp); line-height:1.1; margin-bottom:4px; }
+  .result-amount .unit{ font-size:18px; margin-left:2px; }
+  .breakdown{ border-top:1px solid var(--line); padding-top:20px; margin-top:16px; }
+  .breakdown-row{ display:flex; justify-content:space-between; align-items:baseline; font-size:14px; padding:9px 0; color:var(--ink-soft); }
+  .breakdown-row .amount{ font-family:'IBM Plex Mono', monospace; color:var(--ink); font-weight:600; font-size:16px; }
+  .disclaimer{ font-size:11.5px; color:var(--muted); line-height:1.6; margin-top:24px; padding-top:16px; border-top:1px dotted var(--line); }
+  .slot{ border:1.5px dashed var(--line); border-radius:10px; padding:18px; text-align:center; font-size:12px; color:var(--muted); margin-top:24px; }
+  @media (max-width:480px){ .card{ padding:24px; } h1{ font-size:25px; } .result-amount{ font-size:32px; } }
+
+  .info-block{ margin-top:40px; }
+  .info-block h2{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:18px; margin:0 0 12px; }
+  .info-block p{ font-size:13.5px; line-height:1.7; color:var(--ink-soft); margin:0 0 14px; }
+  .faq-item{ margin-bottom:16px; }
+  .faq-item .q{ font-size:14px; font-weight:600; margin-bottom:5px; }
+  .faq-item .a{ font-size:13.5px; line-height:1.65; color:var(--ink-soft); }
+
+  .related{ margin-top:32px; padding-top:20px; border-top:1px solid var(--line); }
+  .related-title{ font-size:12.5px; color:var(--muted); margin-bottom:10px; }
+  .related-links{ display:flex; flex-wrap:wrap; gap:8px; }
+  .related-links a{ padding:8px 14px; border:1.5px solid var(--line); border-radius:999px; font-size:13px; color:var(--ink); text-decoration:none; }
+  .related-links a:hover{ border-color:var(--ink); }
+
+  .back-home{ display:inline-block; font-size:12.5px; color:var(--muted); text-decoration:none; margin-bottom:14px; }
+  .back-home:hover{ color:var(--ink); }
+</style>
+<!-- Google AdSense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6883245122372170" crossorigin="anonymous"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "연차수당은 어떤 임금 기준으로 계산하나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "통상임금(또는 평균임금) 기준 1일 임금 × 미사용 연차일수로 계산합니다. 통상임금은 기본급뿐 아니라 매달 정기적·일률적으로 지급되는 고정 수당도 포함됩니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "퇴사할 때 남은 연차는 무조건 수당으로 받나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "회사가 연차 사용을 적극적으로 독려(연차사용촉진제도)했는데도 근로자가 사용하지 않은 경우가 아니라면, 퇴사 시 미사용 연차는 원칙적으로 수당으로 정산해야 합니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "1일 통상임금은 어떻게 구하나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "월 통상임금을 월 소정근로시간(주 40시간 기준 209시간)으로 나눠 시급을 구한 뒤, 8시간을 곱해서 계산합니다. 이 계산기는 이 과정을 자동으로 처리합니다."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<div class="stub">
+  <a href="/" class="back-home">← 하루콕 홈으로</a>
+  <div class="kicker">급여·근로</div>
+  <h1>연차수당 계산기</h1>
+  <p class="lede">월 통상임금과 미사용 연차일수를 입력하면 1일 통상임금과 총 연차수당을 바로 계산합니다.</p>
+
+  <div class="card">
+    <div class="field">
+      <label for="monthlyWage">월 통상임금 (세전, 만원)</label>
+      <div class="input-row">
+        <input type="number" id="monthlyWage" placeholder="예: 300" inputmode="numeric">
+        <span class="unit">만원</span>
+      </div>
+      <span class="field-hint">기본급과 매달 정기적으로 받는 고정 수당(직책수당 등)을 합산한 금액입니다.</span>
+    </div>
+
+    <div class="field">
+      <label for="unusedDays">미사용 연차일수</label>
+      <div class="input-row">
+        <input type="number" id="unusedDays" placeholder="예: 5" inputmode="numeric">
+        <span class="unit">일</span>
+      </div>
+      <span class="field-hint">올해 발생했지만 아직 쓰지 않은 연차 일수입니다.</span>
+    </div>
+
+    <button class="calc-btn" id="calcBtn">연차수당 계산하기</button>
+  </div>
+
+  <div class="card result-card hidden" id="resultCard">
+    <div class="result-label">총 연차수당</div>
+    <div class="result-amount" id="totalAmount">0<span class="unit">원</span></div>
+
+    <div class="breakdown" id="breakdown"></div>
+
+    <div class="disclaimer">
+      월 소정근로시간을 209시간(주 40시간 기준)으로 가정한 근사치입니다. 통상임금 범위 판단, 연차사용촉진제도 적용 여부 등 세부 사항은 근로계약서와 고용노동부 기준을 함께 확인하세요.
+    </div>
+  </div>
+
+  <!-- ===== 광고 삽입 영역 ===== -->
+  <ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-6883245122372170"
+     data-ad-slot="0000000000"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+
+  <div class="info-block">
+    <h2>연차수당은 어떻게 계산되나요?</h2>
+    <p>연차수당 = 1일 통상임금 × 미사용 연차일수로 계산합니다. 1일 통상임금은 월 통상임금을 월 소정근로시간(주 40시간 기준 209시간)으로 나눠 시급을 구한 뒤 8시간을 곱해서 구합니다. 통상임금에는 기본급 외에도 매달 정기적·일률적으로 지급되는 고정 수당이 포함됩니다.</p>
+
+    <div class="faq-item">
+      <div class="q">연차수당은 어떤 임금 기준으로 계산하나요?</div>
+      <div class="a">통상임금(또는 평균임금) 기준 1일 임금 × 미사용 연차일수로 계산합니다. 통상임금은 기본급뿐 아니라 매달 정기적·일률적으로 지급되는 고정 수당도 포함됩니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">퇴사할 때 남은 연차는 무조건 수당으로 받나요?</div>
+      <div class="a">회사가 연차 사용을 적극적으로 독려(연차사용촉진제도)했는데도 근로자가 사용하지 않은 경우가 아니라면, 퇴사 시 미사용 연차는 원칙적으로 수당으로 정산해야 합니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">1일 통상임금은 어떻게 구하나요?</div>
+      <div class="a">월 통상임금을 월 소정근로시간(주 40시간 기준 209시간)으로 나눠 시급을 구한 뒤, 8시간을 곱해서 계산합니다. 이 계산기는 이 과정을 자동으로 처리합니다.</div>
+    </div>
+  </div>
+
+  <div class="related">
+    <div class="related-title">함께 보면 좋은 도구</div>
+    <div class="related-links">
+      <a href="/tools/weekly-holiday-pay-calculator">주휴수당 계산기</a>
+      <a href="/tools/severance-pay-calculator">퇴직금 계산기</a>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const $ = (id) => document.getElementById(id);
+  const MONTHLY_HOURS = 209;
+
+  function won(n){
+    return Math.round(n).toLocaleString('ko-KR');
+  }
+
+  function calculate(){
+    const monthlyWage = (parseFloat($('monthlyWage').value) || 0) * 10000;
+    const unusedDays = parseFloat($('unusedDays').value) || 0;
+
+    if (monthlyWage <= 0 || unusedDays <= 0){
+      $('resultCard').classList.add('hidden');
+      return;
+    }
+
+    const hourlyWage = monthlyWage / MONTHLY_HOURS;
+    const dailyWage = hourlyWage * 8;
+    const total = dailyWage * unusedDays;
+
+    $('totalAmount').innerHTML = won(total) + '<span class="unit">원</span>';
+    $('breakdown').innerHTML = `
+      <div class="breakdown-row"><span>환산 시급</span><span class="amount">${won(hourlyWage)}원</span></div>
+      <div class="breakdown-row"><span>1일 통상임금</span><span class="amount">${won(dailyWage)}원</span></div>
+      <div class="breakdown-row"><span>미사용 연차일수</span><span class="amount">${unusedDays}일</span></div>
+    `;
+    $('resultCard').classList.remove('hidden');
+  }
+
+  $('calcBtn').addEventListener('click', calculate);
+})();
+</script>
+
+</body>
+</html>
