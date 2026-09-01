@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>이미지 격자 분할기 - 캐릭터 시트, 스프라이트 자르기</title>
+<meta name="description" content="캐릭터 시트, 스티커 시트 같은 이미지를 격자로 자유롭게 나눠 한 번에 ZIP으로 다운로드합니다. 서버 업로드 없이 브라우저에서 처리됩니다.">
+<link rel="canonical" href="https://harukok.com/tools/image-grid-splitter">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700&family=Pretendard:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #ECE8DC;
+    --paper-light: #F7F4EA;
+    --ink: #16233D;
+    --ink-soft: #45516A;
+    --muted: #6E6656;
+    --line: #B7AF98;
+    --stamp: #B23A2E;
+  }
+  *{ box-sizing: border-box; }
+  body{
+    margin:0;
+    padding: 40px 20px 70px;
+    background: var(--paper);
+    background-image: repeating-linear-gradient(0deg, rgba(0,0,0,0.015) 0px, rgba(0,0,0,0.015) 1px, transparent 1px, transparent 3px);
+    font-family: 'Pretendard', -apple-system, sans-serif;
+    color: var(--ink);
+    display:flex;
+    justify-content:center;
+  }
+  .stub{ width:100%; max-width: 640px; }
+  .kicker{ font-size:13px; color:var(--muted); margin-bottom:6px; }
+  h1{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:30px; line-height:1.35; margin:0 0 8px; }
+  .lede{ font-size:14.5px; color:var(--ink-soft); line-height:1.6; margin:0 0 32px; max-width:52ch; }
+  .card{ background:var(--paper-light); border:1px solid var(--line); border-radius:14px; padding:32px; margin-bottom:28px; }
+
+  .drop-zone{
+    border:2px dashed var(--line); border-radius:12px; padding:36px 20px; text-align:center; cursor:pointer;
+    color:var(--muted); font-size:14px; transition: border-color 0.15s ease, background 0.15s ease;
+  }
+  .drop-zone.dragover{ border-color:var(--ink); background:rgba(0,0,0,0.03); }
+  .drop-zone strong{ color:var(--ink); }
+  input[type="file"]{ display:none; }
+
+  .workspace{ display:none; margin-top:24px; }
+  .workspace.visible{ display:block; }
+
+  .grid-controls{ display:flex; gap:16px; flex-wrap:wrap; align-items:flex-end; margin-bottom:16px; }
+  .field{ margin-bottom:0; }
+  .field label{ display:block; font-size:12.5px; color:var(--ink-soft); margin-bottom:6px; }
+  .field input[type="number"]{
+    width:70px; padding:9px 10px; border:1.5px solid var(--line); border-radius:8px;
+    font-family:'IBM Plex Mono', monospace; font-size:15px; color:var(--ink); background:#fff;
+  }
+  .field-hint{ display:block; font-size:12px; color:var(--muted); margin-top:6px; max-width:52ch; }
+
+  .mode-row{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px; }
+  .mode-btn{
+    padding:8px 14px; border:1.5px solid var(--line); border-radius:999px; background:#fff;
+    color:var(--ink-soft); font-size:12.5px; font-weight:600; cursor:pointer;
+  }
+  .mode-btn.active{ background:var(--ink); border-color:var(--ink); color:var(--paper-light); }
+
+  .canvas-wrap{ text-align:center; margin-bottom:14px; }
+  #gridCanvas{ max-width:100%; border:1px solid var(--line); border-radius:8px; cursor:crosshair; touch-action:none; }
+
+  .grid-info{ font-size:13px; color:var(--ink-soft); text-align:center; margin-bottom:16px; }
+
+  .btn-row{ display:flex; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .calc-btn{ flex:1; min-width:140px; padding:14px; background:var(--ink); color:var(--paper-light); border:none; border-radius:12px; font-weight:600; font-size:14.5px; cursor:pointer; box-shadow:0 4px 0 rgba(0,0,0,0.28); }
+  .calc-btn:hover{ background:var(--ink-soft); }
+  .calc-btn:active{ transform:translateY(3px); box-shadow:0 1px 0 rgba(0,0,0,0.28); }
+  .calc-btn.secondary{ background:var(--paper-light); color:var(--ink); border:1.5px solid var(--line); box-shadow:none; }
+  .calc-btn.secondary:hover{ background:var(--paper); }
+  .calc-btn.secondary:active{ transform:none; }
+  .calc-btn:disabled{ opacity:0.5; cursor:default; }
+
+  .tiles-title{ font-size:13.5px; color:var(--ink-soft); margin:24px 0 10px; text-align:center; }
+  .tiles-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(90px, 1fr)); gap:10px; }
+  .tile-card{ background:#fff; border:1px solid var(--line); border-radius:8px; padding:8px; text-align:center; }
+  .tile-card img{ max-width:100%; max-height:80px; display:block; margin:0 auto 6px; }
+  .tile-card .idx{ font-size:11px; color:var(--muted); }
+
+  .disclaimer{ font-size:11.5px; color:var(--muted); line-height:1.6; margin-top:20px; padding-top:16px; border-top:1px dotted var(--line); }
+  .slot{ border:1.5px dashed var(--line); border-radius:10px; padding:18px; text-align:center; font-size:12px; color:var(--muted); margin-top:24px; }
+  @media (max-width:480px){ .card{ padding:24px; } h1{ font-size:25px; } }
+
+  .info-block{ margin-top:40px; }
+  .info-block h2{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:18px; margin:0 0 12px; }
+  .info-block p{ font-size:13.5px; line-height:1.7; color:var(--ink-soft); margin:0 0 14px; }
+  .faq-item{ margin-bottom:16px; }
+  .faq-item .q{ font-size:14px; font-weight:600; margin-bottom:5px; }
+  .faq-item .a{ font-size:13.5px; line-height:1.65; color:var(--ink-soft); }
+
+  .related{ margin-top:32px; padding-top:20px; border-top:1px solid var(--line); }
+  .related-title{ font-size:12.5px; color:var(--muted); margin-bottom:10px; }
+  .related-links{ display:flex; flex-wrap:wrap; gap:8px; }
+  .related-links a{ padding:8px 14px; border:1.5px solid var(--line); border-radius:999px; font-size:13px; color:var(--ink); text-decoration:none; }
+  .related-links a:hover{ border-color:var(--ink); }
+
+  .back-home{ display:inline-block; font-size:12.5px; color:var(--muted); text-decoration:none; margin-bottom:14px; }
+  .back-home:hover{ color:var(--ink); }
+</style>
+<!-- Google AdSense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6883245122372170" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" defer></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "업로드한 이미지가 서버로 전송되나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "아니요, 이미지는 서버로 전송되지 않고 브라우저 안에서만 잘라져서 처리됩니다. 다운로드도 이 기기에서 바로 만들어집니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "격자선을 균등하지 않게 나눌 수도 있나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "네, 행/열 입력으로 균등한 격자를 만든 뒤, 선을 마우스로 드래그해서 원하는 위치로 자유롭게 옮길 수 있습니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "조각들을 한 번에 다운로드할 수 있나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "네, '전체 ZIP으로 저장' 버튼을 누르면 모든 조각을 압축 파일 하나로 묶어 한 번에 다운로드합니다."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<div class="stub">
+  <a href="/" class="back-home">← 하루콕 홈으로</a>
+  <div class="kicker">이미지 도구</div>
+  <h1>이미지 격자 분할기</h1>
+  <p class="lede">캐릭터 시트, 스티커 시트 같은 이미지를 격자로 나눠서 한 번에 ZIP으로 받아보세요. 서버 업로드 없이 브라우저에서 바로 처리됩니다.</p>
+
+  <div class="card">
+    <div class="drop-zone" id="dropZone">
+      <strong>클릭</strong>하거나 이미지를 이 영역에 <strong>드래그</strong>해서 올려주세요<br>
+      <span style="font-size:12px;">PNG, JPG, WEBP 지원</span>
+    </div>
+    <input type="file" id="fileInput" accept="image/*">
+
+    <div class="workspace" id="workspace">
+      <div class="grid-controls">
+        <div class="field">
+          <label for="rowsInput">행 (가로줄)</label>
+          <input type="number" id="rowsInput" min="1" max="20" value="2">
+        </div>
+        <div class="field">
+          <label for="colsInput">열 (세로줄)</label>
+          <input type="number" id="colsInput" min="1" max="20" value="3">
+        </div>
+        <button class="calc-btn secondary" id="resetGridBtn" style="flex:none; min-width:auto; padding:10px 16px;">↺ 균등 초기화</button>
+      </div>
+
+      <div class="mode-row">
+        <button class="mode-btn" id="addVBtn" type="button">│ 세로선 추가</button>
+        <button class="mode-btn" id="addHBtn" type="button">─ 가로선 추가</button>
+        <span class="field-hint" id="modeHint" style="align-self:center;"></span>
+      </div>
+
+      <div class="canvas-wrap">
+        <canvas id="gridCanvas"></canvas>
+      </div>
+      <div class="field-hint" style="text-align:center; margin-bottom:14px;">
+        선을 드래그하면 위치가 옮겨지고, 선을 <strong>더블클릭</strong>하면 삭제됩니다.
+      </div>
+
+      <div class="grid-info" id="gridInfo"></div>
+
+      <div class="btn-row">
+        <button class="calc-btn" id="splitBtn">조각으로 나누기</button>
+        <button class="calc-btn secondary" id="resetImgBtn">다른 이미지 열기</button>
+      </div>
+
+      <div id="tilesSection" style="display:none;">
+        <div class="tiles-title">미리보기 (<span id="tileCount">0</span>개 조각)</div>
+        <div class="tiles-grid" id="tilesGrid"></div>
+        <div class="btn-row" style="margin-top:16px;">
+          <button class="calc-btn" id="downloadZipBtn">전체 ZIP으로 저장</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 광고 삽입 영역 ===== -->
+  <ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-6883245122372170"
+     data-ad-slot="0000000000"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+
+  <div class="info-block">
+    <h2>어떻게 사용하나요?</h2>
+    <p>이미지를 올리면 행·열 숫자에 맞춰 균등한 격자선이 자동으로 그려집니다. 선을 드래그해서 원하는 위치로 옮기거나, "세로선/가로선 추가" 버튼을 누른 뒤 캔버스를 클릭해 선을 더 추가할 수 있습니다. 선을 더블클릭하면 삭제됩니다. 원하는 격자가 완성되면 "조각으로 나누기"를 눌러 미리보기를 확인하고, "전체 ZIP으로 저장"으로 한 번에 내려받으세요.</p>
+
+    <div class="faq-item">
+      <div class="q">업로드한 이미지가 서버로 전송되나요?</div>
+      <div class="a">아니요, 이미지는 서버로 전송되지 않고 브라우저 안에서만 잘라져서 처리됩니다. 다운로드도 이 기기에서 바로 만들어집니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">격자선을 균등하지 않게 나눌 수도 있나요?</div>
+      <div class="a">네, 행/열 입력으로 균등한 격자를 만든 뒤, 선을 마우스로 드래그해서 원하는 위치로 자유롭게 옮길 수 있습니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">조각들을 한 번에 다운로드할 수 있나요?</div>
+      <div class="a">네, '전체 ZIP으로 저장' 버튼을 누르면 모든 조각을 압축 파일 하나로 묶어 한 번에 다운로드합니다.</div>
+    </div>
+  </div>
+
+  <div class="related">
+    <div class="related-title">함께 보면 좋은 도구</div>
+    <div class="related-links">
+      <a href="/tools/background-remover">배경 제거기</a>
+      <a href="/tools/unit-converter">단위 변환기</a>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const $ = (id) => document.getElementById(id);
+
+  const dropZone = $('dropZone');
+  const fileInput = $('fileInput');
+  const workspace = $('workspace');
+  const canvas = $('gridCanvas');
+  const ctx = canvas.getContext('2d');
+  const rowsInput = $('rowsInput');
+  const colsInput = $('colsInput');
+  const modeHint = $('modeHint');
+
+  const MAX_W = 560;
+  const MAX_H = 480;
+
+  let sourceImage = null;   // 원본 Image 객체
+  let scale = 1;            // 원본 -> 캔버스 축소 비율
+  let vLines = [];          // 원본 좌표 기준 세로선 x 목록
+  let hLines = [];          // 원본 좌표 기준 가로선 y 목록
+  let addMode = null;       // null | 'v' | 'h'
+  let dragTarget = null;    // { kind: 'v'|'h', index }
+  const HIT_TOLERANCE = 8;
+
+  dropZone.addEventListener('click', () => fileInput.click());
+  dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('dragover'); });
+  dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+  dropZone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dropZone.classList.remove('dragover');
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) loadFile(e.dataTransfer.files[0]);
+  });
+  fileInput.addEventListener('change', () => {
+    if (fileInput.files && fileInput.files[0]) loadFile(fileInput.files[0]);
+  });
+
+  function loadFile(file){
+    if (!file.type.startsWith('image/')){
+      alert('이미지 파일만 업로드할 수 있어요.');
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = () => {
+        sourceImage = img;
+        scale = Math.min(1, MAX_W / img.width, MAX_H / img.height);
+        canvas.width = Math.round(img.width * scale);
+        canvas.height = Math.round(img.height * scale);
+        workspace.classList.add('visible');
+        $('tilesSection').style.display = 'none';
+        resetGridLines();
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function resetGridLines(){
+    if (!sourceImage) return;
+    const rows = Math.max(1, parseInt(rowsInput.value, 10) || 1);
+    const cols = Math.max(1, parseInt(colsInput.value, 10) || 1);
+    vLines = [];
+    for (let i = 1; i < cols; i++) vLines.push(Math.round(sourceImage.width * i / cols));
+    hLines = [];
+    for (let i = 1; i < rows; i++) hLines.push(Math.round(sourceImage.height * i / rows));
+    addMode = null;
+    modeHint.textContent = '';
+    draw();
+  }
+
+  rowsInput.addEventListener('change', resetGridLines);
+  colsInput.addEventListener('change', resetGridLines);
+  $('resetGridBtn').addEventListener('click', resetGridLines);
+
+  function getBoundaries(){
+    const xs = Array.from(new Set([0, ...vLines, sourceImage.width])).sort((a, b) => a - b);
+    const ys = Array.from(new Set([0, ...hLines, sourceImage.height])).sort((a, b) => a - b);
+    return { xs, ys };
+  }
+
+  function draw(){
+    if (!sourceImage) return;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(sourceImage, 0, 0, canvas.width, canvas.height);
+
+    ctx.strokeStyle = '#B23A2E';
+    ctx.lineWidth = 2;
+    vLines.forEach(x => {
+      const cx = x * scale;
+      ctx.beginPath();
+      ctx.moveTo(cx, 0);
+      ctx.lineTo(cx, canvas.height);
+      ctx.stroke();
+    });
+    hLines.forEach(y => {
+      const cy = y * scale;
+      ctx.beginPath();
+      ctx.moveTo(0, cy);
+      ctx.lineTo(canvas.width, cy);
+      ctx.stroke();
+    });
+
+    const { xs, ys } = getBoundaries();
+    const cols = xs.length - 1;
+    const rows = ys.length - 1;
+    $('gridInfo').textContent = `${cols}열 × ${rows}행 = 총 ${cols * rows}개 조각`;
+  }
+
+  function getCanvasPos(e){
+    const rect = canvas.getBoundingClientRect();
+    const cx = (e.clientX ?? e.touches?.[0]?.clientX) - rect.left;
+    const cy = (e.clientY ?? e.touches?.[0]?.clientY) - rect.top;
+    // 캔버스 표시 크기와 실제 픽셀 크기가 다를 수 있어 비율 보정
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
+    return { x: cx * scaleX, y: cy * scaleY };
+  }
+
+  function armAddMode(kind){
+    if (!sourceImage) return;
+    addMode = kind;
+    modeHint.textContent = kind === 'v' ? '→ 캔버스를 클릭해서 세로선을 추가하세요.' : '→ 캔버스를 클릭해서 가로선을 추가하세요.';
+  }
+  $('addVBtn').addEventListener('click', () => armAddMode('v'));
+  $('addHBtn').addEventListener('click', () => armAddMode('h'));
+
+  canvas.addEventListener('mousedown', (e) => {
+    if (!sourceImage) return;
+    const pos = getCanvasPos(e);
+
+    if (addMode === 'v'){
+      const origX = Math.max(1, Math.min(sourceImage.width - 1, Math.round(pos.x / scale)));
+      vLines.push(origX);
+      vLines.sort((a, b) => a - b);
+      addMode = null;
+      modeHint.textContent = '';
+      draw();
+      return;
+    }
+    if (addMode === 'h'){
+      const origY = Math.max(1, Math.min(sourceImage.height - 1, Math.round(pos.y / scale)));
+      hLines.push(origY);
+      hLines.sort((a, b) => a - b);
+      addMode = null;
+      modeHint.textContent = '';
+      draw();
+      return;
+    }
+
+    for (let i = 0; i < vLines.length; i++){
+      if (Math.abs(pos.x - vLines[i] * scale) <= HIT_TOLERANCE){
+        dragTarget = { kind: 'v', index: i };
+        return;
+      }
+    }
+    for (let i = 0; i < hLines.length; i++){
+      if (Math.abs(pos.y - hLines[i] * scale) <= HIT_TOLERANCE){
+        dragTarget = { kind: 'h', index: i };
+        return;
+      }
+    }
+  });
+
+  canvas.addEventListener('mousemove', (e) => {
+    if (!dragTarget || !sourceImage) return;
+    const pos = getCanvasPos(e);
+    if (dragTarget.kind === 'v'){
+      vLines[dragTarget.index] = Math.max(1, Math.min(sourceImage.width - 1, Math.round(pos.x / scale)));
+    } else {
+      hLines[dragTarget.index] = Math.max(1, Math.min(sourceImage.height - 1, Math.round(pos.y / scale)));
+    }
+    draw();
+  });
+
+  window.addEventListener('mouseup', () => {
+    if (!dragTarget) return;
+    if (dragTarget.kind === 'v') vLines.sort((a, b) => a - b);
+    else hLines.sort((a, b) => a - b);
+    dragTarget = null;
+    draw();
+  });
+
+  canvas.addEventListener('dblclick', (e) => {
+    if (!sourceImage) return;
+    const pos = getCanvasPos(e);
+    for (let i = 0; i < vLines.length; i++){
+      if (Math.abs(pos.x - vLines[i] * scale) <= HIT_TOLERANCE){
+        vLines.splice(i, 1);
+        draw();
+        return;
+      }
+    }
+    for (let i = 0; i < hLines.length; i++){
+      if (Math.abs(pos.y - hLines[i] * scale) <= HIT_TOLERANCE){
+        hLines.splice(i, 1);
+        draw();
+        return;
+      }
+    }
+  });
+
+  let tileBlobs = [];
+
+  $('splitBtn').addEventListener('click', () => {
+    if (!sourceImage) return;
+    const { xs, ys } = getBoundaries();
+    const cols = xs.length - 1;
+    const rows = ys.length - 1;
+
+    const tilesGrid = $('tilesGrid');
+    tilesGrid.innerHTML = '';
+    tileBlobs = [];
+
+    let count = 0;
+    const total = cols * rows;
+
+    for (let r = 0; r < rows; r++){
+      for (let c = 0; c < cols; c++){
+        const left = xs[c], right = xs[c + 1];
+        const top = ys[r], bottom = ys[r + 1];
+        const w = right - left, h = bottom - top;
+
+        const tileCanvas = document.createElement('canvas');
+        tileCanvas.width = w;
+        tileCanvas.height = h;
+        tileCanvas.getContext('2d').drawImage(sourceImage, left, top, w, h, 0, 0, w, h);
+
+        count++;
+        const dataUrl = tileCanvas.toDataURL('image/png');
+
+        const card = document.createElement('div');
+        card.className = 'tile-card';
+        card.innerHTML = `<img src="${dataUrl}" alt="조각 ${count}"><div class="idx">#${count}</div>`;
+        tilesGrid.appendChild(card);
+
+        tileBlobs.push({ index: count, canvas: tileCanvas });
+      }
+    }
+
+    $('tileCount').textContent = total;
+    $('tilesSection').style.display = 'block';
+  });
+
+  $('downloadZipBtn').addEventListener('click', async () => {
+    if (!tileBlobs.length) return;
+    if (typeof JSZip === 'undefined'){
+      alert('압축 기능을 아직 불러오는 중이에요. 잠시 후 다시 시도해주세요.');
+      return;
+    }
+    const zip = new JSZip();
+    for (const tile of tileBlobs){
+      const blob = await new Promise(resolve => tile.canvas.toBlob(resolve, 'image/png'));
+      zip.file(`조각_${String(tile.index).padStart(2, '0')}.png`, blob);
+    }
+    const content = await zip.generateAsync({ type: 'blob' });
+    const link = document.createElement('a');
+    link.download = '하루콕-이미지분할.zip';
+    link.href = URL.createObjectURL(content);
+    link.click();
+  });
+
+  $('resetImgBtn').addEventListener('click', () => {
+    sourceImage = null;
+    workspace.classList.remove('visible');
+    $('tilesSection').style.display = 'none';
+    fileInput.value = '';
+  });
+})();
+</script>
+
+</body>
+</html>
