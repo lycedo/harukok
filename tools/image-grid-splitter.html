@@ -133,6 +133,14 @@
         "@type": "Answer",
         "text": "네, '전체 ZIP으로 저장' 버튼을 누르면 모든 조각을 압축 파일 하나로 묶어 한 번에 다운로드합니다."
       }
+    },
+    {
+      "@type": "Question",
+      "name": "여백 자동 정리는 어떻게 동작하나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "격자로 자른 조각 안에서 실제 그림이 있는 영역만 감지해 여백을 걷어내고, 약간의 여유 공간만 남겨 다시 자릅니다. 격자 칸 안에서 그림이 한쪽으로 치우쳐 있어도 자동으로 정리됩니다."
+      }
     }
   ]
 }
@@ -181,6 +189,14 @@
 
       <div class="grid-info" id="gridInfo"></div>
 
+      <div class="field" style="margin-bottom:14px;">
+        <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+          <input type="checkbox" id="trimCheckbox" checked style="width:16px; height:16px;">
+          여백 자동 정리 (내용을 감지해서 가운데로 정렬)
+        </label>
+        <span class="field-hint">각 조각 안에서 그림이 삐뚤게 잘리지 않도록, 여백을 걷어내고 내용 중심으로 다시 잘라줍니다.</span>
+      </div>
+
       <div class="btn-row">
         <button class="calc-btn" id="splitBtn">조각으로 나누기</button>
         <button class="calc-btn secondary" id="resetImgBtn">다른 이미지 열기</button>
@@ -220,6 +236,10 @@
     <div class="faq-item">
       <div class="q">조각들을 한 번에 다운로드할 수 있나요?</div>
       <div class="a">네, '전체 ZIP으로 저장' 버튼을 누르면 모든 조각을 압축 파일 하나로 묶어 한 번에 다운로드합니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">여백 자동 정리는 어떻게 동작하나요?</div>
+      <div class="a">격자로 자른 조각 안에서 실제 그림이 있는 영역만 감지해 여백을 걷어내고, 약간의 여유 공간만 남겨 다시 자릅니다. 격자 칸 안에서 그림이 한쪽으로 치우쳐 있어도 자동으로 정리됩니다.</div>
     </div>
   </div>
 
@@ -436,11 +456,82 @@
 
   let tileBlobs = [];
 
+  // 조각 안에서 실제 내용(여백이 아닌 부분)의 경계를 찾음
+  function getContentBBox(ctx, w, h){
+    const data = ctx.getImageData(0, 0, w, h).data;
+
+    let hasTransparency = false;
+    for (let i = 3; i < data.length; i += 4){
+      if (data[i] < 250){ hasTransparency = true; break; }
+    }
+
+    let minX = w, minY = h, maxX = -1, maxY = -1;
+
+    if (hasTransparency){
+      for (let y = 0; y < h; y++){
+        for (let x = 0; x < w; x++){
+          const idx = (y * w + x) * 4;
+          if (data[idx + 3] > 10){
+            if (x < minX) minX = x;
+            if (x > maxX) maxX = x;
+            if (y < minY) minY = y;
+            if (y > maxY) maxY = y;
+          }
+        }
+      }
+    } else {
+      // 투명도가 없으면 흰 배경 대비 밝기 차이로 내용 판단
+      for (let y = 0; y < h; y++){
+        for (let x = 0; x < w; x++){
+          const idx = (y * w + x) * 4;
+          const diff = (255 - data[idx]) + (255 - data[idx + 1]) + (255 - data[idx + 2]);
+          if (diff > 30){
+            if (x < minX) minX = x;
+            if (x > maxX) maxX = x;
+            if (y < minY) minY = y;
+            if (y > maxY) maxY = y;
+          }
+        }
+      }
+    }
+
+    if (maxX < 0) return null;
+    return { minX, minY, maxX, maxY };
+  }
+
+  // 여백을 걷어내고 내용 중심으로 다시 자른 캔버스를 반환 (여백 8% 유지)
+  function cropToContent(sourceCanvas, paddingRatio){
+    const w = sourceCanvas.width, h = sourceCanvas.height;
+    const ctx = sourceCanvas.getContext('2d');
+    const bbox = getContentBBox(ctx, w, h);
+    if (!bbox) return sourceCanvas;
+
+    let { minX, minY, maxX, maxY } = bbox;
+    const bw = maxX - minX + 1, bh = maxY - minY + 1;
+    const padW = Math.max(1, Math.round(bw * paddingRatio));
+    const padH = Math.max(1, Math.round(bh * paddingRatio));
+
+    minX = Math.max(0, minX - padW);
+    minY = Math.max(0, minY - padH);
+    maxX = Math.min(w - 1, maxX + padW);
+    maxY = Math.min(h - 1, maxY + padH);
+
+    const outW = maxX - minX + 1, outH = maxY - minY + 1;
+    if (outW === w && outH === h) return sourceCanvas;
+
+    const outCanvas = document.createElement('canvas');
+    outCanvas.width = outW;
+    outCanvas.height = outH;
+    outCanvas.getContext('2d').drawImage(sourceCanvas, minX, minY, outW, outH, 0, 0, outW, outH);
+    return outCanvas;
+  }
+
   $('splitBtn').addEventListener('click', () => {
     if (!sourceImage) return;
     const { xs, ys } = getBoundaries();
     const cols = xs.length - 1;
     const rows = ys.length - 1;
+    const shouldTrim = $('trimCheckbox').checked;
 
     const tilesGrid = $('tilesGrid');
     tilesGrid.innerHTML = '';
@@ -455,10 +546,14 @@
         const top = ys[r], bottom = ys[r + 1];
         const w = right - left, h = bottom - top;
 
-        const tileCanvas = document.createElement('canvas');
+        let tileCanvas = document.createElement('canvas');
         tileCanvas.width = w;
         tileCanvas.height = h;
         tileCanvas.getContext('2d').drawImage(sourceImage, left, top, w, h, 0, 0, w, h);
+
+        if (shouldTrim){
+          tileCanvas = cropToContent(tileCanvas, 0.08);
+        }
 
         count++;
         const dataUrl = tileCanvas.toDataURL('image/png');
