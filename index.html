@@ -156,35 +156,42 @@
     margin: 0;
   }
 
-  .category-bar{
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 40px;
-    position: sticky;
-    top: 0;
-    background: var(--bg);
-    padding: 10px 0;
-    z-index: 5;
-  }
-  .category-chip{
-    padding: 8px 15px;
-    border: 1.5px solid #D9D2BF;
-    border-radius: 999px;
+  details.subsection{
+    border: 1px solid #DCD6C1;
+    border-radius: 8px;
+    margin-bottom: 14px;
     background: #fff;
+  }
+  details.subsection[open]{
+    background: transparent;
+    border-color: transparent;
+  }
+  summary.subsection-label{
+    cursor: pointer;
+    list-style: none;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    user-select: none;
+    font-size: 14.5px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 0;
+  }
+  summary.subsection-label::-webkit-details-marker{ display: none; }
+  summary.subsection-label::after{
+    content: '▾';
+    margin-left: auto;
     color: var(--muted);
     font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    white-space: nowrap;
+    transition: transform 0.15s ease;
   }
-  .category-chip.active{
-    background: var(--navy);
-    border-color: var(--navy);
-    color: var(--navy-soft);
+  details.subsection[open] summary.subsection-label::after{
+    transform: rotate(180deg);
   }
-  .subsection.hidden{ display: none; }
-  section.hidden{ display: none; }
+  details.subsection .cards{
+    padding: 0 2px 4px;
+  }
 </style>
 <!-- Google AdSense -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6883245122372170" crossorigin="anonymous"></script>
@@ -202,23 +209,11 @@
     <p>회원가입이나 로그인 없이, 필요한 도구를 바로 쓸 수 있게 만든 사이트입니다. 실용 계산기는 최신 요율·법령을 반영해 만들었고, 재미 도구는 고민되는 순간을 가볍게 해결해드립니다. 입력한 정보는 서버로 전송되지 않고 이 기기 안에서만 처리됩니다.</p>
   </div>
 
-  <div class="category-bar" id="categoryBar">
-    <button type="button" class="category-chip active" data-cat="all">전체</button>
-    <button type="button" class="category-chip" data-cat="finance">급여·재무</button>
-    <button type="button" class="category-chip" data-cat="age">나이·날짜</button>
-    <button type="button" class="category-chip" data-cat="life">생활 도구</button>
-    <button type="button" class="category-chip" data-cat="image">이미지 도구</button>
-    <button type="button" class="category-chip" data-cat="pet">반려동물</button>
-    <button type="button" class="category-chip" data-cat="baby">임신·출산</button>
-    <button type="button" class="category-chip" data-cat="pick">오늘 뭐 하지?</button>
-    <button type="button" class="category-chip" data-cat="fortune">운세·확률</button>
-  </div>
-
   <section id="sectionUtility">
     <div class="section-label">실용 도구</div>
 
-    <div class="subsection" data-cat="finance">
-      <div class="subsection-label">급여·재무</div>
+    <details class="subsection" data-cat="finance" open>
+      <summary class="subsection-label">급여·재무</summary>
       <div class="cards">
         <a class="card utility" href="/tools/salary-calculator">
           <span class="icon">💼</span>
@@ -256,10 +251,10 @@
           <div class="desc">총급여·부양가족 수로 2026년 기준 예상 결정세액 계산</div>
         </a>
       </div>
-    </div>
+    </details>
 
-    <div class="subsection" data-cat="age">
-      <div class="subsection-label">나이·날짜</div>
+    <details class="subsection" data-cat="age">
+      <summary class="subsection-label">나이·날짜</summary>
       <div class="cards">
         <a class="card utility" href="/tools/age-calculator">
           <span class="icon">🎂</span>
@@ -272,10 +267,10 @@
           <div class="desc">기념일, 시험일까지 남은 날짜 바로 확인</div>
         </a>
       </div>
-    </div>
+    </details>
 
-    <div class="subsection" data-cat="life">
-      <div class="subsection-label">생활 도구</div>
+    <details class="subsection" data-cat="life">
+      <summary class="subsection-label">생활 도구</summary>
       <div class="cards">
         <a class="card utility" href="/tools/password-generator">
           <span class="icon">🔐</span>
@@ -288,10 +283,10 @@
           <div class="desc">평수·제곱미터, 길이, 무게, 온도, 부피 즉시 변환</div>
         </a>
       </div>
-    </div>
+    </details>
 
-    <div class="subsection" data-cat="image">
-      <div class="subsection-label">이미지 도구</div>
+    <details class="subsection" data-cat="image">
+      <summary class="subsection-label">이미지 도구</summary>
       <div class="cards">
         <a class="card utility" href="/tools/background-remover">
           <span class="icon">🖼️</span>
@@ -304,10 +299,10 @@
           <div class="desc">캐릭터 시트를 격자로 나눠 한 번에 ZIP으로 다운로드</div>
         </a>
       </div>
-    </div>
+    </details>
 
-    <div class="subsection" data-cat="pet">
-      <div class="subsection-label">반려동물</div>
+    <details class="subsection" data-cat="pet">
+      <summary class="subsection-label">반려동물</summary>
       <div class="cards">
         <a class="card utility" href="/tools/pet-age-calculator">
           <span class="icon">🐾</span>
@@ -320,10 +315,10 @@
           <div class="desc">체중·생애주기 입력하면 하루 권장 급여량 계산</div>
         </a>
       </div>
-    </div>
+    </details>
 
-    <div class="subsection" data-cat="baby">
-      <div class="subsection-label">임신·출산</div>
+    <details class="subsection" data-cat="baby">
+      <summary class="subsection-label">임신·출산</summary>
       <div class="cards">
         <a class="card utility" href="/tools/due-date-calculator">
           <span class="icon">🤰</span>
@@ -336,14 +331,14 @@
           <div class="desc">6+6 부모육아휴직제 특례·일반 육아휴직 급여 계산</div>
         </a>
       </div>
-    </div>
+    </details>
   </section>
 
   <section id="sectionFun">
     <div class="section-label">재미 도구</div>
 
-    <div class="subsection" data-cat="pick">
-      <div class="subsection-label">오늘 뭐 하지? (뽑기)</div>
+    <details class="subsection" data-cat="pick" open>
+      <summary class="subsection-label">오늘 뭐 하지? (뽑기)</summary>
       <div class="cards">
         <a class="card fun" href="/fun/lunch-picker">
           <span class="icon">🎲</span>
@@ -371,10 +366,10 @@
           <div class="desc">기분 고르고 뽑으면 오늘 볼 영화·드라마 장르 추천</div>
         </a>
       </div>
-    </div>
+    </details>
 
-    <div class="subsection" data-cat="fortune">
-      <div class="subsection-label">운세·확률</div>
+    <details class="subsection" data-cat="fortune">
+      <summary class="subsection-label">운세·확률</summary>
       <div class="cards">
         <a class="card fun" href="/fun/lotto-generator">
           <span class="icon">🎱</span>
@@ -392,10 +387,10 @@
           <div class="desc">두 사람의 이름을 넣고 재미로 보는 궁합 점수</div>
         </a>
       </div>
-    </div>
+    </details>
 
-    <div class="subsection" data-cat="pet">
-      <div class="subsection-label">반려동물</div>
+    <details class="subsection" data-cat="pet">
+      <summary class="subsection-label">반려동물</summary>
       <div class="cards">
         <a class="card fun" href="/fun/pet-name-generator">
           <span class="icon">🐾</span>
@@ -403,10 +398,10 @@
           <div class="desc">스타일 고르고 뽑으면 조합으로 이름 완성</div>
         </a>
       </div>
-    </div>
+    </details>
 
-    <div class="subsection" data-cat="baby">
-      <div class="subsection-label">임신·출산</div>
+    <details class="subsection" data-cat="baby">
+      <summary class="subsection-label">임신·출산</summary>
       <div class="cards">
         <a class="card fun" href="/fun/baby-name-generator">
           <span class="icon">👶</span>
@@ -414,7 +409,7 @@
           <div class="desc">테마 고르고 뽑으면 우리 아기 태명 추천</div>
         </a>
       </div>
-    </div>
+    </details>
   </section>
 
   <!-- ===== 광고 삽입 영역 ===== -->
@@ -449,33 +444,6 @@
       toast.classList.add('visible');
       setTimeout(() => toast.classList.remove('visible'), 2200);
     }).catch(() => { /* 클립보드 권한 없으면 조용히 무시, mailto는 그대로 동작 */ });
-  });
-})();
-</script>
-
-<script>
-(function(){
-  const chips = document.querySelectorAll('.category-chip');
-  const subsections = document.querySelectorAll('.subsection');
-  const sections = document.querySelectorAll('#sectionUtility, #sectionFun');
-
-  function applyFilter(cat){
-    subsections.forEach(sub => {
-      const match = cat === 'all' || sub.dataset.cat === cat;
-      sub.classList.toggle('hidden', !match);
-    });
-    sections.forEach(sec => {
-      const hasVisible = [...sec.querySelectorAll('.subsection')].some(sub => !sub.classList.contains('hidden'));
-      sec.classList.toggle('hidden', !hasVisible);
-    });
-  }
-
-  chips.forEach(chip => {
-    chip.addEventListener('click', () => {
-      chips.forEach(c => c.classList.remove('active'));
-      chip.classList.add('active');
-      applyFilter(chip.dataset.cat);
-    });
   });
 })();
 </script>
