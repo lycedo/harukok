@@ -51,6 +51,16 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://harukok.com/tools/password-generator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://harukok.com/tools/unit-converter</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://harukok.com/fun/lunch-picker</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -87,6 +97,16 @@
   </url>
   <url>
     <loc>https://harukok.com/fun/baby-name-generator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://harukok.com/fun/watch-picker</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://harukok.com/fun/name-compatibility</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

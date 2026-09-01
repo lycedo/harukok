@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>이름궁합 테스트 - 재미로 보는 궁합 뽑기</title>
+<meta name="description" content="두 사람의 이름을 입력하면 궁합 점수와 한줄평을 재미로 뽑아드립니다.">
+<link rel="canonical" href="https://harukok.com/fun/name-compatibility">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@700&family=Pretendard:wght@400;500;600;700&family=IBM+Plex+Mono:wght@600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #ECE8DC;
+    --bg-soft: #F7F4EA;
+    --plum: #C43F6B;
+    --ticket: #FFFFFF;
+    --ticket-line: #F2D8E1;
+    --ink: #2B2038;
+    --cream-text: #FCEFF4;
+    --muted: #7A6B72;
+    --line: #E6CCD7;
+  }
+  *{ box-sizing: border-box; }
+  body{
+    margin:0;
+    padding: 40px 20px 70px;
+    background: var(--bg);
+    background-image: radial-gradient(circle at 50% 0%, var(--bg-soft), var(--bg) 70%);
+    font-family: 'Pretendard', sans-serif;
+    color: var(--ink);
+    display:flex;
+    justify-content:center;
+  }
+  .page{ width:100%; max-width: 480px; text-align:center; }
+  h1{ font-family:'Do Hyeon', sans-serif; font-size:38px; color:var(--plum); margin:0 0 6px; letter-spacing:0.01em; }
+  .lede{ font-size:14px; color:var(--muted); margin:0 0 24px; }
+
+  .name-form{ display:flex; align-items:center; gap:10px; margin-bottom:20px; }
+  .name-form input{
+    flex:1; min-width:0; padding:12px 14px; border:1.5px solid var(--line); border-radius:10px;
+    background:var(--ticket); font-size:15px; color:var(--ink); text-align:center; outline:none;
+  }
+  .name-form input:focus{ border-color:var(--plum); }
+  .heart{ font-size:20px; flex-shrink:0; }
+
+  .scroll{
+    width: 200px; height: 200px; margin: 0 auto 24px; border-radius: 16px;
+    background: radial-gradient(circle at 35% 30%, #3E1F2C, #1C0D13 75%);
+    border: 6px solid #150A0E;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow: inset 0 0 30px rgba(0,0,0,0.6), 0 10px 18px rgba(0,0,0,0.35);
+    transition: transform 0.2s ease;
+  }
+  .scroll .emoji{ font-size:64px; }
+  .scroll.spinning .emoji{ animation: spin-blur 0.22s ease-in-out infinite; }
+  @keyframes spin-blur{ 0%, 100%{transform:scale(1) rotate(0deg);} 50%{transform:scale(1.1) rotate(9deg);} }
+  .scroll.landed{ animation: scroll-pop 0.36s cubic-bezier(.34,1.56,.64,1); }
+  @keyframes scroll-pop{ 0%{transform:scale(0.86);} 55%{transform:scale(1.08);} 100%{transform:scale(1);} }
+
+  .pull-btn{
+    width:100%; padding:18px; background:var(--plum); color:var(--cream-text); border:none; border-radius:14px;
+    font-family:'Do Hyeon', sans-serif; font-size:19px; letter-spacing:0.01em; cursor:pointer;
+    box-shadow: 0 4px 0 #8F2649;
+  }
+  .pull-btn:active{ transform:translateY(3px); box-shadow:0 1px 0 #8F2649; }
+  .pull-btn:disabled{ opacity:0.6; cursor:default; }
+
+  .result{ margin-top:28px; display:none; text-align:left; }
+  .result.visible{ display:block; }
+  .score-wrap{ text-align:center; margin-bottom:16px; }
+  .score{ font-family:'IBM Plex Mono', monospace; font-size:48px; font-weight:600; color:var(--plum); }
+  .score-label{ font-size:13px; color:var(--muted); }
+  .content-card{ background:var(--ticket); border:1px solid var(--ticket-line); color:var(--ink); border-radius:10px; padding:18px 20px; margin-bottom:10px; }
+  .content-card .label{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:13.5px; color:var(--plum); margin-bottom:6px; }
+  .content-card .text{ font-size:14.5px; line-height:1.55; }
+
+  .info-block{ margin-top:40px; text-align:left; }
+  .info-block h2{ font-family:'Do Hyeon', sans-serif; font-size:18px; color:var(--plum); margin:0 0 10px; font-weight:400; }
+  .info-block p{ font-size:13.5px; line-height:1.65; color:var(--muted); margin:0 0 14px; }
+  .faq-item{ margin-bottom:14px; }
+  .faq-item .q{ font-size:14px; font-weight:700; color:var(--ink); margin-bottom:5px; }
+  .faq-item .a{ font-size:13.5px; line-height:1.6; color:var(--muted); }
+
+  .related{ margin-top:32px; padding-top:20px; border-top:1px solid var(--line); text-align:left; }
+  .related-title{ font-size:12.5px; color:var(--muted); margin-bottom:10px; }
+  .related-links{ display:flex; flex-wrap:wrap; gap:8px; }
+  .related-links a{ padding:8px 14px; border:1.5px solid var(--line); border-radius:999px; font-size:13px; color:var(--ink); text-decoration:none; }
+  .related-links a:hover{ border-color:var(--ink); }
+
+  .back-home{ display:inline-block; font-size:12.5px; color:var(--muted); text-decoration:none; margin-bottom:14px; }
+  .back-home:hover{ color:var(--ink); }
+</style>
+<!-- Google AdSense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6883245122372170" crossorigin="anonymous"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "이름궁합 점수는 어떻게 계산되나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "실제 사주나 성명학이 아니라, 입력한 두 이름의 글자를 조합해 만든 규칙 기반 점수로 재미로만 봐주세요. 같은 이름 조합을 넣으면 항상 같은 점수가 나옵니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "이름을 입력하면 저장되나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "아니요, 서버로 전송하거나 저장하지 않습니다. 입력한 이름은 브라우저 안에서만 계산에 사용되고 화면을 벗어나면 사라집니다."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<div class="page">
+  <a href="/" class="back-home">← 하루콕 홈으로</a>
+  <h1>이름궁합 테스트</h1>
+  <p class="lede">두 이름을 넣고 궁합을 뽑아보세요.</p>
+
+  <div class="name-form">
+    <input type="text" id="name1" placeholder="이름 1" maxlength="10">
+    <span class="heart">💕</span>
+    <input type="text" id="name2" placeholder="이름 2" maxlength="10">
+  </div>
+
+  <div class="scroll" id="scroll">
+    <div class="emoji" id="scrollEmoji">💌</div>
+  </div>
+
+  <button class="pull-btn" id="pullBtn">궁합 뽑기</button>
+
+  <div class="result" id="result">
+    <div class="score-wrap">
+      <div class="score" id="rScore">0%</div>
+      <div class="score-label" id="rNamesLabel"></div>
+    </div>
+    <div class="content-card"><div class="label">한줄평</div><div class="text" id="rComment"></div></div>
+    <div class="content-card"><div class="label">오늘의 팁</div><div class="text" id="rTip"></div></div>
+  </div>
+
+  <!-- ===== 광고 삽입 영역 ===== -->
+  <ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-6883245122372170"
+     data-ad-slot="0000000000"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+
+  <div class="info-block">
+    <h2>이 궁합, 믿어도 되나요?</h2>
+    <p>입력한 두 이름의 글자 코드를 조합해 0~100 사이 점수를 계산하고, 점수 구간에 맞는 한줄평과 팁을 무작위로 골라 보여주는 재미용 콘텐츠입니다. 성명학이나 사주와는 무관하며, 같은 이름 조합은 항상 같은 점수가 나오지만 한줄평과 팁은 뽑을 때마다 달라질 수 있습니다.</p>
+
+    <div class="faq-item">
+      <div class="q">이름궁합 점수는 어떻게 계산되나요?</div>
+      <div class="a">실제 사주나 성명학이 아니라, 입력한 두 이름의 글자를 조합해 만든 규칙 기반 점수로 재미로만 봐주세요. 같은 이름 조합을 넣으면 항상 같은 점수가 나옵니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">이름을 입력하면 저장되나요?</div>
+      <div class="a">아니요, 서버로 전송하거나 저장하지 않습니다. 입력한 이름은 브라우저 안에서만 계산에 사용되고 화면을 벗어나면 사라집니다.</div>
+    </div>
+  </div>
+
+  <div class="related">
+    <div class="related-title">운을 더 시험해보고 싶다면</div>
+    <div class="related-links">
+      <a href="/fun/fortune-today">오늘의 운세</a>
+      <a href="/fun/lotto-generator">로또 번호 생성기</a>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const $ = (id) => document.getElementById(id);
+
+  const COMMENTS = {
+    HIGH: [
+      '서로에게 최고의 짝꿍이 될 조합이에요', '같이 있으면 시너지가 폭발하는 사이예요', '오래갈수록 더 좋아지는 궁합이에요',
+      '말하지 않아도 통하는 느낌이 강해요', '함께할수록 서로에게 힘이 되는 관계예요',
+    ],
+    MID: [
+      '노력한 만큼 좋아지는 궁합이에요', '서로 다른 매력이 은근히 잘 어울려요', '대화를 많이 할수록 가까워지는 사이예요',
+      '작은 배려가 관계를 크게 바꿀 수 있어요', '티키타카가 있을 때와 없을 때 차이가 큰 편이에요',
+    ],
+    LOW: [
+      '서로 다른 점이 많아 이해가 필요한 궁합이에요', '급하게 다가가기보다 천천히 알아가는 게 좋아요',
+      '취향 차이를 존중하면 의외로 괜찮은 사이예요', '오해가 생기기 쉬우니 대화가 중요해요',
+      '처음엔 안 맞아도 시간이 해결해줄 수 있어요',
+    ],
+  };
+  const TIPS = [
+    '먼저 안부 인사를 건네보세요', '같이 할 수 있는 사소한 활동을 만들어보세요', '솔직한 마음을 표현해보세요',
+    '작은 선물이나 메시지로 마음을 전해보세요', '서로의 이야기를 충분히 들어주세요', '함께 사진 한 장 남겨보는 것도 좋아요',
+  ];
+
+  function pick(arr){
+    return arr[Math.floor(Math.random() * arr.length)];
+  }
+
+  // 이름 문자열을 결정적으로 0~100 점수로 변환 (같은 이름 조합 = 같은 점수)
+  function scoreFor(a, b){
+    const combined = a + '♥' + b;
+    let hash = 0;
+    for (let i = 0; i < combined.length; i++){
+      hash = (hash * 31 + combined.charCodeAt(i)) >>> 0;
+    }
+    return hash % 101;
+  }
+
+  function tierFor(score){
+    if (score >= 70) return 'HIGH';
+    if (score >= 40) return 'MID';
+    return 'LOW';
+  }
+
+  let spinning = false;
+
+  $('pullBtn').addEventListener('click', () => {
+    if (spinning) return;
+
+    const n1 = $('name1').value.trim();
+    const n2 = $('name2').value.trim();
+    if (!n1 || !n2){
+      alert('두 사람의 이름을 모두 입력해주세요.');
+      return;
+    }
+
+    spinning = true;
+    $('pullBtn').disabled = true;
+
+    const scroll = $('scroll');
+    const emojiEl = $('scrollEmoji');
+    const emojis = ['💌','💕','💗','💘','💖'];
+
+    scroll.classList.add('spinning');
+    const totalTicks = 16;
+    let tick = 0;
+
+    function nextTick(){
+      emojiEl.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      tick++;
+
+      if (tick < totalTicks){
+        const progress = tick / totalTicks;
+        const delay = 60 + Math.pow(progress, 3) * 240;
+        setTimeout(nextTick, delay);
+      } else {
+        scroll.classList.remove('spinning');
+        scroll.classList.add('landed');
+        setTimeout(() => scroll.classList.remove('landed'), 360);
+        emojiEl.textContent = '💌';
+        spinning = false;
+        $('pullBtn').disabled = false;
+        reveal(n1, n2);
+      }
+    }
+
+    nextTick();
+  });
+
+  function reveal(n1, n2){
+    const score = scoreFor(n1, n2);
+    const tier = tierFor(score);
+
+    $('rScore').textContent = score + '%';
+    $('rNamesLabel').textContent = `${n1} ♥ ${n2}`;
+    $('rComment').textContent = pick(COMMENTS[tier]);
+    $('rTip').textContent = pick(TIPS);
+
+    $('result').classList.add('visible');
+  }
+})();
+</script>
+
+</body>
+</html>
