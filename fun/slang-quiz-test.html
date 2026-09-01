@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>신조어 테스트 - 나는 찐 MZ일까? 2026 유행어 퀴즈</title>
+<meta name="description" content="알잘딱깔쎈, 중꺽마, 이왜진... 2026년 유행 신조어 10문제로 나의 신조어 이해도를 테스트해보세요.">
+<link rel="canonical" href="https://harukok.com/fun/slang-quiz-test">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@700&family=Pretendard:wght@400;500;600;700&family=IBM+Plex+Mono:wght@600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #ECE8DC;
+    --bg-soft: #F7F4EA;
+    --plum: #3D7A5C;
+    --ticket: #FFFFFF;
+    --ticket-line: #D9E7DC;
+    --ink: #1F2E24;
+    --cream-text: #EFFBF3;
+    --muted: #6C7A6F;
+    --line: #CBDDD0;
+  }
+  *{ box-sizing: border-box; }
+  body{
+    margin:0;
+    padding: 40px 20px 70px;
+    background: var(--bg);
+    background-image: radial-gradient(circle at 50% 0%, var(--bg-soft), var(--bg) 70%);
+    font-family: 'Pretendard', sans-serif;
+    color: var(--ink);
+    display:flex;
+    justify-content:center;
+  }
+  .page{ width:100%; max-width: 480px; }
+  h1{ font-family:'Do Hyeon', sans-serif; font-size:34px; color:var(--plum); margin:0 0 6px; letter-spacing:0.01em; text-align:center; }
+  .lede{ font-size:14px; color:var(--muted); margin:0 0 28px; text-align:center; }
+
+  .progress{ font-size:12.5px; color:var(--muted); text-align:center; margin-bottom:20px; }
+
+  .q-card{ background:var(--ticket); border:1px solid var(--ticket-line); border-radius:14px; padding:22px; margin-bottom:14px; }
+  .q-word{ font-family:'Do Hyeon', sans-serif; font-size:22px; color:var(--ink); margin-bottom:14px; }
+  .q-num{ font-size:12px; color:var(--muted); margin-bottom:4px; }
+  .options{ display:flex; flex-direction:column; gap:8px; }
+  .option{ text-align:left; padding:11px 14px; border:1.5px solid var(--line); border-radius:10px; background:var(--bg-soft); color:var(--ink); font-size:13.5px; cursor:pointer; }
+  .option.selected{ background:var(--plum); border-color:var(--plum); color:var(--cream-text); font-weight:600; }
+
+  .submit-btn{
+    width:100%; padding:18px; background:var(--plum); color:var(--cream-text); border:none; border-radius:14px;
+    font-family:'Do Hyeon', sans-serif; font-size:19px; letter-spacing:0.01em; cursor:pointer;
+    box-shadow: 0 4px 0 #235038; margin-top:8px;
+  }
+  .submit-btn:active{ transform:translateY(3px); box-shadow:0 1px 0 #235038; }
+  .submit-btn:disabled{ opacity:0.5; cursor:default; }
+
+  .result{ display:none; text-align:center; margin-bottom:24px; }
+  .result.visible{ display:block; }
+  .result-score{ font-family:'IBM Plex Mono', monospace; font-size:44px; font-weight:600; color:var(--plum); }
+  .result-tier{ font-family:'Do Hyeon', sans-serif; font-size:24px; margin:6px 0 4px; }
+  .result-desc{ font-size:13.5px; color:var(--muted); margin-bottom:18px; }
+  .retry-btn{ padding:10px 20px; border:1.5px solid var(--plum); border-radius:999px; background:var(--ticket); color:var(--plum); font-size:13px; font-weight:600; cursor:pointer; }
+
+  .review{ display:none; }
+  .review.visible{ display:block; }
+  .review-item{ background:var(--ticket); border:1px solid var(--ticket-line); border-radius:12px; padding:16px 18px; margin-bottom:10px; text-align:left; }
+  .review-item .word{ font-family:'Do Hyeon', sans-serif; font-size:17px; margin-bottom:4px; }
+  .review-item .mark{ font-size:12.5px; font-weight:700; margin-left:6px; }
+  .review-item .mark.correct{ color:var(--plum); }
+  .review-item .mark.wrong{ color:#B23A2E; }
+  .review-item .explain{ font-size:13px; color:var(--muted); line-height:1.55; margin-top:6px; }
+
+  .quiz-body{ display:block; }
+  .quiz-body.hidden{ display:none; }
+
+  .info-block{ margin-top:40px; text-align:left; }
+  .info-block h2{ font-family:'Do Hyeon', sans-serif; font-size:18px; color:var(--plum); margin:0 0 10px; font-weight:400; }
+  .info-block p{ font-size:13.5px; line-height:1.65; color:var(--muted); margin:0 0 14px; }
+  .faq-item{ margin-bottom:14px; }
+  .faq-item .q{ font-size:14px; font-weight:700; color:var(--ink); margin-bottom:5px; }
+  .faq-item .a{ font-size:13.5px; line-height:1.6; color:var(--muted); }
+
+  .related{ margin-top:32px; padding-top:20px; border-top:1px solid var(--line); text-align:left; }
+  .related-title{ font-size:12.5px; color:var(--muted); margin-bottom:10px; }
+  .related-links{ display:flex; flex-wrap:wrap; gap:8px; }
+  .related-links a{ padding:8px 14px; border:1.5px solid var(--line); border-radius:999px; font-size:13px; color:var(--ink); text-decoration:none; }
+  .related-links a:hover{ border-color:var(--ink); }
+
+  .back-home{ display:inline-block; font-size:12.5px; color:var(--muted); text-decoration:none; margin-bottom:14px; }
+  .back-home:hover{ color:var(--ink); }
+</style>
+<!-- Google AdSense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6883245122372170" crossorigin="anonymous"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "이 신조어 테스트는 어떤 기준으로 만들어졌나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "2026년 기준으로 SNS와 커뮤니티에서 실제로 자주 쓰이는 신조어 10개를 뽑아 객관식 문제로 구성했습니다. 유행어 특성상 지역이나 세대에 따라 체감 난이도가 다를 수 있습니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "점수가 낮으면 정말 뒤처진 건가요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "전혀 아닙니다! 신조어는 순식간에 생겼다 사라지는 경우가 많아서, 모른다고 해서 트렌드에 뒤처진 게 아니에요. 재미로 즐기면서 새로운 표현을 알아가는 용도로 봐주세요."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<div class="page">
+  <a href="/" class="back-home">← 하루콕 홈으로</a>
+  <h1>신조어 테스트</h1>
+  <p class="lede">2026년 유행 신조어 10문제, 나는 찐 MZ일까 라떼일까?</p>
+
+  <div class="quiz-body" id="quizBody">
+    <div class="progress" id="progress">0 / 10 선택함</div>
+    <div id="questionList"></div>
+    <button class="submit-btn" id="submitBtn" disabled>결과 확인하기</button>
+  </div>
+
+  <div class="result" id="result">
+    <div class="result-score" id="resultScore">0 / 10</div>
+    <div class="result-tier" id="resultTier"></div>
+    <div class="result-desc" id="resultDesc"></div>
+    <button class="retry-btn" id="retryBtn">다시 풀기</button>
+  </div>
+
+  <div class="review" id="review"></div>
+
+  <!-- ===== 광고 삽입 영역 ===== -->
+  <ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-6883245122372170"
+     data-ad-slot="0000000000"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+
+  <div class="info-block">
+    <h2>이 테스트는 어떻게 만들어졌나요?</h2>
+    <p>2026년 기준 SNS·커뮤니티에서 자주 보이는 신조어 10개를 골라 4지선다 퀴즈로 만들었습니다. 정답을 다 맞히지 못해도 결과 화면에서 각 단어의 뜻을 확인할 수 있어요.</p>
+
+    <div class="faq-item">
+      <div class="q">이 신조어 테스트는 어떤 기준으로 만들어졌나요?</div>
+      <div class="a">2026년 기준으로 SNS와 커뮤니티에서 실제로 자주 쓰이는 신조어 10개를 뽑아 객관식 문제로 구성했습니다. 유행어 특성상 지역이나 세대에 따라 체감 난이도가 다를 수 있습니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">점수가 낮으면 정말 뒤처진 건가요?</div>
+      <div class="a">전혀 아닙니다! 신조어는 순식간에 생겼다 사라지는 경우가 많아서, 모른다고 해서 트렌드에 뒤처진 게 아니에요. 재미로 즐기면서 새로운 표현을 알아가는 용도로 봐주세요.</div>
+    </div>
+  </div>
+
+  <div class="related">
+    <div class="related-title">이런 것도 해보세요</div>
+    <div class="related-links">
+      <a href="/fun/fortune-today">오늘의 운세</a>
+      <a href="/fun/name-compatibility">이름궁합 테스트</a>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const $ = (id) => document.getElementById(id);
+
+  const QUESTIONS = [
+    { word: '알잘딱깔쎈', options: ['최신 아이돌 그룹 이름', '알아서 잘 딱 깔끔하고 센스있게', '음식이 아주 매움', '컴퓨터 사양이 좋음'], answer: 1, explain: '"알아서 잘 딱 깔끔하고 센스있게"의 줄임말로, 눈치 있게 일을 잘 처리한다는 뜻이에요.' },
+    { word: '중꺽마', options: ['중요한 건 꺾인 마음', '중요한 건 꺾이지 않는 마음', '중간고사 꺾은 마음', '중고 거래 마감'], answer: 1, explain: '힘들어도 포기하지 않는 마음을 응원할 때 쓰는 말이에요.' },
+    { word: '이왜진', options: ['이거 왜 진짜야', '이왜 진심이냐', '이상하게 왜인지 진지', '이 와중에 진심'], answer: 0, explain: '예상하지 못한 일이 실제로 벌어졌을 때 놀라며 쓰는 표현이에요.' },
+    { word: '홀리몰리', options: ['성스러운 빵 종류', '헐, 대박(놀람의 감탄사)', '아주 매운 음식', '휴일에 몰아서 쉬기'], answer: 1, explain: '영어 "Holy Moly"에서 온 표현으로, 놀랍거나 어이없는 상황에 쓰는 감탄사예요.' },
+    { word: '갓생', options: ['최고의 인생(부지런하고 알차게 사는 삶)', '신이 정해준 운명', '아주 큰 집', '명품 위주의 소비 생활'], answer: 0, explain: '갓(God)+인생의 합성어로, 계획적이고 부지런하게 하루를 알차게 사는 삶을 뜻해요.' },
+    { word: '킹받다', options: ['기분이 매우 좋아지다', '너무 화가 나고 짜증나다', '왕이 된 것처럼 뿌듯하다', '발음하기 어려운 단어다'], answer: 1, explain: '킹(King)+열받다의 합성어로, 몹시 화나고 짜증나는 상황을 표현할 때 써요.' },
+    { word: '오운완', options: ['오늘 운동 완료', '오늘 운세 완벽', '오래 운전해서 완주', '오늘 운수가 완전 대박'], answer: 0, explain: '"오늘 운동 완료"의 줄임말로, SNS에 운동 인증할 때 자주 쓰는 표현이에요.' },
+    { word: '문찐', options: ['문화 찐따(트렌드에 어두운 사람)', '문 앞에서 진하게 인사하기', '문화를 진하게 즐기는 사람', '문제를 진지하게 푸는 사람'], answer: 0, explain: '문화+찐따의 합성어로, 최신 유행이나 트렌드를 잘 모르는 사람을 가리켜요.' },
+    { word: '스불재', options: ['스스로 불러온 재앙', '스트레스 불태워 재정비', '스몰 부자 재테크', '스피드 있게 불꽃 재도전'], answer: 0, explain: '"스스로 불러온 재앙"의 줄임말로, 자업자득인 상황에 자조적으로 쓰는 표현이에요.' },
+    { word: '냐냐냥', options: ['고양이 소리를 흉내 낸 귀여운 밈 표현', '아니라는 뜻의 신조어', '응원 구호', '작별 인사'], answer: 0, explain: '특별한 뜻보다는 귀엽거나 어이없는 상황에서 리듬감 있게 쓰는 밈성 표현이에요.' },
+  ];
+
+  const answers = new Array(QUESTIONS.length).fill(null);
+
+  function renderQuestions(){
+    const list = $('questionList');
+    list.innerHTML = QUESTIONS.map((q, qi) => `
+      <div class="q-card">
+        <div class="q-num">문제 ${qi + 1}</div>
+        <div class="q-word">"${q.word}"는 무슨 뜻일까요?</div>
+        <div class="options">
+          ${q.options.map((opt, oi) => `
+            <button type="button" class="option" data-qi="${qi}" data-oi="${oi}">${opt}</button>
+          `).join('')}
+        </div>
+      </div>
+    `).join('');
+
+    list.querySelectorAll('.option').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const qi = parseInt(btn.dataset.qi, 10);
+        const oi = parseInt(btn.dataset.oi, 10);
+        answers[qi] = oi;
+
+        list.querySelectorAll(`.option[data-qi="${qi}"]`).forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+
+        updateProgress();
+      });
+    });
+  }
+
+  function updateProgress(){
+    const answeredCount = answers.filter(a => a !== null).length;
+    $('progress').textContent = `${answeredCount} / ${QUESTIONS.length} 선택함`;
+    $('submitBtn').disabled = answeredCount < QUESTIONS.length;
+  }
+
+  function tierFor(score){
+    if (score >= 9) return { label: '찐 신조어 마스터', desc: '유행어 최전선에 있는 진짜 트렌드세터네요!' };
+    if (score >= 6) return { label: '요즘 애들 다 됐네', desc: '웬만한 신조어는 다 알아듣는 수준이에요.' };
+    if (score >= 3) return { label: '반쯤 인싸', desc: '가끔 못 알아듣는 말이 있어도 크게 문제없어요.' };
+    return { label: '라떼는 말이야 세대', desc: '이번 기회에 몇 개 익혀서 써먹어보세요!' };
+  }
+
+  $('submitBtn').addEventListener('click', () => {
+    let score = 0;
+    QUESTIONS.forEach((q, qi) => { if (answers[qi] === q.answer) score++; });
+
+    const tier = tierFor(score);
+    $('resultScore').textContent = `${score} / ${QUESTIONS.length}`;
+    $('resultTier').textContent = tier.label;
+    $('resultDesc').textContent = tier.desc;
+
+    $('review').innerHTML = QUESTIONS.map((q, qi) => {
+      const correct = answers[qi] === q.answer;
+      return `
+        <div class="review-item">
+          <div class="word">${q.word}<span class="mark ${correct ? 'correct' : 'wrong'}">${correct ? '정답' : '오답'}</span></div>
+          <div class="explain"><strong>${q.options[q.answer]}</strong> — ${q.explain}</div>
+        </div>
+      `;
+    }).join('');
+
+    $('quizBody').classList.add('hidden');
+    $('result').classList.add('visible');
+    $('review').classList.add('visible');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  $('retryBtn').addEventListener('click', () => {
+    answers.fill(null);
+    renderQuestions();
+    updateProgress();
+    $('quizBody').classList.remove('hidden');
+    $('result').classList.remove('visible');
+    $('review').classList.remove('visible');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  renderQuestions();
+})();
+</script>
+
+</body>
+</html>

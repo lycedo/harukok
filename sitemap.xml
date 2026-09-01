@@ -131,6 +131,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://harukok.com/fun/slang-quiz-test</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://harukok.com/privacy</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
