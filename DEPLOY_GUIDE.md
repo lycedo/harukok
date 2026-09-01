@@ -3,7 +3,7 @@
 ## 1단계. GitHub 저장소 만들기
 1. github.com 가입 (무료)
 2. 우측 상단 + → New repository
-3. 저장소 이름 예: `pickday` (Public으로 설정)
+3. 저장소 이름 예: `harukok` (Public으로 설정)
 4. 이 zip 파일 안의 모든 파일(index.html, tools/, fun/, privacy.html 등)을
    저장소에 그대로 업로드 (웹 화면에서 "Add file → Upload files" 로 드래그 앤 드롭 가능)
 
