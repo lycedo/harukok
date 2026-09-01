@@ -81,7 +81,12 @@
   .tile-card{ background:#fff; border:1px solid var(--line); border-radius:8px; padding:8px; text-align:center; width:90px; flex-shrink:0; }
   .tile-thumb{ height:80px; display:flex; align-items:center; justify-content:center; margin-bottom:6px; }
   .tile-thumb img{ max-width:100%; max-height:100%; display:block; }
-  .tile-card .idx{ font-size:11px; color:var(--muted); }
+  .tile-card .idx{ font-size:11px; color:var(--muted); margin-bottom:6px; }
+  .tile-download-btn{
+    width:100%; padding:5px 0; border:1px solid var(--line); border-radius:6px; background:var(--paper-light);
+    color:var(--ink-soft); font-size:11px; font-weight:600; cursor:pointer;
+  }
+  .tile-download-btn:active{ transform:translateY(1px); }
 
   .disclaimer{ font-size:11.5px; color:var(--muted); line-height:1.6; margin-top:20px; padding-top:16px; border-top:1px dotted var(--line); }
   .slot{ border:1.5px dashed var(--line); border-radius:10px; padding:18px; text-align:center; font-size:12px; color:var(--muted); margin-top:24px; }
@@ -561,7 +566,11 @@
 
         const card = document.createElement('div');
         card.className = 'tile-card';
-        card.innerHTML = `<div class="tile-thumb"><img src="${dataUrl}" alt="조각 ${count}"></div><div class="idx">#${count}</div>`;
+        card.innerHTML = `
+          <div class="tile-thumb"><img src="${dataUrl}" alt="조각 ${count}"></div>
+          <div class="idx">#${count}</div>
+          <button type="button" class="tile-download-btn" data-index="${count}">저장</button>
+        `;
         tilesGrid.appendChild(card);
 
         tileBlobs.push({ index: count, canvas: tileCanvas });
@@ -570,6 +579,19 @@
 
     $('tileCount').textContent = total;
     $('tilesSection').style.display = 'block';
+  });
+
+  $('tilesGrid').addEventListener('click', (e) => {
+    const btn = e.target.closest('.tile-download-btn');
+    if (!btn) return;
+    const idx = parseInt(btn.dataset.index, 10);
+    const tile = tileBlobs.find(t => t.index === idx);
+    if (!tile) return;
+
+    const link = document.createElement('a');
+    link.download = `조각_${String(idx).padStart(2, '0')}.png`;
+    link.href = tile.canvas.toDataURL('image/png');
+    link.click();
   });
 
   $('downloadZipBtn').addEventListener('click', async () => {
