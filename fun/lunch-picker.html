@@ -368,12 +368,25 @@
       alert('이미지 생성 기능을 아직 불러오는 중이에요. 잠시 후 다시 시도해주세요.');
       return;
     }
-    html2canvas($sh(cardId), { backgroundColor: '#ffffff', scale: 2 }).then(canvas => {
+    const original = $sh(cardId);
+    const clone = original.cloneNode(true);
+    clone.style.width = '420px';
+    clone.style.maxWidth = '420px';
+    clone.style.position = 'fixed';
+    clone.style.left = '-9999px';
+    clone.style.top = '0';
+    document.body.appendChild(clone);
+
+    html2canvas(clone, { backgroundColor: '#ffffff', scale: 2, width: 420 }).then(canvas => {
+      document.body.removeChild(clone);
       const link = document.createElement('a');
       link.download = filename;
       link.href = canvas.toDataURL('image/png');
       link.click();
-    }).catch(() => alert('이미지 저장에 실패했어요.'));
+    }).catch(() => {
+      document.body.removeChild(clone);
+      alert('이미지 저장에 실패했어요.');
+    });
   }
 
   function shareResult(getText){
