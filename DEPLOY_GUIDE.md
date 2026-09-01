@@ -1,5 +1,20 @@
 # 배포 및 애드센스 신청 가이드
 
+## 개발 워크플로 (2026-09-01부터 적용)
+
+메인(운영 사이트)에 바로 반영하지 않고, `dev` 브랜치에서 먼저 확인 후 배포합니다.
+
+- **작업/수정**: `dev` 브랜치에 커밋 & push
+- **확인**: [dev.harukok.pages.dev](https://dev.harukok.pages.dev) 에서 확인 (실제 서비스 `harukok.com`엔 영향 없음)
+- **실제 배포**: 확인 후 `dev` → `main` 병합(merge) → 자동으로 `harukok.com`에 반영
+
+```bash
+# dev에서 작업 후 확인 끝나면 main에 반영하는 명령어 예시
+git checkout main
+git merge dev
+git push
+```
+
 ## 1단계. GitHub 저장소 만들기
 1. github.com 가입 (무료)
 2. 우측 상단 + → New repository
