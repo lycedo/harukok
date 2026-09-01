@@ -50,26 +50,47 @@
     position:relative; overflow:hidden;
     box-shadow: inset 0 0 30px rgba(0,0,0,0.6), 0 10px 18px rgba(0,0,0,0.35);
   }
-  .puzzle-svg{ width:180px; height:150px; overflow:visible; }
-  .piece{ transition: transform 0.8s cubic-bezier(.4,0,.2,1); transform-origin: center; }
-  .piece-left{ transform:translateX(-28px); }
-  .piece-right{ transform:translateX(28px); }
-  .scroll.closing .piece-left,
-  .scroll.closing .piece-right{ transform:translateX(0); }
-  .scroll.merged .piece{ animation: piece-settle 0.4s cubic-bezier(.34,1.56,.64,1) both; }
+  .spin-layer{
+    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    opacity:0; pointer-events:none; transition: opacity 0.15s ease; z-index:2;
+  }
+  .spin-layer.active{ opacity:1; }
+  .spin-emoji{ font-size:64px; }
+  .spin-layer.active .spin-emoji{ animation: spin-blur 0.22s ease-in-out infinite; }
+  @keyframes spin-blur{ 0%, 100%{transform:scale(1) rotate(0deg);} 50%{transform:scale(1.1) rotate(9deg);} }
+
+  .puzzle-svg{ width:180px; height:150px; overflow:visible; transition: opacity 0.15s ease; }
+  .puzzle-svg.hidden{ opacity:0; }
+  .piece{ transform:translateX(var(--tx, 0)); transition: transform 0.7s cubic-bezier(.4,0,.2,1); }
+  .piece-left{ --tx:-28px; }
+  .piece-right{ --tx:28px; }
+  .piece-inner{ transform-box: fill-box; transform-origin: center; }
+  .scroll.success .piece-inner{ animation: piece-settle 0.4s cubic-bezier(.34,1.56,.64,1) both; }
   @keyframes piece-settle{ 0%{transform:scale(1);} 45%{transform:scale(1.06);} 100%{transform:scale(1);} }
-  .piece-shape{ stroke:#150A0E; stroke-width:2; }
+  .scroll.fail .piece-inner{ animation: piece-shake 0.4s ease both; }
+  @keyframes piece-shake{
+    0%, 100%{ transform:rotate(0deg); }
+    25%{ transform:rotate(-4deg); }
+    75%{ transform:rotate(4deg); }
+  }
+
+  .piece-shape{ stroke:#150A0E; stroke-width:2; transition: fill 0.2s ease; }
   .piece-left .piece-shape{ fill:var(--plum); }
   .piece-right .piece-shape{ fill:#FCEFF4; }
+  .scroll.fail .piece-left .piece-shape{ fill:#8A7E86; }
+  .scroll.fail .piece-right .piece-shape{ fill:#DCD3D8; }
+
   .piece-label{ font-family:'Do Hyeon', sans-serif; font-size:16px; text-anchor:middle; dominant-baseline:middle; }
   .piece-left .piece-label{ fill:#fff; }
   .piece-right .piece-label{ fill:var(--plum); }
+  .scroll.fail .piece-right .piece-label{ fill:#6E6656; }
+
   .spark{
     font-size:0; opacity:0; text-anchor:middle; dominant-baseline:middle;
     transition: font-size 0.25s ease, opacity 0.25s ease;
   }
-  .scroll.merged .spark{ font-size:22px; opacity:1; }
-  .scroll.merged .spark.spark-2{ transition-delay:0.08s; }
+  .scroll.success .spark, .scroll.fail .spark{ font-size:22px; opacity:1; }
+  .scroll.success .spark.spark-2, .scroll.fail .spark.spark-2{ transition-delay:0.08s; }
   .scroll.landed{ animation: scroll-pop 0.36s cubic-bezier(.34,1.56,.64,1); }
   @keyframes scroll-pop{ 0%{transform:scale(0.86);} 55%{transform:scale(1.08);} 100%{transform:scale(1);} }
 
@@ -147,17 +168,24 @@
   </div>
 
   <div class="scroll" id="scroll">
-    <svg class="puzzle-svg" viewBox="0 0 200 130">
-      <g class="piece piece-left">
-        <path class="piece-shape" d="M16,30 L86,30 L86,51 A14,14 0 0 1 86,79 L86,100 L16,100 Z" />
-        <text class="piece-label" id="labelLeft" x="46" y="66">?</text>
+    <div class="spin-layer" id="spinLayer">
+      <span class="spin-emoji" id="spinEmoji">🧩</span>
+    </div>
+    <svg class="puzzle-svg" id="puzzleSvg" viewBox="0 0 200 130">
+      <g class="piece piece-left" id="pieceLeft">
+        <g class="piece-inner">
+          <path class="piece-shape" d="M16,30 L86,30 L86,51 A14,14 0 0 1 86,79 L86,100 L16,100 Z" />
+          <text class="piece-label" id="labelLeft" x="46" y="66">?</text>
+        </g>
       </g>
-      <g class="piece piece-right">
-        <path class="piece-shape" d="M156,30 L86,30 L86,51 A14,14 0 0 0 86,79 L86,100 L156,100 Z" />
-        <text class="piece-label" id="labelRight" x="126" y="66">?</text>
+      <g class="piece piece-right" id="pieceRight">
+        <g class="piece-inner">
+          <path class="piece-shape" d="M156,30 L86,30 L86,51 A14,14 0 0 0 86,79 L86,100 L156,100 Z" />
+          <text class="piece-label" id="labelRight" x="126" y="66">?</text>
+        </g>
       </g>
-      <text class="spark spark-1" x="70" y="38">✨</text>
-      <text class="spark spark-2" x="102" y="94">✨</text>
+      <text class="spark spark-1" id="spark1" x="70" y="38">✨</text>
+      <text class="spark spark-2" id="spark2" x="102" y="94">✨</text>
     </svg>
   </div>
 
@@ -264,33 +292,74 @@
     $('pullBtn').disabled = true;
 
     const scroll = $('scroll');
+    const spinLayer = $('spinLayer');
+    const spinEmoji = $('spinEmoji');
+    const puzzleSvg = $('puzzleSvg');
+    const pieceLeft = $('pieceLeft');
+    const pieceRight = $('pieceRight');
 
-    // 애니메이션 초기화: 두 퍼즐 조각이 각자 이름 첫 글자를 달고 떨어져서 시작
-    scroll.classList.remove('closing', 'merged', 'landed');
+    // 애니메이션 초기화: 퍼즐은 숨기고 뽑기 스핀부터 시작
+    scroll.classList.remove('success', 'fail', 'landed');
+    puzzleSvg.classList.add('hidden');
+    pieceLeft.style.setProperty('--tx', '-28px');
+    pieceRight.style.setProperty('--tx', '28px');
     $('labelLeft').textContent = n1.charAt(0);
     $('labelRight').textContent = n2.charAt(0);
-    void scroll.offsetWidth; // 리플로우 강제 (트랜지션 재시작용)
 
-    // 두 퍼즐 조각이 가운데로 다가와 딱 맞물리는 연출
-    scroll.classList.add('closing');
+    spinLayer.classList.add('active');
+    const emojis = ['🧩', '❓', '✨', '🔍'];
+    const totalTicks = 16;
+    let tick = 0;
+
+    function nextTick(){
+      spinEmoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      tick++;
+
+      if (tick < totalTicks){
+        const progress = tick / totalTicks;
+        const delay = 60 + Math.pow(progress, 3) * 240;
+        setTimeout(nextTick, delay);
+      } else {
+        spinLayer.classList.remove('active');
+        puzzleSvg.classList.remove('hidden');
+        revealPuzzle(n1, n2, pieceLeft, pieceRight, scroll);
+      }
+    }
+
+    nextTick();
+  });
+
+  function revealPuzzle(n1, n2, pieceLeft, pieceRight, scroll){
+    const score = scoreFor(n1, n2);
+    const tier = tierFor(score);
+    const success = tier !== 'LOW';
+
+    if (success){
+      pieceLeft.style.setProperty('--tx', '0px');
+      pieceRight.style.setProperty('--tx', '0px');
+      $('spark1').textContent = '✨';
+      $('spark2').textContent = '✨';
+    } else {
+      pieceLeft.style.setProperty('--tx', '-14px');
+      pieceRight.style.setProperty('--tx', '14px');
+      $('spark1').textContent = '💦';
+      $('spark2').textContent = '😅';
+    }
 
     setTimeout(() => {
-      scroll.classList.add('merged');
-    }, 800);
+      scroll.classList.add(success ? 'success' : 'fail');
+    }, 700);
 
     setTimeout(() => {
       scroll.classList.add('landed');
       setTimeout(() => scroll.classList.remove('landed'), 360);
       spinning = false;
       $('pullBtn').disabled = false;
-      reveal(n1, n2);
-    }, 800 + 400);
-  });
+      reveal(n1, n2, score, tier);
+    }, 700 + 400);
+  }
 
-  function reveal(n1, n2){
-    const score = scoreFor(n1, n2);
-    const tier = tierFor(score);
-
+  function reveal(n1, n2, score, tier){
     $('rScore').textContent = score + '%';
     $('rNamesLabel').textContent = `${n1} ♥ ${n2}`;
     $('rComment').textContent = pick(COMMENTS[tier]);
