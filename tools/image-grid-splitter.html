@@ -40,10 +40,10 @@
   .demo-title{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:16px; }
   .demo-compare{ display:flex; align-items:flex-start; justify-content:center; gap:20px; flex-wrap:wrap; }
   .demo-col-label{ font-size:12px; color:var(--muted); margin-bottom:10px; }
-  .demo-cells{ display:flex; gap:8px; }
-  .demo-cell{ position:relative; width:72px; height:72px; background:#fff; border:1.5px dashed var(--line); border-radius:8px; }
-  .demo-cell.trimmed{ width:52px; height:52px; border-style:solid; border-color:var(--stamp); border-width:2px; align-self:center; }
-  .demo-icon{ position:absolute; font-size:24px; }
+  .demo-cells{ display:flex; gap:6px; flex-wrap:wrap; justify-content:center; max-width:150px; }
+  .demo-cell{ position:relative; width:62px; height:62px; background:#fff; border:1.5px dashed var(--line); border-radius:8px; }
+  .demo-cell.trimmed{ width:44px; height:44px; border-style:solid; border-color:var(--stamp); border-width:2px; align-self:center; }
+  .demo-icon{ position:absolute; font-size:20px; }
   .demo-icon.center{ top:50%; left:50%; transform:translate(-50%,-50%); font-size:26px; }
   .demo-arrow{ font-size:20px; color:var(--muted); align-self:center; margin-top:14px; }
 
@@ -79,11 +79,6 @@
     background: linear-gradient(135deg, rgba(178,58,46,0.06), rgba(178,58,46,0.02));
     border:1.5px solid rgba(178,58,46,0.25); border-radius:12px; padding:14px 16px; margin-bottom:14px;
   }
-  .unique-badge{
-    font-size:10.5px; font-weight:700; color:#fff; background:var(--stamp); border-radius:999px;
-    padding:2px 9px; margin-left:auto; white-space:nowrap;
-  }
-
   .mode-row{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px; }
   .mode-btn{
     padding:8px 14px; border:1.5px solid var(--line); border-radius:999px; background:#fff;
@@ -191,23 +186,26 @@
 
   <div class="card demo-card">
     <div class="demo-header">
-      <span class="unique-badge">다른 곳엔 없는 기능</span>
       <div class="demo-title">여백 자동 정리, 이렇게 달라져요</div>
     </div>
     <div class="demo-compare">
       <div class="demo-col">
         <div class="demo-col-label">적용 전 (격자로만 자름)</div>
         <div class="demo-cells">
-          <div class="demo-cell"><span class="demo-icon" style="top:8px; left:8px;">🎈</span></div>
-          <div class="demo-cell"><span class="demo-icon" style="bottom:8px; right:10px;">🍀</span></div>
+          <div class="demo-cell"><span class="demo-icon" style="top:6px; left:6px;">☕</span></div>
+          <div class="demo-cell"><span class="demo-icon" style="bottom:8px; right:6px;">🪴</span></div>
+          <div class="demo-cell"><span class="demo-icon" style="top:10px; right:8px;">💻</span></div>
+          <div class="demo-cell"><span class="demo-icon" style="bottom:6px; left:10px;">📱</span></div>
         </div>
       </div>
       <div class="demo-arrow">→</div>
       <div class="demo-col">
         <div class="demo-col-label">적용 후 (여백 자동 정리)</div>
         <div class="demo-cells">
-          <div class="demo-cell trimmed"><span class="demo-icon center">🎈</span></div>
-          <div class="demo-cell trimmed"><span class="demo-icon center">🍀</span></div>
+          <div class="demo-cell trimmed"><span class="demo-icon center">☕</span></div>
+          <div class="demo-cell trimmed"><span class="demo-icon center">🪴</span></div>
+          <div class="demo-cell trimmed"><span class="demo-icon center">💻</span></div>
+          <div class="demo-cell trimmed"><span class="demo-icon center">📱</span></div>
         </div>
       </div>
     </div>
@@ -253,7 +251,6 @@
         <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
           <input type="checkbox" id="trimCheckbox" checked style="width:16px; height:16px;">
           여백 자동 정리 (내용을 감지해서 가운데로 정렬)
-          <span class="unique-badge">다른 곳엔 없는 기능</span>
         </label>
         <span class="field-hint">각 조각 안에서 그림이 삐뚤게 잘리지 않도록, 여백을 걷어내고 내용 중심으로 다시 잘라줍니다.</span>
       </div>
