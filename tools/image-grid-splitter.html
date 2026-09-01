@@ -55,6 +55,13 @@
   .workspace{ display:none; margin-top:24px; }
   .workspace.visible{ display:block; }
 
+  .sample-tag{
+    display:none; background:var(--paper); border:1px dashed var(--line); border-radius:10px;
+    padding:9px 12px; font-size:12.5px; color:var(--ink-soft); text-align:center; margin-bottom:16px; font-weight:600;
+  }
+  .workspace.sample-mode .sample-tag{ display:block; }
+  .workspace.sample-mode .editor-only{ display:none; }
+
   .grid-controls{ display:flex; gap:16px; flex-wrap:wrap; align-items:flex-end; margin-bottom:16px; }
   .field{ margin-bottom:0; }
   .field label{ display:block; font-size:12.5px; color:var(--ink-soft); margin-bottom:6px; }
@@ -182,7 +189,9 @@
     <input type="file" id="fileInput" accept="image/*">
 
     <div class="workspace" id="workspace">
-      <div class="grid-controls">
+      <div class="sample-tag" id="sampleTag">👀 예시 미리보기 — 실제로는 이렇게 나와요</div>
+
+      <div class="grid-controls editor-only">
         <div class="field">
           <label for="rowsInput">행 (가로줄)</label>
           <input type="number" id="rowsInput" min="1" max="20" value="2">
@@ -194,7 +203,7 @@
         <button class="calc-btn secondary" id="resetGridBtn" style="flex:none; min-width:auto; padding:10px 16px;">↺ 균등 초기화</button>
       </div>
 
-      <div class="mode-row">
+      <div class="mode-row editor-only">
         <button class="mode-btn" id="addVBtn" type="button">│ 세로선 추가</button>
         <button class="mode-btn" id="addHBtn" type="button">─ 가로선 추가</button>
         <span class="field-hint" id="modeHint" style="align-self:center;"></span>
@@ -203,7 +212,7 @@
       <div class="canvas-wrap">
         <canvas id="gridCanvas"></canvas>
       </div>
-      <div class="field-hint" style="text-align:center; margin-bottom:14px;">
+      <div class="field-hint editor-only" style="text-align:center; margin-bottom:14px;">
         선을 드래그하면 위치가 옮겨지고, 선을 <strong>더블클릭</strong>하면 삭제됩니다.
       </div>
 
@@ -326,7 +335,10 @@
     const reader = new FileReader();
     reader.onload = (e) => {
       const img = new Image();
-      img.onload = () => onImageReady(img);
+      img.onload = () => {
+        workspace.classList.remove('sample-mode');
+        onImageReady(img);
+      };
       img.src = e.target.result;
     };
     reader.readAsDataURL(file);
@@ -366,6 +378,7 @@
     const img = new Image();
     img.onload = () => {
       onImageReady(img);
+      workspace.classList.add('sample-mode');
       rowsInput.value = 5;
       colsInput.value = 2;
       resetGridLines();
@@ -675,6 +688,7 @@
   $('resetImgBtn').addEventListener('click', () => {
     sourceImage = null;
     workspace.classList.remove('visible');
+    workspace.classList.remove('sample-mode');
     $('tilesSection').style.display = 'none';
     fileInput.value = '';
   });
