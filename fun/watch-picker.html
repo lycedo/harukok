@@ -84,9 +84,25 @@
 
   .back-home{ display:inline-block; font-size:12.5px; color:var(--muted); text-decoration:none; margin-bottom:14px; }
   .back-home:hover{ color:var(--ink); }
+
+  .share-watermark{ text-align:center; font-family:'Do Hyeon', sans-serif; font-size:12.5px; color:var(--muted); margin-top:6px; letter-spacing:0.02em; }
+  .share-row{ display:flex; gap:10px; margin:0 0 28px; display:none; }
+  .share-row.visible{ display:flex; }
+  .share-btn{
+    flex:1; padding:12px; border:1.5px solid var(--line); border-radius:12px; background:var(--ticket);
+    color:var(--ink); font-size:13px; font-weight:600; cursor:pointer;
+  }
+  .share-btn:active{ transform:translateY(2px); }
+  .share-toast{
+    position:fixed; left:50%; bottom:28px; transform:translateX(-50%) translateY(12px);
+    background:var(--ink); color:#fff; font-size:13px; padding:10px 18px; border-radius:999px;
+    opacity:0; pointer-events:none; transition:opacity 0.2s ease, transform 0.2s ease; z-index:10;
+  }
+  .share-toast.visible{ opacity:1; transform:translateX(-50%) translateY(0); }
 </style>
 <!-- Google AdSense -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6883245122372170" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -140,6 +156,12 @@
       <div class="content-card"><div class="label">형식</div><div class="text" id="rFormat"></div></div>
       <div class="content-card"><div class="label">추천 시간대</div><div class="text" id="rRuntime"></div></div>
     </div>
+    <div class="share-watermark">하루콕 · harukok.com</div>
+  </div>
+
+  <div class="share-row" id="shareRow">
+    <button class="share-btn" id="saveImgBtn">이미지로 저장</button>
+    <button class="share-btn" id="shareBtn">공유하기</button>
   </div>
 
   <!-- ===== 광고 삽입 영역 ===== -->
@@ -174,9 +196,80 @@
   </div>
 </div>
 
+<div class="share-toast" id="shareToast"></div>
+
 <script>
 (function(){
   const $ = (id) => document.getElementById(id);
+
+  function showToast(msg){
+    const toast = $('shareToast');
+    toast.textContent = msg;
+    toast.classList.add('visible');
+    setTimeout(() => toast.classList.remove('visible'), 2200);
+  }
+
+  function saveCardAsImage(cardId, filename){
+    if (typeof html2canvas === 'undefined'){
+      alert('이미지 생성 기능을 아직 불러오는 중이에요. 잠시 후 다시 시도해주세요.');
+      return;
+    }
+    const original = $(cardId);
+    const clone = original.cloneNode(true);
+    clone.style.width = '420px';
+    clone.style.maxWidth = '420px';
+    clone.style.position = 'fixed';
+    clone.style.left = '-9999px';
+    clone.style.top = '0';
+    document.body.appendChild(clone);
+
+    html2canvas(clone, { backgroundColor: '#ffffff', scale: 2, width: 420 }).then(canvas => {
+      document.body.removeChild(clone);
+      const link = document.createElement('a');
+      link.download = filename;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    }).catch(() => {
+      document.body.removeChild(clone);
+      alert('이미지 저장에 실패했어요.');
+    });
+  }
+
+  function shareResult(getText){
+    const text = getText();
+
+    function legacyCopy(){
+      try {
+        const ta = document.createElement('textarea');
+        ta.value = text + ' ' + location.href;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        showToast('결과가 복사되었어요');
+      } catch(e){
+        showToast('공유를 지원하지 않는 환경이에요');
+      }
+    }
+
+    function fallbackCopy(){
+      if (navigator.clipboard){
+        navigator.clipboard.writeText(text + ' ' + location.href).then(() => showToast('결과가 복사되었어요')).catch(legacyCopy);
+      } else {
+        legacyCopy();
+      }
+    }
+
+    if (navigator.share){
+      navigator.share({ title: '하루콕', text, url: location.href })
+        .then(() => showToast('공유했어요'))
+        .catch(err => { if (!err || err.name !== 'AbortError') fallbackCopy(); });
+    } else {
+      fallbackCopy();
+    }
+  }
 
   const POOL = {
     FUN: {
@@ -266,7 +359,13 @@
     $('rRuntime').textContent = pick(RUNTIMES);
 
     $('result').classList.add('visible');
+    $('shareRow').classList.add('visible');
   }
+
+  $('saveImgBtn').addEventListener('click', () => saveCardAsImage('result', '하루콕-오늘뭐볼까.png'));
+  $('shareBtn').addEventListener('click', () => shareResult(() =>
+    `[오늘 뭐 볼까] ${$('rGenre').textContent} (${$('rFormat').textContent})`
+  ));
 })();
 </script>
 
