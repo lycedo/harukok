@@ -145,7 +145,7 @@
   .coupon-icon-photo-cover img{ width:100%; height:100%; object-fit:cover; display:block; }
   .coupon.photo-mode-cover .coupon-icon-bg{ display:none; }
 
-  .coupon.photo-mode-center .icon-photo-frame{ width:66%; height:66%; }
+  .coupon.photo-mode-center .icon-photo-frame{ width:46%; height:46%; }
   .coupon.photo-mode-center .icon-photo-frame img{
     object-fit:contain;
     filter: drop-shadow(0 4px 8px rgba(0,0,0,0.35));
@@ -615,14 +615,17 @@
       const zoneRect = couponIconPhoto.getBoundingClientRect();
       const startX = e.clientX, startY = e.clientY;
       const startLeft = mainPhoto.x, startTop = mainPhoto.y;
-      const minY = 33 + (30 / zoneRect.height) * 100;
+      const halfPct = 23; // frame is 46% of the icon zone, so half its size
+      const minX = halfPct, maxX = 100 - halfPct;
+      const minY = Math.max(halfPct, halfPct + (28 / zoneRect.height) * 100);
+      const maxY = 100 - halfPct;
       try { frame.setPointerCapture(e.pointerId); } catch(err) {}
       function onMove(ev){
         const dx = ev.clientX - startX, dy = ev.clientY - startY;
         let nx = startLeft + (dx / zoneRect.width) * 100;
         let ny = startTop + (dy / zoneRect.height) * 100;
-        nx = Math.max(10, Math.min(90, nx));
-        ny = Math.max(minY, Math.min(90, ny));
+        nx = Math.max(minX, Math.min(maxX, nx));
+        ny = Math.max(minY, Math.min(maxY, ny));
         mainPhoto.x = nx; mainPhoto.y = ny;
         frame.style.left = nx + '%';
         frame.style.top = ny + '%';
