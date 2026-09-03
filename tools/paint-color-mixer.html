@@ -98,6 +98,18 @@
 
   .accuracy-note{ font-size:12.5px; color:var(--muted); margin-top:14px; text-align:center; }
 
+  .section-divider{ display:flex; align-items:center; gap:12px; margin:36px 0 24px; }
+  .section-divider .line{ flex:1; height:1px; background:var(--line); }
+  .section-divider .text{ font-size:13px; color:var(--muted); white-space:nowrap; }
+
+  .slider-row{ display:flex; align-items:center; gap:10px; margin-bottom:14px; }
+  .slider-row .dot{ width:16px; height:16px; border-radius:50%; flex-shrink:0; border:1px solid rgba(0,0,0,0.15); }
+  .slider-row .name{ width:100px; flex-shrink:0; font-size:13px; color:var(--ink-soft); }
+  .slider-row input[type="range"]{ flex:1; accent-color: var(--ink); }
+  .slider-row .pct{ width:44px; flex-shrink:0; text-align:right; font-family:'IBM Plex Mono', monospace; font-size:13px; font-weight:600; color:var(--ink); }
+  .live-mix-box{ text-align:center; margin-top:20px; }
+  .live-mix-box .big-swatch{ width:140px; height:140px; margin:0 auto 10px; border-radius:12px; border:1.5px solid var(--line); }
+
   .disclaimer{ font-size:11.5px; color:var(--muted); line-height:1.6; margin-top:20px; padding-top:16px; border-top:1px dotted var(--line); }
   @media (max-width:480px){ .card{ padding:20px; } h1{ font-size:23px; } }
 
@@ -141,7 +153,7 @@
   <a href="/" class="back-home">← 하루콕 홈으로</a>
   <div class="kicker">생활 도구</div>
   <h1>물감 배합 비율 계산기</h1>
-  <p class="lede">원하는 색을 고르고 갖고 있는 물감을 선택하면, 어떤 비율로 섞어야 비슷한 색이 나오는지 계산해드립니다.</p>
+  <p class="lede">원하는 색을 고르면 어떤 비율로 섞어야 하는지 계산해주고, 반대로 비율을 직접 움직여서 어떤 색이 나오는지 바로 확인할 수도 있어요.</p>
 
   <div class="related">
     <div class="related-title">함께 보면 좋은 도구</div>
@@ -183,6 +195,27 @@
       </div>
       <div id="ratioList"></div>
       <div class="accuracy-note" id="accuracyNote"></div>
+    </div>
+
+    <div class="disclaimer">실제 물감은 빛처럼 섞이지 않아 이 결과는 참고용 근사치입니다. 브랜드·농도에 따라 실제 색이 다를 수 있어요.</div>
+  </div>
+
+  <div class="section-divider"><span class="line"></span><span class="text">또는</span><span class="line"></span></div>
+
+  <div class="card">
+    <div class="field">
+      <label>비율을 직접 조절해서 색 확인하기</label>
+      <div class="pigment-grid" id="pigmentGrid2"></div>
+      <div class="pigment-hint">최소 2개, 최대 4개까지 선택하고 아래 막대를 움직여보세요.</div>
+    </div>
+
+    <div id="sliderSection" style="display:none;">
+      <div id="sliderRows"></div>
+      <div class="live-mix-box">
+        <div class="big-swatch" id="liveMixSwatch"></div>
+        <div class="label">섞은 결과</div>
+        <div class="hexval" id="liveMixHexLabel"></div>
+      </div>
     </div>
 
     <div class="disclaimer">실제 물감은 빛처럼 섞이지 않아 이 결과는 참고용 근사치입니다. 브랜드·농도에 따라 실제 색이 다를 수 있어요.</div>
@@ -241,7 +274,15 @@
   const ratioList = $('ratioList');
   const accuracyNote = $('accuracyNote');
 
+  const pigmentGrid2 = $('pigmentGrid2');
+  const sliderSection = $('sliderSection');
+  const sliderRows = $('sliderRows');
+  const liveMixSwatch = $('liveMixSwatch');
+  const liveMixHexLabel = $('liveMixHexLabel');
+
   let selected = new Set();
+  let selected2 = new Set();
+  const sliderValues = {};
 
   function hexToRgb(hex){
     const h = hex.replace('#', '');
@@ -273,6 +314,69 @@
       });
       pigmentGrid.appendChild(el);
     });
+  }
+
+  function renderPigments2(){
+    PIGMENTS.forEach((p, i) => {
+      const el = document.createElement('div');
+      el.className = 'pigment-chip';
+      el.innerHTML = `<span class="swatch" style="background:${p.hex}"></span>${p.name}`;
+      el.addEventListener('click', () => {
+        if (selected2.has(i)) {
+          selected2.delete(i);
+          delete sliderValues[i];
+          el.classList.remove('active');
+        } else {
+          if (selected2.size >= 4) return;
+          selected2.add(i);
+          sliderValues[i] = 50;
+          el.classList.add('active');
+        }
+        renderSliders();
+      });
+      pigmentGrid2.appendChild(el);
+    });
+  }
+
+  function renderSliders(){
+    if (selected2.size < 2) {
+      sliderSection.style.display = 'none';
+      return;
+    }
+    sliderSection.style.display = 'block';
+    const idxs = [...selected2];
+    sliderRows.innerHTML = idxs.map(i => `
+      <div class="slider-row" data-idx="${i}">
+        <span class="dot" style="background:${PIGMENTS[i].hex}"></span>
+        <span class="name">${PIGMENTS[i].name}</span>
+        <input type="range" min="1" max="100" value="${sliderValues[i]}">
+        <span class="pct" id="pct-${i}">0%</span>
+      </div>
+    `).join('');
+    sliderRows.querySelectorAll('input[type="range"]').forEach(inp => {
+      const idx = Number(inp.closest('.slider-row').dataset.idx);
+      inp.addEventListener('input', () => {
+        sliderValues[idx] = Number(inp.value);
+        updateLiveMix();
+      });
+    });
+    updateLiveMix();
+  }
+
+  function updateLiveMix(){
+    const idxs = [...selected2];
+    const total = idxs.reduce((s, i) => s + sliderValues[i], 0) || 1;
+    const mix = [0, 0, 0];
+    idxs.forEach(i => {
+      const w = sliderValues[i] / total;
+      const rgb = hexToRgb(PIGMENTS[i].hex);
+      for (let c = 0; c < 3; c++) mix[c] += w * rgb[c];
+      const pctEl = $('pct-' + i);
+      if (pctEl) pctEl.textContent = Math.round(w * 100) + '%';
+    });
+    const hex = rgbToHex(mix);
+    liveMixSwatch.style.background = hex;
+    liveMixHexLabel.textContent = hex;
   }
 
   function projectSimplex(w){
@@ -363,6 +467,7 @@
   });
 
   renderPigments();
+  renderPigments2();
 })();
 </script>
 </body>
