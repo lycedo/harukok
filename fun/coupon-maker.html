@@ -283,7 +283,7 @@
         <div class="mode-btn active" data-mode="cover">꽉 채우기</div>
         <div class="mode-btn" data-mode="center">배경없이 가운데 배치</div>
       </div>
-      <div class="photo-hint">첫 번째 사진은 아이콘 자리에, 추가로 올린 사진은 쿠폰 위에 자유롭게 배치돼요. 드래그로 옮기고, ↻ 손잡이로 회전, × 버튼으로 삭제할 수 있어요.</div>
+      <div class="photo-hint">첫 번째 사진은 아이콘 자리에, 추가로 올린 사진은 아이콘 영역 안에서 자유롭게 배치돼요. 드래그로 옮기고, ↻ 손잡이로 회전, × 버튼으로 삭제할 수 있어요.</div>
     </div>
   </div>
 
@@ -596,13 +596,18 @@
         const couponRect = coupon.getBoundingClientRect();
         const startX = e.clientX, startY = e.clientY;
         const startLeft = p.x, startTop = p.y;
+        const photoWPercent = (56 / couponRect.width) * 100;
+        const photoHPercent = (56 / couponRect.height) * 100;
+        const maxX = Math.max(0, 29 - photoWPercent);
+        const minY = Math.max(0, Math.min(10, (28 / couponRect.height) * 100));
+        const maxY = Math.max(minY, 100 - photoHPercent);
         try { el.setPointerCapture(e.pointerId); } catch(err) {}
         function onMove(ev){
           const dx = ev.clientX - startX, dy = ev.clientY - startY;
           let nx = startLeft + (dx / couponRect.width) * 100;
           let ny = startTop + (dy / couponRect.height) * 100;
-          nx = Math.max(0, Math.min(86, nx));
-          ny = Math.max(16, Math.min(78, ny));
+          nx = Math.max(0, Math.min(maxX, nx));
+          ny = Math.max(minY, Math.min(maxY, ny));
           p.x = nx; p.y = ny;
           el.style.left = nx + '%';
           el.style.top = ny + '%';
@@ -641,8 +646,15 @@
   function addExtraPhoto(dataUrl){
     const id = 'ep' + (extraPhotoSeq++);
     const n = extraPhotos.length;
-    const x = 36 + (n % 3) * 16;
-    const y = 18 + (n % 3) * 12;
+    const rect = coupon.getBoundingClientRect();
+    const w = rect.width || 420, h = rect.height || 190;
+    const photoWPercent = (56 / w) * 100;
+    const photoHPercent = (56 / h) * 100;
+    const maxX = Math.max(0, 29 - photoWPercent);
+    const minY = Math.max(0, Math.min(10, (28 / h) * 100));
+    const maxY = Math.max(minY, 100 - photoHPercent);
+    const x = Math.min(maxX, (n % 2) * (maxX / 1.6));
+    const y = Math.min(maxY, minY + (n % 3) * ((maxY - minY) / 2.2));
     extraPhotos.push({ id, dataUrl, x, y, rot: 0 });
     renderExtraPhotos();
   }
