@@ -82,12 +82,15 @@
 
   .sticker-row{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px; }
   .sticker-btn{
-    width:42px; height:42px; border:1.5px solid var(--line); border-radius:10px; background:#fff;
-    cursor:pointer; display:flex; align-items:center; justify-content:center; padding:8px;
-    color: var(--ink-soft, #45516A);
+    width:42px; height:42px; border:1.5px solid var(--cert-accent, #B8860B); border-radius:10px;
+    background: var(--paper-light);
+    cursor:pointer; display:flex; align-items:center; justify-content:center; padding:9px;
+    color: var(--cert-accent, #B8860B);
+    transition: transform 0.1s ease;
   }
   .sticker-btn svg{ width:100%; height:100%; display:block; }
   .sticker-btn:active{ transform:translateY(1px); }
+  .sticker-btn:hover{ background:#fff; }
   .sticker-hint{ font-size:12px; color:var(--muted); margin:-12px 0 20px; }
 
   .photo-upload-row{ display:flex; gap:10px; align-items:center; margin-bottom:20px; }
@@ -145,12 +148,12 @@
   }
   .cert-content{ font-size: clamp(11.5px, 2.9vw, 14.5px); color:var(--cert-ink-soft, #4A3F30); line-height:1.7; margin-bottom: 5%; max-width:88%; word-break:keep-all; }
   .cert-footer{ font-size: clamp(11px, 2.7vw, 13px); color:var(--cert-ink-soft, #4A3F30); }
-  .cert-footer .date{ margin-bottom: 6%; font-family:'IBM Plex Mono', monospace; letter-spacing:0.5px; }
+  .cert-footer .date{ margin-bottom: 6%; font-family:'Noto Serif KR', serif; letter-spacing:0.5px; }
   .cert-footer .sign-line{ width: clamp(90px, 22vw, 150px); height:1px; background:var(--cert-accent, #B8860B); margin: 0 auto 8px; opacity:0.8; }
   .cert-footer .awarder{ font-weight:700; color:var(--cert-ink, #2A2118); font-family:'Noto Serif KR', serif; }
   .cert-serial{
-    position:absolute; bottom:5%; left:7%; font-family:'IBM Plex Mono', monospace;
-    font-size: clamp(9px, 1.7vw, 11px); color:var(--cert-ink-soft, #4A3F30); opacity:0.6; letter-spacing:0.5px;
+    position:absolute; bottom:5%; left:7%; font-family:'Pretendard', sans-serif;
+    font-size: clamp(9px, 1.7vw, 11px); color:var(--cert-ink-soft, #4A3F30); opacity:0.55; letter-spacing:0.3px;
   }
   .cert-seal{
     position:absolute; width:18%; max-width:78px; bottom:6%; right:8%;
@@ -381,7 +384,7 @@
     { name: '미니멀 블랙', bg: '#FAFAF8', border: '#22201C', accent: '#22201C', accentDark: '#B23A2E', ink: '#1B1A17', inkSoft: '#4A473F' },
   ];
 
-  const CORNER_SVG = '<svg viewBox="0 0 60 60"><path d="M3 30 V3 H30" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M3 38 V52 Q3 57 8 57 H24" stroke="currentColor" stroke-width="1.2" fill="none" opacity="0.55" stroke-linecap="round"/><circle cx="3" cy="3" r="3" fill="currentColor"/></svg>';
+  const CORNER_SVG = '<svg viewBox="0 0 60 60"><path d="M3 34 V3 H34" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round"/><circle cx="3" cy="3" r="3" fill="currentColor"/></svg>';
 
   const SEAL_SVG = '<svg viewBox="0 0 100 130"><path d="M35 55 L25 125 L50 108 L75 125 L65 55Z" fill="currentColor" opacity="0.88"/><circle cx="50" cy="42" r="34" fill="currentColor"/><circle cx="50" cy="42" r="26" fill="none" stroke="#fff" stroke-width="2" opacity="0.55"/><polygon points="50,25 55,38 69,38 58,46 62,60 50,52 38,60 42,46 31,38 45,38" fill="#fff" opacity="0.9"/></svg>';
 
@@ -427,12 +430,15 @@
   function applyTheme(idx){
     currentTheme = idx;
     const t = THEMES[idx];
-    cert.style.setProperty('--cert-bg', t.bg);
-    cert.style.setProperty('--cert-border', t.border);
-    cert.style.setProperty('--cert-accent', t.accent);
-    cert.style.setProperty('--cert-accent-dark', t.accentDark);
-    cert.style.setProperty('--cert-ink', t.ink);
-    cert.style.setProperty('--cert-ink-soft', t.inkSoft);
+    // 스티커 팔레트(.sticker-btn)는 .cert 바깥에 있어서 문서 루트에도 같이 반영해야 색이 전달됨
+    [cert, document.documentElement].forEach(target => {
+      target.style.setProperty('--cert-bg', t.bg);
+      target.style.setProperty('--cert-border', t.border);
+      target.style.setProperty('--cert-accent', t.accent);
+      target.style.setProperty('--cert-accent-dark', t.accentDark);
+      target.style.setProperty('--cert-ink', t.ink);
+      target.style.setProperty('--cert-ink-soft', t.inkSoft);
+    });
     Array.from(themeGrid.children).forEach((el, i) => el.classList.toggle('active', i === idx));
   }
 
