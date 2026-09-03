@@ -157,10 +157,20 @@
   }
   .cert-seal svg{ width:100%; height:auto; display:block; filter: drop-shadow(0 2px 3px rgba(0,0,0,0.18)); }
   .cert-photo{
-    position:absolute; top:6%; right:6%; width:20%; aspect-ratio:1/1; border-radius:50%;
+    position:absolute; width:20%; aspect-ratio:1/1; border-radius:50%;
     border:3px solid var(--cert-accent, #C9A24B); overflow:hidden; background:#fff;
+    cursor:grab; touch-action:none;
   }
-  .cert-photo img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .cert-photo:active{ cursor:grabbing; }
+  .cert-photo img{ width:100%; height:100%; object-fit:cover; display:block; pointer-events:none; }
+  .cert-photo.selected{ outline: 1.5px dashed rgba(0,0,0,0.3); outline-offset:6px; }
+  .cert-photo .sticker-handle.del{
+    display:none; position:absolute; top:-10px; right:-10px; width:22px; height:22px; align-items:center; justify-content:center;
+    background:#B23A2E; border:1.5px solid #B23A2E; color:#fff; border-radius:50%; font-size:12px; font-weight:700;
+    cursor:pointer; z-index:2; box-shadow:0 1px 3px rgba(0,0,0,0.2);
+  }
+  .cert-photo.selected .sticker-handle.del{ display:flex; }
+  .photo-hint{ font-size:12px; color:var(--muted); margin-top:8px; }
   .cert-sticker{
     position:absolute; width: clamp(26px, 7vw, 40px); color: var(--cert-accent, #B8860B);
     user-select:none; cursor:grab; touch-action:none;
@@ -235,7 +245,7 @@
       "name": "아이 사진을 넣을 수 있나요?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "네, 사진 추가 버튼으로 아이 사진을 올리면 상장 오른쪽 위 원형 프레임에 삽입됩니다. 업로드한 사진은 서버로 전송되지 않고 브라우저 안에서만 처리됩니다."
+        "text": "네, 사진 추가 버튼으로 아이 사진을 올리면 원형 프레임으로 삽입되고, 드래그해서 원하는 위치로 옮길 수 있습니다. 업로드한 사진은 서버로 전송되지 않고 브라우저 안에서만 처리됩니다."
       }
     }
   ]
@@ -304,6 +314,7 @@
         <input type="file" id="photoInput" accept="image/*">
         <span class="photo-remove" id="photoRemoveBtn">사진 제거</span>
       </div>
+      <div class="photo-hint">상장 위 사진을 드래그해서 원하는 위치로 옮길 수 있어요. 클릭하면 × 버튼으로 삭제할 수 있어요.</div>
     </div>
   </div>
 
@@ -350,7 +361,7 @@
     </div>
     <div class="faq-item">
       <div class="q">아이 사진을 넣을 수 있나요?</div>
-      <div class="a">네, 사진 추가 버튼으로 아이 사진을 올리면 상장 오른쪽 위 원형 프레임에 삽입됩니다. 업로드한 사진은 서버로 전송되지 않고 브라우저 안에서만 처리됩니다.</div>
+      <div class="a">네, 사진 추가 버튼으로 아이 사진을 올리면 원형 프레임으로 삽입되고, 드래그해서 원하는 위치로 옮길 수 있습니다. 업로드한 사진은 서버로 전송되지 않고 브라우저 안에서만 처리됩니다.</div>
     </div>
   </div>
 </div>
@@ -583,6 +594,9 @@
       selectedStickerId = null;
       cert.querySelectorAll('.cert-sticker').forEach(el => el.classList.remove('selected'));
     }
+    if (!e.target.closest('.cert-photo')) {
+      cert.querySelectorAll('.cert-photo').forEach(el => el.classList.remove('selected'));
+    }
   });
 
   function syncCert(){
@@ -599,6 +613,36 @@
     el.addEventListener('change', syncCert);
   });
 
+  let photoPos = { x: 74, y: 6 };
+
+  function makePhotoDraggable(el){
+    el.addEventListener('pointerdown', (e) => {
+      if (e.target.closest('.sticker-handle')) return;
+      e.preventDefault();
+      el.classList.add('selected');
+      const certRect = cert.getBoundingClientRect();
+      const startX = e.clientX, startY = e.clientY;
+      const startLeft = photoPos.x, startTop = photoPos.y;
+      el.setPointerCapture(e.pointerId);
+      function onMove(ev){
+        const dx = ev.clientX - startX, dy = ev.clientY - startY;
+        let nx = startLeft + (dx / certRect.width) * 100;
+        let ny = startTop + (dy / certRect.height) * 100;
+        nx = Math.max(0, Math.min(80, nx));
+        ny = Math.max(0, Math.min(80, ny));
+        photoPos.x = nx; photoPos.y = ny;
+        el.style.left = nx + '%';
+        el.style.top = ny + '%';
+      }
+      function onUp(){
+        el.removeEventListener('pointermove', onMove);
+        el.removeEventListener('pointerup', onUp);
+      }
+      el.addEventListener('pointermove', onMove);
+      el.addEventListener('pointerup', onUp);
+    });
+  }
+
   photoBtn.addEventListener('click', () => photoInput.click());
   photoInput.addEventListener('change', () => {
     const file = photoInput.files && photoInput.files[0];
@@ -610,20 +654,39 @@
       if (!img) {
         img = document.createElement('div');
         img.className = 'cert-photo';
+        img.style.left = photoPos.x + '%';
+        img.style.top = photoPos.y + '%';
+        const delHandle = document.createElement('div');
+        delHandle.className = 'sticker-handle del';
+        delHandle.textContent = '×';
+        delHandle.addEventListener('click', (e) => {
+          e.stopPropagation();
+          removePhoto();
+        });
+        img.appendChild(delHandle);
+        makePhotoDraggable(img);
         cert.appendChild(img);
       }
-      img.innerHTML = `<img src="${photoDataUrl}" alt="">`;
+      const existingImg = img.querySelector('img');
+      if (existingImg) existingImg.remove();
+      const imgTag = document.createElement('img');
+      imgTag.src = photoDataUrl;
+      imgTag.alt = '';
+      img.appendChild(imgTag);
       photoRemoveBtn.style.display = 'inline';
     };
     reader.readAsDataURL(file);
   });
-  photoRemoveBtn.addEventListener('click', () => {
+
+  function removePhoto(){
     photoDataUrl = null;
     const img = cert.querySelector('.cert-photo');
     if (img) img.remove();
     photoInput.value = '';
     photoRemoveBtn.style.display = 'none';
-  });
+    photoPos = { x: 74, y: 6 };
+  }
+  photoRemoveBtn.addEventListener('click', removePhoto);
 
   const toast = $('shareToast');
   let toastTimer = null;
