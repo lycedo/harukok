@@ -96,6 +96,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://harukok.com/tools/paint-color-mixer</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://harukok.com/fun/lunch-picker</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -142,6 +147,11 @@
   </url>
   <url>
     <loc>https://harukok.com/fun/name-compatibility</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://harukok.com/fun/coupon-maker</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
