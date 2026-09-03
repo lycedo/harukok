@@ -189,21 +189,19 @@
     position:absolute; width: clamp(26px, 7vw, 40px); color: var(--cert-accent, #B8860B);
     user-select:none; cursor:grab; touch-action:none;
   }
-  .cert-sticker.is-image{ width: clamp(50px, 14vw, 84px); }
   .cert-sticker:active{ cursor:grabbing; }
   .cert-sticker .sticker-inner{
     filter: drop-shadow(0 2px 3px rgba(0,0,0,0.15));
   }
   .cert-sticker .sticker-inner svg{ width:100%; height:auto; display:block; }
   .cert-sticker .sticker-inner-image img{ width:100%; height:auto; display:block; border-radius:6px; }
-  .cert-sticker.selected{ outline: 1.5px dashed rgba(0,0,0,0.3); outline-offset:6px; }
   .sticker-handle{
     display:none; position:absolute; width:22px; height:22px; align-items:center; justify-content:center;
     background:#fff; border:1.5px solid #999; border-radius:50%; color:#333; font-size:12px; font-weight:700;
     cursor:pointer; touch-action:none; z-index:2; box-shadow:0 1px 3px rgba(0,0,0,0.2);
   }
   .cert-sticker.selected .sticker-handle{ display:flex; }
-  .sticker-handle.rotate{ top:-30px; left:50%; transform:translateX(-50%); cursor:grab; }
+  .sticker-handle.rotate{ top:6px; left:50%; transform:translateX(-50%); cursor:grab; }
   .sticker-handle.rotate:active{ cursor:grabbing; }
   .sticker-handle.del{ top:-10px; right:-10px; background:#B23A2E; border-color:#B23A2E; color:#fff; }
 
@@ -320,7 +318,7 @@
     <div class="field">
       <label>스티커 추가 (클릭하면 상장 위에 붙어요)</label>
       <div class="sticker-row" id="stickerRow"></div>
-      <div class="sticker-hint">상장 위 스티커를 드래그해서 옮기고, ↻ 손잡이로 회전, × 버튼으로 삭제할 수 있어요.</div>
+      <div class="sticker-hint">상장 위 스티커를 드래그해서 옮기고, ↻ 손잡이로 회전, × 버튼으로 삭제할 수 있어요. 사진 스티커는 아래쪽 모서리를 잡고 드래그하면 크기도 조절돼요.</div>
     </div>
 
     <div class="field">
@@ -528,6 +526,8 @@
     renderStickers();
   }
 
+  const STICKER_IMG_BASE_PCT = 15; // width (% of cert width) at scale 1, for photo-stickers
+
   function renderStickers(){
     cert.querySelectorAll('.cert-sticker').forEach(el => el.remove());
     stickers.forEach(s => {
@@ -535,6 +535,10 @@
       el.className = 'cert-sticker' + (s.img ? ' is-image' : '') + (s.id === selectedStickerId ? ' selected' : '');
       el.style.left = s.x + '%';
       el.style.top = s.y + '%';
+      if (s.img) {
+        if (s.scale === undefined) s.scale = 1;
+        el.style.width = (STICKER_IMG_BASE_PCT * s.scale) + '%';
+      }
 
       const inner = document.createElement('div');
       inner.className = 'sticker-inner' + (s.img ? ' sticker-inner-image' : '');
@@ -552,12 +556,57 @@
       delHandle.textContent = '×';
       el.appendChild(delHandle);
 
-      // 이동 드래그
+      const CORNER_ZONE = 16;
+      function nearBottomCorner(clientX, clientY){
+        const rect = el.getBoundingClientRect();
+        const corners = [[rect.left, rect.bottom], [rect.right, rect.bottom]];
+        return corners.some(([cx, cy]) => Math.hypot(clientX - cx, clientY - cy) <= CORNER_ZONE);
+      }
+      if (s.img) {
+        el.addEventListener('pointermove', (e) => {
+          el.style.cursor = nearBottomCorner(e.clientX, e.clientY) ? 'nwse-resize' : 'grab';
+        });
+      }
+
+      // 이동 드래그 (+ 사진 스티커는 모서리를 잡으면 크기 조절)
       el.addEventListener('pointerdown', (e) => {
         if (e.target === rotateHandle || e.target === delHandle) return;
         e.preventDefault();
         selectSticker(s.id);
         const certRect = cert.getBoundingClientRect();
+
+        if (s.img && nearBottomCorner(e.clientX, e.clientY)) {
+          const rect = el.getBoundingClientRect();
+          const cx = rect.left + rect.width / 2, cy = rect.top + rect.height / 2;
+          const startDist = Math.max(1, Math.hypot(e.clientX - cx, e.clientY - cy));
+          const startScale = s.scale;
+          function onResizeMove(ev){
+            const dist = Math.hypot(ev.clientX - cx, ev.clientY - cy);
+            let newScale = startScale * (dist / startDist);
+            newScale = Math.max(0.4, Math.min(2.2, newScale));
+            s.scale = newScale;
+            const newSizePct = STICKER_IMG_BASE_PCT * newScale;
+            const newSizePxH = (newSizePct / 100) * certRect.width;
+            const centerXpct = ((cx - certRect.left) / certRect.width) * 100;
+            const centerYpct = ((cy - certRect.top) / certRect.height) * 100;
+            let nx = centerXpct - newSizePct / 2;
+            let ny = centerYpct - (newSizePxH / certRect.height * 100) / 2;
+            nx = Math.max(0, Math.min(100 - newSizePct, nx));
+            ny = Math.max(0, Math.min(100 - (newSizePxH / certRect.height * 100), ny));
+            s.x = nx; s.y = ny;
+            el.style.width = newSizePct + '%';
+            el.style.left = nx + '%';
+            el.style.top = ny + '%';
+          }
+          function onResizeUp(){
+            window.removeEventListener('pointermove', onResizeMove);
+            window.removeEventListener('pointerup', onResizeUp);
+          }
+          window.addEventListener('pointermove', onResizeMove);
+          window.addEventListener('pointerup', onResizeUp);
+          return;
+        }
+
         const startX = e.clientX, startY = e.clientY;
         const startLeft = s.x, startTop = s.y;
         function onMove(ev){
