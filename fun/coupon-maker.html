@@ -85,17 +85,24 @@
 
   .coupon-extra-photo{
     position:absolute; width:56px; height:56px; z-index:5; cursor:grab; touch-action:none;
-    border-radius:8px; border:2px solid #fff; box-shadow:0 3px 8px rgba(0,0,0,0.25); overflow:hidden;
   }
   .coupon-extra-photo:active{ cursor:grabbing; }
+  .coupon-extra-photo .photo-inner{
+    width:100%; height:100%; border-radius:8px; border:2px solid #fff; box-shadow:0 3px 8px rgba(0,0,0,0.25); overflow:hidden;
+  }
   .coupon-extra-photo img{ width:100%; height:100%; object-fit:cover; display:block; pointer-events:none; }
-  .coupon-extra-photo.selected{ outline:1.5px dashed rgba(0,0,0,0.4); outline-offset:4px; }
+  .coupon-extra-photo.selected .photo-inner{ outline:1.5px dashed rgba(0,0,0,0.4); outline-offset:4px; }
   .coupon-extra-photo .photo-del{
     display:none; position:absolute; top:-9px; right:-9px; width:20px; height:20px; align-items:center; justify-content:center;
     background:#B23A2E; border:1.5px solid #B23A2E; color:#fff; border-radius:50%; font-size:11px; font-weight:700;
-    cursor:pointer; box-shadow:0 1px 3px rgba(0,0,0,0.2);
+    cursor:pointer; z-index:2; box-shadow:0 1px 3px rgba(0,0,0,0.2);
   }
-  .coupon-extra-photo.selected .photo-del{ display:flex; }
+  .coupon-extra-photo .photo-rotate{
+    display:none; position:absolute; top:-26px; left:50%; transform:translateX(-50%); width:20px; height:20px;
+    align-items:center; justify-content:center; background:#fff; border:1.5px solid #999; color:#333;
+    border-radius:50%; font-size:11px; font-weight:700; cursor:grab; z-index:2; box-shadow:0 1px 3px rgba(0,0,0,0.2);
+  }
+  .coupon-extra-photo.selected .photo-del, .coupon-extra-photo.selected .photo-rotate{ display:flex; }
 
   /* coupon visual */
   .coupon-wrap{ display:flex; justify-content:center; margin-bottom:20px; }
@@ -276,7 +283,7 @@
         <div class="mode-btn active" data-mode="cover">꽉 채우기</div>
         <div class="mode-btn" data-mode="center">배경없이 가운데 배치</div>
       </div>
-      <div class="photo-hint">첫 번째 사진은 아이콘 자리에, 추가로 올린 사진은 쿠폰 위에 자유롭게 배치돼요. 드래그로 옮기고 클릭하면 × 로 삭제할 수 있어요.</div>
+      <div class="photo-hint">첫 번째 사진은 아이콘 자리에, 추가로 올린 사진은 쿠폰 위에 자유롭게 배치돼요. 드래그로 옮기고, ↻ 손잡이로 회전, × 버튼으로 삭제할 수 있어요.</div>
     </div>
   </div>
 
@@ -554,20 +561,35 @@
   function renderExtraPhotos(){
     coupon.querySelectorAll('.coupon-extra-photo').forEach(el => el.remove());
     extraPhotos.forEach(p => {
+      if (p.rot === undefined) p.rot = 0;
       const el = document.createElement('div');
       el.className = 'coupon-extra-photo';
       el.style.left = p.x + '%';
       el.style.top = p.y + '%';
-      el.innerHTML = `<img src="${p.dataUrl}" alt=""><div class="photo-del">×</div>`;
 
-      el.querySelector('.photo-del').addEventListener('click', (e) => {
+      const inner = document.createElement('div');
+      inner.className = 'photo-inner';
+      inner.innerHTML = `<img src="${p.dataUrl}" alt="">`;
+      inner.style.transform = `rotate(${p.rot}deg)`;
+      el.appendChild(inner);
+
+      const rotateHandle = document.createElement('div');
+      rotateHandle.className = 'photo-rotate';
+      rotateHandle.textContent = '↻';
+      el.appendChild(rotateHandle);
+
+      const delHandle = document.createElement('div');
+      delHandle.className = 'photo-del';
+      delHandle.textContent = '×';
+      delHandle.addEventListener('click', (e) => {
         e.stopPropagation();
         extraPhotos = extraPhotos.filter(x => x.id !== p.id);
         renderExtraPhotos();
       });
+      el.appendChild(delHandle);
 
       el.addEventListener('pointerdown', (e) => {
-        if (e.target.closest('.photo-del')) return;
+        if (e.target.closest('.photo-del') || e.target.closest('.photo-rotate')) return;
         e.preventDefault();
         coupon.querySelectorAll('.coupon-extra-photo').forEach(x => x.classList.remove('selected'));
         el.classList.add('selected');
@@ -593,6 +615,25 @@
         el.addEventListener('pointerup', onUp);
       });
 
+      rotateHandle.addEventListener('pointerdown', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        try { rotateHandle.setPointerCapture(e.pointerId); } catch(err) {}
+        function onMove(ev){
+          const rect = el.getBoundingClientRect();
+          const cx = rect.left + rect.width / 2, cy = rect.top + rect.height / 2;
+          const angle = Math.atan2(ev.clientY - cy, ev.clientX - cx) * 180 / Math.PI;
+          p.rot = Math.round(angle + 90);
+          inner.style.transform = `rotate(${p.rot}deg)`;
+        }
+        function onUp(){
+          rotateHandle.removeEventListener('pointermove', onMove);
+          rotateHandle.removeEventListener('pointerup', onUp);
+        }
+        rotateHandle.addEventListener('pointermove', onMove);
+        rotateHandle.addEventListener('pointerup', onUp);
+      });
+
       coupon.appendChild(el);
     });
   }
@@ -602,7 +643,7 @@
     const n = extraPhotos.length;
     const x = 36 + (n % 3) * 16;
     const y = 8 + (n % 3) * 12;
-    extraPhotos.push({ id, dataUrl, x, y });
+    extraPhotos.push({ id, dataUrl, x, y, rot: 0 });
     renderExtraPhotos();
   }
 

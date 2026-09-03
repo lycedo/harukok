@@ -158,19 +158,27 @@
   }
   .cert-seal svg{ width:100%; height:auto; display:block; filter: drop-shadow(0 2px 3px rgba(0,0,0,0.18)); }
   .cert-photo{
-    position:absolute; width:20%; aspect-ratio:1/1; border-radius:50%;
-    border:3px solid var(--cert-accent, #C9A24B); overflow:hidden; background:#fff;
+    position:absolute; width:20%; aspect-ratio:1/1;
     cursor:grab; touch-action:none;
   }
   .cert-photo:active{ cursor:grabbing; }
+  .cert-photo .photo-inner{
+    width:100%; height:100%; border-radius:50%;
+    border:3px solid var(--cert-accent, #C9A24B); overflow:hidden; background:#fff;
+  }
   .cert-photo img{ width:100%; height:100%; object-fit:cover; display:block; pointer-events:none; }
-  .cert-photo.selected{ outline: 1.5px dashed rgba(0,0,0,0.3); outline-offset:6px; }
+  .cert-photo.selected .photo-inner{ outline: 1.5px dashed rgba(0,0,0,0.3); outline-offset:6px; }
   .cert-photo .sticker-handle.del{
     display:none; position:absolute; top:-10px; right:-10px; width:22px; height:22px; align-items:center; justify-content:center;
     background:#B23A2E; border:1.5px solid #B23A2E; color:#fff; border-radius:50%; font-size:12px; font-weight:700;
     cursor:pointer; z-index:2; box-shadow:0 1px 3px rgba(0,0,0,0.2);
   }
-  .cert-photo.selected .sticker-handle.del{ display:flex; }
+  .cert-photo .sticker-handle.rotate{
+    display:none; position:absolute; top:-30px; left:50%; transform:translateX(-50%); width:22px; height:22px;
+    align-items:center; justify-content:center; background:#fff; border:1.5px solid #999; color:#333;
+    border-radius:50%; font-size:12px; font-weight:700; cursor:grab; z-index:2; box-shadow:0 1px 3px rgba(0,0,0,0.2);
+  }
+  .cert-photo.selected .sticker-handle.del, .cert-photo.selected .sticker-handle.rotate{ display:flex; }
   .photo-hint{ font-size:12px; color:var(--muted); margin-top:8px; }
   .cert-sticker{
     position:absolute; width: clamp(26px, 7vw, 40px); color: var(--cert-accent, #B8860B);
@@ -248,7 +256,7 @@
       "name": "아이 사진을 넣을 수 있나요?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "네, 사진 추가 버튼으로 여러 장을 한 번에 올릴 수 있고, 각각 원형 프레임으로 삽입되어 드래그로 자유롭게 위치를 옮길 수 있습니다. 업로드한 사진은 서버로 전송되지 않고 브라우저 안에서만 처리됩니다."
+        "text": "네, 사진 추가 버튼으로 여러 장을 한 번에 올릴 수 있고, 각각 원형 프레임으로 삽입되어 스티커처럼 드래그로 위치를 옮기고 회전 손잡이로 각도도 조절할 수 있습니다. 업로드한 사진은 서버로 전송되지 않고 브라우저 안에서만 처리됩니다."
       }
     }
   ]
@@ -320,7 +328,7 @@
         <input type="file" id="photoInput" accept="image/*" multiple>
         <span class="photo-remove" id="photoRemoveBtn">전체 삭제</span>
       </div>
-      <div class="photo-hint">여러 장 올릴 수 있어요. 상장 위 사진을 드래그해서 옮기고, 클릭하면 × 버튼으로 삭제할 수 있어요.</div>
+      <div class="photo-hint">여러 장 올릴 수 있어요. 상장 위 사진을 드래그해서 옮기고, ↻ 손잡이로 회전, × 버튼으로 삭제할 수 있어요.</div>
     </div>
   </div>
 
@@ -367,7 +375,7 @@
     </div>
     <div class="faq-item">
       <div class="q">아이 사진을 넣을 수 있나요?</div>
-      <div class="a">네, 사진 추가 버튼으로 여러 장을 한 번에 올릴 수 있고, 각각 원형 프레임으로 삽입되어 드래그로 자유롭게 위치를 옮길 수 있습니다. 업로드한 사진은 서버로 전송되지 않고 브라우저 안에서만 처리됩니다.</div>
+      <div class="a">네, 사진 추가 버튼으로 여러 장을 한 번에 올릴 수 있고, 각각 원형 프레임으로 삽입되어 스티커처럼 드래그로 위치를 옮기고 회전 손잡이로 각도도 조절할 수 있습니다. 업로드한 사진은 서버로 전송되지 않고 브라우저 안에서만 처리됩니다.</div>
     </div>
   </div>
 </div>
@@ -628,11 +636,22 @@
   function renderPhotos(){
     cert.querySelectorAll('.cert-photo').forEach(el => el.remove());
     photos.forEach(p => {
+      if (p.rot === undefined) p.rot = 0;
       const el = document.createElement('div');
       el.className = 'cert-photo';
       el.style.left = p.x + '%';
       el.style.top = p.y + '%';
-      el.innerHTML = `<img src="${p.dataUrl}" alt="">`;
+
+      const inner = document.createElement('div');
+      inner.className = 'photo-inner';
+      inner.innerHTML = `<img src="${p.dataUrl}" alt="">`;
+      inner.style.transform = `rotate(${p.rot}deg)`;
+      el.appendChild(inner);
+
+      const rotateHandle = document.createElement('div');
+      rotateHandle.className = 'sticker-handle rotate';
+      rotateHandle.textContent = '↻';
+      el.appendChild(rotateHandle);
 
       const delHandle = document.createElement('div');
       delHandle.className = 'sticker-handle del';
@@ -671,6 +690,25 @@
         el.addEventListener('pointerup', onUp);
       });
 
+      rotateHandle.addEventListener('pointerdown', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        try { rotateHandle.setPointerCapture(e.pointerId); } catch(err) {}
+        function onMove(ev){
+          const rect = el.getBoundingClientRect();
+          const cx = rect.left + rect.width / 2, cy = rect.top + rect.height / 2;
+          const angle = Math.atan2(ev.clientY - cy, ev.clientX - cx) * 180 / Math.PI;
+          p.rot = Math.round(angle + 90);
+          inner.style.transform = `rotate(${p.rot}deg)`;
+        }
+        function onUp(){
+          rotateHandle.removeEventListener('pointermove', onMove);
+          rotateHandle.removeEventListener('pointerup', onUp);
+        }
+        rotateHandle.addEventListener('pointermove', onMove);
+        rotateHandle.addEventListener('pointerup', onUp);
+      });
+
       cert.appendChild(el);
     });
   }
@@ -680,7 +718,7 @@
     const n = photos.length;
     const x = Math.min(80, 60 + (n % 4) * 5);
     const y = Math.min(80, 6 + (n % 4) * 8);
-    photos.push({ id, dataUrl, x, y });
+    photos.push({ id, dataUrl, x, y, rot: 0 });
     renderPhotos();
   }
 
