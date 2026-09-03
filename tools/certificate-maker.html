@@ -201,7 +201,7 @@
     cursor:pointer; touch-action:none; z-index:2; box-shadow:0 1px 3px rgba(0,0,0,0.2);
   }
   .cert-sticker.selected .sticker-handle{ display:flex; }
-  .sticker-handle.rotate{ top:-10px; left:-10px; cursor:grab; }
+  .sticker-handle.rotate{ top:-10px; left:50%; transform:translateX(-50%); cursor:grab; }
   .sticker-handle.rotate:active{ cursor:grabbing; }
   .sticker-handle.del{ top:-10px; right:-10px; background:#B23A2E; border-color:#B23A2E; color:#fff; }
 
@@ -528,6 +528,7 @@
 
   const STICKER_IMG_BASE_PCT = 15; // width (% of cert width) at scale 1, for photo-stickers
   const STICKER_SVG_BASE_PCT = 7; // width (% of cert width) at scale 1, for icon stickers
+  const STICKER_MIN_PX = 56, STICKER_MAX_PX = 140; // absolute size bounds so it can't shrink/overflow too far
 
   function renderStickers(){
     cert.querySelectorAll('.cert-sticker').forEach(el => el.remove());
@@ -538,7 +539,14 @@
       el.style.top = s.y + '%';
       if (s.scale === undefined) s.scale = 1;
       const basePct = s.img ? STICKER_IMG_BASE_PCT : STICKER_SVG_BASE_PCT;
-      el.style.width = (basePct * s.scale) + '%';
+      const certRectNow = cert.getBoundingClientRect();
+      let renderPct = basePct * s.scale;
+      if (certRectNow.width) {
+        const minPct = (STICKER_MIN_PX / certRectNow.width) * 100;
+        const maxPct = (STICKER_MAX_PX / certRectNow.width) * 100;
+        renderPct = Math.max(minPct, Math.min(maxPct, renderPct));
+      }
+      el.style.width = renderPct + '%';
 
       const inner = document.createElement('div');
       inner.className = 'sticker-inner' + (s.img ? ' sticker-inner-image' : '');
@@ -581,9 +589,12 @@
           function onResizeMove(ev){
             const dist = Math.hypot(ev.clientX - cx, ev.clientY - cy);
             let newScale = startScale * (dist / startDist);
-            newScale = Math.max(0.4, Math.min(2.2, newScale));
+            const rawPct = basePct * newScale;
+            const minPct = (STICKER_MIN_PX / certRect.width) * 100;
+            const maxPct = (STICKER_MAX_PX / certRect.width) * 100;
+            const newSizePct = Math.max(minPct, Math.min(maxPct, rawPct));
+            newScale = newSizePct / basePct;
             s.scale = newScale;
-            const newSizePct = basePct * newScale;
             const newSizePxH = (newSizePct / 100) * certRect.width;
             const centerXpct = ((cx - certRect.left) / certRect.width) * 100;
             const centerYpct = ((cy - certRect.top) / certRect.height) * 100;
@@ -690,6 +701,7 @@
   let photos = []; // {id, dataUrl, x, y, rot, scale}
   let photoSeq = 0;
   const CERT_PHOTO_BASE_PCT = 20; // width (% of cert width) at scale 1
+  const PHOTO_MIN_PX = 70, PHOTO_MAX_PX = 200; // absolute size bounds so it can't shrink/overflow too far
 
   function renderPhotos(){
     cert.querySelectorAll('.cert-photo').forEach(el => el.remove());
@@ -751,9 +763,12 @@
           function onResizeMove(ev){
             const dist = Math.hypot(ev.clientX - cx, ev.clientY - cy);
             let newScale = startScale * (dist / startDist);
-            newScale = Math.max(0.5, Math.min(1.8, newScale));
+            const rawPct = CERT_PHOTO_BASE_PCT * newScale;
+            const minPct = (PHOTO_MIN_PX / certRect.width) * 100;
+            const maxPct = (PHOTO_MAX_PX / certRect.width) * 100;
+            const newSizePct = Math.max(minPct, Math.min(maxPct, rawPct));
+            newScale = newSizePct / CERT_PHOTO_BASE_PCT;
             p.scale = newScale;
-            const newSizePct = CERT_PHOTO_BASE_PCT * newScale;
             const newSizePxH = (newSizePct / 100) * certRect.width; // square: height px == width px
             const centerXpct = ((cx - certRect.left) / certRect.width) * 100;
             const centerYpct = ((cy - certRect.top) / certRect.height) * 100;
