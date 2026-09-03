@@ -118,15 +118,6 @@
     border-radius:50%; font-size:11px; font-weight:700; cursor:grab; z-index:5; box-shadow:0 1px 3px rgba(0,0,0,0.2);
   }
   .icon-photo-frame.selected .photo-rotate{ display:flex; }
-  .icon-photo-frame .photo-resize{
-    display:none; position:absolute; width:13px; height:13px; background:#fff;
-    border:1.5px solid #999; border-radius:3px; cursor:nwse-resize; z-index:5; box-shadow:0 1px 3px rgba(0,0,0,0.2);
-  }
-  .icon-photo-frame.selected .photo-resize{ display:block; }
-  .icon-photo-frame .photo-resize.tl{ top:4px; left:4px; }
-  .icon-photo-frame .photo-resize.tr{ top:4px; right:4px; }
-  .icon-photo-frame .photo-resize.bl{ bottom:4px; left:4px; }
-  .icon-photo-frame .photo-resize.br{ bottom:4px; right:4px; }
 
   .coupon-icon-photo-cover{ position:absolute; inset:0; }
   .coupon-icon-photo-cover img{ width:100%; height:100%; object-fit:cover; display:block; }
@@ -292,7 +283,7 @@
         <div class="mode-btn" data-mode="free">자유 배치</div>
         <div class="mode-btn" data-mode="centered">중앙정렬</div>
       </div>
-      <div class="photo-hint">사진은 1장만 넣을 수 있어요. 자유 배치에서는 드래그로 옮기고, ↻ 손잡이로 회전, 네 모서리의 네모 손잡이로 크기 조절을 할 수 있어요.</div>
+      <div class="photo-hint">사진은 1장만 넣을 수 있어요. 자유 배치에서는 드래그로 옮기고, ↻ 손잡이로 회전, 모서리를 잡고 드래그하면 크기를 조절할 수 있어요.</div>
     </div>
   </div>
 
@@ -611,18 +602,63 @@
     rotateHandle.textContent = '↻';
     frame.appendChild(rotateHandle);
 
+    const CORNER_ZONE = 18; // px, distance from a corner that triggers resize instead of move
+    function nearCorner(clientX, clientY){
+      const rect = frame.getBoundingClientRect();
+      const corners = [
+        [rect.left, rect.top], [rect.right, rect.top],
+        [rect.left, rect.bottom], [rect.right, rect.bottom]
+      ];
+      return corners.some(([cx, cy]) => Math.hypot(clientX - cx, clientY - cy) <= CORNER_ZONE);
+    }
+
+    frame.addEventListener('pointermove', (e) => {
+      if (frame.hasPointerCapture && frame.hasPointerCapture(e.pointerId)) return;
+      frame.style.cursor = nearCorner(e.clientX, e.clientY) ? 'nwse-resize' : 'grab';
+    });
+
     frame.addEventListener('pointerdown', (e) => {
-      if (e.target.closest('.photo-rotate') || e.target.closest('.photo-resize')) return;
+      if (e.target.closest('.photo-rotate')) return;
       e.preventDefault();
       couponIconPhoto.querySelectorAll('.icon-photo-frame').forEach(x => x.classList.remove('selected'));
       frame.classList.add('selected');
+      try { frame.setPointerCapture(e.pointerId); } catch(err) {}
+
+      if (nearCorner(e.clientX, e.clientY)) {
+        const rect = frame.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2, cy = rect.top + rect.height / 2;
+        const startDist = Math.max(1, Math.hypot(e.clientX - cx, e.clientY - cy));
+        const startScale = mainPhoto.scale || 1;
+        function onResizeMove(ev){
+          const dist = Math.hypot(ev.clientX - cx, ev.clientY - cy);
+          let newScale = startScale * (dist / startDist);
+          newScale = Math.max(0.5, Math.min(1.5, newScale));
+          mainPhoto.scale = newScale;
+          const newSizePct = FREE_BASE_PCT * newScale;
+          frame.style.width = newSizePct + '%';
+          frame.style.height = newSizePct + '%';
+          const halfPct = newSizePct / 2;
+          const nx = Math.max(halfPct, Math.min(100 - halfPct, mainPhoto.x));
+          const ny = Math.max(halfPct, Math.min(100 - halfPct, mainPhoto.y));
+          mainPhoto.x = nx; mainPhoto.y = ny;
+          frame.style.left = nx + '%';
+          frame.style.top = ny + '%';
+        }
+        function onResizeUp(){
+          frame.removeEventListener('pointermove', onResizeMove);
+          frame.removeEventListener('pointerup', onResizeUp);
+        }
+        frame.addEventListener('pointermove', onResizeMove);
+        frame.addEventListener('pointerup', onResizeUp);
+        return;
+      }
+
       const zoneRect = couponIconPhoto.getBoundingClientRect();
       const startX = e.clientX, startY = e.clientY;
       const startLeft = mainPhoto.x, startTop = mainPhoto.y;
       const halfPct = (FREE_BASE_PCT * (mainPhoto.scale || 1)) / 2;
       const minX = halfPct, maxX = 100 - halfPct;
       const minY = halfPct, maxY = 100 - halfPct;
-      try { frame.setPointerCapture(e.pointerId); } catch(err) {}
       function onMove(ev){
         const dx = ev.clientX - startX, dy = ev.clientY - startY;
         let nx = startLeft + (dx / zoneRect.width) * 100;
@@ -658,42 +694,6 @@
       }
       rotateHandle.addEventListener('pointermove', onMove);
       rotateHandle.addEventListener('pointerup', onUp);
-    });
-
-    ['tl', 'tr', 'bl', 'br'].forEach(corner => {
-      const resizeHandle = document.createElement('div');
-      resizeHandle.className = 'photo-resize ' + corner;
-      frame.appendChild(resizeHandle);
-      resizeHandle.addEventListener('pointerdown', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        try { resizeHandle.setPointerCapture(e.pointerId); } catch(err) {}
-        const rect = frame.getBoundingClientRect();
-        const cx = rect.left + rect.width / 2, cy = rect.top + rect.height / 2;
-        const startDist = Math.max(1, Math.hypot(e.clientX - cx, e.clientY - cy));
-        const startScale = mainPhoto.scale || 1;
-        function onMove(ev){
-          const dist = Math.hypot(ev.clientX - cx, ev.clientY - cy);
-          let newScale = startScale * (dist / startDist);
-          newScale = Math.max(0.5, Math.min(1.5, newScale));
-          mainPhoto.scale = newScale;
-          const newSizePct = FREE_BASE_PCT * newScale;
-          frame.style.width = newSizePct + '%';
-          frame.style.height = newSizePct + '%';
-          const halfPct = newSizePct / 2;
-          const nx = Math.max(halfPct, Math.min(100 - halfPct, mainPhoto.x));
-          const ny = Math.max(halfPct, Math.min(100 - halfPct, mainPhoto.y));
-          mainPhoto.x = nx; mainPhoto.y = ny;
-          frame.style.left = nx + '%';
-          frame.style.top = ny + '%';
-        }
-        function onUp(){
-          resizeHandle.removeEventListener('pointermove', onMove);
-          resizeHandle.removeEventListener('pointerup', onUp);
-        }
-        resizeHandle.addEventListener('pointermove', onMove);
-        resizeHandle.addEventListener('pointerup', onUp);
-      });
     });
 
     couponIconPhoto.appendChild(frame);
