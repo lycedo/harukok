@@ -532,7 +532,7 @@
         const certRect = cert.getBoundingClientRect();
         const startX = e.clientX, startY = e.clientY;
         const startLeft = s.x, startTop = s.y;
-        el.setPointerCapture(e.pointerId);
+        try { el.setPointerCapture(e.pointerId); } catch(err) {}
         function onMove(ev){
           const dx = ev.clientX - startX, dy = ev.clientY - startY;
           let nx = startLeft + (dx / certRect.width) * 100;
@@ -555,7 +555,7 @@
       rotateHandle.addEventListener('pointerdown', (e) => {
         e.preventDefault();
         e.stopPropagation();
-        rotateHandle.setPointerCapture(e.pointerId);
+        try { rotateHandle.setPointerCapture(e.pointerId); } catch(err) {}
         function onMove(ev){
           const rect = el.getBoundingClientRect();
           const cx = rect.left + rect.width / 2, cy = rect.top + rect.height / 2;
@@ -623,7 +623,7 @@
       const certRect = cert.getBoundingClientRect();
       const startX = e.clientX, startY = e.clientY;
       const startLeft = photoPos.x, startTop = photoPos.y;
-      el.setPointerCapture(e.pointerId);
+      try { el.setPointerCapture(e.pointerId); } catch(err) {}
       function onMove(ev){
         const dx = ev.clientX - startX, dy = ev.clientY - startY;
         let nx = startLeft + (dx / certRect.width) * 100;
