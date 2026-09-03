@@ -98,7 +98,7 @@
     cursor:pointer; z-index:2; box-shadow:0 1px 3px rgba(0,0,0,0.2);
   }
   .coupon-extra-photo .photo-rotate{
-    display:none; position:absolute; top:-26px; left:50%; transform:translateX(-50%); width:20px; height:20px;
+    display:none; position:absolute; top:-22px; left:50%; transform:translateX(-50%); width:20px; height:20px;
     align-items:center; justify-content:center; background:#fff; border:1.5px solid #999; color:#333;
     border-radius:50%; font-size:11px; font-weight:700; cursor:grab; z-index:2; box-shadow:0 1px 3px rgba(0,0,0,0.2);
   }
@@ -602,7 +602,7 @@
           let nx = startLeft + (dx / couponRect.width) * 100;
           let ny = startTop + (dy / couponRect.height) * 100;
           nx = Math.max(0, Math.min(86, nx));
-          ny = Math.max(0, Math.min(78, ny));
+          ny = Math.max(16, Math.min(78, ny));
           p.x = nx; p.y = ny;
           el.style.left = nx + '%';
           el.style.top = ny + '%';
@@ -642,7 +642,7 @@
     const id = 'ep' + (extraPhotoSeq++);
     const n = extraPhotos.length;
     const x = 36 + (n % 3) * 16;
-    const y = 8 + (n % 3) * 12;
+    const y = 18 + (n % 3) * 12;
     extraPhotos.push({ id, dataUrl, x, y, rot: 0 });
     renderExtraPhotos();
   }

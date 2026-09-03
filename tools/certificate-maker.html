@@ -94,6 +94,12 @@
   .sticker-upload-btn{ font-size:20px; font-weight:700; border-style:dashed; }
   .sticker-hint{ font-size:12px; color:var(--muted); margin:-12px 0 20px; }
 
+  .photo-shape-row{ display:flex; gap:8px; margin-bottom:10px; }
+  .photo-shape-row .mode-btn{
+    padding:7px 12px; border:1.5px solid var(--line); border-radius:999px; background:#fff;
+    font-size:12.5px; color:var(--ink-soft); cursor:pointer; user-select:none;
+  }
+  .photo-shape-row .mode-btn.active{ background:var(--ink); color:#fff; border-color:var(--ink); }
   .photo-upload-row{ display:flex; gap:10px; align-items:center; margin-bottom:20px; }
   .photo-upload-row input[type="file"]{ display:none; }
   .photo-btn{
@@ -323,6 +329,10 @@
 
     <div class="field">
       <label>사진 추가 (선택)</label>
+      <div class="photo-shape-row" id="photoShapeRow">
+        <div class="mode-btn active" data-shape="circle">원형으로 추가</div>
+        <div class="mode-btn" data-shape="sticker">스티커로 추가</div>
+      </div>
       <div class="photo-upload-row">
         <button class="photo-btn" id="photoBtn">사진 추가</button>
         <input type="file" id="photoInput" accept="image/*" multiple>
@@ -431,6 +441,7 @@
   const stickerImageBtn = $('stickerImageBtn');
   const stickerImageInput = $('stickerImageInput');
   const photoBtn = $('photoBtn');
+  const photoShapeRow = $('photoShapeRow');
   const photoInput = $('photoInput');
   const photoRemoveBtn = $('photoRemoveBtn');
 
@@ -733,12 +744,26 @@
     stickerImageInput.value = '';
   });
 
+  let photoShape = 'circle';
+  photoShapeRow.addEventListener('click', (e) => {
+    const btn = e.target.closest('.mode-btn');
+    if (!btn) return;
+    photoShape = btn.dataset.shape;
+    Array.from(photoShapeRow.children).forEach(b => b.classList.toggle('active', b === btn));
+  });
+
   photoBtn.addEventListener('click', () => photoInput.click());
   photoInput.addEventListener('change', () => {
     const files = Array.from(photoInput.files || []);
     files.forEach(file => {
       const reader = new FileReader();
-      reader.onload = () => addPhoto(reader.result);
+      reader.onload = () => {
+        if (photoShape === 'sticker') {
+          addSticker(reader.result, true);
+        } else {
+          addPhoto(reader.result);
+        }
+      };
       reader.readAsDataURL(file);
     });
     photoInput.value = '';
