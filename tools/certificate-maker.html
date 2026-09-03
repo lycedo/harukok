@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>아이 상장 만들기 - 무료 칭찬 상장 제작기</title>
+<meta name="description" content="밥 잘 먹는 어린이 상, 심부름 잘한 상 같은 아이 칭찬 상장을 회원가입 없이 무료로 만들어 이미지로 저장합니다. 테마와 스티커를 골라 나만의 상장을 완성하세요.">
+<link rel="canonical" href="https://harukok.com/tools/certificate-maker">
+<meta property="og:title" content="아이 상장 만들기 - 무료 칭찬 상장 제작기">
+<meta property="og:description" content="밥 잘 먹는 어린이 상, 심부름 잘한 상 같은 아이 칭찬 상장을 회원가입 없이 무료로 만들어 이미지로 저장합니다.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="하루콕">
+<meta property="og:url" content="https://harukok.com/tools/certificate-maker">
+<meta property="og:image" content="https://harukok.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@500;700&family=Pretendard:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #ECE8DC;
+    --paper-light: #F7F4EA;
+    --ink: #16233D;
+    --ink-soft: #45516A;
+    --muted: #6E6656;
+    --line: #B7AF98;
+    --stamp: #B23A2E;
+  }
+  *{ box-sizing: border-box; }
+  body{
+    margin:0;
+    padding: 40px 20px 70px;
+    background: var(--paper);
+    background-image: repeating-linear-gradient(0deg, rgba(0,0,0,0.015) 0px, rgba(0,0,0,0.015) 1px, transparent 1px, transparent 3px);
+    font-family: 'Pretendard', -apple-system, sans-serif;
+    color: var(--ink);
+    display:flex;
+    justify-content:center;
+  }
+  .stub{ width:100%; max-width: 640px; }
+  .kicker{ font-size:13px; color:var(--muted); margin-bottom:6px; }
+  h1{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:28px; line-height:1.35; margin:0 0 8px; }
+  .lede{ font-size:14.5px; color:var(--ink-soft); line-height:1.6; margin:0 0 32px; max-width:52ch; }
+  .card{ background:var(--paper-light); border:1px solid var(--line); border-radius:14px; padding:28px; margin-bottom:28px; }
+
+  .back-home{ display:inline-block; font-size:12.5px; color:var(--muted); text-decoration:none; margin-bottom:14px; }
+  .back-home:hover{ color:var(--ink); }
+
+  .related{ margin-top:20px; margin-bottom:32px; }
+  .related-title{ font-size:12.5px; color:var(--muted); margin-bottom:10px; }
+  .related-links{ display:flex; flex-wrap:wrap; gap:8px; }
+  .related-links a{ padding:8px 14px; border:1.5px solid var(--line); border-radius:999px; font-size:13px; color:var(--ink); text-decoration:none; }
+  .related-links a:hover{ border-color:var(--ink); }
+
+  .field{ margin-bottom:16px; }
+  .field label{ display:block; font-size:13.5px; color:var(--ink-soft); margin-bottom:8px; font-weight:600; }
+  .field input[type="text"], .field textarea, .field input[type="date"]{
+    width:100%; font-family:'Pretendard', sans-serif; font-size:14px; color:var(--ink);
+    background:#fff; border:1.5px solid var(--line); border-radius:8px; padding:10px 12px; outline:none;
+  }
+  .field input:focus, .field textarea:focus{ border-color:var(--ink); }
+  .field textarea{ resize:vertical; min-height:52px; line-height:1.5; }
+  .field-row{ display:flex; gap:10px; }
+  .field-row .field{ flex:1; }
+
+  .title-presets{ display:flex; flex-wrap:wrap; gap:7px; margin-bottom:10px; }
+  .title-chip{
+    padding:7px 12px; border:1.5px solid var(--line); border-radius:999px; background:#fff;
+    font-size:12.5px; color:var(--ink-soft); cursor:pointer; user-select:none;
+  }
+  .title-chip.active{ background:var(--ink); color:#fff; border-color:var(--ink); }
+
+  .theme-grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap:8px; margin-bottom:20px; }
+  .theme-swatch{
+    border:2px solid transparent; border-radius:10px; padding:10px 6px; text-align:center; cursor:pointer;
+    background:#fff; font-size:11.5px; color:var(--ink-soft);
+  }
+  .theme-swatch .dot{ width:22px; height:22px; border-radius:50%; margin:0 auto 6px; }
+  .theme-swatch.active{ border-color:var(--ink); font-weight:700; color:var(--ink); }
+
+  .sticker-row{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px; }
+  .sticker-btn{
+    width:42px; height:42px; border:1.5px solid var(--line); border-radius:10px; background:#fff;
+    font-size:20px; cursor:pointer; display:flex; align-items:center; justify-content:center;
+  }
+  .sticker-btn:active{ transform:translateY(1px); }
+  .sticker-hint{ font-size:12px; color:var(--muted); margin:-12px 0 20px; }
+
+  .photo-upload-row{ display:flex; gap:10px; align-items:center; margin-bottom:20px; }
+  .photo-upload-row input[type="file"]{ display:none; }
+  .photo-btn{
+    padding:9px 14px; border:1.5px solid var(--line); border-radius:8px; background:#fff;
+    font-size:13px; color:var(--ink-soft); cursor:pointer; font-weight:600;
+  }
+  .photo-btn:hover{ border-color:var(--ink); }
+  .photo-remove{ font-size:12px; color:var(--stamp); cursor:pointer; text-decoration:underline; display:none; }
+
+  /* certificate preview */
+  .cert-wrap{ display:flex; justify-content:center; margin-bottom:22px; }
+  .cert{
+    position:relative; width:100%; max-width:560px; aspect-ratio: 4 / 3;
+    background: var(--cert-bg, #FFFDF7);
+    border: 10px solid var(--cert-border, #C9A24B);
+    border-radius:8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+    overflow:hidden;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    padding: 8% 9%;
+    text-align:center;
+  }
+  .cert::before{
+    content:'';
+    position:absolute; inset:8px;
+    border: 1.5px solid var(--cert-accent, #C9A24B);
+    border-radius:4px;
+    pointer-events:none;
+  }
+  .cert-kicker{ font-size: clamp(11px, 2.6vw, 14px); letter-spacing: 3px; color:var(--cert-accent, #C9A24B); font-weight:700; margin-bottom: 2%; }
+  .cert-title{
+    font-family:'Do Hyeon', sans-serif; font-size: clamp(22px, 6.4vw, 34px); color:var(--cert-ink, #2A2118);
+    margin-bottom: 4%; line-height:1.25; word-break:keep-all;
+  }
+  .cert-name{
+    font-family:'Noto Serif KR', serif; font-weight:700; font-size: clamp(18px, 5vw, 26px);
+    color:var(--cert-accent-dark, #8A5A1E); margin-bottom: 3%;
+  }
+  .cert-content{ font-size: clamp(11.5px, 2.9vw, 14.5px); color:var(--cert-ink-soft, #4A3F30); line-height:1.6; margin-bottom: 5%; max-width:88%; word-break:keep-all; }
+  .cert-footer{ font-size: clamp(11px, 2.7vw, 13px); color:var(--cert-ink-soft, #4A3F30); }
+  .cert-footer .date{ margin-bottom: 2%; }
+  .cert-footer .awarder{ font-weight:700; color:var(--cert-ink, #2A2118); }
+  .cert-photo{
+    position:absolute; top:6%; right:6%; width:20%; aspect-ratio:1/1; border-radius:50%;
+    border:3px solid var(--cert-accent, #C9A24B); overflow:hidden; background:#fff;
+  }
+  .cert-photo img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .cert-sticker{
+    position:absolute; font-size: clamp(20px, 5.2vw, 30px); user-select:none; cursor:pointer;
+    filter: drop-shadow(0 2px 3px rgba(0,0,0,0.15));
+  }
+
+  .btn-row{ display:flex; gap:10px; flex-wrap:wrap; }
+  .calc-btn{ flex:1; min-width:140px; padding:14px; background:var(--ink); color:var(--paper-light); border:none; border-radius:12px; font-weight:600; font-size:14.5px; cursor:pointer; box-shadow:0 4px 0 rgba(0,0,0,0.28); }
+  .calc-btn:hover{ background:var(--ink-soft); }
+  .calc-btn:active{ transform:translateY(3px); box-shadow:0 1px 0 rgba(0,0,0,0.28); }
+  .calc-btn.secondary{ background:var(--paper-light); color:var(--ink); border:1.5px solid var(--line); box-shadow:none; }
+  .calc-btn.secondary:hover{ background:var(--paper); }
+  .calc-btn.secondary:active{ transform:none; }
+
+  .share-toast{
+    position: fixed; left: 50%; bottom: 28px; transform: translateX(-50%) translateY(12px);
+    background: var(--ink); color: #F2EEE4; font-size: 13px; padding: 10px 18px; border-radius: 999px;
+    opacity: 0; pointer-events: none; transition: opacity 0.2s ease, transform 0.2s ease; z-index: 10;
+  }
+  .share-toast.visible{ opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  .disclaimer{ font-size:11.5px; color:var(--muted); line-height:1.6; margin-top:20px; padding-top:16px; border-top:1px dotted var(--line); }
+  @media (max-width:480px){ .card{ padding:20px; } h1{ font-size:23px; } .theme-grid{ grid-template-columns: repeat(3, 1fr); } }
+
+  .info-block{ margin-top:40px; }
+  .info-block h2{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:18px; margin:0 0 12px; }
+  .info-block p{ font-size:13.5px; line-height:1.7; color:var(--ink-soft); margin:0 0 14px; }
+  .faq-item{ margin-bottom:16px; }
+  .faq-item .q{ font-size:14px; font-weight:600; margin-bottom:5px; }
+  .faq-item .a{ font-size:13.5px; line-height:1.65; color:var(--ink-soft); }
+</style>
+<!-- Google AdSense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6883245122372170" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "정말 무료인가요? 회원가입이 필요한가요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "네, 완전 무료이고 회원가입이나 로그인도 필요 없습니다. 이미지에 워터마크도 붙지 않습니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "만든 상장은 어디에 저장되나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "서버에 저장되지 않습니다. '이미지로 저장' 버튼을 누르면 브라우저에서 바로 이미지 파일을 만들어 기기에 다운로드합니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "아이 사진을 넣을 수 있나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "네, 사진 추가 버튼으로 아이 사진을 올리면 상장 오른쪽 위 원형 프레임에 삽입됩니다. 업로드한 사진은 서버로 전송되지 않고 브라우저 안에서만 처리됩니다."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<div class="stub">
+  <a href="/" class="back-home">← 하루콕 홈으로</a>
+  <div class="kicker">생활 도구</div>
+  <h1>아이 상장 만들기</h1>
+  <p class="lede">"밥 잘 먹는 어린이 상", "심부름 잘한 상" 같은 칭찬 상장을 회원가입 없이 무료로 만들어 이미지로 저장하세요. 테마와 스티커를 골라 꾸밀 수 있어요.</p>
+
+  <div class="related">
+    <div class="related-title">함께 보면 좋은 도구</div>
+    <div class="related-links">
+      <a href="/tools/image-grid-splitter">이미지 격자 분할기</a>
+      <a href="/tools/background-remover">배경 제거기</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="field">
+      <label>상장 이름</label>
+      <div class="title-presets" id="titlePresets"></div>
+      <input type="text" id="titleInput" placeholder="상장 이름을 입력하세요">
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label for="nameInput">받는 사람</label>
+        <input type="text" id="nameInput" placeholder="예: 김하루" value="김하루">
+      </div>
+      <div class="field">
+        <label for="dateInput">날짜</label>
+        <input type="date" id="dateInput">
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="contentInput">내용</label>
+      <textarea id="contentInput"></textarea>
+    </div>
+
+    <div class="field">
+      <label for="awarderInput">수여자</label>
+      <input type="text" id="awarderInput" placeholder="예: 엄마, 아빠, ○○어린이집" value="엄마·아빠">
+    </div>
+
+    <div class="field">
+      <label>테마</label>
+      <div class="theme-grid" id="themeGrid"></div>
+    </div>
+
+    <div class="field">
+      <label>스티커 추가 (클릭하면 상장 위에 붙어요)</label>
+      <div class="sticker-row" id="stickerRow"></div>
+      <div class="sticker-hint">상장에 붙은 스티커를 클릭하면 사라져요.</div>
+    </div>
+
+    <div class="field">
+      <label>사진 추가 (선택)</label>
+      <div class="photo-upload-row">
+        <button class="photo-btn" id="photoBtn">사진 선택</button>
+        <input type="file" id="photoInput" accept="image/*">
+        <span class="photo-remove" id="photoRemoveBtn">사진 제거</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="cert-wrap">
+    <div class="cert" id="cert">
+      <div class="cert-kicker">CERTIFICATE OF PRAISE</div>
+      <div class="cert-title" id="certTitle">밥 잘 먹는 어린이 상</div>
+      <div class="cert-name" id="certName">김하루</div>
+      <div class="cert-content" id="certContent"></div>
+      <div class="cert-footer">
+        <div class="date" id="certDate"></div>
+        <div class="awarder" id="certAwarder">엄마·아빠 드림</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="btn-row">
+    <button class="calc-btn" id="saveBtn">이미지로 저장</button>
+    <button class="calc-btn secondary" id="shareBtn">공유하기</button>
+  </div>
+  <div class="disclaimer">입력한 정보는 서버로 전송되지 않고 이 기기 안에서만 처리됩니다.</div>
+
+  <!-- ===== 광고 삽입 영역 ===== -->
+  <ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-6883245122372170"
+     data-ad-slot="0000000000"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+
+  <div class="info-block">
+    <h2>어떤 상장을 만들 수 있나요?</h2>
+    <p>밥 잘 먹는 어린이 상, 심부름 잘한 상, 정리정돈 잘한 상처럼 일상에서 아이를 칭찬하고 싶은 순간에 바로 쓸 수 있는 상장을 만듭니다. 이름과 내용을 원하는 대로 바꿀 수 있어서 어떤 상황에도 맞춰 만들 수 있어요.</p>
+
+    <div class="faq-item">
+      <div class="q">정말 무료인가요? 회원가입이 필요한가요?</div>
+      <div class="a">네, 완전 무료이고 회원가입이나 로그인도 필요 없습니다. 이미지에 워터마크도 붙지 않습니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">만든 상장은 어디에 저장되나요?</div>
+      <div class="a">서버에 저장되지 않습니다. '이미지로 저장' 버튼을 누르면 브라우저에서 바로 이미지 파일을 만들어 기기에 다운로드합니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">아이 사진을 넣을 수 있나요?</div>
+      <div class="a">네, 사진 추가 버튼으로 아이 사진을 올리면 상장 오른쪽 위 원형 프레임에 삽입됩니다. 업로드한 사진은 서버로 전송되지 않고 브라우저 안에서만 처리됩니다.</div>
+    </div>
+  </div>
+</div>
+
+<div class="share-toast" id="shareToast"></div>
+
+<script>
+(function(){
+  const $ = (id) => document.getElementById(id);
+
+  const TITLES = [
+    { name: '밥 잘 먹는 어린이 상', content: '편식하지 않고 골고루 밥을 잘 먹었기에 이 상장을 수여합니다.' },
+    { name: '심부름 잘한 상', content: '심부름을 씩씩하고 성실하게 잘 해냈기에 이 상장을 수여합니다.' },
+    { name: '정리정돈 잘한 상', content: '자기 물건과 방을 스스로 잘 정리했기에 이 상장을 수여합니다.' },
+    { name: '친구와 사이좋게 지낸 상', content: '친구들과 사이좋게 지내고 잘 배려했기에 이 상장을 수여합니다.' },
+    { name: '용감한 상', content: '무섭거나 힘든 일도 용기있게 잘 해냈기에 이 상장을 수여합니다.' },
+    { name: '약속 잘 지킨 상', content: '한 번 한 약속을 끝까지 잘 지켰기에 이 상장을 수여합니다.' },
+  ];
+
+  const THEMES = [
+    { name: '골드 리본', bg: '#FFFDF7', border: '#C9A24B', accent: '#C9A24B', accentDark: '#8A5A1E', ink: '#2A2118', inkSoft: '#4A3F30' },
+    { name: '파스텔 별', bg: '#FBF9FF', border: '#B8A6E8', accent: '#8E76D6', accentDark: '#5F4A9E', ink: '#2E2A3D', inkSoft: '#524B66' },
+    { name: '러블리 핑크', bg: '#FFF8FA', border: '#F1A9C4', accent: '#E8709F', accentDark: '#A93F6B', ink: '#3A2530', inkSoft: '#5E4550' },
+    { name: '무지개', bg: '#FFFDF5', border: '#5FB88A', accent: '#3B9C6E', accentDark: '#256B49', ink: '#20302A', inkSoft: '#42544C' },
+    { name: '스카이 블루', bg: '#F6FBFF', border: '#7FB6E0', accent: '#4C8FC0', accentDark: '#2E5F86', ink: '#1E2E3A', inkSoft: '#43555F' },
+    { name: '미니멀 네이비', bg: '#F7F4EA', border: '#16233D', accent: '#16233D', accentDark: '#B23A2E', ink: '#16233D', inkSoft: '#45516A' },
+  ];
+
+  const STICKERS = ['🎀','⭐','🏆','🎖️','💝','✨','🌟','🎉'];
+
+  const cert = $('cert');
+  const titlePresets = $('titlePresets');
+  const titleInput = $('titleInput');
+  const contentInput = $('contentInput');
+  const nameInput = $('nameInput');
+  const dateInput = $('dateInput');
+  const awarderInput = $('awarderInput');
+  const themeGrid = $('themeGrid');
+  const stickerRow = $('stickerRow');
+  const photoBtn = $('photoBtn');
+  const photoInput = $('photoInput');
+  const photoRemoveBtn = $('photoRemoveBtn');
+
+  const certTitle = $('certTitle');
+  const certName = $('certName');
+  const certContent = $('certContent');
+  const certDate = $('certDate');
+  const certAwarder = $('certAwarder');
+
+  let currentTheme = 0;
+  let stickers = []; // {emoji, x, y, rot, id}
+  let stickerSeq = 0;
+  let photoDataUrl = null;
+
+  function applyTheme(idx){
+    currentTheme = idx;
+    const t = THEMES[idx];
+    cert.style.setProperty('--cert-bg', t.bg);
+    cert.style.setProperty('--cert-border', t.border);
+    cert.style.setProperty('--cert-accent', t.accent);
+    cert.style.setProperty('--cert-accent-dark', t.accentDark);
+    cert.style.setProperty('--cert-ink', t.ink);
+    cert.style.setProperty('--cert-ink-soft', t.inkSoft);
+    Array.from(themeGrid.children).forEach((el, i) => el.classList.toggle('active', i === idx));
+  }
+
+  function renderThemes(){
+    THEMES.forEach((t, i) => {
+      const el = document.createElement('div');
+      el.className = 'theme-swatch';
+      el.innerHTML = `<div class="dot" style="background:${t.accent}"></div>${t.name}`;
+      el.addEventListener('click', () => applyTheme(i));
+      themeGrid.appendChild(el);
+    });
+  }
+
+  function renderTitlePresets(){
+    TITLES.forEach((t, i) => {
+      const chip = document.createElement('div');
+      chip.className = 'title-chip';
+      chip.textContent = t.name;
+      chip.addEventListener('click', () => {
+        titleInput.value = t.name;
+        contentInput.value = t.content;
+        Array.from(titlePresets.children).forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        syncCert();
+      });
+      titlePresets.appendChild(chip);
+    });
+  }
+
+  function renderStickerPalette(){
+    STICKERS.forEach(emoji => {
+      const btn = document.createElement('button');
+      btn.className = 'sticker-btn';
+      btn.type = 'button';
+      btn.textContent = emoji;
+      btn.addEventListener('click', () => addSticker(emoji));
+      stickerRow.appendChild(btn);
+    });
+  }
+
+  function addSticker(emoji){
+    const id = 's' + (stickerSeq++);
+    const x = 8 + Math.random() * 78;
+    const y = 8 + Math.random() * 76;
+    const rot = -20 + Math.random() * 40;
+    stickers.push({ id, emoji, x, y, rot });
+    renderStickers();
+  }
+
+  function renderStickers(){
+    cert.querySelectorAll('.cert-sticker').forEach(el => el.remove());
+    stickers.forEach(s => {
+      const el = document.createElement('div');
+      el.className = 'cert-sticker';
+      el.textContent = s.emoji;
+      el.style.left = s.x + '%';
+      el.style.top = s.y + '%';
+      el.style.transform = `rotate(${s.rot}deg)`;
+      el.title = '클릭하면 삭제돼요';
+      el.addEventListener('click', () => {
+        stickers = stickers.filter(x => x.id !== s.id);
+        renderStickers();
+      });
+      cert.appendChild(el);
+    });
+  }
+
+  function syncCert(){
+    certTitle.textContent = titleInput.value || '상장';
+    certName.textContent = (nameInput.value || '이름') + ' 님';
+    certContent.textContent = contentInput.value || '';
+    const d = dateInput.value ? new Date(dateInput.value) : new Date();
+    certDate.textContent = `${d.getFullYear()}년 ${d.getMonth()+1}월 ${d.getDate()}일`;
+    certAwarder.textContent = (awarderInput.value || '') + ' 드림';
+  }
+
+  [titleInput, nameInput, dateInput, contentInput, awarderInput].forEach(el => {
+    el.addEventListener('input', syncCert);
+    el.addEventListener('change', syncCert);
+  });
+
+  photoBtn.addEventListener('click', () => photoInput.click());
+  photoInput.addEventListener('change', () => {
+    const file = photoInput.files && photoInput.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      photoDataUrl = reader.result;
+      let img = cert.querySelector('.cert-photo');
+      if (!img) {
+        img = document.createElement('div');
+        img.className = 'cert-photo';
+        cert.appendChild(img);
+      }
+      img.innerHTML = `<img src="${photoDataUrl}" alt="">`;
+      photoRemoveBtn.style.display = 'inline';
+    };
+    reader.readAsDataURL(file);
+  });
+  photoRemoveBtn.addEventListener('click', () => {
+    photoDataUrl = null;
+    const img = cert.querySelector('.cert-photo');
+    if (img) img.remove();
+    photoInput.value = '';
+    photoRemoveBtn.style.display = 'none';
+  });
+
+  const toast = $('shareToast');
+  let toastTimer = null;
+  function showToast(msg){
+    toast.textContent = msg;
+    toast.classList.add('visible');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('visible'), 2200);
+  }
+
+  async function renderCertToCanvas(){
+    const rect = cert.getBoundingClientRect();
+    const clone = cert.cloneNode(true);
+    const width = 800;
+    const height = Math.round(width * (rect.height / rect.width));
+    clone.style.position = 'fixed';
+    clone.style.left = '-9999px';
+    clone.style.top = '0';
+    clone.style.width = width + 'px';
+    clone.style.height = height + 'px';
+    clone.style.maxWidth = 'none';
+    document.body.appendChild(clone);
+    const canvas = await html2canvas(clone, { width, height, backgroundColor: null, scale: 2 });
+    document.body.removeChild(clone);
+    return canvas;
+  }
+
+  $('saveBtn').addEventListener('click', async () => {
+    const canvas = await renderCertToCanvas();
+    const link = document.createElement('a');
+    link.download = '하루콕_상장.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+  });
+
+  function legacyCopy(text){
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.left = '-9999px';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); } catch(e) {}
+    document.body.removeChild(ta);
+  }
+
+  $('shareBtn').addEventListener('click', async () => {
+    const canvas = await renderCertToCanvas();
+    canvas.toBlob(async (blob) => {
+      if (!blob) return;
+      const file = new File([blob], '하루콕_상장.png', { type: 'image/png' });
+      if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+        try {
+          await navigator.share({ files: [file], title: '아이 상장', text: '하루콕에서 만든 상장이에요' });
+          return;
+        } catch(e) { /* 사용자가 취소한 경우 등 */ }
+      }
+      if (navigator.clipboard && navigator.clipboard.write) {
+        try {
+          await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+          showToast('이미지가 클립보드에 복사됐어요');
+          return;
+        } catch(e) {}
+      }
+      legacyCopy(location.href);
+      showToast('공유를 지원하지 않는 환경이에요. 링크를 복사했어요');
+    }, 'image/png');
+  });
+
+  // init
+  renderThemes();
+  renderTitlePresets();
+  renderStickerPalette();
+  applyTheme(0);
+  titleInput.value = TITLES[0].name;
+  contentInput.value = TITLES[0].content;
+  titlePresets.children[0].classList.add('active');
+  dateInput.value = new Date().toISOString().slice(0, 10);
+  syncCert();
+})();
+</script>
+</body>
+</html>

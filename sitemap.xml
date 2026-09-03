@@ -91,6 +91,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://harukok.com/tools/certificate-maker</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://harukok.com/fun/lunch-picker</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
