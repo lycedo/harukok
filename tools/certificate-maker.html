@@ -414,8 +414,16 @@
 
   function addSticker(emoji){
     const id = 's' + (stickerSeq++);
-    const x = 8 + Math.random() * 78;
-    const y = 8 + Math.random() * 76;
+    // 가운데 문구 영역을 피해서 모서리/가장자리 쪽에 배치
+    const corners = [
+      { xMin: 4, xMax: 22, yMin: 4, yMax: 20 },
+      { xMin: 78, xMax: 94, yMin: 4, yMax: 20 },
+      { xMin: 4, xMax: 22, yMin: 78, yMax: 92 },
+      { xMin: 78, xMax: 94, yMin: 78, yMax: 92 },
+    ];
+    const c = corners[Math.floor(Math.random() * corners.length)];
+    const x = c.xMin + Math.random() * (c.xMax - c.xMin);
+    const y = c.yMin + Math.random() * (c.yMax - c.yMin);
     const rot = -20 + Math.random() * 40;
     stickers.push({ id, emoji, x, y, rot });
     renderStickers();
