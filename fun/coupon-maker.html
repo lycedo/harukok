@@ -121,18 +121,32 @@
   .coupon-icon-emoji{ width:48px; height:48px; color:#fff; position:relative; z-index:2; filter: drop-shadow(0 3px 4px rgba(0,0,0,0.25)); }
   .coupon-icon-emoji svg{ width:100%; height:100%; display:block; }
   .coupon-icon-photo{
-    position:absolute; inset:0; z-index:2; display:none; align-items:center; justify-content:center;
+    position:absolute; inset:0; z-index:2; display:none;
   }
-  .coupon-icon-photo img{ display:block; }
-  .coupon.has-photo .coupon-icon-photo{ display:flex; }
+  .coupon.has-photo .coupon-icon-photo{ display:block; }
   .coupon.has-photo .coupon-icon-emoji{ display:none; }
 
-  .coupon.photo-mode-cover .coupon-icon-photo img{ width:100%; height:100%; object-fit:cover; }
+  .icon-photo-frame{
+    position:absolute; cursor:grab; touch-action:none; transform:translate(-50%,-50%);
+  }
+  .icon-photo-frame:active{ cursor:grabbing; }
+  .icon-photo-frame .photo-inner{ width:100%; height:100%; }
+  .icon-photo-frame img{ width:100%; height:100%; display:block; pointer-events:none; }
+  .icon-photo-frame.selected .photo-inner{ outline:1.5px dashed rgba(255,255,255,0.7); outline-offset:4px; }
+  .icon-photo-frame .photo-rotate{
+    display:none; position:absolute; top:-24px; left:50%; transform:translateX(-50%); width:20px; height:20px;
+    align-items:center; justify-content:center; background:#fff; border:1.5px solid #999; color:#333;
+    border-radius:50%; font-size:11px; font-weight:700; cursor:grab; z-index:2; box-shadow:0 1px 3px rgba(0,0,0,0.2);
+  }
+  .icon-photo-frame.selected .photo-rotate{ display:flex; }
+
+  .coupon.photo-mode-cover .icon-photo-frame{ width:140%; height:140%; }
+  .coupon.photo-mode-cover .icon-photo-frame img{ object-fit:cover; }
   .coupon.photo-mode-cover .coupon-icon-bg{ display:none; }
 
-  .coupon.photo-mode-center .coupon-icon-photo{ inset:12%; }
-  .coupon.photo-mode-center .coupon-icon-photo img{
-    width:100%; height:100%; object-fit:contain;
+  .coupon.photo-mode-center .icon-photo-frame{ width:66%; height:66%; }
+  .coupon.photo-mode-center .icon-photo-frame img{
+    object-fit:contain;
     filter: drop-shadow(0 4px 8px rgba(0,0,0,0.35));
   }
   .coupon-icon-bg{
@@ -283,7 +297,7 @@
         <div class="mode-btn active" data-mode="cover">꽉 채우기</div>
         <div class="mode-btn" data-mode="center">배경없이 가운데 배치</div>
       </div>
-      <div class="photo-hint">첫 번째 사진은 아이콘 자리에, 추가로 올린 사진은 아이콘 영역 안에서 자유롭게 배치돼요. 드래그로 옮기고, ↻ 손잡이로 회전, × 버튼으로 삭제할 수 있어요.</div>
+      <div class="photo-hint">사진은 모두 아이콘 영역 안에서 자유롭게 배치돼요. 드래그로 옮기고, ↻ 손잡이로 회전할 수 있어요. 추가 사진은 × 버튼으로 삭제할 수 있어요.</div>
     </div>
   </div>
 
@@ -557,6 +571,81 @@
   let extraPhotos = []; // {id, dataUrl, x, y}
   let extraPhotoSeq = 0;
   let hasMainPhoto = false;
+  let mainPhoto = null; // {dataUrl, x, y, rot}
+
+  function renderMainPhoto(){
+    couponIconPhoto.innerHTML = '';
+    if (!mainPhoto) return;
+    const frame = document.createElement('div');
+    frame.className = 'icon-photo-frame';
+    frame.style.left = mainPhoto.x + '%';
+    frame.style.top = mainPhoto.y + '%';
+
+    const inner = document.createElement('div');
+    inner.className = 'photo-inner';
+    inner.innerHTML = `<img src="${mainPhoto.dataUrl}" alt="">`;
+    inner.style.transform = `rotate(${mainPhoto.rot}deg)`;
+    frame.appendChild(inner);
+
+    const rotateHandle = document.createElement('div');
+    rotateHandle.className = 'photo-rotate';
+    rotateHandle.textContent = '↻';
+    frame.appendChild(rotateHandle);
+
+    frame.addEventListener('pointerdown', (e) => {
+      if (e.target.closest('.photo-rotate')) return;
+      e.preventDefault();
+      couponIconPhoto.querySelectorAll('.icon-photo-frame').forEach(x => x.classList.remove('selected'));
+      frame.classList.add('selected');
+      const zoneRect = couponIconPhoto.getBoundingClientRect();
+      const startX = e.clientX, startY = e.clientY;
+      const startLeft = mainPhoto.x, startTop = mainPhoto.y;
+      try { frame.setPointerCapture(e.pointerId); } catch(err) {}
+      function onMove(ev){
+        const dx = ev.clientX - startX, dy = ev.clientY - startY;
+        let nx = startLeft + (dx / zoneRect.width) * 100;
+        let ny = startTop + (dy / zoneRect.height) * 100;
+        nx = Math.max(10, Math.min(90, nx));
+        ny = Math.max(10, Math.min(90, ny));
+        mainPhoto.x = nx; mainPhoto.y = ny;
+        frame.style.left = nx + '%';
+        frame.style.top = ny + '%';
+      }
+      function onUp(){
+        frame.removeEventListener('pointermove', onMove);
+        frame.removeEventListener('pointerup', onUp);
+      }
+      frame.addEventListener('pointermove', onMove);
+      frame.addEventListener('pointerup', onUp);
+    });
+
+    rotateHandle.addEventListener('pointerdown', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      try { rotateHandle.setPointerCapture(e.pointerId); } catch(err) {}
+      function onMove(ev){
+        const rect = frame.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2, cy = rect.top + rect.height / 2;
+        const angle = Math.atan2(ev.clientY - cy, ev.clientX - cx) * 180 / Math.PI;
+        mainPhoto.rot = Math.round(angle + 90);
+        inner.style.transform = `rotate(${mainPhoto.rot}deg)`;
+      }
+      function onUp(){
+        rotateHandle.removeEventListener('pointermove', onMove);
+        rotateHandle.removeEventListener('pointerup', onUp);
+      }
+      rotateHandle.addEventListener('pointermove', onMove);
+      rotateHandle.addEventListener('pointerup', onUp);
+    });
+
+    couponIconPhoto.appendChild(frame);
+  }
+
+  couponIconPhoto.addEventListener('pointerdown', (e) => {
+    if (!e.target.closest('.icon-photo-frame')) {
+      couponIconPhoto.querySelectorAll('.icon-photo-frame').forEach(el => el.classList.remove('selected'));
+    }
+  });
 
   function renderExtraPhotos(){
     coupon.querySelectorAll('.coupon-extra-photo').forEach(el => el.remove());
@@ -675,9 +764,10 @@
       const reader = new FileReader();
       reader.onload = () => {
         if (isMain) {
-          couponIconPhoto.innerHTML = `<img src="${reader.result}" alt="">`;
+          mainPhoto = { dataUrl: reader.result, x: 50, y: 50, rot: 0 };
           coupon.classList.add('has-photo');
           setPhotoMode('cover');
+          renderMainPhoto();
           photoRemoveBtn.style.display = 'inline';
           photoModeRow.style.display = 'flex';
         } else {
@@ -689,7 +779,8 @@
     photoInput.value = '';
   });
   photoRemoveBtn.addEventListener('click', () => {
-    couponIconPhoto.innerHTML = '';
+    mainPhoto = null;
+    renderMainPhoto();
     coupon.classList.remove('has-photo', 'photo-mode-cover', 'photo-mode-center');
     hasMainPhoto = false;
     extraPhotos = [];
