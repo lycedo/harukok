@@ -140,8 +140,8 @@
   }
   .icon-photo-frame.selected .photo-rotate{ display:flex; }
 
-  .coupon.photo-mode-cover .icon-photo-frame{ width:140%; height:140%; }
-  .coupon.photo-mode-cover .icon-photo-frame img{ object-fit:cover; }
+  .coupon-icon-photo-cover{ position:absolute; inset:0; }
+  .coupon-icon-photo-cover img{ width:100%; height:100%; object-fit:cover; display:block; }
   .coupon.photo-mode-cover .coupon-icon-bg{ display:none; }
 
   .coupon.photo-mode-center .icon-photo-frame{ width:66%; height:66%; }
@@ -566,6 +566,7 @@
     coupon.classList.remove('photo-mode-cover', 'photo-mode-center');
     coupon.classList.add('photo-mode-' + mode);
     Array.from(photoModeRow.children).forEach(btn => btn.classList.toggle('active', btn.dataset.mode === mode));
+    renderMainPhoto();
   }
 
   let extraPhotos = []; // {id, dataUrl, x, y}
@@ -576,6 +577,13 @@
   function renderMainPhoto(){
     couponIconPhoto.innerHTML = '';
     if (!mainPhoto) return;
+    if (!coupon.classList.contains('photo-mode-center')) {
+      const wrap = document.createElement('div');
+      wrap.className = 'coupon-icon-photo-cover';
+      wrap.innerHTML = `<img src="${mainPhoto.dataUrl}" alt="">`;
+      couponIconPhoto.appendChild(wrap);
+      return;
+    }
     const frame = document.createElement('div');
     frame.className = 'icon-photo-frame';
     frame.style.left = mainPhoto.x + '%';
@@ -600,13 +608,14 @@
       const zoneRect = couponIconPhoto.getBoundingClientRect();
       const startX = e.clientX, startY = e.clientY;
       const startLeft = mainPhoto.x, startTop = mainPhoto.y;
+      const minY = 33 + (30 / zoneRect.height) * 100;
       try { frame.setPointerCapture(e.pointerId); } catch(err) {}
       function onMove(ev){
         const dx = ev.clientX - startX, dy = ev.clientY - startY;
         let nx = startLeft + (dx / zoneRect.width) * 100;
         let ny = startTop + (dy / zoneRect.height) * 100;
         nx = Math.max(10, Math.min(90, nx));
-        ny = Math.max(10, Math.min(90, ny));
+        ny = Math.max(minY, Math.min(90, ny));
         mainPhoto.x = nx; mainPhoto.y = ny;
         frame.style.left = nx + '%';
         frame.style.top = ny + '%';
@@ -764,7 +773,7 @@
       const reader = new FileReader();
       reader.onload = () => {
         if (isMain) {
-          mainPhoto = { dataUrl: reader.result, x: 50, y: 50, rot: 0 };
+          mainPhoto = { dataUrl: reader.result, x: 50, y: 58, rot: 0 };
           coupon.classList.add('has-photo');
           setPhotoMode('cover');
           renderMainPhoto();
