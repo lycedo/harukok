@@ -83,27 +83,6 @@
   .mode-btn.active{ background:var(--ink); color:#fff; border-color:var(--ink); }
   .photo-hint{ font-size:12px; color:var(--muted); margin-top:8px; }
 
-  .coupon-extra-photo{
-    position:absolute; width:56px; height:56px; z-index:5; cursor:grab; touch-action:none;
-  }
-  .coupon-extra-photo:active{ cursor:grabbing; }
-  .coupon-extra-photo .photo-inner{
-    width:100%; height:100%; border-radius:8px; border:2px solid #fff; box-shadow:0 3px 8px rgba(0,0,0,0.25); overflow:hidden;
-  }
-  .coupon-extra-photo img{ width:100%; height:100%; object-fit:cover; display:block; pointer-events:none; }
-  .coupon-extra-photo.selected .photo-inner{ outline:1.5px dashed rgba(0,0,0,0.4); outline-offset:4px; }
-  .coupon-extra-photo .photo-del{
-    display:none; position:absolute; top:-9px; right:-9px; width:20px; height:20px; align-items:center; justify-content:center;
-    background:#B23A2E; border:1.5px solid #B23A2E; color:#fff; border-radius:50%; font-size:11px; font-weight:700;
-    cursor:pointer; z-index:2; box-shadow:0 1px 3px rgba(0,0,0,0.2);
-  }
-  .coupon-extra-photo .photo-rotate{
-    display:none; position:absolute; top:-22px; left:50%; transform:translateX(-50%); width:20px; height:20px;
-    align-items:center; justify-content:center; background:#fff; border:1.5px solid #999; color:#333;
-    border-radius:50%; font-size:11px; font-weight:700; cursor:grab; z-index:2; box-shadow:0 1px 3px rgba(0,0,0,0.2);
-  }
-  .coupon-extra-photo.selected .photo-del, .coupon-extra-photo.selected .photo-rotate{ display:flex; }
-
   /* coupon visual */
   .coupon-wrap{ display:flex; justify-content:center; margin-bottom:20px; }
   .coupon{
@@ -139,6 +118,12 @@
     border-radius:50%; font-size:11px; font-weight:700; cursor:grab; z-index:5; box-shadow:0 1px 3px rgba(0,0,0,0.2);
   }
   .icon-photo-frame.selected .photo-rotate{ display:flex; }
+  .icon-photo-frame .photo-resize{
+    display:none; position:absolute; bottom:6px; left:6px; width:20px; height:20px;
+    align-items:center; justify-content:center; background:#fff; border:1.5px solid #999; color:#333;
+    border-radius:50%; font-size:11px; font-weight:700; cursor:nwse-resize; z-index:5; box-shadow:0 1px 3px rgba(0,0,0,0.2);
+  }
+  .icon-photo-frame.selected .photo-resize{ display:flex; }
 
   .coupon-icon-photo-cover{ position:absolute; inset:0; }
   .coupon-icon-photo-cover img{ width:100%; height:100%; object-fit:cover; display:block; }
@@ -296,15 +281,15 @@
       <label>사진 (선택, 여러 장 가능)</label>
       <div class="photo-upload-row">
         <button class="photo-btn" id="photoBtn" type="button">사진 추가</button>
-        <input type="file" id="photoInput" accept="image/*" multiple>
-        <span class="photo-remove" id="photoRemoveBtn">전체 삭제</span>
+        <input type="file" id="photoInput" accept="image/*">
+        <span class="photo-remove" id="photoRemoveBtn">사진 삭제</span>
       </div>
       <div class="photo-mode-row" id="photoModeRow">
         <div class="mode-btn active" data-mode="cover">꽉 채우기</div>
         <div class="mode-btn" data-mode="free">자유 배치</div>
         <div class="mode-btn" data-mode="centered">중앙정렬</div>
       </div>
-      <div class="photo-hint">사진은 모두 아이콘 영역 안에서 자유롭게 배치돼요. 드래그로 옮기고, ↻ 손잡이로 회전할 수 있어요. 추가 사진은 × 버튼으로 삭제할 수 있어요.</div>
+      <div class="photo-hint">사진은 1장만 넣을 수 있어요. 자유 배치에서는 드래그로 옮기고, ↻ 손잡이로 회전, ⇲ 손잡이로 크기 조절을 할 수 있어요.</div>
     </div>
   </div>
 
@@ -578,10 +563,8 @@
     renderMainPhoto();
   }
 
-  let extraPhotos = []; // {id, dataUrl, x, y}
-  let extraPhotoSeq = 0;
-  let hasMainPhoto = false;
-  let mainPhoto = null; // {dataUrl, x, y, rot}
+  const FREE_BASE_PCT = 46; // frame size (%) at scale 1 in free-placement mode
+  let mainPhoto = null; // {dataUrl, x, y, rot, scale}
 
   function renderMainPhoto(){
     couponIconPhoto.innerHTML = '';
@@ -605,8 +588,12 @@
       couponIconPhoto.appendChild(frame);
       return;
     }
+    const scale = mainPhoto.scale || 1;
+    const sizePct = FREE_BASE_PCT * scale;
     const frame = document.createElement('div');
     frame.className = 'icon-photo-frame';
+    frame.style.width = sizePct + '%';
+    frame.style.height = sizePct + '%';
     frame.style.left = mainPhoto.x + '%';
     frame.style.top = mainPhoto.y + '%';
 
@@ -621,15 +608,20 @@
     rotateHandle.textContent = '↻';
     frame.appendChild(rotateHandle);
 
+    const resizeHandle = document.createElement('div');
+    resizeHandle.className = 'photo-resize';
+    resizeHandle.textContent = '⇲';
+    frame.appendChild(resizeHandle);
+
     frame.addEventListener('pointerdown', (e) => {
-      if (e.target.closest('.photo-rotate')) return;
+      if (e.target.closest('.photo-rotate') || e.target.closest('.photo-resize')) return;
       e.preventDefault();
       couponIconPhoto.querySelectorAll('.icon-photo-frame').forEach(x => x.classList.remove('selected'));
       frame.classList.add('selected');
       const zoneRect = couponIconPhoto.getBoundingClientRect();
       const startX = e.clientX, startY = e.clientY;
       const startLeft = mainPhoto.x, startTop = mainPhoto.y;
-      const halfPct = 23; // frame is 46% of the icon zone, so half its size
+      const halfPct = (FREE_BASE_PCT * (mainPhoto.scale || 1)) / 2;
       const minX = halfPct, maxX = 100 - halfPct;
       const minY = halfPct, maxY = 100 - halfPct;
       try { frame.setPointerCapture(e.pointerId); } catch(err) {}
@@ -670,6 +662,38 @@
       rotateHandle.addEventListener('pointerup', onUp);
     });
 
+    resizeHandle.addEventListener('pointerdown', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      try { resizeHandle.setPointerCapture(e.pointerId); } catch(err) {}
+      const zoneRect = couponIconPhoto.getBoundingClientRect();
+      const rect = frame.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2, cy = rect.top + rect.height / 2;
+      const startDist = Math.max(1, Math.hypot(e.clientX - cx, e.clientY - cy));
+      const startScale = mainPhoto.scale || 1;
+      function onMove(ev){
+        const dist = Math.hypot(ev.clientX - cx, ev.clientY - cy);
+        let newScale = startScale * (dist / startDist);
+        newScale = Math.max(0.5, Math.min(1.5, newScale));
+        mainPhoto.scale = newScale;
+        const newSizePct = FREE_BASE_PCT * newScale;
+        frame.style.width = newSizePct + '%';
+        frame.style.height = newSizePct + '%';
+        const halfPct = newSizePct / 2;
+        const nx = Math.max(halfPct, Math.min(100 - halfPct, mainPhoto.x));
+        const ny = Math.max(halfPct, Math.min(100 - halfPct, mainPhoto.y));
+        mainPhoto.x = nx; mainPhoto.y = ny;
+        frame.style.left = nx + '%';
+        frame.style.top = ny + '%';
+      }
+      function onUp(){
+        resizeHandle.removeEventListener('pointermove', onMove);
+        resizeHandle.removeEventListener('pointerup', onUp);
+      }
+      resizeHandle.addEventListener('pointermove', onMove);
+      resizeHandle.addEventListener('pointerup', onUp);
+    });
+
     couponIconPhoto.appendChild(frame);
   }
 
@@ -679,144 +703,27 @@
     }
   });
 
-  function renderExtraPhotos(){
-    coupon.querySelectorAll('.coupon-extra-photo').forEach(el => el.remove());
-    extraPhotos.forEach(p => {
-      if (p.rot === undefined) p.rot = 0;
-      const el = document.createElement('div');
-      el.className = 'coupon-extra-photo';
-      el.style.left = p.x + '%';
-      el.style.top = p.y + '%';
-
-      const inner = document.createElement('div');
-      inner.className = 'photo-inner';
-      inner.innerHTML = `<img src="${p.dataUrl}" alt="">`;
-      inner.style.transform = `rotate(${p.rot}deg)`;
-      el.appendChild(inner);
-
-      const rotateHandle = document.createElement('div');
-      rotateHandle.className = 'photo-rotate';
-      rotateHandle.textContent = '↻';
-      el.appendChild(rotateHandle);
-
-      const delHandle = document.createElement('div');
-      delHandle.className = 'photo-del';
-      delHandle.textContent = '×';
-      delHandle.addEventListener('click', (e) => {
-        e.stopPropagation();
-        extraPhotos = extraPhotos.filter(x => x.id !== p.id);
-        renderExtraPhotos();
-      });
-      el.appendChild(delHandle);
-
-      el.addEventListener('pointerdown', (e) => {
-        if (e.target.closest('.photo-del') || e.target.closest('.photo-rotate')) return;
-        e.preventDefault();
-        coupon.querySelectorAll('.coupon-extra-photo').forEach(x => x.classList.remove('selected'));
-        el.classList.add('selected');
-        const couponRect = coupon.getBoundingClientRect();
-        const startX = e.clientX, startY = e.clientY;
-        const startLeft = p.x, startTop = p.y;
-        const photoWPercent = (56 / couponRect.width) * 100;
-        const photoHPercent = (56 / couponRect.height) * 100;
-        const maxX = Math.max(0, 29 - photoWPercent);
-        const minY = Math.max(0, Math.min(10, (28 / couponRect.height) * 100));
-        const maxY = Math.max(minY, 100 - photoHPercent);
-        try { el.setPointerCapture(e.pointerId); } catch(err) {}
-        function onMove(ev){
-          const dx = ev.clientX - startX, dy = ev.clientY - startY;
-          let nx = startLeft + (dx / couponRect.width) * 100;
-          let ny = startTop + (dy / couponRect.height) * 100;
-          nx = Math.max(0, Math.min(maxX, nx));
-          ny = Math.max(minY, Math.min(maxY, ny));
-          p.x = nx; p.y = ny;
-          el.style.left = nx + '%';
-          el.style.top = ny + '%';
-        }
-        function onUp(){
-          el.removeEventListener('pointermove', onMove);
-          el.removeEventListener('pointerup', onUp);
-        }
-        el.addEventListener('pointermove', onMove);
-        el.addEventListener('pointerup', onUp);
-      });
-
-      rotateHandle.addEventListener('pointerdown', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        try { rotateHandle.setPointerCapture(e.pointerId); } catch(err) {}
-        function onMove(ev){
-          const rect = el.getBoundingClientRect();
-          const cx = rect.left + rect.width / 2, cy = rect.top + rect.height / 2;
-          const angle = Math.atan2(ev.clientY - cy, ev.clientX - cx) * 180 / Math.PI;
-          p.rot = Math.round(angle + 90);
-          inner.style.transform = `rotate(${p.rot}deg)`;
-        }
-        function onUp(){
-          rotateHandle.removeEventListener('pointermove', onMove);
-          rotateHandle.removeEventListener('pointerup', onUp);
-        }
-        rotateHandle.addEventListener('pointermove', onMove);
-        rotateHandle.addEventListener('pointerup', onUp);
-      });
-
-      coupon.appendChild(el);
-    });
-  }
-
-  function addExtraPhoto(dataUrl){
-    const id = 'ep' + (extraPhotoSeq++);
-    const n = extraPhotos.length;
-    const rect = coupon.getBoundingClientRect();
-    const w = rect.width || 420, h = rect.height || 190;
-    const photoWPercent = (56 / w) * 100;
-    const photoHPercent = (56 / h) * 100;
-    const maxX = Math.max(0, 29 - photoWPercent);
-    const minY = Math.max(0, Math.min(10, (28 / h) * 100));
-    const maxY = Math.max(minY, 100 - photoHPercent);
-    const x = Math.min(maxX, (n % 2) * (maxX / 1.6));
-    const y = Math.min(maxY, minY + (n % 3) * ((maxY - minY) / 2.2));
-    extraPhotos.push({ id, dataUrl, x, y, rot: 0 });
-    renderExtraPhotos();
-  }
-
-  coupon.addEventListener('pointerdown', (e) => {
-    if (!e.target.closest('.coupon-extra-photo')) {
-      coupon.querySelectorAll('.coupon-extra-photo').forEach(el => el.classList.remove('selected'));
-    }
-  });
-
   photoBtn.addEventListener('click', () => photoInput.click());
   photoInput.addEventListener('change', () => {
     const files = Array.from(photoInput.files || []);
     if (!files.length) return;
-    files.forEach((file) => {
-      const isMain = !hasMainPhoto;
-      hasMainPhoto = true;
-      const reader = new FileReader();
-      reader.onload = () => {
-        if (isMain) {
-          mainPhoto = { dataUrl: reader.result, x: 50, y: 58, rot: 0 };
-          coupon.classList.add('has-photo');
-          setPhotoMode('cover');
-          renderMainPhoto();
-          photoRemoveBtn.style.display = 'inline';
-          photoModeRow.style.display = 'flex';
-        } else {
-          addExtraPhoto(reader.result);
-        }
-      };
-      reader.readAsDataURL(file);
-    });
+    const file = files[0];
+    const reader = new FileReader();
+    reader.onload = () => {
+      mainPhoto = { dataUrl: reader.result, x: 50, y: 58, rot: 0, scale: 1 };
+      coupon.classList.add('has-photo');
+      setPhotoMode('cover');
+      renderMainPhoto();
+      photoRemoveBtn.style.display = 'inline';
+      photoModeRow.style.display = 'flex';
+    };
+    reader.readAsDataURL(file);
     photoInput.value = '';
   });
   photoRemoveBtn.addEventListener('click', () => {
     mainPhoto = null;
     renderMainPhoto();
     coupon.classList.remove('has-photo', 'photo-mode-cover', 'photo-mode-free', 'photo-mode-centered');
-    hasMainPhoto = false;
-    extraPhotos = [];
-    renderExtraPhotos();
     photoInput.value = '';
     photoRemoveBtn.style.display = 'none';
     photoModeRow.style.display = 'none';
