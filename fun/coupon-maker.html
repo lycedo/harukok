@@ -5,11 +5,11 @@
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>커플 쿠폰 만들기 - 설거지 쿠폰, 안마 쿠폰 무료 제작</title>
-<meta name="description" content="연인, 친구끼리 주고받는 설거지 쿠폰·안마 쿠폰·심부름 쿠폰을 회원가입 없이 무료로 만들어 이미지로 저장하고 공유하세요.">
+<title>쿠폰 만들기 - 설거지 쿠폰, 안마 쿠폰 무료 제작</title>
+<meta name="description" content="커플 쿠폰, 친구 쿠폰부터 설거지 쿠폰·안마 쿠폰·심부름 쿠폰까지 회원가입 없이 무료로 만들어 이미지로 저장하고 공유하세요.">
 <link rel="canonical" href="https://harukok.com/fun/coupon-maker">
-<meta property="og:title" content="커플 쿠폰 만들기 - 설거지 쿠폰, 안마 쿠폰 무료 제작">
-<meta property="og:description" content="연인, 친구끼리 주고받는 설거지 쿠폰·안마 쿠폰·심부름 쿠폰을 회원가입 없이 무료로 만들어 이미지로 저장하고 공유하세요.">
+<meta property="og:title" content="쿠폰 만들기 - 설거지 쿠폰, 안마 쿠폰 무료 제작">
+<meta property="og:description" content="커플 쿠폰, 친구 쿠폰부터 설거지 쿠폰·안마 쿠폰·심부름 쿠폰까지 회원가입 없이 무료로 만들어 이미지로 저장하고 공유하세요.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="하루콕">
 <meta property="og:url" content="https://harukok.com/fun/coupon-maker">
@@ -70,30 +70,48 @@
   /* coupon visual */
   .coupon-wrap{ display:flex; justify-content:center; margin-bottom:20px; }
   .coupon{
-    position:relative; width:100%; max-width:420px; min-height:170px;
+    position:relative; width:100%; max-width:420px; min-height:190px;
     background: var(--ticket);
     border-radius:16px;
-    box-shadow: 0 10px 26px rgba(0,0,0,0.12);
+    box-shadow: 0 10px 26px rgba(0,0,0,0.16);
     display:flex; overflow:hidden;
   }
   .coupon-icon{
-    width:30%; background: var(--cp-accent, #E8709F); color:#fff;
-    display:flex; align-items:center; justify-content:center; font-size:42px; flex-shrink:0;
-    position:relative;
+    width:32%; flex-shrink:0; position:relative; overflow:hidden;
+    background: linear-gradient(155deg, var(--cp-accent, #E8709F), var(--cp-accent-dark, #A93F6B));
+    display:flex; align-items:center; justify-content:center;
   }
+  .coupon-icon-emoji{ font-size:46px; position:relative; z-index:2; filter: drop-shadow(0 3px 4px rgba(0,0,0,0.25)); }
+  .coupon-icon-bg{
+    position:absolute; inset:-10%; z-index:1; opacity:0.22; overflow:hidden; pointer-events:none;
+  }
+  .coupon-icon-bg span{ position:absolute; font-size:26px; transform:rotate(-18deg); color:#fff; }
   .coupon-icon::after{
-    content:''; position:absolute; right:-9px; top:0; bottom:0; width:18px;
+    content:''; position:absolute; right:-9px; top:0; bottom:0; width:18px; z-index:3;
     background-image: radial-gradient(circle 9px at 0 0, transparent 9px, var(--ticket) 9.5px),
       radial-gradient(circle 9px at 0 100%, transparent 9px, var(--ticket) 9.5px);
     background-size: 18px 50%; background-repeat: repeat-y;
   }
-  .coupon-body{ flex:1; padding:16px 18px; display:flex; flex-direction:column; justify-content:center; }
-  .coupon-kicker{ font-size:11px; letter-spacing:2px; color: var(--cp-accent, #E8709F); font-weight:700; margin-bottom:4px; }
-  .coupon-title{ font-family:'Do Hyeon', sans-serif; font-size:21px; color:var(--ink); margin-bottom:8px; line-height:1.25; word-break:keep-all; }
-  .coupon-parties{ font-size:12.5px; color:var(--muted); margin-bottom:6px; }
+  .coupon-body{ flex:1; padding:16px 20px; display:flex; flex-direction:column; justify-content:center; position:relative; overflow:hidden; }
+  .coupon-watermark{
+    position:absolute; right:-8px; bottom:-14px; font-size:88px; opacity:0.07; transform:rotate(-14deg);
+    line-height:1; pointer-events:none; z-index:0;
+  }
+  .coupon-kicker{ font-size:11px; letter-spacing:2px; color: var(--cp-accent, #E8709F); font-weight:700; margin-bottom:4px; position:relative; z-index:1; }
+  .coupon-title{ font-family:'Do Hyeon', sans-serif; font-size:21px; color:var(--ink); margin-bottom:8px; line-height:1.25; word-break:keep-all; position:relative; z-index:1; }
+  .coupon-parties{ font-size:12.5px; color:var(--muted); margin-bottom:6px; position:relative; z-index:1; }
   .coupon-parties b{ color:var(--ink); }
-  .coupon-desc{ font-size:12px; color:var(--muted); line-height:1.5; margin-bottom:6px; word-break:keep-all; }
+  .coupon-desc{ font-size:12px; color:var(--muted); line-height:1.5; margin-bottom:8px; word-break:keep-all; position:relative; z-index:1; }
+  .coupon-bottom-row{ display:flex; align-items:flex-end; justify-content:space-between; position:relative; z-index:1; }
   .coupon-valid{ font-size:11px; color:var(--cp-accent, #E8709F); font-weight:700; }
+  .coupon-code{ font-family:'IBM Plex Mono', 'Pretendard', monospace; font-size:9.5px; color:var(--muted); opacity:0.6; letter-spacing:0.5px; }
+  .coupon-stamp{
+    position:absolute; top:8px; left:8px; width:50px; height:50px; z-index:4;
+    border:2px dashed rgba(255,255,255,0.85); border-radius:50%;
+    display:flex; align-items:center; justify-content:center; text-align:center;
+    transform:rotate(-14deg); color:#fff; font-family:'Do Hyeon', sans-serif;
+    font-size:9px; line-height:1.2; letter-spacing:1px;
+  }
 
   .share-row{ display:flex; gap:10px; margin-top:14px; margin-bottom:28px; }
   .share-btn{
@@ -155,8 +173,8 @@
 
 <div class="page">
   <a href="/" class="back-home">← 하루콕 홈으로</a>
-  <h1>커플 쿠폰 만들기</h1>
-  <p class="lede">설거지 쿠폰, 안마 쿠폰처럼 연인·친구끼리 주고받는 재미있는 쿠폰을 만들어보세요.</p>
+  <h1>쿠폰 만들기</h1>
+  <p class="lede">커플 쿠폰, 친구 쿠폰부터 설거지 쿠폰, 안마 쿠폰까지 주고받는 재미있는 쿠폰을 만들어보세요.</p>
 
   <div class="card">
     <div class="field">
@@ -194,13 +212,20 @@
 
   <div class="coupon-wrap">
     <div class="coupon" id="coupon">
-      <div class="coupon-icon" id="couponIcon">🍽️</div>
+      <div class="coupon-stamp">COUPON</div>
+      <div class="coupon-icon">
+        <div class="coupon-icon-bg" id="couponIconBg"></div>
+        <span class="coupon-icon-emoji" id="couponIcon">🍽️</span>
+      </div>
       <div class="coupon-body">
-        <div class="coupon-kicker">COUPON</div>
+        <span class="coupon-watermark" id="couponWatermark">🍽️</span>
         <div class="coupon-title" id="couponTitle">설거지 쿠폰</div>
         <div class="coupon-parties"><b id="couponFrom">하루</b> → <b id="couponTo">콕이</b></div>
         <div class="coupon-desc" id="couponDesc">이 쿠폰을 내밀면 무조건 설거지 해드립니다!</div>
-        <div class="coupon-valid" id="couponValid">평생 유효</div>
+        <div class="coupon-bottom-row">
+          <div class="coupon-valid" id="couponValid">평생 유효</div>
+          <div class="coupon-code" id="couponCode">NO. 0000</div>
+        </div>
       </div>
     </div>
   </div>
@@ -261,11 +286,11 @@
   ];
 
   const THEMES = [
-    { accent: '#E8709F' },
-    { accent: '#4C8FC0' },
-    { accent: '#3B9C6E' },
-    { accent: '#C9A24B' },
-    { accent: '#8E76D6' },
+    { accent: '#E8709F', accentDark: '#A93F6B' },
+    { accent: '#4C8FC0', accentDark: '#2E5F86' },
+    { accent: '#3B9C6E', accentDark: '#256B49' },
+    { accent: '#C9A24B', accentDark: '#8A5A1E' },
+    { accent: '#8E76D6', accentDark: '#5F4A9E' },
   ];
 
   const coupon = $('coupon');
@@ -278,17 +303,34 @@
   const themeRow = $('themeRow');
 
   const couponIcon = $('couponIcon');
+  const couponIconBg = $('couponIconBg');
+  const couponWatermark = $('couponWatermark');
   const couponTitle = $('couponTitle');
   const couponFrom = $('couponFrom');
   const couponTo = $('couponTo');
   const couponDesc = $('couponDesc');
   const couponValid = $('couponValid');
+  const couponCode = $('couponCode');
 
   let currentIcon = '🍽️';
+  let couponCodeValue = null;
 
   function applyTheme(idx){
     coupon.style.setProperty('--cp-accent', THEMES[idx].accent);
+    coupon.style.setProperty('--cp-accent-dark', THEMES[idx].accentDark);
     Array.from(themeRow.children).forEach((el, i) => el.classList.toggle('active', i === idx));
+  }
+
+  function renderIconBg(icon){
+    const spots = [
+      { top: '4%', left: '10%' }, { top: '20%', left: '62%' }, { top: '46%', left: '18%' },
+      { top: '62%', left: '58%' }, { top: '80%', left: '8%' }, { top: '88%', left: '68%' },
+    ];
+    couponIconBg.innerHTML = spots.map(s => `<span style="top:${s.top};left:${s.left}">${icon}</span>`).join('');
+  }
+
+  function newCouponCode(){
+    couponCodeValue = 'NO. ' + Math.floor(1000 + Math.random() * 9000);
   }
 
   function renderThemes(){
@@ -310,6 +352,8 @@
         titleInput.value = t.name;
         descInput.value = t.desc;
         currentIcon = t.icon;
+        renderIconBg(t.icon);
+        newCouponCode();
         Array.from(typePresets.children).forEach(c => c.classList.remove('active'));
         chip.classList.add('active');
         syncCoupon();
@@ -320,11 +364,14 @@
 
   function syncCoupon(){
     couponIcon.textContent = currentIcon;
+    couponWatermark.textContent = currentIcon;
     couponTitle.textContent = titleInput.value || '쿠폰';
     couponFrom.textContent = fromInput.value || '보내는 사람';
     couponTo.textContent = toInput.value || '받는 사람';
     couponDesc.textContent = descInput.value || '';
     couponValid.textContent = validInput.value || '';
+    if (!couponCodeValue) newCouponCode();
+    couponCode.textContent = couponCodeValue;
   }
 
   [titleInput, descInput, fromInput, toInput, validInput].forEach(el => {
@@ -396,7 +443,7 @@
       const file = new File([blob], '하루콕_쿠폰.png', { type: 'image/png' });
       if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
         try {
-          await navigator.share({ files: [file], title: '커플 쿠폰', text: '하루콕에서 만든 쿠폰이에요' });
+          await navigator.share({ files: [file], title: '쿠폰', text: '하루콕에서 만든 쿠폰이에요' });
           return;
         } catch(e) { /* 사용자가 취소한 경우 등 */ }
       }
@@ -420,6 +467,8 @@
   applyTheme(0);
   titleInput.value = TYPES[0].name;
   descInput.value = TYPES[0].desc;
+  renderIconBg(TYPES[0].icon);
+  newCouponCode();
   typePresets.children[0].classList.add('active');
   syncCoupon();
 })();
