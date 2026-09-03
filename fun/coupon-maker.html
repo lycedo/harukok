@@ -630,10 +630,8 @@
       const startX = e.clientX, startY = e.clientY;
       const startLeft = mainPhoto.x, startTop = mainPhoto.y;
       const halfPct = 23; // frame is 46% of the icon zone, so half its size
-      const handleMarginX = (12 / zoneRect.width) * 100;
-      const handleMarginY = (12 / zoneRect.height) * 100;
-      const minX = halfPct, maxX = 100 - halfPct - handleMarginX;
-      const minY = halfPct, maxY = 100 - halfPct - handleMarginY;
+      const minX = halfPct, maxX = 100 - halfPct;
+      const minY = halfPct, maxY = 100 - halfPct;
       try { frame.setPointerCapture(e.pointerId); } catch(err) {}
       function onMove(ev){
         const dx = ev.clientX - startX, dy = ev.clientY - startY;
