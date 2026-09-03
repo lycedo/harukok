@@ -81,6 +81,21 @@
     font-size:12.5px; color:var(--muted); cursor:pointer; user-select:none;
   }
   .mode-btn.active{ background:var(--ink); color:#fff; border-color:var(--ink); }
+  .photo-hint{ font-size:12px; color:var(--muted); margin-top:8px; }
+
+  .coupon-extra-photo{
+    position:absolute; width:56px; height:56px; z-index:5; cursor:grab; touch-action:none;
+    border-radius:8px; border:2px solid #fff; box-shadow:0 3px 8px rgba(0,0,0,0.25); overflow:hidden;
+  }
+  .coupon-extra-photo:active{ cursor:grabbing; }
+  .coupon-extra-photo img{ width:100%; height:100%; object-fit:cover; display:block; pointer-events:none; }
+  .coupon-extra-photo.selected{ outline:1.5px dashed rgba(0,0,0,0.4); outline-offset:4px; }
+  .coupon-extra-photo .photo-del{
+    display:none; position:absolute; top:-9px; right:-9px; width:20px; height:20px; align-items:center; justify-content:center;
+    background:#B23A2E; border:1.5px solid #B23A2E; color:#fff; border-radius:50%; font-size:11px; font-weight:700;
+    cursor:pointer; box-shadow:0 1px 3px rgba(0,0,0,0.2);
+  }
+  .coupon-extra-photo.selected .photo-del{ display:flex; }
 
   /* coupon visual */
   .coupon-wrap{ display:flex; justify-content:center; margin-bottom:20px; }
@@ -251,16 +266,17 @@
     </div>
 
     <div class="field">
-      <label>사진 (선택)</label>
+      <label>사진 (선택, 여러 장 가능)</label>
       <div class="photo-upload-row">
-        <button class="photo-btn" id="photoBtn" type="button">사진 선택</button>
-        <input type="file" id="photoInput" accept="image/*">
-        <span class="photo-remove" id="photoRemoveBtn">사진 제거</span>
+        <button class="photo-btn" id="photoBtn" type="button">사진 추가</button>
+        <input type="file" id="photoInput" accept="image/*" multiple>
+        <span class="photo-remove" id="photoRemoveBtn">전체 삭제</span>
       </div>
       <div class="photo-mode-row" id="photoModeRow">
         <div class="mode-btn active" data-mode="cover">꽉 채우기</div>
         <div class="mode-btn" data-mode="center">배경없이 가운데 배치</div>
       </div>
+      <div class="photo-hint">첫 번째 사진은 아이콘 자리에, 추가로 올린 사진은 쿠폰 위에 자유롭게 배치돼요. 드래그로 옮기고 클릭하면 × 로 삭제할 수 있어요.</div>
     </div>
   </div>
 
@@ -531,23 +547,100 @@
     Array.from(photoModeRow.children).forEach(btn => btn.classList.toggle('active', btn.dataset.mode === mode));
   }
 
+  let extraPhotos = []; // {id, dataUrl, x, y}
+  let extraPhotoSeq = 0;
+  let hasMainPhoto = false;
+
+  function renderExtraPhotos(){
+    coupon.querySelectorAll('.coupon-extra-photo').forEach(el => el.remove());
+    extraPhotos.forEach(p => {
+      const el = document.createElement('div');
+      el.className = 'coupon-extra-photo';
+      el.style.left = p.x + '%';
+      el.style.top = p.y + '%';
+      el.innerHTML = `<img src="${p.dataUrl}" alt=""><div class="photo-del">×</div>`;
+
+      el.querySelector('.photo-del').addEventListener('click', (e) => {
+        e.stopPropagation();
+        extraPhotos = extraPhotos.filter(x => x.id !== p.id);
+        renderExtraPhotos();
+      });
+
+      el.addEventListener('pointerdown', (e) => {
+        if (e.target.closest('.photo-del')) return;
+        e.preventDefault();
+        coupon.querySelectorAll('.coupon-extra-photo').forEach(x => x.classList.remove('selected'));
+        el.classList.add('selected');
+        const couponRect = coupon.getBoundingClientRect();
+        const startX = e.clientX, startY = e.clientY;
+        const startLeft = p.x, startTop = p.y;
+        try { el.setPointerCapture(e.pointerId); } catch(err) {}
+        function onMove(ev){
+          const dx = ev.clientX - startX, dy = ev.clientY - startY;
+          let nx = startLeft + (dx / couponRect.width) * 100;
+          let ny = startTop + (dy / couponRect.height) * 100;
+          nx = Math.max(0, Math.min(86, nx));
+          ny = Math.max(0, Math.min(78, ny));
+          p.x = nx; p.y = ny;
+          el.style.left = nx + '%';
+          el.style.top = ny + '%';
+        }
+        function onUp(){
+          el.removeEventListener('pointermove', onMove);
+          el.removeEventListener('pointerup', onUp);
+        }
+        el.addEventListener('pointermove', onMove);
+        el.addEventListener('pointerup', onUp);
+      });
+
+      coupon.appendChild(el);
+    });
+  }
+
+  function addExtraPhoto(dataUrl){
+    const id = 'ep' + (extraPhotoSeq++);
+    const n = extraPhotos.length;
+    const x = 36 + (n % 3) * 16;
+    const y = 8 + (n % 3) * 12;
+    extraPhotos.push({ id, dataUrl, x, y });
+    renderExtraPhotos();
+  }
+
+  coupon.addEventListener('pointerdown', (e) => {
+    if (!e.target.closest('.coupon-extra-photo')) {
+      coupon.querySelectorAll('.coupon-extra-photo').forEach(el => el.classList.remove('selected'));
+    }
+  });
+
   photoBtn.addEventListener('click', () => photoInput.click());
   photoInput.addEventListener('change', () => {
-    const file = photoInput.files && photoInput.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = () => {
-      couponIconPhoto.innerHTML = `<img src="${reader.result}" alt="">`;
-      coupon.classList.add('has-photo');
-      setPhotoMode('cover');
-      photoRemoveBtn.style.display = 'inline';
-      photoModeRow.style.display = 'flex';
-    };
-    reader.readAsDataURL(file);
+    const files = Array.from(photoInput.files || []);
+    if (!files.length) return;
+    files.forEach((file) => {
+      const isMain = !hasMainPhoto;
+      hasMainPhoto = true;
+      const reader = new FileReader();
+      reader.onload = () => {
+        if (isMain) {
+          couponIconPhoto.innerHTML = `<img src="${reader.result}" alt="">`;
+          coupon.classList.add('has-photo');
+          setPhotoMode('cover');
+          photoRemoveBtn.style.display = 'inline';
+          photoModeRow.style.display = 'flex';
+        } else {
+          addExtraPhoto(reader.result);
+        }
+      };
+      reader.readAsDataURL(file);
+    });
+    photoInput.value = '';
   });
   photoRemoveBtn.addEventListener('click', () => {
     couponIconPhoto.innerHTML = '';
     coupon.classList.remove('has-photo', 'photo-mode-cover', 'photo-mode-center');
+    hasMainPhoto = false;
+    extraPhotos = [];
+    renderExtraPhotos();
     photoInput.value = '';
     photoRemoveBtn.style.display = 'none';
     photoModeRow.style.display = 'none';

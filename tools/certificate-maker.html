@@ -91,6 +91,7 @@
   .sticker-btn svg{ width:100%; height:100%; display:block; }
   .sticker-btn:active{ transform:translateY(1px); }
   .sticker-btn:hover{ background:#fff; }
+  .sticker-upload-btn{ font-size:20px; font-weight:700; border-style:dashed; }
   .sticker-hint{ font-size:12px; color:var(--muted); margin:-12px 0 20px; }
 
   .photo-upload-row{ display:flex; gap:10px; align-items:center; margin-bottom:20px; }
@@ -175,11 +176,13 @@
     position:absolute; width: clamp(26px, 7vw, 40px); color: var(--cert-accent, #B8860B);
     user-select:none; cursor:grab; touch-action:none;
   }
+  .cert-sticker.is-image{ width: clamp(50px, 14vw, 84px); }
   .cert-sticker:active{ cursor:grabbing; }
   .cert-sticker .sticker-inner{
     filter: drop-shadow(0 2px 3px rgba(0,0,0,0.15));
   }
   .cert-sticker .sticker-inner svg{ width:100%; height:auto; display:block; }
+  .cert-sticker .sticker-inner-image img{ width:100%; height:auto; display:block; border-radius:6px; }
   .cert-sticker.selected{ outline: 1.5px dashed rgba(0,0,0,0.3); outline-offset:6px; }
   .sticker-handle{
     display:none; position:absolute; width:22px; height:22px; align-items:center; justify-content:center;
@@ -245,7 +248,7 @@
       "name": "아이 사진을 넣을 수 있나요?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "네, 사진 추가 버튼으로 아이 사진을 올리면 원형 프레임으로 삽입되고, 드래그해서 원하는 위치로 옮길 수 있습니다. 업로드한 사진은 서버로 전송되지 않고 브라우저 안에서만 처리됩니다."
+        "text": "네, 사진 추가 버튼으로 여러 장을 한 번에 올릴 수 있고, 각각 원형 프레임으로 삽입되어 드래그로 자유롭게 위치를 옮길 수 있습니다. 업로드한 사진은 서버로 전송되지 않고 브라우저 안에서만 처리됩니다."
       }
     }
   ]
@@ -303,18 +306,21 @@
 
     <div class="field">
       <label>스티커 추가 (클릭하면 상장 위에 붙어요)</label>
-      <div class="sticker-row" id="stickerRow"></div>
-      <div class="sticker-hint">상장 위 스티커를 드래그해서 옮기고, ↻ 손잡이로 회전, × 버튼으로 삭제할 수 있어요.</div>
+      <div class="sticker-row" id="stickerRow">
+        <button class="sticker-btn sticker-upload-btn" id="stickerImageBtn" type="button" title="내 이미지를 스티커로 추가">＋</button>
+        <input type="file" id="stickerImageInput" accept="image/*" multiple style="display:none;">
+      </div>
+      <div class="sticker-hint">상장 위 스티커를 드래그해서 옮기고, ↻ 손잡이로 회전, × 버튼으로 삭제할 수 있어요. ＋ 버튼으로 내 이미지도 스티커로 추가할 수 있어요.</div>
     </div>
 
     <div class="field">
       <label>사진 추가 (선택)</label>
       <div class="photo-upload-row">
-        <button class="photo-btn" id="photoBtn">사진 선택</button>
-        <input type="file" id="photoInput" accept="image/*">
-        <span class="photo-remove" id="photoRemoveBtn">사진 제거</span>
+        <button class="photo-btn" id="photoBtn">사진 추가</button>
+        <input type="file" id="photoInput" accept="image/*" multiple>
+        <span class="photo-remove" id="photoRemoveBtn">전체 삭제</span>
       </div>
-      <div class="photo-hint">상장 위 사진을 드래그해서 원하는 위치로 옮길 수 있어요. 클릭하면 × 버튼으로 삭제할 수 있어요.</div>
+      <div class="photo-hint">여러 장 올릴 수 있어요. 상장 위 사진을 드래그해서 옮기고, 클릭하면 × 버튼으로 삭제할 수 있어요.</div>
     </div>
   </div>
 
@@ -361,7 +367,7 @@
     </div>
     <div class="faq-item">
       <div class="q">아이 사진을 넣을 수 있나요?</div>
-      <div class="a">네, 사진 추가 버튼으로 아이 사진을 올리면 원형 프레임으로 삽입되고, 드래그해서 원하는 위치로 옮길 수 있습니다. 업로드한 사진은 서버로 전송되지 않고 브라우저 안에서만 처리됩니다.</div>
+      <div class="a">네, 사진 추가 버튼으로 여러 장을 한 번에 올릴 수 있고, 각각 원형 프레임으로 삽입되어 드래그로 자유롭게 위치를 옮길 수 있습니다. 업로드한 사진은 서버로 전송되지 않고 브라우저 안에서만 처리됩니다.</div>
     </div>
   </div>
 </div>
@@ -414,6 +420,8 @@
   const awarderInput = $('awarderInput');
   const themeGrid = $('themeGrid');
   const stickerRow = $('stickerRow');
+  const stickerImageBtn = $('stickerImageBtn');
+  const stickerImageInput = $('stickerImageInput');
   const photoBtn = $('photoBtn');
   const photoInput = $('photoInput');
   const photoRemoveBtn = $('photoRemoveBtn');
@@ -428,7 +436,6 @@
   let stickers = []; // {svg, x, y, rot, id}
   let selectedStickerId = null;
   let stickerSeq = 0;
-  let photoDataUrl = null;
 
   function applyTheme(idx){
     currentTheme = idx;
@@ -482,8 +489,10 @@
     });
   }
 
-  function addSticker(svg){
+  function addSticker(content, isImage){
     const id = 's' + (stickerSeq++);
+    const svg = isImage ? null : content;
+    const img = isImage ? content : null;
     // 가운데 문구 영역을 피해서 모서리/가장자리 쪽에 배치 (모서리 장식과 안 겹치게 살짝 안쪽으로)
     const corners = [
       { xMin: 6, xMax: 20, yMin: 22, yMax: 34 },
@@ -495,7 +504,7 @@
     const x = c.xMin + Math.random() * (c.xMax - c.xMin);
     const y = c.yMin + Math.random() * (c.yMax - c.yMin);
     const rot = -15 + Math.random() * 30;
-    stickers.push({ id, svg, x, y, rot });
+    stickers.push({ id, svg, img, x, y, rot });
     selectedStickerId = id;
     renderStickers();
   }
@@ -504,13 +513,13 @@
     cert.querySelectorAll('.cert-sticker').forEach(el => el.remove());
     stickers.forEach(s => {
       const el = document.createElement('div');
-      el.className = 'cert-sticker' + (s.id === selectedStickerId ? ' selected' : '');
+      el.className = 'cert-sticker' + (s.img ? ' is-image' : '') + (s.id === selectedStickerId ? ' selected' : '');
       el.style.left = s.x + '%';
       el.style.top = s.y + '%';
 
       const inner = document.createElement('div');
-      inner.className = 'sticker-inner';
-      inner.innerHTML = s.svg;
+      inner.className = 'sticker-inner' + (s.img ? ' sticker-inner-image' : '');
+      inner.innerHTML = s.img ? `<img src="${s.img}" alt="">` : s.svg;
       inner.style.transform = `rotate(${s.rot}deg)`;
       el.appendChild(inner);
 
@@ -613,80 +622,94 @@
     el.addEventListener('change', syncCert);
   });
 
-  let photoPos = { x: 74, y: 6 };
+  let photos = []; // {id, dataUrl, x, y}
+  let photoSeq = 0;
 
-  function makePhotoDraggable(el){
-    el.addEventListener('pointerdown', (e) => {
-      if (e.target.closest('.sticker-handle')) return;
-      e.preventDefault();
-      el.classList.add('selected');
-      const certRect = cert.getBoundingClientRect();
-      const startX = e.clientX, startY = e.clientY;
-      const startLeft = photoPos.x, startTop = photoPos.y;
-      try { el.setPointerCapture(e.pointerId); } catch(err) {}
-      function onMove(ev){
-        const dx = ev.clientX - startX, dy = ev.clientY - startY;
-        let nx = startLeft + (dx / certRect.width) * 100;
-        let ny = startTop + (dy / certRect.height) * 100;
-        nx = Math.max(0, Math.min(80, nx));
-        ny = Math.max(0, Math.min(80, ny));
-        photoPos.x = nx; photoPos.y = ny;
-        el.style.left = nx + '%';
-        el.style.top = ny + '%';
-      }
-      function onUp(){
-        el.removeEventListener('pointermove', onMove);
-        el.removeEventListener('pointerup', onUp);
-      }
-      el.addEventListener('pointermove', onMove);
-      el.addEventListener('pointerup', onUp);
+  function renderPhotos(){
+    cert.querySelectorAll('.cert-photo').forEach(el => el.remove());
+    photos.forEach(p => {
+      const el = document.createElement('div');
+      el.className = 'cert-photo';
+      el.style.left = p.x + '%';
+      el.style.top = p.y + '%';
+      el.innerHTML = `<img src="${p.dataUrl}" alt="">`;
+
+      const delHandle = document.createElement('div');
+      delHandle.className = 'sticker-handle del';
+      delHandle.textContent = '×';
+      delHandle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        photos = photos.filter(x => x.id !== p.id);
+        renderPhotos();
+      });
+      el.appendChild(delHandle);
+
+      el.addEventListener('pointerdown', (e) => {
+        if (e.target.closest('.sticker-handle')) return;
+        e.preventDefault();
+        cert.querySelectorAll('.cert-photo').forEach(x => x.classList.remove('selected'));
+        el.classList.add('selected');
+        const certRect = cert.getBoundingClientRect();
+        const startX = e.clientX, startY = e.clientY;
+        const startLeft = p.x, startTop = p.y;
+        try { el.setPointerCapture(e.pointerId); } catch(err) {}
+        function onMove(ev){
+          const dx = ev.clientX - startX, dy = ev.clientY - startY;
+          let nx = startLeft + (dx / certRect.width) * 100;
+          let ny = startTop + (dy / certRect.height) * 100;
+          nx = Math.max(0, Math.min(80, nx));
+          ny = Math.max(0, Math.min(80, ny));
+          p.x = nx; p.y = ny;
+          el.style.left = nx + '%';
+          el.style.top = ny + '%';
+        }
+        function onUp(){
+          el.removeEventListener('pointermove', onMove);
+          el.removeEventListener('pointerup', onUp);
+        }
+        el.addEventListener('pointermove', onMove);
+        el.addEventListener('pointerup', onUp);
+      });
+
+      cert.appendChild(el);
     });
   }
 
-  photoBtn.addEventListener('click', () => photoInput.click());
-  photoInput.addEventListener('change', () => {
-    const file = photoInput.files && photoInput.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = () => {
-      photoDataUrl = reader.result;
-      let img = cert.querySelector('.cert-photo');
-      if (!img) {
-        img = document.createElement('div');
-        img.className = 'cert-photo';
-        img.style.left = photoPos.x + '%';
-        img.style.top = photoPos.y + '%';
-        const delHandle = document.createElement('div');
-        delHandle.className = 'sticker-handle del';
-        delHandle.textContent = '×';
-        delHandle.addEventListener('click', (e) => {
-          e.stopPropagation();
-          removePhoto();
-        });
-        img.appendChild(delHandle);
-        makePhotoDraggable(img);
-        cert.appendChild(img);
-      }
-      const existingImg = img.querySelector('img');
-      if (existingImg) existingImg.remove();
-      const imgTag = document.createElement('img');
-      imgTag.src = photoDataUrl;
-      imgTag.alt = '';
-      img.appendChild(imgTag);
-      photoRemoveBtn.style.display = 'inline';
-    };
-    reader.readAsDataURL(file);
+  function addPhoto(dataUrl){
+    const id = 'p' + (photoSeq++);
+    const n = photos.length;
+    const x = Math.min(80, 60 + (n % 4) * 5);
+    const y = Math.min(80, 6 + (n % 4) * 8);
+    photos.push({ id, dataUrl, x, y });
+    renderPhotos();
+  }
+
+  stickerImageBtn.addEventListener('click', () => stickerImageInput.click());
+  stickerImageInput.addEventListener('change', () => {
+    const files = Array.from(stickerImageInput.files || []);
+    files.forEach(file => {
+      const reader = new FileReader();
+      reader.onload = () => addSticker(reader.result, true);
+      reader.readAsDataURL(file);
+    });
+    stickerImageInput.value = '';
   });
 
-  function removePhoto(){
-    photoDataUrl = null;
-    const img = cert.querySelector('.cert-photo');
-    if (img) img.remove();
+  photoBtn.addEventListener('click', () => photoInput.click());
+  photoInput.addEventListener('change', () => {
+    const files = Array.from(photoInput.files || []);
+    files.forEach(file => {
+      const reader = new FileReader();
+      reader.onload = () => addPhoto(reader.result);
+      reader.readAsDataURL(file);
+    });
     photoInput.value = '';
-    photoRemoveBtn.style.display = 'none';
-    photoPos = { x: 74, y: 6 };
-  }
-  photoRemoveBtn.addEventListener('click', removePhoto);
+  });
+
+  photoRemoveBtn.addEventListener('click', () => {
+    photos = [];
+    renderPhotos();
+  });
 
   const toast = $('shareToast');
   let toastTimer = null;
