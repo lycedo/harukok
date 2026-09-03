@@ -101,6 +101,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://harukok.com/tools/paint-mixer-simulator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://harukok.com/fun/lunch-picker</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>

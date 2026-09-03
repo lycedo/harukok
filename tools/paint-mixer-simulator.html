@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>물감 섞기 시뮬레이터 - 비율별 색 미리보기</title>
+<meta name="description" content="물감을 고르고 비율 막대를 움직이면 실시간으로 어떤 색이 섞여 나오는지 바로 확인할 수 있는 물감 섞기 시뮬레이터.">
+<link rel="canonical" href="https://harukok.com/tools/paint-mixer-simulator">
+<meta property="og:title" content="물감 섞기 시뮬레이터 - 비율별 색 미리보기">
+<meta property="og:description" content="물감을 고르고 비율 막대를 움직이면 실시간으로 어떤 색이 섞여 나오는지 바로 확인할 수 있습니다.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="하루콕">
+<meta property="og:url" content="https://harukok.com/tools/paint-mixer-simulator">
+<meta property="og:image" content="https://harukok.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700&family=Pretendard:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #ECE8DC;
+    --paper-light: #F7F4EA;
+    --ink: #16233D;
+    --ink-soft: #45516A;
+    --muted: #6E6656;
+    --line: #B7AF98;
+    --stamp: #B23A2E;
+  }
+  *{ box-sizing: border-box; }
+  body{
+    margin:0;
+    padding: 40px 20px 70px;
+    background: var(--paper);
+    background-image: repeating-linear-gradient(0deg, rgba(0,0,0,0.015) 0px, rgba(0,0,0,0.015) 1px, transparent 1px, transparent 3px);
+    font-family: 'Pretendard', -apple-system, sans-serif;
+    color: var(--ink);
+    display:flex;
+    justify-content:center;
+  }
+  .stub{ width:100%; max-width: 600px; }
+  .kicker{ font-size:13px; color:var(--muted); margin-bottom:6px; }
+  h1{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:28px; line-height:1.35; margin:0 0 8px; }
+  .lede{ font-size:14.5px; color:var(--ink-soft); line-height:1.6; margin:0 0 24px; max-width:52ch; }
+  .card{ background:var(--paper-light); border:1px solid var(--line); border-radius:14px; padding:28px; margin-bottom:28px; }
+
+  .back-home{ display:inline-block; font-size:12.5px; color:var(--muted); text-decoration:none; margin-bottom:14px; }
+  .back-home:hover{ color:var(--ink); }
+
+  .related{ margin-top:20px; margin-bottom:32px; }
+  .related-title{ font-size:12.5px; color:var(--muted); margin-bottom:10px; }
+  .related-links{ display:flex; flex-wrap:wrap; gap:8px; }
+  .related-links a{ padding:8px 14px; border:1.5px solid var(--line); border-radius:999px; font-size:13px; color:var(--ink); text-decoration:none; }
+  .related-links a:hover{ border-color:var(--ink); }
+
+  .field{ margin-bottom:18px; }
+  .field label{ display:block; font-size:13.5px; color:var(--ink-soft); margin-bottom:8px; font-weight:600; }
+
+  .pigment-grid{ display:grid; grid-template-columns: repeat(2, 1fr); gap:8px; }
+  .pigment-chip{
+    display:flex; align-items:center; gap:9px; border:1.5px solid var(--line); border-radius:10px; padding:9px 12px;
+    background:#fff; cursor:pointer; user-select:none; font-size:13px; color:var(--ink-soft);
+  }
+  .pigment-chip .swatch{ width:20px; height:20px; border-radius:50%; flex-shrink:0; border:1px solid rgba(0,0,0,0.15); }
+  .pigment-chip.active{ border-color:var(--ink); background:var(--paper-light); color:var(--ink); font-weight:600; }
+  .pigment-hint{ font-size:12px; color:var(--muted); margin-top:8px; }
+
+  .slider-row{ display:flex; align-items:center; gap:10px; margin-bottom:14px; }
+  .slider-row .dot{ width:16px; height:16px; border-radius:50%; flex-shrink:0; border:1px solid rgba(0,0,0,0.15); }
+  .slider-row .name{ width:100px; flex-shrink:0; font-size:13px; color:var(--ink-soft); }
+  .slider-row input[type="range"]{ flex:1; accent-color: var(--ink); }
+  .slider-row .pct{ width:44px; flex-shrink:0; text-align:right; font-family:'IBM Plex Mono', monospace; font-size:13px; font-weight:600; color:var(--ink); }
+
+  .live-mix-box{ text-align:center; margin-top:20px; }
+  .live-mix-box .big-swatch{ width:140px; height:140px; margin:0 auto 10px; border-radius:12px; border:1.5px solid var(--line); }
+  .live-mix-box .label{ font-size:12.5px; color:var(--muted); }
+  .live-mix-box .hexval{ font-family:'IBM Plex Mono', monospace; font-size:13px; color:var(--ink-soft); }
+
+  .empty-note{ font-size:13px; color:var(--muted); text-align:center; padding:20px 0; }
+
+  .disclaimer{ font-size:11.5px; color:var(--muted); line-height:1.6; margin-top:20px; padding-top:16px; border-top:1px dotted var(--line); }
+  @media (max-width:480px){ .card{ padding:20px; } h1{ font-size:23px; } }
+
+  .info-block{ margin-top:40px; }
+  .info-block h2{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:18px; margin:0 0 12px; }
+  .info-block p{ font-size:13.5px; line-height:1.7; color:var(--ink-soft); margin:0 0 14px; }
+  .faq-item{ margin-bottom:16px; }
+  .faq-item .q{ font-size:14px; font-weight:600; margin-bottom:5px; }
+  .faq-item .a{ font-size:13.5px; line-height:1.65; color:var(--ink-soft); }
+</style>
+<!-- Google AdSense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6883245122372170" crossorigin="anonymous"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "물감 배합 비율 계산기랑 뭐가 다른가요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "배합 비율 계산기는 원하는 목표 색을 먼저 정하면 어떤 비율로 섞어야 하는지 역으로 계산해줍니다. 이 시뮬레이터는 반대로, 물감을 고르고 비율을 직접 움직이면서 어떤 색이 나오는지 실시간으로 확인하는 도구입니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "결과가 실제 물감 색이랑 정확히 똑같이 나오나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "아니요, 참고용 근사치입니다. 물감은 빛(RGB)과 다르게 안료가 섞이는 감산혼합 방식이라 실제 결과와 차이가 날 수 있습니다. 재질, 브랜드, 농도에 따라서도 달라지니 대략적인 참고용으로 활용해주세요."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<div class="stub">
+  <a href="/" class="back-home">← 하루콕 홈으로</a>
+  <div class="kicker">생활 도구</div>
+  <h1>물감 섞기 시뮬레이터</h1>
+  <p class="lede">물감을 고르고 비율 막대를 움직이면, 실시간으로 어떤 색이 섞여 나오는지 바로 확인할 수 있어요.</p>
+
+  <div class="related">
+    <div class="related-title">함께 보면 좋은 도구</div>
+    <div class="related-links">
+      <a href="/tools/paint-color-mixer">물감 배합 비율 계산기</a>
+      <a href="/tools/unit-converter">단위 변환기</a>
+      <a href="/tools/certificate-maker">상장 만들기</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="field">
+      <label>사용할 물감 선택 (2~4개)</label>
+      <div class="pigment-grid" id="pigmentGrid"></div>
+      <div class="pigment-hint">최소 2개, 최대 4개까지 선택하고 아래 막대를 움직여보세요.</div>
+    </div>
+
+    <div id="emptyNote" class="empty-note">물감을 2개 이상 선택하면 비율 막대가 나타나요.</div>
+
+    <div id="sliderSection" style="display:none;">
+      <div id="sliderRows"></div>
+      <div class="live-mix-box">
+        <div class="big-swatch" id="liveMixSwatch"></div>
+        <div class="label">섞은 결과</div>
+        <div class="hexval" id="liveMixHexLabel"></div>
+      </div>
+    </div>
+
+    <div class="disclaimer">실제 물감은 빛처럼 섞이지 않아 이 결과는 참고용 근사치입니다. 브랜드·농도에 따라 실제 색이 다를 수 있어요.</div>
+  </div>
+
+  <!-- ===== 광고 삽입 영역 ===== -->
+  <ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-6883245122372170"
+     data-ad-slot="0000000000"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+
+  <div class="info-block">
+    <h2>어떻게 쓰나요?</h2>
+    <p>섞고 싶은 물감을 2~4개 고르면 물감마다 비율 막대가 나타납니다. 막대를 움직이면 선택한 물감들의 RGB 값을 비율대로 섞어서 실시간으로 결과 색을 보여줍니다. 실제 안료가 섞이는 방식(감산혼합)은 훨씬 복잡하지만, 이 도구는 빛의 가산혼합에 가까운 근사 계산을 사용하기 때문에 정확한 재현보다는 "비율을 바꾸면 색이 대략 이렇게 변하는구나" 정도의 감을 잡는 용도로 쓰기 좋습니다.</p>
+
+    <div class="faq-item">
+      <div class="q">물감 배합 비율 계산기랑 뭐가 다른가요?</div>
+      <div class="a">배합 비율 계산기는 원하는 목표 색을 먼저 정하면 어떤 비율로 섞어야 하는지 역으로 계산해줍니다. 이 시뮬레이터는 반대로, 물감을 고르고 비율을 직접 움직이면서 어떤 색이 나오는지 실시간으로 확인하는 도구입니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">결과가 실제 물감 색이랑 정확히 똑같이 나오나요?</div>
+      <div class="a">아니요, 참고용 근사치입니다. 물감은 빛(RGB)과 다르게 안료가 섞이는 감산혼합 방식이라 실제 결과와 차이가 날 수 있습니다. 재질, 브랜드, 농도에 따라서도 달라지니 대략적인 참고용으로 활용해주세요.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const $ = (id) => document.getElementById(id);
+
+  const PIGMENTS = [
+    { name: '티타늄 화이트', hex: '#F7F7F5' },
+    { name: '마스 블랙', hex: '#1B1B1B' },
+    { name: '카드뮴 레드', hex: '#E3242B' },
+    { name: '울트라마린 블루', hex: '#1B3F8B' },
+    { name: '카드뮴 옐로우', hex: '#FFD300' },
+    { name: '번트 시에나', hex: '#8A3324' },
+    { name: '프탈로 그린', hex: '#123524' },
+    { name: '다이옥사진 퍼플', hex: '#4B0082' },
+    { name: '옐로우 오커', hex: '#CC9A3E' },
+    { name: '마젠타', hex: '#CA1F7B' },
+  ];
+
+  const pigmentGrid = $('pigmentGrid');
+  const emptyNote = $('emptyNote');
+  const sliderSection = $('sliderSection');
+  const sliderRows = $('sliderRows');
+  const liveMixSwatch = $('liveMixSwatch');
+  const liveMixHexLabel = $('liveMixHexLabel');
+
+  let selected = new Set();
+  const sliderValues = {};
+
+  function hexToRgb(hex){
+    const h = hex.replace('#', '');
+    return [parseInt(h.substr(0,2),16), parseInt(h.substr(2,2),16), parseInt(h.substr(4,2),16)];
+  }
+  function rgbToHex(rgb){
+    return '#' + rgb.map(v => Math.max(0, Math.min(255, Math.round(v))).toString(16).padStart(2, '0')).join('').toUpperCase();
+  }
+
+  function renderPigments(){
+    PIGMENTS.forEach((p, i) => {
+      const el = document.createElement('div');
+      el.className = 'pigment-chip';
+      el.innerHTML = `<span class="swatch" style="background:${p.hex}"></span>${p.name}`;
+      el.addEventListener('click', () => {
+        if (selected.has(i)) {
+          selected.delete(i);
+          delete sliderValues[i];
+          el.classList.remove('active');
+        } else {
+          if (selected.size >= 4) return;
+          selected.add(i);
+          sliderValues[i] = 50;
+          el.classList.add('active');
+        }
+        renderSliders();
+      });
+      pigmentGrid.appendChild(el);
+    });
+  }
+
+  function renderSliders(){
+    if (selected.size < 2) {
+      sliderSection.style.display = 'none';
+      emptyNote.style.display = 'block';
+      return;
+    }
+    emptyNote.style.display = 'none';
+    sliderSection.style.display = 'block';
+    const idxs = [...selected];
+    sliderRows.innerHTML = idxs.map(i => `
+      <div class="slider-row" data-idx="${i}">
+        <span class="dot" style="background:${PIGMENTS[i].hex}"></span>
+        <span class="name">${PIGMENTS[i].name}</span>
+        <input type="range" min="1" max="100" value="${sliderValues[i]}">
+        <span class="pct" id="pct-${i}">0%</span>
+      </div>
+    `).join('');
+    sliderRows.querySelectorAll('input[type="range"]').forEach(inp => {
+      const idx = Number(inp.closest('.slider-row').dataset.idx);
+      inp.addEventListener('input', () => {
+        sliderValues[idx] = Number(inp.value);
+        updateLiveMix();
+      });
+    });
+    updateLiveMix();
+  }
+
+  function updateLiveMix(){
+    const idxs = [...selected];
+    const total = idxs.reduce((s, i) => s + sliderValues[i], 0) || 1;
+    const mix = [0, 0, 0];
+    idxs.forEach(i => {
+      const w = sliderValues[i] / total;
+      const rgb = hexToRgb(PIGMENTS[i].hex);
+      for (let c = 0; c < 3; c++) mix[c] += w * rgb[c];
+      const pctEl = $('pct-' + i);
+      if (pctEl) pctEl.textContent = Math.round(w * 100) + '%';
+    });
+    const hex = rgbToHex(mix);
+    liveMixSwatch.style.background = hex;
+    liveMixHexLabel.textContent = hex;
+  }
+
+  renderPigments();
+})();
+</script>
+</body>
+</html>
