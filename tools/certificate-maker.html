@@ -180,7 +180,7 @@
     cursor:pointer; z-index:2; box-shadow:0 1px 3px rgba(0,0,0,0.2);
   }
   .cert-photo .sticker-handle.rotate{
-    display:none; position:absolute; top:-30px; left:50%; transform:translateX(-50%); width:22px; height:22px;
+    display:none; position:absolute; top:6px; left:50%; transform:translateX(-50%); width:22px; height:22px;
     align-items:center; justify-content:center; background:#fff; border:1.5px solid #999; color:#333;
     border-radius:50%; font-size:12px; font-weight:700; cursor:grab; z-index:2; box-shadow:0 1px 3px rgba(0,0,0,0.2);
   }
@@ -262,7 +262,7 @@
       "name": "아이 사진을 넣을 수 있나요?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "네, 사진 추가 버튼으로 여러 장을 한 번에 올릴 수 있고, 각각 원형 프레임으로 삽입되어 스티커처럼 드래그로 위치를 옮기고 회전 손잡이로 각도도 조절할 수 있습니다. 업로드한 사진은 서버로 전송되지 않고 브라우저 안에서만 처리됩니다."
+        "text": "네, 사진 추가 버튼으로 여러 장을 한 번에 올릴 수 있고, 각각 원형 프레임으로 삽입되어 스티커처럼 드래그로 위치를 옮기고 회전 손잡이로 각도도 조절할 수 있습니다. 아래쪽 모서리를 잡고 드래그하면 크기도 조절할 수 있습니다. 업로드한 사진은 서버로 전송되지 않고 브라우저 안에서만 처리됩니다."
       }
     }
   ]
@@ -338,7 +338,7 @@
         <input type="file" id="photoInput" accept="image/*" multiple>
         <span class="photo-remove" id="photoRemoveBtn">전체 삭제</span>
       </div>
-      <div class="photo-hint">여러 장 올릴 수 있어요. 상장 위 사진을 드래그해서 옮기고, ↻ 손잡이로 회전, × 버튼으로 삭제할 수 있어요.</div>
+      <div class="photo-hint">여러 장 올릴 수 있어요. 상장 위 사진을 드래그해서 옮기고, ↻ 손잡이로 회전, 아래쪽 모서리를 잡고 드래그하면 크기 조절, × 버튼으로 삭제할 수 있어요.</div>
     </div>
   </div>
 
@@ -385,7 +385,7 @@
     </div>
     <div class="faq-item">
       <div class="q">아이 사진을 넣을 수 있나요?</div>
-      <div class="a">네, 사진 추가 버튼으로 여러 장을 한 번에 올릴 수 있고, 각각 원형 프레임으로 삽입되어 스티커처럼 드래그로 위치를 옮기고 회전 손잡이로 각도도 조절할 수 있습니다. 업로드한 사진은 서버로 전송되지 않고 브라우저 안에서만 처리됩니다.</div>
+      <div class="a">네, 사진 추가 버튼으로 여러 장을 한 번에 올릴 수 있고, 각각 원형 프레임으로 삽입되어 스티커처럼 드래그로 위치를 옮기고 회전 손잡이로 각도도 조절할 수 있습니다. 아래쪽 모서리를 잡고 드래그하면 크기도 조절할 수 있습니다. 업로드한 사진은 서버로 전송되지 않고 브라우저 안에서만 처리됩니다.</div>
     </div>
   </div>
 </div>
@@ -641,15 +641,19 @@
     el.addEventListener('change', syncCert);
   });
 
-  let photos = []; // {id, dataUrl, x, y}
+  let photos = []; // {id, dataUrl, x, y, rot, scale}
   let photoSeq = 0;
+  const CERT_PHOTO_BASE_PCT = 20; // width (% of cert width) at scale 1
 
   function renderPhotos(){
     cert.querySelectorAll('.cert-photo').forEach(el => el.remove());
     photos.forEach(p => {
       if (p.rot === undefined) p.rot = 0;
+      if (p.scale === undefined) p.scale = 1;
       const el = document.createElement('div');
       el.className = 'cert-photo';
+      const sizePct = CERT_PHOTO_BASE_PCT * p.scale;
+      el.style.width = sizePct + '%';
       el.style.left = p.x + '%';
       el.style.top = p.y + '%';
 
@@ -674,21 +678,69 @@
       });
       el.appendChild(delHandle);
 
+      const CORNER_ZONE = 16; // px, distance from a bottom corner that triggers resize
+      function nearBottomCorner(clientX, clientY){
+        const rect = el.getBoundingClientRect();
+        const corners = [[rect.left, rect.bottom], [rect.right, rect.bottom]];
+        return corners.some(([cx, cy]) => Math.hypot(clientX - cx, clientY - cy) <= CORNER_ZONE);
+      }
+
+      el.addEventListener('pointermove', (e) => {
+        if (el.hasPointerCapture && el.hasPointerCapture(e.pointerId)) return;
+        el.style.cursor = nearBottomCorner(e.clientX, e.clientY) ? 'nwse-resize' : 'grab';
+      });
+
       el.addEventListener('pointerdown', (e) => {
         if (e.target.closest('.sticker-handle')) return;
         e.preventDefault();
         cert.querySelectorAll('.cert-photo').forEach(x => x.classList.remove('selected'));
         el.classList.add('selected');
         const certRect = cert.getBoundingClientRect();
+        try { el.setPointerCapture(e.pointerId); } catch(err) {}
+
+        if (nearBottomCorner(e.clientX, e.clientY)) {
+          const rect = el.getBoundingClientRect();
+          const cx = rect.left + rect.width / 2, cy = rect.top + rect.height / 2;
+          const startDist = Math.max(1, Math.hypot(e.clientX - cx, e.clientY - cy));
+          const startScale = p.scale;
+          function onResizeMove(ev){
+            const dist = Math.hypot(ev.clientX - cx, ev.clientY - cy);
+            let newScale = startScale * (dist / startDist);
+            newScale = Math.max(0.5, Math.min(1.8, newScale));
+            p.scale = newScale;
+            const newSizePct = CERT_PHOTO_BASE_PCT * newScale;
+            const newSizePxH = (newSizePct / 100) * certRect.width; // square: height px == width px
+            const centerXpct = ((cx - certRect.left) / certRect.width) * 100;
+            const centerYpct = ((cy - certRect.top) / certRect.height) * 100;
+            let nx = centerXpct - newSizePct / 2;
+            let ny = centerYpct - (newSizePxH / certRect.height * 100) / 2;
+            nx = Math.max(0, Math.min(100 - newSizePct, nx));
+            ny = Math.max(0, Math.min(100 - (newSizePxH / certRect.height * 100), ny));
+            p.x = nx; p.y = ny;
+            el.style.width = newSizePct + '%';
+            el.style.left = nx + '%';
+            el.style.top = ny + '%';
+          }
+          function onResizeUp(){
+            el.removeEventListener('pointermove', onResizeMove);
+            el.removeEventListener('pointerup', onResizeUp);
+          }
+          el.addEventListener('pointermove', onResizeMove);
+          el.addEventListener('pointerup', onResizeUp);
+          return;
+        }
+
         const startX = e.clientX, startY = e.clientY;
         const startLeft = p.x, startTop = p.y;
-        try { el.setPointerCapture(e.pointerId); } catch(err) {}
+        const sizePxH = (sizePct / 100) * certRect.width;
+        const maxX = 100 - sizePct;
+        const maxY = 100 - (sizePxH / certRect.height * 100);
         function onMove(ev){
           const dx = ev.clientX - startX, dy = ev.clientY - startY;
           let nx = startLeft + (dx / certRect.width) * 100;
           let ny = startTop + (dy / certRect.height) * 100;
-          nx = Math.max(0, Math.min(80, nx));
-          ny = Math.max(0, Math.min(80, ny));
+          nx = Math.max(0, Math.min(maxX, nx));
+          ny = Math.max(0, Math.min(maxY, ny));
           p.x = nx; p.y = ny;
           el.style.left = nx + '%';
           el.style.top = ny + '%';
@@ -729,7 +781,7 @@
     const n = photos.length;
     const x = Math.min(80, 60 + (n % 4) * 5);
     const y = Math.min(80, 6 + (n % 4) * 8);
-    photos.push({ id, dataUrl, x, y, rot: 0 });
+    photos.push({ id, dataUrl, x, y, rot: 0, scale: 1 });
     renderPhotos();
   }
 
