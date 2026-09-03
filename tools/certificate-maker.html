@@ -520,8 +520,7 @@
     const c = corners[Math.floor(Math.random() * corners.length)];
     const x = c.xMin + Math.random() * (c.xMax - c.xMin);
     const y = c.yMin + Math.random() * (c.yMax - c.yMin);
-    const rot = -15 + Math.random() * 30;
-    stickers.push({ id, svg, img, x, y, rot });
+    stickers.push({ id, svg, img, x, y, rot: 0 });
     selectedStickerId = id;
     renderStickers();
   }
