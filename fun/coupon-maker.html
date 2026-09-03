@@ -621,7 +621,6 @@
       e.preventDefault();
       couponIconPhoto.querySelectorAll('.icon-photo-frame').forEach(x => x.classList.remove('selected'));
       frame.classList.add('selected');
-      try { frame.setPointerCapture(e.pointerId); } catch(err) {}
 
       if (nearCorner(e.clientX, e.clientY)) {
         const rect = frame.getBoundingClientRect();
@@ -644,11 +643,11 @@
           frame.style.top = ny + '%';
         }
         function onResizeUp(){
-          frame.removeEventListener('pointermove', onResizeMove);
-          frame.removeEventListener('pointerup', onResizeUp);
+          window.removeEventListener('pointermove', onResizeMove);
+          window.removeEventListener('pointerup', onResizeUp);
         }
-        frame.addEventListener('pointermove', onResizeMove);
-        frame.addEventListener('pointerup', onResizeUp);
+        window.addEventListener('pointermove', onResizeMove);
+        window.addEventListener('pointerup', onResizeUp);
         return;
       }
 
@@ -669,17 +668,16 @@
         frame.style.top = ny + '%';
       }
       function onUp(){
-        frame.removeEventListener('pointermove', onMove);
-        frame.removeEventListener('pointerup', onUp);
+        window.removeEventListener('pointermove', onMove);
+        window.removeEventListener('pointerup', onUp);
       }
-      frame.addEventListener('pointermove', onMove);
-      frame.addEventListener('pointerup', onUp);
+      window.addEventListener('pointermove', onMove);
+      window.addEventListener('pointerup', onUp);
     });
 
     rotateHandle.addEventListener('pointerdown', (e) => {
       e.preventDefault();
       e.stopPropagation();
-      try { rotateHandle.setPointerCapture(e.pointerId); } catch(err) {}
       function onMove(ev){
         const rect = frame.getBoundingClientRect();
         const cx = rect.left + rect.width / 2, cy = rect.top + rect.height / 2;
@@ -688,11 +686,11 @@
         inner.style.transform = `rotate(${mainPhoto.rot}deg)`;
       }
       function onUp(){
-        rotateHandle.removeEventListener('pointermove', onMove);
-        rotateHandle.removeEventListener('pointerup', onUp);
+        window.removeEventListener('pointermove', onMove);
+        window.removeEventListener('pointerup', onUp);
       }
-      rotateHandle.addEventListener('pointermove', onMove);
-      rotateHandle.addEventListener('pointerup', onUp);
+      window.addEventListener('pointermove', onMove);
+      window.addEventListener('pointerup', onUp);
     });
 
     couponIconPhoto.appendChild(frame);
