@@ -179,7 +179,7 @@
     cursor:pointer; z-index:2; box-shadow:0 1px 3px rgba(0,0,0,0.2);
   }
   .cert-photo .sticker-handle.rotate{
-    display:none; position:absolute; top:6px; left:50%; transform:translateX(-50%); width:22px; height:22px;
+    display:none; position:absolute; top:-10px; left:50%; transform:translateX(-50%); width:22px; height:22px;
     align-items:center; justify-content:center; background:#fff; border:1.5px solid #999; color:#333;
     border-radius:50%; font-size:12px; font-weight:700; cursor:grab; z-index:2; box-shadow:0 1px 3px rgba(0,0,0,0.2);
   }
@@ -201,7 +201,7 @@
     cursor:pointer; touch-action:none; z-index:2; box-shadow:0 1px 3px rgba(0,0,0,0.2);
   }
   .cert-sticker.selected .sticker-handle{ display:flex; }
-  .sticker-handle.rotate{ top:6px; left:50%; transform:translateX(-50%); cursor:grab; }
+  .sticker-handle.rotate{ top:-10px; left:50%; transform:translateX(-50%); cursor:grab; }
   .sticker-handle.rotate:active{ cursor:grabbing; }
   .sticker-handle.del{ top:-10px; right:-10px; background:#B23A2E; border-color:#B23A2E; color:#fff; }
 
@@ -609,12 +609,13 @@
 
         const startX = e.clientX, startY = e.clientY;
         const startLeft = s.x, startTop = s.y;
+        const minY = (14 / certRect.height) * 100; // keep room for the rotate handle above
         function onMove(ev){
           const dx = ev.clientX - startX, dy = ev.clientY - startY;
           let nx = startLeft + (dx / certRect.width) * 100;
           let ny = startTop + (dy / certRect.height) * 100;
           nx = Math.max(0, Math.min(96, nx));
-          ny = Math.max(0, Math.min(94, ny));
+          ny = Math.max(minY, Math.min(94, ny));
           s.x = nx; s.y = ny;
           el.style.left = nx + '%';
           el.style.top = ny + '%';
@@ -781,12 +782,13 @@
         const sizePxH = (sizePct / 100) * certRect.width;
         const maxX = 100 - sizePct;
         const maxY = 100 - (sizePxH / certRect.height * 100);
+        const minY = Math.min(maxY, (14 / certRect.height) * 100); // keep room for the rotate handle above
         function onMove(ev){
           const dx = ev.clientX - startX, dy = ev.clientY - startY;
           let nx = startLeft + (dx / certRect.width) * 100;
           let ny = startTop + (dy / certRect.height) * 100;
           nx = Math.max(0, Math.min(maxX, nx));
-          ny = Math.max(0, Math.min(maxY, ny));
+          ny = Math.max(minY, Math.min(maxY, ny));
           p.x = nx; p.y = ny;
           el.style.left = nx + '%';
           el.style.top = ny + '%';
