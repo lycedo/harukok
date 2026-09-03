@@ -151,10 +151,6 @@
   .cert-footer .date{ margin-bottom: 6%; font-family:'Noto Serif KR', serif; letter-spacing:0.5px; }
   .cert-footer .sign-line{ width: clamp(90px, 22vw, 150px); height:1px; background:var(--cert-accent, #B8860B); margin: 0 auto 8px; opacity:0.8; }
   .cert-footer .awarder{ font-weight:700; color:var(--cert-ink, #2A2118); font-family:'Noto Serif KR', serif; }
-  .cert-serial{
-    margin-top: 8%; font-family:'Pretendard', sans-serif;
-    font-size: clamp(9px, 1.7vw, 11px); color:var(--cert-ink-soft, #4A3F30); opacity:0.55; letter-spacing:0.3px;
-  }
   .cert-seal{
     position:absolute; width:18%; max-width:78px; bottom:6%; right:8%;
     color: var(--cert-accent, #B8860B); pointer-events:none;
@@ -321,7 +317,6 @@
         <div class="date" id="certDate"></div>
         <div class="sign-line"></div>
         <div class="awarder" id="certAwarder">엄마·아빠 드림</div>
-        <div class="cert-serial" id="certSerial"></div>
       </div>
     </div>
   </div>
@@ -391,14 +386,12 @@
   const STICKERS = [
     { id: 'laurel', svg: '<svg viewBox="0 0 100 100"><path d="M50 92 C20 92 8 50 30 12 C58 28 70 65 50 92Z" fill="currentColor"/><path d="M50 88 C32 72 32 40 50 20" stroke="#fff" stroke-width="3" fill="none" opacity="0.45" stroke-linecap="round"/></svg>' },
     { id: 'star', svg: '<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" stroke-width="4"/><polygon points="50,20 58,42 82,42 62,56 70,80 50,66 30,80 38,56 18,42 42,42" fill="currentColor"/></svg>' },
-    { id: 'sparkle', svg: '<svg viewBox="0 0 100 100"><path d="M50 5 L58 42 L95 50 L58 58 L50 95 L42 58 L5 50 L42 42 Z" fill="currentColor"/></svg>' },
-    { id: 'bow', svg: '<svg viewBox="0 0 100 70"><path d="M50 35 C50 15 20 10 8 20 C0 27 8 40 30 35 C10 45 5 58 15 63 C25 68 45 50 50 35 Z" fill="currentColor"/><path d="M50 35 C50 15 80 10 92 20 C100 27 92 40 70 35 C90 45 95 58 85 63 C75 68 55 50 50 35 Z" fill="currentColor"/><circle cx="50" cy="35" r="7" fill="currentColor"/></svg>' },
     { id: 'seal2', svg: SEAL_SVG },
     { id: 'crown', svg: '<svg viewBox="0 0 100 70"><path d="M10 60 L14 22 L34 42 L50 12 L66 42 L86 22 L90 60 Z" fill="currentColor"/><rect x="10" y="60" width="80" height="8" fill="currentColor"/></svg>' },
     { id: 'shield', svg: '<svg viewBox="0 0 100 110"><path d="M50 4 L90 18 V52 C90 82 70 98 50 108 C30 98 10 82 10 52 V18 Z" fill="currentColor"/><path d="M34 54 L45 65 L68 38" stroke="#fff" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>' },
     { id: 'trophy', svg: '<svg viewBox="0 0 100 100"><path d="M30 8 H70 V28 C70 42 60 48 50 48 C40 48 30 42 30 28 Z" fill="currentColor"/><path d="M30 13 C15 13 15 33 30 33" stroke="currentColor" stroke-width="5" fill="none"/><path d="M70 13 C85 13 85 33 70 33" stroke="currentColor" stroke-width="5" fill="none"/><rect x="44" y="48" width="12" height="18" fill="currentColor"/><rect x="30" y="66" width="40" height="8" fill="currentColor"/><rect x="20" y="76" width="60" height="9" fill="currentColor"/></svg>' },
-    { id: 'heart', svg: '<svg viewBox="0 0 100 90"><path d="M50 85 C10 60 0 30 25 15 C40 6 50 20 50 20 C50 20 60 6 75 15 C100 30 90 60 50 85Z" fill="currentColor"/></svg>' },
-    { id: 'flourish', svg: '<svg viewBox="0 0 100 60"><path d="M5 30 Q30 5 50 30 Q70 55 95 30" stroke="currentColor" stroke-width="4" fill="none" stroke-linecap="round"/><circle cx="5" cy="30" r="4" fill="currentColor"/><circle cx="95" cy="30" r="4" fill="currentColor"/></svg>' },
+    { id: 'banner', svg: '<svg viewBox="0 0 120 40"><path d="M0 8 L22 0 V40 L0 32 Z" fill="currentColor" opacity="0.85"/><path d="M120 8 L98 0 V40 L120 32 Z" fill="currentColor" opacity="0.85"/><rect x="20" y="5" width="80" height="30" fill="currentColor"/></svg>' },
+    { id: 'stamp', svg: '<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="none" stroke="currentColor" stroke-width="5"/><circle cx="50" cy="50" r="31" fill="none" stroke="currentColor" stroke-width="2"/><path d="M32 51 L44 63 L70 34" stroke="currentColor" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>' },
   ];
 
   const cert = $('cert');
@@ -419,7 +412,6 @@
   const certContent = $('certContent');
   const certDate = $('certDate');
   const certAwarder = $('certAwarder');
-  const certSerial = $('certSerial');
 
   let currentTheme = 0;
   let stickers = []; // {svg, x, y, rot, id}
@@ -600,8 +592,6 @@
     const d = dateInput.value ? new Date(dateInput.value) : new Date();
     certDate.textContent = `${d.getFullYear()}년 ${d.getMonth()+1}월 ${d.getDate()}일`;
     certAwarder.textContent = (awarderInput.value || '') + ' 드림';
-    const serialDate = `${d.getFullYear()}${String(d.getMonth()+1).padStart(2,'0')}${String(d.getDate()).padStart(2,'0')}`;
-    certSerial.textContent = `No. ${serialDate}`;
   }
 
   [titleInput, nameInput, dateInput, contentInput, awarderInput].forEach(el => {
