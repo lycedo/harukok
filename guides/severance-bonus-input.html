@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://harukok.com/guides/severance-bonus-input">
+<meta property="og:title" content="퇴직금 계산 시 상여금과 수당, 이렇게 입력하세요">
+<meta property="og:description" content="퇴직금 계산기의 '3개월간 받은 급여 총액'에 상여금·수당을 반영하는 정확한 방법을 실제 계산 예시로 설명합니다.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="하루콕">
+<meta property="og:url" content="https://harukok.com/guides/severance-bonus-input">
+<meta property="og:image" content="https://harukok.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<title>퇴직금 계산 시 상여금과 수당, 이렇게 입력하세요</title>
+<meta name="description" content="퇴직금 계산기의 '3개월간 받은 급여 총액'에 상여금·수당을 반영하는 정확한 방법을 실제 계산 예시로 설명합니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700&family=Pretendard:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #ECE8DC;
+    --paper-light: #F7F4EA;
+    --ink: #16233D;
+    --ink-soft: #45516A;
+    --muted: #6E6656;
+    --line: #B7AF98;
+    --stamp: #B23A2E;
+  }
+  *{ box-sizing: border-box; }
+  body{
+    margin:0;
+    padding: 40px 20px 70px;
+    background: var(--paper);
+    background-image: repeating-linear-gradient(0deg, rgba(0,0,0,0.015) 0px, rgba(0,0,0,0.015) 1px, transparent 1px, transparent 3px);
+    font-family: 'Pretendard', -apple-system, sans-serif;
+    color: var(--ink);
+    display:flex;
+    justify-content:center;
+  }
+  .stub{ width:100%; max-width: 620px; }
+  .kicker{ font-size:13px; color:var(--muted); margin-bottom:6px; }
+  h1{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:28px; line-height:1.4; margin:0 0 10px; }
+  .lede{ font-size:14.5px; color:var(--ink-soft); line-height:1.6; margin:0 0 32px; }
+  .back-home{ display:inline-block; font-size:12.5px; color:var(--muted); text-decoration:none; margin-bottom:14px; }
+  .back-home:hover{ color:var(--ink); }
+
+  .related{ margin-bottom:32px; }
+  .related-title{ font-size:12.5px; color:var(--muted); margin-bottom:10px; }
+  .related-links{ display:flex; flex-wrap:wrap; gap:8px; }
+  .related-links a{ padding:8px 14px; border:1.5px solid var(--line); border-radius:999px; font-size:13px; color:var(--ink); text-decoration:none; }
+  .related-links a:hover{ border-color:var(--ink); }
+
+  article h2{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:18px; margin:32px 0 12px; }
+  article p{ font-size:14px; line-height:1.75; color:var(--ink-soft); margin:0 0 14px; }
+  article p strong{ color:var(--ink); }
+  article ul{ font-size:14px; line-height:1.8; color:var(--ink-soft); margin:0 0 16px; padding-left:20px; }
+  article ul li strong{ color:var(--ink); }
+
+  table{ width:100%; border-collapse:collapse; margin:16px 0 20px; font-size:13px; background:var(--paper-light); border:1px solid var(--line); border-radius:8px; overflow:hidden; }
+  th, td{ padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  th{ background:#E4DFCD; color:var(--ink); font-weight:600; }
+  td{ color:var(--ink-soft); }
+  tr:last-child td{ border-bottom:none; }
+
+  .example-box{ background:var(--paper-light); border:1px solid var(--line); border-radius:10px; padding:18px 20px; margin:16px 0 20px; }
+  .example-box .ex-title{ font-size:13px; font-weight:600; color:var(--ink); margin-bottom:8px; }
+  .example-box .ex-row{ display:flex; justify-content:space-between; font-size:13.5px; padding:4px 0; color:var(--ink-soft); }
+  .example-box .ex-row .amount{ font-family:'IBM Plex Mono', monospace; color:var(--ink); }
+  .example-box .ex-row.total{ border-top:1px solid var(--line); margin-top:6px; padding-top:8px; font-weight:600; color:var(--ink); }
+
+  .warn-box{ background:#FBEFE9; border:1px solid #E3B79E; border-radius:10px; padding:16px 18px; margin:16px 0 20px; font-size:13.5px; color:#8A3E1F; line-height:1.65; }
+
+  .sources{ margin-top:32px; padding-top:18px; border-top:1px solid var(--line); }
+  .sources-title{ font-size:13px; font-weight:600; color:var(--ink-soft); margin-bottom:8px; }
+  .sources ul{ margin:0; padding-left:18px; font-size:12.5px; line-height:1.8; color:var(--muted); }
+  .sources a{ color:var(--ink-soft); }
+  .sources a:hover{ color:var(--ink); }
+
+  .disclaimer{ font-size:11.5px; color:var(--muted); line-height:1.6; margin-top:24px; padding-top:16px; border-top:1px dotted var(--line); }
+
+  @media (max-width:480px){ h1{ font-size:23px; } }
+</style>
+<!-- Google AdSense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6883245122372170" crossorigin="anonymous"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "퇴직금 계산 시 상여금과 수당, 이렇게 입력하세요",
+  "description": "퇴직금 계산기의 '3개월간 받은 급여 총액'에 상여금·수당을 반영하는 정확한 방법을 실제 계산 예시로 설명합니다.",
+  "datePublished": "2026-09-17",
+  "dateModified": "2026-09-17",
+  "author": { "@type": "Organization", "name": "하루콕" },
+  "publisher": { "@type": "Organization", "name": "하루콕" }
+}
+</script>
+</head>
+<body>
+
+<div class="stub">
+  <a href="/" class="back-home">← 하루콕 홈으로</a>
+  <div class="kicker">해설 · 퇴사·이직</div>
+  <h1>퇴직금 계산 시 상여금과 수당, 이렇게 입력하세요</h1>
+  <p class="lede">퇴직금 계산기의 '최근 3개월간 받은 급여 총액'란에 상여금과 각종 수당을 어떻게 넣어야 정확한지 실제 계산 함수로 검증한 예시로 설명합니다.</p>
+
+  <div class="related">
+    <div class="related-title">함께 보면 좋은 도구</div>
+    <div class="related-links">
+      <a href="/tools/severance-pay-calculator">퇴직금 계산기</a>
+      <a href="/tools/annual-leave-pay-calculator">연차수당 계산기</a>
+    </div>
+  </div>
+
+  <article>
+    <h2>먼저: 매달 나오는 항목과 가끔 나오는 항목을 구분하세요</h2>
+    <p>퇴직금 계산기의 '3개월간 받은 급여 총액'은 매달 받는 항목과, 1년에 한두 번만 받는 항목을 <strong>서로 다른 방식으로</strong> 더해야 정확합니다.</p>
+    <ul>
+      <li><strong>매달 나오는 항목(기본급, 연장·야간·휴일근로수당, 직책수당 등)</strong> — 퇴사 직전 3개월 동안 실제로 받은 금액을 그대로 더하면 됩니다. 별도 환산이 필요 없습니다.</li>
+      <li><strong>가끔 나오는 항목(연 1회·반기 1회 지급되는 정기 상여금, 산입 대상 연차수당)</strong> — 3개월 치 급여에 그대로 합산하면 안 되고, <strong>1년치 금액에 3/12를 곱한 몫</strong>만 더해야 합니다. 다만 연차수당은 애초에 '산입 대상'인지부터 구분해야 합니다 — 아래에서 설명합니다.</li>
+    </ul>
+
+    <h2>상여금은 왜 3/12만 반영하나요?</h2>
+    <p>상여금이 연 1회·반기 1회처럼 매달 나오지 않는 주기로 지급되면, 퇴사 시점이 상여금 지급 직후냐 직전이냐에 따라 3개월 급여 총액이 크게 들쭉날쭉해집니다. 이를 막기 위해 고용노동부는 단체협약·취업규칙에 지급 조건이 명시됐거나 관례로 계속 지급된 상여금은 <strong>산정사유 발생일 이전 12개월간 받은 상여금 총액에 근로 개월 수 비율을 곱해</strong> 평균임금 산정 기초에 포함하도록 하고 있습니다(고용노동부 근로기준정책과-652, 2020.2.13. 회시). 1년 내내 근무했다면 이는 결국 <strong>연간 상여금 × 3/12</strong>를 더하는 것과 같습니다.</p>
+
+    <h2>연차수당은 먼저 '이미 발생한 수당'인지부터 구분하세요</h2>
+    <p>근로기준법 제60조에 따라 연차유급휴가를 쓰지 못해 받는 연차 미사용수당도 임금에 해당해 평균임금에 포함될 수 있습니다. 다만 고용노동부의 현재 행정해석(임금근로시간과-2861, 2021.12.15.)은 연차수당을 두 종류로 나눠 다르게 취급합니다.</p>
+    <ul>
+      <li><strong>① 퇴직하기 전에 이미 지급사유가 발생한 연차수당</strong> — 퇴직 전전년도 출근율로 퇴직 전년도에 발생한 연차(또는 입사 첫해 1개월 개근마다 생긴 연차) 중, 1년의 사용기한이 지나도록 쓰지 않아 <strong>퇴사 시점 이전에 이미 수당 지급 의무가 확정된</strong> 몫입니다. 이 금액의 <strong>3/12를 평균임금 산정에 포함</strong>합니다.</li>
+      <li><strong>② 퇴직으로 비로소 지급사유가 발생한 연차수당</strong> — 아직 사용기한(1년)이 남아있던 연차를, 퇴사로 인해 더 쓸 수 없게 되어 한꺼번에 수당으로 정산받는 몫입니다. 평균임금은 '산정사유 발생일 이전에 이미 지급된 임금'만 포함하는데, 이 수당은 퇴사 그 자체 때문에 비로소 생기는 것이라 <strong>평균임금 산정에 전혀 포함되지 않습니다.</strong></li>
+    </ul>
+    <p>즉 두 종류를 가르는 기준은 "며칠이 겹치는가"가 아니라 "퇴사하지 않았어도 어차피 지급됐을 돈인가, 퇴사 때문에 비로소 생긴 돈인가"입니다. 회사가 연차수당 내역을 ①과 ②로 구분해 안내해주지 않는다면 이 판단이 쉽지 않으므로, 정확한 반영 여부는 회사 인사팀에 직접 확인하는 것이 가장 안전합니다.</p>
+
+    <div class="warn-box">
+      <strong>판례상 이견에 대한 참고</strong> — 대법원 1994.5.24. 선고 93다4649 판결은 ①에 해당하는 연차수당이라도 "연차휴가권의 기초가 된 1년 중 퇴사 전 3개월과 겹치는 부분만" 반영해야 한다고 보아, 결과적으로 3/12보다 적은 금액만 인정될 수 있다는 취지로 해석되기도 합니다. 다만 이는 특정 사건의 사실관계에 적용된 판시이고, 고용노동부는 이후에도(2021년, 2026년 상담 답변 포함) 3/12 기준의 행정해석을 유지하고 있어 실무에서는 3/12가 널리 쓰입니다. 이 판례가 본인의 경우에도 그대로 적용되는지는 사안마다 다를 수 있으므로 일반적인 계산 공식으로 단정하지 않았습니다. 판결 원문은 <a href="https://law.go.kr/LSW/precInfoP.do?evtNo=93%EB%8B%A44649" target="_blank" rel="noopener">국가법령정보센터에서 직접 확인</a>할 수 있습니다.
+    </div>
+
+    <h2>하루콕 계산기에 넣는 방법</h2>
+    <p>하루콕 퇴직금 계산기의 '3개월간 받은 급여 총액'란에는 아래처럼 계산한 값을 <strong>하나로 합산</strong>해서 입력하세요.</p>
+    <div class="example-box">
+      <div class="ex-title">입력값 = A + B + C</div>
+      <div class="ex-row"><span>A. 퇴사 직전 3개월간 실제 받은 급여(기본급+매달 나오는 수당)</span><span class="amount">그대로 합산</span></div>
+      <div class="ex-row"><span>B. 연간 정기 상여금 × 3/12</span><span class="amount">환산해서 더하기</span></div>
+      <div class="ex-row"><span>C. 퇴직 전에 이미 지급사유가 발생한 연차수당 × 3/12</span><span class="amount">환산해서 더하기</span></div>
+    </div>
+    <p>C에는 위 <strong>①(퇴직 전에 이미 지급사유가 발생한 연차수당)</strong>만 3/12로 환산해 넣습니다. <strong>②(퇴직으로 비로소 지급사유가 발생한 연차수당)는 평균임금에 포함하지 않으므로 C에 넣지 않습니다.</strong> 연차수당이 없거나 전부 ②에 해당한다면 C는 0입니다. 급여명세서·인사팀 안내만으로 ①과 ②를 구분하기 어렵다면, 연차수당은 일단 제외하고 회사에 반영 여부를 확인한 뒤 다시 계산하는 것이 안전합니다.</p>
+
+    <h2>실제 계산 예시로 비교하기 (가상의 예시)</h2>
+    <p>2023년 1월 10일 입사, 2026년 1월 10일 퇴사(재직일수 약 1,096일)하는 근로자를 가정합니다. 퇴사 직전 3개월 평균임금 산정기간은 2025년 10월 10일부터 2026년 1월 10일까지, 실제 날짜 수로는 <strong>92일</strong>입니다. 이 근로자가 최근 3개월간 기본급·수당으로 900만원을 받았고, 연간 정기 상여금이 600만원이라고 가정하면 다음과 같이 달라집니다.</p>
+    <table>
+      <tr><th>구분</th><th>입력값</th><th>계산 결과(예상 퇴직금)</th></tr>
+      <tr><td>상여금 반영 안 함 (실수)</td><td>900만원</td><td>약 881만원</td></tr>
+      <tr><td>상여금 3/12 반영 (600만원 × 3/12 = 150만원)</td><td>900만원+150만원=1,050만원</td><td>약 1,028만원</td></tr>
+    </table>
+    <p>상여금 3/12를 빠뜨리면 예상 퇴직금이 약 147만원 적게 계산됩니다. 하루콕 퇴직금 계산기의 실제 계산 로직(산정기간 92일 기준)으로 검증한 수치입니다.<br>
+    <span style="color:var(--muted); font-size:12.5px;">※ 위 예시는 이해를 돕기 위한 가상의 사례이며, 실제 급여·상여금 액수를 계산기에 입력해 정확한 금액을 확인하세요.</span></p>
+
+    <div class="warn-box">
+      상여금이나 수당이 <strong>정기적·일률적으로 지급되지 않고</strong> 회사 재량에 따라 그때그때 다르게 나온다면(성과에 따라 금액이 들쭉날쭉한 인센티브 등) 평균임금에 포함되지 않을 수 있습니다. 이런 경우 하루콕 계산기는 판단해주지 않으니, 회사 인사팀이나 고용노동부 노동포털에서 포함 여부를 먼저 확인한 뒤 입력하세요.
+    </div>
+
+    <h2>이 방법이 통하지 않는 경우</h2>
+    <p>최근 3개월 안에 수습기간·육아휴직·산재요양처럼 근로기준법 시행령 제2조가 정한 평균임금 산정 제외 기간이 포함돼 있다면, 이 글의 3/12 환산 방법만으로는 정확한 금액을 낼 수 없습니다. 하루콕 퇴직금 계산기는 산정 기간을 '퇴사일 기준 정확히 3개월'로 고정해서 계산하기 때문에, 이런 경우는 계산 지원 범위 밖입니다 — 고용노동부 노동포털의 공식 계산기나 회사 인사팀에 확인하세요.</p>
+
+    <div class="sources">
+      <div class="sources-title">참고 자료 및 출처</div>
+      <ul>
+        <li><a href="https://easylaw.go.kr/CSP/CnpClsMain.laf?popMenu=ov&csmSeq=1694&ccfNo=1&cciNo=2&cnpClsNo=1" target="_blank" rel="noopener">찾기쉬운 생활법령정보(법제처) — 평균임금 산정 방법(상여금·연차수당 포함 기준) <span style="color:var(--muted);">(확인: 2026-09-17)</span></a></li>
+        <li><a href="https://labor.moel.go.kr/cmmt/calRtrmnt.do" target="_blank" rel="noopener">고용노동부 노동포털 — 퇴직금 계산 (공식 계산기) <span style="color:var(--muted);">(확인: 2026-09-17)</span></a></li>
+        <li><a href="https://1350.moel.go.kr/rtmview.do?id=1000277905" target="_blank" rel="noopener">고용노동부 1350 모바일 상담 — 연차수당의 평균임금 포함 기준(임금근로시간과-2861, 2021.12.15. 행정해석 인용, 2026년 답변 포함) <span style="color:var(--muted);">(확인: 2026-09-18)</span></a></li>
+        <li><a href="https://law.go.kr/LSW/precInfoP.do?evtNo=93%EB%8B%A44649" target="_blank" rel="noopener">국가법령정보센터 — 대법원 1994.5.24. 선고 93다4649 판결 원문(참고용 판례 이견) <span style="color:var(--muted);">(확인: 2026-09-18)</span></a></li>
+      </ul>
+    </div>
+
+    <div class="disclaimer">
+      이 글의 계산 예시는 하루콕 퇴직금 계산기의 실제 계산 로직을 그대로 실행한 결과입니다. 상여금·연차수당의 평균임금 포함 여부와 비율은 회사의 취업규칙·단체협약, 지급 관행에 따라 달라질 수 있어 이 글이 모든 사례에 적용되는 것은 아닙니다. 정확한 판단은 회사 인사팀 또는 고용노동부에 확인하세요.
+    </div>
+  </article>
+
+  <footer style="max-width:620px; margin:40px auto 0; padding:20px 0 0; text-align:center; font-size:12.5px; color:var(--muted, #6E6656); border-top:1px solid var(--line, #D9D2BF);">
+    <a href="/" style="color:inherit; margin:0 8px;">홈</a>·<a href="/about" style="color:inherit; margin:0 8px;">소개</a>·<a href="/privacy" style="color:inherit; margin:0 8px;">개인정보처리방침</a>·<a href="mailto:contact@harukok.com" style="color:inherit; margin:0 8px;">문의</a>
+  </footer>
+</div>
+</body>
+</html>

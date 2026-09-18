@@ -11,6 +11,21 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://harukok.com/guides/salary-vs-payslip</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://harukok.com/guides/severance-bonus-input</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://harukok.com/guides/parental-leave-monthly-comparison</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://harukok.com/tools/age-calculator</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
@@ -164,5 +179,10 @@
     <loc>https://harukok.com/privacy</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://harukok.com/about</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
   </url>
 </urlset>

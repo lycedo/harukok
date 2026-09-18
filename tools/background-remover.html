@@ -70,6 +70,8 @@
   }
   .workspace.sample-mode .sample-tag{ display:block; }
   .workspace.sample-mode .editor-only{ display:none; }
+  .failure-tag{ background:#FBEFE9; border-color:#E3B79E; color:#8A3E1F; margin-top:20px; }
+  .failure-note{ font-size:12.5px; color:var(--muted); line-height:1.6; margin:8px 0 0; text-align:center; }
 
   .field{ margin-bottom:16px; }
   .field label{ display:block; font-size:13.5px; color:var(--ink-soft); margin-bottom:8px; }
@@ -156,6 +158,22 @@
         "@type": "Answer",
         "text": "민감도 값보다 밝은 픽셀만 투명하게 처리됩니다. 배경이 다 안 지워지면 값을 낮추고, 피사체 일부가 같이 지워지면 값을 높여보세요. 여러 장을 올렸다면 모든 이미지에 같은 민감도가 적용됩니다."
       }
+    },
+    {
+      "@type": "Question",
+      "name": "인물 사진이나 복잡한 배경도 지울 수 있나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "이 도구는 색상 밝기 차이로 배경을 판단하는 방식이라, 배경이 흰색 계열의 단색이 아니면 정확도가 떨어집니다. 인물 뒤에 벽지·풍경 같은 복잡한 배경이 있는 사진은 사람 형태를 인식해서 오려내는 별도의 인물 전용 배경 제거 도구를 쓰는 것이 더 정확합니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "결과물을 어떤 용도로 쓸 수 있나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "투명 배경 PNG로 저장되기 때문에 쇼핑몰 상품 상세페이지, 프로필 사진, 프레젠테이션 자료, 카카오톡 이모티콘 제작용 밑그림 등 배경 없이 피사체만 필요한 모든 작업에 바로 활용할 수 있습니다."
+      }
     }
   ]
 }
@@ -199,6 +217,10 @@
 
       <div class="results-grid" id="resultsGrid"></div>
 
+      <div class="sample-tag failure-tag" id="failureTag" style="display:none;">⚠️ 실패 예시 — 이런 사진은 잘 안 돼요</div>
+      <div class="results-grid" id="failureGrid" style="display:none;"></div>
+      <p class="failure-note" id="failureNote" style="display:none;"></p>
+
       <div class="btn-row">
         <button class="calc-btn" id="downloadZipBtn">전체 ZIP으로 저장</button>
         <button class="calc-btn secondary" id="resetBtn">다른 이미지 열기</button>
@@ -206,18 +228,13 @@
     </div>
   </div>
 
-  <!-- ===== 광고 삽입 영역 ===== -->
-  <ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-6883245122372170"
-     data-ad-slot="0000000000"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 
   <div class="info-block">
     <h2>어떻게 배경을 지우나요?</h2>
-    <p>이미지의 모든 픽셀을 검사해서, 설정한 민감도보다 밝은(흰색에 가까운) 픽셀을 투명하게 바꿉니다. 흰 배경에 촬영·스캔한 상품 사진, 캐릭터 시트, 로고처럼 배경과 피사체의 색 차이가 뚜렷한 이미지에 잘 맞습니다. 인물 사진처럼 배경이 복잡한 경우는 정확도가 떨어질 수 있습니다. 이미지를 여러 장 올리면 모두 같은 민감도로 한 번에 처리됩니다.</p>
+    <p>이미지의 모든 픽셀을 검사해서, 설정한 민감도보다 밝은(흰색에 가까운) 픽셀을 투명하게 바꿉니다. 흰 배경에 촬영·스캔한 상품 사진, 캐릭터 시트, 로고처럼 배경과 피사체의 색 차이가 뚜렷한 이미지에 잘 맞습니다. 인물 사진처럼 배경이 복잡한 경우는 정확도가 떨어질 수 있습니다. 이미지를 여러 장 올리면 모두 같은 민감도로 한 번에 처리됩니다. 색상 밝기 기준으로 판단하는 방식이라 별도 프로그램 설치나 계정 가입 없이도 즉시 결과를 확인할 수 있다는 게 가장 큰 장점입니다.</p>
+
+    <h2>어떤 사진에 잘 맞고, 어떤 사진은 안 맞나요</h2>
+    <p>스캐너나 라이트박스에서 촬영한 상품 사진, 흰 종이 위에 그린 그림, 배경이 단색인 로고·아이콘은 대부분 깔끔하게 지워집니다. 반면 배경에 그림자가 지거나, 피사체 자체가 흰색·밝은 색 계열(흰 셔츠, 흰 강아지 등)이라면 피사체 일부도 같이 투명해질 수 있습니다. 이런 경우 민감도를 255에 가깝게 올려서 아주 순수한 흰색만 지우도록 조절하면 피사체 손실을 줄일 수 있습니다. 반대로 배경이 완전한 흰색이 아니라 미색·회색에 가깝다면 민감도를 200~230 정도로 낮춰야 배경이 남지 않습니다.</p>
 
     <div class="faq-item">
       <div class="q">업로드한 이미지가 서버로 전송되나요?</div>
@@ -231,8 +248,19 @@
       <div class="q">민감도는 어떻게 조절하나요?</div>
       <div class="a">민감도 값보다 밝은 픽셀만 투명하게 처리됩니다. 배경이 다 안 지워지면 값을 낮추고, 피사체 일부가 같이 지워지면 값을 높여보세요. 여러 장을 올렸다면 모든 이미지에 같은 민감도가 적용됩니다.</div>
     </div>
+    <div class="faq-item">
+      <div class="q">인물 사진이나 복잡한 배경도 지울 수 있나요?</div>
+      <div class="a">이 도구는 색상 밝기 차이로 배경을 판단하는 방식이라, 배경이 흰색 계열의 단색이 아니면 정확도가 떨어집니다. 인물 뒤에 벽지·풍경 같은 복잡한 배경이 있는 사진은 사람 형태를 인식해서 오려내는 별도의 인물 전용 배경 제거 도구를 쓰는 것이 더 정확합니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">결과물을 어떤 용도로 쓸 수 있나요?</div>
+      <div class="a">투명 배경 PNG로 저장되기 때문에 쇼핑몰 상품 상세페이지, 프로필 사진, 프레젠테이션 자료, 카카오톡 이모티콘 제작용 밑그림 등 배경 없이 피사체만 필요한 모든 작업에 바로 활용할 수 있습니다.</div>
+    </div>
   </div>
 
+  <footer style="max-width:620px; margin:40px auto 0; padding:20px 0 0; text-align:center; font-size:12.5px; color:var(--muted, #6E6656); border-top:1px solid var(--line, #D9D2BF);">
+    <a href="/" style="color:inherit; margin:0 8px;">홈</a>·<a href="/about" style="color:inherit; margin:0 8px;">소개</a>·<a href="/privacy" style="color:inherit; margin:0 8px;">개인정보처리방침</a>·<a href="mailto:contact@harukok.com" style="color:inherit; margin:0 8px;">문의</a>
+  </footer>
 </div>
 
 <script>
@@ -287,6 +315,9 @@
     images = valid;
     workspace.classList.add('visible');
     renderResults();
+    $('failureTag').style.display = 'none';
+    $('failureGrid').style.display = 'none';
+    $('failureNote').style.display = 'none';
   }
 
   // 픽셀 단위로 밝은 배경을 투명하게 만든 새 캔버스를 반환
@@ -418,12 +449,68 @@
       workspace.classList.add('sample-mode');
       workspace.classList.add('visible');
       renderResults();
+      renderFailureSample();
     });
+  }
+
+  // 실패 사례도 직접 만든 샘플로 함께 보여준다: 흰색에 아주 가까운 피사체(흰 셔츠 등)를
+  // 흉내낸 연회색 도형을 그려서, 기본 민감도로 처리하면 배경과 함께 지워지는 모습을 그대로 보여준다.
+  function buildFailureSampleDataUrl(){
+    const sc = document.createElement('canvas');
+    sc.width = 260;
+    sc.height = 260;
+    const sctx = sc.getContext('2d');
+    sctx.fillStyle = '#ffffff';
+    sctx.fillRect(0, 0, sc.width, sc.height);
+    // #f8f8f6은 RGB 채널이 모두 245 이상이라 기본 민감도(245)에서 배경과 함께 지워진다.
+    sctx.fillStyle = '#f8f8f6';
+    sctx.beginPath();
+    sctx.ellipse(130, 150, 70, 90, 0, 0, Math.PI * 2);
+    sctx.fill();
+    sctx.strokeStyle = '#dedad2';
+    sctx.lineWidth = 2;
+    sctx.stroke();
+    return sc.toDataURL('image/png');
+  }
+
+  function renderFailureSample(){
+    const img = new Image();
+    img.onload = () => {
+      const threshold = 245;
+      const beforeCanvas = document.createElement('canvas');
+      beforeCanvas.width = 140;
+      beforeCanvas.height = 140;
+      beforeCanvas.getContext('2d').drawImage(img, 0, 0, 140, 140);
+      const afterCanvas = processImage(img, threshold, 140);
+
+      const mkCard = (canvas, label) => {
+        const card = document.createElement('div');
+        card.className = 'result-card';
+        const wrap = document.createElement('div');
+        wrap.className = 'result-thumb';
+        wrap.appendChild(canvas);
+        card.appendChild(wrap);
+        const idxEl = document.createElement('div');
+        idxEl.className = 'idx';
+        idxEl.textContent = label;
+        card.appendChild(idxEl);
+        return card;
+      };
+
+      const grid = $('failureGrid');
+      grid.innerHTML = '';
+      grid.appendChild(mkCard(beforeCanvas, '처리 전 (연회색 셔츠 예시)'));
+      grid.appendChild(mkCard(afterCanvas, '처리 후 (민감도 245)'));
+      grid.style.display = '';
+      $('failureTag').style.display = '';
+      $('failureNote').style.display = '';
+      $('failureNote').textContent = '흰색에 아주 가까운 피사체(흰 셔츠, 밝은 색 소품 등)는 이렇게 배경과 함께 투명해질 수 있습니다. 민감도를 250~255에 가깝게 높이면 피사체 손실을 줄일 수 있지만 완전히 막지는 못할 수 있습니다.';
+    };
+    img.src = buildFailureSampleDataUrl();
   }
 
   loadSample();
 })();
 </script>
-
 </body>
 </html>

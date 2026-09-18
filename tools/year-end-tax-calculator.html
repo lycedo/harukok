@@ -65,6 +65,12 @@
   .refund-badge{ background:#EAF3EA; border:1px solid #B7D3B7; border-radius:10px; padding:16px; font-size:13.5px; color:#2F5D2F; line-height:1.6; margin-top:16px; }
   .owe-badge{ background:#FBEFE9; border:1px solid #E3B79E; border-radius:10px; padding:16px; font-size:13.5px; color:#8A3E1F; line-height:1.6; margin-top:16px; }
   .disclaimer{ font-size:11.5px; color:var(--muted); line-height:1.6; margin-top:24px; padding-top:16px; border-top:1px dotted var(--line); }
+  .sources{ margin-top:24px; padding-top:18px; border-top:1px solid var(--line); }
+  .sources-title{ font-size:13px; font-weight:600; color:var(--ink-soft); margin-bottom:8px; }
+  .sources ul{ margin:0; padding-left:18px; }
+  .sources li{ font-size:12.5px; line-height:1.8; color:var(--muted); }
+  .sources a{ color:var(--ink-soft); }
+  .sources a:hover{ color:var(--ink); }
   .slot{ border:1.5px dashed var(--line); border-radius:10px; padding:18px; text-align:center; font-size:12px; color:var(--muted); margin-top:24px; }
   @media (max-width:480px){ .card{ padding:24px; } h1{ font-size:25px; } .result-amount{ font-size:32px; } }
 
@@ -168,18 +174,10 @@
 
   <div class="card result-card hidden" id="resultCard"></div>
 
-  <!-- ===== 광고 삽입 영역 ===== -->
-  <ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-6883245122372170"
-     data-ad-slot="0000000000"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 
   <div class="info-block">
     <h2>연말정산은 어떻게 계산되나요?</h2>
-    <p>총급여에서 근로소득공제를 뺀 근로소득금액에서, 4대보험 특별소득공제와 인적공제(1인당 150만원)를 다시 빼면 과세표준이 나옵니다. 여기에 2026년 소득세 누진세율(6~45%)을 적용해 산출세액을 구하고, 근로소득세액공제(총급여 구간별 한도 50만~74만원)를 빼면 최종 결정세액이 됩니다. 이 계산기는 신용카드·의료비·교육비·기부금·연금저축 등 사람마다 크게 달라지는 공제 항목은 반영하지 않은 단순 추정치입니다.</p>
+    <p>총급여에서 근로소득공제(구간별 공제율 적용, <strong>공제한도 2,000만원</strong> — 총급여 약 3억6,250만원 초과 시 상한 도달)를 뺀 근로소득금액에서, 4대보험 특별소득공제와 인적공제(1인당 150만원)를 다시 빼면 과세표준이 나옵니다. 여기에 2026년 소득세 누진세율(6~45%)을 적용해 산출세액을 구하고, 근로소득세액공제(산출세액 130만원 이하 55%·초과분 30%, 총급여 구간별 한도 <strong>20만~74만원</strong>)를 빼면 최종 결정세액이 됩니다. 이 계산기는 신용카드·의료비·교육비·기부금·연금저축 등 사람마다 크게 달라지는 공제 항목은 반영하지 않은 단순 추정치입니다.</p>
 
     <div class="faq-item">
       <div class="q">이 계산기가 신용카드공제, 의료비공제는 반영하나요?</div>
@@ -193,8 +191,20 @@
       <div class="q">4대보험 공제는 어떻게 계산하나요?</div>
       <div class="a">국민연금 4.75%, 건강보험 3.595%, 장기요양보험(건강보험료의 13.14%), 고용보험 0.9%를 총급여에 단순 적용한 근사치입니다. 실제로는 국민연금 상한액 등 세부 규정이 있어 고소득자는 다소 차이가 날 수 있습니다.</div>
     </div>
+
+    <div class="sources">
+      <div class="sources-title">참고 자료 및 출처 (2026년 과세기간 기준)</div>
+      <ul>
+        <li><a href="https://nts.go.kr/nts/cm/cntnts/cntntsView.do?cntntsId=7871&mi=6435" target="_blank" rel="noopener">국세청 — 근로소득금액(근로소득공제 구간별 공제율 및 공제한도 2,000만원) <span style="color:var(--muted);">(확인: 2026-09-18)</span></a></li>
+        <li><a href="https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?cntntsId=7875&mi=6596" target="_blank" rel="noopener">국세청 — 세액공제(근로소득세액공제 55%/30%, 총급여 구간별 한도 20만~74만원) <span style="color:var(--muted);">(확인: 2026-09-18)</span></a></li>
+        <li><a href="https://casenote.kr/%EB%B2%95%EB%A0%B9/%EC%86%8C%EB%93%9D%EC%84%B8%EB%B2%95/%EC%A0%9C55%EC%A1%B0" target="_blank" rel="noopener">소득세법 제55조(세율) — 종합소득과세표준 8단계 누진세율(6~45%) <span style="color:var(--muted);">(확인: 2026-09-18)</span></a></li>
+      </ul>
+    </div>
   </div>
 
+  <footer style="max-width:620px; margin:40px auto 0; padding:20px 0 0; text-align:center; font-size:12.5px; color:var(--muted, #6E6656); border-top:1px solid var(--line, #D9D2BF);">
+    <a href="/" style="color:inherit; margin:0 8px;">홈</a>·<a href="/about" style="color:inherit; margin:0 8px;">소개</a>·<a href="/privacy" style="color:inherit; margin:0 8px;">개인정보처리방침</a>·<a href="mailto:contact@harukok.com" style="color:inherit; margin:0 8px;">문의</a>
+  </footer>
 </div>
 
 <script>
@@ -207,11 +217,14 @@
 
   // 근로소득공제 (2026년 기준, 수년째 동일)
   function earnedIncomeDeduction(gross){
-    if (gross <= 5000000) return gross * 0.7;
-    if (gross <= 15000000) return 3500000 + (gross - 5000000) * 0.4;
-    if (gross <= 45000000) return 7500000 + (gross - 15000000) * 0.15;
-    if (gross <= 100000000) return 12000000 + (gross - 45000000) * 0.05;
-    return 14750000 + (gross - 100000000) * 0.02;
+    let deduction;
+    if (gross <= 5000000) deduction = gross * 0.7;
+    else if (gross <= 15000000) deduction = 3500000 + (gross - 5000000) * 0.4;
+    else if (gross <= 45000000) deduction = 7500000 + (gross - 15000000) * 0.15;
+    else if (gross <= 100000000) deduction = 12000000 + (gross - 45000000) * 0.05;
+    else deduction = 14750000 + (gross - 100000000) * 0.02;
+    // 근로소득공제는 국세청 기준 공제한도 2,000만원을 넘지 않는다(총급여 약 3억6,250만원 초과 시 상한에 도달).
+    return Math.min(deduction, 20000000);
   }
 
   // 소득세 누진세율표 (2026년 기준, 8단계)
@@ -312,6 +325,5 @@
   $('calcBtn').addEventListener('click', calculate);
 })();
 </script>
-
 </body>
 </html>

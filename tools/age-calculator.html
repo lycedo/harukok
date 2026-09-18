@@ -70,6 +70,12 @@
   .faq-item{ margin-bottom:16px; }
   .faq-item .q{ font-size:14px; font-weight:600; margin-bottom:5px; }
   .faq-item .a{ font-size:13.5px; line-height:1.65; color:var(--ink-soft); }
+  .sources{ margin-top:24px; padding-top:18px; border-top:1px solid var(--line); }
+  .sources-title{ font-size:13px; font-weight:600; color:var(--ink-soft); margin-bottom:8px; }
+  .sources ul{ margin:0; padding-left:18px; }
+  .sources li{ font-size:12.5px; line-height:1.8; color:var(--muted); }
+  .sources a{ color:var(--ink-soft); }
+  .sources a:hover{ color:var(--ink); }
 
   .related{ margin-top:20px; margin-bottom:32px; }
   .related-title{ font-size:12.5px; color:var(--muted); margin-bottom:10px; }
@@ -109,6 +115,22 @@
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "네, 생일 당일 0시부터 새로운 나이가 적용됩니다. 이 계산기는 기준일을 직접 입력할 수 있어 특정 날짜의 나이를 미리 확인할 때도 활용할 수 있습니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "만 나이 통일법 시행 전에 맺은 계약서는 어떻게 되나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "계약서나 법령에 나이 기준을 별도로 명시했다면 그 기준이 우선 적용됩니다. 별도 표기가 없는 경우에만 만 나이 통일법의 원칙(만 나이)이 적용되므로, 기존 계약서의 문구를 먼저 확인하는 것이 정확합니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "정년, 연금 수급 나이도 만 나이로 바뀌었나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "정년이나 국민연금 수급 개시 연령처럼 이미 개별 법령에 나이 기준이 명확히 규정된 항목은 원래도 만 나이를 기준으로 운영되고 있었기 때문에, 통일법 시행으로 실질적인 변화는 없었습니다. 통일법의 효과는 주로 나이 기준이 불명확했던 일상적·행정적 상황에서 나타납니다."
       }
     }
   ]
@@ -163,18 +185,15 @@
     </div>
   </div>
 
-  <!-- ===== 광고 삽입 영역 ===== -->
-  <ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-6883245122372170"
-     data-ad-slot="0000000000"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 
   <div class="info-block">
     <h2>만 나이 통일법이 뭔가요?</h2>
-    <p>2023년 6월 28일부터 시행된 만 나이 통일법으로, 법령이나 계약서에 별도 표기가 없다면 모든 나이는 만 나이로 계산합니다. 태어난 날을 0살로 시작해 생일이 지날 때마다 한 살씩 늘어나는 국제 통용 방식이라, 같은 해에 태어난 사람이라도 생일 전후로 나이가 다르게 계산될 수 있습니다.</p>
+    <p>2023년 6월 28일부터 시행된 만 나이 통일법으로, 법령이나 계약서에 별도 표기가 없다면 모든 나이는 만 나이로 계산합니다. 그 전까지는 병원 진료기록엔 만 나이, 술자리에선 세는나이, 일부 법령(청소년보호법·병역법)에서는 연 나이를 쓰는 등 상황마다 나이 기준이 달라서 "내가 지금 몇 살이지?"라는 질문에 답이 3개씩 나오는 일이 흔했습니다. 통일법 시행 이후로는 일상생활과 대부분의 법 조문에서 만 나이가 기본 원칙이 됐고, 세는나이는 법적 효력이 사라진 관습적 표현으로만 남았습니다.</p>
+
+    <p>태어난 날을 0살로 시작해 생일이 지날 때마다 한 살씩 늘어나는 방식이라, 같은 해·같은 달에 태어난 두 사람도 생일이 하루라도 다르면 며칠 동안은 나이가 다르게 계산됩니다. 이 계산기는 생년월일과 기준일(기본값은 오늘) 두 개만 입력하면 만 나이·세는나이·연 나이 세 가지를 동시에 보여줘서, 지금 어떤 기준으로 나이를 말해야 하는지 헷갈릴 때 바로 확인할 수 있습니다.</p>
+
+    <h2>만 나이, 암산으로 빠르게 계산하는 방법</h2>
+    <p>계산기 없이 대략적인 만 나이를 암산하고 싶다면 공식은 간단합니다. <strong>이번 연도 − 태어난 연도</strong>를 구한 다음, <strong>생일이 아직 안 지났으면 1을 뺍니다.</strong> 예를 들어 2000년 9월 20일생인 사람의 2026년 9월 12일 기준 나이를 구해보면, 2026 − 2000 = 26인데 아직 생일(9월 20일)이 지나지 않았으므로 1을 빼서 만 25세가 됩니다. 생일이 지난 뒤라면 26세 그대로입니다. 세는나이는 여기에 보통 1~2를 더하면 비슷하게 맞아떨어지지만, 정확한 값은 위 계산기로 확인하는 게 안전합니다.</p>
 
     <div class="faq-item">
       <div class="q">세는나이는 왜 아직도 쓰나요?</div>
@@ -188,8 +207,27 @@
       <div class="q">만 나이는 생일 당일부터 바뀌나요?</div>
       <div class="a">네, 생일 당일 0시부터 새로운 나이가 적용됩니다. 이 계산기는 기준일을 직접 입력할 수 있어 특정 날짜의 나이를 미리 확인할 때도 활용할 수 있습니다.</div>
     </div>
+    <div class="faq-item">
+      <div class="q">만 나이 통일법 시행 전에 맺은 계약서는 어떻게 되나요?</div>
+      <div class="a">계약서나 법령에 나이 기준을 별도로 명시했다면 그 기준이 우선 적용됩니다. 별도 표기가 없는 경우에만 만 나이 통일법의 원칙(만 나이)이 적용되므로, 기존 계약서의 문구를 먼저 확인하는 것이 정확합니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">정년, 연금 수급 나이도 만 나이로 바뀌었나요?</div>
+      <div class="a">정년이나 국민연금 수급 개시 연령처럼 이미 개별 법령에 나이 기준이 명확히 규정된 항목은 원래도 만 나이를 기준으로 운영되고 있었기 때문에, 통일법 시행으로 실질적인 변화는 없었습니다. 통일법의 효과는 주로 나이 기준이 불명확했던 일상적·행정적 상황에서 나타납니다.</div>
+    </div>
+
+    <div class="sources">
+      <div class="sources-title">참고 자료 및 출처</div>
+      <ul>
+        <li><a href="https://www.moleg.go.kr/menu.es?mid=a10111060000" target="_blank" rel="noopener">법제처 — 만 나이 통일 안내</a></li>
+        <li><a href="https://www.law.go.kr" target="_blank" rel="noopener">국가법령정보센터 — 민법·행정기본법 조문 확인</a></li>
+      </ul>
+    </div>
   </div>
 
+  <footer style="max-width:620px; margin:40px auto 0; padding:20px 0 0; text-align:center; font-size:12.5px; color:var(--muted, #6E6656); border-top:1px solid var(--line, #D9D2BF);">
+    <a href="/" style="color:inherit; margin:0 8px;">홈</a>·<a href="/about" style="color:inherit; margin:0 8px;">소개</a>·<a href="/privacy" style="color:inherit; margin:0 8px;">개인정보처리방침</a>·<a href="mailto:contact@harukok.com" style="color:inherit; margin:0 8px;">문의</a>
+  </footer>
 </div>
 
 <script>
@@ -235,6 +273,5 @@
   $('calcBtn').addEventListener('click', calculate);
 })();
 </script>
-
 </body>
 </html>

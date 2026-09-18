@@ -69,6 +69,12 @@
   .faq-item{ margin-bottom:16px; }
   .faq-item .q{ font-size:14px; font-weight:600; margin-bottom:5px; }
   .faq-item .a{ font-size:13.5px; line-height:1.65; color:var(--ink-soft); }
+  .sources{ margin-top:24px; padding-top:18px; border-top:1px solid var(--line); }
+  .sources-title{ font-size:13px; font-weight:600; color:var(--ink-soft); margin-bottom:8px; }
+  .sources ul{ margin:0; padding-left:18px; }
+  .sources li{ font-size:12.5px; line-height:1.8; color:var(--muted); }
+  .sources a{ color:var(--ink-soft); }
+  .sources a:hover{ color:var(--ink); }
 
   .related{ margin-top:20px; margin-bottom:32px; }
   .related-title{ font-size:12.5px; color:var(--muted); margin-bottom:10px; }
@@ -107,7 +113,23 @@
       "name": "매년 반복되는 날짜(생일, 명절)는 어떻게 계산되나요?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "빠른 선택 버튼의 크리스마스, 수능일 등은 이미 지난 날짜라면 자동으로 다음 해 같은 날짜로 계산됩니다. 직접 입력할 때도 원하는 연도의 날짜를 자유롭게 선택할 수 있습니다."
+        "text": "크리스마스·1월 1일처럼 매년 날짜가 고정된 기념일은 이미 지났다면 자동으로 다음 해 같은 날짜로 계산됩니다. 반면 수능일은 매년 요일·날짜가 달라 고정된 규칙이 없으므로, 교육부가 공식 발표한 날짜(현재 2026·2027·2028학년도분까지 발표됨)만 버튼으로 제공합니다. 발표되지 않은 미래 연도의 수능일은 이 계산기가 임의로 추정하지 않으니, 직접 날짜를 입력하거나 교육부 발표를 기다려주세요."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "연애 100일, 1000일은 만난 날부터 세나요, 사귀기로 한 다음날부터 세나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "정해진 규칙은 없지만, 흔히 사귀기 시작한 날(고백에 성공했거나 서로 사귀기로 합의한 날)을 1일차로 세는 경우가 많습니다. 즉 사귄 날 당일이 D+1이 아니라 1일째이므로, 100일째 되는 날을 구하려면 시작일에 99일을 더한 날짜를 기준으로 계산하는 것이 일반적입니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "윤년이 낀 기간도 정확히 계산되나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "네, 이 계산기는 두 날짜 사이의 실제 달력 일수를 그대로 계산하기 때문에 2월 29일이 포함된 윤년 구간도 자동으로 정확하게 반영됩니다."
       }
     }
   ]
@@ -148,18 +170,13 @@
     <div class="result-note" id="resultNote"></div>
   </div>
 
-  <!-- ===== 광고 삽입 영역 ===== -->
-  <ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-6883245122372170"
-     data-ad-slot="0000000000"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 
   <div class="info-block">
     <h2>디데이는 어떻게 세나요?</h2>
-    <p>디데이는 기준일 당일을 0으로 두고, 그 이전은 D-, 이후는 D+로 표시하는 방식입니다. 예를 들어 시험일이 10일 남았다면 D-10, 여행에서 돌아온 지 3일 됐다면 D+3으로 표기합니다. 이 계산기는 오늘 날짜와 기준일의 차이를 자동으로 계산해 두 표기 모두 보여줍니다.</p>
+    <p>디데이는 기준일 당일을 0으로 두고, 그 이전은 D-, 이후는 D+로 표시하는 방식입니다. 예를 들어 시험일이 10일 남았다면 D-10, 여행에서 돌아온 지 3일 됐다면 D+3으로 표기합니다. 이 계산기는 오늘 날짜와 기준일의 차이를 자동으로 계산해 두 표기 모두 보여줍니다. 원래는 군대나 시험처럼 특정 날짜를 기다리는 상황에서 주로 쓰였지만, 요즘은 연애 100일·1000일, 결혼기념일, 프로젝트 마감일처럼 일상적인 날짜를 세는 데 더 널리 쓰이는 표현이 됐습니다.</p>
+
+    <h2>디데이는 왜 헷갈리기 쉬운가요?</h2>
+    <p>가장 흔한 실수는 기준일 당일을 D-1로 착각하는 것입니다. 디데이 표기에는 0이라는 개념이 따로 없어서, 기준일 바로 전날이 D-1이고 기준일 당일은 D-DAY(또는 D-0)입니다. 마찬가지로 기준일 다음날이 D+1이 됩니다. 수능이나 입사 시험처럼 정확한 날짜 감각이 중요한 경우 이 하루 차이 때문에 일정 계획이 어긋날 수 있으니, 헷갈릴 때는 직접 세기보다 계산기로 확인하는 것이 안전합니다.</p>
 
     <div class="faq-item">
       <div class="q">기준일 당일은 D-1인가요, D-DAY인가요?</div>
@@ -171,17 +188,42 @@
     </div>
     <div class="faq-item">
       <div class="q">매년 반복되는 날짜(생일, 명절)는 어떻게 계산되나요?</div>
-      <div class="a">빠른 선택 버튼의 크리스마스, 수능일 등은 이미 지난 날짜라면 자동으로 다음 해 같은 날짜로 계산됩니다. 직접 입력할 때도 원하는 연도의 날짜를 자유롭게 선택할 수 있습니다.</div>
+      <div class="a">크리스마스·1월 1일처럼 매년 날짜가 고정된 기념일은 이미 지났다면 자동으로 다음 해 같은 날짜로 계산됩니다. 반면 수능일은 매년 요일·날짜가 달라 고정된 규칙이 없으므로, 교육부가 공식 발표한 날짜(현재 2026·2027·2028학년도분까지 발표됨)만 버튼으로 제공합니다. 발표되지 않은 미래 연도의 수능일은 이 계산기가 임의로 추정하지 않으니, 직접 날짜를 입력하거나 교육부 발표를 기다려주세요.</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">연애 100일, 1000일은 만난 날부터 세나요, 사귀기로 한 다음날부터 세나요?</div>
+      <div class="a">정해진 규칙은 없지만, 흔히 사귀기 시작한 날(고백에 성공했거나 서로 사귀기로 합의한 날)을 1일차로 세는 경우가 많습니다. 즉 사귄 날 당일이 D+1이 아니라 1일째이므로, 100일째 되는 날을 구하려면 시작일에 99일을 더한 날짜를 기준으로 계산하는 것이 일반적입니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">윤년이 낀 기간도 정확히 계산되나요?</div>
+      <div class="a">네, 이 계산기는 두 날짜 사이의 실제 달력 일수를 그대로 계산하기 때문에 2월 29일이 포함된 윤년 구간도 자동으로 정확하게 반영됩니다.</div>
+    </div>
+
+    <div class="sources">
+      <div class="sources-title">참고 자료 및 출처</div>
+      <ul>
+        <li><a href="https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=294&boardSeq=100526&lev=0&m=020402" target="_blank" rel="noopener">교육부 보도자료 — 2027학년도 대학수학능력시험은 2026년 11월 19일(목) 시행 <span style="color:var(--muted);">(확인: 2026-09-18)</span></a></li>
+      </ul>
     </div>
   </div>
 
+  <footer style="max-width:620px; margin:40px auto 0; padding:20px 0 0; text-align:center; font-size:12.5px; color:var(--muted, #6E6656); border-top:1px solid var(--line, #D9D2BF);">
+    <a href="/" style="color:inherit; margin:0 8px;">홈</a>·<a href="/about" style="color:inherit; margin:0 8px;">소개</a>·<a href="/privacy" style="color:inherit; margin:0 8px;">개인정보처리방침</a>·<a href="mailto:contact@harukok.com" style="color:inherit; margin:0 8px;">문의</a>
+  </footer>
 </div>
 
 <script>
 (function(){
   const $ = (id) => document.getElementById(id);
 
-  function fmt(d){ return d.toISOString().slice(0, 10); }
+  // toISOString()은 UTC 기준으로 변환하므로, 한국(UTC+9)처럼 UTC보다 앞선 시간대에서는
+  // 자정 근처에 날짜가 하루 밀려 표시되는 문제가 있었다. 로컬 날짜 구성요소로 직접 포맷한다.
+  function fmt(d){
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return y + '-' + m + '-' + day;
+  }
 
   const today = new Date();
   today.setHours(0,0,0,0);
@@ -192,21 +234,43 @@
     return d;
   }
 
+  // 대학수학능력시험은 매년 날짜가 다르며(고정된 규칙이 없음), 교육부가 시행 약 2년 전에
+  // 공식 발표한 날짜만 정확하다. 확인되지 않은 연도까지 임의로 추정해 반복 표시하지 않는다.
+  // 출처: 교육부 보도자료(2024.8.16., 2026.8.18. 등)
+  const KNOWN_SUNEUNG = {
+    2026: { date: '2026-11-19', label: '2027학년도' },
+    2027: { date: '2027-11-18', label: '2028학년도' },
+    2028: { date: '2028-11-16', label: '2029학년도' },
+  };
+
+  function nextKnownSuneung(){
+    const candidates = Object.values(KNOWN_SUNEUNG)
+      .map(v => new Date(v.date + 'T00:00:00'))
+      .filter(d => d >= today)
+      .sort((a, b) => a - b);
+    return candidates.length ? candidates[0] : null;
+  }
+
   const QUICK = [
     { label: '올해 크리스마스', date: () => nextOccurrence(12, 25) },
     { label: '내년 1월 1일', date: () => new Date(today.getFullYear() + 1, 0, 1) },
-    { label: '올해 수능(11/13)', date: () => nextOccurrence(11, 13) },
+    { label: '수능일(공식 발표분)', date: nextKnownSuneung, optional: true },
     { label: '30일 뒤', date: () => { const d = new Date(today); d.setDate(d.getDate() + 30); return d; } },
     { label: '100일 뒤', date: () => { const d = new Date(today); d.setDate(d.getDate() + 100); return d; } },
   ];
 
   const quickEl = $('quickButtons');
   QUICK.forEach(q => {
+    const result = q.date();
+    if (q.optional && !result){
+      // 공식 발표된 다음 수능일이 없으면(모두 지난 경우) 버튼을 만들지 않는다 — 날짜를 지어내지 않는다.
+      return;
+    }
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.textContent = q.label;
     btn.addEventListener('click', () => {
-      $('targetDate').value = fmt(q.date());
+      $('targetDate').value = fmt(q.optional ? nextKnownSuneung() : q.date());
       calculate();
     });
     quickEl.appendChild(btn);
@@ -247,6 +311,5 @@
   $('calcBtn').addEventListener('click', calculate);
 })();
 </script>
-
 </body>
 </html>

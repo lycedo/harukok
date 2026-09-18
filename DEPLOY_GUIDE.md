@@ -26,10 +26,24 @@ git push
 1. dash.cloudflare.com 가입 (무료)
 2. 좌측 메뉴 Workers & Pages → Create → Pages → Connect to Git
 3. 방금 만든 GitHub 저장소 선택
-4. Build settings는 전부 비워두기 (정적 HTML이라 빌드 과정 불필요)
-   - Build command: (비워둠)
-   - Build output directory: `/`
+4. Build settings는 아래처럼 **반드시 설정**(과거에는 비워두고 출력 디렉터리를 저장소
+   루트(`/`)로 뒀는데, 그러면 `internal/`(운영자 비공개 메모)·`verify/`(개발용 검증
+   스크립트)·`DEPLOY_GUIDE.md`·`PROJECT_NOTES.md` 같은 비공개 파일까지 그대로
+   배포되어 버립니다. 지금은 `scripts/build.js`가 공개 대상만 골라 `dist/`에
+   모아주므로 그 폴더만 배포하도록 바꿔야 합니다):
+   - Build command: `node scripts/build.js`
+   - Build output directory: `dist`
+   - (참고) 저장소에는 여전히 `internal/`·`verify/`·`*.md`가 남아있지만, 이 설정으로
+     바꾸면 Cloudflare는 `dist/` 안의 내용만 실제로 서빙합니다. `robots.txt` 차단이나
+     `noindex` 메타 태그는 검색엔진에게 "색인하지 말아달라"고 부탁하는 것일 뿐 접근 자체를
+     막지 못하므로, 비공개를 위한 수단으로 쓰지 않았습니다 — 애초에 배포 결과물에서
+     빼는 것이 유일하게 확실한 방법입니다.
 5. Save and Deploy 클릭 → 1~2분 후 `프로젝트명.pages.dev` 주소로 사이트 생성 완료
+6. 로컬에서 미리 확인하려면: `node scripts/build.js` 실행 후 `dist/` 폴더 내용을
+   확인하세요. 이 명령은 빌드가 끝나면 `scripts/check-dist.js`를 자동으로 함께
+   실행해서 `internal/`·`verify/`·`.md` 파일이 섞여 들어가지 않았는지, `index.html`
+   등 꼭 필요한 파일이 빠지지 않았는지 검사합니다. `node scripts/check-dist.js`만
+   따로 실행할 수도 있습니다.
 
 ## 3단계. (선택) 커스텀 도메인 연결
 1. 가비아, 후이즈, Namecheap 등에서 도메인 구매 (연 1만원대)
@@ -72,7 +86,20 @@ git push
 일환으로, 이에 따른 일정액의 수수료를 제공받습니다"와 같은 문구를 링크 주변에
 반드시 표시해야 합니다** (공정거래위원회 추천·보증 등에 관한 표시·광고 심사지침).
 
-## 8단계. 배포 전 최종 법적 체크리스트
+## 8단계. 404 페이지 확인 (배포 후 점검)
+저장소 루트의 `404.html`이 `scripts/build.js`를 통해 `dist/` 최상위로 복사되므로,
+Cloudflare Pages는 존재하지 않는 경로 요청에 이 페이지를 보여줍니다. Cloudflare Pages
+공식 문서에 따르면 빌드 출력 최상위에 `404.html`이 있으면 실제 HTTP 404 상태 코드와
+함께 이 페이지가 반환됩니다(반대로 이 파일이 없으면 SPA로 간주해 없는 경로도 홈페이지를
+200으로 돌려줄 수 있습니다). **다만 이 동작은 로컬에서는 확인할 수 없으므로, 실제
+배포 후에 아래를 직접 확인해야 합니다** (이번 작업에서는 로컬 파일 검토까지만 했고
+실제 HTTP 응답은 확인하지 않았습니다):
+- [ ] 존재하지 않는 주소(예: `https://harukok.com/no-such-page`)에 접속했을 때 이
+      404.html이 뜨는지
+- [ ] 브라우저 개발자도구 Network 탭에서 그 요청의 상태 코드가 실제로 `404`인지
+      (200으로 뜬 채 404.html '내용만' 보여주는 SPA 폴백이 아닌지)
+
+## 9단계. 배포 전 최종 법적 체크리스트
 - [x] privacy.html의 이메일을 실제 연락처(`contact@harukok.com`, Cloudflare Email Routing으로 개인 지메일에 전달)로 교체했는가
 - [ ] 애드센스 승인 후 pub-ID를 전체 파일에 반영했는가
 - [ ] 제휴 링크를 넣었다면 수수료 수취 사실을 명시했는가

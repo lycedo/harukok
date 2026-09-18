@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://harukok.com/guides/parental-leave-monthly-comparison">
+<meta property="og:title" content="육아휴직 월별 예상 수령액 비교 — 혼자 쓸 때 vs 부모 함께 쓸 때">
+<meta property="og:description" content="통상임금별로 혼자 육아휴직할 때와 부모가 함께(6+6 특례) 쓸 때 월별 예상 수령액이 어떻게 달라지는지 실제 계산 로직으로 비교합니다.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="하루콕">
+<meta property="og:url" content="https://harukok.com/guides/parental-leave-monthly-comparison">
+<meta property="og:image" content="https://harukok.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<title>육아휴직 월별 예상 수령액 비교 — 혼자 쓸 때 vs 부모 함께 쓸 때</title>
+<meta name="description" content="통상임금별로 혼자 육아휴직할 때와 부모가 함께(6+6 특례) 쓸 때 월별 예상 수령액이 어떻게 달라지는지 실제 계산 로직으로 비교합니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700&family=Pretendard:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #ECE8DC;
+    --paper-light: #F7F4EA;
+    --ink: #16233D;
+    --ink-soft: #45516A;
+    --muted: #6E6656;
+    --line: #B7AF98;
+    --stamp: #B23A2E;
+  }
+  *{ box-sizing: border-box; }
+  body{
+    margin:0;
+    padding: 40px 20px 70px;
+    background: var(--paper);
+    background-image: repeating-linear-gradient(0deg, rgba(0,0,0,0.015) 0px, rgba(0,0,0,0.015) 1px, transparent 1px, transparent 3px);
+    font-family: 'Pretendard', -apple-system, sans-serif;
+    color: var(--ink);
+    display:flex;
+    justify-content:center;
+  }
+  .stub{ width:100%; max-width: 640px; }
+  .kicker{ font-size:13px; color:var(--muted); margin-bottom:6px; }
+  h1{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:27px; line-height:1.4; margin:0 0 10px; }
+  .lede{ font-size:14.5px; color:var(--ink-soft); line-height:1.6; margin:0 0 32px; }
+  .back-home{ display:inline-block; font-size:12.5px; color:var(--muted); text-decoration:none; margin-bottom:14px; }
+  .back-home:hover{ color:var(--ink); }
+
+  .related{ margin-bottom:32px; }
+  .related-title{ font-size:12.5px; color:var(--muted); margin-bottom:10px; }
+  .related-links{ display:flex; flex-wrap:wrap; gap:8px; }
+  .related-links a{ padding:8px 14px; border:1.5px solid var(--line); border-radius:999px; font-size:13px; color:var(--ink); text-decoration:none; }
+  .related-links a:hover{ border-color:var(--ink); }
+
+  article h2{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:18px; margin:32px 0 12px; }
+  article h3{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:15px; margin:22px 0 10px; }
+  article p{ font-size:14px; line-height:1.75; color:var(--ink-soft); margin:0 0 14px; }
+  article p strong{ color:var(--ink); }
+
+  table{ width:100%; border-collapse:collapse; margin:14px 0 20px; font-size:12.5px; background:var(--paper-light); border:1px solid var(--line); border-radius:8px; overflow:hidden; }
+  th, td{ padding:9px 10px; text-align:center; border-bottom:1px solid var(--line); border-right:1px solid var(--line); }
+  th:last-child, td:last-child{ border-right:none; }
+  th{ background:#E4DFCD; color:var(--ink); font-weight:600; }
+  td{ color:var(--ink-soft); font-family:'IBM Plex Mono', monospace; }
+  td:first-child{ font-family:'Pretendard', sans-serif; text-align:left; color:var(--ink); font-weight:600; }
+  tr:last-child td{ border-bottom:none; }
+  tr.total td{ font-weight:700; color:var(--ink); background:#F0EAD6; }
+
+  .warn-box{ background:#FBEFE9; border:1px solid #E3B79E; border-radius:10px; padding:16px 18px; margin:16px 0 20px; font-size:13.5px; color:#8A3E1F; line-height:1.65; }
+
+  .sources{ margin-top:32px; padding-top:18px; border-top:1px solid var(--line); }
+  .sources-title{ font-size:13px; font-weight:600; color:var(--ink-soft); margin-bottom:8px; }
+  .sources ul{ margin:0; padding-left:18px; font-size:12.5px; line-height:1.8; color:var(--muted); }
+  .sources a{ color:var(--ink-soft); }
+  .sources a:hover{ color:var(--ink); }
+
+  .disclaimer{ font-size:11.5px; color:var(--muted); line-height:1.6; margin-top:24px; padding-top:16px; border-top:1px dotted var(--line); }
+
+  @media (max-width:480px){ h1{ font-size:22px; } table{ font-size:11px; } th, td{ padding:6px; } }
+</style>
+<!-- Google AdSense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6883245122372170" crossorigin="anonymous"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "육아휴직 월별 예상 수령액 비교 — 혼자 쓸 때 vs 부모 함께 쓸 때",
+  "description": "통상임금별로 혼자 육아휴직할 때와 부모가 함께(6+6 특례) 쓸 때 월별 예상 수령액이 어떻게 달라지는지 실제 계산 로직으로 비교합니다.",
+  "datePublished": "2026-09-17",
+  "dateModified": "2026-09-17",
+  "author": { "@type": "Organization", "name": "하루콕" },
+  "publisher": { "@type": "Organization", "name": "하루콕" }
+}
+</script>
+</head>
+<body>
+
+<div class="stub">
+  <a href="/" class="back-home">← 하루콕 홈으로</a>
+  <div class="kicker">해설 · 임신·출산</div>
+  <h1>육아휴직 월별 예상 수령액 비교 — 혼자 쓸 때 vs 부모 함께 쓸 때</h1>
+  <p class="lede">같은 통상임금이라도 혼자 육아휴직을 쓰는지, 부모가 함께(6+6 특례) 쓰는지에 따라 매달 받는 금액과 총액이 크게 달라집니다. 하루콕 육아휴직급여 계산기의 실제 계산 로직으로 통상임금별 월별 수령액을 비교합니다.</p>
+
+  <div class="related">
+    <div class="related-title">함께 보면 좋은 도구</div>
+    <div class="related-links">
+      <a href="/tools/parental-leave-calculator">육아휴직급여 계산기</a>
+      <a href="/tools/due-date-calculator">출산 예정일 계산기</a>
+    </div>
+  </div>
+
+  <article>
+    <h2>비교 조건 — 표를 읽기 전에 꼭 확인하세요</h2>
+    <p>아래 표는 2025년 1월 1일 시행되어 2026년 현재도 적용 중인 일반 육아휴직급여 구간(1~3개월 상한 250만원, 4~6개월 상한 200만원, 7개월 이후 통상임금 80%·상한 160만원)과, 생후 18개월 이내 자녀를 부모가 함께(동시 또는 순차) 육아휴직할 때 첫 6개월에 적용되는 '6+6 부모육아휴직제' 특례(1개월 250만원~6개월 450만원)를 기준으로 계산했습니다. 하한액 70만원은 모든 구간에 공통으로 적용됩니다.</p>
+    <ul style="font-size:14px; line-height:1.8; color:var(--ink-soft); margin:0 0 16px; padding-left:20px;">
+      <li><strong style="color:var(--ink);">'부모 함께(6+6)' 표는 부모 각자 6개월씩 사용하고 6+6 특례 자격을 모두 충족했다고 가정한 예시입니다.</strong> 자격 요건(생후 18개월 이내 자녀, 고용보험 피보험단위기간 180일 이상 등)을 충족하지 못하면 특례가 적용되지 않고 '혼자(일반)' 구간이 적용됩니다.</li>
+      <li>6+6 특례는 <strong style="color:var(--ink);">부모가 동시에 사용하든 순차로 사용하든</strong> 적용됩니다(고용24 확인 사항). 다만 <strong style="color:var(--ink);">한 사람이 6개월보다 짧게 사용하면, 특례는 부모 두 사람이 공통으로 사용한 기간만큼만</strong> 적용됩니다 — "함께 쓰면 무조건 6개월 전부 특례"가 아닙니다. 예를 들어 한 사람은 6개월, 배우자는 3개월만 육아휴직을 썼다면 특례가 적용되는 기간은 두 사람이 겹치거나 공통으로 인정되는 최대 3개월 분까지이고, 나머지 기간은 일반 구간으로 계산됩니다.</li>
+      <li>표의 모든 금액은 <strong style="color:var(--ink);">한 사람(근로자 1인) 기준 월 지급액</strong>입니다. 부모 두 사람의 총액이 아닙니다.</li>
+      <li>이 글의 '급여'는 <strong style="color:var(--ink);">법정 산정액</strong>이며, 실제 계좌 입금은 고용24 신청·심사 절차를 거쳐 신청한 달 이후에 이뤄집니다. 산정액과 입금 시점은 다를 수 있습니다.</li>
+    </ul>
+
+    <h2>통상임금 250만원인 경우</h2>
+    <p>통상임금이 특례 상한액보다 낮거나 비슷하면, 6+6 특례를 쓰더라도 매달 통상임금(250만원) 그대로 받게 되어 특례의 이점이 크지 않습니다.</p>
+    <table>
+      <tr><th>개월차</th><th>1개월</th><th>2개월</th><th>3개월</th><th>4개월</th><th>5개월</th><th>6개월</th></tr>
+      <tr><td>혼자(일반)</td><td>250만</td><td>250만</td><td>250만</td><td>200만</td><td>200만</td><td>200만</td></tr>
+      <tr><td>부모 함께(6+6)</td><td>250만</td><td>250만</td><td>250만</td><td>250만</td><td>250만</td><td>250만</td></tr>
+    </table>
+
+    <h2>통상임금 350만원인 경우</h2>
+    <p>통상임금이 일반 구간 상한(250만원, 200만원)보다 높으면 혼자 쓸 때도 상한액에 걸려 250만→200만원으로 매달 받는 돈이 줄어듭니다. 반면 6+6 특례는 3개월차부터 상한 자체가 올라가 통상임금(350만원)을 4개월차부터 그대로 받을 수 있습니다.</p>
+    <table>
+      <tr><th>개월차</th><th>1개월</th><th>2개월</th><th>3개월</th><th>4개월</th><th>5개월</th><th>6개월</th></tr>
+      <tr><td>혼자(일반)</td><td>250만</td><td>250만</td><td>250만</td><td>200만</td><td>200만</td><td>200만</td></tr>
+      <tr><td>부모 함께(6+6)</td><td>250만</td><td>250만</td><td>300만</td><td>350만</td><td>350만</td><td>350만</td></tr>
+    </table>
+
+    <h2>통상임금 500만원인 경우</h2>
+    <p>통상임금이 특례 상한액(최대 450만원)보다 높은 고소득 구간에서는 6+6 특례의 차이가 가장 크게 벌어집니다.</p>
+    <table>
+      <tr><th>개월차</th><th>1개월</th><th>2개월</th><th>3개월</th><th>4개월</th><th>5개월</th><th>6개월</th></tr>
+      <tr><td>혼자(일반)</td><td>250만</td><td>250만</td><td>250만</td><td>200만</td><td>200만</td><td>200만</td></tr>
+      <tr><td>부모 함께(6+6)</td><td>250만</td><td>250만</td><td>300만</td><td>350만</td><td>400만</td><td>450만</td></tr>
+    </table>
+
+    <h2>6개월 누적 총액으로 비교하면</h2>
+    <p>위 3가지 통상임금 구간에서 첫 6개월간 받는 총액(한 사람 기준)을 더하면 다음과 같습니다.</p>
+    <table>
+      <tr><th>통상임금</th><th>혼자(일반) 6개월 합계</th><th>부모 함께(6+6) 6개월 합계</th><th>차이</th></tr>
+      <tr><td>250만원</td><td>1,350만원</td><td>1,500만원</td><td>+150만원</td></tr>
+      <tr><td>350만원</td><td>1,350만원</td><td>1,850만원</td><td>+500만원</td></tr>
+      <tr><td>500만원</td><td>1,350만원</td><td>2,000만원</td><td>+650만원</td></tr>
+    </table>
+    <p>부모가 각자 6+6 특례로 6개월씩 사용하면 한 사람당 최대(통상임금이 매달 상한액 이상일 때) 2,000만원까지 받을 수 있어, 부부 합산으로는 최대 4,000만원까지 가능합니다. 다만 이는 두 사람이 각자 통상임금 450만원 이상을 받는 경우의 상한이며, 실제 금액은 개인 통상임금에 따라 달라집니다.<br>
+    <span style="color:var(--muted); font-size:12.5px;">※ 위 수치는 하루콕 육아휴직급여 계산기의 실제 계산 로직을 직접 실행해 검증한 값이며, 이해를 돕기 위한 가상의 예시입니다.</span></p>
+
+    <div class="warn-box">
+      6+6 특례는 <strong>생후 18개월 이내 자녀</strong>에 대해 <strong>부모 모두</strong>가 육아휴직을 사용하는 경우에만 적용됩니다. 한 부모만 육아휴직을 쓴다면 처음부터 '혼자(일반)' 구간이 적용되고, 한부모 근로자는 별도로 첫 3개월 상한이 300만원으로 우대됩니다(이 계산기는 한부모 우대 구간을 계산하지 않습니다).
+    </div>
+
+    <h2>7개월 이후는 어떻게 되나요?</h2>
+    <p>6+6 특례는 첫 6개월만 적용되고, 7개월차부터는 부모가 함께 썼더라도 혼자 쓴 경우와 동일하게 일반 구간(통상임금 80%, 상한 160만원)으로 돌아갑니다. 즉 6+6 특례의 이점은 처음 6개월에 집중되어 있으므로, 전체 육아휴직 기간을 길게 계획한다면 특례가 적용되는 시기를 언제로 잡을지가 총 수령액에 영향을 줍니다.</p>
+
+    <h2>결과 확인 후 할 일</h2>
+    <p>이 비교표는 이해를 돕기 위한 가상의 예시이며, 실제로는 본인의 정확한 통상임금을 하루콕 <a href="/tools/parental-leave-calculator">육아휴직급여 계산기</a>에 입력해 개월차별 예상 수령액을 다시 확인하는 것이 정확합니다. 실제 지급 자격과 최종 금액은 고용24(work24.go.kr) 또는 관할 고용센터에서 확인하세요.</p>
+
+    <div class="sources">
+      <div class="sources-title">참고 자료 및 출처 <span style="font-weight:400; color:var(--muted);">(검증일 2026-09-17)</span></div>
+      <ul>
+        <li><a href="https://m.work24.go.kr/cm/c/f/1100/selecSystInfo.do?systClId=SC00000251&systId=SI00000402" target="_blank" rel="noopener">고용24 — 육아휴직급여 제도 안내(개월차별 상한액)</a></li>
+        <li><a href="https://www.moel.go.kr/policy/policydata/view.do?bbs_seq=20240102052" target="_blank" rel="noopener">고용노동부 — 부모 함께 육아휴직제(6+6) 설명자료</a></li>
+      </ul>
+    </div>
+
+    <div class="disclaimer">
+      이 글의 모든 금액은 하루콕 육아휴직급여 계산기의 실제 계산 로직을 직접 실행해 얻은 값입니다. 개인별 실제 지급액은 고용보험 피보험단위기간, 통상임금 산정 방식, 개별 심사 결과에 따라 달라질 수 있습니다.
+    </div>
+  </article>
+
+  <footer style="max-width:620px; margin:40px auto 0; padding:20px 0 0; text-align:center; font-size:12.5px; color:var(--muted, #6E6656); border-top:1px solid var(--line, #D9D2BF);">
+    <a href="/" style="color:inherit; margin:0 8px;">홈</a>·<a href="/about" style="color:inherit; margin:0 8px;">소개</a>·<a href="/privacy" style="color:inherit; margin:0 8px;">개인정보처리방침</a>·<a href="mailto:contact@harukok.com" style="color:inherit; margin:0 8px;">문의</a>
+  </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://harukok.com/guides/salary-vs-payslip">
+<meta property="og:title" content="연봉 계산기 결과와 실제 급여명세서가 다른 이유">
+<meta property="og:description" content="같은 연봉을 넣어도 계산기 결과와 실제 급여명세서 금액이 다른 5가지 이유를 실제 계산 예시로 설명합니다.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="하루콕">
+<meta property="og:url" content="https://harukok.com/guides/salary-vs-payslip">
+<meta property="og:image" content="https://harukok.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<title>연봉 계산기 결과와 실제 급여명세서가 다른 이유</title>
+<meta name="description" content="같은 연봉을 넣어도 계산기 결과와 실제 급여명세서 금액이 다른 5가지 이유를 실제 계산 예시로 설명합니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700&family=Pretendard:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #ECE8DC;
+    --paper-light: #F7F4EA;
+    --ink: #16233D;
+    --ink-soft: #45516A;
+    --muted: #6E6656;
+    --line: #B7AF98;
+    --stamp: #B23A2E;
+  }
+  *{ box-sizing: border-box; }
+  body{
+    margin:0;
+    padding: 40px 20px 70px;
+    background: var(--paper);
+    background-image: repeating-linear-gradient(0deg, rgba(0,0,0,0.015) 0px, rgba(0,0,0,0.015) 1px, transparent 1px, transparent 3px);
+    font-family: 'Pretendard', -apple-system, sans-serif;
+    color: var(--ink);
+    display:flex;
+    justify-content:center;
+  }
+  .stub{ width:100%; max-width: 620px; }
+  .kicker{ font-size:13px; color:var(--muted); margin-bottom:6px; }
+  h1{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:28px; line-height:1.4; margin:0 0 10px; }
+  .lede{ font-size:14.5px; color:var(--ink-soft); line-height:1.6; margin:0 0 32px; }
+  .back-home{ display:inline-block; font-size:12.5px; color:var(--muted); text-decoration:none; margin-bottom:14px; }
+  .back-home:hover{ color:var(--ink); }
+
+  .related{ margin-bottom:32px; }
+  .related-title{ font-size:12.5px; color:var(--muted); margin-bottom:10px; }
+  .related-links{ display:flex; flex-wrap:wrap; gap:8px; }
+  .related-links a{ padding:8px 14px; border:1.5px solid var(--line); border-radius:999px; font-size:13px; color:var(--ink); text-decoration:none; }
+  .related-links a:hover{ border-color:var(--ink); }
+
+  article h2{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:18px; margin:32px 0 12px; }
+  article p{ font-size:14px; line-height:1.75; color:var(--ink-soft); margin:0 0 14px; }
+  article p strong{ color:var(--ink); }
+
+  table{ width:100%; border-collapse:collapse; margin:16px 0 20px; font-size:13px; background:var(--paper-light); border:1px solid var(--line); border-radius:8px; overflow:hidden; }
+  th, td{ padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  th{ background:#E4DFCD; color:var(--ink); font-weight:600; }
+  td{ color:var(--ink-soft); }
+  tr:last-child td{ border-bottom:none; }
+
+  .example-box{ background:var(--paper-light); border:1px solid var(--line); border-radius:10px; padding:18px 20px; margin:16px 0 20px; }
+  .example-box .ex-title{ font-size:13px; font-weight:600; color:var(--ink); margin-bottom:8px; }
+  .example-box .ex-row{ display:flex; justify-content:space-between; font-size:13.5px; padding:4px 0; color:var(--ink-soft); }
+  .example-box .ex-row .amount{ font-family:'IBM Plex Mono', monospace; color:var(--ink); }
+  .example-box .ex-row.total{ border-top:1px solid var(--line); margin-top:6px; padding-top:8px; font-weight:600; color:var(--ink); }
+
+  .sources{ margin-top:32px; padding-top:18px; border-top:1px solid var(--line); }
+  .sources-title{ font-size:13px; font-weight:600; color:var(--ink-soft); margin-bottom:8px; }
+  .sources ul{ margin:0; padding-left:18px; }
+  .sources li{ font-size:12.5px; line-height:1.8; color:var(--muted); }
+  .sources a{ color:var(--ink-soft); }
+  .sources a:hover{ color:var(--ink); }
+
+  .disclaimer{ font-size:11.5px; color:var(--muted); line-height:1.6; margin-top:24px; padding-top:16px; border-top:1px dotted var(--line); }
+
+  @media (max-width:480px){ h1{ font-size:23px; } }
+</style>
+<!-- Google AdSense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6883245122372170" crossorigin="anonymous"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "연봉 계산기 결과와 실제 급여명세서가 다른 이유",
+  "description": "같은 연봉을 넣어도 계산기 결과와 실제 급여명세서 금액이 다른 5가지 이유를 실제 계산 예시로 설명합니다.",
+  "datePublished": "2026-09-17",
+  "dateModified": "2026-09-17",
+  "author": { "@type": "Organization", "name": "하루콕" },
+  "publisher": { "@type": "Organization", "name": "하루콕" }
+}
+</script>
+</head>
+<body>
+
+<div class="stub">
+  <a href="/" class="back-home">← 하루콕 홈으로</a>
+  <div class="kicker">해설 · 급여·재무</div>
+  <h1>연봉 계산기 결과와 실제 급여명세서가 다른 이유</h1>
+  <p class="lede">같은 연봉을 넣었는데 하루콕 계산기 결과와 이번 달 급여명세서 금액이 다르다면, 대부분 아래 5가지 중 하나가 원인입니다. 실제 계산 함수로 검증한 예시로 설명합니다.</p>
+
+  <div class="related">
+    <div class="related-title">함께 보면 좋은 도구</div>
+    <div class="related-links">
+      <a href="/tools/salary-calculator">연봉 실수령액 계산기</a>
+      <a href="/tools/hourly-wage-calculator">시급 계산기</a>
+    </div>
+  </div>
+
+  <article>
+    <h2>1. 이 계산기의 소득세는 간이세액표 조회값이 아니라 자체 추정치입니다</h2>
+    <p>실제 회사는 국세청이 고시한 <strong>「근로소득 간이세액표」</strong>를 급여 수준×가족 수 기준으로 직접 조회해서 소득세를 원천징수합니다. 하루콕 계산기는 이 표를 조회하지 않고, 소득세법상 <strong>연간 세액 계산식(근로소득공제 → 인적공제 → 누진세율 → 세액공제)</strong>을 적용해 계산기 자체적으로 추정한 근사치를 12개월로 나눈 값입니다. 두 방식은 원리는 비슷하지만 세부 공제 가정이 달라 완전히 같은 금액이 나오지 않습니다. 즉 이 계산기 결과와 실제 급여명세서 소득세가 정확히 일치하지 않는다고 해서 계산이 틀린 것은 아닙니다.</p>
+
+    <h2>2. 회사가 선택한 간이세액표 비율(80%·100%·120%)</h2>
+    <p>근로자는 매년 초 회사에 <strong>근로소득 간이세액표 세액의 80%·100%·120%</strong> 중 하나를 신청할 수 있습니다(국세청 「맞춤형 원천징수제도」). 아무것도 선택하지 않으면 100%가 기본값입니다. 80%를 선택하면 매달 덜 떼는 대신 연말정산에서 추가로 낼 가능성이 커지고, 120%를 선택하면 매달 더 떼는 대신 환급 가능성이 커집니다. 이 비율은 <strong>회사가 실제로 조회한 간이세액표 금액</strong>에 곱해지는 것이라, 하루콕 계산기의 추정치에 그대로 곱한다고 해서 정확한 차액이 나오는 것은 아닙니다.</p>
+
+    <h2>3. 급여명세서에만 있는 개인별 공제 항목</h2>
+    <p>계산기는 4대보험과 소득세만 계산합니다. 급여명세서에는 이 외에도 <strong>노동조합비, 사내대출·가불금 상환, 개인연금·우리사주 공제, 회사 기숙사·식비 정산</strong> 같은 개인별·회사별 항목이 추가로 빠질 수 있습니다. 이런 항목이 있다면 실수령액은 계산기 결과보다 적게 찍힙니다.</p>
+
+    <h2>4. 비과세 항목을 회사가 실제로 어떻게 설계했는가</h2>
+    <p>식대는 월 20만원까지 비과세인데, 회사에 따라 식대를 급여에 포함하지 않고 별도 현물(구내식당 등)로 제공하거나, 자가운전보조금(월 20만원 한도)을 별도로 비과세 처리하기도 합니다. 계산기의 '월 비과세액' 입력값이 실제 급여명세서의 비과세 항목 합계와 다르면 결과가 달라집니다.</p>
+
+    <h2>5. 매달 원천징수와 연말정산은 별개 절차</h2>
+    <p>이 계산기의 소득세는 <strong>매달 원천징수되는 금액의 추정치</strong>입니다. 실제로 한 해 동안 낸 세금이 맞는지는 다음 해 1~2월 <strong>연말정산</strong>에서 신용카드·의료비·보험료 등 각종 소득·세액공제를 반영해 다시 계산되고, 더 냈으면 환급받고 덜 냈으면 추가로 냅니다. 즉 매달 급여명세서 금액과 계산기 결과가 조금 다르더라도, 1년 전체로 보면 연말정산에서 한 번 더 맞춰지는 구조입니다.</p>
+
+    <h2>하루콕 계산기가 실제로 추정하는 값</h2>
+    <p>연봉 3,500만원, 식대 비과세 20만원, 부양가족 1명, 자녀 0명을 하루콕 연봉 계산기에 넣으면 아래와 같이 계산됩니다(2026년 4대보험 요율 기준). 이 표의 소득세·지방소득세는 <strong>이 계산기가 자체 산식으로 추정한 값</strong>이며, 실제 회사가 조회하는 간이세액표 금액과는 다를 수 있습니다.</p>
+    <div class="example-box">
+      <div class="ex-title">하루콕 계산기 결과 (자체 추정치)</div>
+      <div class="ex-row"><span>국민연금</span><span class="amount">129,042원</span></div>
+      <div class="ex-row"><span>건강보험</span><span class="amount">97,664원</span></div>
+      <div class="ex-row"><span>장기요양보험</span><span class="amount">12,833원</span></div>
+      <div class="ex-row"><span>고용보험</span><span class="amount">24,450원</span></div>
+      <div class="ex-row"><span>소득세+지방소득세 (추정)</span><span class="amount">49,392원</span></div>
+      <div class="ex-row total"><span>월 공제 합계 (추정)</span><span class="amount">313,381원</span></div>
+    </div>
+    <p>4대보험(국민연금·건강보험·장기요양보험·고용보험)은 법정 요율로 정확히 계산되므로 이 부분은 급여명세서와 대부분 일치합니다. 반면 소득세·지방소득세 49,392원은 어디까지나 추정치이므로, 실제 급여명세서 금액이 이보다 조금 많거나 적을 수 있습니다. 정확한 금액을 알고 싶다면 국세청 홈택스에서 본인 명의로 간이세액표를 직접 조회하고, 회사가 선택한 80%·100%·120% 비율을 급여 담당자에게 확인하세요.</p>
+
+    <h2>결과가 계속 크게 다르다면</h2>
+    <p>위 항목을 다 확인했는데도 차이가 크다면, 회사 급여 담당자에게 <strong>간이세액표 조회 금액과 선택 비율</strong>, <strong>공제 항목 내역</strong>을 직접 문의하는 것이 가장 정확합니다.</p>
+
+    <div class="sources">
+      <div class="sources-title">참고 자료 및 출처 <span style="font-weight:400; color:var(--muted);">(검증일 2026-09-17)</span></div>
+      <ul>
+        <li><a href="https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?mi=6583&cntntsId=7862" target="_blank" rel="noopener">국세청 — 근로소득 원천징수방법(간이세액표) 및 맞춤형 원천징수제도 안내</a></li>
+      </ul>
+    </div>
+
+    <div class="disclaimer">
+      이 글의 예시는 하루콕 연봉 실수령액 계산기의 실제 계산 로직을 그대로 실행한 결과이며, 회사별 상황에 따라 실제 금액은 다를 수 있습니다.
+    </div>
+  </article>
+
+  <footer style="max-width:620px; margin:40px auto 0; padding:20px 0 0; text-align:center; font-size:12.5px; color:var(--muted, #6E6656); border-top:1px solid var(--line, #D9D2BF);">
+    <a href="/" style="color:inherit; margin:0 8px;">홈</a>·<a href="/about" style="color:inherit; margin:0 8px;">소개</a>·<a href="/privacy" style="color:inherit; margin:0 8px;">개인정보처리방침</a>·<a href="mailto:contact@harukok.com" style="color:inherit; margin:0 8px;">문의</a>
+  </footer>
+</div>
+</body>
+</html>

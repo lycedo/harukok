@@ -78,6 +78,12 @@
   .faq-item{ margin-bottom:16px; }
   .faq-item .q{ font-size:14px; font-weight:600; margin-bottom:5px; }
   .faq-item .a{ font-size:13.5px; line-height:1.65; color:var(--ink-soft); }
+  .sources{ margin-top:24px; padding-top:18px; border-top:1px solid var(--line); }
+  .sources-title{ font-size:13px; font-weight:600; color:var(--ink-soft); margin-bottom:8px; }
+  .sources ul{ margin:0; padding-left:18px; }
+  .sources li{ font-size:12.5px; line-height:1.8; color:var(--muted); }
+  .sources a{ color:var(--ink-soft); }
+  .sources a:hover{ color:var(--ink); }
 
   .related{ margin-top:20px; margin-bottom:32px; }
   .related-title{ font-size:12.5px; color:var(--muted); margin-bottom:10px; }
@@ -117,6 +123,22 @@
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "최저임금 미달은 근로기준법 위반으로, 사업주는 형사처벌 대상이 될 수 있습니다. 고용노동부 고객상담센터(국번없이 1350)나 사업장 관할 노동청에 신고할 수 있습니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "주휴수당은 모든 알바생이 다 받나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "1주 소정근로시간이 15시간 이상이고, 그 주에 결근 없이 소정근로일을 개근한 경우에만 발생합니다. 주 15시간 미만으로 일하거나 지각·조퇴가 아닌 결근이 있었던 주에는 주휴수당이 발생하지 않습니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "수습기간에는 최저임금을 덜 줘도 되나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "1년 이상 근로계약을 체결한 경우에 한해 수습 시작일로부터 3개월 이내까지만 최저임금의 90%를 지급할 수 있습니다. 단순노무직종(택배 상하차, 청소 등 고용노동부 고시 직종)은 수습 감액 자체가 적용되지 않고 처음부터 100%를 받아야 합니다."
       }
     }
   ]
@@ -181,18 +203,13 @@
 
   <div class="card result-card hidden" id="resultCard"></div>
 
-  <!-- ===== 광고 삽입 영역 ===== -->
-  <ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-6883245122372170"
-     data-ad-slot="0000000000"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 
   <div class="info-block">
     <h2>월급은 어떻게 계산되나요?</h2>
-    <p>주 소정근로시간이 15시간 이상이면 주휴수당(주 소정근로시간 ÷ 40, 최대 1 × 8시간분)이 유급으로 추가됩니다. 여기에 한 달 평균 주 수(4.345주)를 곱해 월급으로 환산합니다. 반대로 월급을 시급으로 환산할 때도 같은 방식으로 주휴시간을 포함한 총 근로시간으로 나눕니다.</p>
+    <p>주 소정근로시간이 15시간 이상이면 주휴수당(주 소정근로시간 ÷ 40, 최대 1 × 8시간분)이 유급으로 추가됩니다. 여기에 한 달 평균 주 수(4.345주)를 곱해 월급으로 환산합니다. 반대로 월급을 시급으로 환산할 때도 같은 방식으로 주휴시간을 포함한 총 근로시간으로 나눕니다. 이 방식은 근로기준법상 통상임금·최저임금 산정에 쓰이는 계산 구조와 동일해서, 아르바이트 계약서에 적힌 시급이 실제로 최저임금을 지키고 있는지 확인할 때도 그대로 활용할 수 있습니다.</p>
+
+    <h2>계산 예시로 보기</h2>
+    <p>하루 5시간, 주 5일 일하는 아르바이트생이 시급 10,320원(2026년 최저시급)을 받는다고 가정해보겠습니다. 주 근로시간은 25시간이라 주휴수당 대상(15시간 이상)이고, 주휴시간은 25÷40×8 ≈ 5시간이 추가됩니다. 주당 총 30시간에 한 달 평균 주 수 4.345를 곱하면 월 환산 근로시간은 약 130.4시간이 되고, 여기에 시급을 곱하면 월급은 약 134만 원 수준으로 계산됩니다. 같은 조건에서 시급이 이보다 낮게 책정돼 있다면 최저임금 위반 여부를 반드시 확인해봐야 합니다.</p>
 
     <div class="faq-item">
       <div class="q">2026년 최저시급은 얼마인가요?</div>
@@ -206,8 +223,27 @@
       <div class="q">최저임금보다 낮으면 어떻게 해야 하나요?</div>
       <div class="a">최저임금 미달은 근로기준법 위반으로, 사업주는 형사처벌 대상이 될 수 있습니다. 고용노동부 고객상담센터(국번없이 1350)나 사업장 관할 노동청에 신고할 수 있습니다.</div>
     </div>
+    <div class="faq-item">
+      <div class="q">주휴수당은 모든 알바생이 다 받나요?</div>
+      <div class="a">1주 소정근로시간이 15시간 이상이고, 그 주에 결근 없이 소정근로일을 개근한 경우에만 발생합니다. 주 15시간 미만으로 일하거나 지각·조퇴가 아닌 결근이 있었던 주에는 주휴수당이 발생하지 않습니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">수습기간에는 최저임금을 덜 줘도 되나요?</div>
+      <div class="a">1년 이상 근로계약을 체결한 경우에 한해 수습 시작일로부터 3개월 이내까지만 최저임금의 90%를 지급할 수 있습니다. 단순노무직종(택배 상하차, 청소 등 고용노동부 고시 직종)은 수습 감액 자체가 적용되지 않고 처음부터 100%를 받아야 합니다.</div>
+    </div>
+
+    <div class="sources">
+      <div class="sources-title">참고 자료 및 출처</div>
+      <ul>
+        <li><a href="https://www.minimumwage.go.kr" target="_blank" rel="noopener">최저임금위원회 — 연도별 최저임금 결정 현황</a></li>
+        <li><a href="https://labor.moel.go.kr/minwonSysInfo/minwagesys.do" target="_blank" rel="noopener">고용노동부 노동포털 — 최저임금제도 안내</a></li>
+      </ul>
+    </div>
   </div>
 
+  <footer style="max-width:620px; margin:40px auto 0; padding:20px 0 0; text-align:center; font-size:12.5px; color:var(--muted, #6E6656); border-top:1px solid var(--line, #D9D2BF);">
+    <a href="/" style="color:inherit; margin:0 8px;">홈</a>·<a href="/about" style="color:inherit; margin:0 8px;">소개</a>·<a href="/privacy" style="color:inherit; margin:0 8px;">개인정보처리방침</a>·<a href="mailto:contact@harukok.com" style="color:inherit; margin:0 8px;">문의</a>
+  </footer>
 </div>
 
 <script>
@@ -301,6 +337,5 @@
   $('calcBtn').addEventListener('click', calculate);
 })();
 </script>
-
 </body>
 </html>

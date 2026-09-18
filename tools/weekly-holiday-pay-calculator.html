@@ -72,6 +72,12 @@
   .faq-item{ margin-bottom:16px; }
   .faq-item .q{ font-size:14px; font-weight:600; margin-bottom:5px; }
   .faq-item .a{ font-size:13.5px; line-height:1.65; color:var(--ink-soft); }
+  .sources{ margin-top:24px; padding-top:18px; border-top:1px solid var(--line); }
+  .sources-title{ font-size:13px; font-weight:600; color:var(--ink-soft); margin-bottom:8px; }
+  .sources ul{ margin:0; padding-left:18px; }
+  .sources li{ font-size:12.5px; line-height:1.8; color:var(--muted); }
+  .sources a{ color:var(--ink-soft); }
+  .sources a:hover{ color:var(--ink); }
 
   .related{ margin-top:20px; margin-bottom:32px; }
   .related-title{ font-size:12.5px; color:var(--muted); margin-bottom:10px; }
@@ -111,6 +117,22 @@
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "아니요, 주휴수당은 주 소정근로시간이 40시간을 넘어도 8시간분(1일치)으로 상한이 있습니다. 초과분은 연장근로수당으로 별도 계산됩니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "입사 첫 주에도 주휴수당을 받을 수 있나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "네, 근로계약 첫 주도 개근했다면 주휴수당이 발생합니다. 마지막 근무 주(퇴사하는 주)도 마찬가지입니다. 2021년 8월 고용노동부 행정해석 변경 이후에는 '다음 주에도 근로가 예정되어 있는지'가 아니라 '그 주 동안 근로관계가 유지된 채 소정근로일을 개근했는지'가 기준입니다. 즉 퇴사일이 그 주의 주휴일 이후로 잡혀 근로관계가 주휴일까지 유지된다면, 다음 주에 출근할 계획이 없어도 주휴수당이 발생합니다. 반대로 근로관계 자체가 주휴일 전에 끝난다면 그 주 주휴수당은 발생하지 않습니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "주휴수당을 시급에 포함해서 준다고 계약해도 되나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "시급에 주휴수당을 포함해서 지급하는 것 자체는 가능하지만, 근로계약서나 급여명세서에 주휴수당분이 얼마인지 명확히 구분해서 표시해야 합니다. 그냥 뭉뚱그려 높은 시급만 제시하고 별도 정산을 안 해주는 경우 분쟁의 소지가 있습니다."
       }
     }
   ]
@@ -155,18 +177,13 @@
 
   <div class="card result-card hidden" id="resultCard"></div>
 
-  <!-- ===== 광고 삽입 영역 ===== -->
-  <ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-6883245122372170"
-     data-ad-slot="0000000000"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 
   <div class="info-block">
     <h2>주휴수당은 어떻게 계산되나요?</h2>
-    <p>주휴수당 = 시급 × (1주 소정근로시간 ÷ 40, 최대 1) × 8시간으로 계산합니다. 주 15시간 이상 근무하면서 소정근로일을 개근한 근로자에게 지급되는 유급휴일 수당이며, 정규직뿐 아니라 아르바이트·단시간 근로자도 조건을 충족하면 동일하게 적용됩니다.</p>
+    <p>주휴수당 = 시급 × (1주 소정근로시간 ÷ 40, 최대 1) × 8시간으로 계산합니다. 주 15시간 이상 근무하면서 소정근로일을 개근한 근로자에게 지급되는 유급휴일 수당이며, 정규직뿐 아니라 아르바이트·단시간 근로자도 조건을 충족하면 동일하게 적용됩니다. "일하지 않아도 하루치 급여를 더 받는" 개념이라 처음 접하면 헷갈리기 쉬운데, 근로기준법 제55조가 보장하는 유급주휴일 제도이지 회사의 시혜적 복지가 아니라는 점이 핵심입니다.</p>
+
+    <h2>계산 예시로 보기</h2>
+    <p>시급 10,320원(2026년 최저시급)에 주 20시간 일하는 아르바이트생이라면, 주휴시간은 20 ÷ 40 × 8 = 4시간입니다. 여기에 시급을 곱하면 주휴수당은 41,280원이 되고, 실제 근무로 받는 주급(20시간 × 10,320원 = 206,400원)에 이 주휴수당을 더하면 한 주에 총 247,680원을 받게 됩니다. 주 40시간을 꽉 채워 일하는 경우에는 주휴시간이 8시간(상한)으로 고정되어, 주급에 하루치 임금이 그대로 더해지는 구조입니다.</p>
 
     <div class="faq-item">
       <div class="q">주휴수당은 누구나 받을 수 있나요?</div>
@@ -180,8 +197,27 @@
       <div class="q">주 40시간 넘게 일하면 주휴수당도 더 받나요?</div>
       <div class="a">아니요, 주휴수당은 주 소정근로시간이 40시간을 넘어도 8시간분(1일치)으로 상한이 있습니다. 초과분은 연장근로수당으로 별도 계산됩니다.</div>
     </div>
+    <div class="faq-item">
+      <div class="q">입사 첫 주에도 주휴수당을 받을 수 있나요?</div>
+      <div class="a">네, 근로계약 첫 주도 개근했다면 주휴수당이 발생합니다. 마지막 근무 주(퇴사하는 주)도 마찬가지입니다. 2021년 8월 고용노동부 행정해석 변경 이후에는 '다음 주에도 근로가 예정되어 있는지'가 아니라 '그 주 동안 근로관계가 유지된 채 소정근로일을 개근했는지'가 기준입니다. 즉 퇴사일이 그 주의 주휴일 이후로 잡혀 근로관계가 주휴일까지 유지된다면, 다음 주에 출근할 계획이 없어도 주휴수당이 발생합니다. 반대로 근로관계 자체가 주휴일 전에 끝난다면 그 주 주휴수당은 발생하지 않습니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">주휴수당을 시급에 포함해서 준다고 계약해도 되나요?</div>
+      <div class="a">시급에 주휴수당을 포함해서 지급하는 것 자체는 가능하지만, 근로계약서나 급여명세서에 주휴수당분이 얼마인지 명확히 구분해서 표시해야 합니다. 그냥 뭉뚱그려 높은 시급만 제시하고 별도 정산을 안 해주는 경우 분쟁의 소지가 있습니다.</div>
+    </div>
+
+    <div class="sources">
+      <div class="sources-title">참고 자료 및 출처 <span style="font-weight:400; color:var(--muted);">(검증일 2026-09-17)</span></div>
+      <ul>
+        <li><a href="https://labor.moel.go.kr/minwonSysInfo/parttimehelpway.do" target="_blank" rel="noopener">고용노동부 노동포털 — 아르바이트 피해 구제방법(주휴수당 포함)</a></li>
+        <li><a href="https://www.moel.go.kr/policy/policydata/view.do?bbs_seq=20210802167" target="_blank" rel="noopener">고용노동부 — 주휴수당 및 연차휴가 산정방법 관련 행정해석 변경 안내(2021.8.4.)</a></li>
+      </ul>
+    </div>
   </div>
 
+  <footer style="max-width:620px; margin:40px auto 0; padding:20px 0 0; text-align:center; font-size:12.5px; color:var(--muted, #6E6656); border-top:1px solid var(--line, #D9D2BF);">
+    <a href="/" style="color:inherit; margin:0 8px;">홈</a>·<a href="/about" style="color:inherit; margin:0 8px;">소개</a>·<a href="/privacy" style="color:inherit; margin:0 8px;">개인정보처리방침</a>·<a href="mailto:contact@harukok.com" style="color:inherit; margin:0 8px;">문의</a>
+  </footer>
 </div>
 
 <script>
@@ -233,6 +269,5 @@
   $('calcBtn').addEventListener('click', calculate);
 })();
 </script>
-
 </body>
 </html>
