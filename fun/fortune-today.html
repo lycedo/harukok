@@ -109,6 +109,15 @@
     opacity:0; pointer-events:none; transition:opacity 0.2s ease, transform 0.2s ease; z-index:10;
   }
   .share-toast.visible{ opacity:1; transform:translateX(-50%) translateY(0); }
+
+  .site-nav{ display:flex; align-items:center; justify-content:space-between; width:100%; margin:0 0 22px; padding:0 0 14px; border-bottom:1px solid var(--line, #D9D2BF); }
+  .site-nav-brand{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:15px; color:var(--ink); text-decoration:none; }
+  .site-nav-brand span{ color:var(--stamp, #B23A2E); }
+  .site-nav-links{ display:flex; gap:2px; }
+  .site-nav-links a{ font-size:13.5px; color:var(--muted); text-decoration:none; padding:6px 10px; border-radius:6px; }
+  .site-nav-links a:hover{ color:var(--ink); background:var(--paper-light, rgba(0,0,0,0.045)); }
+  .site-nav-links a[aria-current="page"]{ color:var(--ink); font-weight:600; }
+  .site-nav-brand:focus-visible, .site-nav-links a:focus-visible{ outline:2px solid var(--stamp, #B23A2E); outline-offset:2px; border-radius:4px; }
 </style>
 <!-- Google AdSense -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6883245122372170" crossorigin="anonymous"></script>
@@ -140,7 +149,17 @@
 </head>
 <body>
 
+
 <div class="page">
+<nav class="site-nav" aria-label="주요 메뉴">
+  <a class="site-nav-brand" href="/">하루<span>콕</span></a>
+  <div class="site-nav-links">
+    <a href="/#sectionUtility" aria-current="page">도구</a>
+    <a href="/guides/">가이드</a>
+  </div>
+</nav>
+
+
   <a href="/" class="back-home">← 하루콕 홈으로</a>
   <h1>오늘의 운세</h1>
   <p class="lede">버튼을 눌러 오늘의 기운을 확인해보세요.</p>

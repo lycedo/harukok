@@ -69,6 +69,9 @@
   .breakdown-row{ display:flex; justify-content:space-between; align-items:baseline; font-size:14px; padding:9px 0; color:var(--ink-soft); }
   .breakdown-row .amount{ font-family:'IBM Plex Mono', monospace; color:var(--ink); font-weight:600; font-size:16px; }
   .disclaimer{ font-size:11.5px; color:var(--muted); line-height:1.6; margin-top:24px; padding-top:16px; border-top:1px dotted var(--line); }
+  .guide-callout{ display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:8px; margin-top:16px; padding:12px 14px; background:var(--paper-light); border:1px dashed var(--line); border-radius:8px; font-size:12.5px; color:var(--ink-soft); }
+  .guide-callout a{ color:var(--stamp); font-weight:600; text-decoration:none; white-space:nowrap; }
+  .guide-callout a:hover{ text-decoration:underline; }
   .slot{ border:1.5px dashed var(--line); border-radius:10px; padding:18px; text-align:center; font-size:12px; color:var(--muted); margin-top:24px; }
   @media (max-width:480px){ .card{ padding:24px; } h1{ font-size:25px; } .result-amount{ font-size:34px; } }
 
@@ -93,6 +96,15 @@
 
   .back-home{ display:inline-block; font-size:12.5px; color:var(--muted); text-decoration:none; margin-bottom:14px; }
   .back-home:hover{ color:var(--ink); }
+
+  .site-nav{ display:flex; align-items:center; justify-content:space-between; width:100%; margin:0 0 22px; padding:0 0 14px; border-bottom:1px solid var(--line, #D9D2BF); }
+  .site-nav-brand{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:15px; color:var(--ink); text-decoration:none; }
+  .site-nav-brand span{ color:var(--stamp, #B23A2E); }
+  .site-nav-links{ display:flex; gap:2px; }
+  .site-nav-links a{ font-size:13.5px; color:var(--muted); text-decoration:none; padding:6px 10px; border-radius:6px; }
+  .site-nav-links a:hover{ color:var(--ink); background:var(--paper-light, rgba(0,0,0,0.045)); }
+  .site-nav-links a[aria-current="page"]{ color:var(--ink); font-weight:600; }
+  .site-nav-brand:focus-visible, .site-nav-links a:focus-visible{ outline:2px solid var(--stamp, #B23A2E); outline-offset:2px; border-radius:4px; }
 </style>
 <!-- Google AdSense -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6883245122372170" crossorigin="anonymous"></script>
@@ -139,7 +151,17 @@
 </head>
 <body>
 
+
 <div class="stub">
+<nav class="site-nav" aria-label="주요 메뉴">
+  <a class="site-nav-brand" href="/">하루<span>콕</span></a>
+  <div class="site-nav-links">
+    <a href="/#sectionUtility" aria-current="page">도구</a>
+    <a href="/guides/">가이드</a>
+  </div>
+</nav>
+
+
   <a href="/" class="back-home">← 하루콕 홈으로</a>
   <div class="kicker">임신·출산</div>
   <h1>육아휴직급여 계산기</h1>
@@ -197,6 +219,11 @@
     <div class="result-amount" id="benefitAmount">0<span class="unit">만원</span></div>
 
     <div class="breakdown" id="breakdown"></div>
+
+    <div class="guide-callout">
+      <span>혼자 쓸 때와 부모가 함께 쓸 때 얼마나 다른가요?</span>
+      <a href="/guides/parental-leave-monthly-comparison">월별 수령액 비교 가이드 →</a>
+    </div>
 
     <div class="disclaimer">
       <strong>적용 기준</strong> — 2025년 1월 1일 시행된 개편 육아휴직급여(1~3개월 상한 250만원, 4~6개월 상한 200만원, 7개월 이후 통상임금 80%·상한 160만원, 하한 70만원 전 구간 공통)와 6+6 부모육아휴직제 특례(1개월 250만→6개월 450만원). 이 기준은 2026년에도 동일하게 적용됩니다. <strong>자료 검증일: 2026-09-17</strong><br><br>

@@ -45,6 +45,12 @@
   .lede{ font-size:14.5px; color:var(--ink-soft); line-height:1.6; margin:0 0 32px; }
   .back-home{ display:inline-block; font-size:12.5px; color:var(--muted); text-decoration:none; margin-bottom:14px; }
   .back-home:hover{ color:var(--ink); }
+  .breadcrumb{ font-size:12px; color:var(--muted); margin-bottom:14px; }
+  .breadcrumb a{ color:var(--muted); text-decoration:none; }
+  .breadcrumb a:hover{ color:var(--ink); text-decoration:underline; }
+  .breadcrumb [aria-current="page"]{ color:var(--ink-soft); }
+  .cta-btn{ display:inline-block; margin-top:8px; padding:13px 22px; background:var(--ink); color:var(--paper-light); border-radius:10px; font-size:14.5px; font-weight:600; text-decoration:none; }
+  .cta-btn:hover{ background:var(--ink-soft); }
 
   .related{ margin-bottom:32px; }
   .related-title{ font-size:12.5px; color:var(--muted); margin-bottom:10px; }
@@ -81,6 +87,15 @@
   .disclaimer{ font-size:11.5px; color:var(--muted); line-height:1.6; margin-top:24px; padding-top:16px; border-top:1px dotted var(--line); }
 
   @media (max-width:480px){ h1{ font-size:23px; } }
+
+  .site-nav{ display:flex; align-items:center; justify-content:space-between; width:100%; margin:0 0 22px; padding:0 0 14px; border-bottom:1px solid var(--line, #D9D2BF); }
+  .site-nav-brand{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:15px; color:var(--ink); text-decoration:none; }
+  .site-nav-brand span{ color:var(--stamp, #B23A2E); }
+  .site-nav-links{ display:flex; gap:2px; }
+  .site-nav-links a{ font-size:13.5px; color:var(--muted); text-decoration:none; padding:6px 10px; border-radius:6px; }
+  .site-nav-links a:hover{ color:var(--ink); background:var(--paper-light, rgba(0,0,0,0.045)); }
+  .site-nav-links a[aria-current="page"]{ color:var(--ink); font-weight:600; }
+  .site-nav-brand:focus-visible, .site-nav-links a:focus-visible{ outline:2px solid var(--stamp, #B23A2E); outline-offset:2px; border-radius:4px; }
 </style>
 <!-- Google AdSense -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6883245122372170" crossorigin="anonymous"></script>
@@ -99,8 +114,20 @@
 </head>
 <body>
 
+
 <div class="stub">
-  <a href="/" class="back-home">← 하루콕 홈으로</a>
+<nav class="site-nav" aria-label="주요 메뉴">
+  <a class="site-nav-brand" href="/">하루<span>콕</span></a>
+  <div class="site-nav-links">
+    <a href="/#sectionUtility">도구</a>
+    <a href="/guides/" aria-current="page">가이드</a>
+  </div>
+</nav>
+
+
+  <nav class="breadcrumb" aria-label="현재 위치">
+    <a href="/">홈</a><span aria-hidden="true"> › </span><a href="/guides/">가이드</a><span aria-hidden="true"> › </span><span aria-current="page">퇴직금 계산 시 상여금과 수당, 이렇게 입력하세요</span>
+  </nav>
   <div class="kicker">해설 · 퇴사·이직</div>
   <h1>퇴직금 계산 시 상여금과 수당, 이렇게 입력하세요</h1>
   <p class="lede">퇴직금 계산기의 '최근 3개월간 받은 급여 총액'란에 상여금과 각종 수당을 어떻게 넣어야 정확한지 실제 계산 함수로 검증한 예시로 설명합니다.</p>
@@ -162,6 +189,8 @@
 
     <h2>이 방법이 통하지 않는 경우</h2>
     <p>최근 3개월 안에 수습기간·육아휴직·산재요양처럼 근로기준법 시행령 제2조가 정한 평균임금 산정 제외 기간이 포함돼 있다면, 이 글의 3/12 환산 방법만으로는 정확한 금액을 낼 수 없습니다. 하루콕 퇴직금 계산기는 산정 기간을 '퇴사일 기준 정확히 3개월'로 고정해서 계산하기 때문에, 이런 경우는 계산 지원 범위 밖입니다 — 고용노동부 노동포털의 공식 계산기나 회사 인사팀에 확인하세요.</p>
+
+    <p><a class="cta-btn" href="/tools/severance-pay-calculator">내 퇴직금 계산하기 →</a></p>
 
     <div class="sources">
       <div class="sources-title">참고 자료 및 출처</div>

@@ -41,18 +41,27 @@
   }
   .wrap{ width:100%; max-width: 720px; }
 
-  header{ text-align:center; margin-bottom: 48px; }
+  .site-nav{ display:flex; align-items:center; justify-content:space-between; max-width:640px; margin:0 auto 28px; padding:10px 2px 14px; border-bottom:1px solid #D9D2BF; }
+  .site-nav-brand{ font-family:'Do Hyeon', sans-serif; font-weight:400; font-size:17px; color:var(--ink); text-decoration:none; }
+  .site-nav-brand span{ color:var(--stamp); }
+  .site-nav-links{ display:flex; gap:2px; }
+  .site-nav-links a{ font-size:13.5px; color:var(--muted); text-decoration:none; padding:6px 10px; border-radius:6px; }
+  .site-nav-links a:hover{ color:var(--ink); background:var(--navy-soft); }
+  .site-nav-links a[aria-current="page"]{ color:var(--ink); font-weight:600; }
+  .site-nav-brand:focus-visible, .site-nav-links a:focus-visible{ outline:2px solid var(--stamp); outline-offset:2px; border-radius:4px; }
+
+  header{ text-align:center; margin-bottom: 22px; }
 
   .brand{
     font-family: 'Do Hyeon', sans-serif;
-    font-size: 46px;
+    font-size: 40px;
     color: var(--ink);
-    margin: 0 0 10px;
+    margin: 0 0 8px;
   }
   .brand span{ color: var(--stamp); }
 
   .tagline{
-    font-size: 15px;
+    font-size: 14px;
     color: var(--muted);
     margin:0;
   }
@@ -145,22 +154,17 @@
   .ad-slot{ margin-bottom: 44px; }
 
   .about{
-    background: var(--navy-soft);
-    border-radius: 4px;
-    padding: 24px 26px;
-    margin-bottom: 44px;
-  }
-  .about h2{
-    font-family: 'Noto Serif KR', serif;
-    font-weight: 700;
-    font-size: 16px;
-    margin: 0 0 10px;
+    text-align:center;
+    margin-bottom: 28px;
   }
   .about p{
-    font-size: 13.5px;
-    line-height: 1.7;
+    font-size: 12.5px;
+    line-height: 1.6;
     color: var(--muted);
     margin: 0;
+    max-width: 52ch;
+    margin-left:auto;
+    margin-right:auto;
   }
 
   details.subsection{
@@ -268,6 +272,27 @@
   }
   .goal-card .goal-links a:hover{ background: var(--navy-soft); }
   .goal-card .goal-links a.article{ color: var(--muted); }
+
+  .guide-section{ margin-bottom: 44px; }
+  .guide-lede{ font-size:13px; color:var(--muted); line-height:1.6; margin:-6px 0 16px; max-width:54ch; }
+  .guide-list{ display:flex; flex-direction:column; gap:10px; margin-bottom:14px; }
+  .guide-card{
+    display:block; text-decoration:none; color:inherit;
+    background:#fff; border:1.5px solid #DCD6C1; border-left:3px solid var(--stamp);
+    border-radius:8px; padding:16px 18px;
+  }
+  .guide-tag{
+    display:inline-block; font-size:11px; color:var(--muted);
+    border:1px solid #DCD6C1; border-radius:999px; padding:2px 9px; margin-bottom:8px;
+  }
+  .guide-title{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:15px; color:var(--ink); margin-bottom:6px; line-height:1.4; }
+  .guide-hook{ font-size:12.5px; color:var(--muted); line-height:1.55; margin-bottom:10px; }
+  .guide-link{ font-size:12.5px; font-weight:600; color:var(--stamp); }
+  .guide-card:hover{ border-color:var(--stamp); }
+  .guide-card:hover .guide-link{ text-decoration:underline; }
+  .guide-card:focus-visible{ outline:2px solid var(--stamp); outline-offset:2px; }
+  .guide-all-link{ display:inline-block; font-size:13px; color:var(--ink); text-decoration:none; padding:8px 2px; }
+  .guide-all-link:hover{ text-decoration:underline; }
 </style>
 <!-- Google AdSense -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6883245122372170" crossorigin="anonymous"></script>
@@ -283,14 +308,21 @@
 <body>
 <div class="wrap">
 
+  <nav class="site-nav" aria-label="주요 메뉴">
+    <a class="site-nav-brand" href="/">하루<span>콕</span></a>
+    <div class="site-nav-links">
+      <a href="#sectionUtility">도구</a>
+      <a href="/guides/">가이드</a>
+    </div>
+  </nav>
+
   <header>
     <h1 class="brand">하루<span>콕</span></h1>
     <p class="tagline">오늘 필요한 계산, 오늘 즐길 거리 — 한 곳에서 3초 만에.</p>
   </header>
 
   <div class="about">
-    <h2>하루콕는 이런 곳이에요</h2>
-    <p>회원가입이나 로그인 없이, 필요한 도구를 바로 쓸 수 있게 만든 사이트입니다. 실용 계산기는 최신 요율·법령을 반영해 만들었고, 재미 도구는 고민되는 순간을 가볍게 해결해드립니다. 입력한 정보는 서버로 전송되지 않고 이 기기 안에서만 처리됩니다.</p>
+    <p>회원가입 없이 바로 쓰는 무료 도구 모음입니다. 입력한 정보는 서버로 전송되지 않고 이 기기 안에서만 처리됩니다.</p>
   </div>
 
   <div class="goal-section">
@@ -298,34 +330,57 @@
     <div class="goal-grid">
       <div class="goal-card">
         <div class="goal-title">💰 월급 확인</div>
-        <div class="goal-desc">이번 달 실수령액이 맞는지, 시급·주휴수당이 제대로 반영됐는지 확인하고 싶을 때</div>
+        <div class="goal-desc">실수령액, 시급·주휴수당을 확인하고 싶을 때</div>
         <div class="goal-links">
           <a href="/tools/salary-calculator">연봉 실수령액 계산기</a>
           <a href="/tools/hourly-wage-calculator">시급 계산기</a>
           <a href="/tools/weekly-holiday-pay-calculator">주휴수당 계산기</a>
-          <a href="/guides/salary-vs-payslip" class="article">→ 계산기 결과와 급여명세서가 다른 이유</a>
         </div>
       </div>
       <div class="goal-card">
         <div class="goal-title">📦 퇴사 준비</div>
-        <div class="goal-desc">퇴사를 앞두고 퇴직금·실업급여·남은 연차수당이 얼마인지 미리 가늠하고 싶을 때</div>
+        <div class="goal-desc">퇴직금·실업급여·연차수당을 미리 가늠하고 싶을 때</div>
         <div class="goal-links">
           <a href="/tools/severance-pay-calculator">퇴직금 계산기</a>
           <a href="/tools/unemployment-benefit-calculator">실업급여 계산기</a>
           <a href="/tools/annual-leave-pay-calculator">연차수당 계산기</a>
-          <a href="/guides/severance-bonus-input" class="article">→ 퇴직금에 상여금·수당 입력하는 법</a>
         </div>
       </div>
       <div class="goal-card">
         <div class="goal-title">👶 육아휴직 준비</div>
-        <div class="goal-desc">육아휴직을 앞두고 매달 예상 급여와 출산 예정일을 함께 확인하고 싶을 때</div>
+        <div class="goal-desc">매달 예상 급여와 출산 예정일을 확인하고 싶을 때</div>
         <div class="goal-links">
           <a href="/tools/parental-leave-calculator">육아휴직급여 계산기</a>
           <a href="/tools/due-date-calculator">출산 예정일 계산기</a>
-          <a href="/guides/parental-leave-monthly-comparison" class="article">→ 육아휴직 월별 수령액 비교</a>
         </div>
       </div>
     </div>
+  </div>
+
+  <div class="guide-section">
+    <div class="section-label">생활 계산 가이드</div>
+    <p class="guide-lede">계산기는 바로 계산·생성하는 도구이고, 가이드는 입력 방법·결과 해석을 설명하는 글입니다. 계산기 사용 전후에 참고하세요.</p>
+    <div class="guide-list">
+      <a class="guide-card" href="/guides/salary-vs-payslip">
+        <span class="guide-tag">급여</span>
+        <div class="guide-title">연봉 계산기 결과와 실제 급여명세서가 다른 이유</div>
+        <div class="guide-hook">월급이 계산기 결과와 다를 때 확인할 공제 항목을 정리했습니다.</div>
+        <span class="guide-link">가이드 읽기 →</span>
+      </a>
+      <a class="guide-card" href="/guides/severance-bonus-input">
+        <span class="guide-tag">퇴직금</span>
+        <div class="guide-title">퇴직금 계산 시 상여금과 수당, 이렇게 입력하세요</div>
+        <div class="guide-hook">상여금·연차수당이 있을 때 퇴직금 계산기에 얼마를, 어떻게 넣어야 하는지 정리했습니다.</div>
+        <span class="guide-link">가이드 읽기 →</span>
+      </a>
+      <a class="guide-card" href="/guides/parental-leave-monthly-comparison">
+        <span class="guide-tag">육아휴직</span>
+        <div class="guide-title">육아휴직 월별 예상 수령액 비교</div>
+        <div class="guide-hook">혼자 쓸 때와 부모가 함께(6+6) 쓸 때 매달 받는 금액이 얼마나 다른지 비교했습니다.</div>
+        <span class="guide-link">가이드 읽기 →</span>
+      </a>
+    </div>
+    <a class="guide-all-link" href="/guides/">가이드 전체 보기 →</a>
   </div>
 
   <div class="search-row">

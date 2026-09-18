@@ -229,6 +229,15 @@
   .faq-item{ margin-bottom:16px; }
   .faq-item .q{ font-size:14px; font-weight:600; margin-bottom:5px; }
   .faq-item .a{ font-size:13.5px; line-height:1.65; color:var(--ink-soft); }
+
+  .site-nav{ display:flex; align-items:center; justify-content:space-between; width:100%; margin:0 0 22px; padding:0 0 14px; border-bottom:1px solid var(--line, #D9D2BF); }
+  .site-nav-brand{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:15px; color:var(--ink); text-decoration:none; }
+  .site-nav-brand span{ color:var(--stamp, #B23A2E); }
+  .site-nav-links{ display:flex; gap:2px; }
+  .site-nav-links a{ font-size:13.5px; color:var(--muted); text-decoration:none; padding:6px 10px; border-radius:6px; }
+  .site-nav-links a:hover{ color:var(--ink); background:var(--paper-light, rgba(0,0,0,0.045)); }
+  .site-nav-links a[aria-current="page"]{ color:var(--ink); font-weight:600; }
+  .site-nav-brand:focus-visible, .site-nav-links a:focus-visible{ outline:2px solid var(--stamp, #B23A2E); outline-offset:2px; border-radius:4px; }
 </style>
 <!-- Google AdSense -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6883245122372170" crossorigin="anonymous"></script>
@@ -268,7 +277,17 @@
 </head>
 <body>
 
+
+
 <div class="stub">
+<nav class="site-nav" aria-label="주요 메뉴">
+  <a class="site-nav-brand" href="/">하루<span>콕</span></a>
+  <div class="site-nav-links">
+    <a href="/#sectionUtility" aria-current="page">도구</a>
+    <a href="/guides/">가이드</a>
+  </div>
+</nav>
+
   <a href="/" class="back-home">← 하루콕 홈으로</a>
   <div class="kicker">만들기</div>
   <h1>상장 만들기</h1>

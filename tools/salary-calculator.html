@@ -263,6 +263,15 @@
     border-top: 1px dotted var(--line);
   }
 
+  .guide-callout{
+    display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:8px;
+    margin-top:16px; padding:12px 14px;
+    background: var(--paper-light); border:1px dashed var(--line); border-radius:8px;
+    font-size:12.5px; color:var(--ink-soft);
+  }
+  .guide-callout a{ color:var(--stamp); font-weight:600; text-decoration:none; white-space:nowrap; }
+  .guide-callout a:hover{ text-decoration:underline; }
+
   /* Ad / affiliate slots — replace inner content with real code */
   .slot{
     border: 1.5px dashed var(--line);
@@ -302,6 +311,15 @@
 
   .back-home{ display:inline-block; font-size:12.5px; color:var(--muted); text-decoration:none; margin-bottom:14px; }
   .back-home:hover{ color:var(--ink); }
+
+  .site-nav{ display:flex; align-items:center; justify-content:space-between; width:100%; margin:0 0 22px; padding:0 0 14px; border-bottom:1px solid var(--line, #D9D2BF); }
+  .site-nav-brand{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:15px; color:var(--ink); text-decoration:none; }
+  .site-nav-brand span{ color:var(--stamp, #B23A2E); }
+  .site-nav-links{ display:flex; gap:2px; }
+  .site-nav-links a{ font-size:13.5px; color:var(--muted); text-decoration:none; padding:6px 10px; border-radius:6px; }
+  .site-nav-links a:hover{ color:var(--ink); background:var(--paper-light, rgba(0,0,0,0.045)); }
+  .site-nav-links a[aria-current="page"]{ color:var(--ink); font-weight:600; }
+  .site-nav-brand:focus-visible, .site-nav-links a:focus-visible{ outline:2px solid var(--stamp, #B23A2E); outline-offset:2px; border-radius:4px; }
 </style>
 <!-- Google AdSense -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6883245122372170" crossorigin="anonymous"></script>
@@ -372,7 +390,17 @@
 </head>
 <body>
 
+
 <div class="stub">
+<nav class="site-nav" aria-label="주요 메뉴">
+  <a class="site-nav-brand" href="/">하루<span>콕</span></a>
+  <div class="site-nav-links">
+    <a href="/#sectionUtility" aria-current="page">도구</a>
+    <a href="/guides/">가이드</a>
+  </div>
+</nav>
+
+
   <a href="/" class="back-home">← 하루콕 홈으로</a>
   <div class="kicker">급여 계산</div>
   <h1>2026년 연봉<br>실수령액 계산기</h1>
@@ -448,6 +476,11 @@
 
     <div class="breakdown" id="breakdown">
       <!-- filled by JS -->
+    </div>
+
+    <div class="guide-callout">
+      <span>급여명세서와 금액이 다른가요?</span>
+      <a href="/guides/salary-vs-payslip">연봉·급여명세서 차이 가이드 →</a>
     </div>
 
     <div class="disclaimer">

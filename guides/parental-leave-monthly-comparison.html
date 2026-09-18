@@ -45,6 +45,12 @@
   .lede{ font-size:14.5px; color:var(--ink-soft); line-height:1.6; margin:0 0 32px; }
   .back-home{ display:inline-block; font-size:12.5px; color:var(--muted); text-decoration:none; margin-bottom:14px; }
   .back-home:hover{ color:var(--ink); }
+  .breadcrumb{ font-size:12px; color:var(--muted); margin-bottom:14px; }
+  .breadcrumb a{ color:var(--muted); text-decoration:none; }
+  .breadcrumb a:hover{ color:var(--ink); text-decoration:underline; }
+  .breadcrumb [aria-current="page"]{ color:var(--ink-soft); }
+  .cta-btn{ display:inline-block; margin-top:8px; padding:13px 22px; background:var(--ink); color:var(--paper-light); border-radius:10px; font-size:14.5px; font-weight:600; text-decoration:none; }
+  .cta-btn:hover{ background:var(--ink-soft); }
 
   .related{ margin-bottom:32px; }
   .related-title{ font-size:12.5px; color:var(--muted); margin-bottom:10px; }
@@ -77,6 +83,15 @@
   .disclaimer{ font-size:11.5px; color:var(--muted); line-height:1.6; margin-top:24px; padding-top:16px; border-top:1px dotted var(--line); }
 
   @media (max-width:480px){ h1{ font-size:22px; } table{ font-size:11px; } th, td{ padding:6px; } }
+
+  .site-nav{ display:flex; align-items:center; justify-content:space-between; width:100%; margin:0 0 22px; padding:0 0 14px; border-bottom:1px solid var(--line, #D9D2BF); }
+  .site-nav-brand{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:15px; color:var(--ink); text-decoration:none; }
+  .site-nav-brand span{ color:var(--stamp, #B23A2E); }
+  .site-nav-links{ display:flex; gap:2px; }
+  .site-nav-links a{ font-size:13.5px; color:var(--muted); text-decoration:none; padding:6px 10px; border-radius:6px; }
+  .site-nav-links a:hover{ color:var(--ink); background:var(--paper-light, rgba(0,0,0,0.045)); }
+  .site-nav-links a[aria-current="page"]{ color:var(--ink); font-weight:600; }
+  .site-nav-brand:focus-visible, .site-nav-links a:focus-visible{ outline:2px solid var(--stamp, #B23A2E); outline-offset:2px; border-radius:4px; }
 </style>
 <!-- Google AdSense -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6883245122372170" crossorigin="anonymous"></script>
@@ -95,8 +110,20 @@
 </head>
 <body>
 
+
 <div class="stub">
-  <a href="/" class="back-home">← 하루콕 홈으로</a>
+<nav class="site-nav" aria-label="주요 메뉴">
+  <a class="site-nav-brand" href="/">하루<span>콕</span></a>
+  <div class="site-nav-links">
+    <a href="/#sectionUtility">도구</a>
+    <a href="/guides/" aria-current="page">가이드</a>
+  </div>
+</nav>
+
+
+  <nav class="breadcrumb" aria-label="현재 위치">
+    <a href="/">홈</a><span aria-hidden="true"> › </span><a href="/guides/">가이드</a><span aria-hidden="true"> › </span><span aria-current="page">육아휴직 월별 예상 수령액 비교</span>
+  </nav>
   <div class="kicker">해설 · 임신·출산</div>
   <h1>육아휴직 월별 예상 수령액 비교 — 혼자 쓸 때 vs 부모 함께 쓸 때</h1>
   <p class="lede">같은 통상임금이라도 혼자 육아휴직을 쓰는지, 부모가 함께(6+6 특례) 쓰는지에 따라 매달 받는 금액과 총액이 크게 달라집니다. 하루콕 육아휴직급여 계산기의 실제 계산 로직으로 통상임금별 월별 수령액을 비교합니다.</p>
@@ -163,6 +190,8 @@
 
     <h2>결과 확인 후 할 일</h2>
     <p>이 비교표는 이해를 돕기 위한 가상의 예시이며, 실제로는 본인의 정확한 통상임금을 하루콕 <a href="/tools/parental-leave-calculator">육아휴직급여 계산기</a>에 입력해 개월차별 예상 수령액을 다시 확인하는 것이 정확합니다. 실제 지급 자격과 최종 금액은 고용24(work24.go.kr) 또는 관할 고용센터에서 확인하세요.</p>
+
+    <p><a class="cta-btn" href="/tools/parental-leave-calculator">내 육아휴직급여 계산하기 →</a></p>
 
     <div class="sources">
       <div class="sources-title">참고 자료 및 출처 <span style="font-weight:400; color:var(--muted);">(검증일 2026-09-17)</span></div>
