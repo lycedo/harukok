@@ -102,6 +102,10 @@
   .guide-callout{ display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:8px; margin-top:16px; padding:12px 14px; background:var(--paper-light); border:1px dashed var(--line); border-radius:8px; font-size:12.5px; color:var(--ink-soft); }
   .guide-callout a{ color:var(--stamp); font-weight:600; text-decoration:none; white-space:nowrap; }
   .guide-callout a:hover{ text-decoration:underline; }
+  details.cap-details{ margin:0 0 20px; border:1px dashed var(--line); border-radius:10px; padding:12px 14px; }
+  details.cap-details summary{ cursor:pointer; font-size:13px; color:var(--ink-soft); font-weight:600; }
+  details.cap-details summary:focus-visible{ outline:2px solid var(--stamp); outline-offset:2px; }
+  details.cap-details .field{ margin-top:16px; margin-bottom:0; }
 </style>
 <!-- Google AdSense -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6883245122372170" crossorigin="anonymous"></script>
@@ -218,21 +222,24 @@
       </div>
     </div>
 
-    <div class="field">
-      <label for="capUpper">구직급여 상한액 (원/일)</label>
-      <div class="input-row">
-        <input type="number" id="capUpper" value="68100" inputmode="numeric">
+    <details class="cap-details">
+      <summary>상한액·하한액 확인/수정 (2026년 기준값이 입력되어 있어 보통은 그대로 두시면 됩니다)</summary>
+      <div class="field">
+        <label for="capUpper">구직급여 상한액 (원/일)</label>
+        <div class="input-row">
+          <input type="number" id="capUpper" value="68100" inputmode="numeric">
+        </div>
+        <span class="field-hint">2026년 기준 68,100원입니다. 매년 바뀌니 최신 금액으로 수정해서 계산하세요.</span>
       </div>
-      <span class="field-hint">2026년 기준 68,100원(6년 만에 인상). 매년 바뀌니 최신 금액으로 수정해서 계산하세요.</span>
-    </div>
 
-    <div class="field">
-      <label for="capLower">구직급여 하한액 (원/일)</label>
-      <div class="input-row">
-        <input type="number" id="capLower" value="66048" inputmode="numeric">
+      <div class="field">
+        <label for="capLower">구직급여 하한액 (원/일)</label>
+        <div class="input-row">
+          <input type="number" id="capLower" value="66048" inputmode="numeric">
+        </div>
+        <span class="field-hint">2026년 최저임금(시급 10,320원) × 8시간 × 80% 기준입니다. 매년 바뀝니다.</span>
       </div>
-      <span class="field-hint">2026년 최저임금(시급 10,320원) × 8시간 × 80% 기준입니다. 매년 바뀝니다.</span>
-    </div>
+    </details>
 
     <button class="calc-btn" id="calcBtn">구직급여 계산하기</button>
   </div>
