@@ -166,9 +166,9 @@
       <div class="convert-col">
         <label>변환 전</label>
         <div class="input-row">
-          <input type="number" id="fromValue" value="1" inputmode="decimal">
+          <input type="number" id="fromValue" aria-label="변환 전 값" value="1" inputmode="decimal">
         </div>
-        <select id="fromUnit"></select>
+        <select id="fromUnit" aria-label="변환 전 단위"></select>
       </div>
 
       <button type="button" class="swap-btn" id="swapBtn" title="단위 바꾸기">⇄</button>
@@ -176,9 +176,9 @@
       <div class="convert-col">
         <label>변환 후</label>
         <div class="input-row">
-          <input type="text" id="toValue" readonly>
+          <input type="text" id="toValue" aria-label="변환 후 값" readonly>
         </div>
-        <select id="toUnit"></select>
+        <select id="toUnit" aria-label="변환 후 단위"></select>
       </div>
     </div>
   </div>
