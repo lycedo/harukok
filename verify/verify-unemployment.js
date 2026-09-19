@@ -61,5 +61,18 @@ console.log('\n=== 3. 1일 평균임금 = 3개월 임금 총액 ÷ 그 기간의
   check('월 340만원·89일 → 상한 68,100원 적용', daily(HTML, 340, 89), 68100);
   check('월 200만원·92일 → 하한 66,048원 적용', daily(HTML, 200, 92), 66048);
 }
+console.log('\n=== 4. 표시된 일액 × 일수 = 총액 (화면 숫자가 서로 맞아야 함) ===');
+{
+  const doc = loadCalculator(HTML);
+  for (const b of doc.querySelectorAll('#ageSeg button')) if (b.dataset.value === 'over50') b.click();
+  for (const b of doc.querySelectorAll('#tenureSeg button')) if (b.dataset.value === '5') b.click();
+  doc.getElementById('wage3m').value = '340'; doc.getElementById('days3m').value = '92'; doc.getElementById('calcBtn').click();
+  const t = doc.getElementById('breakdown').innerHTML;
+  const day = Number(/구직급여일액<\/span><span class="amount">([0-9,]+)원/.exec(t)[1].replace(/,/g, ''));
+  const days = Number(/소정급여일수<\/span><span class="amount">(\d+)일/.exec(t)[1]);
+  const total = Number(doc.getElementById('totalAmount').textContent.replace(/[^0-9]/g, ''));
+  check('표시된 일액 × 일수 = 총액', total, day * days);
+  check('총액 13,969,620원(66,522 × 210)', total, 13969620);
+}
 console.log('\n결과: ' + pass + '개 통과, ' + fail + '개 실패');
 if (fail > 0) process.exit(1);

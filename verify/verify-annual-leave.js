@@ -13,10 +13,10 @@ function run(file, man, days, dh, dd) {
   const b = c.getElementById('breakdown').innerHTML;
   return { total: Number(c.getElementById('totalAmount').textContent.replace(/[^0-9]/g, '')), hours: Number(/월 소정근로시간<\/span><span class="amount">(\d+)시간/.exec(b)[1]) };
 }
-console.log('=== 1. 주 40시간: 월 300만원, 5일 → 209시간, 시급 14,354원, 1일 114,833원, 총 574,163원 ===');
-{ const r = run(HTML, 300, 5, 8, 5); check('월 소정근로시간', r.hours, 209); check('총 연차수당', r.total, 574163); }
+console.log('=== 1. 주 40시간: 월 300만원, 5일 → 209시간, 시급 14,354원, 1일 114,833원, 총 574,165원(114,833원 × 5일) ===');
+{ const r = run(HTML, 300, 5, 8, 5); check('월 소정근로시간', r.hours, 209); check('총 연차수당(114,833원 × 5일)', r.total, 574165); }
 console.log('\n=== 2. 단시간(하루 5시간·주 4일=20시간): 209시간을 그대로 쓰면 안 됨 ===');
-{ const r = run(HTML, 150, 5, 5, 4); check('월 소정근로시간(20+4주휴=24h×4.345≈104)', r.hours, 104); check('1일 통상임금 72,115원×5일', r.total, 360577); }
+{ const r = run(HTML, 150, 5, 5, 4); check('월 소정근로시간(20+4주휴=24h×4.345≈104)', r.hours, 104); check('1일 통상임금 72,115원×5일', r.total, 360575); }
 console.log('\n=== 3. 회귀: 209시간 고정으로 되돌리면 단시간 사례 검증이 실패해야 함 ===');
 {
   const src = fs.readFileSync(HTML, 'utf8');

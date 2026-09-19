@@ -293,34 +293,64 @@
     }
   }
 
+  // 장르·형식·러닝타임은 서로 어울리는 조합으로만 묶어 뽑는다(예: '토크쇼'는 항상 예능, '수사물 드라마'는 몰아보기).
   const POOL = {
     FUN: {
-      genres: ['시트콤 코미디', '로맨틱 코미디', '병맛 예능', '토크쇼', '몰래카메라 예능'],
+      picks: [
+        { genre: '시트콤 코미디', format: '시트콤', runtime: '30분 안팎 (가볍게)' },
+        { genre: '로맨틱 코미디', format: '영화', runtime: '2시간 안팎 (영화 한 편)' },
+        { genre: '병맛 예능', format: '예능', runtime: '1시간 내외 (부담 없이)' },
+        { genre: '토크쇼', format: '예능', runtime: '1시간 내외 (부담 없이)' },
+        { genre: '몰래카메라 예능', format: '예능', runtime: '1시간 내외 (부담 없이)' }
+      ],
       reasons: ['가볍게 웃으면서 스트레스를 풀 수 있어요', '머리 비우고 편하게 보기 좋아요', '친구랑 같이 봐도 분위기가 좋아요'],
-      formats: ['예능', '시트콤', '코미디 영화'],
     },
     HEALING: {
-      genres: ['일상 힐링 드라마', '자연·여행 다큐', '잔잔한 음악 영화', '요리·음식 다큐', '슬로우 라이프 예능'],
+      picks: [
+        { genre: '일상 힐링 드라마', format: '드라마', runtime: '몰아보기 (시리즈 정주행)' },
+        { genre: '자연·여행 다큐', format: '다큐멘터리', runtime: '1시간 내외 (부담 없이)' },
+        { genre: '잔잔한 음악 영화', format: '영화', runtime: '2시간 안팎 (영화 한 편)' },
+        { genre: '요리·음식 다큐', format: '다큐멘터리', runtime: '1시간 내외 (부담 없이)' },
+        { genre: '슬로우 라이프 예능', format: '예능', runtime: '1시간 내외 (부담 없이)' }
+      ],
       reasons: ['마음이 편안해지는 잔잔한 전개예요', '자기 전에 부담 없이 보기 좋아요', '보고 나면 기분이 차분해져요'],
-      formats: ['다큐멘터리', '드라마', '힐링 영화'],
     },
     THRILL: {
-      genres: ['범죄 스릴러', '수사물 드라마', '서바이벌 예능', 'SF 액션', '미스터리 영화'],
+      picks: [
+        { genre: '범죄 스릴러', format: '영화', runtime: '2시간 안팎 (영화 한 편)' },
+        { genre: '수사물 드라마', format: '드라마 시리즈', runtime: '몰아보기 (시리즈 정주행)' },
+        { genre: '서바이벌 예능', format: '예능', runtime: '1시간 내외 (부담 없이)' },
+        { genre: 'SF 액션', format: '영화', runtime: '2시간 안팎 (영화 한 편)' },
+        { genre: '미스터리 영화', format: '영화', runtime: '2시간 안팎 (영화 한 편)' }
+      ],
       reasons: ['몰입도가 높아 시간 가는 줄 몰라요', '다음 전개가 궁금해서 계속 보게 돼요', '긴장감 있는 전개로 확실히 각성돼요'],
-      formats: ['영화', '드라마 시리즈', '다큐 스릴러'],
     },
     CRY: {
-      genres: ['가족 휴먼 드라마', '멜로 영화', '실화 바탕 영화', '반려동물 다큐', '이별·성장 서사'],
+      picks: [
+        { genre: '가족 휴먼 드라마', format: '드라마', runtime: '몰아보기 (시리즈 정주행)' },
+        { genre: '멜로 영화', format: '영화', runtime: '2시간 안팎 (영화 한 편)' },
+        { genre: '실화 바탕 영화', format: '영화', runtime: '2시간 안팎 (영화 한 편)' },
+        { genre: '반려동물 다큐', format: '다큐멘터리', runtime: '1시간 내외 (부담 없이)' },
+        { genre: '이별·성장 서사', format: '드라마', runtime: '몰아보기 (시리즈 정주행)' }
+      ],
       reasons: ['감정이입해서 실컷 울기 좋아요', '보고 나면 마음이 정화되는 느낌이에요', '눈물 버튼을 제대로 눌러줘요'],
-      formats: ['영화', '드라마', '다큐멘터리'],
     },
     ANY: {
-      genres: ['로맨스', '코미디', '액션', '스릴러', '애니메이션', '다큐멘터리', 'SF', '미스터리', '휴먼 드라마', '음악 영화'],
+      picks: [
+        { genre: '로맨스', format: '영화', runtime: '2시간 안팎 (영화 한 편)' },
+        { genre: '코미디', format: '영화', runtime: '2시간 안팎 (영화 한 편)' },
+        { genre: '액션', format: '영화', runtime: '2시간 안팎 (영화 한 편)' },
+        { genre: '스릴러', format: '영화', runtime: '2시간 안팎 (영화 한 편)' },
+        { genre: '애니메이션', format: '영화', runtime: '2시간 안팎 (영화 한 편)' },
+        { genre: '다큐멘터리', format: '다큐멘터리', runtime: '1시간 내외 (부담 없이)' },
+        { genre: 'SF', format: '영화', runtime: '2시간 안팎 (영화 한 편)' },
+        { genre: '미스터리', format: '드라마 시리즈', runtime: '몰아보기 (시리즈 정주행)' },
+        { genre: '휴먼 드라마', format: '드라마 시리즈', runtime: '몰아보기 (시리즈 정주행)' },
+        { genre: '음악 영화', format: '영화', runtime: '2시간 안팎 (영화 한 편)' }
+      ],
       reasons: ['평소 안 보던 장르라 신선하게 즐길 수 있어요', '취향을 넓혀보기 좋은 기회예요', '오늘의 기분에 은근히 잘 맞을 수 있어요'],
-      formats: ['영화', '드라마 시리즈', '예능', '다큐멘터리'],
     },
   };
-  const RUNTIMES = ['30분 안팎 (가볍게)', '1시간 내외 (부담 없이)', '2시간 안팎 (영화 한 편)', '몰아보기 (시리즈 정주행)'];
 
   let mood = 'ANY';
 
@@ -375,10 +405,11 @@
 
   function reveal(){
     const pool = POOL[mood];
-    $('rGenre').textContent = pick(pool.genres);
+    const chosen = pick(pool.picks);
+    $('rGenre').textContent = chosen.genre;
     $('rReason').textContent = pick(pool.reasons);
-    $('rFormat').textContent = pick(pool.formats);
-    $('rRuntime').textContent = pick(RUNTIMES);
+    $('rFormat').textContent = chosen.format;
+    $('rRuntime').textContent = chosen.runtime;
 
     $('result').classList.add('visible');
     $('shareRow').classList.add('visible');

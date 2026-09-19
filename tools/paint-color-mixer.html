@@ -341,6 +341,18 @@
   targetColorHex.addEventListener('change', syncFromHexInput);
 
   calcBtn.addEventListener('click', () => {
+    // 색 코드가 #RRGGBB 형식이 아니면 계산하지 않고 안내한다(잘못된 값으로 계산이 진행되지 않도록).
+    let typed = targetColorHex.value.trim();
+    if (!typed.startsWith('#')) typed = '#' + typed;
+    if (!isValidHex(typed)){
+      result.classList.remove('visible');
+      targetColorHex.setCustomValidity('색 코드는 #RRGGBB 형식(예: #B76E79)으로 입력해주세요.');
+      targetColorHex.reportValidity();
+      targetColorHex.setCustomValidity('');
+      return;
+    }
+    targetColorHex.value = typed.toUpperCase();
+    targetColorPicker.value = typed;
     const targetRgb = hexToRgb(targetColorHex.value);
     const chosenIdx = [...selected];
     const pigmentRgbs = chosenIdx.map(i => hexToRgb(PIGMENTS[i].hex));

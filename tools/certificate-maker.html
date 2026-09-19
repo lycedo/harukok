@@ -107,7 +107,6 @@
     font-size:13px; color:var(--ink-soft); cursor:pointer; font-weight:600;
   }
   .photo-btn:hover{ border-color:var(--ink); }
-  .photo-remove{ font-size:12px; color:var(--stamp); cursor:pointer; text-decoration:underline; display:none; }
 
   /* certificate preview */
   .cert-wrap{ display:flex; justify-content:center; margin-bottom:22px; }
@@ -349,7 +348,6 @@
       <div class="photo-upload-row">
         <button class="photo-btn" id="photoBtn">사진 추가</button>
         <input type="file" id="photoInput" accept="image/*" multiple>
-        <span class="photo-remove" id="photoRemoveBtn">전체 삭제</span>
       </div>
       <div class="photo-hint">여러 장 올릴 수 있어요. 상장 위 사진을 드래그해서 옮기고, ↻ 손잡이로 회전, 아래쪽 모서리를 잡고 드래그하면 크기 조절, × 버튼으로 삭제할 수 있어요.</div>
     </div>
@@ -455,7 +453,6 @@
   const photoBtn = $('photoBtn');
   const photoShapeRow = $('photoShapeRow');
   const photoInput = $('photoInput');
-  const photoRemoveBtn = $('photoRemoveBtn');
 
   const certTitle = $('certTitle');
   const certName = $('certName');
@@ -881,11 +878,6 @@
       reader.readAsDataURL(file);
     });
     photoInput.value = '';
-  });
-
-  photoRemoveBtn.addEventListener('click', () => {
-    photos = [];
-    renderPhotos();
   });
 
   const toast = $('shareToast');

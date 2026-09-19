@@ -275,7 +275,8 @@
     const holidayHours = weeklyHours < 15 ? 0 : Math.min(weeklyHours / 40, 1) * 8;
     const monthlyHours = Math.round((weeklyHours + holidayHours) * WEEKS_PER_MONTH);
     const hourlyWage = monthlyWage / monthlyHours;
-    const dailyWage = hourlyWage * dailyHours;
+    // 화면에 표시되는 1일 통상임금(원 단위)에 일수를 곱해 총액이 표시값과 맞도록 한다.
+    const dailyWage = Math.round(hourlyWage * dailyHours);
     const total = dailyWage * unusedDays;
 
     $('totalAmount').innerHTML = won(total) + '<span class="unit">원</span>';

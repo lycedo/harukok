@@ -341,7 +341,8 @@
     const days3m = Math.min(92, Math.max(89, parseFloat($('days3m').value) || 92));
     const dailyWage = (monthlyWage * 3) / days3m;
     const rawDaily = dailyWage * 0.6;
-    const dailyBenefit = Math.min(capUpper, Math.max(capLower, rawDaily));
+    // 화면에 표시되는 일액(원 단위)과 총액이 서로 맞도록, 일액을 원 단위로 확정한 뒤 일수를 곱한다.
+    const dailyBenefit = Math.round(Math.min(capUpper, Math.max(capLower, rawDaily)));
 
     const days = BENEFIT_DAYS[ageGroup][tenureGroup];
     const total = dailyBenefit * days;
