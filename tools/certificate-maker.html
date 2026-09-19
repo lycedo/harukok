@@ -978,7 +978,8 @@
   titleInput.value = TITLES[0].name;
   contentInput.value = TITLES[0].content;
   titlePresets.children[0].classList.add('active');
-  dateInput.value = new Date().toISOString().slice(0, 10);
+  const nowLocal = new Date();
+  dateInput.value = nowLocal.getFullYear() + '-' + String(nowLocal.getMonth() + 1).padStart(2, '0') + '-' + String(nowLocal.getDate()).padStart(2, '0');
   syncCert();
 })();
 </script>

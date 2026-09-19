@@ -183,8 +183,11 @@ console.log('   다시 구현한 계산기(사이트 코드를 복사한 것이 
     const monthlyIns = pension + health + ltc + emp, annualIns = monthlyIns * 12;
     const ded = refEarnedIncomeDeduction(gross), eia = Math.max(gross - ded, 0);
     const pd = dependents * 1500000, taxBase = Math.max(eia - pd - annualIns, 0);
-    const ct = refProgressiveTax(taxBase), lc = refLaborCredit(ct, gross), cc = refChildCredit(children), sc = 130000;
-    const decided = Math.max(ct - lc - cc - sc, 0), local = decided * 0.1, annualIncomeTax = decided + local;
+    // 표준세액공제(연 13만원, 소득세법 제59조의4제9항제1호)는 건강보험·고용보험료 등 특별소득공제(제52조)를
+    // 신청한 경우 중복 적용할 수 없다. 이 참조 구현은 annualIns에 건강·장기요양·고용보험료(특별소득공제 대상)를
+    // 이미 포함해 과세표준에서 차감했으므로, 표준세액공제는 더하지 않는다.
+    const ct = refProgressiveTax(taxBase), lc = refLaborCredit(ct, gross), cc = refChildCredit(children);
+    const decided = Math.max(ct - lc - cc, 0), local = decided * 0.1, annualIncomeTax = decided + local;
     const monthlyTax = annualIncomeTax / 12;
     const monthlyGross = annual / 12;
     return monthlyGross - (monthlyIns + monthlyTax);
@@ -256,6 +259,35 @@ console.log('\n=== 7. 회귀 테스트: 근로소득공제 상한을 제거하�
     doc.getElementById('calcBtn').click();
     const brokenNet = Number(doc.getElementById('netMonthly').textContent.replace(/[^0-9]/g, ''));
     check('상한을 제거하면 4억원 사례 결과가 원래(상한 적용) 결과와 달라짐(테스트가 회귀를 잡아냄)', brokenNet !== global.__actualMonthlyNetFor40000, true);
+    fs.unlinkSync(tmp);
+  }
+}
+
+console.log('\n=== 8. 표준세액공제(13만원) 중복 적용 회귀 테스트 ===');
+console.log('   근거: 소득세법 제59조의4제9항제1호 — 제52조 특별소득공제(건강보험료 등)를 신청한 경우');
+console.log('   표준세액공제 연 13만원은 중복 적용하지 않는다. 이 계산기는 건강·장기요양·고용보험료를');
+console.log('   특별소득공제로 과세표준에서 차감하므로, decidedTax 계산에 표준세액공제를 더하면 안 된다.');
+{
+  const original = fs.readFileSync(HTML_PATH, 'utf8');
+  const broken = original.replace(
+    'const decidedTax = Math.max(calculatedTax - laborCredit - childCredit, 0);',
+    'const decidedTax = Math.max(calculatedTax - laborCredit - childCredit - 130000, 0);'
+  );
+  if (broken === original) {
+    console.log('FAIL - 회귀 테스트: decidedTax 계산식을 찾지 못해 깨뜨리지 못함');
+    fail++;
+  } else {
+    const tmp = path.join(os.tmpdir(), 'salary-broken-standard-credit.html');
+    fs.writeFileSync(tmp, broken, 'utf8');
+    const doc = loadCalculator(tmp);
+    doc.getElementById('salary').value = '3500';
+    doc.getElementById('nontax').value = '20';
+    doc.getElementById('dependents').value = '1';
+    doc.getElementById('children').value = '0';
+    doc.getElementById('calcBtn').click();
+    const brokenNet = Number(doc.getElementById('netMonthly').textContent.replace(/[^0-9]/g, ''));
+    const fixedNet = actualMonthlyNet(3500, 20, 1, 0);
+    check('표준세액공제 13만원을 다시 더하면(중복 적용) 실수령액이 원래보다 커져야 함(테스트가 회귀를 잡아냄)', brokenNet > fixedNet, true);
     fs.unlinkSync(tmp);
   }
 }

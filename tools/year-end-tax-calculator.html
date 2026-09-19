@@ -71,7 +71,6 @@
   .sources li{ font-size:12.5px; line-height:1.8; color:var(--muted); }
   .sources a{ color:var(--ink-soft); }
   .sources a:hover{ color:var(--ink); }
-  .slot{ border:1.5px dashed var(--line); border-radius:10px; padding:18px; text-align:center; font-size:12px; color:var(--muted); margin-top:24px; }
   @media (max-width:480px){ .card{ padding:24px; } h1{ font-size:25px; } .result-amount{ font-size:32px; } }
 
   .info-block{ margin-top:40px; }
@@ -98,6 +97,9 @@
   .site-nav-links a:hover{ color:var(--ink); background:var(--paper-light, rgba(0,0,0,0.045)); }
   .site-nav-links a[aria-current="page"]{ color:var(--ink); font-weight:600; }
   .site-nav-brand:focus-visible, .site-nav-links a:focus-visible{ outline:2px solid var(--stamp, #B23A2E); outline-offset:2px; border-radius:4px; }
+  .guide-callout{ display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:8px; margin-top:16px; padding:12px 14px; background:var(--paper-light); border:1px dashed var(--line); border-radius:8px; font-size:12.5px; color:var(--ink-soft); }
+  .guide-callout a{ color:var(--stamp); font-weight:600; text-decoration:none; white-space:nowrap; }
+  .guide-callout a:hover{ text-decoration:underline; }
 </style>
 <!-- Google AdSense -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6883245122372170" crossorigin="anonymous"></script>
@@ -334,6 +336,11 @@
         <div class="breakdown-row"><span>근로소득세액공제</span><span class="amount">-${won(credit)}원</span></div>
       </div>
       ${compareHtml}
+      <div class="guide-callout">
+        <span>세금이 어떤 순서로 계산되는지 궁금한가요?</span>
+        <a href="/guides/year-end-tax-steps">연말정산 계산 순서 가이드 →</a>
+      </div>
+
       <div class="disclaimer">
         신용카드·의료비·교육비·기부금·연금저축 등 특별세액공제/소득공제는 반영하지 않은 단순 추정치입니다. 실제 연말정산 결과는 홈택스 모의계산 또는 회사 담당자를 통해 확인하세요.
       </div>

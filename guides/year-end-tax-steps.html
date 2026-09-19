@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://harukok.com/guides/year-end-tax-steps">
+<meta property="og:title" content="연말정산 세금은 어떤 순서로 계산되나요?">
+<meta property="og:description" content="총급여에서 결정세액이 나오기까지 근로소득공제, 소득공제, 세율, 세액공제를 적용하는 순서를 표와 계산 예시로 설명합니다.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="하루콕">
+<meta property="og:url" content="https://harukok.com/guides/year-end-tax-steps">
+<meta property="og:image" content="https://harukok.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<title>연말정산 세금은 어떤 순서로 계산되나요?</title>
+<meta name="description" content="총급여에서 결정세액이 나오기까지 근로소득공제, 소득공제, 세율, 세액공제를 적용하는 순서를 표와 계산 예시로 설명합니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700&family=Pretendard:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #ECE8DC;
+    --paper-light: #F7F4EA;
+    --ink: #16233D;
+    --ink-soft: #45516A;
+    --muted: #6E6656;
+    --line: #B7AF98;
+    --stamp: #B23A2E;
+  }
+  *{ box-sizing: border-box; }
+  body{
+    margin:0;
+    padding: 40px 20px 70px;
+    background: var(--paper);
+    background-image: repeating-linear-gradient(0deg, rgba(0,0,0,0.015) 0px, rgba(0,0,0,0.015) 1px, transparent 1px, transparent 3px);
+    font-family: 'Pretendard', -apple-system, sans-serif;
+    color: var(--ink);
+    display:flex;
+    justify-content:center;
+  }
+  .stub{ width:100%; max-width: 620px; }
+  .kicker{ font-size:13px; color:var(--muted); margin-bottom:6px; }
+  h1{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:28px; line-height:1.4; margin:0 0 10px; }
+  .lede{ font-size:14.5px; color:var(--ink-soft); line-height:1.6; margin:0 0 32px; }
+  .back-home{ display:inline-block; font-size:12.5px; color:var(--muted); text-decoration:none; margin-bottom:14px; }
+  .back-home:hover{ color:var(--ink); }
+  .breadcrumb{ font-size:12px; color:var(--muted); margin-bottom:14px; }
+  .breadcrumb a{ color:var(--muted); text-decoration:none; }
+  .breadcrumb a:hover{ color:var(--ink); text-decoration:underline; }
+  .breadcrumb [aria-current="page"]{ color:var(--ink-soft); }
+  .cta-btn{ display:inline-block; margin-top:8px; padding:13px 22px; background:var(--ink); color:var(--paper-light); border-radius:10px; font-size:14.5px; font-weight:600; text-decoration:none; }
+  .cta-btn:hover{ background:var(--ink-soft); }
+
+  .related{ margin-bottom:32px; }
+  .related-title{ font-size:12.5px; color:var(--muted); margin-bottom:10px; }
+  .related-links{ display:flex; flex-wrap:wrap; gap:8px; }
+  .related-links a{ padding:8px 14px; border:1.5px solid var(--line); border-radius:999px; font-size:13px; color:var(--ink); text-decoration:none; }
+  .related-links a:hover{ border-color:var(--ink); }
+
+  article h2{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:18px; margin:32px 0 12px; }
+  article p{ font-size:14px; line-height:1.75; color:var(--ink-soft); margin:0 0 14px; }
+  article p strong{ color:var(--ink); }
+  article ul{ font-size:14px; line-height:1.8; color:var(--ink-soft); margin:0 0 16px; padding-left:20px; }
+  article ul li strong{ color:var(--ink); }
+
+  table{ width:100%; border-collapse:collapse; margin:16px 0 20px; font-size:13px; background:var(--paper-light); border:1px solid var(--line); border-radius:8px; overflow:hidden; }
+  th, td{ padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  th{ background:#E4DFCD; color:var(--ink); font-weight:600; }
+  td{ color:var(--ink-soft); }
+  tr:last-child td{ border-bottom:none; }
+
+  .example-box{ background:var(--paper-light); border:1px solid var(--line); border-radius:10px; padding:18px 20px; margin:16px 0 20px; }
+  .example-box .ex-title{ font-size:13px; font-weight:600; color:var(--ink); margin-bottom:8px; }
+  .example-box .ex-row{ display:flex; justify-content:space-between; font-size:13.5px; padding:4px 0; color:var(--ink-soft); }
+  .example-box .ex-row .amount{ font-family:'IBM Plex Mono', monospace; color:var(--ink); }
+  .example-box .ex-row.total{ border-top:1px solid var(--line); margin-top:6px; padding-top:8px; font-weight:600; color:var(--ink); }
+
+  .warn-box{ background:#FBEFE9; border:1px solid #E3B79E; border-radius:10px; padding:16px 18px; margin:16px 0 20px; font-size:13.5px; color:#8A3E1F; line-height:1.65; }
+
+  .sources{ margin-top:32px; padding-top:18px; border-top:1px solid var(--line); }
+  .sources-title{ font-size:13px; font-weight:600; color:var(--ink-soft); margin-bottom:8px; }
+  .sources ul{ margin:0; padding-left:18px; font-size:12.5px; line-height:1.8; color:var(--muted); }
+  .sources a{ color:var(--ink-soft); }
+  .sources a:hover{ color:var(--ink); }
+
+  .disclaimer{ font-size:11.5px; color:var(--muted); line-height:1.6; margin-top:24px; padding-top:16px; border-top:1px dotted var(--line); }
+
+  @media (max-width:480px){ h1{ font-size:23px; } }
+
+  .site-nav{ display:flex; align-items:center; justify-content:space-between; width:100%; margin:0 0 22px; padding:0 0 14px; border-bottom:1px solid var(--line, #D9D2BF); }
+  .site-nav-brand{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:15px; color:var(--ink); text-decoration:none; }
+  .site-nav-brand span{ color:var(--stamp, #B23A2E); }
+  .site-nav-links{ display:flex; gap:2px; }
+  .site-nav-links a{ font-size:13.5px; color:var(--muted); text-decoration:none; padding:6px 10px; border-radius:6px; }
+  .site-nav-links a:hover{ color:var(--ink); background:var(--paper-light, rgba(0,0,0,0.045)); }
+  .site-nav-links a[aria-current="page"]{ color:var(--ink); font-weight:600; }
+  .site-nav-brand:focus-visible, .site-nav-links a:focus-visible{ outline:2px solid var(--stamp, #B23A2E); outline-offset:2px; border-radius:4px; }
+</style>
+<!-- Google AdSense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6883245122372170" crossorigin="anonymous"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "연말정산 세금은 어떤 순서로 계산되나요?",
+  "description": "총급여에서 결정세액이 나오기까지 근로소득공제, 소득공제, 세율, 세액공제를 적용하는 순서를 표와 계산 예시로 설명합니다.",
+  "datePublished": "2026-09-19",
+  "dateModified": "2026-09-19",
+  "author": { "@type": "Organization", "name": "하루콕" },
+  "publisher": { "@type": "Organization", "name": "하루콕" }
+}
+</script>
+</head>
+<body>
+
+<div class="stub">
+<nav class="site-nav" aria-label="주요 메뉴">
+  <a class="site-nav-brand" href="/">하루<span>콕</span></a>
+  <div class="site-nav-links">
+    <a href="/#sectionUtility">도구</a>
+    <a href="/guides/" aria-current="page">가이드</a>
+  </div>
+</nav>
+
+  <nav class="breadcrumb" aria-label="현재 위치">
+    <a href="/">홈</a><span aria-hidden="true"> › </span><a href="/guides/">가이드</a><span aria-hidden="true"> › </span><span aria-current="page">연말정산 세금은 어떤 순서로 계산되나요?</span>
+  </nav>
+  <div class="kicker">해설 · 급여·재무</div>
+  <h1>연말정산 세금은 어떤 순서로 계산되나요?</h1>
+  <p class="lede">연말정산은 "총급여 → 소득공제 → 세율 적용 → 세액공제" 순으로 계산됩니다. 각 단계에서 무엇이 얼마나 빠지는지 2026년 기준 공식 자료와 계산 예시로 정리했습니다.</p>
+
+  <div class="related">
+    <div class="related-title">함께 보면 좋은 도구</div>
+    <div class="related-links">
+      <a href="/tools/year-end-tax-calculator">연말정산 예상세액 계산기</a>
+      <a href="/tools/salary-calculator">연봉 실수령액 계산기</a>
+    </div>
+  </div>
+
+  <article>
+    <h2>계산 순서 한눈에 보기</h2>
+    <ol style="font-size:14px; line-height:1.9; color:var(--ink-soft); padding-left:22px; margin:0 0 16px;">
+      <li>총급여 − <strong>근로소득공제</strong> = 근로소득금액</li>
+      <li>근로소득금액 − <strong>소득공제</strong>(인적공제, 4대보험료 등) = 과세표준</li>
+      <li>과세표준 × <strong>세율</strong> = 산출세액</li>
+      <li>산출세액 − <strong>세액공제</strong>(근로소득세액공제 등) = 결정세액</li>
+      <li>결정세액 − 이미 낸 세금(원천징수) = 환급 또는 추가 납부</li>
+    </ol>
+
+    <h2>1단계. 근로소득공제 — 상한 2,000만원</h2>
+    <table>
+      <tr><th>총급여</th><th>근로소득공제</th></tr>
+      <tr><td>500만원 이하</td><td>총급여의 70%</td></tr>
+      <tr><td>500만원 초과 1,500만원 이하</td><td>350만원 + 500만원 초과분의 40%</td></tr>
+      <tr><td>1,500만원 초과 4,500만원 이하</td><td>750만원 + 1,500만원 초과분의 15%</td></tr>
+      <tr><td>4,500만원 초과 1억원 이하</td><td>1,200만원 + 4,500만원 초과분의 5%</td></tr>
+      <tr><td>1억원 초과</td><td>1,475만원 + 1억원 초과분의 2%</td></tr>
+    </table>
+    <p>이 공제액은 <strong>2,000만원을 넘을 수 없습니다.</strong> 총급여가 약 3억 6,250만원을 넘으면 상한에 도달합니다.</p>
+
+    <h2>2단계. 소득공제 — 인적공제와 4대보험료</h2>
+    <p>부양가족 1인당 <strong>150만원</strong>을 공제하는 인적공제가 기본이고, 국민연금 보험료는 연금보험료공제로, 건강보험·고용보험·노인장기요양보험료는 특별소득공제(소득세법 제52조)로 과세표준에서 뺍니다. 이 밖에 신용카드 등 사용금액 소득공제 같은 항목은 사람마다 달라 이 글의 예시에서는 제외했습니다.</p>
+
+    <h2>3단계. 세율 — 8단계 누진세율</h2>
+    <table>
+      <tr><th>과세표준</th><th>세율</th></tr>
+      <tr><td>1,400만원 이하</td><td>6%</td></tr>
+      <tr><td>5,000만원 이하</td><td>15%</td></tr>
+      <tr><td>8,800만원 이하</td><td>24%</td></tr>
+      <tr><td>1억 5천만원 이하</td><td>35%</td></tr>
+      <tr><td>3억원 이하</td><td>38%</td></tr>
+      <tr><td>5억원 이하</td><td>40%</td></tr>
+      <tr><td>10억원 이하</td><td>42%</td></tr>
+      <tr><td>10억원 초과</td><td>45%</td></tr>
+    </table>
+    <p>누진세율은 구간을 넘는 <strong>초과분에만</strong> 높은 세율이 적용되므로, 구간이 바뀌어도 세금이 갑자기 뛰지 않습니다(소득세법 제55조).</p>
+
+    <h2>4단계. 세액공제 — 근로소득세액공제</h2>
+    <p>산출세액 130만원 이하 부분의 <strong>55%</strong>, 130만원 초과 부분의 <strong>30%</strong>를 공제합니다. 다만 총급여 구간별 한도가 있습니다.</p>
+    <table>
+      <tr><th>총급여</th><th>공제 한도</th></tr>
+      <tr><td>3,300만원 이하</td><td>74만원</td></tr>
+      <tr><td>3,300만원 초과 7,000만원 이하</td><td>74만원 − (총급여 − 3,300만원) × 0.008 (최소 66만원)</td></tr>
+      <tr><td>7,000만원 초과 1억 2천만원 이하</td><td>66만원 − (총급여 − 7,000만원) × 0.5 (최소 50만원)</td></tr>
+      <tr><td>1억 2천만원 초과</td><td>50만원 − (총급여 − 1억 2천만원) × 0.5 (최소 20만원)</td></tr>
+    </table>
+
+    <h2>계산 예시 (가상의 예시)</h2>
+    <p>총급여 3,500만원, 부양가족 본인 1명, 다른 공제는 없다고 가정합니다.</p>
+    <div class="example-box">
+      <div class="ex-title">하루콕 연말정산 예상세액 계산기 결과</div>
+      <div class="ex-row"><span>근로소득공제(750만원 + 2,000만원×15%)</span><span class="amount">10,500,000원</span></div>
+      <div class="ex-row"><span>4대보험 소득공제</span><span class="amount">3,401,084원</span></div>
+      <div class="ex-row"><span>인적공제(1명)</span><span class="amount">1,500,000원</span></div>
+      <div class="ex-row"><span>과세표준</span><span class="amount">19,598,916원</span></div>
+      <div class="ex-row"><span>산출세액(15% 구간)</span><span class="amount">1,679,837원</span></div>
+      <div class="ex-row"><span>근로소득세액공제(한도 724,000원 적용)</span><span class="amount">−724,000원</span></div>
+      <div class="ex-row total"><span>결정세액</span><span class="amount">955,837원</span></div>
+    </div>
+    <p>세액공제 계산상 산출세액의 55%·30% 규칙으로는 약 82만 9천원이 나오지만, 총급여 3,500만원의 공제 한도가 724,000원이라 한도까지만 공제됩니다.<br>
+    <span style="color:var(--muted); font-size:12.5px;">※ 신용카드·의료비·교육비·기부금·연금저축 등은 반영하지 않은 단순 추정입니다.</span></p>
+
+    <p><a class="cta-btn" href="/tools/year-end-tax-calculator">내 연말정산 세액 계산하기 →</a></p>
+        <div class="sources">
+      <div class="sources-title">참고 자료 및 출처</div>
+      <ul>
+        <li><a href="https://nts.go.kr/nts/cm/cntnts/cntntsView.do?cntntsId=7871&amp;mi=6435" target="_blank" rel="noopener">국세청 — 근로소득금액(근로소득공제 구간·공제한도 2,000만원)</a> <span style="color:var(--muted);">(확인: 2026-09-19)</span></li>
+        <li><a href="https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?cntntsId=7875&amp;mi=6596" target="_blank" rel="noopener">국세청 — 세액공제(근로소득세액공제 55%/30%·한도)</a> <span style="color:var(--muted);">(확인: 2026-09-19)</span></li>
+        <li><a href="https://casenote.kr/%EB%B2%95%EB%A0%B9/%EC%86%8C%EB%93%9D%EC%84%B8%EB%B2%95/%EC%A0%9C55%EC%A1%B0" target="_blank" rel="noopener">소득세법 제55조(세율)</a> <span style="color:var(--muted);">(확인: 2026-09-19)</span></li>
+        <li><a href="https://casenote.kr/%EB%B2%95%EB%A0%B9/%EC%86%8C%EB%93%9D%EC%84%B8%EB%B2%95/%EC%A0%9C52%EC%A1%B0" target="_blank" rel="noopener">소득세법 제52조(특별소득공제)</a> <span style="color:var(--muted);">(확인: 2026-09-19)</span></li>
+      </ul>
+    </div>
+    <div class="disclaimer">이 글의 계산 예시는 하루콕 연말정산 예상세액 계산기로 계산한 결과이며, 실제 연말정산 결과는 홈택스 모의계산이나 회사 담당자를 통해 확인하세요.</div>
+  </article>
+
+  <footer style="max-width:620px; margin:40px auto 0; padding:20px 0 0; text-align:center; font-size:12.5px; color:var(--muted, #6E6656); border-top:1px solid var(--line, #D9D2BF);">
+    <a href="/" style="color:inherit; margin:0 8px;">홈</a>·<a href="/about" style="color:inherit; margin:0 8px;">소개</a>·<a href="/privacy" style="color:inherit; margin:0 8px;">개인정보처리방침</a>·<a href="mailto:contact@harukok.com" style="color:inherit; margin:0 8px;">문의</a>
+  </footer>
+</div>
+</body>
+</html>

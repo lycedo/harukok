@@ -63,7 +63,6 @@
   .breakdown-row{ display:flex; justify-content:space-between; align-items:baseline; font-size:14px; padding:9px 0; color:var(--ink-soft); }
   .breakdown-row .amount{ font-family:'IBM Plex Mono', monospace; color:var(--ink); font-weight:600; font-size:16px; }
   .disclaimer{ font-size:11.5px; color:var(--muted); line-height:1.6; margin-top:24px; padding-top:16px; border-top:1px dotted var(--line); }
-  .slot{ border:1.5px dashed var(--line); border-radius:10px; padding:18px; text-align:center; font-size:12px; color:var(--muted); margin-top:24px; }
   @media (max-width:480px){ .card{ padding:24px; } h1{ font-size:25px; } .result-amount{ font-size:32px; } }
 
   .info-block{ margin-top:40px; }
@@ -90,6 +89,15 @@
   .site-nav-links a:hover{ color:var(--ink); background:var(--paper-light, rgba(0,0,0,0.045)); }
   .site-nav-links a[aria-current="page"]{ color:var(--ink); font-weight:600; }
   .site-nav-brand:focus-visible, .site-nav-links a:focus-visible{ outline:2px solid var(--stamp, #B23A2E); outline-offset:2px; border-radius:4px; }
+  .sources{ margin-top:24px; padding-top:18px; border-top:1px solid var(--line); }
+  .sources-title{ font-size:13px; font-weight:600; color:var(--ink-soft); margin-bottom:8px; }
+  .sources ul{ margin:0; padding-left:18px; }
+  .sources li{ font-size:12.5px; line-height:1.8; color:var(--muted); }
+  .sources a{ color:var(--ink-soft); }
+  .sources a:hover{ color:var(--ink); }
+  .guide-callout{ display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:8px; margin-top:16px; padding:12px 14px; background:var(--paper-light); border:1px dashed var(--line); border-radius:8px; font-size:12.5px; color:var(--ink-soft); }
+  .guide-callout a{ color:var(--stamp); font-weight:600; text-decoration:none; white-space:nowrap; }
+  .guide-callout a:hover{ text-decoration:underline; }
 </style>
 <!-- Google AdSense -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6883245122372170" crossorigin="anonymous"></script>
@@ -119,7 +127,7 @@
       "name": "1일 통상임금은 어떻게 구하나요?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "월 통상임금을 월 소정근로시간(주 40시간 기준 209시간)으로 나눠 시급을 구한 뒤, 8시간을 곱해서 계산합니다. 이 계산기는 이 과정을 자동으로 처리합니다."
+        "text": "월 통상임금을 월 소정근로시간(주 40시간 기준 209시간)으로 나눠 시급을 구한 뒤, 하루 소정근로시간(기본 8시간)을 곱해서 계산합니다. 근무시간이 다르면 입력한 하루 시간·주 근무일수로 월 소정근로시간을 다시 환산합니다. 이 계산기는 이 과정을 자동으로 처리합니다."
       }
     }
   ]
@@ -171,6 +179,23 @@
       <span class="field-hint">올해 발생했지만 아직 쓰지 않은 연차 일수입니다.</span>
     </div>
 
+    <div class="field">
+      <label for="dailyHours">하루 소정근로시간 (시간)</label>
+      <div class="input-row">
+        <input type="number" id="dailyHours" value="8" inputmode="numeric">
+        <span class="unit">시간</span>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="weeklyDays">주 근무일수 (일)</label>
+      <div class="input-row">
+        <input type="number" id="weeklyDays" value="5" inputmode="numeric">
+        <span class="unit">일</span>
+      </div>
+      <span class="field-hint">주 40시간(하루 8시간·주 5일)이면 월 소정근로시간 209시간 기준으로 계산됩니다. 근무시간이 다르면 그에 맞춰 환산합니다.</span>
+    </div>
+
     <button class="calc-btn" id="calcBtn">연차수당 계산하기</button>
   </div>
 
@@ -180,15 +205,20 @@
 
     <div class="breakdown" id="breakdown"></div>
 
+    <div class="guide-callout">
+      <span>연차가 며칠 생기는지 궁금한가요?</span>
+      <a href="/guides/annual-leave-guide">연차 발생·수당 가이드 →</a>
+    </div>
+
     <div class="disclaimer">
-      월 소정근로시간을 209시간(주 40시간 기준)으로 가정한 근사치입니다. 통상임금 범위 판단, 연차사용촉진제도 적용 여부 등 세부 사항은 근로계약서와 고용노동부 기준을 함께 확인하세요.
+      입력한 근무시간으로 월 소정근로시간(주 40시간이면 209시간)을 환산한 근사치입니다. 통상임금 범위 판단, 연차사용촉진제도 적용 여부 등 세부 사항은 근로계약서와 고용노동부 기준을 함께 확인하세요.
     </div>
   </div>
 
 
   <div class="info-block">
     <h2>연차수당은 어떻게 계산되나요?</h2>
-    <p>연차수당 = 1일 통상임금 × 미사용 연차일수로 계산합니다. 1일 통상임금은 월 통상임금을 월 소정근로시간(주 40시간 기준 209시간)으로 나눠 시급을 구한 뒤 8시간을 곱해서 구합니다. 통상임금에는 기본급 외에도 매달 정기적·일률적으로 지급되는 고정 수당이 포함됩니다.</p>
+    <p>연차수당 = 1일 통상임금 × 미사용 연차일수로 계산합니다. 1일 통상임금은 월 통상임금을 월 소정근로시간(주 40시간 기준 209시간)으로 나눠 시급을 구한 뒤 하루 소정근로시간(기본 8시간)을 곱해서 구합니다. 통상임금에는 기본급 외에도 매달 정기적·일률적으로 지급되는 고정 수당이 포함됩니다.</p>
 
     <div class="faq-item">
       <div class="q">연차수당은 어떤 임금 기준으로 계산하나요?</div>
@@ -200,7 +230,14 @@
     </div>
     <div class="faq-item">
       <div class="q">1일 통상임금은 어떻게 구하나요?</div>
-      <div class="a">월 통상임금을 월 소정근로시간(주 40시간 기준 209시간)으로 나눠 시급을 구한 뒤, 8시간을 곱해서 계산합니다. 이 계산기는 이 과정을 자동으로 처리합니다.</div>
+      <div class="a">월 통상임금을 월 소정근로시간(주 40시간 기준 209시간)으로 나눠 시급을 구한 뒤, 하루 소정근로시간(기본 8시간)을 곱해서 계산합니다. 근무시간이 다르면 입력한 하루 시간·주 근무일수로 월 소정근로시간을 다시 환산합니다. 이 계산기는 이 과정을 자동으로 처리합니다.</div>
+    </div>
+
+    <div class="sources">
+      <div class="sources-title">참고 자료 및 출처</div>
+      <ul>
+        <li><a href="https://casenote.kr/%EB%B2%95%EB%A0%B9/%EA%B7%BC%EB%A1%9C%EA%B8%B0%EC%A4%80%EB%B2%95/%EC%A0%9C60%EC%A1%B0" target="_blank" rel="noopener">근로기준법 제60조(연차 유급휴가) — 1년간 80% 이상 출근 시 15일, 1년간 행사하지 않으면 소멸 <span style="color:var(--muted);">(확인: 2026-09-19)</span></a></li>
+      </ul>
     </div>
   </div>
 
@@ -212,7 +249,7 @@
 <script>
 (function(){
   const $ = (id) => document.getElementById(id);
-  const MONTHLY_HOURS = 209;
+  const WEEKS_PER_MONTH = 4.345;
 
   function won(n){
     return Math.round(n).toLocaleString('ko-KR');
@@ -227,12 +264,23 @@
       return;
     }
 
-    const hourlyWage = monthlyWage / MONTHLY_HOURS;
-    const dailyWage = hourlyWage * 8;
+    const dailyHours = parseFloat($('dailyHours').value) || 0;
+    const weeklyDays = parseFloat($('weeklyDays').value) || 0;
+    if (dailyHours <= 0 || weeklyDays <= 0){
+      $('resultCard').classList.add('hidden');
+      return;
+    }
+    // 월 소정근로시간 = (주 소정근로시간 + 주휴시간) × 4.345주, 소수점 이하 반올림(주 40시간이면 209시간).
+    const weeklyHours = dailyHours * weeklyDays;
+    const holidayHours = weeklyHours < 15 ? 0 : Math.min(weeklyHours / 40, 1) * 8;
+    const monthlyHours = Math.round((weeklyHours + holidayHours) * WEEKS_PER_MONTH);
+    const hourlyWage = monthlyWage / monthlyHours;
+    const dailyWage = hourlyWage * dailyHours;
     const total = dailyWage * unusedDays;
 
     $('totalAmount').innerHTML = won(total) + '<span class="unit">원</span>';
     $('breakdown').innerHTML = `
+      <div class="breakdown-row"><span>월 소정근로시간</span><span class="amount">${monthlyHours}시간</span></div>
       <div class="breakdown-row"><span>환산 시급</span><span class="amount">${won(hourlyWage)}원</span></div>
       <div class="breakdown-row"><span>1일 통상임금</span><span class="amount">${won(dailyWage)}원</span></div>
       <div class="breakdown-row"><span>미사용 연차일수</span><span class="amount">${unusedDays}일</span></div>

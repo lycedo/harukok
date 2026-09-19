@@ -62,7 +62,6 @@
   .breakdown-row{ display:flex; justify-content:space-between; align-items:baseline; font-size:14px; padding:9px 0; color:var(--ink-soft); }
   .breakdown-row .amount{ font-family:'IBM Plex Mono', monospace; color:var(--ink); font-weight:600; font-size:16px; }
   .disclaimer{ font-size:11.5px; color:var(--muted); line-height:1.6; margin-top:24px; padding-top:16px; border-top:1px dotted var(--line); }
-  .slot{ border:1.5px dashed var(--line); border-radius:10px; padding:18px; text-align:center; font-size:12px; color:var(--muted); margin-top:24px; }
   @media (max-width:480px){ .card{ padding:24px; } h1{ font-size:25px; } .result-amount{ font-size:30px; } }
 
   .info-block{ margin-top:40px; }
@@ -89,6 +88,15 @@
   .site-nav-links a:hover{ color:var(--ink); background:var(--paper-light, rgba(0,0,0,0.045)); }
   .site-nav-links a[aria-current="page"]{ color:var(--ink); font-weight:600; }
   .site-nav-brand:focus-visible, .site-nav-links a:focus-visible{ outline:2px solid var(--stamp, #B23A2E); outline-offset:2px; border-radius:4px; }
+  .sources{ margin-top:24px; padding-top:18px; border-top:1px solid var(--line); }
+  .sources-title{ font-size:13px; font-weight:600; color:var(--ink-soft); margin-bottom:8px; }
+  .sources ul{ margin:0; padding-left:18px; }
+  .sources li{ font-size:12.5px; line-height:1.8; color:var(--muted); }
+  .sources a{ color:var(--ink-soft); }
+  .sources a:hover{ color:var(--ink); }
+  .guide-callout{ display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:8px; margin-top:16px; padding:12px 14px; background:var(--paper-light); border:1px dashed var(--line); border-radius:8px; font-size:12.5px; color:var(--ink-soft); }
+  .guide-callout a{ color:var(--stamp); font-weight:600; text-decoration:none; white-space:nowrap; }
+  .guide-callout a:hover{ text-decoration:underline; }
 </style>
 <!-- Google AdSense -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6883245122372170" crossorigin="anonymous"></script>
@@ -178,6 +186,11 @@
 
     <div class="breakdown" id="breakdown"></div>
 
+    <div class="guide-callout">
+      <span>예정일 계산 원리가 궁금한가요?</span>
+      <a href="/guides/due-date-weeks">출산 예정일 계산 가이드 →</a>
+    </div>
+
     <div class="disclaimer">
       네겔 법칙은 마지막 생리 시작일에 280일(40주)을 더해 추정하는 일반적인 계산 방식입니다. 실제 출산일은 초음파 검사 등을 통한 의료진의 판단에 따라 달라질 수 있으니 참고용으로만 활용하세요.
     </div>
@@ -199,6 +212,13 @@
     <div class="faq-item">
       <div class="q">삼분기(trimester)는 어떻게 나누나요?</div>
       <div class="a">1분기는 1~13주, 2분기는 14~27주, 3분기는 28주부터 출산까지로 구분하는 것이 일반적입니다. 분기마다 검사·관리 항목이 달라지니 산부인과 안내를 따라주세요.</div>
+    </div>
+
+    <div class="sources">
+      <div class="sources-title">참고 자료 및 출처</div>
+      <ul>
+        <li><a href="https://health.kdca.go.kr/healthinfo/biz/health/gnrlzHealthInfo/gnrlzHealthInfo/gnrlzHealthInfoView.do?cntnts_sn=6301" target="_blank" rel="noopener">질병관리청 국가건강정보포털 — 정상임신관리(분만예정일: 마지막 월경 첫날부터 약 280일·40주) <span style="color:var(--muted);">(확인: 2026-09-19)</span></a></li>
+      </ul>
     </div>
   </div>
 
@@ -231,7 +251,8 @@
 
     const today = new Date();
     today.setHours(0,0,0,0);
-    const daysSince = Math.floor((today - lmp) / 86400000);
+    // 주기가 28일이 아니면 배란·수정 시점이 달라지므로, 예정일과 같은 보정을 임신 주수에도 적용한다.
+    const daysSince = Math.floor((today - lmp) / 86400000) - cycleAdjust;
 
     let weekLabel, trimester, dday;
     if (daysSince < 0){

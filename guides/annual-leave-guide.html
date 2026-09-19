@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://harukok.com/guides/annual-leave-guide">
+<meta property="og:title" content="연차는 언제, 며칠 생기고 연차수당은 어떻게 계산하나요?">
+<meta property="og:description" content="연차유급휴가가 생기는 기준(80% 출근, 1개월 개근, 3년 이상 가산 최대 25일)과 미사용 연차수당 계산 방법을 계산 예시와 함께 정리했습니다.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="하루콕">
+<meta property="og:url" content="https://harukok.com/guides/annual-leave-guide">
+<meta property="og:image" content="https://harukok.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<title>연차는 언제, 며칠 생기고 연차수당은 어떻게 계산하나요?</title>
+<meta name="description" content="연차유급휴가가 생기는 기준(80% 출근, 1개월 개근, 3년 이상 가산 최대 25일)과 미사용 연차수당 계산 방법을 계산 예시와 함께 정리했습니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700&family=Pretendard:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #ECE8DC;
+    --paper-light: #F7F4EA;
+    --ink: #16233D;
+    --ink-soft: #45516A;
+    --muted: #6E6656;
+    --line: #B7AF98;
+    --stamp: #B23A2E;
+  }
+  *{ box-sizing: border-box; }
+  body{
+    margin:0;
+    padding: 40px 20px 70px;
+    background: var(--paper);
+    background-image: repeating-linear-gradient(0deg, rgba(0,0,0,0.015) 0px, rgba(0,0,0,0.015) 1px, transparent 1px, transparent 3px);
+    font-family: 'Pretendard', -apple-system, sans-serif;
+    color: var(--ink);
+    display:flex;
+    justify-content:center;
+  }
+  .stub{ width:100%; max-width: 620px; }
+  .kicker{ font-size:13px; color:var(--muted); margin-bottom:6px; }
+  h1{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:28px; line-height:1.4; margin:0 0 10px; }
+  .lede{ font-size:14.5px; color:var(--ink-soft); line-height:1.6; margin:0 0 32px; }
+  .back-home{ display:inline-block; font-size:12.5px; color:var(--muted); text-decoration:none; margin-bottom:14px; }
+  .back-home:hover{ color:var(--ink); }
+  .breadcrumb{ font-size:12px; color:var(--muted); margin-bottom:14px; }
+  .breadcrumb a{ color:var(--muted); text-decoration:none; }
+  .breadcrumb a:hover{ color:var(--ink); text-decoration:underline; }
+  .breadcrumb [aria-current="page"]{ color:var(--ink-soft); }
+  .cta-btn{ display:inline-block; margin-top:8px; padding:13px 22px; background:var(--ink); color:var(--paper-light); border-radius:10px; font-size:14.5px; font-weight:600; text-decoration:none; }
+  .cta-btn:hover{ background:var(--ink-soft); }
+
+  .related{ margin-bottom:32px; }
+  .related-title{ font-size:12.5px; color:var(--muted); margin-bottom:10px; }
+  .related-links{ display:flex; flex-wrap:wrap; gap:8px; }
+  .related-links a{ padding:8px 14px; border:1.5px solid var(--line); border-radius:999px; font-size:13px; color:var(--ink); text-decoration:none; }
+  .related-links a:hover{ border-color:var(--ink); }
+
+  article h2{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:18px; margin:32px 0 12px; }
+  article p{ font-size:14px; line-height:1.75; color:var(--ink-soft); margin:0 0 14px; }
+  article p strong{ color:var(--ink); }
+  article ul{ font-size:14px; line-height:1.8; color:var(--ink-soft); margin:0 0 16px; padding-left:20px; }
+  article ul li strong{ color:var(--ink); }
+
+  table{ width:100%; border-collapse:collapse; margin:16px 0 20px; font-size:13px; background:var(--paper-light); border:1px solid var(--line); border-radius:8px; overflow:hidden; }
+  th, td{ padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  th{ background:#E4DFCD; color:var(--ink); font-weight:600; }
+  td{ color:var(--ink-soft); }
+  tr:last-child td{ border-bottom:none; }
+
+  .example-box{ background:var(--paper-light); border:1px solid var(--line); border-radius:10px; padding:18px 20px; margin:16px 0 20px; }
+  .example-box .ex-title{ font-size:13px; font-weight:600; color:var(--ink); margin-bottom:8px; }
+  .example-box .ex-row{ display:flex; justify-content:space-between; font-size:13.5px; padding:4px 0; color:var(--ink-soft); }
+  .example-box .ex-row .amount{ font-family:'IBM Plex Mono', monospace; color:var(--ink); }
+  .example-box .ex-row.total{ border-top:1px solid var(--line); margin-top:6px; padding-top:8px; font-weight:600; color:var(--ink); }
+
+  .warn-box{ background:#FBEFE9; border:1px solid #E3B79E; border-radius:10px; padding:16px 18px; margin:16px 0 20px; font-size:13.5px; color:#8A3E1F; line-height:1.65; }
+
+  .sources{ margin-top:32px; padding-top:18px; border-top:1px solid var(--line); }
+  .sources-title{ font-size:13px; font-weight:600; color:var(--ink-soft); margin-bottom:8px; }
+  .sources ul{ margin:0; padding-left:18px; font-size:12.5px; line-height:1.8; color:var(--muted); }
+  .sources a{ color:var(--ink-soft); }
+  .sources a:hover{ color:var(--ink); }
+
+  .disclaimer{ font-size:11.5px; color:var(--muted); line-height:1.6; margin-top:24px; padding-top:16px; border-top:1px dotted var(--line); }
+
+  @media (max-width:480px){ h1{ font-size:23px; } }
+
+  .site-nav{ display:flex; align-items:center; justify-content:space-between; width:100%; margin:0 0 22px; padding:0 0 14px; border-bottom:1px solid var(--line, #D9D2BF); }
+  .site-nav-brand{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:15px; color:var(--ink); text-decoration:none; }
+  .site-nav-brand span{ color:var(--stamp, #B23A2E); }
+  .site-nav-links{ display:flex; gap:2px; }
+  .site-nav-links a{ font-size:13.5px; color:var(--muted); text-decoration:none; padding:6px 10px; border-radius:6px; }
+  .site-nav-links a:hover{ color:var(--ink); background:var(--paper-light, rgba(0,0,0,0.045)); }
+  .site-nav-links a[aria-current="page"]{ color:var(--ink); font-weight:600; }
+  .site-nav-brand:focus-visible, .site-nav-links a:focus-visible{ outline:2px solid var(--stamp, #B23A2E); outline-offset:2px; border-radius:4px; }
+</style>
+<!-- Google AdSense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6883245122372170" crossorigin="anonymous"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "연차는 언제, 며칠 생기고 연차수당은 어떻게 계산하나요?",
+  "description": "연차유급휴가가 생기는 기준(80% 출근, 1개월 개근, 3년 이상 가산 최대 25일)과 미사용 연차수당 계산 방법을 계산 예시와 함께 정리했습니다.",
+  "datePublished": "2026-09-19",
+  "dateModified": "2026-09-19",
+  "author": { "@type": "Organization", "name": "하루콕" },
+  "publisher": { "@type": "Organization", "name": "하루콕" }
+}
+</script>
+</head>
+<body>
+
+<div class="stub">
+<nav class="site-nav" aria-label="주요 메뉴">
+  <a class="site-nav-brand" href="/">하루<span>콕</span></a>
+  <div class="site-nav-links">
+    <a href="/#sectionUtility">도구</a>
+    <a href="/guides/" aria-current="page">가이드</a>
+  </div>
+</nav>
+
+  <nav class="breadcrumb" aria-label="현재 위치">
+    <a href="/">홈</a><span aria-hidden="true"> › </span><a href="/guides/">가이드</a><span aria-hidden="true"> › </span><span aria-current="page">연차는 언제, 며칠 생기고 연차수당은 어떻게 계산하나요?</span>
+  </nav>
+  <div class="kicker">해설 · 급여·근로</div>
+  <h1>연차는 언제, 며칠 생기고 연차수당은 어떻게 계산하나요?</h1>
+  <p class="lede">연차는 입사 시점과 근속연수에 따라 발생 일수가 달라지고, 1년이 지나면 소멸합니다. 발생 규칙과 남은 연차를 수당으로 계산하는 방법을 순서대로 설명합니다.</p>
+
+  <div class="related">
+    <div class="related-title">함께 보면 좋은 도구</div>
+    <div class="related-links">
+      <a href="/tools/annual-leave-pay-calculator">연차수당 계산기</a>
+      <a href="/tools/weekly-holiday-pay-calculator">주휴수당 계산기</a>
+    </div>
+  </div>
+
+  <article>
+    <h2>1. 연차는 이렇게 생깁니다 (근로기준법 제60조)</h2>
+    <ul>
+      <li><strong>1년간 80% 이상 출근</strong>한 근로자에게는 <strong>15일</strong>의 유급휴가를 줍니다.</li>
+      <li><strong>계속 근로 기간이 1년 미만</strong>인 근로자에게는 <strong>1개월 개근할 때마다 1일</strong>의 유급휴가를 줍니다.</li>
+      <li><strong>3년 이상 계속 근로</strong>한 근로자에게는 최초 1년을 초과하는 계속 근로 연수 <strong>매 2년마다 1일</strong>을 가산한 휴가를 주며, 가산휴가를 포함한 총 휴가일수는 <strong>25일을 한도</strong>로 합니다.</li>
+      <li>이 휴가는 <strong>1년간 행사하지 않으면 소멸</strong>합니다. 다만 사용자의 귀책사유로 쓰지 못한 경우는 예외입니다.</li>
+    </ul>
+    <table>
+      <tr><th>계속 근로 연수</th><th>연차일수(80% 이상 출근)</th></tr>
+      <tr><td>1년(최초 1년 근로 후)</td><td>15일</td></tr>
+      <tr><td>3년</td><td>16일(15일 + 1일)</td></tr>
+      <tr><td>5년</td><td>17일(15일 + 2일)</td></tr>
+      <tr><td>21년 이상</td><td>25일(한도)</td></tr>
+    </table>
+
+    <h2>2. 쓰지 못한 연차는 수당으로 계산됩니다</h2>
+    <p>남은 연차를 수당으로 계산할 때는 <strong>연차수당 = 1일 통상임금 × 미사용 연차일수</strong>로 구하는 방식이 일반적입니다. 1일 통상임금은 월 통상임금을 월 소정근로시간으로 나눈 시급에 하루 소정근로시간을 곱해서 구합니다.</p>
+    <ul>
+      <li>월 통상임금에는 기본급과 매달 정기적·일률적으로 지급되는 고정 수당이 포함됩니다.</li>
+      <li>주 40시간(하루 8시간·주 5일) 근무자는 월 소정근로시간이 209시간입니다. 근무시간이 다르면 같은 방식으로 다시 환산해야 합니다.</li>
+    </ul>
+
+    <h2>3. 계산 예시로 확인하기 (가상의 예시)</h2>
+    <div class="example-box">
+      <div class="ex-title">월 통상임금 300만원, 미사용 연차 5일, 주 40시간 근무</div>
+      <div class="ex-row"><span>월 소정근로시간</span><span class="amount">209시간</span></div>
+      <div class="ex-row"><span>환산 시급(300만원 ÷ 209)</span><span class="amount">14,354원</span></div>
+      <div class="ex-row"><span>1일 통상임금(× 8시간)</span><span class="amount">114,833원</span></div>
+      <div class="ex-row total"><span>연차수당(× 5일)</span><span class="amount">574,163원</span></div>
+    </div>
+    <p>하루 5시간·주 4일(주 20시간)처럼 근무시간이 다르면 월 소정근로시간이 달라집니다. 월 통상임금 150만원, 미사용 연차 5일이라면 월 소정근로시간은 104시간, 1일 통상임금은 72,115원, 연차수당은 360,577원으로 계산됩니다.<br>
+    <span style="color:var(--muted); font-size:12.5px;">※ 위 예시는 이해를 돕기 위한 가상의 사례입니다.</span></p>
+
+    <div class="warn-box">
+      연차사용촉진제도를 회사가 적법하게 시행했다면 미사용 연차에 대한 수당 지급 의무가 달라질 수 있고, 수당 산정에 통상임금을 쓸지 평균임금을 쓸지는 취업규칙 등에 따라 다를 수 있습니다. 정확한 지급 기준은 회사 인사팀이나 고용노동부에서 확인하세요.
+    </div>
+
+    <p><a class="cta-btn" href="/tools/annual-leave-pay-calculator">내 연차수당 계산하기 →</a></p>
+        <div class="sources">
+      <div class="sources-title">참고 자료 및 출처</div>
+      <ul>
+        <li><a href="https://casenote.kr/%EB%B2%95%EB%A0%B9/%EA%B7%BC%EB%A1%9C%EA%B8%B0%EC%A4%80%EB%B2%95/%EC%A0%9C60%EC%A1%B0" target="_blank" rel="noopener">근로기준법 제60조(연차 유급휴가)</a> <span style="color:var(--muted);">(확인: 2026-09-19)</span></li>
+        <li><a href="https://www.moel.go.kr/news/enews/report/enewsView.do?news_seq=18144" target="_blank" rel="noopener">고용노동부 보도자료 — 월 209시간 기준(주 40시간)</a> <span style="color:var(--muted);">(확인: 2026-09-19)</span></li>
+      </ul>
+    </div>
+    <div class="disclaimer">이 글의 계산 예시는 하루콕 연차수당 계산기로 계산한 결과입니다.</div>
+  </article>
+
+  <footer style="max-width:620px; margin:40px auto 0; padding:20px 0 0; text-align:center; font-size:12.5px; color:var(--muted, #6E6656); border-top:1px solid var(--line, #D9D2BF);">
+    <a href="/" style="color:inherit; margin:0 8px;">홈</a>·<a href="/about" style="color:inherit; margin:0 8px;">소개</a>·<a href="/privacy" style="color:inherit; margin:0 8px;">개인정보처리방침</a>·<a href="mailto:contact@harukok.com" style="color:inherit; margin:0 8px;">문의</a>
+  </footer>
+</div>
+</body>
+</html>

@@ -63,7 +63,20 @@ class FakeElement {
     return child;
   }
   get children() { return this._children || []; }
-  querySelectorAll() { return []; }
+  querySelectorAll(selector) { return matchDescendants(this._children || [], selector); }
+}
+
+// 아주 단순한 하위 선택자만 지원한다: "태그명" 하나만 매칭한다(예: "button").
+// 복합 선택자·조합자는 지원하지 않는다 — 이 저장소 계산기들이 실제로 쓰는 패턴
+// (예: `#modeSeg button`)을 document.querySelectorAll에서 분해해 넘겨준다.
+function matchDescendants(children, tagSelector) {
+  const tag = tagSelector.trim().toUpperCase();
+  const out = [];
+  for (const c of children) {
+    if (c.tagName === tag) out.push(c);
+    out.push(...matchDescendants(c.children || [], tagSelector));
+  }
+  return out;
 }
 
 class FakeDocument {
@@ -88,6 +101,32 @@ class FakeDocument {
           class: classMatch ? classMatch[1] : '',
         });
         this._elements.set(id, el);
+
+        // id 붙은 컨테이너 바로 안에 자식 태그(예: <div id="modeSeg"><button ...>...)가
+        // 있으면 얕게(중첩 없이) 스캔해 자식으로 등록한다 — 세그먼트 버튼처럼
+        // document.querySelectorAll('#id tag')로 이벤트를 붙이는 패턴을 재현하기 위함.
+        const closeIdx = html.indexOf('</' + tag, idRe.lastIndex);
+        if (closeIdx !== -1) {
+          const inner = html.slice(idRe.lastIndex, closeIdx);
+          const childRe = /<(\w+)([^>]*)>/g;
+          let cm;
+          while ((cm = childRe.exec(inner))) {
+            const [, childTag, attrs] = cm;
+            if (childTag.toLowerCase() === tag.toLowerCase()) continue; // 중첩 동일 태그는 건너뜀(얕은 스캔)
+            const valueM = /value="([^"]*)"/.exec(attrs);
+            const classM = /class="([^"]*)"/.exec(attrs);
+            const dataAttrs = {};
+            const dataRe = /data-([\w-]+)="([^"]*)"/g;
+            let dm;
+            while ((dm = dataRe.exec(attrs))) dataAttrs['data-' + dm[1]] = dm[2];
+            const child = new FakeElement(this, childTag, {
+              value: valueM ? valueM[1] : '',
+              class: classM ? classM[1] : '',
+              ...dataAttrs,
+            });
+            el.appendChild(child);
+          }
+        }
       }
     }
   }
@@ -98,7 +137,15 @@ class FakeDocument {
     return this._elements.get(id);
   }
   createElement(tag) { return new FakeElement(this, tag, {}); }
-  querySelectorAll() { return []; } // 이 저장소 계산기들의 stepper 등은 테스트에서 값 직접 대입으로 우회
+  // "#id tag" 형태만 지원한다(이 저장소 계산기들이 실제로 쓰는 패턴). 그 외 선택자는 빈 배열.
+  querySelectorAll(selector) {
+    const m = /^#([\w-]+)\s+(\w+)$/.exec(selector.trim());
+    if (!m) return [];
+    const [, id, tag] = m;
+    const el = this._elements.get(id);
+    if (!el) return [];
+    return matchDescendants(el.children || [], tag);
+  }
   addEventListener() {}
 }
 

@@ -151,8 +151,6 @@
   }
   .toast.visible{ opacity: 1; transform: translateX(-50%) translateY(0); }
 
-  .ad-slot{ margin-bottom: 44px; }
-
   .about{
     text-align:center;
     margin-bottom: 28px;
@@ -325,6 +323,11 @@
     <p>회원가입 없이 바로 쓰는 무료 도구 모음입니다. 입력한 정보는 서버로 전송되지 않고 이 기기 안에서만 처리됩니다.</p>
   </div>
 
+  <div class="search-row">
+    <input type="text" id="toolSearch" placeholder="도구 이름으로 검색 (예: 연봉, 반려동물, 로또)">
+  </div>
+  <div class="no-result" id="noSearchResult" style="display:none;">검색 결과가 없어요. 다른 키워드로 찾아보세요.</div>
+
   <div class="goal-section">
     <div class="section-label">무엇을 하러 오셨나요?</div>
     <div class="goal-grid">
@@ -373,6 +376,12 @@
         <div class="guide-hook">상여금·연차수당이 있을 때 퇴직금 계산기에 얼마를, 어떻게 넣어야 하는지 정리했습니다.</div>
         <span class="guide-link">가이드 읽기 →</span>
       </a>
+      <a class="guide-card" href="/guides/unemployment-benefit-guide">
+        <span class="guide-tag">실업급여</span>
+        <div class="guide-title">실업급여, 받을 수 있는 조건과 금액·기간 계산법</div>
+        <div class="guide-hook">받을 수 있는 조건과 하루 지급액, 지급 일수를 표와 계산 예시로 정리했습니다.</div>
+        <span class="guide-link">가이드 읽기 →</span>
+      </a>
       <a class="guide-card" href="/guides/parental-leave-monthly-comparison">
         <span class="guide-tag">육아휴직</span>
         <div class="guide-title">육아휴직 월별 예상 수령액 비교</div>
@@ -382,11 +391,6 @@
     </div>
     <a class="guide-all-link" href="/guides/">가이드 전체 보기 →</a>
   </div>
-
-  <div class="search-row">
-    <input type="text" id="toolSearch" placeholder="도구 이름으로 검색 (예: 연봉, 반려동물, 로또)">
-  </div>
-  <div class="no-result" id="noSearchResult" style="display:none;">검색 결과가 없어요. 다른 키워드로 찾아보세요.</div>
 
   <section id="sectionUtility">
     <div class="section-label">실용 도구</div>
@@ -524,9 +528,9 @@
   </section>
 
   <section id="sectionFun">
-    <div class="section-label">재미 도구</div>
+    <div class="section-label">잠깐 쉬어가기 · 재미 도구</div>
 
-    <details class="subsection" data-cat="pick" open>
+    <details class="subsection" data-cat="pick">
       <summary class="subsection-label">오늘 뭐 하지? (뽑기)</summary>
       <div class="cards">
         <a class="card fun" href="/fun/lunch-picker" data-keywords="점심메뉴 메뉴추천 점심뭐먹지">

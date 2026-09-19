@@ -61,7 +61,6 @@
   .breakdown-row{ display:flex; justify-content:space-between; align-items:baseline; font-size:14px; padding:9px 0; color:var(--ink-soft); }
   .breakdown-row .amount{ font-family:'IBM Plex Mono', monospace; color:var(--ink); font-weight:600; font-size:16px; }
   .disclaimer{ font-size:11.5px; color:var(--muted); line-height:1.6; margin-top:24px; padding-top:16px; border-top:1px dotted var(--line); }
-  .slot{ border:1.5px dashed var(--line); border-radius:10px; padding:18px; text-align:center; font-size:12px; color:var(--muted); margin-top:24px; }
   @media (max-width:480px){ .card{ padding:24px; } h1{ font-size:25px; } .result-amount{ font-size:34px; } }
 
   .info-block{ margin-top:40px; }
@@ -123,7 +122,7 @@
       "name": "만 나이는 생일 당일부터 바뀌나요?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "네, 생일 당일 0시부터 새로운 나이가 적용됩니다. 이 계산기는 기준일을 직접 입력할 수 있어 특정 날짜의 나이를 미리 확인할 때도 활용할 수 있습니다."
+        "text": "네, 생일 당일 0시부터 새로운 나이가 적용됩니다. 다만 2월 29일생은 평년에 생일을 언제로 볼지 해석이 갈릴 수 있어, 이 계산기는 평년에는 3월 1일에 한 살을 더하는 방식으로 계산합니다. 이 계산기는 기준일을 직접 입력할 수 있어 특정 날짜의 나이를 미리 확인할 때도 활용할 수 있습니다."
       }
     },
     {
@@ -224,7 +223,7 @@
     </div>
     <div class="faq-item">
       <div class="q">만 나이는 생일 당일부터 바뀌나요?</div>
-      <div class="a">네, 생일 당일 0시부터 새로운 나이가 적용됩니다. 이 계산기는 기준일을 직접 입력할 수 있어 특정 날짜의 나이를 미리 확인할 때도 활용할 수 있습니다.</div>
+      <div class="a">네, 생일 당일 0시부터 새로운 나이가 적용됩니다. 다만 2월 29일생은 평년에 생일을 언제로 볼지 해석이 갈릴 수 있어, 이 계산기는 평년에는 3월 1일에 한 살을 더하는 방식으로 계산합니다. 이 계산기는 기준일을 직접 입력할 수 있어 특정 날짜의 나이를 미리 확인할 때도 활용할 수 있습니다.</div>
     </div>
     <div class="faq-item">
       <div class="q">만 나이 통일법 시행 전에 맺은 계약서는 어떻게 되나요?</div>
@@ -254,7 +253,8 @@
   const $ = (id) => document.getElementById(id);
 
   const today = new Date();
-  $('baseDate').value = today.toISOString().slice(0, 10);
+  // toISOString()은 UTC 기준이라 한국 시간 00~09시에는 하루 전 날짜가 들어가므로, 기기의 현지 날짜로 만든다.
+  $('baseDate').value = today.getFullYear() + '-' + String(today.getMonth() + 1).padStart(2, '0') + '-' + String(today.getDate()).padStart(2, '0');
 
   function calculate(){
     const birthVal = $('birth').value;

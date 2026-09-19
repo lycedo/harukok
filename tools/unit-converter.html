@@ -58,7 +58,6 @@
   .swap-btn{ flex-shrink:0; width:38px; height:38px; border-radius:50%; border:1.5px solid var(--ink); background:var(--paper-light); color:var(--ink); font-size:16px; cursor:pointer; align-self:flex-end; margin-bottom:32px; }
   .swap-btn:active{ background:var(--ink); color:var(--paper-light); }
 
-  .slot{ border:1.5px dashed var(--line); border-radius:10px; padding:18px; text-align:center; font-size:12px; color:var(--muted); margin-top:24px; }
 
   .info-block{ margin-top:40px; }
   .info-block h2{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:18px; margin:0 0 12px; }
@@ -86,6 +85,12 @@
   .site-nav-links a:hover{ color:var(--ink); background:var(--paper-light, rgba(0,0,0,0.045)); }
   .site-nav-links a[aria-current="page"]{ color:var(--ink); font-weight:600; }
   .site-nav-brand:focus-visible, .site-nav-links a:focus-visible{ outline:2px solid var(--stamp, #B23A2E); outline-offset:2px; border-radius:4px; }
+  .sources{ margin-top:24px; padding-top:18px; border-top:1px solid var(--line); }
+  .sources-title{ font-size:13px; font-weight:600; color:var(--ink-soft); margin-bottom:8px; }
+  .sources ul{ margin:0; padding-left:18px; }
+  .sources li{ font-size:12.5px; line-height:1.8; color:var(--muted); }
+  .sources a{ color:var(--ink-soft); }
+  .sources a:hover{ color:var(--ink); }
 </style>
 <!-- Google AdSense -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6883245122372170" crossorigin="anonymous"></script>
@@ -183,6 +188,16 @@
     <h2>어떻게 계산되나요?</h2>
     <p>길이·무게·부피·넓이는 각 단위를 기준 단위(미터, 그램, 리터, 제곱미터)로 환산한 배율을 이용해 계산합니다. 온도만 예외로, 섭씨·화씨·켈빈 사이의 별도 변환 공식을 적용합니다.</p>
 
+    <h2>자주 쓰는 평수 환산 참고표</h2>
+    <p>1평 = 3.3058㎡(400/121㎡)를 기준으로 계산한 값입니다. 아파트 공고에서 자주 보는 전용면적을 평으로 바꿔 볼 때 활용하세요.</p>
+    <table style="width:100%; border-collapse:collapse; font-size:13px; margin:0 0 18px;">
+      <tr><th style="text-align:left; padding:8px 10px; border-bottom:1px solid var(--line);">제곱미터(㎡)</th><th style="text-align:left; padding:8px 10px; border-bottom:1px solid var(--line);">평</th></tr>
+      <tr><td style="padding:8px 10px; border-bottom:1px solid var(--line);">59㎡</td><td style="padding:8px 10px; border-bottom:1px solid var(--line);">약 17.85평</td></tr>
+      <tr><td style="padding:8px 10px; border-bottom:1px solid var(--line);">84㎡</td><td style="padding:8px 10px; border-bottom:1px solid var(--line);">약 25.41평</td></tr>
+      <tr><td style="padding:8px 10px; border-bottom:1px solid var(--line);">101㎡</td><td style="padding:8px 10px; border-bottom:1px solid var(--line);">약 30.55평</td></tr>
+    </table>
+    <p>반대로 20평은 약 66.12㎡, 30평은 약 99.17㎡입니다. 다만 광고에 쓰이는 "○○평형"은 공급면적 기준이고 전용면적과 다를 수 있으니, 계약서에 적힌 면적 기준(전용·공급)을 먼저 확인하세요.</p>
+
     <div class="faq-item">
       <div class="q">1평은 몇 제곱미터인가요?</div>
       <div class="a">1평은 약 3.3058제곱미터입니다. 부동산 계약서에는 제곱미터로 표기되는 경우가 많아, 평수 감각으로 변환해서 보면 이해가 쉽습니다.</div>
@@ -194,6 +209,13 @@
     <div class="faq-item">
       <div class="q">계산 결과가 소수점 아래로 복잡하게 나와요.</div>
       <div class="a">단위 간 배율이 딱 떨어지지 않는 경우가 많아 소수점이 길게 나올 수 있습니다. 이 도구는 소수점 넷째 자리까지 반올림해서 보여줍니다.</div>
+    </div>
+
+    <div class="sources">
+      <div class="sources-title">참고 자료 및 출처</div>
+      <ul>
+        <li><a href="https://www.kats.go.kr/content.do?cmsid=78" target="_blank" rel="noopener">국가기술표준원 — 법정단위 FAQ(평은 비법정단위, 1평 ≒ 3.3058㎡) <span style="color:var(--muted);">(확인: 2026-09-19)</span></a></li>
+      </ul>
     </div>
   </div>
 
