@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://harukok.com/fun/food-picker">
+<meta property="og:title" content="오늘 뭐 먹지? - 점심·저녁·야식·음료 뽑기">
+<meta property="og:description" content="점심·저녁·야식·음료 중 시간대를 고르고 캡슐 하나로 3초 만에 메뉴를 결정하세요. 안 먹는 메뉴는 제외할 수 있어요.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="하루콕">
+<meta property="og:url" content="https://harukok.com/fun/food-picker">
+<meta property="og:image" content="https://harukok.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<title>오늘 뭐 먹지? - 점심·저녁·야식·음료 뽑기</title>
+<meta name="description" content="점심·저녁·야식·음료 중 시간대를 고르고 캡슐 하나로 3초 만에 메뉴를 결정하세요. 안 먹는 메뉴는 제외할 수 있어요.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@700&family=Pretendard:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #ECE8DC;
+    --bg-soft: #F7F4EA;
+    --yolk: #F0AD3D;
+    --kimchi: #D6503B;
+    --chive: #7FA65B;
+    --ticket: #FFFFFF;
+    --ticket-line: #DDD0AC;
+    --ink: #2B2420;
+    --cream-text: #F3ECDD;
+    --muted: #7A6F5C;
+    --line: #CFC5A6;
+    --stamp: #B23A2E;
+  }
+
+  *{ box-sizing: border-box; }
+
+  body{
+    margin:0;
+    padding: 40px 20px 70px;
+    background: var(--bg);
+    background-image: radial-gradient(circle at 50% 0%, var(--bg-soft), var(--bg) 70%);
+    font-family: 'Pretendard', sans-serif;
+    color: var(--ink);
+    display:flex;
+    justify-content:center;
+  }
+
+  .page{ width:100%; max-width: 480px; text-align:center; }
+
+  h1{
+    font-family: 'Do Hyeon', sans-serif;
+    font-size: 36px;
+    color: var(--kimchi);
+    margin: 0 0 6px;
+    letter-spacing: 0.01em;
+  }
+
+  .lede{
+    font-size: 14px;
+    color: var(--muted);
+    margin: 0 0 24px;
+  }
+
+  .meal-tabs{
+    display:flex;
+    gap:8px;
+    margin-bottom: 18px;
+  }
+  .meal-tab{
+    flex:1;
+    padding: 11px 6px;
+    border: 1.5px solid var(--line);
+    border-radius: 12px;
+    background: var(--ticket);
+    color: var(--ink);
+    font-size: 13.5px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .meal-tab.active{
+    background: var(--kimchi);
+    border-color: var(--kimchi);
+    color: var(--cream-text);
+  }
+
+  .chips{
+    display:flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content:center;
+    margin-bottom: 20px;
+    text-align:left;
+  }
+
+  .chip{
+    padding: 8px 16px;
+    border: 1.5px solid var(--line);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--ink);
+    font-size: 13.5px;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  .chip.active{
+    background: var(--yolk);
+    border-color: var(--yolk);
+    color: var(--ink);
+    font-weight: 700;
+  }
+
+  .machine{
+    position: relative;
+    width: 220px;
+    height: 220px;
+    margin: 0 auto 24px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #3A322A, #1C1712 75%);
+    border: 6px solid #171310;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow: inset 0 0 30px rgba(0,0,0,0.6), 0 10px 18px rgba(0,0,0,0.35);
+  }
+
+  .capsule{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: var(--ticket);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding: 10px;
+    transition: transform 0.2s ease;
+  }
+
+  .capsule .emoji{
+    font-size: 44px;
+    line-height:1;
+    margin-bottom: 6px;
+  }
+
+  .capsule .name{
+    font-family: 'Do Hyeon', sans-serif;
+    font-size: 18px;
+    color: var(--ink);
+    line-height: 1.2;
+  }
+
+  .capsule.spinning .emoji{
+    animation: spin-blur 0.22s ease-in-out infinite;
+  }
+  @keyframes spin-blur{
+    0%, 100%{ transform: scale(1) rotate(0deg); }
+    50%{ transform: scale(1.1) rotate(9deg); }
+  }
+  .capsule.landed{
+    animation: capsule-pop 0.36s cubic-bezier(.34,1.56,.64,1);
+  }
+  @keyframes capsule-pop{
+    0%{ transform: scale(0.86); }
+    55%{ transform: scale(1.08); }
+    100%{ transform: scale(1); }
+  }
+
+  .empty-state{
+    background: var(--ticket);
+    border: 1.5px dashed var(--line);
+    border-radius: 16px;
+    padding: 28px 20px;
+    margin-bottom: 24px;
+    display:none;
+  }
+  .empty-state.visible{ display:block; }
+  .empty-state .emoji{ font-size:32px; margin-bottom:8px; }
+  .empty-state p{ font-size:13.5px; color:var(--muted); line-height:1.6; margin:0 0 12px; }
+  .empty-state button{
+    border:1.5px solid var(--line); background:var(--bg-soft); color:var(--ink);
+    font-size:12.5px; font-weight:600; padding:8px 14px; border-radius:999px; cursor:pointer;
+  }
+
+  .pull-btn{
+    width: 100%;
+    padding: 18px;
+    background: var(--kimchi);
+    color: var(--cream-text);
+    border: none;
+    border-radius: 14px;
+    font-family: 'Do Hyeon', sans-serif;
+    font-size: 19px;
+    letter-spacing: 0.01em;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #A63C2C;
+  }
+  .pull-btn:active{
+    transform: translateY(3px);
+    box-shadow: 0 1px 0 #A63C2C;
+  }
+  .pull-btn:disabled{
+    opacity: 0.6;
+    cursor: default;
+  }
+
+  .exclude-panel{ margin-top:20px; text-align:left; border:1px solid var(--line); border-radius:12px; padding:4px 16px; background:var(--ticket); }
+  .exclude-panel summary{ cursor:pointer; font-size:13px; font-weight:600; color:var(--ink); padding:12px 0; list-style:none; display:flex; align-items:center; justify-content:space-between; }
+  .exclude-panel summary::-webkit-details-marker{ display:none; }
+  .exclude-panel summary .arrow{ color:var(--muted); font-size:12px; }
+  .exclude-panel[open] summary .arrow{ transform:rotate(90deg); display:inline-block; }
+  .exclude-body{ padding: 4px 0 16px; }
+  .exclude-hint{ font-size:12px; color:var(--muted); line-height:1.6; margin:0 0 10px; }
+  .exclude-chips{ display:flex; flex-wrap:wrap; gap:6px; margin-bottom:10px; }
+  .exclude-chip{ padding:6px 12px; border:1.5px solid var(--line); border-radius:999px; background:var(--bg-soft); color:var(--ink); font-size:12.5px; cursor:pointer; }
+  .exclude-chip.excluded{ background:var(--ink); border-color:var(--ink); color:var(--cream-text); text-decoration:line-through; opacity:0.75; }
+  .exclude-reset{ font-size:12px; color:var(--kimchi); font-weight:600; cursor:pointer; background:none; border:none; padding:0; }
+
+  .history{
+    margin-top: 36px;
+    text-align: left;
+  }
+
+  .history-title{
+    font-size: 13.5px;
+    color: var(--muted);
+    margin-bottom: 10px;
+    text-align:center;
+  }
+
+  .ticket-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background: var(--ticket);
+    border: 1px solid var(--ticket-line);
+    color: var(--ink);
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin-bottom: 8px;
+    font-size: 14px;
+  }
+
+  .ticket-row .food{
+    display:flex;
+    align-items:center;
+    gap: 8px;
+    font-weight: 600;
+  }
+  .ticket-row .meal-label{
+    font-size:11px; color:var(--muted); font-weight:500; margin-left:4px;
+  }
+
+  .ticket-row .date{
+    font-size: 12px;
+    color: #7A6E55;
+  }
+
+  .empty-history{
+    text-align:center;
+    color: var(--muted);
+    font-size: 13px;
+    padding: 16px 0;
+  }
+
+  .info-block{ margin-top:40px; text-align:left; }
+  .info-block h2{ font-family:'Do Hyeon', sans-serif; font-size:18px; color:var(--kimchi); margin:0 0 10px; font-weight:400; }
+  .info-block p{ font-size:13.5px; line-height:1.65; color:var(--muted); margin:0 0 14px; }
+  .faq-item{ margin-bottom:14px; }
+  .faq-item .q{ font-size:14px; font-weight:700; color:var(--ink); margin-bottom:5px; }
+  .faq-item .a{ font-size:13.5px; line-height:1.6; color:var(--muted); }
+
+  .back-home{ display:inline-block; font-size:12.5px; color:var(--muted); text-decoration:none; margin-bottom:14px; }
+  .back-home:hover{ color:var(--ink); }
+
+  .share-card{ background:var(--ticket); border:1px solid var(--ticket-line); border-radius:14px; padding:18px 16px 12px; margin-bottom:14px; }
+  .share-card .machine{ margin:0 auto 0; }
+  .share-watermark{ text-align:center; font-family:'Do Hyeon', sans-serif; font-size:12.5px; color:var(--muted); margin-top:10px; letter-spacing:0.02em; }
+  .share-row{ display:flex; gap:10px; margin-top:14px; margin-bottom:28px; }
+  .share-btn{
+    flex:1; padding:12px; border:1.5px solid var(--line); border-radius:12px; background:var(--ticket);
+    color:var(--ink); font-size:13px; font-weight:600; cursor:pointer;
+  }
+  .share-btn:disabled{ opacity:0.5; cursor:default; }
+  .share-btn:active:not(:disabled){ transform:translateY(2px); }
+  .share-toast{
+    position:fixed; left:50%; bottom:28px; transform:translateX(-50%) translateY(12px);
+    background:var(--ink); color:#fff; font-size:13px; padding:10px 18px; border-radius:999px;
+    opacity:0; pointer-events:none; transition:opacity 0.2s ease, transform 0.2s ease; z-index:10;
+  }
+  .share-toast.visible{ opacity:1; transform:translateX(-50%) translateY(0); }
+
+  .site-nav{ display:flex; align-items:center; justify-content:space-between; width:100%; margin:0 0 22px; padding:0 0 14px; border-bottom:1px solid var(--line, #D9D2BF); }
+  .site-nav-brand{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:15px; color:var(--ink); text-decoration:none; }
+  .site-nav-brand span{ color:var(--stamp, #B23A2E); }
+  .site-nav-links{ display:flex; gap:2px; }
+  .site-nav-links a{ font-size:13.5px; color:var(--muted); text-decoration:none; padding:6px 10px; border-radius:6px; }
+  .site-nav-links a:hover{ color:var(--ink); background:var(--bg-soft); }
+  .site-nav-links a[aria-current="page"]{ color:var(--ink); font-weight:600; }
+  .site-nav-brand:focus-visible, .site-nav-links a:focus-visible{ outline:2px solid var(--stamp, #B23A2E); outline-offset:2px; border-radius:4px; }
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "점심·저녁·야식·음료가 왜 한 페이지로 합쳐졌나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "예전에는 각각 다른 페이지였지만, 같은 방식(카테고리 뽑기)을 쓰는 도구라 하나로 합쳤습니다. 상단에서 시간대(점심·저녁·야식·음료)를 먼저 고르면 그에 맞는 카테고리가 나옵니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "안 먹는 메뉴는 어떻게 빼나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "'안 먹는 메뉴 관리'를 펼치면 현재 시간대에 있는 메뉴 목록이 나옵니다. 원하지 않는 메뉴를 누르면 제외되고, 이름이 같으면 다른 시간대를 고를 때도 계속 제외됩니다. 이 설정은 이 기기의 브라우저에만 저장됩니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "방금 나온 메뉴가 또 나올 수 있나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "같은 시간대에서 바로 직전에 나온 메뉴는 가능하면 다시 뽑지 않도록 제외합니다. 다만 후보가 그 메뉴 하나뿐인 경우에는 예외적으로 다시 나올 수 있습니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "'후보가 없어요'는 언제 뜨나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "선택한 카테고리의 모든 메뉴를 '안 먹는 메뉴'로 제외했을 때 나타납니다. 카테고리를 바꾸거나, 제외 목록에서 몇 개를 다시 켜면 다시 뽑을 수 있습니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "'샐러드·단백질', '편의점·디저트' 카테고리는 건강이나 다이어트 효과를 보장하나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "아니요. 이 카테고리 이름은 실제로 어떤 메뉴들이 묶여 있는지를 설명할 뿐이며, 건강 효과나 체중 감량을 암시하지 않습니다. 하루콕이 일반적인 인식을 참고해 임의로 묶은 것이며, 영양사 감수나 공식 영양 성분 자료를 근거로 하지 않았습니다. 칼로리·다이어트 효과·알레르기 안전성을 보장하지 않으니, 건강·식이 관련 결정에는 이 도구의 분류를 사용하지 마세요."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "예전 점심·저녁·야식·음료 뽑기 주소는 어떻게 되나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "/fun/lunch-picker, /fun/dinner-picker, /fun/night-snack-picker, /fun/cafe-drink-picker로 접속하면 이 통합 페이지의 해당 시간대로 자동 연결됩니다. 예전 기기에 저장돼 있던 뽑기 기록도 이 페이지에서 그대로 이어서 보입니다."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+
+<div class="page">
+<nav class="site-nav" aria-label="주요 메뉴">
+  <a class="site-nav-brand" href="/">하루<span>콕</span></a>
+  <div class="site-nav-links">
+    <a href="/#all-tools" aria-current="page">도구</a>
+    <a href="/guides/">가이드</a>
+  </div>
+</nav>
+
+
+  <a href="/" class="back-home">← 하루콕 홈으로</a>
+  <h1>오늘 뭐 먹지?</h1>
+  <p class="lede" id="ledeText">고민은 배송만 늦출 뿐 — 캡슐 뽑고 바로 출발하세요.</p>
+
+  <div class="meal-tabs" id="mealTabs"></div>
+  <div class="chips" id="chips"></div>
+
+  <div class="share-card" id="shareCard">
+    <div class="machine">
+      <div class="capsule" id="capsule">
+        <div class="emoji" id="capsuleEmoji">🎲</div>
+        <div class="name" id="capsuleName">뽑기 대기중</div>
+      </div>
+    </div>
+    <div class="share-watermark">하루콕 · harukok.com</div>
+  </div>
+
+  <div class="empty-state" id="emptyState">
+    <div class="emoji">🈳</div>
+    <p id="emptyStateText">선택한 카테고리에서 뽑을 수 있는 메뉴가 없어요. '안 먹는 메뉴'로 전부 제외되어 있는 것 같아요.</p>
+    <button type="button" id="emptyStateOpenExclude">제외 목록 확인하기</button>
+  </div>
+
+  <button class="pull-btn" id="pullBtn">오늘 메뉴 뽑기</button>
+
+  <div class="share-row">
+    <button class="share-btn" id="saveImgBtn" disabled>이미지로 저장</button>
+    <button class="share-btn" id="shareBtn" disabled>공유하기</button>
+  </div>
+
+  <details class="exclude-panel" id="excludePanel">
+    <summary><span id="excludeSummaryText">안 먹는 메뉴 관리</span><span class="arrow">▸</span></summary>
+    <div class="exclude-body">
+      <p class="exclude-hint">누르면 제외/포함이 바뀝니다. 이름이 같은 메뉴는 다른 시간대에서도 함께 제외됩니다. 이 설정은 이 기기의 브라우저에만 저장됩니다.</p>
+      <div class="exclude-chips" id="excludeChips"></div>
+      <button type="button" class="exclude-reset" id="excludeReset">전체 제외 해제</button>
+    </div>
+  </details>
+
+  <div class="history">
+    <div class="history-title">최근 뽑기 기록</div>
+    <div id="historyList"></div>
+  </div>
+
+
+  <div class="info-block">
+    <h2>메뉴, 왜 이렇게 고민될까요?</h2>
+    <p>선택지가 많을수록 오히려 결정이 어려워지는 '선택의 역설' 때문입니다. 점심·저녁·야식·음료 4개 시간대, 시간대별 카테고리, 시간대별 메뉴를 모두 더하면 194개(같은 메뉴가 다른 시간대에도 들어있어 이름 기준 고유 메뉴는 165개)에서 무작위로 뽑아 고민 시간을 줄여줍니다.</p>
+
+    <div class="faq-item">
+      <div class="q">점심·저녁·야식·음료가 왜 한 페이지로 합쳐졌나요?</div>
+      <div class="a">예전에는 각각 다른 페이지였지만, 같은 방식(카테고리 뽑기)을 쓰는 도구라 하나로 합쳤습니다. 상단에서 시간대(점심·저녁·야식·음료)를 먼저 고르면 그에 맞는 카테고리가 나옵니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">안 먹는 메뉴는 어떻게 빼나요?</div>
+      <div class="a">'안 먹는 메뉴 관리'를 펼치면 현재 시간대에 있는 메뉴 목록이 나옵니다. 원하지 않는 메뉴를 누르면 제외되고, 이름이 같으면 다른 시간대를 고를 때도 계속 제외됩니다. 이 설정은 이 기기의 브라우저에만 저장됩니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">방금 나온 메뉴가 또 나올 수 있나요?</div>
+      <div class="a">같은 시간대에서 바로 직전에 나온 메뉴는 가능하면 다시 뽑지 않도록 제외합니다. 다만 후보가 그 메뉴 하나뿐인 경우에는 예외적으로 다시 나올 수 있습니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">'후보가 없어요'는 언제 뜨나요?</div>
+      <div class="a">선택한 카테고리의 모든 메뉴를 '안 먹는 메뉴'로 제외했을 때 나타납니다. 카테고리를 바꾸거나, 제외 목록에서 몇 개를 다시 켜면 다시 뽑을 수 있습니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">'샐러드·단백질', '편의점·디저트' 카테고리는 건강이나 다이어트 효과를 보장하나요?</div>
+      <div class="a">아니요. 이 카테고리 이름은 실제로 어떤 메뉴들이 묶여 있는지를 설명할 뿐이며, 건강 효과나 체중 감량을 암시하지 않습니다. 하루콕이 일반적인 인식을 참고해 임의로 묶은 것이며, 영양사 감수나 공식 영양 성분 자료를 근거로 하지 않았습니다. 칼로리·다이어트 효과·알레르기 안전성을 보장하지 않으니, 건강·식이 관련 결정에는 이 도구의 분류를 사용하지 마세요.</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">예전 점심·저녁·야식·음료 뽑기 주소는 어떻게 되나요?</div>
+      <div class="a">/fun/lunch-picker, /fun/dinner-picker, /fun/night-snack-picker, /fun/cafe-drink-picker로 접속하면 이 통합 페이지의 해당 시간대로 자동 연결됩니다. 예전 기기에 저장돼 있던 뽑기 기록도 이 페이지에서 그대로 이어서 보입니다.</div>
+    </div>
+  </div>
+
+  <footer style="max-width:620px; margin:40px auto 0; padding:20px 0 0; text-align:center; font-size:12.5px; color:var(--muted, #6E6656); border-top:1px solid var(--line, #D9D2BF);">
+    <a href="/" style="color:inherit; margin:0 8px;">홈</a>·<a href="/about" style="color:inherit; margin:0 8px;">소개</a>·<a href="/privacy" style="color:inherit; margin:0 8px;">개인정보처리방침</a>·<a href="mailto:contact@harukok.com" style="color:inherit; margin:0 8px;">문의</a>
+  </footer>
+</div>
+
+<div class="share-toast" id="shareToast"></div>
+
+<script>
+(function(){
+  const $ = (id) => document.getElementById(id);
+
+  function showToast(msg){
+    const toast = $('shareToast');
+    toast.textContent = msg;
+    toast.classList.add('visible');
+    setTimeout(() => toast.classList.remove('visible'), 2200);
+  }
+
+  function saveCardAsImage(cardId, filename){
+    if (typeof html2canvas === 'undefined'){
+      alert('이미지 생성 기능을 아직 불러오는 중이에요. 잠시 후 다시 시도해주세요.');
+      return;
+    }
+    const original = $(cardId);
+    const clone = original.cloneNode(true);
+    clone.style.width = '420px';
+    clone.style.maxWidth = '420px';
+    clone.style.position = 'fixed';
+    clone.style.left = '-9999px';
+    clone.style.top = '0';
+    document.body.appendChild(clone);
+
+    html2canvas(clone, { backgroundColor: '#ffffff', scale: 2, width: 420 }).then(canvas => {
+      document.body.removeChild(clone);
+      const link = document.createElement('a');
+      link.download = filename;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    }).catch(() => {
+      document.body.removeChild(clone);
+      alert('이미지 저장에 실패했어요.');
+    });
+  }
+
+  function shareResult(getText){
+    const text = getText();
+
+    function legacyCopy(){
+      try {
+        const ta = document.createElement('textarea');
+        ta.value = text + ' ' + location.href;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        showToast('결과가 복사되었어요');
+      } catch(e){
+        showToast('공유를 지원하지 않는 환경이에요');
+      }
+    }
+
+    function fallbackCopy(){
+      if (navigator.clipboard){
+        navigator.clipboard.writeText(text + ' ' + location.href).then(() => showToast('결과가 복사되었어요')).catch(legacyCopy);
+      } else {
+        legacyCopy();
+      }
+    }
+
+    if (navigator.share){
+      navigator.share({ title: '하루콕', text, url: location.href })
+        .then(() => showToast('공유했어요'))
+        .catch(err => { if (!err || err.name !== 'AbortError') fallbackCopy(); });
+    } else {
+      fallbackCopy();
+    }
+  }
+
+  // ---- 메뉴 데이터 (시간대별) ----
+  const MEAL_LABELS = { lunch: '점심', dinner: '저녁', 'night-snack': '야식', drink: '음료' };
+  const MEAL_LEDE = {
+    lunch: '고민은 배송만 늦출 뿐 — 캡슐 뽑고 바로 출발하세요.',
+    dinner: '퇴근길 최대 고민 — 캡슐 뽑고 바로 결정하세요.',
+    'night-snack': '참을까, 말까 — 고민 말고 캡슐부터 뽑으세요.',
+    drink: '카테고리 고르고 캡슐 뽑으면 오늘의 음료가 정해집니다.'
+  };
+  const MENU = {
+    lunch: {
+      한식: [ ["김치찌개","🍲"], ["된장찌개","🍲"], ["제육볶음","🥘"], ["비빔밥","🍚"], ["갈비탕","🍖"], ["순두부찌개","🥣"], ["불고기","🥩"], ["삼겹살","🥓"], ["냉면","🍜"], ["육개장","🍲"] ],
+      중식: [ ["짜장면","🍜"], ["짬뽕","🍜"], ["탕수육","🍖"], ["마파두부","🍛"], ["볶음밥","🍚"], ["멘보샤","🍞"], ["유린기","🍗"], ["깐풍기","🍗"], ["마라샹궈","🌶️"] ],
+      일식: [ ["초밥","🍣"], ["돈카츠","🍱"], ["라멘","🍜"], ["우동","🍥"], ["규동","🍛"], ["연어덮밥","🍚"], ["텐동","🍤"], ["카레라이스","🍛"], ["야키소바","🍜"] ],
+      양식: [ ["파스타","🍝"], ["피자","🍕"], ["스테이크","🥩"], ["리조또","🍚"], ["샌드위치","🥪"], ["햄버거","🍔"], ["라자냐","🍝"], ["오믈렛","🍳"], ["브런치플레이트","🥞"] ],
+      분식: [ ["떡볶이","🌶️"], ["김밥","🍙"], ["라볶이","🍜"], ["순대","🥟"], ["튀김","🍤"], ["쫄면","🍝"], ["오뎅","🍢"], ["핫도그","🌭"], ["찐만두","🥟"] ],
+      '샐러드·단백질': [ ["샐러드","🥗"], ["닭가슴살","🍗"], ["포케","🥙"], ["그릭요거트","🥛"], ["곤약비빔면","🍜"], ["오트밀","🥣"], ["단백질쉐이크","🥤"], ["두부스테이크","🍽️"] ]
+    },
+    dinner: {
+      한식: [ ["삼겹살","🥓"], ["갈비찜","🍖"], ["된장찌개","🍲"], ["김치찜","🍲"], ["곱창전골","🍢"], ["보쌈","🥘"], ["닭볶음탕","🍗"], ["육회","🥩"], ["갈비탕","🍖"], ["낙지볶음","🌶️"] ],
+      중식: [ ["마라탕","🌶️"], ["짬뽕","🍜"], ["양꼬치","🍢"], ["깐풍기","🍗"], ["팔보채","🍤"], ["볶음밥","🍚"], ["유산슬","🍛"], ["탕수육","🍖"], ["마라샹궈","🌶️"] ],
+      일식: [ ["초밥","🍣"], ["회덮밥","🍚"], ["가라아게","🍗"], ["오코노미야키","🥞"], ["나베","🍲"], ["규카츠","🍱"], ["스키야키","🍲"], ["사케동","🍚"], ["몬자야키","🥞"] ],
+      양식: [ ["스테이크","🥩"], ["파스타","🍝"], ["피자","🍕"], ["리조또","🍚"], ["그라탕","🧀"], ["햄버거","🍔"], ["바비큐립","🍖"], ["시저샐러드","🥗"], ["감바스","🍤"] ],
+      혼밥: [ ["편의점도시락","🍱"], ["라면","🍜"], ["김밥","🍙"], ["볶음우동","🍜"], ["삼각김밥","🍙"], ["컵밥","🍚"], ["즉석국밥","🍲"], ["냉동볶음밥","🍳"] ],
+      회식: [ ["소고기","🥩"], ["곱창","🍢"], ["치킨","🍗"], ["족발","🍖"], ["횟집","🐟"], ["조개구이","🦪"], ["대게찜","🦀"], ["양갈비","🍖"] ]
+    },
+    'night-snack': {
+      치킨: [ ["후라이드치킨","🍗"], ["양념치킨","🍗"], ["반반치킨","🍗"], ["치즈볼","🧀"], ["닭강정","🍗"], ["순살치킨","🍗"], ["마늘치킨","🧄"], ["파닭","🍗"] ],
+      분식: [ ["떡볶이","🌶️"], ["튀김","🍤"], ["순대","🥟"], ["김말이","🍢"], ["라볶이","🍜"], ["오뎅","🍢"], ["계란빵","🥚"], ["핫도그","🌭"] ],
+      안주: [ ["족발","🍖"], ["보쌈","🥘"], ["곱창","🍢"], ["회","🐟"], ["골뱅이무침","🐌"], ["오징어볶음","🦑"], ["노가리","🐟"], ["감자튀김","🍟"], ["육포","🥩"] ],
+      면류: [ ["라면","🍜"], ["짬뽕","🍜"], ["우동","🍥"], ["쌀국수","🍜"], ["짜파구리","🍜"], ["열라면","🌶️"], ["잔치국수","🍜"], ["카레우동","🍛"] ],
+      매콤: [ ["마라탕","🌶️"], ["불닭","🔥"], ["매운탕","🍲"], ["엽떡","🌶️"], ["불족발","🔥"], ["마라샹궈","🌶️"], ["청양고추김밥","🌶️"], ["부대찌개","🍲"] ],
+      '편의점·디저트': [ ["편의점디저트","🍮"], ["아이스크림","🍦"], ["과일","🍓"], ["컵라면","🍜"], ["젤리","🍬"], ["초콜릿","🍫"], ["요거트","🥛"] ]
+    },
+    drink: {
+      커피: [
+        ["아메리카노","☕"], ["카페라떼","🥛"], ["카푸치노","☕"], ["바닐라라떼","🥛"], ["카라멜마키아토","🍮"],
+        ["콜드브루","🧊"], ["플랫화이트","☕"], ["아인슈페너","☕"], ["카페모카","🍫"], ["헤이즐넛라떼","🥜"],
+        ["연유라떼","🥛"], ["흑당라떼","🧋"], ["고구마라떼","🍠"], ["에스프레소","☕"], ["더블샷아메리카노","☕"]
+      ],
+      '티&에이드': [
+        ["유자민트티","🍋"], ["자몽허니블랙티","🍊"], ["그린티라떼","🍵"], ["밀크티","🧋"], ["녹차라떼","🍵"],
+        ["레몬에이드","🍋"], ["청포도에이드","🍇"], ["자몽에이드","🍊"], ["복숭아아이스티","🍑"], ["캐모마일티","🌼"],
+        ["얼그레이티","🍂"], ["페퍼민트티","🌿"], ["홍차라떼","🍵"]
+      ],
+      '스무디&블렌디드': [
+        ["딸기요거트스무디","🍓"], ["망고요거트스무디","🥭"], ["초코칩스무디","🍫"], ["스트로베리초콜릿","🍓"],
+        ["초코라떼","🍫"], ["딸기라떼","🍓"], ["망고스무디","🥭"], ["딸기스무디","🍓"], ["초코나나","🍌"],
+        ["아사이스무디","🫐"], ["블루베리스무디","🫐"]
+      ]
+    }
+  };
+
+  // ---- 상태 ----
+  let activeMeal = 'lunch';
+  let activeCategory = '아무거나';
+
+  const VALID_MEALS = Object.keys(MEAL_LABELS);
+  const params = new URLSearchParams(location.search);
+  const mealParam = params.get('meal');
+  if (mealParam && VALID_MEALS.includes(mealParam)) activeMeal = mealParam;
+
+  // ---- 저장소: 기록 ----
+  const HISTORY_KEY = 'harukok-food-history';
+  const LEGACY_HISTORY_KEYS = {
+    lunch: 'harukok-lunch-history',
+    dinner: 'harukok-dinner-history',
+    'night-snack': 'harukok-night-snack-history',
+    drink: 'harukok-cafe-history'
+  };
+
+  // 기록 한 건이 화면에 표시해도 안전한 최소 형식을 갖췄는지 검사한다.
+  // name·emoji는 비어있지 않은 문자열, date는 Date로 해석 가능한 값이어야 하고,
+  // meal이 있다면(마이그레이션 이전 값은 없을 수 있음) 알려진 시간대여야 한다.
+  function isValidHistoryItem(item){
+    if (!item || typeof item !== 'object') return false;
+    if (typeof item.name !== 'string' || !item.name) return false;
+    if (typeof item.emoji !== 'string' || !item.emoji) return false;
+    const time = new Date(item.date).getTime();
+    if (!Number.isFinite(time)) return false;
+    if (item.meal !== undefined && !VALID_MEALS.includes(item.meal)) return false;
+    return true;
+  }
+
+  function migrateLegacyHistory(){
+    try{
+      if (localStorage.getItem(HISTORY_KEY)) return; // 이미 통합 기록이 있으면 재병합하지 않음
+      let merged = [];
+      let found = false;
+      Object.keys(LEGACY_HISTORY_KEYS).forEach(meal => {
+        const raw = localStorage.getItem(LEGACY_HISTORY_KEYS[meal]);
+        if (!raw) return;
+        let list;
+        try { list = JSON.parse(raw); } catch(e){ return; }
+        if (!Array.isArray(list) || !list.length) return;
+        found = true;
+        list.forEach(item => {
+          const candidate = item && { meal, name: item.name, emoji: item.emoji, date: item.date };
+          if (isValidHistoryItem(candidate)) merged.push(candidate);
+        });
+      });
+      if (found){
+        merged.sort((a, b) => new Date(b.date) - new Date(a.date));
+        localStorage.setItem(HISTORY_KEY, JSON.stringify(merged.slice(0, 50)));
+      }
+    }catch(e){ /* storage unavailable, ignore */ }
+  }
+
+  // 저장된 값이 배열이 아니거나 항목 형식이 잘못돼 있어도(예: 수동 편집, 손상된 값)
+  // 페이지 초기화나 뽑기가 멈추지 않도록 유효한 항목만 걸러서 돌려준다.
+  // 저장소 자체는 건드리지 않으므로 원래 값(유효한 기록 포함)은 그대로 보존된다.
+  function loadHistory(){
+    try{
+      const raw = localStorage.getItem(HISTORY_KEY);
+      if (!raw) return [];
+      const parsed = JSON.parse(raw);
+      if (!Array.isArray(parsed)) return [];
+      return parsed.filter(isValidHistoryItem);
+    }catch(e){ return []; }
+  }
+
+  function saveHistory(list){
+    try{ localStorage.setItem(HISTORY_KEY, JSON.stringify(list)); }catch(e){ /* ignore */ }
+  }
+
+  // ---- 저장소: 안 먹는 메뉴 ----
+  const EXCLUDED_KEY = 'harukok-food-excluded';
+
+  function loadExcluded(){
+    try{
+      const raw = localStorage.getItem(EXCLUDED_KEY);
+      const list = raw ? JSON.parse(raw) : [];
+      return Array.isArray(list) ? list : [];
+    }catch(e){ return []; }
+  }
+
+  function saveExcluded(list){
+    try{ localStorage.setItem(EXCLUDED_KEY, JSON.stringify(list)); }catch(e){ /* ignore */ }
+  }
+
+  function isExcluded(name){
+    return loadExcluded().includes(name);
+  }
+
+  function toggleExcluded(name){
+    const list = loadExcluded();
+    const idx = list.indexOf(name);
+    if (idx >= 0) list.splice(idx, 1);
+    else list.push(name);
+    saveExcluded(list);
+  }
+
+  function formatDate(d){
+    const date = new Date(d);
+    return `${date.getMonth()+1}/${date.getDate()}`;
+  }
+
+  const ESCAPE_MAP = { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' };
+  function escapeHtml(str){
+    return String(str).replace(/[&<>"']/g, (c) => ESCAPE_MAP[c]);
+  }
+
+  // ---- 풀 계산 ----
+  function fullMealPool(meal){
+    return Object.values(MENU[meal]).flat();
+  }
+
+  function currentCategoryPool(){
+    const mealMenu = MENU[activeMeal];
+    if (activeCategory === '아무거나') return Object.values(mealMenu).flat();
+    return mealMenu[activeCategory] || [];
+  }
+
+  function poolAfterExclusion(){
+    const excluded = new Set(loadExcluded());
+    return currentCategoryPool().filter(([name]) => !excluded.has(name));
+  }
+
+  function poolAfterRecentExclusion(base){
+    const hist = loadHistory().filter(h => h.meal === activeMeal);
+    if (!hist.length) return base;
+    const lastName = hist[0].name;
+    const filtered = base.filter(([name]) => name !== lastName);
+    return filtered.length ? filtered : base;
+  }
+
+  function pickRandom(arr){
+    return arr[Math.floor(Math.random() * arr.length)];
+  }
+
+  // ---- 렌더링 ----
+  function renderMealTabs(){
+    const el = $('mealTabs');
+    el.innerHTML = '';
+    VALID_MEALS.forEach(meal => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'meal-tab' + (meal === activeMeal ? ' active' : '');
+      btn.textContent = MEAL_LABELS[meal];
+      btn.addEventListener('click', () => {
+        if (activeMeal === meal) return;
+        activeMeal = meal;
+        activeCategory = '아무거나';
+        resetCapsule();
+        renderMealTabs();
+        renderCategoryChips();
+        renderExcludePanel();
+        updateLede();
+        hideEmptyState();
+      });
+      el.appendChild(btn);
+    });
+  }
+
+  function renderCategoryChips(){
+    const chipsEl = $('chips');
+    chipsEl.innerHTML = '';
+    const categories = Object.keys(MENU[activeMeal]).concat(['아무거나']);
+    if (!categories.includes(activeCategory)) activeCategory = '아무거나';
+    categories.forEach(cat => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'chip' + (cat === activeCategory ? ' active' : '');
+      btn.textContent = cat;
+      btn.addEventListener('click', () => {
+        activeCategory = cat;
+        [...chipsEl.children].forEach(c => c.classList.remove('active'));
+        btn.classList.add('active');
+        hideEmptyState();
+      });
+      chipsEl.appendChild(btn);
+    });
+  }
+
+  function renderExcludePanel(){
+    $('excludeSummaryText').textContent = `안 먹는 메뉴 관리 (${MEAL_LABELS[activeMeal]})`;
+    const excluded = new Set(loadExcluded());
+    const names = [...new Set(fullMealPool(activeMeal).map(([name]) => name))];
+    const chipsEl = $('excludeChips');
+    chipsEl.innerHTML = '';
+    names.forEach(name => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'exclude-chip' + (excluded.has(name) ? ' excluded' : '');
+      btn.textContent = name;
+      btn.addEventListener('click', () => {
+        toggleExcluded(name);
+        renderExcludePanel();
+      });
+      chipsEl.appendChild(btn);
+    });
+  }
+
+  function updateLede(){
+    $('ledeText').textContent = MEAL_LEDE[activeMeal];
+  }
+
+  function resetCapsule(){
+    $('capsuleEmoji').textContent = '🎲';
+    $('capsuleName').textContent = '뽑기 대기중';
+    $('saveImgBtn').disabled = true;
+    $('shareBtn').disabled = true;
+  }
+
+  function showEmptyState(){
+    const excludedInCategory = currentCategoryPool().length - poolAfterExclusion().length;
+    $('emptyStateText').textContent = excludedInCategory > 0
+      ? `선택한 카테고리(${activeCategory})의 메뉴를 모두 '안 먹는 메뉴'로 제외해서 뽑을 후보가 없어요.`
+      : '선택한 카테고리에 뽑을 수 있는 메뉴가 없어요.';
+    $('emptyState').classList.add('visible');
+  }
+  function hideEmptyState(){
+    $('emptyState').classList.remove('visible');
+  }
+
+  function renderHistory(){
+    const list = loadHistory();
+    const el = $('historyList');
+    if (!list.length){
+      el.innerHTML = '<div class="empty-history">아직 뽑은 기록이 없어요. 첫 캡슐을 뽑아보세요!</div>';
+      return;
+    }
+    el.innerHTML = list.slice(0, 6).map(item => `
+      <div class="ticket-row">
+        <span class="food"><span>${escapeHtml(item.emoji)}</span><span>${escapeHtml(item.name)}</span><span class="meal-label">${escapeHtml(MEAL_LABELS[item.meal] || '')}</span></span>
+        <span class="date">${escapeHtml(formatDate(item.date))}</span>
+      </div>
+    `).join('');
+  }
+
+  $('excludeReset').addEventListener('click', () => {
+    saveExcluded([]);
+    renderExcludePanel();
+    hideEmptyState();
+  });
+
+  $('emptyStateOpenExclude').addEventListener('click', () => {
+    $('excludePanel').open = true;
+    $('excludePanel').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+
+  let spinning = false;
+
+  $('pullBtn').addEventListener('click', () => {
+    if (spinning) return;
+
+    const base = poolAfterExclusion();
+    if (!base.length){
+      showEmptyState();
+      return;
+    }
+    hideEmptyState();
+
+    spinning = true;
+    $('pullBtn').disabled = true;
+
+    const capsule = $('capsule');
+    const emojiEl = $('capsuleEmoji');
+    const nameEl = $('capsuleName');
+    const finalPool = poolAfterRecentExclusion(base);
+
+    capsule.classList.add('spinning');
+    const totalTicks = 18;
+    let tick = 0;
+
+    function nextTick(){
+      tick++;
+      const isLast = tick >= totalTicks;
+      const [name, emoji] = isLast ? pickRandom(finalPool) : pickRandom(base);
+      emojiEl.textContent = emoji;
+      nameEl.textContent = name;
+
+      if (!isLast){
+        const progress = tick / totalTicks;
+        const delay = 60 + Math.pow(progress, 3) * 260;
+        setTimeout(nextTick, delay);
+      } else {
+        capsule.classList.remove('spinning');
+        capsule.classList.add('landed');
+        setTimeout(() => capsule.classList.remove('landed'), 360);
+        spinning = false;
+        $('pullBtn').disabled = false;
+        $('saveImgBtn').disabled = false;
+        $('shareBtn').disabled = false;
+
+        const newEntry = { meal: activeMeal, name, emoji, date: Date.now() };
+        const newList = [newEntry, ...loadHistory()].slice(0, 50);
+        saveHistory(newList);
+        renderHistory();
+      }
+    }
+
+    nextTick();
+  });
+
+  $('saveImgBtn').addEventListener('click', () => saveCardAsImage('shareCard', `하루콕-오늘${MEAL_LABELS[activeMeal]}.png`));
+  $('shareBtn').addEventListener('click', () => shareResult(() =>
+    `하루콕에서 뽑은 오늘 ${MEAL_LABELS[activeMeal]}: ${$('capsuleEmoji').textContent} ${$('capsuleName').textContent}`
+  ));
+
+  migrateLegacyHistory();
+  updateLede();
+  renderMealTabs();
+  renderCategoryChips();
+  renderExcludePanel();
+  renderHistory();
+})();
+</script>
+</body>
+</html>

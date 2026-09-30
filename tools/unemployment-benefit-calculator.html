@@ -102,6 +102,7 @@
   .guide-callout{ display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:8px; margin-top:16px; padding:12px 14px; background:var(--paper-light); border:1px dashed var(--line); border-radius:8px; font-size:12.5px; color:var(--ink-soft); }
   .guide-callout a{ color:var(--stamp); font-weight:600; text-decoration:none; white-space:nowrap; }
   .guide-callout a:hover{ text-decoration:underline; }
+  .cap-lower-note{ font-size:12.5px; line-height:1.6; color:var(--ink-soft); background:var(--paper-light); border:1px dashed var(--line); border-radius:8px; padding:10px 12px; margin:0 0 20px; }
   details.cap-details{ margin:0 0 20px; border:1px dashed var(--line); border-radius:10px; padding:12px 14px; }
   details.cap-details summary{ cursor:pointer; font-size:13px; color:var(--ink-soft); font-weight:600; }
   details.cap-details summary:focus-visible{ outline:2px solid var(--stamp); outline-offset:2px; }
@@ -166,7 +167,7 @@
 <nav class="site-nav" aria-label="주요 메뉴">
   <a class="site-nav-brand" href="/">하루<span>콕</span></a>
   <div class="site-nav-links">
-    <a href="/#sectionUtility" aria-current="page">도구</a>
+    <a href="/#all-tools" aria-current="page">도구</a>
     <a href="/guides/">가이드</a>
   </div>
 </nav>
@@ -203,6 +204,8 @@
       <span class="field-hint">1일 평균임금은 3개월 임금 총액을 그 기간의 실제 일수(보통 89~92일)로 나눠 구합니다. 잘 모르면 92를 그대로 두세요.</span>
     </div>
 
+    <p class="cap-lower-note">1일 소정근로시간이 8시간인 경우 2026년 하한액은 66,048원입니다. 8시간보다 짧다면 하한액이 더 낮아지니(예: 6시간이면 49,536원), 아래 "상한액·하한액 확인/수정"에서 직접 낮춰서 입력하세요.</p>
+
     <div class="field">
       <label>나이</label>
       <div class="seg" id="ageSeg">
@@ -223,7 +226,7 @@
     </div>
 
     <details class="cap-details">
-      <summary>상한액·하한액 확인/수정 (2026년 기준값이 입력되어 있어 보통은 그대로 두시면 됩니다)</summary>
+      <summary>상한액·하한액 확인/수정 (2026년 기준값이 입력되어 있으며, 1일 소정근로시간이 8시간이면 그대로 두시면 됩니다)</summary>
       <div class="field">
         <label for="capUpper">구직급여 상한액 (원/일)</label>
         <div class="input-row">
@@ -237,7 +240,7 @@
         <div class="input-row">
           <input type="number" id="capLower" value="66048" inputmode="numeric">
         </div>
-        <span class="field-hint">2026년 최저임금(시급 10,320원) × 8시간 × 80% 기준입니다. 매년 바뀝니다.</span>
+        <span class="field-hint">2026년 최저임금(시급 10,320원) × 8시간 × 80% 기준입니다(1일 소정근로시간 8시간 기준). 하한액은 실제로는 1일 소정근로시간별로 다르며(예: 6시간이면 49,536원), 이 계산기는 8시간 기준값만 자동으로 채워줍니다 — 소정근로시간이 8시간보다 적다면 이 값을 직접 낮춰서 입력하세요. 매년 바뀝니다.</span>
       </div>
     </details>
 
@@ -263,7 +266,7 @@
 
   <div class="info-block">
     <h2>구직급여는 어떻게 계산되나요?</h2>
-    <p>구직급여일액은 퇴사 전 평균임금의 60%이며, 정해진 상한액과 하한액 사이로 제한됩니다. 여기에 나이와 고용보험 가입기간에 따라 정해지는 소정급여일수(120~270일)를 곱하면 총 예상 수급액이 나옵니다. 자발적 퇴사가 아닌 비자발적 이직(권고사직, 계약만료, 폐업 등)인 경우에만 수급 자격이 주어집니다.</p>
+    <p>구직급여일액은 퇴사 전 평균임금의 60%이며, 정해진 상한액과 하한액 사이로 제한됩니다. 여기에 나이와 고용보험 가입기간에 따라 정해지는 소정급여일수(120~270일)를 곱하면 총 예상 수급액이 나옵니다. 권고사직·계약만료·폐업 같은 비자발적 이직은 대체로 수급 자격이 주어지지만, 자발적 퇴사는 원칙적으로 제한되고 임금체불·근로조건 악화 등 정당한 사유가 인정되는 예외적인 경우에만 수급 자격을 받을 수 있습니다.</p>
 
     <h2>계산 예시로 보기</h2>
     <p>월급 300만 원을 받던 45세 근로자가 고용보험 가입 4년 차에 권고사직으로 퇴사했다고 가정해보겠습니다. 3개월 임금 총액을 그 기간의 실제 일수(보통 89~92일)로 나눈 1일 평균임금의 60%를 구직급여일액으로 하되, 2026년 상한액(68,100원)을 넘지 않는 선에서 정해집니다. 50세 미만·가입기간 3~5년 구간의 소정급여일수는 180일이므로, 구직급여일액에 180을 곱한 금액이 총 예상 수급액이 됩니다. 소정급여일수는 나이와 가입기간이 늘어날수록 계단식으로 길어지는 구조라, 같은 임금이라도 근속연수가 긴 사람이 더 오래, 더 많이 받게 됩니다.</p>
@@ -294,6 +297,8 @@
       <ul>
         <li><a href="https://www.work24.go.kr" target="_blank" rel="noopener">고용24(워크넷·고용보험 통합) — 실업급여 모의계산·구직등록·신청</a></li>
         <li><a href="https://easylaw.go.kr/CSP/CnpClsMain.laf?popMenu=ov&csmSeq=722&ccfNo=2&cciNo=3&cnpClsNo=1" target="_blank" rel="noopener">찾기쉬운 생활법령정보 — 구직급여 소정급여일수(고용보험법 별표1) <span style="color:var(--muted);">(확인: 2026-09-19)</span></a></li>
+        <li><a href="https://moel.go.kr/news/enews/report/enewsView.do?news_seq=18736" target="_blank" rel="noopener">고용노동부 — 「고용보험법 시행령」 일부개정령안 국무회의 의결(2025.12.16., 구직급여 상한액 68,100원, 2026.1.1. 시행) <span style="color:var(--muted);">(확인: 2026-09-30)</span></a></li>
+        <li><a href="https://1350.moel.go.kr/rtmview.do?id=1000329198&page=1&type=ALL" target="_blank" rel="noopener">고용노동부 고객상담센터(1350) — 1일 소정근로시간별 구직급여일액 하한액(1~8시간) 안내 <span style="color:var(--muted);">(확인: 2026-09-30)</span></a></li>
       </ul>
     </div>
   </div>
@@ -347,7 +352,7 @@
     const days = BENEFIT_DAYS[ageGroup][tenureGroup];
     const total = dailyBenefit * days;
 
-    render({ dailyBenefit, days, total });
+    render({ dailyBenefit, days, total, capUpper, capLower });
   }
 
   function won(n){
@@ -359,6 +364,8 @@
     $('breakdown').innerHTML = `
       <div class="breakdown-row"><span>구직급여일액</span><span class="amount">${won(r.dailyBenefit)}원</span></div>
       <div class="breakdown-row"><span>소정급여일수</span><span class="amount">${r.days}일</span></div>
+      <div class="breakdown-row"><span>적용한 상한액</span><span class="amount">${won(r.capUpper)}원</span></div>
+      <div class="breakdown-row"><span>적용한 하한액</span><span class="amount">${won(r.capLower)}원</span></div>
     `;
     $('resultCard').classList.remove('hidden');
   }

@@ -74,5 +74,24 @@ console.log('\n=== 4. 표시된 일액 × 일수 = 총액 (화면 숫자가 서�
   check('표시된 일액 × 일수 = 총액', total, day * days);
   check('총액 13,969,620원(66,522 × 210)', total, 13969620);
 }
+console.log('\n=== 5. 결과 화면에 실제 적용한 상한액·하한액이 표시됨 ===');
+{
+  const doc = loadCalculator(HTML);
+  doc.getElementById('wage3m').value = '300';
+  doc.getElementById('calcBtn').click();
+  const t = doc.getElementById('breakdown').innerHTML;
+  const upper = /적용한 상한액<\/span><span class="amount">([0-9,]+)원/.exec(t);
+  const lower = /적용한 하한액<\/span><span class="amount">([0-9,]+)원/.exec(t);
+  check('기본값(8시간 기준) 상한액 68,100원이 결과에 표시됨', upper ? Number(upper[1].replace(/,/g, '')) : null, 68100);
+  check('기본값(8시간 기준) 하한액 66,048원이 결과에 표시됨', lower ? Number(lower[1].replace(/,/g, '')) : null, 66048);
+
+  const doc2 = loadCalculator(HTML);
+  doc2.getElementById('wage3m').value = '300';
+  doc2.getElementById('capLower').value = '49536';
+  doc2.getElementById('calcBtn').click();
+  const t2 = doc2.getElementById('breakdown').innerHTML;
+  const lower2 = /적용한 하한액<\/span><span class="amount">([0-9,]+)원/.exec(t2);
+  check('사용자가 하한액을 직접 낮추면(6시간 예시) 결과에도 그 값이 반영됨', lower2 ? Number(lower2[1].replace(/,/g, '')) : null, 49536);
+}
 console.log('\n결과: ' + pass + '개 통과, ' + fail + '개 실패');
 if (fail > 0) process.exit(1);

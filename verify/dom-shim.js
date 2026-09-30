@@ -57,6 +57,7 @@ class FakeElement {
     return true;
   }
   click() { this.dispatchEvent({ type: 'click' }); }
+  scrollIntoView() { /* no-op in the shim */ }
   appendChild(child) {
     this._children = this._children || [];
     this._children.push(child);

@@ -16,7 +16,9 @@
 - GitHub 저장소에 정적 파일 올리고 → Cloudflare Pages에서 GitHub 연동 → 자동 배포
 - 커스텀 도메인은 선택사항
 
-## 현재 사이트 구조 (2026-09-01 기준)
+## 사이트 구조 이력
+
+### 2026-09-01 기준 (최초 출시 구조, 아래는 그대로 보존한 기록)
 
 ```
 /
@@ -47,16 +49,51 @@
 └── DEPLOY_GUIDE.md                      배포 단계별 가이드
 ```
 
-홈페이지는 실용/재미 각각을 서브카테고리로 나눠서 구성:
-- 실용: 급여·재무 / 나이·날짜 / 반려동물 / 임신·출산
-- 재미: 오늘 뭐 하지?(뽑기) / 운세·확률 / 반려동물 / 임신·출산
+이후 여러 세션을 거치며 guides/(설명형 가이드 글) 폴더가 추가되고, 도구 구성도
+여러 차례 바뀌었습니다. 이 트리는 최초 출시 시점의 기록으로만 남겨두고,
+아래 2026-09-30 기준 구조가 현재 상태입니다.
 
-각 도구는 "시리즈"로 실용↔재미를 서로 링크하도록 설계함 (`.related` 섹션):
-- 직장인 재무 3종: 연봉 실수령액 ↔ 퇴직금 ↔ 실업급여
-- 반려동물 3종: 나이계산기 ↔ 사료량계산기 ↔ 이름생성기
-- 예비부모 3종: 출산예정일 ↔ 육아휴직급여 ↔ 태명짓기
-- 오늘 뭐 하지 4종: 점심 ↔ 저녁 ↔ 야식 ↔ 카페음료 (상호 순환 링크)
-- 운세·확률 2종: 로또 ↔ 오늘의 운세
+### 2026-09-30 기준 (콘텐츠 축소 정리 후 현재 구조)
+
+애드센스의 "가치가 없는 콘텐츠" 반려 이후, `internal/content-improvement-plan-2026-09-30.md`
+계획에 따라 관리 범위를 줄이고 남는 페이지 품질을 높이는 작업을 진행했습니다
+(도구 22개·가이드 2편·재미 도구 10개 삭제, 로또는 URL·기능 보존).
+
+```
+/
+├── index.html                                     홈 (바로 쓰는 도구 / 월급 확인 / 퇴사 준비 / 육아휴직 준비 / 관련 가이드)
+├── tools/                                          계산기 8개
+│   ├── salary-calculator.html                      연봉 실수령액 계산기
+│   ├── hourly-wage-calculator.html                 시급 계산기
+│   ├── weekly-holiday-pay-calculator.html          주휴수당 계산기
+│   ├── severance-pay-calculator.html               퇴직금 계산기
+│   ├── unemployment-benefit-calculator.html        실업급여(구직급여) 계산기
+│   ├── annual-leave-pay-calculator.html            연차수당 계산기
+│   ├── parental-leave-calculator.html              육아휴직급여 계산기
+│   └── certificate-maker.html                      상장 만들기
+├── fun/                                            재미 도구 — 로또 하나만 URL 보존
+│   └── lotto-generator.html                        로또 번호 생성기 (생성·저장·공유·기록 유지)
+├── guides/                                         설명형 가이드 6편 + 목록
+│   ├── index.html
+│   ├── salary-vs-payslip.html
+│   ├── severance-bonus-input.html
+│   ├── unemployment-benefit-guide.html
+│   ├── parental-leave-monthly-comparison.html
+│   ├── minimum-wage-monthly-hours.html
+│   └── annual-leave-guide.html
+├── about.html / privacy.html / sitemap.xml / robots.txt / ads.txt
+├── internal/                                       비공개 운영 문서 (배포 대상 아님)
+│   ├── DEPLOY_GUIDE.md
+│   ├── PROJECT_NOTES.md (이 파일)
+│   ├── operator-notes.md
+│   └── content-improvement-plan-2026-09-30.md
+├── verify/                                         남은 도구용 회귀 테스트만 유지
+└── scripts/                                        build.js, check-dist.js
+```
+
+홈페이지 서브카테고리 구성이나 도구 간 `.related` 시리즈 링크는 삭제된 도구가 많아
+2026-09-01 당시의 구성과 더 이상 일치하지 않습니다. 현재는 실제로 남아있는 페이지끼리만
+관련 링크를 연결하고, 관련 있는 대체 페이지가 없으면 `.related` 섹션 자체를 비워둡니다.
 
 ## 디자인 시스템
 

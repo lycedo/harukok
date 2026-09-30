@@ -1,0 +1,4 @@
+/fun/lunch-picker /fun/food-picker?meal=lunch 301
+/fun/dinner-picker /fun/food-picker?meal=dinner 301
+/fun/night-snack-picker /fun/food-picker?meal=night-snack 301
+/fun/cafe-drink-picker /fun/food-picker?meal=drink 301
