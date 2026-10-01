@@ -6,10 +6,10 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>로또 번호 생성기 - 무료 자동 번호 추첨</title>
-<meta name="description" content="1~45 사이 로또 번호 6개를 클릭 한 번으로 무작위 생성합니다. 최근 생성 기록도 확인 가능.">
+<meta name="description" content="1~45 사이 로또 번호를 가상 금액(1,000~5,000원)에 따라 1~5줄까지 무료로 생성합니다. 이미지 저장, 텍스트 복사, 같은 결과 공유 링크를 지원합니다.">
 <link rel="canonical" href="https://harukok.com/fun/lotto-generator">
 <meta property="og:title" content="로또 번호 생성기 - 무료 자동 번호 추첨">
-<meta property="og:description" content="1~45 사이 로또 번호 6개를 클릭 한 번으로 무작위 생성합니다. 최근 생성 기록도 확인 가능.">
+<meta property="og:description" content="1~45 사이 로또 번호를 가상 금액(1,000~5,000원)에 따라 1~5줄까지 무료로 생성합니다. 이미지 저장, 텍스트 복사, 같은 결과 공유 링크를 지원합니다.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="하루콕">
 <meta property="og:url" content="https://harukok.com/fun/lotto-generator">
@@ -48,7 +48,22 @@
   }
   .page{ width:100%; max-width: 480px; text-align:center; }
   h1{ font-family:'Do Hyeon', sans-serif; font-size:38px; color:var(--red); margin:0 0 6px; letter-spacing:0.01em; }
-  .lede{ font-size:14px; color:var(--muted); margin:0 0 28px; }
+  .lede{ font-size:14px; color:var(--muted); margin:0 0 24px; }
+
+  .card-box{ background:var(--ticket); border:1px solid var(--ticket-line); border-radius:14px; padding:18px; margin-bottom:20px; text-align:left; }
+  .card-box-head{ display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; flex-wrap:wrap; gap:6px; }
+  .card-box-title{ font-size:13px; font-weight:600; color:var(--ink); }
+  .pill{ font-size:11px; color:var(--muted); background:var(--bg-soft); border:1px solid var(--line); border-radius:999px; padding:3px 10px; white-space:nowrap; }
+
+  .amount-row{
+    display:flex; align-items:center; justify-content:space-between; border:1.5px solid var(--line); border-radius:10px;
+    padding:12px 14px; margin-bottom:8px; cursor:pointer; background:none; width:100%; font:inherit; color:inherit; text-align:left;
+  }
+  .amount-row:last-child{ margin-bottom:0; }
+  .amount-row.selected{ border-color:var(--ink); background:var(--ink); color:#fff; }
+  .amount-val{ font-weight:700; font-size:15px; }
+  .amount-lines{ font-size:12.5px; color:var(--muted); }
+  .amount-row.selected .amount-lines{ color:#D8DAE0; }
 
   .pull-btn{
     width:100%; padding:18px; background:var(--gold); color:var(--ink); border:none; border-radius:14px;
@@ -58,13 +73,21 @@
   .pull-btn:active{ transform:translateY(3px); box-shadow:0 1px 0 #B8811C; }
   .pull-btn:disabled{ opacity:0.6; cursor:default; }
 
-  .games{ display:flex; flex-direction:column; gap:12px; margin-bottom: 30px; }
-  .game-row{
-    background: var(--ticket); border:1px solid var(--ticket-line); border-radius:10px; padding:14px; display:flex; align-items:center; justify-content:center; gap:8px;
-  }
+  .badge-share{ display:flex; align-items:center; gap:8px; font-size:12.5px; font-weight:600; color:var(--ink); background:#F6E2B0; border:1px solid var(--gold); border-radius:10px; padding:10px 12px; margin-bottom:12px; text-align:left; }
+  .shared-lede{ font-size:13px; color:var(--muted); line-height:1.6; margin:0 0 20px; text-align:left; }
+
+  .memo-card{ background:#FFFDF6; border:1px solid var(--ticket-line); border-radius:10px; padding:20px 16px; }
+  .memo-title{ text-align:center; font-family:'Do Hyeon', sans-serif; font-size:19px; margin-bottom:2px; }
+  .memo-sub{ text-align:center; font-size:11px; color:var(--muted); margin-bottom:12px; }
+  .memo-divider{ border-top:1px dashed var(--line); margin:10px 0; }
+  .memo-row{ display:flex; align-items:center; gap:6px; margin-bottom:8px; }
+  .memo-row:last-child{ margin-bottom:0; }
+  .memo-row .idx{ font-size:11px; color:var(--muted); width:14px; flex-shrink:0; }
+  .memo-footer{ text-align:center; font-size:11px; color:var(--muted); min-height:14px; }
+
   .ball{
-    width:38px; height:38px; border-radius:50%; display:flex; align-items:center; justify-content:center;
-    font-weight:700; font-size:14px; color:#fff; flex-shrink:0;
+    width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+    font-weight:700; font-size:13px; color:#fff; flex-shrink:0;
   }
   .ball.tick{ animation: ball-tick 0.18s ease-out; }
   @keyframes ball-tick{ 0%{ transform: scale(0.7); } 60%{ transform: scale(1.12); } 100%{ transform: scale(1); } }
@@ -75,15 +98,19 @@
   .ball.red{ background:var(--red); }
   .ball.gray{ background:var(--gray); }
   .ball.green{ background:var(--green); }
-
   .ball.pending{ background:#DCD6C4; color:#9C93B5; }
+
+  .disclaimer-box{ font-size:11px; font-weight:600; color:var(--ink); background:var(--bg-soft); border:1px solid var(--line); border-radius:8px; padding:10px 12px; line-height:1.6; text-align:center; margin-top:14px; }
 
   .history{ margin-top: 36px; text-align:left; }
   .history-title{ font-size:13.5px; color:var(--muted); margin-bottom:10px; text-align:center; }
-  .history-row{ display:flex; align-items:center; justify-content:space-between; background:var(--ticket); border:1px solid var(--ticket-line); color:var(--ink); border-radius:8px; padding:10px 14px; margin-bottom:8px; font-size:12.5px; }
+  .history-row{ background:var(--ticket); border:1px solid var(--ticket-line); color:var(--ink); border-radius:8px; padding:10px 14px; margin-bottom:8px; font-size:12.5px; }
+  .history-row-top{ display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
   .history-row .balls{ display:flex; gap:4px; }
   .history-row .ball{ width:24px; height:24px; font-size:10.5px; }
   .history-row .date{ font-size:11px; color:#7A6E55; flex-shrink:0; margin-left:8px; }
+  .history-view-btn{ width:100%; padding:8px; border:1.5px solid var(--line); border-radius:8px; background:var(--bg-soft); color:var(--ink); font-size:12px; font-weight:600; cursor:pointer; }
+  .history-view-btn:active{ transform:translateY(1px); }
   .empty-history{ text-align:center; color:var(--muted); font-size:13px; padding:16px 0; }
 
 
@@ -94,17 +121,10 @@
   .faq-item .q{ font-size:14px; font-weight:700; color:var(--ink); margin-bottom:5px; }
   .faq-item .a{ font-size:13.5px; line-height:1.6; color:var(--muted); }
 
-  .related{ margin-top:32px; padding-top:20px; border-top:1px solid var(--line); text-align:left; }
-  .related-title{ font-size:12.5px; color:var(--muted); margin-bottom:10px; }
-  .related-links{ display:flex; flex-wrap:wrap; gap:8px; }
-  .related-links a{ padding:8px 14px; border:1.5px solid var(--line); border-radius:999px; font-size:13px; color:var(--ink); text-decoration:none; }
-  .related-links a:hover{ border-color:var(--ink); }
-
   .back-home{ display:inline-block; font-size:12.5px; color:var(--muted); text-decoration:none; margin-bottom:14px; }
   .back-home:hover{ color:var(--ink); }
 
   .share-card{ background:var(--ticket); border:1px solid var(--ticket-line); border-radius:14px; padding:20px 16px 14px; margin-bottom:14px; }
-  .share-card .games{ margin-bottom:0; }
   .share-watermark{ text-align:center; font-family:'Do Hyeon', sans-serif; font-size:12.5px; color:var(--muted); margin-top:10px; letter-spacing:0.02em; }
   .share-row{ display:flex; gap:10px; margin-top:14px; margin-bottom:28px; }
   .share-btn{
@@ -119,6 +139,8 @@
     opacity:0; pointer-events:none; transition:opacity 0.2s ease, transform 0.2s ease; z-index:10;
   }
   .share-toast.visible{ opacity:1; transform:translateX(-50%) translateY(0); }
+
+  .cta{ display:block; width:100%; padding:16px; background:var(--ink); color:#fff; border:none; border-radius:14px; font-weight:600; font-size:15px; text-align:center; cursor:pointer; text-decoration:none; margin-bottom:28px; }
 
   .site-nav{ display:flex; align-items:center; justify-content:space-between; width:100%; margin:0 0 22px; padding:0 0 14px; border-bottom:1px solid var(--line, #D9D2BF); }
   .site-nav-brand{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:15px; color:var(--ink); text-decoration:none; }
@@ -137,6 +159,14 @@
   "mainEntity": [
     {
       "@type": "Question",
+      "name": "가상 금액은 실제로 결제되나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "아닙니다. 가상 금액은 몇 줄을 생성할지 정하는 표시일 뿐이며, 실제 결제·충전·구매대행은 전혀 일어나지 않습니다. 하루콕은 번호 생성·저장·공유 기능만 무료로 제공하며, 번호 판매나 경품 지급 기능은 없습니다."
+      }
+    },
+    {
+      "@type": "Question",
       "name": "당첨 확률이 더 높아지나요?",
       "acceptedAnswer": {
         "@type": "Answer",
@@ -153,10 +183,18 @@
     },
     {
       "@type": "Question",
-      "name": "여러 게임을 한번에 만들 수 없나요?",
+      "name": "공유 링크를 열면 번호가 다시 뽑히나요?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "한 번 클릭에 한 게임씩, 최근 뽑기 기록에 최대 30개까지 자동으로 쌓입니다. 필요한 만큼 여러 번 눌러서 기록에서 확인하세요."
+        "text": "아닙니다. 공유 링크를 열면 상대방이 만든 번호가 그대로 보일 뿐 새로 추첨되지 않고, 링크를 연 사람의 '최근 생성 기록'에도 자동으로 저장되지 않습니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "실제 로또(복권)인가요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "아닙니다. 하루콕 번호 메모는 무료 번호 생성 결과이며 실제 복권이 아닙니다. 이 결과로 복권을 구매하거나 당첨금을 청구할 수 없으며, 동행복권과 무관한 하루콕의 자체 서비스입니다."
       }
     }
   ]
@@ -178,21 +216,45 @@
 
   <a href="/" class="back-home">← 하루콕 홈으로</a>
   <h1>로또 번호 생성기</h1>
-  <p class="lede">1~45 중 무작위 6개, 클릭 한 번이면 끝.</p>
+  <p class="lede">1~45 중 무작위 번호를 무료로 몇 줄이든 뽑아보세요.</p>
 
-  <button class="pull-btn" id="genBtn">번호 생성하기</button>
+  <div id="selectionBlock">
+    <div class="card-box">
+      <div class="card-box-head">
+        <div class="card-box-title">가상 금액 선택</div>
+        <div class="pill">무료 놀이용 설정 · 실제 결제 없음</div>
+      </div>
+      <div id="amountGrid"></div>
+    </div>
+    <button class="pull-btn" id="genBtn">번호 생성</button>
+  </div>
+
+  <div id="sharedBadgeBlock" style="display:none;">
+    <div class="badge-share">📨 공유된 결과입니다 · 열람만 가능</div>
+    <p class="shared-lede">다른 사람이 만든 번호를 보고 있어요. 이 화면을 본다고 새로 추첨되지 않고, 내 '최근 생성 기록'에는 저장되지 않습니다.</p>
+  </div>
 
   <div class="share-card" id="shareCard">
-    <div class="games" id="games"></div>
-    <div class="share-watermark">하루콕 · harukok.com</div>
+    <div class="memo-card">
+      <div class="memo-title">하루콕 번호 메모</div>
+      <div class="memo-sub" id="memoSub">harukok.com · 동행복권과 무관</div>
+      <div class="memo-divider"></div>
+      <div id="memoRows"><div class="empty-history">아직 생성한 번호가 없어요. 번호 생성을 눌러보세요!</div></div>
+      <div class="memo-divider"></div>
+      <div class="memo-footer" id="memoFooter"></div>
+    </div>
+    <div class="disclaimer-box">하루콕 무료 번호 생성 결과 · 실제 복권 아님 · 구매 및 당첨금 청구 효력 없음</div>
   </div>
 
   <div class="share-row">
     <button class="share-btn" id="saveImgBtn" disabled>이미지로 저장</button>
+    <button class="share-btn" id="copyTextBtn" disabled>텍스트 복사</button>
     <button class="share-btn" id="shareBtn" disabled>공유하기</button>
   </div>
 
-  <div class="history">
+  <a href="#" class="cta" id="sharedCtaLink" style="display:none;">나도 번호 생성하러 가기 →</a>
+
+  <div class="history" id="historySection">
     <div class="history-title">최근 생성 기록</div>
     <div id="historyList"></div>
   </div>
@@ -200,8 +262,12 @@
 
   <div class="info-block">
     <h2>번호는 어떻게 만들어지나요?</h2>
-    <p>브라우저의 난수 생성 기능(Math.random)을 이용해 1~45 사이 숫자 중 중복 없이 6개를 뽑습니다. 실제 로또 추첨기처럼 모든 번호가 동일한 확률로 나오도록 설계되어 있고, 서버로 전송되는 데이터 없이 기기 안에서 즉시 계산됩니다.</p>
+    <p>브라우저의 난수 생성 기능(Math.random)을 이용해 1~45 사이 숫자 중 중복 없이 6개씩 뽑습니다. 가상 금액(1,000~5,000원)은 한 번에 몇 줄을 만들지 정하는 표시일 뿐 실제 결제와 무관하며, 모든 번호는 서버로 전송되는 데이터 없이 기기 안에서 즉시 계산됩니다.</p>
 
+    <div class="faq-item">
+      <div class="q">가상 금액은 실제로 결제되나요?</div>
+      <div class="a">아닙니다. 가상 금액은 몇 줄을 생성할지 정하는 표시일 뿐이며, 실제 결제·충전·구매대행은 전혀 일어나지 않습니다. 하루콕은 번호 생성·저장·공유 기능만 무료로 제공하며, 번호 판매나 경품 지급 기능은 없습니다.</div>
+    </div>
     <div class="faq-item">
       <div class="q">당첨 확률이 더 높아지나요?</div>
       <div class="a">아닙니다. 어떤 방식으로 번호를 골라도 당첨 확률은 동일합니다. 이 도구는 번호를 고민하는 시간을 줄여주는 용도로만 사용해주세요.</div>
@@ -211,8 +277,12 @@
       <div class="a">네, 매번 완전히 새로 뽑기 때문에 이전과 같은 조합이 다시 나올 수도 있습니다. 통계적으로는 지극히 낮은 확률입니다.</div>
     </div>
     <div class="faq-item">
-      <div class="q">여러 게임을 한번에 만들 수 없나요?</div>
-      <div class="a">한 번 클릭에 한 게임씩, 최근 뽑기 기록에 최대 30개까지 자동으로 쌓입니다. 필요한 만큼 여러 번 눌러서 기록에서 확인하세요.</div>
+      <div class="q">공유 링크를 열면 번호가 다시 뽑히나요?</div>
+      <div class="a">아닙니다. 공유 링크를 열면 상대방이 만든 번호가 그대로 보일 뿐 새로 추첨되지 않고, 링크를 연 사람의 '최근 생성 기록'에도 자동으로 저장되지 않습니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">실제 로또(복권)인가요?</div>
+      <div class="a">아닙니다. 하루콕 번호 메모는 무료 번호 생성 결과이며 실제 복권이 아닙니다. 이 결과로 복권을 구매하거나 당첨금을 청구할 수 없으며, 동행복권과 무관한 하루콕의 자체 서비스입니다.</div>
     </div>
   </div>
 
@@ -226,6 +296,10 @@
 <script>
 (function(){
   const $ = (id) => document.getElementById(id);
+  const AMOUNTS = [1000, 2000, 3000, 4000, 5000];
+  let selectedAmount = 1000;
+  let currentResult = null;
+  let spinning = false;
 
   function showToast(msg){
     const toast = $('shareToast');
@@ -258,6 +332,29 @@
       document.body.removeChild(clone);
       alert('이미지 저장에 실패했어요.');
     });
+  }
+
+  function copyText(text){
+    function legacyCopy(){
+      try {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        showToast('텍스트가 복사되었어요');
+      } catch(e){
+        showToast('복사를 지원하지 않는 환경이에요');
+      }
+    }
+    if (navigator.clipboard){
+      navigator.clipboard.writeText(text).then(() => showToast('텍스트가 복사되었어요')).catch(legacyCopy);
+    } else {
+      legacyCopy();
+    }
   }
 
   function shareResult(getText){
@@ -304,7 +401,7 @@
     return 'green';
   }
 
-  function generateGame(){
+  function generateLine(){
     const nums = new Set();
     while (nums.size < 6){
       nums.add(1 + Math.floor(Math.random() * 45));
@@ -312,12 +409,31 @@
     return [...nums].sort((a,b) => a-b);
   }
 
+  function ballHTML(n, extraClass, extraStyle){
+    return `<span class="ball ${colorFor(n)} ${extraClass || ''}" style="${extraStyle || ''}">${n}</span>`;
+  }
+
+  // ---- 저장 기록 ----
   const STORAGE_KEY = 'harukok-lotto-history';
+
+  // 기존 {nums, date} 1줄 기록과 신규 {amount, lines, date} 묶음 기록을 모두 인정한다.
+  // 형식이 깨진 값은 조용히 걸러내 초기화·렌더링이 멈추지 않게 한다(기존 레코드는 보존).
+  function isValidHistoryItem(item){
+    if (!item || typeof item !== 'object' || !item.date) return false;
+    if (Array.isArray(item.nums) && item.nums.length === 6) return true;
+    if (Array.isArray(item.lines) && item.lines.length >= 1 && item.lines.length <= 5 && typeof item.amount === 'number'){
+      return item.lines.every(line => Array.isArray(line) && line.length === 6);
+    }
+    return false;
+  }
 
   function loadHistory(){
     try{
       const raw = localStorage.getItem(STORAGE_KEY);
-      return raw ? JSON.parse(raw) : [];
+      if (!raw) return [];
+      const parsed = JSON.parse(raw);
+      if (!Array.isArray(parsed)) return [];
+      return parsed.filter(isValidHistoryItem);
     }catch(e){ return []; }
   }
   function saveHistory(list){
@@ -328,58 +444,196 @@
     return `${date.getMonth()+1}/${date.getDate()}`;
   }
 
-  function ballHTML(n, extraClass, extraStyle){
-    return `<span class="ball ${colorFor(n)} ${extraClass || ''}" style="${extraStyle || ''}">${n}</span>`;
+  // 기존 {nums,date} 1줄 기록과 신규 {amount,lines,date} 묶음 기록을 같은 모양({amount,lines})으로 맞춰준다.
+  // 레거시 기록은 1줄=1,000원 매핑을 그대로 적용해 다시 보기 화면에서도 같은 카드 형식을 쓸 수 있게 한다.
+  function entryToAmountLines(item){
+    if (Array.isArray(item.nums)) return { amount: 1000, lines: [item.nums] };
+    return { amount: item.amount, lines: item.lines };
+  }
+
+  // 기록의 "번호 다시 보기"를 누르면 저장된 번호를 그대로 결과 카드에 표시한다.
+  // 새로 추첨하거나 saveHistory()를 호출하지 않으므로 기록이 중복 추가되지 않는다.
+  function viewHistoryItem(idx){
+    const list = loadHistory();
+    const item = list[idx];
+    if (!item) return;
+    const { amount, lines } = entryToAmountLines(item);
+    renderMemoCard(amount, lines, `저장된 기록 · 원래 생성일 ${formatDate(item.date)}`);
+    currentResult = { amount, lines, date: item.date };
+    $('saveImgBtn').disabled = false;
+    $('copyTextBtn').disabled = false;
+    $('shareBtn').disabled = false;
   }
 
   function renderHistory(){
     const list = loadHistory();
     const el = $('historyList');
+    el.innerHTML = '';
     if (!list.length){
       el.innerHTML = '<div class="empty-history">아직 생성 기록이 없어요. 첫 번호를 뽑아보세요!</div>';
       return;
     }
-    el.innerHTML = list.slice(0, 8).map(item => `
-      <div class="history-row">
-        <div class="balls">${item.nums.map(n => ballHTML(n)).join('')}</div>
-        <span class="date">${formatDate(item.date)}</span>
-      </div>
-    `).join('');
+    list.slice(0, 8).forEach((item, idx) => {
+      const row = document.createElement('div');
+      row.className = 'history-row';
+
+      const top = document.createElement('div');
+      top.className = 'history-row-top';
+      const info = document.createElement('div');
+      if (Array.isArray(item.nums)){
+        info.innerHTML = `<div class="balls">${item.nums.map(n => ballHTML(n)).join('')}</div>`;
+      } else {
+        info.innerHTML = `<span>${item.amount.toLocaleString('ko-KR')}원 · ${item.lines.length}줄</span>`;
+      }
+      const dateSpan = document.createElement('span');
+      dateSpan.className = 'date';
+      dateSpan.textContent = formatDate(item.date);
+      top.appendChild(info);
+      top.appendChild(dateSpan);
+
+      const viewBtn = document.createElement('button');
+      viewBtn.type = 'button';
+      viewBtn.className = 'history-view-btn';
+      viewBtn.textContent = '번호 다시 보기';
+      viewBtn.addEventListener('click', () => viewHistoryItem(idx));
+
+      row.appendChild(top);
+      row.appendChild(viewBtn);
+      el.appendChild(row);
+    });
   }
 
-  let spinning = false;
+  // ---- 가상 금액 선택 ----
+  function renderAmountGrid(){
+    const el = $('amountGrid');
+    el.innerHTML = '';
+    AMOUNTS.forEach(amount => {
+      const lines = amount / 1000;
+      const selected = amount === selectedAmount;
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'amount-row' + (selected ? ' selected' : '');
+      btn.innerHTML = `<span class="amount-val">${amount.toLocaleString('ko-KR')}원</span><span class="amount-lines">${lines}줄${selected ? ' · 선택됨' : ''}</span>`;
+      btn.addEventListener('click', () => {
+        selectedAmount = amount;
+        renderAmountGrid();
+      });
+      el.appendChild(btn);
+    });
+  }
+
+  // ---- 번호 메모 카드 렌더 ----
+  function renderMemoCard(amount, lines, subText){
+    $('memoSub').textContent = subText;
+    $('memoRows').innerHTML = lines.map((line, i) => `
+      <div class="memo-row"><span class="idx">${i+1}</span>${line.map(n => ballHTML(n)).join('')}</div>
+    `).join('');
+    $('memoFooter').textContent = `가상 금액 ${amount.toLocaleString('ko-KR')}원 · ${lines.length}줄 · 무료 생성`;
+  }
+
+  // ---- 공유 링크(URL fragment) ----
+  function buildShareFragment(amount, lines){
+    return '#s=' + encodeURIComponent(JSON.stringify({ amount, lines }));
+  }
+
+  // 공유 데이터는 서버 없이 URL에만 담기므로, 열람 시 반드시 유효성을 검사하고
+  // 잘못되거나 손상된 값이면 조용히 무시하고 평소의 번호 생성 화면으로 돌아간다.
+  function parseShareFragment(){
+    const hash = location.hash;
+    if (!hash || !hash.startsWith('#s=')) return null;
+    try{
+      const data = JSON.parse(decodeURIComponent(hash.slice(3)));
+      if (!data || typeof data !== 'object') return null;
+      if (!AMOUNTS.includes(data.amount)) return null;
+      const expected = data.amount / 1000;
+      if (!Array.isArray(data.lines) || data.lines.length !== expected) return null;
+      for (const line of data.lines){
+        if (!Array.isArray(line) || line.length !== 6) return null;
+        const uniq = new Set(line);
+        if (uniq.size !== 6) return null;
+        for (const n of line){
+          if (!Number.isInteger(n) || n < 1 || n > 45) return null;
+        }
+      }
+      return data;
+    }catch(e){
+      return null;
+    }
+  }
+
+  function enterGeneratorMode(){
+    $('selectionBlock').style.display = '';
+    $('sharedBadgeBlock').style.display = 'none';
+    $('sharedCtaLink').style.display = 'none';
+    $('historySection').style.display = '';
+    $('copyTextBtn').style.display = '';
+    $('shareBtn').style.display = '';
+
+    $('memoSub').textContent = 'harukok.com · 동행복권과 무관';
+    $('memoRows').innerHTML = '<div class="empty-history">아직 생성한 번호가 없어요. 번호 생성을 눌러보세요!</div>';
+    $('memoFooter').textContent = '';
+    $('saveImgBtn').disabled = true;
+    $('copyTextBtn').disabled = true;
+    $('shareBtn').disabled = true;
+    currentResult = null;
+
+    renderAmountGrid();
+    renderHistory();
+  }
+
+  function enterSharedMode(data){
+    $('selectionBlock').style.display = 'none';
+    $('sharedBadgeBlock').style.display = '';
+    $('sharedCtaLink').style.display = '';
+    $('historySection').style.display = 'none';
+    $('copyTextBtn').style.display = 'none';
+    $('shareBtn').style.display = 'none';
+
+    renderMemoCard(data.amount, data.lines, '공유된 결과 · 동행복권과 무관');
+    $('saveImgBtn').disabled = false;
+    currentResult = null; // 공유 열람 화면은 재추첨·내 기록 저장을 하지 않는다.
+  }
+
+  $('sharedCtaLink').addEventListener('click', (e) => {
+    e.preventDefault();
+    history.replaceState(null, '', location.pathname + location.search);
+    enterGeneratorMode();
+  });
 
   $('genBtn').addEventListener('click', () => {
     if (spinning) return;
     spinning = true;
     $('genBtn').disabled = true;
 
-    const gamesEl = $('games');
-    const row = document.createElement('div');
-    row.className = 'game-row';
-    row.innerHTML = Array(6).fill('<span class="ball pending">?</span>').join('');
-    gamesEl.innerHTML = '';
-    gamesEl.appendChild(row);
+    const lineCount = selectedAmount / 1000;
+    const finalLines = Array.from({ length: lineCount }, generateLine);
+
+    $('memoSub').textContent = 'harukok.com · 동행복권과 무관';
+    $('memoFooter').textContent = `가상 금액 ${selectedAmount.toLocaleString('ko-KR')}원 · ${lineCount}줄 · 무료 생성`;
 
     const totalTicks = 14;
     let tick = 0;
-    const finalGame = generateGame();
 
     function nextTick(){
       tick++;
       if (tick < totalTicks){
-        row.innerHTML = generateGame().map(n => ballHTML(n, 'tick')).join('');
+        $('memoRows').innerHTML = finalLines.map((_, i) => `
+          <div class="memo-row"><span class="idx">${i+1}</span>${generateLine().map(n => ballHTML(n, 'tick')).join('')}</div>
+        `).join('');
         const progress = tick / totalTicks;
-        const delay = 55 + Math.pow(progress, 3) * 220;
-        setTimeout(nextTick, delay);
+        setTimeout(nextTick, 55 + Math.pow(progress, 3) * 220);
       } else {
-        row.innerHTML = finalGame.map((n, i) => ballHTML(n, 'landed', `animation-delay:${i * 40}ms`)).join('');
+        $('memoRows').innerHTML = finalLines.map((line, i) => `
+          <div class="memo-row"><span class="idx">${i+1}</span>${line.map((n, j) => ballHTML(n, 'landed', `animation-delay:${j * 40}ms`)).join('')}</div>
+        `).join('');
         spinning = false;
         $('genBtn').disabled = false;
         $('saveImgBtn').disabled = false;
+        $('copyTextBtn').disabled = false;
         $('shareBtn').disabled = false;
 
-        const newList = [{ nums: finalGame, date: Date.now() }, ...loadHistory()].slice(0, 30);
+        currentResult = { amount: selectedAmount, lines: finalLines, date: Date.now() };
+        const newList = [currentResult, ...loadHistory()].slice(0, 30);
         saveHistory(newList);
         renderHistory();
       }
@@ -388,14 +642,30 @@
     nextTick();
   });
 
-  $('saveImgBtn').addEventListener('click', () => saveCardAsImage('shareCard', '하루콕-로또번호.png'));
-  $('shareBtn').addEventListener('click', () => shareResult(() => {
-    const row = $('games').querySelector('.game-row');
-    const nums = [...row.querySelectorAll('.ball')].map(b => b.textContent).join(', ');
-    return `하루콕에서 뽑은 로또 번호: ${nums}`;
-  }));
+  $('saveImgBtn').addEventListener('click', () => saveCardAsImage('shareCard', '하루콕-번호메모.png'));
 
-  renderHistory();
+  $('copyTextBtn').addEventListener('click', () => {
+    if (!currentResult) return;
+    const { amount, lines } = currentResult;
+    const linesText = lines.map((line, i) => `${i+1}) ${line.join(' ')}`).join(' · ');
+    copyText(`하루콕 번호 메모 — ${amount.toLocaleString('ko-KR')}원 · ${lines.length}줄 — ${linesText} — 무료 생성, 실제 복권 아님`);
+  });
+
+  $('shareBtn').addEventListener('click', () => {
+    if (!currentResult) return;
+    const frag = buildShareFragment(currentResult.amount, currentResult.lines);
+    history.replaceState(null, '', location.pathname + location.search + frag);
+    shareResult(() => `하루콕 무료 번호 메모 — ${currentResult.amount.toLocaleString('ko-KR')}원 · ${currentResult.lines.length}줄 (실제 복권 아님)`);
+  });
+
+  // ---- 초기화 ----
+  const shared = parseShareFragment();
+  if (shared){
+    enterSharedMode(shared);
+    renderHistory();
+  } else {
+    enterGeneratorMode();
+  }
 })();
 </script>
 </body>
