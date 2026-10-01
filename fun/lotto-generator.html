@@ -104,14 +104,40 @@
 
   .history{ margin-top: 36px; text-align:left; }
   .history-title{ font-size:13.5px; color:var(--muted); margin-bottom:10px; text-align:center; }
-  .history-row{ background:var(--ticket); border:1px solid var(--ticket-line); color:var(--ink); border-radius:8px; padding:10px 14px; margin-bottom:8px; font-size:12.5px; }
-  .history-row-top{ display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
-  .history-row .balls{ display:flex; gap:4px; }
-  .history-row .ball{ width:24px; height:24px; font-size:10.5px; }
-  .history-row .date{ font-size:11px; color:#7A6E55; flex-shrink:0; margin-left:8px; }
-  .history-view-btn{ width:100%; padding:8px; border:1.5px solid var(--line); border-radius:8px; background:var(--bg-soft); color:var(--ink); font-size:12px; font-weight:600; cursor:pointer; }
-  .history-view-btn:active{ transform:translateY(1px); }
+  .history-row{
+    display:flex; align-items:center; justify-content:space-between; gap:10px; width:100%;
+    background:var(--ticket); border:1px solid var(--ticket-line); color:var(--ink); border-radius:8px;
+    padding:11px 14px; margin-bottom:8px; font-size:12.5px; text-align:left; cursor:pointer; font:inherit;
+  }
+  .history-row:hover{ border-color:var(--gold); }
+  .history-row:active{ transform:translateY(1px); }
+  .history-row:focus-visible{ outline:2px solid var(--gold); outline-offset:2px; }
+  .history-datetime{ color:#7A6E55; font-size:11px; flex-shrink:0; }
+  .history-amount{ font-weight:600; flex:1; text-align:center; }
+  .history-view-indicator{ font-size:11px; color:var(--muted); flex-shrink:0; }
+  .history-more-btn{
+    width:100%; padding:10px; border:1.5px dashed var(--line); border-radius:8px; background:none;
+    color:var(--muted); font-size:12.5px; font-weight:600; cursor:pointer;
+  }
+  .history-more-btn:hover{ border-color:var(--gold); color:var(--ink); }
+  .history-more-btn:focus-visible{ outline:2px solid var(--gold); outline-offset:2px; }
   .empty-history{ text-align:center; color:var(--muted); font-size:13px; padding:16px 0; }
+
+  dialog.history-modal{
+    border:none; border-radius:16px; padding:0; width:92vw; max-width:420px; max-height:88vh;
+    overflow:hidden; display:flex; flex-direction:column; margin:auto;
+  }
+  dialog.history-modal::backdrop{ background:rgba(27,36,49,0.55); }
+  .modal-header{ display:flex; align-items:center; justify-content:space-between; padding:16px 18px; border-bottom:1px solid var(--ticket-line); flex-shrink:0; }
+  .modal-title{ font-family:'Do Hyeon', sans-serif; font-size:17px; margin:0; color:var(--ink); font-weight:400; }
+  .modal-close{
+    width:34px; height:34px; border-radius:50%; border:1.5px solid var(--line); background:var(--bg-soft);
+    font-size:16px; line-height:1; cursor:pointer; color:var(--ink); flex-shrink:0;
+  }
+  .modal-close:hover{ border-color:var(--gold); }
+  .modal-close:focus-visible{ outline:2px solid var(--gold); outline-offset:2px; }
+  .modal-body{ padding:18px; overflow-y:auto; }
+  body.modal-open{ overflow:hidden; }
 
 
   .info-block{ margin-top:40px; text-align:left; }
@@ -291,6 +317,31 @@
   </footer>
 </div>
 
+<dialog class="history-modal" id="historyModal" aria-labelledby="modalTitle">
+  <div class="modal-header">
+    <h2 class="modal-title" id="modalTitle">저장된 기록</h2>
+    <button type="button" class="modal-close" id="modalCloseBtn" aria-label="닫기">✕</button>
+  </div>
+  <div class="modal-body">
+    <div class="share-card" id="modalShareCard">
+      <div class="memo-card">
+        <div class="memo-title">하루콕 번호 메모</div>
+        <div class="memo-sub" id="modalMemoSub"></div>
+        <div class="memo-divider"></div>
+        <div id="modalMemoRows"></div>
+        <div class="memo-divider"></div>
+        <div class="memo-footer" id="modalMemoFooter"></div>
+      </div>
+      <div class="disclaimer-box">하루콕 무료 번호 생성 결과 · 실제 복권 아님 · 구매 및 당첨금 청구 효력 없음</div>
+    </div>
+    <div class="share-row" style="margin-bottom:0;">
+      <button class="share-btn" id="modalSaveImgBtn" type="button">이미지로 저장</button>
+      <button class="share-btn" id="modalCopyTextBtn" type="button">텍스트 복사</button>
+      <button class="share-btn" id="modalShareBtn" type="button">공유하기</button>
+    </div>
+  </div>
+</dialog>
+
 <div class="share-toast" id="shareToast"></div>
 
 <script>
@@ -443,6 +494,12 @@
     const date = new Date(d);
     return `${date.getMonth()+1}/${date.getDate()}`;
   }
+  function formatDateTime(d){
+    const date = new Date(d);
+    const hh = String(date.getHours()).padStart(2, '0');
+    const mm = String(date.getMinutes()).padStart(2, '0');
+    return `${date.getMonth()+1}/${date.getDate()} ${hh}:${mm}`;
+  }
 
   // 기존 {nums,date} 1줄 기록과 신규 {amount,lines,date} 묶음 기록을 같은 모양({amount,lines})으로 맞춰준다.
   // 레거시 기록은 1줄=1,000원 매핑을 그대로 적용해 다시 보기 화면에서도 같은 카드 형식을 쓸 수 있게 한다.
@@ -451,21 +508,73 @@
     return { amount: item.amount, lines: item.lines };
   }
 
-  // 기록의 "번호 다시 보기"를 누르면 저장된 번호를 그대로 결과 카드에 표시한다.
-  // 새로 추첨하거나 saveHistory()를 호출하지 않으므로 기록이 중복 추가되지 않는다.
-  function viewHistoryItem(idx){
+  // ---- 기록 상세 모달 ----
+  // 모달은 본문의 currentResult/shareCard와 완전히 분리된 자기 상태(modalResult)를 쓴다.
+  // 그래서 모달을 열어도 본문에 표시 중인 "현재 생성 결과"는 전혀 바뀌지 않는다.
+  const historyModal = $('historyModal');
+  let modalResult = null;
+  let modalTriggerEl = null;
+
+  function openHistoryModal(idx){
     const list = loadHistory();
     const item = list[idx];
     if (!item) return;
     const { amount, lines } = entryToAmountLines(item);
-    renderMemoCard(amount, lines, `저장된 기록 · 원래 생성일 ${formatDate(item.date)}`);
-    currentResult = { amount, lines, date: item.date };
-    $('saveImgBtn').disabled = false;
-    $('copyTextBtn').disabled = false;
-    $('shareBtn').disabled = false;
+    modalResult = { amount, lines, date: item.date };
+
+    $('modalMemoSub').textContent = `저장된 기록 · 원래 생성일 ${formatDateTime(item.date)}`;
+    $('modalMemoRows').innerHTML = lines.map((line, i) => `
+      <div class="memo-row"><span class="idx">${i+1}</span>${line.map(n => ballHTML(n)).join('')}</div>
+    `).join('');
+    $('modalMemoFooter').textContent = `가상 금액 ${amount.toLocaleString('ko-KR')}원 · ${lines.length}줄 · 무료 생성`;
+
+    modalTriggerEl = document.activeElement;
+    document.body.classList.add('modal-open');
+    if (typeof historyModal.showModal === 'function'){
+      historyModal.showModal();
+    } else {
+      historyModal.setAttribute('open', '');
+    }
   }
 
-  function renderHistory(){
+  function closeHistoryModal(){
+    if (typeof historyModal.close === 'function') historyModal.close();
+    else historyModal.removeAttribute('open');
+  }
+
+  historyModal.addEventListener('close', () => {
+    document.body.classList.remove('modal-open');
+    modalResult = null;
+    if (modalTriggerEl && typeof modalTriggerEl.focus === 'function') modalTriggerEl.focus();
+    modalTriggerEl = null;
+  });
+
+  // 배경(::backdrop) 클릭 시 닫기 — dialog 자신에서 발생한 클릭 중 실제 콘텐츠 밖을 눌렀을 때만 처리한다.
+  historyModal.addEventListener('click', (e) => {
+    if (e.target !== historyModal) return;
+    const rect = historyModal.getBoundingClientRect();
+    const inside = e.clientX >= rect.left && e.clientX <= rect.right && e.clientY >= rect.top && e.clientY <= rect.bottom;
+    if (!inside) closeHistoryModal();
+  });
+
+  $('modalCloseBtn').addEventListener('click', closeHistoryModal);
+  $('modalSaveImgBtn').addEventListener('click', () => saveCardAsImage('modalShareCard', '하루콕-번호메모.png'));
+  $('modalCopyTextBtn').addEventListener('click', () => {
+    if (!modalResult) return;
+    const { amount, lines } = modalResult;
+    const linesText = lines.map((line, i) => `${i+1}) ${line.join(' ')}`).join(' · ');
+    copyText(`하루콕 번호 메모 — ${amount.toLocaleString('ko-KR')}원 · ${lines.length}줄 — ${linesText} — 무료 생성, 실제 복권 아님`);
+  });
+  $('modalShareBtn').addEventListener('click', () => {
+    if (!modalResult) return;
+    const frag = buildShareFragment(modalResult.amount, modalResult.lines);
+    history.replaceState(null, '', location.pathname + location.search + frag);
+    shareResult(() => `하루콕 무료 번호 메모 — ${modalResult.amount.toLocaleString('ko-KR')}원 · ${modalResult.lines.length}줄 (실제 복권 아님)`);
+  });
+
+  // ---- 최근 생성 기록 목록 ----
+  // 기본은 최근 5건만 간단한 한 줄 행으로 보여주고, "기록 더 보기"를 누르면 전체(최대 30건)를 펼친다.
+  function renderHistory(expanded){
     const list = loadHistory();
     const el = $('historyList');
     el.innerHTML = '';
@@ -473,34 +582,31 @@
       el.innerHTML = '<div class="empty-history">아직 생성 기록이 없어요. 첫 번호를 뽑아보세요!</div>';
       return;
     }
-    list.slice(0, 8).forEach((item, idx) => {
-      const row = document.createElement('div');
+    const visibleCount = expanded ? list.length : Math.min(5, list.length);
+
+    list.slice(0, visibleCount).forEach((item, idx) => {
+      const { amount, lines } = entryToAmountLines(item);
+      const row = document.createElement('button');
+      row.type = 'button';
       row.className = 'history-row';
-
-      const top = document.createElement('div');
-      top.className = 'history-row-top';
-      const info = document.createElement('div');
-      if (Array.isArray(item.nums)){
-        info.innerHTML = `<div class="balls">${item.nums.map(n => ballHTML(n)).join('')}</div>`;
-      } else {
-        info.innerHTML = `<span>${item.amount.toLocaleString('ko-KR')}원 · ${item.lines.length}줄</span>`;
-      }
-      const dateSpan = document.createElement('span');
-      dateSpan.className = 'date';
-      dateSpan.textContent = formatDate(item.date);
-      top.appendChild(info);
-      top.appendChild(dateSpan);
-
-      const viewBtn = document.createElement('button');
-      viewBtn.type = 'button';
-      viewBtn.className = 'history-view-btn';
-      viewBtn.textContent = '번호 다시 보기';
-      viewBtn.addEventListener('click', () => viewHistoryItem(idx));
-
-      row.appendChild(top);
-      row.appendChild(viewBtn);
+      row.setAttribute('aria-label', `${formatDateTime(item.date)}에 생성한 ${amount.toLocaleString('ko-KR')}원 · ${lines.length}줄 기록 보기`);
+      row.innerHTML = `
+        <span class="history-datetime">${formatDateTime(item.date)}</span>
+        <span class="history-amount">${amount.toLocaleString('ko-KR')}원 · ${lines.length}줄</span>
+        <span class="history-view-indicator">보기 ›</span>
+      `;
+      row.addEventListener('click', () => openHistoryModal(idx));
       el.appendChild(row);
     });
+
+    if (!expanded && list.length > visibleCount){
+      const moreBtn = document.createElement('button');
+      moreBtn.type = 'button';
+      moreBtn.className = 'history-more-btn';
+      moreBtn.textContent = `기록 더 보기 (${list.length - visibleCount}건)`;
+      moreBtn.addEventListener('click', () => renderHistory(true));
+      el.appendChild(moreBtn);
+    }
   }
 
   // ---- 가상 금액 선택 ----

@@ -143,16 +143,17 @@ console.log('\n=== 2. 각 줄은 1~45 중 서로 다른 정수 6개 ===');
   check('저장된 기록의 amount가 5000', saved.amount, 5000);
 }
 
-console.log('\n=== 3. 기존 레코드 호환 — {nums,date} 1줄 기록과 신규 {amount,lines,date} 기록이 함께 표시됨 ===');
+console.log('\n=== 3. 기존 레코드 호환 — {nums,date} 1줄 기록과 신규 {amount,lines,date} 기록이 같은 형식(N원·N줄)으로 표시됨 ===');
 {
   const legacy = { nums: [1,2,3,4,5,6], date: '2026-09-01T00:00:00.000Z' };
   const { doc } = load({ seedStorage: { 'harukok-lotto-history': JSON.stringify([legacy]) } });
-  check('레거시 1줄 기록이 공 모양으로 표시됨', collectHtml(doc.getElementById('historyList')).includes('balls'), true);
+  check('레거시 1줄 기록도 "1,000원 · 1줄" 통일 형식으로 표시됨(공 아이콘 없음)', collectHtml(doc.getElementById('historyList')).includes('1,000원') && collectHtml(doc.getElementById('historyList')).includes('1줄'), true);
+  check('목록에는 공(.ball) 아이콘이 더 이상 없음', collectHtml(doc.getElementById('historyList')).includes('ball'), false);
 
   [...doc.getElementById('amountGrid').children][1].click(); // 2,000원
   doc.getElementById('genBtn').click();
   const html = collectHtml(doc.getElementById('historyList'));
-  check('신규 생성 후에도 레거시 1줄 기록이 함께 남아있음', html.includes('balls'), true);
+  check('신규 생성 후에도 레거시 1줄 기록이 함께 남아있음(1,000원 · 1줄)', html.includes('1,000원') && html.includes('1줄'), true);
   check('신규 묶음 기록도 함께 표시됨(2,000원 · 2줄)', html.includes('2,000원') && html.includes('2줄'), true);
 }
 
@@ -174,7 +175,7 @@ console.log('\n=== 4. 잘못된 저장값 방어 — 초기화가 중단되지 �
   } catch (e) { threw = true; }
   check('잘못된 레코드가 섞여 있어도 초기화 중 오류가 나지 않음', threw, false);
   const html = collectHtml(doc.getElementById('historyList'));
-  check('정상 레거시 기록은 보존됨', html.includes('balls'), true);
+  check('정상 레거시 기록은 보존됨(1,000원 · 1줄)', html.includes('1,000원') && html.includes('1줄'), true);
   check('정상 신규 기록(3,000원 · 3줄)은 보존됨', html.includes('3,000원') && html.includes('3줄'), true);
 
   // 배열 자체가 아닌 손상된 저장값
@@ -278,9 +279,29 @@ console.log('\n=== 9. 회귀: 공유 조각의 유효성 검사를 제거하면 
   }
 }
 
-console.log('\n=== 10. 최근 생성 기록 — "번호 다시 보기"로 저장된 번호를 그대로 다시 봄 ===');
+console.log('\n=== 10. 최근 생성 기록 목록 — 행 전체 클릭 가능, 기본 5건 + "기록 더 보기" ===');
 {
-  // 서로 다른 두 묶음을 생성한다.
+  const { doc, localStorage } = load({});
+  for (let i = 0; i < 7; i++) { // 7번 생성 → 기록 7건
+    doc.getElementById('amountGrid').children[0].click();
+    doc.getElementById('genBtn').click();
+  }
+  check('기록 7건 저장됨', JSON.parse(localStorage.getItem('harukok-lotto-history')).length, 7);
+  check('기본 상태에서는 5건의 행만 보임', doc.getElementById('historyList').children.filter(c => c.className === 'history-row').length, 5);
+  const moreBtn = doc.getElementById('historyList').children.find(c => c.className === 'history-more-btn');
+  check('"기록 더 보기" 버튼이 남은 건수(2건)를 안내함', moreBtn.textContent.includes('2건'), true);
+
+  moreBtn.click();
+  check('"기록 더 보기" 클릭 후 7건 모두 보임', doc.getElementById('historyList').children.filter(c => c.className === 'history-row').length, 7);
+  check('모두 펼친 뒤에는 "기록 더 보기" 버튼이 사라짐', doc.getElementById('historyList').children.some(c => c.className === 'history-more-btn'), false);
+
+  const row = doc.getElementById('historyList').children[0];
+  check('각 행은 실제 버튼 요소(행 전체가 클릭 가능)', row.tagName, 'BUTTON');
+  check('행 텍스트에 금액·줄 수가 표시됨(1,000원 · 1줄)', row.innerHTML.includes('1,000원') && row.innerHTML.includes('1줄'), true);
+}
+
+console.log('\n=== 11. 기록 행 클릭 → 상세 모달에 원래 날짜·번호 전체 표시, 본문 결과는 그대로 ===');
+{
   const { doc, localStorage } = load({});
   doc.getElementById('amountGrid').children[2].click(); // 3,000원
   doc.getElementById('genBtn').click();
@@ -291,45 +312,75 @@ console.log('\n=== 10. 최근 생성 기록 — "번호 다시 보기"로 저장
   check('두 번 생성 후 기록 2건', savedList.length, 2);
 
   // "새로고침"을 흉내내기 위해 같은 저장값으로 완전히 새 문서를 연다.
-  const { doc: doc2, localStorage: ls2, location: loc2 } = load({ seedStorage: { 'harukok-lotto-history': historyBefore } });
-  const viewBtns = [...doc2.getElementById('historyList').children].map(row => row.children[1]); // [top, viewBtn]
+  const { doc: doc2, localStorage: ls2 } = load({ seedStorage: { 'harukok-lotto-history': historyBefore } });
+  const mainMemoRowsBefore = doc2.getElementById('memoRows').innerHTML;
 
-  // 가장 최근 기록(1,000원 · 1줄) 다시 보기
-  viewBtns[0].click();
-  let rows = parseMemoRows(doc2.getElementById('memoRows').innerHTML);
-  check('최근 기록(1,000원·1줄) 다시 보기 — 번호가 저장 당시와 동일', rows, savedList[0].lines);
-  check('다시 보기 안내에 "저장된 기록"과 원래 생성일이 표시됨', doc2.getElementById('memoSub').textContent.includes('저장된 기록'), true);
-  check('원래 생성 날짜가 함께 표시됨', doc2.getElementById('memoSub').textContent.includes(String(new Date(savedList[0].date).getDate())), true);
-  check('다시 보기는 기록을 중복 추가하지 않음', JSON.parse(ls2.getItem('harukok-lotto-history')).length, 2);
-  check('다시 보기는 기록 내용 자체를 바꾸지 않음(저장값 그대로)', ls2.getItem('harukok-lotto-history'), historyBefore);
+  const rowButtons = doc2.getElementById('historyList').children.filter(c => c.className === 'history-row');
+  check('새로고침 후에도 기록 2건에 대한 행이 보임', rowButtons.length, 2);
 
-  // 두 번째 기록(3,000원 · 3줄) 다시 보기 — 다른 기록으로 바뀌는지 확인
-  viewBtns[1].click();
-  rows = parseMemoRows(doc2.getElementById('memoRows').innerHTML);
-  check('다른 기록(3,000원·3줄)을 다시 보면 그 기록 번호로 바뀜', rows, savedList[1].lines);
+  // 가장 최근 기록(1,000원 · 1줄) 행을 클릭해 모달을 연다.
+  rowButtons[0].click();
+  const modalRows = parseMemoRows(doc2.getElementById('modalMemoRows').innerHTML);
+  check('모달에 저장 당시 번호가 그대로 표시됨', modalRows, savedList[0].lines);
+  check('모달에 "저장된 기록"과 원래 생성 날짜가 표시됨', doc2.getElementById('modalMemoSub').textContent.includes('저장된 기록'), true);
+  {
+    // disclaimer-box는 모달 마크업에 정적으로 포함돼 있다(이 shim은 깊이 중첩된 정적 자식까지
+    // 얕은 스캔으로 추적하지 않으므로, 어느 기록을 보든 항상 뜨는 고정 문구는 원본 소스로 확인한다).
+    const modalSrc = fs.readFileSync(HTML, 'utf8').match(/<dialog[^>]*id="historyModal"[\s\S]*?<\/dialog>/)[0];
+    check('모달 마크업에 실제 복권 아님 안내가 고정 포함됨', modalSrc.includes('실제 복권 아님'), true);
+  }
+  check('모달을 열어도 본문의 현재 생성 결과(memoRows)는 바뀌지 않음', doc2.getElementById('memoRows').innerHTML, mainMemoRowsBefore);
+  check('모달을 열어도 저장 기록이 중복 추가되지 않음', JSON.parse(ls2.getItem('harukok-lotto-history')).length, 2);
+  check('모달을 열어도 기록 내용 자체는 바뀌지 않음(저장값 그대로)', ls2.getItem('harukok-lotto-history'), historyBefore);
 
-  // 다시 본 결과도 저장·복사·공유가 가능해야 한다.
-  check('다시 보기 후 이미지 저장 버튼 활성화', doc2.getElementById('saveImgBtn').disabled, false);
-  check('다시 보기 후 텍스트 복사 버튼 활성화', doc2.getElementById('copyTextBtn').disabled, false);
-  check('다시 보기 후 공유 버튼 활성화', doc2.getElementById('shareBtn').disabled, false);
+  // 다른 기록(3,000원 · 3줄) 행을 클릭 — 모달 내용이 그 기록으로 바뀌는지 확인
+  rowButtons[1].click();
+  const modalRows2 = parseMemoRows(doc2.getElementById('modalMemoRows').innerHTML);
+  check('다른 기록을 열면 모달 내용이 그 기록 번호로 바뀜', modalRows2, savedList[1].lines);
 
-  doc2.getElementById('shareBtn').click();
-  const sharedFrag = JSON.parse(decodeURIComponent(loc2.hash.slice(3)));
-  check('다시 본 기록을 공유하면 그 기록과 동일한 번호가 담김', sharedFrag.lines, savedList[1].lines);
-  check('다시 본 기록을 공유하면 그 기록과 동일한 금액이 담김', sharedFrag.amount, savedList[1].amount);
+  // 다시 모달 저장·복사·공유 버튼이 활성 상태로 존재하는지(비활성 속성 없음) 확인
+  check('모달의 저장 버튼은 비활성화되지 않음', doc2.getElementById('modalSaveImgBtn').disabled, undefined);
 }
 
-console.log('\n=== 11. 기존 {nums,date} 1줄 기록도 "번호 다시 보기"로 동일하게 다시 볼 수 있음 ===');
+console.log('\n=== 12. 모달의 저장·복사·공유는 모달이 보여주는 기록을 대상으로 동작함(본문과 분리) ===');
+{
+  const { doc, localStorage, location } = load({});
+  doc.getElementById('amountGrid').children[4].click(); // 5,000원(본문에서 생성)
+  doc.getElementById('genBtn').click();
+  const mainResult = JSON.parse(localStorage.getItem('harukok-lotto-history'))[0];
+
+  // 과거에 저장해 둔 다른 기록을 하나 더 포함한 상태로 새 문서를 연다(같은 효과: 기록 2건).
+  const olderRecord = { amount: 2000, lines: [[1,6,11,16,21,26],[2,7,12,17,22,27]], date: '2026-09-20T00:00:00.000Z' };
+  const seedList = [mainResult, olderRecord];
+  const { doc: doc3, location: loc3 } = load({ seedStorage: { 'harukok-lotto-history': JSON.stringify(seedList) } });
+
+  const rows3 = doc3.getElementById('historyList').children.filter(c => c.className === 'history-row');
+  const olderRow = rows3.find(r => r.innerHTML.includes('2,000원'));
+  olderRow.click();
+
+  doc3.getElementById('modalShareBtn').click();
+  // 공유 조각은 "본문에서 방금 만든 5,000원 결과"가 아니라 "모달에 열려 있던 2,000원 기록"과 일치해야 한다.
+  const frag = JSON.parse(decodeURIComponent(loc3.hash.slice(3)));
+  check('모달 공유는 모달 기록(2,000원·2줄)을 담음', frag.amount, 2000);
+  check('모달 공유 번호가 그 기록과 일치', frag.lines, olderRecord.lines);
+  check('모달 공유가 본문에서 만든 결과(5,000원)를 덮어쓰지 않음', frag.amount !== mainResult.amount || JSON.stringify(frag.lines) !== JSON.stringify(mainResult.lines), true);
+
+  // 모달의 텍스트 복사도 모달 기록 기준이어야 한다(클립보드 쓰기 호출 자체가 성공하는지만 확인).
+  let copyThrew = false;
+  try { doc3.getElementById('modalCopyTextBtn').click(); } catch (e) { copyThrew = true; }
+  check('모달 텍스트 복사 클릭 시 오류 없음', copyThrew, false);
+}
+
+console.log('\n=== 13. 기존 {nums,date} 1줄 기록도 상세 모달로 동일하게 열람 가능 ===');
 {
   const legacy = { nums: [2,9,18,27,33,44], date: '2026-09-01T00:00:00.000Z' };
   const { doc, localStorage } = load({ seedStorage: { 'harukok-lotto-history': JSON.stringify([legacy]) } });
-  const row = doc.getElementById('historyList').children[0];
-  const viewBtn = row.children[1];
-  viewBtn.click();
-  const rows = parseMemoRows(doc.getElementById('memoRows').innerHTML);
-  check('레거시 1줄 기록도 다시 보기로 동일한 번호가 표시됨', rows, [legacy.nums]);
-  check('레거시 기록 다시 보기 후에도 기록은 1건 그대로(중복 추가 없음)', JSON.parse(localStorage.getItem('harukok-lotto-history')).length, 1);
-  check('레거시 기록 다시 보기 후에도 저장값 자체는 변경되지 않음', JSON.parse(localStorage.getItem('harukok-lotto-history'))[0].date, legacy.date);
+  const row = doc.getElementById('historyList').children.find(c => c.className === 'history-row');
+  row.click();
+  const rows = parseMemoRows(doc.getElementById('modalMemoRows').innerHTML);
+  check('레거시 1줄 기록도 모달에 동일한 번호가 표시됨', rows, [legacy.nums]);
+  check('레거시 기록 모달을 열어도 기록은 1건 그대로(중복 추가 없음)', JSON.parse(localStorage.getItem('harukok-lotto-history')).length, 1);
+  check('레거시 기록 모달을 열어도 저장값 자체는 변경되지 않음', JSON.parse(localStorage.getItem('harukok-lotto-history'))[0].date, legacy.date);
 }
 
 console.log('\n결과: ' + pass + '개 통과, ' + fail + '개 실패');

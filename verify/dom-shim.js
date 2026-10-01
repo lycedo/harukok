@@ -47,7 +47,9 @@ class FakeElement {
   get textContent() { return this._html.replace(/<[^>]*>/g, '') || this._text; }
   set textContent(v) { this._text = String(v); this._html = String(v); }
   get innerHTML() { return this._html; }
-  set innerHTML(v) { this._html = String(v); }
+  // 실제 브라우저처럼 innerHTML을 다시 대입하면 기존 appendChild 자식도 비워진다
+  // (그래야 "innerHTML='' 후 다시 appendChild" 패턴으로 다시 그리는 코드를 정확히 재현한다).
+  set innerHTML(v) { this._html = String(v); this._children = []; }
   addEventListener(evt, fn) {
     (this._listeners[evt] = this._listeners[evt] || []).push(fn);
   }
@@ -58,6 +60,9 @@ class FakeElement {
   }
   click() { this.dispatchEvent({ type: 'click' }); }
   scrollIntoView() { /* no-op in the shim */ }
+  setAttribute(name, value) { this._attrs = this._attrs || {}; this._attrs[name] = String(value); }
+  getAttribute(name) { return (this._attrs && name in this._attrs) ? this._attrs[name] : null; }
+  removeAttribute(name) { if (this._attrs) delete this._attrs[name]; }
   appendChild(child) {
     this._children = this._children || [];
     this._children.push(child);
@@ -83,6 +88,7 @@ function matchDescendants(children, tagSelector) {
 class FakeDocument {
   constructor() {
     this._elements = new Map();
+    this.body = new FakeElement(this, 'body', {});
   }
   // 테스트 코드가 필요한 만큼만 등록해서 쓴다 (실제 HTML 전체를 파싱하지 않음).
   registerFromHtml(html) {
