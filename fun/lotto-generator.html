@@ -125,8 +125,12 @@
 
   dialog.history-modal{
     border:none; border-radius:16px; padding:0; width:92vw; max-width:420px; max-height:88vh;
-    overflow:hidden; display:flex; flex-direction:column; margin:auto;
+    overflow:hidden; flex-direction:column; margin:auto;
   }
+  /* dialog는 열렸을 때(=[open] 속성이 붙었을 때)만 보여야 한다 — 이 규칙 없이 항상 display:flex를
+     걸어두면 브라우저 기본 "dialog:not([open]){display:none}" 규칙을 작성자 CSS가 덮어써서,
+     showModal()을 부르지 않아도 페이지에 빈 모달이 계속 떠 있게 된다. */
+  dialog.history-modal[open]{ display:flex; }
   dialog.history-modal::backdrop{ background:rgba(27,36,49,0.55); }
   .modal-header{ display:flex; align-items:center; justify-content:space-between; padding:16px 18px; border-bottom:1px solid var(--ticket-line); flex-shrink:0; }
   .modal-title{ font-family:'Do Hyeon', sans-serif; font-size:17px; margin:0; color:var(--ink); font-weight:400; }
