@@ -6,10 +6,10 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>로또 번호 생성기 - 무료 자동 번호 추첨</title>
-<meta name="description" content="1~45 사이 로또 번호를 가상 금액(1,000~5,000원)에 따라 1~5줄까지 무료로 생성합니다. 이미지 저장, 텍스트 복사, 같은 결과 공유 링크를 지원합니다.">
+<meta name="description" content="1~45 사이 로또 번호를 1~5줄까지 무료로 생성합니다. 이미지 저장, 텍스트 복사, 같은 결과 공유 링크를 지원합니다.">
 <link rel="canonical" href="https://harukok.com/fun/lotto-generator">
 <meta property="og:title" content="로또 번호 생성기 - 무료 자동 번호 추첨">
-<meta property="og:description" content="1~45 사이 로또 번호를 가상 금액(1,000~5,000원)에 따라 1~5줄까지 무료로 생성합니다. 이미지 저장, 텍스트 복사, 같은 결과 공유 링크를 지원합니다.">
+<meta property="og:description" content="1~45 사이 로또 번호를 1~5줄까지 무료로 생성합니다. 이미지 저장, 텍스트 복사, 같은 결과 공유 링크를 지원합니다.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="하루콕">
 <meta property="og:url" content="https://harukok.com/fun/lotto-generator">
@@ -55,14 +55,15 @@
   .card-box-title{ font-size:13px; font-weight:600; color:var(--ink); }
   .pill{ font-size:11px; color:var(--muted); background:var(--bg-soft); border:1px solid var(--line); border-radius:999px; padding:3px 10px; white-space:nowrap; }
 
+  #amountGrid{ display:grid; grid-template-columns:repeat(5, 1fr); gap:8px; }
   .amount-row{
-    display:flex; align-items:center; justify-content:space-between; border:1.5px solid var(--line); border-radius:10px;
-    padding:12px 14px; margin-bottom:8px; cursor:pointer; background:none; width:100%; font:inherit; color:inherit; text-align:left;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px;
+    border:1.5px solid var(--line); border-radius:10px;
+    padding:12px 4px; cursor:pointer; background:none; width:100%; font:inherit; color:inherit; text-align:center;
   }
-  .amount-row:last-child{ margin-bottom:0; }
   .amount-row.selected{ border-color:var(--ink); background:var(--ink); color:#fff; }
   .amount-val{ font-weight:700; font-size:15px; }
-  .amount-lines{ font-size:12.5px; color:var(--muted); }
+  .amount-lines{ font-size:11px; color:var(--muted); min-height:13px; }
   .amount-row.selected .amount-lines{ color:#D8DAE0; }
 
   .pull-btn{
@@ -189,14 +190,6 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "가상 금액은 실제로 결제되나요?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "아닙니다. 가상 금액은 몇 줄을 생성할지 정하는 표시일 뿐이며, 실제 결제·충전·구매대행은 전혀 일어나지 않습니다. 하루콕은 번호 생성·저장·공유 기능만 무료로 제공하며, 번호 판매나 경품 지급 기능은 없습니다."
-      }
-    },
-    {
-      "@type": "Question",
       "name": "당첨 확률이 더 높아지나요?",
       "acceptedAnswer": {
         "@type": "Answer",
@@ -251,8 +244,8 @@
   <div id="selectionBlock">
     <div class="card-box">
       <div class="card-box-head">
-        <div class="card-box-title">가상 금액 선택</div>
-        <div class="pill">무료 놀이용 설정 · 실제 결제 없음</div>
+        <div class="card-box-title">줄 수 선택</div>
+        <div class="pill">무료</div>
       </div>
       <div id="amountGrid"></div>
     </div>
@@ -267,7 +260,7 @@
   <div class="share-card" id="shareCard">
     <div class="memo-card">
       <div class="memo-title">하루콕 번호 메모</div>
-      <div class="memo-sub" id="memoSub">harukok.com · 동행복권과 무관</div>
+      <div class="memo-sub" id="memoSub"></div>
       <div class="memo-divider"></div>
       <div id="memoRows"><div class="empty-history">아직 생성한 번호가 없어요. 번호 생성을 눌러보세요!</div></div>
       <div class="memo-divider"></div>
@@ -292,12 +285,8 @@
 
   <div class="info-block">
     <h2>번호는 어떻게 만들어지나요?</h2>
-    <p>브라우저의 난수 생성 기능(Math.random)을 이용해 1~45 사이 숫자 중 중복 없이 6개씩 뽑습니다. 가상 금액(1,000~5,000원)은 한 번에 몇 줄을 만들지 정하는 표시일 뿐 실제 결제와 무관하며, 모든 번호는 서버로 전송되는 데이터 없이 기기 안에서 즉시 계산됩니다.</p>
+    <p>브라우저의 난수 생성 기능(Math.random)을 이용해 1~45 사이 숫자 중 중복 없이 6개씩 뽑습니다. 1~5줄은 한 번에 몇 줄을 만들지 정하는 것일 뿐이며, 모든 번호는 서버로 전송되는 데이터 없이 기기 안에서 즉시 계산됩니다.</p>
 
-    <div class="faq-item">
-      <div class="q">가상 금액은 실제로 결제되나요?</div>
-      <div class="a">아닙니다. 가상 금액은 몇 줄을 생성할지 정하는 표시일 뿐이며, 실제 결제·충전·구매대행은 전혀 일어나지 않습니다. 하루콕은 번호 생성·저장·공유 기능만 무료로 제공하며, 번호 판매나 경품 지급 기능은 없습니다.</div>
-    </div>
     <div class="faq-item">
       <div class="q">당첨 확률이 더 높아지나요?</div>
       <div class="a">아닙니다. 어떤 방식으로 번호를 골라도 당첨 확률은 동일합니다. 이 도구는 번호를 고민하는 시간을 줄여주는 용도로만 사용해주세요.</div>
@@ -351,8 +340,8 @@
 <script>
 (function(){
   const $ = (id) => document.getElementById(id);
-  const AMOUNTS = [1000, 2000, 3000, 4000, 5000];
-  let selectedAmount = 1000;
+  const LINE_COUNTS = [1, 2, 3, 4, 5];
+  let selectedLines = 1;
   let currentResult = null;
   let spinning = false;
 
@@ -471,12 +460,13 @@
   // ---- 저장 기록 ----
   const STORAGE_KEY = 'harukok-lotto-history';
 
-  // 기존 {nums, date} 1줄 기록과 신규 {amount, lines, date} 묶음 기록을 모두 인정한다.
+  // 기존 {nums, date} 1줄 기록과 {lines, date} 묶음 기록을 모두 인정한다. 더 이전에 잠깐 쓰였던
+  // {amount, lines, date} 형태가 남아 있어도 amount는 무시하고 lines만 보면 되므로 그대로 통과한다.
   // 형식이 깨진 값은 조용히 걸러내 초기화·렌더링이 멈추지 않게 한다(기존 레코드는 보존).
   function isValidHistoryItem(item){
     if (!item || typeof item !== 'object' || !item.date) return false;
     if (Array.isArray(item.nums) && item.nums.length === 6) return true;
-    if (Array.isArray(item.lines) && item.lines.length >= 1 && item.lines.length <= 5 && typeof item.amount === 'number'){
+    if (Array.isArray(item.lines) && item.lines.length >= 1 && item.lines.length <= 5){
       return item.lines.every(line => Array.isArray(line) && line.length === 6);
     }
     return false;
@@ -494,10 +484,6 @@
   function saveHistory(list){
     try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(list)); }catch(e){}
   }
-  function formatDate(d){
-    const date = new Date(d);
-    return `${date.getMonth()+1}/${date.getDate()}`;
-  }
   function formatDateTime(d){
     const date = new Date(d);
     const hh = String(date.getHours()).padStart(2, '0');
@@ -505,11 +491,10 @@
     return `${date.getMonth()+1}/${date.getDate()} ${hh}:${mm}`;
   }
 
-  // 기존 {nums,date} 1줄 기록과 신규 {amount,lines,date} 묶음 기록을 같은 모양({amount,lines})으로 맞춰준다.
-  // 레거시 기록은 1줄=1,000원 매핑을 그대로 적용해 다시 보기 화면에서도 같은 카드 형식을 쓸 수 있게 한다.
-  function entryToAmountLines(item){
-    if (Array.isArray(item.nums)) return { amount: 1000, lines: [item.nums] };
-    return { amount: item.amount, lines: item.lines };
+  // 기존 {nums,date} 1줄 기록과 {lines,date}(또는 과거 {amount,lines,date}) 기록을 같은 모양(lines)으로 맞춰준다.
+  function entryToLines(item){
+    if (Array.isArray(item.nums)) return [item.nums];
+    return item.lines;
   }
 
   // ---- 기록 상세 모달 ----
@@ -523,14 +508,14 @@
     const list = loadHistory();
     const item = list[idx];
     if (!item) return;
-    const { amount, lines } = entryToAmountLines(item);
-    modalResult = { amount, lines, date: item.date };
+    const lines = entryToLines(item);
+    modalResult = { lines, date: item.date };
 
-    $('modalMemoSub').textContent = `저장된 기록 · 원래 생성일 ${formatDateTime(item.date)}`;
+    $('modalMemoSub').textContent = formatDateTime(item.date);
     $('modalMemoRows').innerHTML = lines.map((line, i) => `
       <div class="memo-row"><span class="idx">${i+1}</span>${line.map(n => ballHTML(n)).join('')}</div>
     `).join('');
-    $('modalMemoFooter').textContent = `가상 금액 ${amount.toLocaleString('ko-KR')}원 · ${lines.length}줄 · 무료 생성`;
+    $('modalMemoFooter').textContent = `${lines.length}줄 · 무료 생성`;
 
     modalTriggerEl = document.activeElement;
     document.body.classList.add('modal-open');
@@ -565,15 +550,14 @@
   $('modalSaveImgBtn').addEventListener('click', () => saveCardAsImage('modalShareCard', '하루콕-번호메모.png'));
   $('modalCopyTextBtn').addEventListener('click', () => {
     if (!modalResult) return;
-    const { amount, lines } = modalResult;
-    const linesText = lines.map((line, i) => `${i+1}) ${line.join(' ')}`).join(' · ');
-    copyText(`하루콕 번호 메모 — ${amount.toLocaleString('ko-KR')}원 · ${lines.length}줄 — ${linesText} — 무료 생성, 실제 복권 아님`);
+    const { lines } = modalResult;
+    copyText(lines.map(line => line.join(' ')).join('\n'));
   });
   $('modalShareBtn').addEventListener('click', () => {
     if (!modalResult) return;
-    const frag = buildShareFragment(modalResult.amount, modalResult.lines);
+    const frag = buildShareFragment(modalResult.lines);
     history.replaceState(null, '', location.pathname + location.search + frag);
-    shareResult(() => `하루콕 무료 번호 메모 — ${modalResult.amount.toLocaleString('ko-KR')}원 · ${modalResult.lines.length}줄 (실제 복권 아님)`);
+    shareResult(() => `하루콕 무료 번호 메모 — ${modalResult.lines.length}줄 (실제 복권 아님)`);
   });
 
   // ---- 최근 생성 기록 목록 ----
@@ -589,14 +573,14 @@
     const visibleCount = expanded ? list.length : Math.min(5, list.length);
 
     list.slice(0, visibleCount).forEach((item, idx) => {
-      const { amount, lines } = entryToAmountLines(item);
+      const lines = entryToLines(item);
       const row = document.createElement('button');
       row.type = 'button';
       row.className = 'history-row';
-      row.setAttribute('aria-label', `${formatDateTime(item.date)}에 생성한 ${amount.toLocaleString('ko-KR')}원 · ${lines.length}줄 기록 보기`);
+      row.setAttribute('aria-label', `${formatDateTime(item.date)}에 생성한 ${lines.length}줄 기록 보기`);
       row.innerHTML = `
         <span class="history-datetime">${formatDateTime(item.date)}</span>
-        <span class="history-amount">${amount.toLocaleString('ko-KR')}원 · ${lines.length}줄</span>
+        <span class="history-amount">${lines.length}줄</span>
         <span class="history-view-indicator">보기 ›</span>
       `;
       row.addEventListener('click', () => openHistoryModal(idx));
@@ -613,19 +597,18 @@
     }
   }
 
-  // ---- 가상 금액 선택 ----
+  // ---- 줄 수 선택 ----
   function renderAmountGrid(){
     const el = $('amountGrid');
     el.innerHTML = '';
-    AMOUNTS.forEach(amount => {
-      const lines = amount / 1000;
-      const selected = amount === selectedAmount;
+    LINE_COUNTS.forEach(n => {
+      const selected = n === selectedLines;
       const btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'amount-row' + (selected ? ' selected' : '');
-      btn.innerHTML = `<span class="amount-val">${amount.toLocaleString('ko-KR')}원</span><span class="amount-lines">${lines}줄${selected ? ' · 선택됨' : ''}</span>`;
+      btn.innerHTML = `<span class="amount-val">${n}줄</span><span class="amount-lines">${selected ? '✓' : ''}</span>`;
       btn.addEventListener('click', () => {
-        selectedAmount = amount;
+        selectedLines = n;
         renderAmountGrid();
       });
       el.appendChild(btn);
@@ -633,17 +616,17 @@
   }
 
   // ---- 번호 메모 카드 렌더 ----
-  function renderMemoCard(amount, lines, subText){
+  function renderMemoCard(lines, subText){
     $('memoSub').textContent = subText;
     $('memoRows').innerHTML = lines.map((line, i) => `
       <div class="memo-row"><span class="idx">${i+1}</span>${line.map(n => ballHTML(n)).join('')}</div>
     `).join('');
-    $('memoFooter').textContent = `가상 금액 ${amount.toLocaleString('ko-KR')}원 · ${lines.length}줄 · 무료 생성`;
+    $('memoFooter').textContent = `${lines.length}줄 · 무료 생성`;
   }
 
   // ---- 공유 링크(URL fragment) ----
-  function buildShareFragment(amount, lines){
-    return '#s=' + encodeURIComponent(JSON.stringify({ amount, lines }));
+  function buildShareFragment(lines){
+    return '#s=' + encodeURIComponent(JSON.stringify({ lines }));
   }
 
   // 공유 데이터는 서버 없이 URL에만 담기므로, 열람 시 반드시 유효성을 검사하고
@@ -654,9 +637,7 @@
     try{
       const data = JSON.parse(decodeURIComponent(hash.slice(3)));
       if (!data || typeof data !== 'object') return null;
-      if (!AMOUNTS.includes(data.amount)) return null;
-      const expected = data.amount / 1000;
-      if (!Array.isArray(data.lines) || data.lines.length !== expected) return null;
+      if (!Array.isArray(data.lines) || data.lines.length < 1 || data.lines.length > 5) return null;
       for (const line of data.lines){
         if (!Array.isArray(line) || line.length !== 6) return null;
         const uniq = new Set(line);
@@ -665,7 +646,7 @@
           if (!Number.isInteger(n) || n < 1 || n > 45) return null;
         }
       }
-      return data;
+      return { lines: data.lines };
     }catch(e){
       return null;
     }
@@ -679,7 +660,7 @@
     $('copyTextBtn').style.display = '';
     $('shareBtn').style.display = '';
 
-    $('memoSub').textContent = 'harukok.com · 동행복권과 무관';
+    $('memoSub').textContent = formatDateTime(Date.now());
     $('memoRows').innerHTML = '<div class="empty-history">아직 생성한 번호가 없어요. 번호 생성을 눌러보세요!</div>';
     $('memoFooter').textContent = '';
     $('saveImgBtn').disabled = true;
@@ -699,7 +680,7 @@
     $('copyTextBtn').style.display = 'none';
     $('shareBtn').style.display = 'none';
 
-    renderMemoCard(data.amount, data.lines, '공유된 결과 · 동행복권과 무관');
+    renderMemoCard(data.lines, '공유된 결과');
     $('saveImgBtn').disabled = false;
     currentResult = null; // 공유 열람 화면은 재추첨·내 기록 저장을 하지 않는다.
   }
@@ -715,11 +696,12 @@
     spinning = true;
     $('genBtn').disabled = true;
 
-    const lineCount = selectedAmount / 1000;
+    const lineCount = selectedLines;
     const finalLines = Array.from({ length: lineCount }, generateLine);
 
-    $('memoSub').textContent = 'harukok.com · 동행복권과 무관';
-    $('memoFooter').textContent = `가상 금액 ${selectedAmount.toLocaleString('ko-KR')}원 · ${lineCount}줄 · 무료 생성`;
+    const createdAt = Date.now();
+    $('memoSub').textContent = formatDateTime(createdAt);
+    $('memoFooter').textContent = `${lineCount}줄 · 무료 생성`;
 
     const totalTicks = 14;
     let tick = 0;
@@ -742,7 +724,7 @@
         $('copyTextBtn').disabled = false;
         $('shareBtn').disabled = false;
 
-        currentResult = { amount: selectedAmount, lines: finalLines, date: Date.now() };
+        currentResult = { lines: finalLines, date: createdAt };
         const newList = [currentResult, ...loadHistory()].slice(0, 30);
         saveHistory(newList);
         renderHistory();
@@ -756,16 +738,15 @@
 
   $('copyTextBtn').addEventListener('click', () => {
     if (!currentResult) return;
-    const { amount, lines } = currentResult;
-    const linesText = lines.map((line, i) => `${i+1}) ${line.join(' ')}`).join(' · ');
-    copyText(`하루콕 번호 메모 — ${amount.toLocaleString('ko-KR')}원 · ${lines.length}줄 — ${linesText} — 무료 생성, 실제 복권 아님`);
+    const { lines } = currentResult;
+    copyText(lines.map(line => line.join(' ')).join('\n'));
   });
 
   $('shareBtn').addEventListener('click', () => {
     if (!currentResult) return;
-    const frag = buildShareFragment(currentResult.amount, currentResult.lines);
+    const frag = buildShareFragment(currentResult.lines);
     history.replaceState(null, '', location.pathname + location.search + frag);
-    shareResult(() => `하루콕 무료 번호 메모 — ${currentResult.amount.toLocaleString('ko-KR')}원 · ${currentResult.lines.length}줄 (실제 복권 아님)`);
+    shareResult(() => `하루콕 무료 번호 메모 — ${currentResult.lines.length}줄 (실제 복권 아님)`);
   });
 
   // ---- 초기화 ----
