@@ -93,5 +93,22 @@ console.log('\n=== 5. 결과 화면에 실제 적용한 상한액·하한액이 
   const lower2 = /적용한 하한액<\/span><span class="amount">([0-9,]+)원/.exec(t2);
   check('사용자가 하한액을 직접 낮추면(6시간 예시) 결과에도 그 값이 반영됨', lower2 ? Number(lower2[1].replace(/,/g, '')) : null, 49536);
 }
+console.log('\n=== 6. 결과 옆 확인 상태: 하한액 적용 시 소정근로시간 확인 안내가 결과 옆에 표시됨 ===');
+{
+  function status(man, lower) {
+    const doc = loadCalculator(HTML);
+    doc.getElementById('wage3m').value = String(man);
+    if (lower) doc.getElementById('capLower').value = String(lower);
+    doc.getElementById('calcBtn').click();
+    return doc.getElementById('checkStatus').innerHTML;
+  }
+  const low = status(200);
+  check('월 200만원(60%가 하한 미만)이면 하한액 적용과 소정근로시간 확인 안내가 표시됨', low.includes('하한액 66,048원이 적용됐습니다') && low.includes('6시간 49,536원'), true);
+  const six = status(200, 49536);
+  check('하한액을 6시간 값으로 낮추면 그 값이 적용됐다고 표시됨', six.includes('하한액 49,536원이 적용됐습니다'), true);
+  const mid = status(300, 49536);
+  check('월 300만원·6시간 하한이면 하한이 아닌 60% 값이 일액이므로 하한 적용 문구가 없음', mid.includes('적용됐습니다') && !mid.includes('하한액 49,536원이 적용됐습니다'), false);
+  check('수급 자격(180일 등)은 판정하지 않는다고 입력 가정으로 표시됨', low.includes('수급 자격') && low.includes('판정하지 않으며'), true);
+}
 console.log('\n결과: ' + pass + '개 통과, ' + fail + '개 실패');
 if (fail > 0) process.exit(1);

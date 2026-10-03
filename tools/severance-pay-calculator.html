@@ -96,6 +96,14 @@
   .site-nav-links a:hover{ color:var(--ink); background:var(--paper-light, rgba(0,0,0,0.045)); }
   .site-nav-links a[aria-current="page"]{ color:var(--ink); font-weight:600; }
   .site-nav-brand:focus-visible, .site-nav-links a:focus-visible{ outline:2px solid var(--stamp, #B23A2E); outline-offset:2px; border-radius:4px; }
+
+  .check-status{ margin:16px 0 0; padding:12px 14px; border:1px solid var(--line, #B7AF98); border-radius:10px; background:rgba(255,255,255,0.45); text-align:left; }
+  .check-status .check-title{ font-size:12px; font-weight:700; color:var(--ink, #16233D); }
+  .check-row{ display:flex; gap:8px; align-items:flex-start; font-size:12.5px; line-height:1.55; color:var(--ink-soft, #45516A); margin-top:8px; }
+  .check-tag{ flex:0 0 auto; font-size:11px; font-weight:700; padding:1px 8px; border-radius:999px; border:1px solid; white-space:nowrap; margin-top:1px; }
+  .check-tag.ok{ color:#2F6B3A; border-color:#2F6B3A; }
+  .check-tag.assume{ color:#8A5A1E; border-color:#8A5A1E; }
+  .check-tag.unverified{ color:#B23A2E; border-color:#B23A2E; }
 </style>
 <!-- Google AdSense -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6883245122372170" crossorigin="anonymous"></script>
@@ -141,7 +149,7 @@
       "name": "평균임금이 통상임금보다 낮게 나오면 어떻게 되나요?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "근로기준법 제2조 제2항에 따라, 평균임금이 통상임금보다 적을 경우 통상임금을 평균임금으로 봅니다. 상여금이 적은 달이나 무급휴직 등으로 평균임금이 비정상적으로 낮게 산정될 때 근로자를 보호하기 위한 장치입니다."
+        "text": "근로기준법 제2조 제2항에 따라, 평균임금이 통상임금보다 적을 경우 통상임금을 평균임금으로 봅니다. 상여금이 적은 달이나 무급휴직 등으로 평균임금이 비정상적으로 낮게 산정될 때 근로자를 보호하기 위한 장치입니다. 이 계산기는 통상임금 비교를 하지 않으니, 평균임금이 낮게 나올 상황이면 결과를 법정 최저금액으로 보지 말고 통상임금 기준으로 다시 확인하세요."
       }
     },
     {
@@ -217,7 +225,7 @@
         <input type="number" id="wage3m" placeholder="예: 1200" inputmode="numeric">
         <span class="unit" style="font-size:14px;color:var(--muted);margin-left:8px;">만원</span>
       </div>
-      <span class="field-hint">기본급, 각종 수당, 정기 상여금을 포함한 퇴사 직전 3개월 총 지급액입니다.</span>
+      <span class="field-hint">매달 나오는 기본급·수당의 3개월 합계에, 연 1~2회 지급되는 정기 상여금과 포함 대상 연차수당은 <strong>연간(해당) 금액의 3/12만</strong> 더한 금액입니다. 상여금 지급액 전부를 더하라는 뜻이 아닙니다. 구체적인 합산표는 아래 가이드를 보세요.</span>
       <a href="/guides/severance-bonus-input" class="field-guide-link">상여금·연차수당을 얼마 넣어야 하나요? → 가이드 보기</a>
     </div>
 
@@ -229,10 +237,11 @@
     <div class="result-amount" id="severanceAmount">0<span class="unit">원</span></div>
 
     <div class="breakdown" id="breakdown"></div>
+    <div id="checkStatus"></div>
 
     <div class="disclaimer">
-      <strong>적용 기준</strong> — 근로자퇴직급여 보장법 제8조(퇴직금제도의 설정 등)에 따른 평균임금 방식(1일 평균임금 × 30일 × 재직일수/365)이며, 평균임금 자체의 정의와 산정 제외 기간은 근로기준법 제2조·같은 법 시행령 제2조를 따릅니다(2005년 근로기준법 개정으로 퇴직금 규정은 근로자퇴직급여 보장법으로 이관되었습니다). 법정 최저 기준이며 2026년까지 산식 자체에 변동은 없습니다. <strong>자료 검증일: 2026-09-17</strong><br><br>
-      이 계산은 위 산식에 따른 근사치입니다. 연차수당 포함 여부(퇴직 전전연도 미사용분만 포함), 수습·육아휴직 등 제외기간 처리, DC형 퇴직연금의 운용수익률에 따라 실제 금액과 차이가 있을 수 있으니 정확한 금액은 회사 인사팀 또는 고용노동부 노동포털에 확인하세요.
+      <strong>적용 기준</strong> — 근로자퇴직급여 보장법 제8조(퇴직금제도의 설정 등)에 따른 평균임금 방식(1일 평균임금 × 30일 × 재직일수/365)이며, 평균임금 자체의 정의와 산정 제외 기간은 근로기준법 제2조·같은 법 시행령 제2조를 따릅니다(2005년 근로기준법 개정으로 퇴직금 규정은 근로자퇴직급여 보장법으로 이관되었습니다). 이 계산기는 평균임금 방식만 계산하고 통상임금과의 비교는 하지 않으므로, 결과를 법정 최저금액이라고 단정할 수 없습니다(평균임금이 통상임금보다 낮으면 통상임금 기준이 적용됩니다). 2026년까지 산식 자체에 변동은 없습니다. <strong>자료 검증일: 2026-09-17</strong><br><br>
+      이 계산은 위 산식에 따른 근사치입니다. 연차수당 포함 여부(퇴직하기 전에 이미 지급사유가 발생한 연차수당의 3/12만 포함하고, 퇴직으로 비로소 지급사유가 생긴 연차수당은 제외 — 고용노동부 행정해석 기준), 수습·육아휴직 등 제외기간 처리, DC형 퇴직연금의 운용수익률에 따라 실제 금액과 차이가 있을 수 있으니 정확한 금액은 회사 인사팀 또는 고용노동부 노동포털에 확인하세요.
     </div>
   </div>
 
@@ -268,7 +277,7 @@
     </div>
     <div class="faq-item">
       <div class="q">평균임금이 통상임금보다 낮게 나오면 어떻게 되나요?</div>
-      <div class="a">근로기준법 제2조 제2항에 따라, 평균임금이 통상임금보다 적을 경우 통상임금을 평균임금으로 봅니다. 상여금이 적은 달이나 무급휴직 등으로 평균임금이 비정상적으로 낮게 산정될 때 근로자를 보호하기 위한 장치입니다.</div>
+      <div class="a">근로기준법 제2조 제2항에 따라, 평균임금이 통상임금보다 적을 경우 통상임금을 평균임금으로 봅니다. 상여금이 적은 달이나 무급휴직 등으로 평균임금이 비정상적으로 낮게 산정될 때 근로자를 보호하기 위한 장치입니다. 이 계산기는 통상임금 비교를 하지 않으니, 평균임금이 낮게 나올 상황이면 결과를 법정 최저금액으로 보지 말고 통상임금 기준으로 다시 확인하세요.</div>
     </div>
     <div class="faq-item">
       <div class="q">3개월 산정 기간에서 제외해야 하는 기간이 있나요?</div>
@@ -385,11 +394,16 @@
     render({ severance, tenureDays, periodDays, dailyAvgWage, underOneYear: !eligible });
   }
 
+  const TAGS = { ok: '공식 확인', assume: '입력 가정', unverified: '미확인' };
+  function checkRow(kind, html){ return '<div class="check-row"><span class="check-tag ' + kind + '">' + TAGS[kind] + '</span><span>' + html + '</span></div>'; }
+  function checkBox(rows){ return '<div class="check-status"><div class="check-title">이 결과의 확인 상태</div>' + rows.join('') + '</div>'; }
+
   function won(n){
     return Math.round(n).toLocaleString('ko-KR');
   }
 
   function render(r){
+    $('checkStatus').innerHTML = '';
     if (r.ambiguous){
       $('severanceAmount').innerHTML = '판정 보류<span class="unit"></span>';
       $('breakdown').innerHTML = `
@@ -416,6 +430,11 @@
       <div class="breakdown-row"><span>평균임금 산정기간</span><span class="amount">${r.periodDays}일</span></div>
       <div class="breakdown-row"><span>1일 평균임금</span><span class="amount">${won(r.dailyAvgWage)}원</span></div>
     `;
+    $('checkStatus').innerHTML = checkBox([
+      checkRow('assume', '입력한 3개월 급여 총액을 평균임금 산정 기초로 그대로 사용했습니다. 상여금과 연차수당의 3/12 환산은 입력하는 사람이 한 값이며, 연차수당은 퇴직하기 전에 이미 지급사유가 발생한 분만 포함하고 퇴직으로 비로소 생긴 분은 제외하는 방식이 고용노동부 행정해석(임금근로시간과-2861)입니다.'),
+      checkRow('assume', '<strong>통상임금과의 비교는 하지 않았습니다.</strong> 평균임금이 통상임금보다 적으면 통상임금을 평균임금으로 보므로(근로기준법 제2조 제2항), 이 금액을 법정 최저금액으로 볼 수 없습니다.'),
+      checkRow('assume', '평균임금 산정기간은 퇴사일 기준 3개월로 고정했고, 수습·육아휴직 등 제외기간이 있으면 계산 범위 밖입니다.')
+    ]);
     $('resultCard').classList.remove('hidden');
   }
 
