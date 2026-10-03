@@ -191,28 +191,6 @@
     background: var(--bg);
   }
   .goal-card .goal-links a:hover{ background: var(--navy-soft); }
-  .goal-card .goal-links a.article{ color: var(--muted); }
-
-  .guide-section{ margin-bottom: 44px; }
-  .guide-lede{ font-size:13px; color:var(--muted); line-height:1.6; margin:-6px 0 16px; max-width:54ch; }
-  .guide-list{ display:flex; flex-direction:column; gap:10px; margin-bottom:14px; }
-  .guide-card{
-    display:block; text-decoration:none; color:inherit;
-    background:#fff; border:1.5px solid #DCD6C1; border-left:3px solid var(--stamp);
-    border-radius:8px; padding:16px 18px;
-  }
-  .guide-tag{
-    display:inline-block; font-size:11px; color:var(--muted);
-    border:1px solid #DCD6C1; border-radius:999px; padding:2px 9px; margin-bottom:8px;
-  }
-  .guide-title{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:15px; color:var(--ink); margin-bottom:6px; line-height:1.4; }
-  .guide-hook{ font-size:12.5px; color:var(--muted); line-height:1.55; margin-bottom:10px; }
-  .guide-link{ font-size:12.5px; font-weight:600; color:var(--stamp); }
-  .guide-card:hover{ border-color:var(--stamp); }
-  .guide-card:hover .guide-link{ text-decoration:underline; }
-  .guide-card:focus-visible{ outline:2px solid var(--stamp); outline-offset:2px; }
-  .guide-all-link{ display:inline-block; font-size:13px; color:var(--ink); text-decoration:none; padding:8px 2px; }
-  .guide-all-link:hover{ text-decoration:underline; }
 
   .top-cta-row{ display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin-bottom: 36px; }
   .top-cta{ display:inline-flex; align-items:center; gap:6px; font-size:13.5px; font-weight:600; color:var(--ink); text-decoration:none; padding:10px 18px; border-radius:999px; border:1.5px solid #DCD6C1; background:#fff; }
@@ -283,8 +261,6 @@
           <a href="/tools/salary-calculator">연봉 실수령액 계산기</a>
           <a href="/tools/hourly-wage-calculator">시급 계산기</a>
           <a href="/tools/weekly-holiday-pay-calculator">주휴수당 계산기</a>
-          <a class="article" href="/guides/salary-vs-payslip">해설: 급여명세서와 다른 이유</a>
-          <a class="article" href="/guides/minimum-wage-monthly-hours">해설: 최저임금 209시간</a>
         </div>
       </div>
       <div class="goal-card">
@@ -294,9 +270,6 @@
           <a href="/tools/severance-pay-calculator">퇴직금 계산기</a>
           <a href="/tools/unemployment-benefit-calculator">실업급여 계산기</a>
           <a href="/tools/annual-leave-pay-calculator">연차수당 계산기</a>
-          <a class="article" href="/guides/severance-bonus-input">해설: 상여금 입력</a>
-          <a class="article" href="/guides/unemployment-benefit-guide">해설: 실업급여 조건</a>
-          <a class="article" href="/guides/annual-leave-guide">해설: 연차 발생·정산</a>
         </div>
       </div>
       <div class="goal-card">
@@ -304,7 +277,6 @@
         <div class="goal-desc">육아휴직 중 매달 예상 급여를 확인하고 싶을 때</div>
         <div class="goal-links">
           <a href="/tools/parental-leave-calculator">육아휴직급여 계산기</a>
-          <a class="article" href="/guides/parental-leave-monthly-comparison">해설: 월별 수령액 비교</a>
         </div>
       </div>
       <div class="goal-card">
@@ -317,50 +289,6 @@
         </div>
       </div>
     </div>
-  </div>
-
-  <div class="guide-section">
-    <div class="section-label">생활 계산 가이드</div>
-    <p class="guide-lede">계산기는 바로 계산·생성하는 도구이고, 가이드는 입력 방법·결과 해석을 설명하는 글입니다. 계산기 사용 전후에 참고하세요.</p>
-    <div class="guide-list">
-      <a class="guide-card" href="/guides/salary-vs-payslip">
-        <span class="guide-tag">급여</span>
-        <div class="guide-title">연봉 계산기 결과와 실제 급여명세서가 다른 이유</div>
-        <div class="guide-hook">가상 급여명세서를 계산기 입력란에 연결하고, 공제 차이가 어디서 나는지 추적하는 순서를 정리했습니다.</div>
-        <span class="guide-link">가이드 읽기 →</span>
-      </a>
-      <a class="guide-card" href="/guides/severance-bonus-input">
-        <span class="guide-tag">퇴직금</span>
-        <div class="guide-title">퇴직금 계산 시 상여금과 수당, 이렇게 입력하세요</div>
-        <div class="guide-hook">지급명세를 A+B+C 입력 총액으로 합산하는 작업표와 상여금 중복 입력 사례를 정리했습니다.</div>
-        <span class="guide-link">가이드 읽기 →</span>
-      </a>
-      <a class="guide-card" href="/guides/unemployment-benefit-guide">
-        <span class="guide-tag">실업급여</span>
-        <div class="guide-title">실업급여, 받을 수 있는 조건과 금액·기간 계산법</div>
-        <div class="guide-hook">180일 기준·지급 일수 가입기간·이직 전 3개월을 구분하고, 소정근로시간 6시간·8시간 비교를 보여줍니다.</div>
-        <span class="guide-link">가이드 읽기 →</span>
-      </a>
-      <a class="guide-card" href="/guides/parental-leave-monthly-comparison">
-        <span class="guide-tag">육아휴직</span>
-        <div class="guide-title">육아휴직 월별 예상 수령액 비교</div>
-        <div class="guide-hook">혼자 쓸 때와 부모가 함께(6+6) 쓸 때의 월별 예상 산정액, 부모 사용 기간이 다른 사례를 비교했습니다.</div>
-        <span class="guide-link">가이드 읽기 →</span>
-      </a>
-      <a class="guide-card" href="/guides/minimum-wage-monthly-hours">
-        <span class="guide-tag">최저임금</span>
-        <div class="guide-title">최저임금 월급 환산, 209시간은 어떻게 나오나요?</div>
-        <div class="guide-hook">209시간이 나오는 과정과, 근로계약서에서 시간·임금 항목을 확인하는 순서를 정리했습니다.</div>
-        <span class="guide-link">가이드 읽기 →</span>
-      </a>
-      <a class="guide-card" href="/guides/annual-leave-guide">
-        <span class="guide-tag">연차</span>
-        <div class="guide-title">연차는 언제, 며칠 생기고 연차수당은 어떻게 계산하나요?</div>
-        <div class="guide-hook">적용 대상 확인, 정산할 일수 정하기, 금액 환산 순서와 날짜가 있는 사례를 정리했습니다.</div>
-        <span class="guide-link">가이드 읽기 →</span>
-      </a>
-    </div>
-    <a class="guide-all-link" href="/guides/">가이드 전체 보기 →</a>
   </div>
 
   <footer>
