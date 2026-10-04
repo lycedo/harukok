@@ -93,6 +93,46 @@
   .site-nav-links a:hover{ color:var(--ink); background:var(--paper-light, rgba(0,0,0,0.045)); }
   .site-nav-links a[aria-current="page"]{ color:var(--ink); font-weight:600; }
   .site-nav-brand:focus-visible, .site-nav-links a:focus-visible{ outline:2px solid var(--stamp, #B23A2E); outline-offset:2px; border-radius:4px; }
+
+  article h3{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:15.5px; margin:30px 0 8px; scroll-margin-top:12px; }
+  article h2{ scroll-margin-top:12px; }
+  article ol.flow{ margin:0 0 8px; padding-left:20px; font-size:14px; line-height:1.8; color:var(--ink-soft); }
+  article ol.flow a{ color:var(--ink); }
+  article ol.flow li span{ color:var(--muted); font-size:13px; }
+  .lead-note{ font-size:13px; color:var(--muted); line-height:1.65; margin:0 0 14px; }
+
+  article ul.points{ margin:0 0 14px; padding-left:20px; font-size:14px; line-height:1.75; color:var(--ink-soft); }
+  article ul.points li{ margin-bottom:5px; }
+  article ul.points li strong:first-child{ color:var(--ink); }
+
+  .faq-item{ margin:0 0 16px; scroll-margin-top:12px; }
+  .faq-item .q{ font-size:14px; font-weight:700; color:var(--ink); margin-bottom:5px; }
+  .faq-item .a{ font-size:13.5px; line-height:1.7; color:var(--ink-soft); }
+  dl.check{ margin:10px 0 14px; border-top:1px solid var(--line); }
+  dl.check .row{ display:grid; grid-template-columns:6.2em 1fr; gap:12px; padding:9px 0; border-bottom:1px solid var(--line); }
+  dl.check dt{ font-size:12.5px; font-weight:700; color:var(--ink); line-height:1.65; }
+  dl.check dd{ margin:0; font-size:13.5px; line-height:1.65; color:var(--ink-soft); }
+  dl.check .row.next dt{ color:var(--stamp); }
+  dl.check .row.next dd{ color:var(--ink); }
+
+  table.num td.n{ text-align:right; font-family:'IBM Plex Mono', monospace; white-space:nowrap; }
+  table.num th.n{ text-align:right; }
+  table tr.total td{ font-weight:700; color:var(--ink); background:#F0EAD6; }
+
+  @media (max-width:560px){
+    dl.check .row{ grid-template-columns:1fr; gap:2px; }
+    table.stack{ border:none; background:none; }
+    table.stack thead{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); }
+    table.stack, table.stack tbody, table.stack tr, table.stack td{ display:block; width:100%; }
+    table.stack tr{ background:var(--paper-light); border:1px solid var(--line); border-radius:8px; margin:0 0 10px; padding:4px 0; }
+    table.stack td{ border:none; padding:3px 12px; display:flex; justify-content:space-between; gap:14px; text-align:left; }
+    table.stack td.n{ text-align:right; }
+    table.stack td::before{ content:attr(data-label); color:var(--muted); font-size:12px; font-weight:400; text-align:left; flex:0 0 5.6em; }
+    table.stack td:first-child{ display:block; text-align:left; font-weight:700; color:var(--ink); padding-top:8px; }
+    table.stack td:first-child::before{ content:none; }
+    table.stack td.n{ white-space:normal; }
+    table.stack tr.total{ background:#F0EAD6; }
+  }
 </style>
 <!-- Google AdSense -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6883245122372170" crossorigin="anonymous"></script>
@@ -106,6 +146,46 @@
   "dateModified": "2026-10-03",
   "author": { "@type": "Organization", "name": "하루콕" },
   "publisher": { "@type": "Organization", "name": "하루콕" }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "4대보험은 각각 얼마씩 떼가나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "2026년 기준 국민연금 4.75%, 건강보험 3.595%, 장기요양보험(건강보험료의 13.14%), 고용보험 0.9%가 본인 부담분으로 공제됩니다. 국민연금과 건강보험(장기요양보험 포함)은 보험료를 근로자와 사업주가 절반씩 부담하는 구조라 위 요율이 근로자 몫입니다. 고용보험은 실업급여 보험료를 근로자·사업주가 각각 0.9%씩 부담하고, 사업주는 여기에 더해 고용안정·직업능력개발사업 보험료(사업장 규모별 0.25~0.85%)를 따로 부담합니다. 산재보험은 근로자 부담이 없습니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "연봉이 같아도 실수령액이 사람마다 다른 이유는요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "부양가족 수, 자녀세액공제 나이 기준을 충족하는 자녀 수에 따라 원천징수 소득세 계산에 반영되는 인적공제·자녀세액공제가 달라지기 때문입니다. 부양가족이 많을수록 매달 떼는 세금이 줄어 같은 연봉이라도 실수령액이 더 많아집니다. 또한 식대·자가운전보조금 같은 비과세 항목을 회사가 어떻게 설계했는지에 따라서도 차이가 생깁니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "자녀세액공제 대상 나이는 몇 살부터인가요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "자녀세액공제 대상 나이는 원칙적으로 만 13세 이상입니다(소득세법 제59조의2제1항, 법률 제21548호 2026.4.21. 개정). 다만 부칙 제2조②에 따라 2026~2029년 과세기간에는 한시적으로 낮아져 2026년 9세, 2027년 10세, 2028년 11세, 2029년 12세 이상이면 대상이 되고, 2030년부터는 다시 원칙인 13세 이상이 적용됩니다. 그런데 부칙 제2조③은 2017년 1월 1일~12월 31일 출생 자녀·손자녀에게는 이 한시적 완화(②)를 적용하지 않는다고 정하고 있어, 2017년생은 2026~2029년에도 완화된 나이 기준을 적용받지 못하고 원칙인 13세 이상 기준이 그대로 적용됩니다 — 즉 2017년생 자녀는 사실상 2030년(만 13세가 되는 해)부터 공제 대상입니다. 상한은 기본공제 기준인 만 20세입니다. 나이 판정 시점은 소득세법 제53조④·⑤에 따라 과세기간 종료일(12/31) 기준이며, 해당 연도 중 하루라도 그 나이에 도달한 날이 있으면 그 해에 인정됩니다. 다만 국세청 홈페이지의 일부 일반 안내 페이지에는 아직 \"8세 이상\"으로 표기되어 있어 법 조문(13세, 한시적 9~12세)과 차이가 있으므로, 실제 적용 시에는 국세청 홈택스나 세무 전문가에게 다시 확인하는 것이 안전합니다. 이 계산기는 자녀의 생년월일이 아니라 인원 수만 입력받으므로, 위 기준에 맞는 자녀 수를 직접 세어 입력해야 하며 개별 자격을 자동으로 판정하지는 않습니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "4대보험 요율은 매년 바뀌나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "네, 국민연금은 기준소득월액 상한·하한이, 건강보험·장기요양보험은 매년 요율 자체가 조정됩니다. 이 계산기는 2026년 확정 요율을 반영하고 있으므로, 해가 바뀌면 최신 요율로 다시 계산해야 정확한 실수령액을 확인할 수 있습니다."
+      }
+    }
+  ]
 }
 </script>
 </head>
@@ -127,7 +207,7 @@
   </nav>
   <div class="kicker">해설 · 급여·재무</div>
   <h1>연봉 계산기 결과와 실제 급여명세서가 다른 이유</h1>
-  <p class="lede">같은 연봉을 넣었는데 하루콕 계산기 결과와 이번 달 급여명세서 금액이 다르다면, 대부분 아래 5가지 중 하나가 원인입니다. 계산 예시와 함께 설명합니다.</p>
+  <p class="lede">같은 연봉을 넣었는데 하루콕 계산기 결과와 이번 달 급여명세서 금액이 다를 때, 어디부터 확인해야 하는지 순서대로 안내합니다. 계산기의 소득세는 국세청 간이세액표 조회값이 아닌 추정치라서 결과가 정확히 같지 않은 것은 계산 오류가 아닙니다.</p>
 
   <div class="related">
     <div class="related-title">함께 보면 좋은 도구</div>
@@ -138,23 +218,21 @@
   </div>
 
   <article>
-    <h2>1. 이 계산기의 소득세는 간이세액표 조회값이 아니라 자체 추정치입니다</h2>
-    <p>실제 회사는 국세청이 고시한 <strong>「근로소득 간이세액표」</strong>를 급여 수준×가족 수 기준으로 직접 조회해서 소득세를 원천징수합니다. 하루콕 계산기는 이 표를 조회하지 않고, 소득세법상 <strong>연간 세액 계산식(근로소득공제 → 인적공제 → 누진세율 → 세액공제)</strong>을 적용해 계산기 자체적으로 추정한 근사치를 12개월로 나눈 값입니다. 두 방식은 원리는 비슷하지만 세부 공제 가정이 달라 완전히 같은 금액이 나오지 않습니다. 즉 이 계산기 결과와 실제 급여명세서 소득세가 정확히 일치하지 않는다고 해서 계산이 틀린 것은 아닙니다.</p>
+    <h2>문제 — 차이가 얼마인지부터 구하세요</h2>
+    <p>계산기의 월 실수령액에서 명세서의 실제 입금액을 빼 차액을 구합니다. 이 차액이 <strong>지급 합계, 4대보험, 소득세, 계산기에 없는 사내 공제</strong> 중 어디에서 생기는지를 아래 순서대로 하나씩 맞춰 보면 원인을 찾을 수 있습니다.</p>
 
-    <h2>2. 간이세액표 비율(80%·100%·120%)은 근로자가 선택하고 회사가 반영합니다</h2>
-    <p>근로자는 <strong>근로소득 간이세액표 세액의 80%·100%·120%</strong> 중 하나를 선택할 수 있고, 회사(원천징수의무자)에 '소득세 원천징수세액 조정신청서'를 내거나 소득·세액공제신고서에 비율을 적어 제출하면 회사가 이를 반영합니다(국세청 「맞춤형 원천징수제도」). 선택하지 않으면 100%가 적용되고, 비율을 바꾸면 그 과세기간 종료일까지 계속 적용됩니다. 국세청 안내에는 신청 시기를 매년 초로 한정하는 문구가 없습니다. 바꾸고 싶을 때는 급여 담당자에게 제출 방법을 확인하세요. 80%를 선택하면 매달 덜 떼는 대신 연말정산에서 추가로 낼 가능성이 커지고, 120%를 선택하면 매달 더 떼는 대신 환급 가능성이 커집니다. 이 비율은 <strong>회사가 실제로 조회한 간이세액표 금액</strong>에 곱해지는 것이라, 하루콕 계산기의 추정치에 그대로 곱한다고 해서 정확한 차액이 나오는 것은 아닙니다.</p>
+    <h2>확인 순서</h2>
+    <ol class="flow">
+      <li><a href="#step1">지급 합계와 비과세</a> <span>— 입력값부터 맞추기</span></li>
+      <li><a href="#step2">4대보험</a> <span>— 보험료 4개 금액 비교</span></li>
+      <li><a href="#step3">소득세·지방소득세</a> <span>— 간이세액표와 선택 비율 확인</span></li>
+      <li><a href="#step4">사내 공제</a> <span>— 계산기에 없는 항목 분리</span></li>
+      <li><a href="#step5">연말정산과 구분</a> <span>— 월 차이와 연간 정산은 별개</span></li>
+    </ol>
+    <p class="lead-note">각 단계는 아래 비교 사례로 먼저 연습해 볼 수 있고, 단계별 설명에 <strong>확인할 항목 · 확인할 곳 · 다음 행동</strong>을 정리했습니다.</p>
 
-    <h2>3. 급여명세서에만 있는 개인별 공제 항목</h2>
-    <p>계산기는 4대보험과 소득세만 계산합니다. 급여명세서에는 이 외에도 <strong>노동조합비, 사내대출·가불금 상환, 개인연금·우리사주 공제, 회사 기숙사·식비 정산</strong> 같은 개인별·회사별 항목이 추가로 빠질 수 있습니다. 이런 항목이 있다면 실수령액은 계산기 결과보다 적게 찍힙니다.</p>
-
-    <h2>4. 비과세 항목을 회사가 실제로 어떻게 설계했는가</h2>
-    <p>식대는 월 20만원까지 비과세입니다. 계산기의 '월 비과세 합계' 입력란은 식대만이 아니라 <strong>급여명세서의 비과세 항목 합계</strong>를 넣는 칸이라, 식대 한도(월 20만원)와 합계의 한도는 서로 다릅니다. 회사에 따라 식대를 급여에 포함하지 않고 별도 현물(구내식당 등)로 제공하거나, 자가운전보조금 같은 다른 비과세 항목을 따로 처리하기도 합니다. 각 항목은 그 항목의 요건을 충족할 때만 비과세로 인정되므로, 명세서에 비과세로 적힌 금액만 합계에 넣고 이 합계가 실제와 다르면 결과도 달라집니다.</p>
-
-    <h2>5. 매달 원천징수와 연말정산은 별개 절차</h2>
-    <p>이 계산기의 소득세는 <strong>매달 원천징수되는 금액의 추정치</strong>입니다. 실제로 한 해 동안 낸 세금이 맞는지는 다음 해 1~2월 <strong>연말정산</strong>에서 신용카드·의료비·보험료 등 각종 소득·세액공제를 반영해 다시 계산되고, 더 냈으면 환급받고 덜 냈으면 추가로 냅니다. 즉 매달 급여명세서 금액과 계산기 결과가 조금 다르더라도, 1년 전체로 보면 연말정산에서 한 번 더 맞춰지는 구조입니다.</p>
-
-    <h2>하루콕 계산기가 실제로 추정하는 값</h2>
-    <p>연봉 3,500만원, 식대 비과세 20만원, 부양가족 1명, 자녀 0명을 하루콕 연봉 계산기에 넣으면 아래와 같이 계산됩니다(2026년 4대보험 요율 기준). 이 표의 소득세·지방소득세는 <strong>이 계산기가 자체 산식으로 추정한 값</strong>이며, 실제 회사가 조회하는 간이세액표 금액과는 다를 수 있습니다.</p>
+    <h2 id="case">비교 사례 — 가상 명세서와 차이 추적표</h2>
+    <p>연봉 3,500만원, 식대 비과세 20만원, 부양가족 1명, 자녀 0명을 하루콕 연봉 계산기에 넣은 결과(2026년 4대보험 요율 기준)입니다. 소득세·지방소득세는 이 계산기가 자체 산식으로 추정한 값이며 실제 회사가 조회하는 간이세액표 금액과는 다를 수 있습니다.</p>
     <div class="example-box">
       <div class="ex-title">하루콕 계산기 결과 (자체 추정치)</div>
       <div class="ex-row"><span>국민연금</span><span class="amount">129,042원</span></div>
@@ -164,39 +242,131 @@
       <div class="ex-row"><span>소득세+지방소득세 (추정)</span><span class="amount">61,308원</span></div>
       <div class="ex-row total"><span>월 공제 합계 (추정)</span><span class="amount">325,297원</span></div>
     </div>
-    <p>4대보험(국민연금·건강보험·장기요양보험·고용보험)은 입력한 급여에 요율을 곱해 추정한 값입니다. 실제 공제는 기관에 신고된 금액 기준과 정산 등이 반영될 수 있어 명세서와 같을 수도, 다를 수도 있습니다. 소득세·지방소득세 61,308원도 어디까지나 추정치이므로, 실제 급여명세서 금액이 이보다 많거나 적을 수 있습니다. 정확한 금액을 알고 싶다면 국세청 홈택스에서 본인 명의로 간이세액표를 직접 조회하고, 본인이 선택한(또는 선택하지 않아 100%가 적용된) 80%·100%·120% 비율을 급여 담당자에게 확인하세요.</p>
 
-    <h2>가상 급여명세서와 계산기 입력란 연결하기</h2>
+    <h3>가상 급여명세서와 계산기 입력란 연결하기</h3>
     <p>아래는 이해를 돕기 위해 만든 <strong>가상의 급여명세서</strong>입니다. 실제 회사의 명세서나 실측 자료가 아니며, 항목별로 계산기 어디에 넣는지와 계산기가 반영하지 않는 항목을 구분해 보여줍니다. 연봉 3,500만원(월 지급 합계 2,916,667원), 식대 비과세 20만원, 부양가족 1명, 자녀 0명으로 가정했습니다.</p>
-    <table>
-      <tr><th>명세서 항목</th><th>가상 금액</th><th>비과세 여부</th><th>계산기 입력란</th></tr>
-      <tr><td>기본급</td><td>2,716,667원</td><td>과세</td><td>연봉(3,500만원)에 포함</td></tr>
-      <tr><td>식대</td><td>200,000원</td><td>비과세(월 20만원 한도)</td><td>월 비과세 합계 20만원</td></tr>
-      <tr><td>지급 합계</td><td>2,916,667원</td><td>—</td><td>연봉 ÷ 12</td></tr>
-      <tr><td>국민연금·건강·장기요양·고용보험</td><td>263,989원</td><td>공제</td><td>계산기가 추정(입력 아님)</td></tr>
-      <tr><td>소득세·지방소득세</td><td>55,000원</td><td>공제</td><td>계산기가 추정(입력 아님)</td></tr>
-      <tr><td>노동조합비</td><td>20,000원</td><td>공제</td><td>계산기에 반영되지 않음</td></tr>
+    <table class="stack num">
+      <thead><tr><th>명세서 항목</th><th class="n">가상 금액</th><th>비과세 여부</th><th>계산기 입력란</th></tr></thead>
+      <tbody>
+      <tr><td>기본급</td><td class="n" data-label="가상 금액">2,716,667원</td><td data-label="비과세 여부">과세</td><td data-label="계산기 입력란">연봉(3,500만원)에 포함</td></tr>
+      <tr><td>식대</td><td class="n" data-label="가상 금액">200,000원</td><td data-label="비과세 여부">비과세(월 20만원 한도)</td><td data-label="계산기 입력란">월 비과세 합계 20만원</td></tr>
+      <tr><td>지급 합계</td><td class="n" data-label="가상 금액">2,916,667원</td><td data-label="비과세 여부">—</td><td data-label="계산기 입력란">연봉 ÷ 12</td></tr>
+      <tr><td>국민연금·건강·장기요양·고용보험</td><td class="n" data-label="가상 금액">263,989원</td><td data-label="비과세 여부">공제</td><td data-label="계산기 입력란">계산기가 추정(입력 아님)</td></tr>
+      <tr><td>소득세·지방소득세</td><td class="n" data-label="가상 금액">55,000원</td><td data-label="비과세 여부">공제</td><td data-label="계산기 입력란">계산기가 추정(입력 아님)</td></tr>
+      <tr><td>노동조합비</td><td class="n" data-label="가상 금액">20,000원</td><td data-label="비과세 여부">공제</td><td data-label="계산기 입력란">계산기에 반영되지 않음</td></tr>
+      </tbody>
     </table>
+
+    <h3>차이 추적표 — 위에서부터 순서대로 맞춰 봅니다</h3>
     <p>이 가상 명세서의 공제 합계는 338,989원이고 계산기의 월 공제 합계(추정)는 325,297원입니다. 차이를 찾는 순서는 다음과 같습니다.</p>
-    <table>
-      <tr><th>확인 순서</th><th>계산기</th><th>가상 명세서</th><th>차이와 원인 후보</th></tr>
-      <tr><td>1. 지급 합계·비과세</td><td>2,916,667원</td><td>2,916,667원</td><td>같음 — 다르면 연봉과 비과세 합계 입력부터 확인</td></tr>
-      <tr><td>2. 4대보험</td><td>263,989원</td><td>263,989원</td><td>이 가상 사례는 같다고 가정 — 다르면 신고 기준 금액·정산 반영 여부 확인</td></tr>
-      <tr><td>3. 소득세·지방소득세</td><td>61,308원</td><td>55,000원</td><td>명세서가 6,308원 적음 — 간이세액표 조회값, 선택 비율, 가족 수 확인</td></tr>
-      <tr><td>4. 사내 공제</td><td>0원</td><td>20,000원</td><td>명세서가 20,000원 많음 — 계산기에 없는 항목</td></tr>
-      <tr class="total"><td>공제 합계</td><td>325,297원</td><td>338,989원</td><td>명세서가 13,692원 많음(−6,308 + 20,000)</td></tr>
+    <table class="stack num">
+      <thead><tr><th>확인 순서</th><th class="n">계산기</th><th class="n">가상 명세서</th><th>차이와 원인 후보</th></tr></thead>
+      <tbody>
+      <tr><td><a href="#step1">1. 지급 합계·비과세</a></td><td class="n" data-label="계산기">2,916,667원</td><td class="n" data-label="가상 명세서">2,916,667원</td><td data-label="차이와 원인 후보">같음 — 다르면 연봉과 비과세 합계 입력부터 확인</td></tr>
+      <tr><td><a href="#step2">2. 4대보험</a></td><td class="n" data-label="계산기">263,989원</td><td class="n" data-label="가상 명세서">263,989원</td><td data-label="차이와 원인 후보">이 가상 사례는 같다고 가정 — 다르면 신고 기준 금액·정산 반영 여부 확인</td></tr>
+      <tr><td><a href="#step3">3. 소득세·지방소득세</a></td><td class="n" data-label="계산기">61,308원</td><td class="n" data-label="가상 명세서">55,000원</td><td data-label="차이와 원인 후보">명세서가 6,308원 적음 — 간이세액표 조회값, 선택 비율, 가족 수 확인</td></tr>
+      <tr><td><a href="#step4">4. 사내 공제</a></td><td class="n" data-label="계산기">0원</td><td class="n" data-label="가상 명세서">20,000원</td><td data-label="차이와 원인 후보">명세서가 20,000원 많음 — 계산기에 없는 항목</td></tr>
+      <tr class="total"><td>공제 합계</td><td class="n" data-label="계산기">325,297원</td><td class="n" data-label="가상 명세서">338,989원</td><td data-label="차이와 원인 후보">명세서가 13,692원 많음(−6,308 + 20,000)</td></tr>
+      </tbody>
     </table>
     <p>이렇게 항목별로 맞춰 보면 차이가 세금 때문인지, 보험 때문인지, 계산기에 없는 사내 공제 때문인지 추적할 수 있습니다.<br>
     <span style="color:var(--muted); font-size:12.5px;">※ 계산기 값은 하루콕 연봉 계산기에 위 조건을 입력해 얻은 결과이고, 가상 명세서의 소득세와 노동조합비는 가상의 값입니다.</span></p>
 
-    <h2>결과가 계속 크게 다르다면</h2>
-    <p>위 항목을 다 확인했는데도 차이가 크다면, 회사 급여 담당자에게 <strong>간이세액표 조회 금액과 선택 비율</strong>, <strong>공제 항목 내역</strong>을 직접 문의하는 것이 가장 정확합니다.</p>
+    <h2>단계별 설명</h2>
 
+    <h3 id="step1">1단계. 지급 합계와 비과세</h3>
+    <dl class="check">
+      <div class="row"><dt>확인할 항목</dt><dd>명세서의 지급 합계(기본급+수당)와 비과세 항목 합계 → 계산기의 '연봉'(÷12)과 '월 비과세 합계'</dd></div>
+      <div class="row"><dt>확인할 곳</dt><dd>급여명세서 지급 항목, 근로계약서의 연봉 총액</dd></div>
+      <div class="row next"><dt>다음 행동</dt><dd>두 값이 다르면 계산기 입력부터 고쳐 다시 계산합니다. 같으면 2단계로 갑니다.</dd></div>
+    </dl>
+    <p>식대는 월 20만원까지 비과세입니다. 계산기의 '월 비과세 합계' 입력란은 식대만이 아니라 <strong>급여명세서의 비과세 항목 합계</strong>를 넣는 칸이라, 식대 한도(월 20만원)와 합계의 한도는 서로 다릅니다. 회사에 따라 식대를 급여에 포함하지 않고 별도 현물(구내식당 등)로 제공하거나, 자가운전보조금 같은 다른 비과세 항목을 따로 처리하기도 합니다. 각 항목은 그 항목의 요건을 충족할 때만 비과세로 인정되므로, 명세서에 비과세로 적힌 금액만 합계에 넣고 이 합계가 실제와 다르면 결과도 달라집니다.</p>
+
+    <h3 id="step2">2단계. 4대보험</h3>
+    <dl class="check">
+      <div class="row"><dt>확인할 항목</dt><dd>국민연금·건강보험·장기요양보험·고용보험 4개 금액</dd></div>
+      <div class="row"><dt>확인할 곳</dt><dd>급여명세서의 공제 항목</dd></div>
+      <div class="row next"><dt>다음 행동</dt><dd>계산기와 같으면 3단계로 갑니다. 다르면 급여 담당자에게 보험료 산정에 쓰는 신고 기준 금액과 정산 반영 여부를 물어봅니다.</dd></div>
+    </dl>
+    <p>4대보험(국민연금·건강보험·장기요양보험·고용보험)은 입력한 급여에 요율을 곱해 추정한 값입니다. 실제 공제는 기관에 신고된 금액 기준과 정산 등이 반영될 수 있어 명세서와 같을 수도, 다를 수도 있습니다.</p>
+
+    <h3 id="step3">3단계. 소득세·지방소득세</h3>
+    <dl class="check">
+      <div class="row"><dt>확인할 항목</dt><dd>소득세와 지방소득세 합계, 본인이 선택한 원천징수 비율(80%·100%·120%), 공제대상 가족 수</dd></div>
+      <div class="row"><dt>확인할 곳</dt><dd>급여명세서, 급여 담당자(선택 비율 확인), 국세청 홈택스의 근로소득 간이세액표</dd></div>
+      <div class="row next"><dt>다음 행동</dt><dd>간이세액표에서 본인 급여와 가족 수에 해당하는 세액을 조회하고 선택 비율을 곱해 명세서와 비교합니다. 계산기의 추정치와 정확히 일치하지 않아도 계산 오류는 아닙니다.</dd></div>
+    </dl>
+    <p><strong>계산기의 소득세는 간이세액표 조회값이 아니라 자체 추정치입니다.</strong> 실제 회사는 국세청이 고시한 <strong>「근로소득 간이세액표」</strong>를 급여 수준×가족 수 기준으로 직접 조회해서 소득세를 원천징수합니다. 하루콕 계산기는 이 표를 조회하지 않고, 소득세법상 <strong>연간 세액 계산식(근로소득공제 → 인적공제 → 누진세율 → 세액공제)</strong>을 적용해 계산기 자체적으로 추정한 근사치를 12개월로 나눈 값입니다. 두 방식은 원리는 비슷하지만 세부 공제 가정이 달라 완전히 같은 금액이 나오지 않습니다.</p>
+    <p><strong>80%·100%·120% 비율은 근로자가 선택하고 회사가 반영합니다.</strong> 국세청 「맞춤형 원천징수제도」 기준으로 정리하면 다음과 같습니다.</p>
+    <ul class="points">
+      <li><strong>선택과 신청</strong> — 근로자가 근로소득 간이세액표 세액의 80%·100%·120% 중 하나를 선택하고, 회사(원천징수의무자)에 '소득세 원천징수세액 조정신청서'를 내거나 소득·세액공제신고서에 비율을 적어 제출하면 회사가 반영합니다.</li>
+      <li><strong>기본값과 적용 기간</strong> — 선택하지 않으면 100%가 적용되고, 비율을 바꾸면 그 과세기간 종료일까지 계속 적용됩니다.</li>
+      <li><strong>신청 시기</strong> — 국세청 안내에는 신청 시기를 매년 초로 한정하는 문구가 없습니다. 바꾸고 싶을 때는 급여 담당자에게 제출 방법을 확인하세요.</li>
+      <li><strong>효과</strong> — 80%를 선택하면 매달 덜 떼는 대신 연말정산에서 추가로 낼 가능성이 커지고, 120%를 선택하면 매달 더 떼는 대신 환급 가능성이 커집니다.</li>
+      <li><strong>비교할 때 주의</strong> — 이 비율은 <strong>회사가 실제로 조회한 간이세액표 금액</strong>에 곱해지는 것이라, 하루콕 계산기의 추정치에 그대로 곱한다고 해서 정확한 차액이 나오는 것은 아닙니다. 정확한 금액은 국세청 홈택스에서 본인 명의로 간이세액표를 직접 조회하고, 본인이 선택한(선택하지 않아 100%가 적용된) 비율을 급여 담당자에게 확인하세요.</li>
+    </ul>
+
+    <h3 id="step4">4단계. 사내 공제</h3>
+    <dl class="check">
+      <div class="row"><dt>확인할 항목</dt><dd>노동조합비, 사내대출·가불금 상환, 개인연금·우리사주 공제, 회사 기숙사·식비 정산 같은 항목의 합계</dd></div>
+      <div class="row"><dt>확인할 곳</dt><dd>급여명세서의 기타 공제 항목</dd></div>
+      <div class="row next"><dt>다음 행동</dt><dd>이 합계를 계산기의 월 실수령액에서 뺀 뒤 명세서 입금액과 다시 비교합니다.</dd></div>
+    </dl>
+    <p>계산기는 4대보험과 소득세만 계산합니다. 급여명세서에는 이 외에도 <strong>노동조합비, 사내대출·가불금 상환, 개인연금·우리사주 공제, 회사 기숙사·식비 정산</strong> 같은 개인별·회사별 항목이 추가로 빠질 수 있습니다. 이런 항목이 있다면 실수령액은 계산기 결과보다 적게 찍힙니다.</p>
+
+    <h3 id="step5">5단계. 연말정산과 구분</h3>
+    <dl class="check">
+      <div class="row"><dt>확인할 항목</dt><dd>월 차이가 아니라 한 해 전체로 낸 세금이 맞는지</dd></div>
+      <div class="row"><dt>확인할 곳</dt><dd>다음 해 1~2월 연말정산 결과</dd></div>
+      <div class="row next"><dt>다음 행동</dt><dd>매달 명세서와 계산기의 작은 차이만으로 세금을 더 냈다거나 덜 냈다고 판단하지 않습니다.</dd></div>
+    </dl>
+    <p>이 계산기의 소득세는 <strong>매달 원천징수되는 금액의 추정치</strong>입니다. 실제로 한 해 동안 낸 세금이 맞는지는 다음 해 1~2월 <strong>연말정산</strong>에서 신용카드·의료비·보험료 등 각종 소득·세액공제를 반영해 다시 계산되고, 더 냈으면 환급받고 덜 냈으면 추가로 냅니다. 즉 매달 급여명세서 금액과 계산기 결과가 조금 다르더라도, 1년 전체로 보면 연말정산에서 한 번 더 맞춰지는 구조입니다.</p>
+
+    <h2 id="inputs">계산기 입력 기준과 결과 읽는 법</h2>
+    <h3>입력값은 명세서와 계약서에서 이렇게 찾습니다</h3>
+    <dl class="check">
+      <div class="row"><dt>연봉</dt><dd>근로계약서의 세전 연 총액입니다. <strong>월급을 그대로 '연봉'란에 넣는 실수</strong>가 가장 흔하며, 연봉은 월급 × 12가 아니라 회사와 계약한 연 총액입니다.</dd></div>
+      <div class="row"><dt>월 비과세 합계</dt><dd>급여명세서의 비과세 항목 합계입니다. 0으로 두는 실수도 많은데, 식대는 법으로 월 20만원까지 비과세라 명세서에 비과세 식대가 있다면 이를 빼면 소득세가 실제보다 높게 나옵니다. 반대로 비과세 요건이나 한도를 충족하지 않는 금액까지 합계에 넣으면 실수령액이 과대 계산됩니다.</dd></div>
+      <div class="row"><dt>부양가족 수</dt><dd>본인을 포함한 숫자입니다. 본인을 빼고 입력하는 경우가 있으니 주의하세요.</dd></div>
+      <div class="row"><dt>자녀세액공제 대상 자녀 수</dt><dd>부양가족 중 나이 기준을 충족하는 자녀 수로, 연말정산 간소화 자료나 인사팀에서 확인할 수 있습니다. 계산기는 개별 자녀의 나이를 자동으로 검증하지 않습니다. 나이 기준은 아래 <a href="#faq-child-age">FAQ</a>를 보세요. 프리랜서·사업소득자는 4대보험 구조가 달라 이 계산기 대상이 아닙니다.</dd></div>
+    </dl>
+
+    <h3>결과는 이렇게 읽습니다</h3>
+    <p>연봉계약서에 적힌 금액은 세금과 4대보험료를 떼기 전 금액이라, 매달 급여에서 보험료와 세금이 원천 공제된 뒤 입금됩니다. 계산기는 2026년 요율과 소득세법 산식을 적용해 입력한 조건에서의 월 예상 실수령액을 보여주며, 실제 입금액은 회사 급여 처리에 따라 달라질 수 있습니다. 소득세·지방소득세는 '올해 예상 연간 세금'을 12개월로 나눈 값이라 실제 회사가 매달 떼는 금액과 소폭 차이가 날 수 있습니다. 공제 순서, 국민연금 상·하한, 표준세액공제를 반영하지 않는 이유 같은 계산 가정은 계산기 화면의 '계산 가정·근거·출처 보기'에서 펼쳐 볼 수 있습니다.</p>
+
+    <h3>추가 사례 (가상의 사례)</h3>
+    <p><strong>부양가족 4명</strong> — 같은 연봉 3,500만원이라도 부양가족 4명(본인·배우자·10세 자녀·6세 자녀)이면 인적공제(1인당 150만원, 4명 모두 적용)가 늘어 과세표준이 줄어듭니다. 자녀세액공제는 2026년 과세기간 한시 기준으로 만 9세 이상만 대상이라(2017년생 자녀·손자녀는 이 한시 기준이 적용되지 않는 예외가 있음 — <a href="#faq-child-age">FAQ</a> 참고) 10세 자녀 1명만 해당하고(연 25만원), 6세 자녀는 대상이 아닙니다. 4대보험료는 동일(월 약 264,000원)하지만 인적공제와 자녀세액공제로 소득세·지방소득세가 월 약 10,000원까지 낮아져, 실수령액은 위 비교 사례(월 약 259만1천원)보다 약 5만1천원 많은 월 264만3천원이 됩니다.</p>
+    <p><strong>세율 구간</strong> — 소득세는 연봉 전체가 아니라 각종 공제를 뺀 '과세표준' 구간에 초과누진세율을 적용합니다. 예를 들어 부양가족 1명·비과세 20만원 기준으로는 연봉이 약 1억1,600만원대를 넘어야 과세표준이 8,800만원을 넘어 24% 구간에서 35% 구간으로 이동합니다. 같은 세율 구간이라도 부양가족 수·비과세액에 따라 실제로 세율이 바뀌는 연봉 지점은 사람마다 다릅니다(구간을 넘는 부분에만 높은 세율이 적용되는 초과누진 구조라, 구간이 바뀌어도 세금이 급격히 뛰지는 않습니다).<br>
+    <span style="color:var(--muted); font-size:12.5px;">※ 위 사례는 이해를 돕기 위한 가상의 사례이며, 실제 금액은 계산기에 직접 값을 입력해 확인하세요.</span></p>
+
+    <h2 id="faq">자주 묻는 질문</h2>
+    <div class="faq-item">
+      <div class="q">4대보험은 각각 얼마씩 떼가나요?</div>
+      <div class="a">2026년 기준 국민연금 4.75%, 건강보험 3.595%, 장기요양보험(건강보험료의 13.14%), 고용보험 0.9%가 본인 부담분으로 공제됩니다. 국민연금과 건강보험(장기요양보험 포함)은 보험료를 근로자와 사업주가 절반씩 부담하는 구조라 위 요율이 근로자 몫입니다. 고용보험은 실업급여 보험료를 근로자·사업주가 각각 0.9%씩 부담하고, 사업주는 여기에 더해 고용안정·직업능력개발사업 보험료(사업장 규모별 0.25~0.85%)를 따로 부담합니다. 산재보험은 근로자 부담이 없습니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">연봉이 같아도 실수령액이 사람마다 다른 이유는요?</div>
+      <div class="a">부양가족 수, 자녀세액공제 나이 기준을 충족하는 자녀 수에 따라 원천징수 소득세 계산에 반영되는 인적공제·자녀세액공제가 달라지기 때문입니다. 부양가족이 많을수록 매달 떼는 세금이 줄어 같은 연봉이라도 실수령액이 더 많아집니다. 또한 식대·자가운전보조금 같은 비과세 항목을 회사가 어떻게 설계했는지에 따라서도 차이가 생깁니다.</div>
+    </div>
+    <div class="faq-item" id="faq-child-age">
+      <div class="q">자녀세액공제 대상 나이는 몇 살부터인가요?</div>
+      <div class="a">자녀세액공제 대상 나이는 원칙적으로 만 13세 이상입니다(소득세법 제59조의2제1항, 법률 제21548호 2026.4.21. 개정). 다만 부칙 제2조②에 따라 2026~2029년 과세기간에는 한시적으로 낮아져 2026년 9세, 2027년 10세, 2028년 11세, 2029년 12세 이상이면 대상이 되고, 2030년부터는 다시 원칙인 13세 이상이 적용됩니다. 그런데 부칙 제2조③은 2017년 1월 1일~12월 31일 출생 자녀·손자녀에게는 이 한시적 완화(②)를 적용하지 않는다고 정하고 있어, 2017년생은 2026~2029년에도 완화된 나이 기준을 적용받지 못하고 원칙인 13세 이상 기준이 그대로 적용됩니다 — 즉 2017년생 자녀는 사실상 2030년(만 13세가 되는 해)부터 공제 대상입니다. 상한은 기본공제 기준인 만 20세입니다. 나이 판정 시점은 소득세법 제53조④·⑤에 따라 과세기간 종료일(12/31) 기준이며, 해당 연도 중 하루라도 그 나이에 도달한 날이 있으면 그 해에 인정됩니다. 다만 국세청 홈페이지의 일부 일반 안내 페이지에는 아직 "8세 이상"으로 표기되어 있어 법 조문(13세, 한시적 9~12세)과 차이가 있으므로, 실제 적용 시에는 국세청 홈택스나 세무 전문가에게 다시 확인하는 것이 안전합니다. 이 계산기는 자녀의 생년월일이 아니라 인원 수만 입력받으므로, 위 기준에 맞는 자녀 수를 직접 세어 입력해야 하며 개별 자격을 자동으로 판정하지는 않습니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">4대보험 요율은 매년 바뀌나요?</div>
+      <div class="a">네, 국민연금은 기준소득월액 상한·하한이, 건강보험·장기요양보험은 매년 요율 자체가 조정됩니다. 이 계산기는 2026년 확정 요율을 반영하고 있으므로, 해가 바뀌면 최신 요율로 다시 계산해야 정확한 실수령액을 확인할 수 있습니다.</div>
+    </div>
+
+    <h2>계산기로 이동</h2>
+    <p>1~4단계로 입력값과 항목을 맞췄다면 계산기에서 다시 계산해 차이가 줄었는지 확인하세요. 위 항목을 다 확인했는데도 차이가 크다면, 회사 급여 담당자에게 <strong>간이세액표 조회 금액과 선택 비율</strong>, <strong>공제 항목 내역</strong>을 직접 문의하는 것이 가장 정확합니다.</p>
     <p><a class="cta-btn" href="/tools/salary-calculator">내 연봉으로 계산하기 →</a></p>
 
     <div class="sources">
       <div class="sources-title">참고 자료 및 출처 <span style="font-weight:400; color:var(--muted);">(검증일 2026-09-17, 원천징수 비율 선택 방식은 2026-10-03 재확인)</span></div>
       <ul>
+        <li><a href="https://www.law.go.kr/LSW/lsLawLinkInfo.do?lsJoLnkSeq=1000819889&chrClsCd=010202" target="_blank" rel="noopener">국가법령정보센터 — 소득세법 제59조의2(자녀세액공제 금액: 1명 25만원·2명 55만원·3명 이상 55만원+40만원×초과인원) <span style="color:var(--muted);">(확인: 2026-09-18)</span></a></li>
+        <li><a href="https://www.law.go.kr/LSW/lsRvsDocListP.do?chrClsCd=010102&lsId=001565" target="_blank" rel="noopener">국가법령정보센터 — 소득세법 일부개정법률(법률 제21548호, 2026.4.21.) 본칙(13세 이상) 및 부칙 제2조①②③ — 2026~2029년 한시적 9~12세 완화 및 2017년생 예외(완화 미적용) <span style="color:var(--muted);">(확인: 2026-09-18)</span></a></li>
+        <li><a href="https://casenote.kr/%EB%B2%95%EB%A0%B9/%EC%86%8C%EB%93%9D%EC%84%B8%EB%B2%95/%EC%A0%9C53%EC%A1%B0" target="_blank" rel="noopener">소득세법 제53조④·⑤(공제대상 판정 시기) — 나이 요건은 과세기간 종료일 기준이되, 연중 그 나이가 된 날이 있으면 인정 <span style="color:var(--muted);">(확인: 2026-09-18)</span></a></li>
         <li><a href="https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?mi=6583&cntntsId=7862" target="_blank" rel="noopener">국세청 — 근로소득 원천징수방법(간이세액표) 및 맞춤형 원천징수제도 안내</a></li>
         <li><a href="https://m.work24.go.kr/cm/c/f/1100/selecSystInfo.do?currentPageNo=1&recordCountPerPage=10&systClId=SC00000350&systId=SI00000419" target="_blank" rel="noopener">고용24 — 고용보험료율 안내(실업급여 근로자·사업주 각 0.9%, 고용안정·직업능력개발은 사업주 부담)</a> <span style="color:var(--muted);">(확인: 2026-10-03)</span></li>
       </ul>
