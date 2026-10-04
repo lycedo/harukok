@@ -115,57 +115,18 @@
   .check-tag.ok{ color:#2F6B3A; border-color:#2F6B3A; }
   .check-tag.assume{ color:#8A5A1E; border-color:#8A5A1E; }
   .check-tag.unverified{ color:#B23A2E; border-color:#B23A2E; }
+
+  .basis-line{ font-size:12.5px; line-height:1.5; color:var(--ink-soft); margin:-14px 0 6px; }
+  .basis-line strong{ color:var(--ink); }
+  details.basis{ margin:0 0 16px; font-size:12.5px; color:var(--muted); line-height:1.65; }
+  details.basis summary{ cursor:pointer; color:var(--ink-soft); font-weight:600; }
+  details.basis summary:focus-visible{ outline:2px solid var(--stamp); outline-offset:2px; }
+  details.basis ul.assume{ margin:10px 0 0; padding-left:18px; }
+  details.basis ul.assume li{ margin-bottom:6px; }
+  details.basis .sources{ margin-top:14px; padding-top:12px; }
 </style>
 <!-- Google AdSense -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6883245122372170" crossorigin="anonymous"></script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "자발적 퇴사도 실업급여를 받을 수 있나요?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "원칙적으로는 어렵지만, 임금체불·근로조건 악화·통근 곤란 등 정당한 이직 사유로 인정되면 자발적 퇴사도 수급 자격이 인정될 수 있습니다. 고용센터에서 개별 심사합니다."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "소정급여일수는 왜 사람마다 다른가요?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "이직일 현재 나이(50세 기준)와 고용보험 피보험기간(1년 미만, 1년 이상 3년 미만, 3년 이상 5년 미만, 5년 이상 10년 미만, 10년 이상의 5단계)의 조합으로 정해집니다. 피보험기간이 길고 50세 이상일수록 더 오래 받을 수 있으며, 현재 직장 근속기간과 다를 수 있습니다."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "퇴직금과 실업급여를 같이 받을 수 있나요?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "네, 둘은 별개의 제도라 요건을 충족하면 퇴직금과 구직급여를 함께 받을 수 있습니다. 다만 실업급여는 근로 의사와 능력이 있는 상태에서 적극적으로 구직활동을 해야 계속 지급됩니다."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "신청은 언제, 어떻게 하나요?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "퇴사 후 회사가 발급한 이직확인서와 상실신고가 처리된 뒤, 워크넷에서 구직등록을 하고 거주지 관할 고용센터를 방문하거나 고용보험 홈페이지에서 수급자격 인정 신청을 합니다. 퇴사일로부터 12개월이 지나면 남은 소정급여일수가 있어도 지급받을 수 없으니 가능한 한 빨리 신청하는 것이 중요합니다."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "실업급여를 받는 동안 계속 지급받으려면 뭘 해야 하나요?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "1~4주 단위로 지정된 실업인정일마다 고용센터에 출석하거나 온라인으로 구직활동 내역을 제출해야 합니다. 입사지원, 면접, 직업훈련 참여 등 실질적인 구직활동이 인정 요건이며, 활동 없이 실업인정을 받으면 부정수급으로 간주되어 환수 및 추가 징수 대상이 될 수 있습니다."
-      }
-    }
-  ]
-}
-</script>
 </head>
 <body>
 
@@ -184,14 +145,23 @@
   <div class="kicker">퇴사·이직</div>
   <h1>실업급여(구직급여) 계산기</h1>
   <p class="lede">퇴사 전 평균임금, 나이, 고용보험 가입기간을 입력하면 예상 구직급여일액과 총 수급 예상액을 계산합니다.</p>
-
-  <div class="related">
-    <div class="related-title">함께 보면 좋은 도구</div>
-    <div class="related-links">
-      <a href="/tools/severance-pay-calculator">퇴직금 계산기</a>
-      <a href="/tools/salary-calculator">연봉 실수령액 계산기</a>
+  <p class="basis-line"><strong>2026년 상한 68,100원 · 하한 66,048원(8시간 기준)</strong> · 일액 = 평균임금의 60% · 수급 자격은 판정하지 않음</p>
+  <details class="basis">
+    <summary>계산 가정·근거·출처 보기</summary>
+    <ul class="assume">
+      <li>구직급여일액은 이직 전 평균임금의 60%이며 상한액과 하한액 사이로 제한하고, 여기에 나이·피보험기간별 소정급여일수(120~270일)를 곱한 근사치입니다. 하한액은 이직한 사업장의 1일 소정근로시간에 따라 다릅니다(8시간 66,048원, 6시간 49,536원 등).</li>
+    </ul>
+    <div class="sources">
+      <div class="sources-title">참고 자료 및 출처</div>
+      <ul>
+        <li><a href="https://www.work24.go.kr" target="_blank" rel="noopener">고용24(워크넷·고용보험 통합) — 실업급여 모의계산·구직등록·신청</a></li>
+        <li><a href="https://easylaw.go.kr/CSP/CnpClsMain.laf?popMenu=ov&csmSeq=722&ccfNo=2&cciNo=3&cnpClsNo=1" target="_blank" rel="noopener">찾기쉬운 생활법령정보 — 구직급여 소정급여일수(고용보험법 별표1) <span style="color:var(--muted);">(확인: 2026-09-19)</span></a></li>
+        <li><a href="https://moel.go.kr/news/enews/report/enewsView.do?news_seq=18736" target="_blank" rel="noopener">고용노동부 — 「고용보험법 시행령」 일부개정령안 국무회의 의결(2025.12.16., 구직급여 상한액 68,100원, 2026.1.1. 시행) <span style="color:var(--muted);">(확인: 2026-09-30)</span></a></li>
+        <li><a href="https://1350.moel.go.kr/rtmview.do?id=1000329198&page=1&type=ALL" target="_blank" rel="noopener">고용노동부 고객상담센터(1350) — 1일 소정근로시간별 구직급여일액 하한액(1~8시간) 안내 <span style="color:var(--muted);">(확인: 2026-09-30)</span></a></li>
+      </ul>
     </div>
-  </div>
+  </details>
+
 
   <div class="card">
     <div class="field">
@@ -265,8 +235,12 @@
     <div id="checkStatus"></div>
 
     <div class="guide-callout">
-      <span>얼마나 받는지, 조건은 무엇인지 궁금한가요?</span>
+      <span>받을 수 있는 조건과 지급 일수가 궁금한가요?</span>
       <a href="/guides/unemployment-benefit-guide">실업급여 조건·금액 가이드 →</a>
+    </div>
+    <div class="guide-callout">
+      <span>3개월 기간과 하한액은 어디서 확인하나요?</span>
+      <a href="/guides/unemployment-benefit-guide#check-dates">확인 방법 보기 →</a>
     </div>
 
     <div class="disclaimer">
@@ -275,42 +249,11 @@
   </div>
 
 
-  <div class="info-block">
-    <h2>구직급여는 어떻게 계산되나요?</h2>
-    <p>구직급여일액은 퇴사 전 평균임금의 60%이며, 정해진 상한액과 하한액 사이로 제한됩니다. 여기에 나이와 고용보험 가입기간에 따라 정해지는 소정급여일수(120~270일)를 곱하면 총 예상 수급액이 나옵니다. 권고사직·계약만료·폐업 같은 비자발적 이직은 대체로 수급 자격이 주어지지만, 자발적 퇴사는 원칙적으로 제한되고 임금체불·근로조건 악화 등 정당한 사유가 인정되는 예외적인 경우에만 수급 자격을 받을 수 있습니다.</p>
-
-    <h2>계산 예시로 보기</h2>
-    <p>월급 300만 원을 받던 45세 근로자가 고용보험 가입기간 4년(3년 이상 5년 미만)에 권고사직으로 퇴사했다고 가정해보겠습니다. 하루 8시간 근무로 가정한 예시이며, 3개월 임금 총액 900만원과 92일을 적용합니다. 3개월 임금 총액을 그 기간의 실제 일수(보통 89~92일)로 나눈 1일 평균임금의 60%를 구직급여일액으로 하되, 2026년 상한액(68,100원)을 넘지 않는 선에서 정해집니다. 50세 미만·가입기간 3년 이상 5년 미만 구간의 소정급여일수는 180일이므로, 구직급여일액에 180을 곱한 금액이 총 예상 수급액이 됩니다. 소정급여일수는 나이와 가입기간이 늘어날수록 계단식으로 길어지는 구조라, 같은 임금이라도 근속연수가 긴 사람이 더 오래, 더 많이 받게 됩니다.</p>
-
-    <div class="faq-item">
-      <div class="q">자발적 퇴사도 실업급여를 받을 수 있나요?</div>
-      <div class="a">원칙적으로는 어렵지만, 임금체불·근로조건 악화·통근 곤란 등 정당한 이직 사유로 인정되면 자발적 퇴사도 수급 자격이 인정될 수 있습니다. 고용센터에서 개별 심사합니다.</div>
-    </div>
-    <div class="faq-item">
-      <div class="q">소정급여일수는 왜 사람마다 다른가요?</div>
-      <div class="a">이직일 현재 나이(50세 기준)와 고용보험 피보험기간(1년 미만, 1년 이상 3년 미만, 3년 이상 5년 미만, 5년 이상 10년 미만, 10년 이상의 5단계)의 조합으로 정해집니다. 피보험기간이 길고 50세 이상일수록 더 오래 받을 수 있으며, 현재 직장 근속기간과 다를 수 있습니다.</div>
-    </div>
-    <div class="faq-item">
-      <div class="q">퇴직금과 실업급여를 같이 받을 수 있나요?</div>
-      <div class="a">네, 둘은 별개의 제도라 요건을 충족하면 퇴직금과 구직급여를 함께 받을 수 있습니다. 다만 실업급여는 근로 의사와 능력이 있는 상태에서 적극적으로 구직활동을 해야 계속 지급됩니다.</div>
-    </div>
-    <div class="faq-item">
-      <div class="q">신청은 언제, 어떻게 하나요?</div>
-      <div class="a">퇴사 후 회사가 발급한 이직확인서와 상실신고가 처리된 뒤, 워크넷에서 구직등록을 하고 거주지 관할 고용센터를 방문하거나 고용보험 홈페이지에서 수급자격 인정 신청을 합니다. 퇴사일로부터 12개월이 지나면 남은 소정급여일수가 있어도 지급받을 수 없으니 가능한 한 빨리 신청하는 것이 중요합니다.</div>
-    </div>
-    <div class="faq-item">
-      <div class="q">실업급여를 받는 동안 계속 지급받으려면 뭘 해야 하나요?</div>
-      <div class="a">1~4주 단위로 지정된 실업인정일마다 고용센터에 출석하거나 온라인으로 구직활동 내역을 제출해야 합니다. 입사지원, 면접, 직업훈련 참여 등 실질적인 구직활동이 인정 요건이며, 활동 없이 실업인정을 받으면 부정수급으로 간주되어 환수 및 추가 징수 대상이 될 수 있습니다.</div>
-    </div>
-
-    <div class="sources">
-      <div class="sources-title">참고 자료 및 출처</div>
-      <ul>
-        <li><a href="https://www.work24.go.kr" target="_blank" rel="noopener">고용24(워크넷·고용보험 통합) — 실업급여 모의계산·구직등록·신청</a></li>
-        <li><a href="https://easylaw.go.kr/CSP/CnpClsMain.laf?popMenu=ov&csmSeq=722&ccfNo=2&cciNo=3&cnpClsNo=1" target="_blank" rel="noopener">찾기쉬운 생활법령정보 — 구직급여 소정급여일수(고용보험법 별표1) <span style="color:var(--muted);">(확인: 2026-09-19)</span></a></li>
-        <li><a href="https://moel.go.kr/news/enews/report/enewsView.do?news_seq=18736" target="_blank" rel="noopener">고용노동부 — 「고용보험법 시행령」 일부개정령안 국무회의 의결(2025.12.16., 구직급여 상한액 68,100원, 2026.1.1. 시행) <span style="color:var(--muted);">(확인: 2026-09-30)</span></a></li>
-        <li><a href="https://1350.moel.go.kr/rtmview.do?id=1000329198&page=1&type=ALL" target="_blank" rel="noopener">고용노동부 고객상담센터(1350) — 1일 소정근로시간별 구직급여일액 하한액(1~8시간) 안내 <span style="color:var(--muted);">(확인: 2026-09-30)</span></a></li>
-      </ul>
+  <div class="related" style="margin-top:24px;">
+    <div class="related-title">함께 보면 좋은 도구</div>
+    <div class="related-links">
+      <a href="/tools/severance-pay-calculator">퇴직금 계산기</a>
+      <a href="/tools/salary-calculator">연봉 실수령액 계산기</a>
     </div>
   </div>
 

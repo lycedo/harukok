@@ -106,41 +106,18 @@
   .check-tag.ok{ color:#2F6B3A; border-color:#2F6B3A; }
   .check-tag.assume{ color:#8A5A1E; border-color:#8A5A1E; }
   .check-tag.unverified{ color:#B23A2E; border-color:#B23A2E; }
+
+  .basis-line{ font-size:12.5px; line-height:1.5; color:var(--ink-soft); margin:-14px 0 6px; }
+  .basis-line strong{ color:var(--ink); }
+  details.basis{ margin:0 0 16px; font-size:12.5px; color:var(--muted); line-height:1.65; }
+  details.basis summary{ cursor:pointer; color:var(--ink-soft); font-weight:600; }
+  details.basis summary:focus-visible{ outline:2px solid var(--stamp); outline-offset:2px; }
+  details.basis ul.assume{ margin:10px 0 0; padding-left:18px; }
+  details.basis ul.assume li{ margin-bottom:6px; }
+  details.basis .sources{ margin-top:14px; padding-top:12px; }
 </style>
 <!-- Google AdSense -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6883245122372170" crossorigin="anonymous"></script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "연차수당은 어떤 임금 기준으로 계산하나요?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "통상임금(또는 취업규칙 등에서 정한 평균임금) 기준 1일 임금 × 정산 대상 연차일수로 계산합니다. 통상임금에는 기본급뿐 아니라 소정근로의 대가로 정기적·일률적으로 지급되는 수당이 포함될 수 있으며, 포함 여부는 회사 자료와 고용노동부 기준으로 확인하세요."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "퇴사할 때 남은 연차는 무조건 수당으로 받나요?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "법정 연차가 발생하는 근로자라면 원칙적으로 받을 수 있습니다. 연차휴가는 1년간 쓰지 않으면 휴가 사용청구권이 소멸하지만, 고용노동부는 사용청구권이 소멸해도 임금청구권(미사용수당)은 소멸하지 않는다고 봅니다. 예외는 회사가 근로기준법 제61조의 법정 서면 사용촉진 조치를 모두 실시했는데도 근로자가 쓰지 않아 소멸한 경우로, 이때는 보상 의무가 없습니다. 단순한 사용 권유는 법정 사용촉진이 아니며, 촉진 후 지정된 휴가일 이전에 퇴직하면 미사용 휴가를 보상해야 합니다. 퇴직 시에는 퇴직일부터 14일 이내 지급이 원칙입니다. 이 계산기는 어느 경우인지 판정하지 않으니 회사 자료와 관할 노동청에서 확인하세요."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "1일 통상임금은 어떻게 구하나요?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "월 통상임금을 월 환산시간(주 40시간 기준 209시간, 유급 주휴시간 포함)으로 나눠 시급을 구한 뒤, 하루 소정근로시간(기본 8시간)을 곱해서 계산합니다. 근무시간이 다르면 입력한 하루 시간·주 근무일수로 월 환산시간을 다시 환산합니다. 이 계산기는 이 환산만 자동으로 처리하며 연차 발생·소멸 여부는 판단하지 않습니다."
-      }
-    }
-  ]
-}
-</script>
 </head>
 <body>
 
@@ -159,20 +136,28 @@
   <div class="kicker">급여·근로</div>
   <h1>연차수당 계산기</h1>
   <p class="lede">월 통상임금과 미사용 연차일수를 입력하면 1일 통상임금과 총 연차수당을 바로 계산합니다.</p>
-
-  <div class="related">
-    <div class="related-title">함께 보면 좋은 도구</div>
-    <div class="related-links">
-      <a href="/tools/weekly-holiday-pay-calculator">주휴수당 계산기</a>
-      <a href="/tools/severance-pay-calculator">퇴직금 계산기</a>
+  <p class="basis-line"><strong>2026년 기준</strong> · 정산 대상 일수는 입력값 그대로 사용 · 소멸·사용촉진 여부는 판정하지 않음</p>
+  <details class="basis">
+    <summary>계산 가정·근거·출처 보기</summary>
+    <ul class="assume">
+      <li>연차수당 = 1일 통상임금 × 정산 대상 연차일수입니다. 1일 통상임금은 월 통상임금을 월 환산시간(주 40시간 기준 209시간)으로 나눈 시급에 하루 소정근로시간을 곱해 구하며, 근무시간이 다르면 같은 방식으로 다시 환산합니다. 이 환산이 공식 확인된 값인지는 결과 아래 '확인 상태'에 표시됩니다.</li>
+      <li><strong>입력 전 순서</strong> — ① 법정 연차가 적용되는지 확인(근로기준법상 상시 5인 이상 사업장, 4주 평균 주 15시간 이상 근로 — 고용노동부 안내 기준이며, 회사가 계약·취업규칙으로 더 주기로 한 연차는 별도로 확인) → ② 수당으로 정산할 미사용 일수 확인(발생일수에서 사용한 일수를 빼고, 소멸한 연차도 법정 사용촉진을 모두 거쳤는지 확인하기 전에는 빼지 않음) → ③ 아래에 입력해 금액 환산.</li><li><strong>이 계산기가 하지 않는 것</strong> — 연차 발생일수 계산, 소멸 여부와 법정 사용촉진 적법성 판정, 단시간 근로자의 연차일수 산정. 입력한 일수를 정산 대상이라고 보고 금액으로만 환산하며, 결과 바로 아래에 이 가정과 확인 상태를 표시합니다.</li>
+    </ul>
+    <div class="sources">
+      <div class="sources-title">참고 자료 및 출처</div>
+      <ul>
+        <li><a href="https://casenote.kr/%EB%B2%95%EB%A0%B9/%EA%B7%BC%EB%A1%9C%EA%B8%B0%EC%A4%80%EB%B2%95/%EC%A0%9C60%EC%A1%B0" target="_blank" rel="noopener">근로기준법 제60조(연차 유급휴가) — 1년간 80% 이상 출근 시 15일, 1년간 행사하지 않으면 소멸(1년 미만 근로자의 1개월 개근 휴가는 최초 1년 근로가 끝날 때까지) <span style="color:var(--muted);">(확인: 2026-10-03)</span></a></li>
+        <li><a href="https://1350.moel.go.kr/rtmview.do?id=1000272732" target="_blank" rel="noopener">고용노동부 1350 — 상시 5인 이상 사업장·4주 평균 주 15시간 이상 근로자의 연차 발생 <span style="color:var(--muted);">(확인: 2026-10-03)</span></a></li>
+        <li><a href="https://1350.moel.go.kr/rtmview.do?id=1000268206&page=2&type=ALL" target="_blank" rel="noopener">고용노동부 1350 — 적법한 사용촉진 시 보상 의무, 지정 휴가일 전 퇴직 시 보상 <span style="color:var(--muted);">(확인: 2026-10-03)</span></a></li>
+        <li><a href="https://1350.moel.go.kr/rtmview.do?id=1000322152&page=1&type=ALL" target="_blank" rel="noopener">고용노동부 1350 — 연차 사용촉진 서면 절차(근로기준법 제61조) <span style="color:var(--muted);">(확인: 2026-10-03)</span></a></li>
+        <li><a href="https://www.moel.go.kr/minwon/fastcounsel/fastcounselView.do?inetDcssMngId=202406240340382140073" target="_blank" rel="noopener">고용노동부 빠른인터넷상담 — 연차 사용청구권이 소멸해도 임금청구권(미사용수당)은 소멸하지 않음 <span style="color:var(--muted);">(확인: 2026-10-03)</span></a></li>
+        <li><a href="https://www.moel.go.kr/minwon/fastcounsel/fastcounselView.do?inetDcssMngId=202406031048050590182" target="_blank" rel="noopener">고용노동부 빠른인터넷상담 — 소멸 다음날 미사용수당 지급, 퇴직 시 14일 이내, 소멸시효 3년 <span style="color:var(--muted);">(확인: 2026-10-03)</span></a></li>
+      </ul>
     </div>
-  </div>
+  </details>
+
 
   <div class="card">
-    <p style="font-size:12.5px; line-height:1.65; color:var(--muted); margin:0 0 20px; padding-bottom:16px; border-bottom:1px dotted var(--line);">
-      <strong style="color:var(--ink-soft);">입력 전 순서</strong> — ① 법정 연차가 적용되는지 확인(근로기준법상 상시 5인 이상 사업장, 4주 평균 주 15시간 이상 근로 — 고용노동부 안내 기준이며, 회사가 계약·취업규칙으로 더 주기로 한 연차는 별도로 확인) → ② 수당으로 정산할 미사용 일수 확인(발생일수에서 사용한 일수를 빼고, 소멸한 연차도 법정 사용촉진을 모두 거쳤는지 확인하기 전에는 빼지 않음) → ③ 아래에 입력해 금액 환산.<br>
-      <strong style="color:var(--ink-soft);">이 계산기가 하지 않는 것</strong> — 연차 발생일수 계산, 소멸 여부와 법정 사용촉진 적법성 판정, 단시간 근로자의 연차일수 산정. 입력한 일수를 정산 대상이라고 보고 금액으로만 환산하며, 결과 바로 아래에 이 가정과 확인 상태를 표시합니다.
-    </p>
     <div class="field">
       <label for="monthlyWage">월 통상임금 (세전, 만원)</label>
       <div class="input-row">
@@ -219,43 +204,23 @@
     <div id="checkStatus"></div>
 
     <div class="guide-callout">
-      <span>연차가 며칠 생기는지 궁금한가요?</span>
-      <a href="/guides/annual-leave-guide">연차 발생·수당 가이드 →</a>
+      <span>연차가 며칠 생기고, 소멸하면 수당은 어떻게 되나요?</span>
+      <a href="/guides/annual-leave-guide">연차 발생·정산 가이드 →</a>
+    </div>
+    <div class="guide-callout">
+      <span>정산할 일수를 어떻게 정하나요?</span>
+      <a href="/guides/annual-leave-guide#settle">단계별로 확인하기 →</a>
     </div>
 
-    <div class="disclaimer">
-      입력한 근무시간으로 유급 주휴시간을 포함한 월 환산시간(주 40시간이면 209시간)을 구해 1일 통상임금을 계산한 근사치입니다. 통상임금 범위와 취업규칙상 지급 기준은 근로계약서·취업규칙과 고용노동부 기준을 함께 확인하세요.
-    </div>
+    <div class="disclaimer">입력한 일수를 정산 대상으로 보고 금액으로만 환산합니다. 통상임금 범위와 취업규칙상 지급 기준은 근로계약서·취업규칙과 고용노동부 기준을 함께 확인하세요.</div>
   </div>
 
 
-  <div class="info-block">
-    <h2>연차수당은 어떻게 계산되나요?</h2>
-    <p>연차수당 = 1일 통상임금 × 미사용 연차일수로 계산합니다. 1일 통상임금은 월 통상임금을 월 환산시간(주 40시간 기준 209시간, 소정근로 약 174시간에 유급 주휴 약 35시간을 더한 값)으로 나눠 시급을 구한 뒤 하루 소정근로시간(기본 8시간)을 곱해서 구합니다. 통상임금에는 기본급 외에도 소정근로의 대가로 정기적·일률적으로 지급되는 수당이 포함될 수 있으며, 어떤 수당이 해당하는지는 회사 자료와 최신 판례·고용노동부 기준으로 확인해야 합니다. 먼저 법정 연차 적용 대상인지, 정산할 일수가 며칠인지 확인한 뒤 금액을 환산하세요.</p>
-
-    <div class="faq-item">
-      <div class="q">연차수당은 어떤 임금 기준으로 계산하나요?</div>
-      <div class="a">통상임금(또는 취업규칙 등에서 정한 평균임금) 기준 1일 임금 × 정산 대상 연차일수로 계산합니다. 통상임금에는 기본급뿐 아니라 소정근로의 대가로 정기적·일률적으로 지급되는 수당이 포함될 수 있으며, 포함 여부는 회사 자료와 고용노동부 기준으로 확인하세요.</div>
-    </div>
-    <div class="faq-item">
-      <div class="q">퇴사할 때 남은 연차는 무조건 수당으로 받나요?</div>
-      <div class="a">법정 연차가 발생하는 근로자라면 원칙적으로 받을 수 있습니다. 연차휴가는 1년간 쓰지 않으면 휴가 사용청구권이 소멸하지만, 고용노동부는 사용청구권이 소멸해도 임금청구권(미사용수당)은 소멸하지 않는다고 봅니다. 예외는 회사가 근로기준법 제61조의 법정 서면 사용촉진 조치를 모두 실시했는데도 근로자가 쓰지 않아 소멸한 경우로, 이때는 보상 의무가 없습니다. 단순한 사용 권유는 법정 사용촉진이 아니며, 촉진 후 지정된 휴가일 이전에 퇴직하면 미사용 휴가를 보상해야 합니다. 퇴직 시에는 퇴직일부터 14일 이내 지급이 원칙입니다. 이 계산기는 어느 경우인지 판정하지 않으니 회사 자료와 관할 노동청에서 확인하세요.</div>
-    </div>
-    <div class="faq-item">
-      <div class="q">1일 통상임금은 어떻게 구하나요?</div>
-      <div class="a">월 통상임금을 월 환산시간(주 40시간 기준 209시간, 유급 주휴시간 포함)으로 나눠 시급을 구한 뒤, 하루 소정근로시간(기본 8시간)을 곱해서 계산합니다. 근무시간이 다르면 입력한 하루 시간·주 근무일수로 월 환산시간을 다시 환산합니다. 이 계산기는 이 환산만 자동으로 처리하며 연차 발생·소멸 여부는 판단하지 않습니다.</div>
-    </div>
-
-    <div class="sources">
-      <div class="sources-title">참고 자료 및 출처</div>
-      <ul>
-        <li><a href="https://casenote.kr/%EB%B2%95%EB%A0%B9/%EA%B7%BC%EB%A1%9C%EA%B8%B0%EC%A4%80%EB%B2%95/%EC%A0%9C60%EC%A1%B0" target="_blank" rel="noopener">근로기준법 제60조(연차 유급휴가) — 1년간 80% 이상 출근 시 15일, 1년간 행사하지 않으면 소멸(1년 미만 근로자의 1개월 개근 휴가는 최초 1년 근로가 끝날 때까지) <span style="color:var(--muted);">(확인: 2026-10-03)</span></a></li>
-        <li><a href="https://1350.moel.go.kr/rtmview.do?id=1000272732" target="_blank" rel="noopener">고용노동부 1350 — 상시 5인 이상 사업장·4주 평균 주 15시간 이상 근로자의 연차 발생 <span style="color:var(--muted);">(확인: 2026-10-03)</span></a></li>
-        <li><a href="https://1350.moel.go.kr/rtmview.do?id=1000268206&page=2&type=ALL" target="_blank" rel="noopener">고용노동부 1350 — 적법한 사용촉진 시 보상 의무, 지정 휴가일 전 퇴직 시 보상 <span style="color:var(--muted);">(확인: 2026-10-03)</span></a></li>
-        <li><a href="https://1350.moel.go.kr/rtmview.do?id=1000322152&page=1&type=ALL" target="_blank" rel="noopener">고용노동부 1350 — 연차 사용촉진 서면 절차(근로기준법 제61조) <span style="color:var(--muted);">(확인: 2026-10-03)</span></a></li>
-        <li><a href="https://www.moel.go.kr/minwon/fastcounsel/fastcounselView.do?inetDcssMngId=202406240340382140073" target="_blank" rel="noopener">고용노동부 빠른인터넷상담 — 연차 사용청구권이 소멸해도 임금청구권(미사용수당)은 소멸하지 않음 <span style="color:var(--muted);">(확인: 2026-10-03)</span></a></li>
-        <li><a href="https://www.moel.go.kr/minwon/fastcounsel/fastcounselView.do?inetDcssMngId=202406031048050590182" target="_blank" rel="noopener">고용노동부 빠른인터넷상담 — 소멸 다음날 미사용수당 지급, 퇴직 시 14일 이내, 소멸시효 3년 <span style="color:var(--muted);">(확인: 2026-10-03)</span></a></li>
-      </ul>
+  <div class="related" style="margin-top:24px;">
+    <div class="related-title">함께 보면 좋은 도구</div>
+    <div class="related-links">
+      <a href="/tools/weekly-holiday-pay-calculator">주휴수당 계산기</a>
+      <a href="/tools/severance-pay-calculator">퇴직금 계산기</a>
     </div>
   </div>
 

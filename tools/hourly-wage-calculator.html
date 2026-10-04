@@ -112,57 +112,18 @@
   .check-tag.ok{ color:#2F6B3A; border-color:#2F6B3A; }
   .check-tag.assume{ color:#8A5A1E; border-color:#8A5A1E; }
   .check-tag.unverified{ color:#B23A2E; border-color:#B23A2E; }
+
+  .basis-line{ font-size:12.5px; line-height:1.5; color:var(--ink-soft); margin:-14px 0 6px; }
+  .basis-line strong{ color:var(--ink); }
+  details.basis{ margin:0 0 16px; font-size:12.5px; color:var(--muted); line-height:1.65; }
+  details.basis summary{ cursor:pointer; color:var(--ink-soft); font-weight:600; }
+  details.basis summary:focus-visible{ outline:2px solid var(--stamp); outline-offset:2px; }
+  details.basis ul.assume{ margin:10px 0 0; padding-left:18px; }
+  details.basis ul.assume li{ margin-bottom:6px; }
+  details.basis .sources{ margin-top:14px; padding-top:12px; }
 </style>
 <!-- Google AdSense -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6883245122372170" crossorigin="anonymous"></script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "2026년 최저시급은 얼마인가요?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "2026년 최저시급은 10,320원입니다. 주 40시간 근무 기준 최저월급은 주휴수당을 포함해 2,156,880원(월 209시간 기준)입니다."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "월급을 시급으로 환산할 때 왜 주휴시간을 더하나요?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "월급에는 실제 근무한 시간 외에 유급으로 처리되는 주휴수당분도 포함되어 있는 경우가 많아, 정확한 시급을 구하려면 주휴시간을 포함한 총 근로시간으로 나눠야 합니다."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "최저임금보다 낮으면 어떻게 해야 하나요?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "고용노동부 안내에 따르면 사업주는 최저임금액 이상을 지급할 의무가 있고, 위반하면 3년 이하의 징역 또는 2천만원 이하의 벌금이 부과될 수 있으며(병과 가능), 최저임금에 못 미치는 임금 약정 부분은 무효가 되어 최저임금액과 같은 임금을 지급하기로 한 것으로 봅니다. 다만 이 계산기는 입력값을 단순 환산한 근사치만 보여주므로, 실제 준수 여부는 최저임금에 산입되는 임금 범위(매월 1회 이상 정기적으로 지급하는 임금 등), 소정근로시간, 수습 감액 적용 여부 같은 사실관계를 확인해야 판단할 수 있고, 이 결과만으로는 위반 여부를 확정하지 않습니다. 정확한 판단은 고용노동부 고객상담센터(국번없이 1350)나 사업장 관할 노동청에 문의하세요."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "주휴수당은 모든 알바생이 다 받나요?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "4주 동안(4주 미만이면 그 기간)을 평균해 1주 소정근로시간이 15시간 이상이고(근로기준법 제18조 제3항), 소정근로일을 개근한 경우에 발생합니다. 평균 15시간 미만이면 주휴 규정(제55조)이 적용되지 않고, 결근이 있었던 주에는 그 주의 주휴수당이 발생하지 않을 수 있습니다. 이 계산기는 입력한 시간이 매주 같고 개근했다고만 가정합니다."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "수습기간에는 최저임금을 덜 줘도 되나요?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "1년 이상 근로계약을 체결한 경우에 한해 수습 시작일로부터 3개월 이내까지만 최저임금의 90%를 지급할 수 있습니다. 단순노무직종(택배 상하차, 청소 등 고용노동부 고시 직종)은 수습 감액 자체가 적용되지 않고 처음부터 100%를 받아야 합니다."
-      }
-    }
-  ]
-}
-</script>
 </head>
 <body>
 
@@ -181,14 +142,22 @@
   <div class="kicker">급여·근로</div>
   <h1>시급 계산기</h1>
   <p class="lede">시급↔월급을 서로 환산하고, 2026년 최저임금(10,320원) 미달 여부를 바로 확인합니다.</p>
-
-  <div class="related">
-    <div class="related-title">함께 보면 좋은 도구</div>
-    <div class="related-links">
-      <a href="/tools/weekly-holiday-pay-calculator">주휴수당 계산기</a>
-      <a href="/tools/salary-calculator">연봉 실수령액 계산기</a>
+  <p class="basis-line"><strong>2026년 최저시급 10,320원</strong> · 월 환산 209시간(주 40시간) · 단순 환산이며 최저임금 위반 여부는 판정하지 않음</p>
+  <details class="basis">
+    <summary>계산 가정·근거·출처 보기</summary>
+    <ul class="assume">
+      <li>월 환산 근로시간 = (주 소정근로시간 + 주휴시간) × 약 4.345주를 소수점 이하 반올림한 값입니다(주 40시간이면 209시간, 고용노동부 2026년 최저임금 보도자료). 주휴시간은 주 소정근로시간 ÷ 40 × 8시간(최대 8시간)이며 4주 평균 주 15시간 이상·개근을 가정합니다. 주 40시간이 아닌 근무형태의 확인 상태는 결과 아래에 표시됩니다.</li>
+    </ul>
+    <div class="sources">
+      <div class="sources-title">참고 자료 및 출처</div>
+      <ul>
+        <li><a href="https://www.minimumwage.go.kr" target="_blank" rel="noopener">최저임금위원회 — 연도별 최저임금 결정 현황</a></li>
+        <li><a href="https://labor.moel.go.kr/minwonSysInfo/minwagesys.do" target="_blank" rel="noopener">고용노동부 노동포털 — 최저임금제도 안내</a></li>
+        <li><a href="https://www.moel.go.kr/news/enews/report/enewsView.do?news_seq=18144" target="_blank" rel="noopener">고용노동부 보도자료 — 2026년 적용 최저임금 시간급 10,320원(월 환산액 2,156,880원, 월 209시간 기준) <span style="color:var(--muted);">(확인: 2026-09-18)</span></a></li>
+      </ul>
     </div>
-  </div>
+  </details>
+
 
   <div class="card">
     <div class="seg" id="modeSeg">
@@ -233,41 +202,11 @@
   <div class="card result-card hidden" id="resultCard"></div>
 
 
-  <div class="info-block">
-    <h2>월급은 어떻게 계산되나요?</h2>
-    <p>4주 평균 주 소정근로시간이 15시간 이상이고 개근한다고 가정하면 주휴수당(주 소정근로시간 ÷ 40, 최대 1 × 8시간분)이 유급으로 추가됩니다. 이 계산기는 입력한 주 시간이 매주 같다고 보고 15시간 기준을 적용합니다. 여기에 한 달 평균 주 수(약 4.345주)를 곱한 뒤, 소수점 이하를 반올림한 정수 시간을 월 환산 근로시간으로 씁니다. 예를 들어 주 40시간 근무자는 주휴 8시간을 더한 48시간에 4.345주를 곱하면 약 208.6시간인데, 이를 반올림한 <strong>209시간</strong>을 씁니다(고용노동부 2026년 최저임금 보도자료: "월 환산액 2,156,880원, 월 209시간 기준"). 반대로 월급을 시급으로 환산할 때도 같은 반올림 기준의 월 환산 근로시간으로 나눕니다. 다만 이 209시간은 <strong>주 40시간·주 5일 근무를 전제로 한 표준 수치</strong>이며, 근무시간이 다르면 이 계산기가 그 조건에 맞춰 별도로 반올림한 시간을 적용합니다 — 모든 근무 형태에 209시간을 그대로 쓰는 것은 아닙니다.</p>
-
-    <h2>계산 예시로 보기</h2>
-    <p>하루 5시간, 주 5일 일하는 아르바이트생이 시급 10,320원(2026년 최저시급)을 받는다고 가정해보겠습니다. 주 근로시간은 25시간이라 주휴수당 대상(15시간 이상)이고, 주휴시간은 25÷40×8 = 5시간이 추가됩니다. 주당 총 30시간에 한 달 평균 주 수 4.345를 곱하면 약 130.4시간인데, 반올림한 <strong>130시간</strong>을 월 환산 근로시간으로 써서 월급은 <strong>1,341,600원</strong>으로 계산됩니다. 같은 조건에서 시급이 이보다 낮게 책정돼 있다면 최저임금 위반 여부를 확인해봐야 하지만, 이 계산기는 기본급 기준의 단순 환산만 보여줄 뿐이므로 실제 최저임금 준수 여부(산입 임금 범위, 수습 감액 적용 여부 등)를 확정하지는 않습니다 — 정확한 판단은 고용노동부 노동포털이나 관할 노동청에 문의하세요.</p>
-
-    <div class="faq-item">
-      <div class="q">2026년 최저시급은 얼마인가요?</div>
-      <div class="a">2026년 최저시급은 10,320원입니다. 주 40시간 근무 기준 최저월급은 주휴수당을 포함해 2,156,880원(월 209시간 기준)입니다.</div>
-    </div>
-    <div class="faq-item">
-      <div class="q">월급을 시급으로 환산할 때 왜 주휴시간을 더하나요?</div>
-      <div class="a">월급에는 실제 근무한 시간 외에 유급으로 처리되는 주휴수당분도 포함되어 있는 경우가 많아, 정확한 시급을 구하려면 주휴시간을 포함한 총 근로시간으로 나눠야 합니다.</div>
-    </div>
-    <div class="faq-item">
-      <div class="q">최저임금보다 낮으면 어떻게 해야 하나요?</div>
-      <div class="a">고용노동부 안내에 따르면 사업주는 최저임금액 이상을 지급할 의무가 있고, 위반하면 3년 이하의 징역 또는 2천만원 이하의 벌금이 부과될 수 있으며(병과 가능), 최저임금에 못 미치는 임금 약정 부분은 무효가 되어 최저임금액과 같은 임금을 지급하기로 한 것으로 봅니다. 다만 이 계산기는 입력값을 단순 환산한 근사치만 보여주므로, 실제 준수 여부는 최저임금에 산입되는 임금 범위(매월 1회 이상 정기적으로 지급하는 임금 등), 소정근로시간, 수습 감액 적용 여부 같은 사실관계를 확인해야 판단할 수 있고, 이 결과만으로는 위반 여부를 확정하지 않습니다. 정확한 판단은 고용노동부 고객상담센터(국번없이 1350)나 사업장 관할 노동청에 문의하세요.</div>
-    </div>
-    <div class="faq-item">
-      <div class="q">주휴수당은 모든 알바생이 다 받나요?</div>
-      <div class="a">4주 동안(4주 미만이면 그 기간)을 평균해 1주 소정근로시간이 15시간 이상이고(근로기준법 제18조 제3항), 소정근로일을 개근한 경우에 발생합니다. 평균 15시간 미만이면 주휴 규정(제55조)이 적용되지 않고, 결근이 있었던 주에는 그 주의 주휴수당이 발생하지 않을 수 있습니다. 이 계산기는 입력한 시간이 매주 같고 개근했다고만 가정합니다.</div>
-    </div>
-    <div class="faq-item">
-      <div class="q">수습기간에는 최저임금을 덜 줘도 되나요?</div>
-      <div class="a">1년 이상 근로계약을 체결한 경우에 한해 수습 시작일로부터 3개월 이내까지만 최저임금의 90%를 지급할 수 있습니다. 단순노무직종(택배 상하차, 청소 등 고용노동부 고시 직종)은 수습 감액 자체가 적용되지 않고 처음부터 100%를 받아야 합니다.</div>
-    </div>
-
-    <div class="sources">
-      <div class="sources-title">참고 자료 및 출처</div>
-      <ul>
-        <li><a href="https://www.minimumwage.go.kr" target="_blank" rel="noopener">최저임금위원회 — 연도별 최저임금 결정 현황</a></li>
-        <li><a href="https://labor.moel.go.kr/minwonSysInfo/minwagesys.do" target="_blank" rel="noopener">고용노동부 노동포털 — 최저임금제도 안내</a></li>
-        <li><a href="https://www.moel.go.kr/news/enews/report/enewsView.do?news_seq=18144" target="_blank" rel="noopener">고용노동부 보도자료 — 2026년 적용 최저임금 시간급 10,320원(월 환산액 2,156,880원, 월 209시간 기준) <span style="color:var(--muted);">(확인: 2026-09-18)</span></a></li>
-      </ul>
+  <div class="related" style="margin-top:24px;">
+    <div class="related-title">함께 보면 좋은 도구</div>
+    <div class="related-links">
+      <a href="/tools/weekly-holiday-pay-calculator">주휴수당 계산기</a>
+      <a href="/tools/salary-calculator">연봉 실수령액 계산기</a>
     </div>
   </div>
 
@@ -364,9 +303,13 @@
           : `<div class="ok-badge">2026년 최저시급(10,320원) 이상입니다.</div>`}
         ${statusHTML}
         <div class="guide-callout">
-          <span>월 환산 209시간이 어떻게 나오는지 궁금한가요?</span>
-          <a href="/guides/minimum-wage-monthly-hours">최저임금·209시간 가이드 →</a>
-        </div>
+      <span>209시간은 어떻게 나오고, 최저임금과 어떻게 비교하나요?</span>
+      <a href="/guides/minimum-wage-monthly-hours">최저임금·209시간 가이드 →</a>
+    </div>
+    <div class="guide-callout">
+      <span>계약서에서 무엇을 확인해야 하나요?</span>
+      <a href="/guides/minimum-wage-monthly-hours#check-order">확인 순서 보기 →</a>
+    </div>
 
         <div class="disclaimer">소정근로일을 개근하고 주 근무시간이 매주 같다는 전제로 월 환산 근로시간(소수점 이하 반올림)을 적용한 근사치입니다. 최저임금 산입 임금 범위, 수습 감액 같은 사실관계는 반영하지 않으며 실제 급여명세서와는 차이가 있을 수 있습니다. 이 결과만으로 최저임금 준수 여부나 법 위반을 확정하지 마세요.</div>
       `;
@@ -390,9 +333,13 @@
           : `<div class="ok-badge">2026년 최저시급(10,320원) 이상입니다.</div>`}
         ${statusHTML}
         <div class="guide-callout">
-          <span>월 환산 209시간이 어떻게 나오는지 궁금한가요?</span>
-          <a href="/guides/minimum-wage-monthly-hours">최저임금·209시간 가이드 →</a>
-        </div>
+      <span>209시간은 어떻게 나오고, 최저임금과 어떻게 비교하나요?</span>
+      <a href="/guides/minimum-wage-monthly-hours">최저임금·209시간 가이드 →</a>
+    </div>
+    <div class="guide-callout">
+      <span>계약서에서 무엇을 확인해야 하나요?</span>
+      <a href="/guides/minimum-wage-monthly-hours#check-order">확인 순서 보기 →</a>
+    </div>
 
         <div class="disclaimer">소정근로일을 개근하고 주 근무시간이 매주 같다는 전제로 월 환산 근로시간(소수점 이하 반올림)을 적용한 근사치입니다. 최저임금 산입 임금 범위, 수습 감액 같은 사실관계는 반영하지 않으며 실제 급여명세서와는 차이가 있을 수 있습니다. 이 결과만으로 최저임금 준수 여부나 법 위반을 확정하지 마세요.</div>
       `;

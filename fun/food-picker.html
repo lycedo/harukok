@@ -299,6 +299,11 @@
   .site-nav-links a:hover{ color:var(--ink); background:var(--bg-soft); }
   .site-nav-links a[aria-current="page"]{ color:var(--ink); font-weight:600; }
   .site-nav-brand:focus-visible, .site-nav-links a:focus-visible{ outline:2px solid var(--stamp, #B23A2E); outline-offset:2px; border-radius:4px; }
+  details.more{ margin:24px 0 0; border-top:1px solid var(--line, #CFC5A6); padding-top:12px; }
+  details.more > summary{ cursor:pointer; font-size:14px; font-weight:700; color:var(--ink, #1B2431); padding:4px 0; }
+  details.more > summary:focus-visible{ outline:2px solid var(--stamp, #B23A2E); outline-offset:2px; }
+  details.more[open] > summary{ margin-bottom:16px; }
+  .info-block p.notice{ font-size:13px; line-height:1.65; color:var(--ink, #1B2431); border-left:3px solid var(--line, #CFC5A6); padding:2px 0 2px 12px; margin:0 0 12px; }
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
 <script type="application/ld+json">
@@ -425,37 +430,42 @@
 
 
   <div class="info-block">
-    <h2>메뉴, 왜 이렇게 고민될까요?</h2>
-    <p>선택지가 많을수록 오히려 결정이 어려워지는 '선택의 역설' 때문입니다. 점심·저녁·야식·음료 4개 시간대, 시간대별 카테고리, 시간대별 메뉴를 모두 더하면 194개(같은 메뉴가 다른 시간대에도 들어있어 이름 기준 고유 메뉴는 165개)에서 무작위로 뽑아 고민 시간을 줄여줍니다.</p>
+    <p class="notice">'샐러드·단백질', '편의점·디저트' 같은 카테고리 이름은 메뉴를 묶은 설명일 뿐이며 건강 효과나 체중 감량을 보장하지 않습니다.</p>
 
-    <div class="faq-item">
-      <div class="q">시간대와 카테고리는 어떻게 고르나요?</div>
-      <div class="a">상단에서 시간대(점심·저녁·야식·음료)를 먼저 고르면 그 시간대의 카테고리가 나옵니다. 카테고리를 고르고 캡슐을 뽑으면 그 범위에서 메뉴가 정해지고, '아무거나'는 그 시간대의 모든 카테고리에서 뽑습니다.</div>
-    </div>
-    <div class="faq-item">
-      <div class="q">안 먹는 메뉴는 어떻게 빼나요?</div>
-      <div class="a">'안 먹는 메뉴 관리'를 펼치면 현재 시간대에 있는 메뉴 목록이 나옵니다. 원하지 않는 메뉴를 누르면 제외되고, 이름이 같으면 다른 시간대를 고를 때도 계속 제외됩니다. 이 설정은 이 기기의 브라우저에만 저장됩니다.</div>
-    </div>
-    <div class="faq-item">
-      <div class="q">방금 나온 메뉴가 또 나올 수 있나요?</div>
-      <div class="a">같은 시간대에서 바로 직전에 나온 메뉴는 가능하면 다시 뽑지 않도록 제외합니다. 다만 후보가 그 메뉴 하나뿐인 경우에는 예외적으로 다시 나올 수 있습니다.</div>
-    </div>
-    <div class="faq-item">
-      <div class="q">'후보가 없어요'는 언제 뜨나요?</div>
-      <div class="a">선택한 카테고리의 모든 메뉴를 '안 먹는 메뉴'로 제외했을 때 나타납니다. 카테고리를 바꾸거나, '제외 목록 확인하기'로 목록을 열어 몇 개를 다시 켜거나 '전체 제외 해제'를 누르면 다시 뽑을 수 있습니다.</div>
-    </div>
-    <div class="faq-item">
-      <div class="q">안 먹는 메뉴로 제외했는데 예전 기록에는 왜 남아 있나요?</div>
-      <div class="a">제외 설정은 앞으로 뽑을 후보에서만 메뉴를 빼고, 이미 저장된 최근 뽑기 기록은 지우거나 바꾸지 않습니다. 그래서 제외하기 전에 뽑았던 메뉴는 기록에 그대로 남을 수 있습니다.</div>
-    </div>
-    <div class="faq-item">
-      <div class="q">'샐러드·단백질', '편의점·디저트' 카테고리는 건강이나 다이어트 효과를 보장하나요?</div>
-      <div class="a">아니요. 이 카테고리 이름은 실제로 어떤 메뉴들이 묶여 있는지를 설명할 뿐이며, 건강 효과나 체중 감량을 암시하지 않습니다. 하루콕이 일반적인 인식을 참고해 임의로 묶은 것이며, 영양사 감수나 공식 영양 성분 자료를 근거로 하지 않았습니다. 칼로리·다이어트 효과·알레르기 안전성을 보장하지 않으니, 건강·식이 관련 결정에는 이 도구의 분류를 사용하지 마세요.</div>
-    </div>
-    <div class="faq-item">
-      <div class="q">예전에 쓰던 점심·저녁·야식·음료 뽑기 주소로 들어가도 되나요?</div>
-      <div class="a">예전 주소로 들어와도 이 페이지의 해당 시간대로 자동 연결되고, 예전에 저장된 뽑기 기록도 이어서 보입니다.</div>
-    </div>
+    <details class="more">
+      <summary>자세히 보기 — 사용 방법·자주 묻는 질문</summary>
+    <h2>메뉴, 왜 이렇게 고민될까요?</h2>
+        <p>선택지가 많을수록 오히려 결정이 어려워지는 '선택의 역설' 때문입니다. 점심·저녁·야식·음료 4개 시간대, 시간대별 카테고리, 시간대별 메뉴를 모두 더하면 194개(같은 메뉴가 다른 시간대에도 들어있어 이름 기준 고유 메뉴는 165개)에서 무작위로 뽑아 고민 시간을 줄여줍니다.</p>
+    
+        <div class="faq-item">
+          <div class="q">시간대와 카테고리는 어떻게 고르나요?</div>
+          <div class="a">상단에서 시간대(점심·저녁·야식·음료)를 먼저 고르면 그 시간대의 카테고리가 나옵니다. 카테고리를 고르고 캡슐을 뽑으면 그 범위에서 메뉴가 정해지고, '아무거나'는 그 시간대의 모든 카테고리에서 뽑습니다.</div>
+        </div>
+        <div class="faq-item">
+          <div class="q">안 먹는 메뉴는 어떻게 빼나요?</div>
+          <div class="a">'안 먹는 메뉴 관리'를 펼치면 현재 시간대에 있는 메뉴 목록이 나옵니다. 원하지 않는 메뉴를 누르면 제외되고, 이름이 같으면 다른 시간대를 고를 때도 계속 제외됩니다. 이 설정은 이 기기의 브라우저에만 저장됩니다.</div>
+        </div>
+        <div class="faq-item">
+          <div class="q">방금 나온 메뉴가 또 나올 수 있나요?</div>
+          <div class="a">같은 시간대에서 바로 직전에 나온 메뉴는 가능하면 다시 뽑지 않도록 제외합니다. 다만 후보가 그 메뉴 하나뿐인 경우에는 예외적으로 다시 나올 수 있습니다.</div>
+        </div>
+        <div class="faq-item">
+          <div class="q">'후보가 없어요'는 언제 뜨나요?</div>
+          <div class="a">선택한 카테고리의 모든 메뉴를 '안 먹는 메뉴'로 제외했을 때 나타납니다. 카테고리를 바꾸거나, '제외 목록 확인하기'로 목록을 열어 몇 개를 다시 켜거나 '전체 제외 해제'를 누르면 다시 뽑을 수 있습니다.</div>
+        </div>
+        <div class="faq-item">
+          <div class="q">안 먹는 메뉴로 제외했는데 예전 기록에는 왜 남아 있나요?</div>
+          <div class="a">제외 설정은 앞으로 뽑을 후보에서만 메뉴를 빼고, 이미 저장된 최근 뽑기 기록은 지우거나 바꾸지 않습니다. 그래서 제외하기 전에 뽑았던 메뉴는 기록에 그대로 남을 수 있습니다.</div>
+        </div>
+        <div class="faq-item">
+          <div class="q">'샐러드·단백질', '편의점·디저트' 카테고리는 건강이나 다이어트 효과를 보장하나요?</div>
+          <div class="a">아니요. 이 카테고리 이름은 실제로 어떤 메뉴들이 묶여 있는지를 설명할 뿐이며, 건강 효과나 체중 감량을 암시하지 않습니다. 하루콕이 일반적인 인식을 참고해 임의로 묶은 것이며, 영양사 감수나 공식 영양 성분 자료를 근거로 하지 않았습니다. 칼로리·다이어트 효과·알레르기 안전성을 보장하지 않으니, 건강·식이 관련 결정에는 이 도구의 분류를 사용하지 마세요.</div>
+        </div>
+        <div class="faq-item">
+          <div class="q">예전에 쓰던 점심·저녁·야식·음료 뽑기 주소로 들어가도 되나요?</div>
+          <div class="a">예전 주소로 들어와도 이 페이지의 해당 시간대로 자동 연결되고, 예전에 저장된 뽑기 기록도 이어서 보입니다.</div>
+        </div>
+    </details>
   </div>
 
   <footer style="max-width:620px; margin:40px auto 0; padding:20px 0 0; text-align:center; font-size:12.5px; color:var(--muted, #6E6656); border-top:1px solid var(--line, #D9D2BF);">

@@ -181,6 +181,11 @@
   .site-nav-links a:hover{ color:var(--ink); background:var(--paper-light, rgba(0,0,0,0.045)); }
   .site-nav-links a[aria-current="page"]{ color:var(--ink); font-weight:600; }
   .site-nav-brand:focus-visible, .site-nav-links a:focus-visible{ outline:2px solid var(--stamp, #B23A2E); outline-offset:2px; border-radius:4px; }
+  details.more{ margin:24px 0 0; border-top:1px solid var(--line, #CFC5A6); padding-top:12px; }
+  details.more > summary{ cursor:pointer; font-size:14px; font-weight:700; color:var(--ink, #1B2431); padding:4px 0; }
+  details.more > summary:focus-visible{ outline:2px solid var(--stamp, #B23A2E); outline-offset:2px; }
+  details.more[open] > summary{ margin-bottom:16px; }
+  .info-block p.notice{ font-size:13px; line-height:1.65; color:var(--ink, #1B2431); border-left:3px solid var(--line, #CFC5A6); padding:2px 0 2px 12px; margin:0 0 12px; }
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
 <script type="application/ld+json">
@@ -284,26 +289,32 @@
 
 
   <div class="info-block">
-    <h2>번호는 어떻게 만들어지나요?</h2>
-    <p>브라우저의 난수 생성 기능(Math.random)을 이용해 1~45 사이 숫자 중 중복 없이 6개씩 뽑습니다. 1~5줄은 한 번에 몇 줄을 만들지 정하는 것일 뿐이며, 모든 번호는 서버로 전송되는 데이터 없이 기기 안에서 즉시 계산됩니다.</p>
-    <p>최근 생성 기록은 이 브라우저에만 저장됩니다. '공유하기'를 누르면 생성한 번호가 주소의 '#' 뒤에 담긴 링크가 만들어져 이용자가 고른 앱이나 클립보드로 전달되는데, 링크를 받은 사람과 전달에 쓴 서비스는 그 번호를 볼 수 있으므로 공유하기 전에 확인하세요. 자세한 내용은 <a href="/privacy">개인정보처리방침</a>을 참고하세요.</p>
+    <p class="notice"><strong>실제 복권이 아닙니다.</strong> 하루콕 번호 메모는 무료 번호 생성 결과이며 구매·당첨금 청구 효력이 없고 동행복권과 무관합니다.</p>
+    <p class="notice">최근 생성 기록은 이 브라우저에만 저장됩니다. '공유하기'를 누르면 생성한 번호가 주소의 '#' 뒤에 담긴 링크가 만들어져 이용자가 고른 앱이나 클립보드로 전달되는데, 링크를 받은 사람과 전달에 쓴 서비스는 그 번호를 볼 수 있으므로 공유하기 전에 확인하세요. 자세한 내용은 <a href="/privacy">개인정보처리방침</a>을 참고하세요.</p>
 
-    <div class="faq-item">
-      <div class="q">당첨 확률이 더 높아지나요?</div>
-      <div class="a">아닙니다. 어떤 방식으로 번호를 골라도 당첨 확률은 동일합니다. 이 도구는 번호를 고민하는 시간을 줄여주는 용도로만 사용해주세요.</div>
-    </div>
-    <div class="faq-item">
-      <div class="q">같은 번호가 또 나올 수 있나요?</div>
-      <div class="a">네, 매번 완전히 새로 뽑기 때문에 이전과 같은 조합이 다시 나올 수도 있습니다. 통계적으로는 지극히 낮은 확률입니다.</div>
-    </div>
-    <div class="faq-item">
-      <div class="q">공유 링크를 열면 번호가 다시 뽑히나요?</div>
-      <div class="a">아닙니다. 공유 링크를 열면 상대방이 만든 번호가 그대로 보일 뿐 새로 추첨되지 않고, 링크를 연 사람의 '최근 생성 기록'에도 자동으로 저장되지 않습니다.</div>
-    </div>
-    <div class="faq-item">
-      <div class="q">실제 로또(복권)인가요?</div>
-      <div class="a">아닙니다. 하루콕 번호 메모는 무료 번호 생성 결과이며 실제 복권이 아닙니다. 이 결과로 복권을 구매하거나 당첨금을 청구할 수 없으며, 동행복권과 무관한 하루콕의 자체 서비스입니다.</div>
-    </div>
+    <details class="more">
+      <summary>자세히 보기 — 번호 생성 방식·자주 묻는 질문</summary>
+    <h2>번호는 어떻게 만들어지나요?</h2>
+        <p>브라우저의 난수 생성 기능(Math.random)을 이용해 1~45 사이 숫자 중 중복 없이 6개씩 뽑습니다. 1~5줄은 한 번에 몇 줄을 만들지 정하는 것일 뿐이며, 모든 번호는 서버로 전송되는 데이터 없이 기기 안에서 즉시 계산됩니다.</p>
+        
+    
+        <div class="faq-item">
+          <div class="q">당첨 확률이 더 높아지나요?</div>
+          <div class="a">아닙니다. 어떤 방식으로 번호를 골라도 당첨 확률은 동일합니다. 이 도구는 번호를 고민하는 시간을 줄여주는 용도로만 사용해주세요.</div>
+        </div>
+        <div class="faq-item">
+          <div class="q">같은 번호가 또 나올 수 있나요?</div>
+          <div class="a">네, 매번 완전히 새로 뽑기 때문에 이전과 같은 조합이 다시 나올 수도 있습니다. 통계적으로는 지극히 낮은 확률입니다.</div>
+        </div>
+        <div class="faq-item">
+          <div class="q">공유 링크를 열면 번호가 다시 뽑히나요?</div>
+          <div class="a">아닙니다. 공유 링크를 열면 상대방이 만든 번호가 그대로 보일 뿐 새로 추첨되지 않고, 링크를 연 사람의 '최근 생성 기록'에도 자동으로 저장되지 않습니다.</div>
+        </div>
+        <div class="faq-item">
+          <div class="q">실제 로또(복권)인가요?</div>
+          <div class="a">아닙니다. 하루콕 번호 메모는 무료 번호 생성 결과이며 실제 복권이 아닙니다. 이 결과로 복권을 구매하거나 당첨금을 청구할 수 없으며, 동행복권과 무관한 하루콕의 자체 서비스입니다.</div>
+        </div>
+    </details>
   </div>
 
   <footer style="max-width:620px; margin:40px auto 0; padding:20px 0 0; text-align:center; font-size:12.5px; color:var(--muted, #6E6656); border-top:1px solid var(--line, #D9D2BF);">

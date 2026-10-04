@@ -96,6 +96,11 @@
   .site-nav-links a:hover{ color:var(--ink); background:var(--paper-light, rgba(0,0,0,0.045)); }
   .site-nav-links a[aria-current="page"]{ color:var(--ink); font-weight:600; }
   .site-nav-brand:focus-visible, .site-nav-links a:focus-visible{ outline:2px solid var(--stamp, #B23A2E); outline-offset:2px; border-radius:4px; }
+  .faq-item{ margin:0 0 16px; scroll-margin-top:12px; }
+  .faq-item .q{ font-size:14px; font-weight:700; color:var(--ink); margin-bottom:5px; }
+  .faq-item .a{ font-size:13.5px; line-height:1.7; color:var(--ink-soft); }
+  article h3{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:15.5px; margin:26px 0 8px; scroll-margin-top:12px; }
+  article h2{ scroll-margin-top:12px; }
 </style>
 <!-- Google AdSense -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6883245122372170" crossorigin="anonymous"></script>
@@ -109,6 +114,22 @@
   "dateModified": "2026-10-03",
   "author": { "@type": "Organization", "name": "하루콕" },
   "publisher": { "@type": "Organization", "name": "하루콕" }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "신청은 언제, 어떻게 하나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "퇴사 후 회사가 발급한 이직확인서와 상실신고가 처리된 뒤, 워크넷에서 구직등록을 하고 거주지 관할 고용센터를 방문하거나 고용보험 홈페이지에서 수급자격 인정 신청을 합니다. 퇴사일로부터 12개월이 지나면 남은 소정급여일수가 있어도 지급받을 수 없으니 가능한 한 빨리 신청하는 것이 중요합니다."
+      }
+    }
+  ]
 }
 </script>
 </head>
@@ -212,6 +233,12 @@
       <li><strong>퇴직금과는 별개</strong> — 퇴직금은 근로기준법·퇴직급여법상 제도이고 구직급여는 고용보험 제도라, 요건을 충족하면 함께 받을 수 있습니다.</li>
       <li><strong>실업인정</strong> — 수급 중에는 지정된 실업인정일마다 구직활동을 증명해야 하며, 활동 없이 인정받으면 부정수급으로 환수될 수 있습니다.</li>
     </ul>
+
+    <h2 id="faq">자주 묻는 질문</h2>
+    <div class="faq-item">
+      <div class="q">신청은 언제, 어떻게 하나요?</div>
+      <div class="a">퇴사 후 회사가 발급한 이직확인서와 상실신고가 처리된 뒤, 워크넷에서 구직등록을 하고 거주지 관할 고용센터를 방문하거나 고용보험 홈페이지에서 수급자격 인정 신청을 합니다. 퇴사일로부터 12개월이 지나면 남은 소정급여일수가 있어도 지급받을 수 없으니 가능한 한 빨리 신청하는 것이 중요합니다.</div>
+    </div>
 
     <p><a class="cta-btn" href="/tools/unemployment-benefit-calculator">내 실업급여 계산하기 →</a></p>
         <div class="sources">
