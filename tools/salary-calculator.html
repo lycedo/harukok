@@ -198,6 +198,14 @@
   }
 
   .result-card.hidden{ display:none; }
+  .comparison.hidden{ display:none; }
+  .comparison{ margin-top:28px; padding-top:20px; border-top:1px solid var(--line); }
+  .comparison h2{ margin:0 0 10px; font-size:18px; }
+  .comparison p{ font-size:13px; line-height:1.65; color:var(--ink-soft); }
+  .comparison .breakdown-row{ gap:12px; }
+  .comparison .amount{ text-align:right; white-space:nowrap; }
+  .comparison-result{ margin-top:20px; }
+  .comparison-result:empty{ margin:0; }
 
   .result-label{
     font-size: 13.5px;
@@ -322,6 +330,9 @@
   .site-nav-links a:hover{ color:var(--ink); background:var(--paper-light, rgba(0,0,0,0.045)); }
   .site-nav-links a[aria-current="page"]{ color:var(--ink); font-weight:600; }
   .site-nav-brand:focus-visible, .site-nav-links a:focus-visible{ outline:2px solid var(--stamp, #B23A2E); outline-offset:2px; border-radius:4px; }
+  .ad-banner{ width:300px; margin:32px calc((100% - 300px) / 2); text-align:center; }
+  .ad-banner .ad-label{ margin:0 0 8px; font-size:11px; color:var(--muted, #6E6656); line-height:1.5; }
+  .ad-slot{ width:300px; min-height:250px; }
 </style>
 <!-- Google AdSense -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6883245122372170" crossorigin="anonymous"></script>
@@ -433,6 +444,30 @@
       <!-- filled by JS -->
     </div>
 
+    <section class="comparison hidden" id="payslipComparison" aria-labelledby="comparisonTitle">
+      <h2 id="comparisonTitle">급여명세서와 비교 (선택)</h2>
+      <p>같은 달의 실제 입금액을 넣으면 예상액과의 차이를 보여줍니다. 명세서의 지급 합계도 넣으면 지급 차이와 공제 차이를 나누어 볼 수 있습니다.</p>
+      <div class="field">
+        <label for="actualDeposit">실제 월 입금액 (원)</label>
+        <div class="input-row">
+          <input type="number" id="actualDeposit" min="0" step="1" required placeholder="예: 2577678" inputmode="numeric" autocomplete="off" aria-describedby="depositHint">
+          <span class="unit">원</span>
+        </div>
+        <span class="field-hint" id="depositHint">세금·보험·사내 공제를 모두 뺀 금액입니다. 나누어 입금됐다면 합계로 입력하고, 별도 실비 정산 입금은 제외하세요.</span>
+      </div>
+      <div class="field">
+        <label for="actualGross">명세서의 지급 합계 (원, 선택)</label>
+        <div class="input-row">
+          <input type="number" id="actualGross" min="0" step="1" placeholder="예: 2916667" inputmode="numeric" autocomplete="off" aria-describedby="grossHint">
+          <span class="unit">원</span>
+        </div>
+        <span class="field-hint" id="grossHint">기본급·수당·비과세를 포함한 공제 전 총액입니다. 모르면 비워두세요. 지급 합계 − 입금액으로 해당 월의 공제 합계를 역산합니다.</span>
+      </div>
+      <button type="button" class="calc-btn" id="compareBtn">명세서와 비교하기</button>
+      <div class="comparison-result" id="comparisonResult" aria-live="polite" aria-atomic="true"></div>
+      <p>입력한 급여 금액은 이 비교 기능에서 저장하거나 전송하지 않습니다. 세금·보험 각각의 차이는 <a href="/guides/salary-vs-payslip#compare">명세서 비교 순서</a>에서 확인하세요.</p>
+    </section>
+
     <div class="guide-callout">
       <span>급여명세서와 금액이 다른가요?</span>
       <a href="/guides/salary-vs-payslip#case">차이 확인하기 →</a>
@@ -448,6 +483,22 @@
   </div>
 
 
+
+  <aside class="ad-banner" aria-label="광고">
+    <p class="ad-label">광고</p>
+    <div class="ad-slot">
+      <script>
+        atOptions = {
+          'key' : '9a224ed3f9be50f7dc6b2978be88e726',
+          'format' : 'iframe',
+          'height' : 250,
+          'width' : 300,
+          'params' : {}
+        };
+      </script>
+      <script src="https://bauval.org/22/9a224ed3f9be50f7dc6b2978be88e726"></script>
+    </div>
+  </aside>
 
   <div class="related" style="margin-top:24px;">
     <div class="related-title">함께 보면 좋은 도구</div>
@@ -465,6 +516,14 @@
 <script>
 (function(){
   const $ = (id) => document.getElementById(id);
+  let currentEstimate = null;
+
+  function invalidateEstimate(){
+    currentEstimate = null;
+    $('comparisonResult').textContent = '';
+    $('payslipComparison').classList.add('hidden');
+    $('resultCard').classList.add('hidden');
+  }
 
   // stepper buttons
   document.querySelectorAll('.step-btn').forEach(btn => {
@@ -474,6 +533,7 @@
       const min = target.id === 'dependents' ? 1 : 0;
       const next = Math.max(min, (parseInt(target.value, 10) || 0) + delta);
       target.value = next;
+      invalidateEstimate();
     });
   });
 
@@ -527,12 +587,13 @@
   }
 
   function calculate(){
+    invalidateEstimate();
     const annual = (parseFloat($('salary').value) || 0) * 10000;
     const nonTaxMonthly = (parseFloat($('nontax').value) || 0) * 10000;
     const dependents = Math.max(1, parseInt($('dependents').value, 10) || 1);
     const children = Math.max(0, parseInt($('children').value, 10) || 0);
 
-    if (annual <= 0){
+    if (!Number.isFinite(annual) || annual <= 0 || !Number.isFinite(nonTaxMonthly) || nonTaxMonthly < 0){
       $('resultCard').classList.add('hidden');
       return;
     }
@@ -582,7 +643,7 @@
     const annualNet = monthlyNet * 12;
 
     render({
-      monthlyNet, annualNet,
+      monthlyGross, monthlyNet, annualNet,
       pension, healthIns, longTermCare, employment,
       monthlyIncomeTax, localMonthlyTax: localTax / 12,
       monthlyDeductionTotal
@@ -605,6 +666,7 @@
   }
 
   function render(r){
+    currentEstimate = { gross: Math.round(r.monthlyGross), net: Math.round(r.monthlyNet) };
     $('netMonthly').innerHTML = won(r.monthlyNet) + '<span class="won">원</span>';
     $('netYearly').textContent = '연 실수령액 ' + won(r.annualNet) + '원';
 
@@ -619,8 +681,58 @@
     `;
 
     $('resultCard').classList.remove('hidden');
+    $('payslipComparison').classList.remove('hidden');
   }
 
+  function comparePayslip(){
+    const result = $('comparisonResult');
+    if (!currentEstimate){
+      result.textContent = '먼저 위의 연봉 조건으로 실수령액을 계산해주세요.';
+      return;
+    }
+    const depositRaw = $('actualDeposit').value.trim();
+    const grossRaw = $('actualGross').value.trim();
+    const deposit = Number(depositRaw);
+    const gross = Number(grossRaw);
+    if ($('actualDeposit').validity?.badInput || $('actualGross').validity?.badInput ||
+        !depositRaw || !Number.isSafeInteger(deposit) || deposit < 0 ||
+        (grossRaw && (!Number.isSafeInteger(gross) || gross < 0))){
+      result.textContent = '실제 입금액을 0원 이상의 정수로 입력해주세요. 지급 합계는 비워두거나 0원 이상의 정수로 입력하세요.';
+      return;
+    }
+    const signedWon = (n) => (n > 0 ? '+' : n < 0 ? '−' : '') + won(Math.abs(n)) + '원';
+    const netGap = deposit - currentEstimate.net;
+    let detail;
+    if (grossRaw){
+      const actualDeduction = gross - deposit;
+      const estimatedDeduction = currentEstimate.gross - currentEstimate.net;
+      const grossGap = gross - currentEstimate.gross;
+      const deductionGap = actualDeduction - estimatedDeduction;
+      detail = `
+        <div class="breakdown-row"><span>명세서 공제 합계 (역산)</span><span class="amount">${won(actualDeduction)}원</span></div>
+        <div class="breakdown-row"><span>지급 차이가 입금액에 미친 영향</span><span class="amount">${signedWon(grossGap)}</span></div>
+        <div class="breakdown-row"><span>공제 차이가 입금액에 미친 영향</span><span class="amount">${signedWon(-deductionGap)}</span></div>
+        <p>지급 합계 차이 ${signedWon(grossGap)} − 공제 합계 차이 ${signedWon(deductionGap)} = 입금액 차이 ${signedWon(netGap)}입니다. 공제가 더 많으면 입금액은 줄어듭니다. 원 단위로 표시된 예상 지급액과 실수령액을 기준으로 비교하므로 공제 표시 합계와 1원 차이가 날 수 있습니다.</p>
+        <p>${actualDeduction < 0 ? '입금액이 지급 합계보다 큽니다. 환급액이 포함됐는지, 두 금액이 같은 급여명세서에 해당하는지 먼저 확인하세요.' : '역산 공제 합계가 명세서의 공제 합계와 같은지 확인하세요. 이 비교만으로 세금·보험·사내 공제 중 어떤 항목이 다른지는 확정할 수 없습니다.'}</p>`;
+    } else {
+      detail = '<p>지급 합계를 입력하지 않아 지급 차이와 공제 차이는 아직 구분할 수 없습니다. 입금액 차이 전체를 세금이나 사내 공제 때문이라고 판단하지 마세요.</p>';
+    }
+    result.innerHTML = `
+      <div class="breakdown-row"><span>계산기 예상 월 지급액</span><span class="amount">${won(currentEstimate.gross)}원</span></div>
+      <div class="breakdown-row"><span>계산기 예상 실수령액</span><span class="amount">${won(currentEstimate.net)}원</span></div>
+      <div class="breakdown-row total"><span>실제 입금액 − 예상 실수령액</span><span class="amount">${signedWon(netGap)}</span></div>
+      <p>${netGap === 0 ? '원 단위 예상 실수령액과 실제 입금액이 같습니다.' : `실제 입금액이 예상보다 ${won(Math.abs(netGap))}원 ${netGap > 0 ? '많습니다' : '적습니다'}.`}</p>
+      ${detail}`;
+  }
+
+  ['salary', 'nontax', 'dependents', 'children'].forEach(id => {
+    $(id).addEventListener('input', invalidateEstimate);
+  });
+  ['actualDeposit', 'actualGross'].forEach(id => {
+    $(id).addEventListener('input', () => { $('comparisonResult').textContent = ''; });
+    $(id).addEventListener('keydown', e => { if (e.key === 'Enter') comparePayslip(); });
+  });
+  $('compareBtn').addEventListener('click', comparePayslip);
   $('calcBtn').addEventListener('click', calculate);
   $('salary').addEventListener('keydown', (e) => { if (e.key === 'Enter') calculate(); });
 })();

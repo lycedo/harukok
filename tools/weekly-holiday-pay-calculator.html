@@ -112,6 +112,9 @@
   details.basis ul.assume{ margin:10px 0 0; padding-left:18px; }
   details.basis ul.assume li{ margin-bottom:6px; }
   details.basis .sources{ margin-top:14px; padding-top:12px; }
+  .ad-banner{ width:300px; margin:32px calc((100% - 300px) / 2); text-align:center; }
+  .ad-banner .ad-label{ margin:0 0 8px; font-size:11px; color:var(--muted, #6E6656); line-height:1.5; }
+  .ad-slot{ width:300px; min-height:250px; }
 </style>
 <!-- Google AdSense -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6883245122372170" crossorigin="anonymous"></script>
@@ -138,7 +141,7 @@
     <summary>계산 가정·근거·출처 보기</summary>
     <ul class="assume">
       <li>통상근로자가 주 5일·40시간인 경우의 고용노동부 해석(근로기준정책과-5943, 임금근로시간과-646)에 따른 방식입니다. 통상근로자가 주 6일 등인 사업장은 1일 소정근로시간 산출이 달라질 수 있습니다.</li>
-      <li>소정근로시간은 법정기준근로시간(주 40시간) 이내에서 약정한 시간이므로 40시간을 넘는 입력은 주휴 8시간분으로만 계산합니다.</li>
+      <li>주 40시간 이내의 소정근로시간을 지원합니다. 연장근로를 입력 시간에 더하면 기본 주급도 잘못 계산되므로, 계약상 시간과 초과근무를 구분하세요.</li>
     </ul>
     <div class="sources">
       <div class="sources-title">참고 자료 및 출처</div>
@@ -156,7 +159,7 @@
       <div class="input-row">
         <input type="number" id="hourlyWage" value="10320" inputmode="numeric">
       </div>
-      <span class="field-hint">2026년 최저시급은 10,320원입니다.</span>
+      <span class="field-hint">주휴수당을 제외한 기본 시급입니다. 주휴 포함 시급을 넣으면 주휴분이 중복 계산됩니다. 2026년 최저시급은 10,320원입니다.</span>
     </div>
 
     <div class="field">
@@ -172,6 +175,22 @@
 
   <div class="card result-card hidden" id="resultCard"></div>
 
+
+  <aside class="ad-banner" aria-label="광고">
+    <p class="ad-label">광고</p>
+    <div class="ad-slot">
+      <script>
+        atOptions = {
+          'key' : '9a224ed3f9be50f7dc6b2978be88e726',
+          'format' : 'iframe',
+          'height' : 250,
+          'width' : 300,
+          'params' : {}
+        };
+      </script>
+      <script src="https://bauval.org/22/9a224ed3f9be50f7dc6b2978be88e726"></script>
+    </div>
+  </aside>
 
   <div class="related" style="margin-top:24px;">
     <div class="related-title">함께 보면 좋은 도구</div>
@@ -203,8 +222,14 @@
     const weeklyHours = parseFloat($('weeklyHours').value) || 0;
     const resultCard = $('resultCard');
 
-    if (hourlyWage <= 0 || weeklyHours <= 0){
+    if (!Number.isFinite(hourlyWage) || !Number.isFinite(weeklyHours) || hourlyWage <= 0 || weeklyHours <= 0){
       resultCard.classList.add('hidden');
+      return;
+    }
+
+    if (weeklyHours > 40){
+      resultCard.innerHTML = '<div class="warning">주 40시간 이내의 소정근로시간을 입력하세요. 초과근무를 포함한 주급은 이 계산기에서 계산하지 않습니다.</div>';
+      resultCard.classList.remove('hidden');
       return;
     }
 
@@ -226,16 +251,14 @@
       checkRow('ok', '주휴수당 = 시급 × (주 소정근로시간 ÷ 40) × 8시간 방식은 통상근로자가 주 5일·40시간인 경우 고용노동부 해석(근로기준정책과-5943, 임금근로시간과-646)으로 확인했습니다. 통상근로자가 주 6일 등인 사업장은 1일 소정근로시간 산출이 달라질 수 있습니다(예: 주 6일 사업장에서 6일 × 6시간 근무하면 6시간분).'),
       checkRow('assume', '입력한 시간이 매주 같고(4주 평균 15시간 이상) 소정근로일을 개근한다고 가정한 금액입니다. 결근이 있는 주, 입사·퇴사 주는 주휴수당이 달라질 수 있습니다.')
     ];
-    if (weeklyHours > 40){
-      statusRows.push(checkRow('assume', '소정근로시간은 주 40시간 이내에서 약정한 시간입니다(고용노동부 1350). 40시간을 넘는 입력은 연장근로를 포함한 값일 수 있어 주휴는 8시간분으로만 계산했습니다.'));
-    }
     resultCard.innerHTML = `
       <div class="result-label">이번 주 주휴수당</div>
       <div class="result-amount">${won(weeklyHolidayPay)}<span class="unit">원</span></div>
       <div class="breakdown">
         <div class="breakdown-row"><span>기본 근로수당 (${weeklyHours}시간)</span><span class="amount">${won(basePay)}원</span></div>
         <div class="breakdown-row"><span>주휴수당</span><span class="amount">${won(weeklyHolidayPay)}원</span></div>
-        <div class="breakdown-row"><span>주급 총액</span><span class="amount">${won(totalWeeklyPay)}원</span></div>
+        <div class="breakdown-row"><span>기본급 + 주휴수당</span><span class="amount">${won(totalWeeklyPay)}원</span></div>
+        <div class="breakdown-row"><span>주휴시간</span><span class="amount">${Number((ratio * 8).toFixed(2))}시간</span></div>
       </div>
       ${checkBox(statusRows)}
       <div class="guide-callout">

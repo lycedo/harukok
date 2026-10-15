@@ -115,6 +115,9 @@
   details.basis ul.assume{ margin:10px 0 0; padding-left:18px; }
   details.basis ul.assume li{ margin-bottom:6px; }
   details.basis .sources{ margin-top:14px; padding-top:12px; }
+  .ad-banner{ width:300px; margin:32px calc((100% - 300px) / 2); text-align:center; }
+  .ad-banner .ad-label{ margin:0 0 8px; font-size:11px; color:var(--muted, #6E6656); line-height:1.5; }
+  .ad-slot{ width:300px; min-height:250px; }
 </style>
 <!-- Google AdSense -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6883245122372170" crossorigin="anonymous"></script>
@@ -140,7 +143,7 @@
   <details class="basis">
     <summary>계산 가정·근거·출처 보기</summary>
     <ul class="assume">
-      <li>연차수당 = 1일 통상임금 × 정산 대상 연차일수입니다. 1일 통상임금은 월 통상임금을 월 환산시간(주 40시간 기준 209시간)으로 나눈 시급에 하루 소정근로시간을 곱해 구하며, 근무시간이 다르면 같은 방식으로 다시 환산합니다. 이 환산이 공식 확인된 값인지는 결과 아래 '확인 상태'에 표시됩니다.</li>
+      <li>연차수당 = 1일 통상임금 × 정산 대상 연차일수입니다. 주 40시간·주휴 8시간·별도 유급휴일이 없는 표준 일정은 월 209시간을 씁니다. 다른 일정은 (주 소정근로시간 + 주휴시간) × 365 ÷ 7 ÷ 12로 추정하며 월 시간을 정수로 반올림하지 않습니다. 1일 통상임금은 원 단위로 반올림한 뒤 정산 일수를 곱합니다.</li>
       <li><strong>입력 전 순서</strong> — ① 법정 연차가 적용되는지 확인(근로기준법상 상시 5인 이상 사업장, 4주 평균 주 15시간 이상 근로 — 고용노동부 안내 기준이며, 회사가 계약·취업규칙으로 더 주기로 한 연차는 별도로 확인) → ② 수당으로 정산할 미사용 일수 확인(발생일수에서 사용한 일수를 빼고, 소멸한 연차도 법정 사용촉진을 모두 거쳤는지 확인하기 전에는 빼지 않음) → ③ 아래에 입력해 금액 환산.</li><li><strong>이 계산기가 하지 않는 것</strong> — 연차 발생일수 계산, 소멸 여부와 법정 사용촉진 적법성 판정, 단시간 근로자의 연차일수 산정. 입력한 일수를 정산 대상이라고 보고 금액으로만 환산하며, 결과 바로 아래에 이 가정과 확인 상태를 표시합니다.</li>
     </ul>
     <div class="sources">
@@ -190,14 +193,15 @@
         <input type="number" id="weeklyDays" value="5" inputmode="numeric">
         <span class="unit">일</span>
       </div>
-      <span class="field-hint">주 40시간(하루 8시간·주 5일)이면 유급 주휴시간을 포함한 월 환산시간 209시간으로 계산됩니다. 근무시간이 다르면 같은 방식으로 환산합니다.</span>
+      <span class="field-hint">하루 8시간·주 40시간 이내의 일정만 지원합니다. 주휴는 통상근로자가 주 5일·40시간인 사업장의 비례 방식이며 개근을 가정합니다. 별도 유급휴일이 있거나 근무시간이 불규칙하면 이 결과를 그대로 적용하지 마세요.</span>
     </div>
 
     <button class="calc-btn" id="calcBtn">연차수당 계산하기</button>
+    <p class="field-hint" id="inputError" role="alert"></p>
   </div>
 
   <div class="card result-card hidden" id="resultCard">
-    <div class="result-label">총 연차수당</div>
+    <div class="result-label">예상 연차수당</div>
     <div class="result-amount" id="totalAmount">0<span class="unit">원</span></div>
 
     <div class="breakdown" id="breakdown"></div>
@@ -216,6 +220,22 @@
   </div>
 
 
+  <aside class="ad-banner" aria-label="광고">
+    <p class="ad-label">광고</p>
+    <div class="ad-slot">
+      <script>
+        atOptions = {
+          'key' : '9a224ed3f9be50f7dc6b2978be88e726',
+          'format' : 'iframe',
+          'height' : 250,
+          'width' : 300,
+          'params' : {}
+        };
+      </script>
+      <script src="https://bauval.org/22/9a224ed3f9be50f7dc6b2978be88e726"></script>
+    </div>
+  </aside>
+
   <div class="related" style="margin-top:24px;">
     <div class="related-title">함께 보면 좋은 도구</div>
     <div class="related-links">
@@ -232,7 +252,7 @@
 <script>
 (function(){
   const $ = (id) => document.getElementById(id);
-  const WEEKS_PER_MONTH = 4.345;
+  const WEEKS_PER_MONTH = 365 / 7 / 12;
   const TAGS = { ok: '공식 확인', assume: '입력 가정', unverified: '미확인' };
   function checkRow(kind, html){ return '<div class="check-row"><span class="check-tag ' + kind + '">' + TAGS[kind] + '</span><span>' + html + '</span></div>'; }
   function checkBox(rows){ return '<div class="check-status"><div class="check-title">이 결과의 확인 상태</div>' + rows.join('') + '</div>'; }
@@ -242,10 +262,11 @@
   }
 
   function calculate(){
+    $('inputError').textContent = '';
     const monthlyWage = (parseFloat($('monthlyWage').value) || 0) * 10000;
     const unusedDays = parseFloat($('unusedDays').value) || 0;
 
-    if (monthlyWage <= 0 || unusedDays <= 0){
+    if (!Number.isFinite(monthlyWage) || !Number.isFinite(unusedDays) || monthlyWage <= 0 || unusedDays <= 0){
       $('resultCard').classList.add('hidden');
       return;
     }
@@ -256,10 +277,17 @@
       $('resultCard').classList.add('hidden');
       return;
     }
-    // 월 환산시간 = (주 소정근로시간 + 유급 주휴시간) × 4.345주, 소수점 이하 반올림(주 40시간이면 209시간).
     const weeklyHours = dailyHours * weeklyDays;
+    if (!Number.isFinite(weeklyHours) || dailyHours > 8 || weeklyDays > 7 || weeklyHours > 40){
+      $('resultCard').classList.add('hidden');
+      $('inputError').textContent = '하루 8시간·주 40시간 이내의 소정근로시간을 입력하세요. 연장근로와 불규칙한 근무 일정은 지원하지 않습니다.';
+      return;
+    }
+    $('inputError').textContent = '';
     const holidayHours = weeklyHours < 15 ? 0 : Math.min(weeklyHours / 40, 1) * 8;
-    const monthlyHours = Math.round((weeklyHours + holidayHours) * WEEKS_PER_MONTH);
+    // 209시간은 표준 일정에만 적용하고 다른 일정은 추정시간을 그대로 사용한다.
+    const monthlyHours = weeklyHours === 40 ? 209 : (weeklyHours + holidayHours) * WEEKS_PER_MONTH;
+    const shownMonthlyHours = Number(monthlyHours.toFixed(2));
     const hourlyWage = monthlyWage / monthlyHours;
     // 화면에 표시되는 1일 통상임금(원 단위)에 일수를 곱해 총액이 표시값과 맞도록 한다.
     const dailyWage = Math.round(hourlyWage * dailyHours);
@@ -267,7 +295,7 @@
 
     $('totalAmount').innerHTML = won(total) + '<span class="unit">원</span>';
     $('breakdown').innerHTML = `
-      <div class="breakdown-row"><span>월 환산시간(주휴 포함)</span><span class="amount">${monthlyHours}시간</span></div>
+      <div class="breakdown-row"><span>월 환산시간(주휴 포함)</span><span class="amount">${shownMonthlyHours}시간</span></div>
       <div class="breakdown-row"><span>환산 시급</span><span class="amount">${won(hourlyWage)}원</span></div>
       <div class="breakdown-row"><span>1일 통상임금</span><span class="amount">${won(dailyWage)}원</span></div>
       <div class="breakdown-row"><span>미사용 연차일수</span><span class="amount">${unusedDays}일</span></div>
@@ -278,7 +306,7 @@
     if (weeklyHours === 40){
       rows.push(checkRow('ok', '월 환산시간 209시간은 주 40시간 기준 공식 수치입니다(최저임금위원회·고용노동부 안내: (40+8)×365÷7÷12 ≈ 209).'));
     } else {
-      rows.push(checkRow('unverified', '월 환산시간 ' + monthlyHours + '시간은 주 40시간이 아닌 근무형태라 계산기가 같은 산식으로 구한 뒤 정수로 반올림한 값입니다. 주휴시간 비례(주 소정근로시간÷40×8)는 고용노동부 주휴수당 해석에서 확인했지만, 이를 월 환산시간에 정수 반올림해 연차수당에 쓰는 방식과 단시간 근로자의 연차일수 산정은 공식 근거를 확인하지 못했습니다.'));
+      rows.push(checkRow('assume', '월 환산 약 ' + shownMonthlyHours + '시간은 (' + weeklyHours + ' + 주휴 ' + Number(holidayHours.toFixed(2)) + ') × 365 ÷ 7 ÷ 12로 구한 추정치입니다. 표시는 소수 둘째 자리까지이며 금액은 반올림 전 시간으로 계산합니다. 개별 계약의 유급시간과 단시간 근로자의 연차 발생량은 확인하지 않았습니다. 입력한 연차 1일을 하루 소정근로시간 ' + dailyHours + '시간으로 환산한 것이므로, 회사가 시간으로 관리하는 잔여 연차라면 같은 시간 단위로 맞춘 뒤 사용하세요.'));
     }
     if (weeklyHours < 15){
       rows.push(checkRow('assume', '입력한 주 근로시간(' + weeklyHours + '시간)이 4주 평균 15시간 미만이면 법정 연차(근로기준법 제60조)가 적용되지 않는 근로자일 수 있습니다(제18조 제3항).'));

@@ -104,6 +104,9 @@
   .disclaimer-box{ font-size:11px; font-weight:600; color:var(--ink); background:var(--bg-soft); border:1px solid var(--line); border-radius:8px; padding:10px 12px; line-height:1.6; text-align:center; margin-top:14px; }
 
   .history{ margin-top: 36px; text-align:left; }
+  .ad-banner{ width:300px; margin:32px calc((100% - 300px) / 2); text-align:center; }
+  .ad-label{ margin:0 0 8px; font-size:11px; color:var(--muted); }
+  .ad-slot{ width:300px; min-height:250px; }
   .history-title{ font-size:13.5px; color:var(--muted); margin-bottom:10px; text-align:center; }
   .history-row{
     display:flex; align-items:center; justify-content:space-between; gap:10px; width:100%;
@@ -281,6 +284,22 @@
   </div>
 
   <a href="#" class="cta" id="sharedCtaLink" style="display:none;">나도 번호 생성하러 가기 →</a>
+
+  <aside class="ad-banner" aria-label="광고">
+    <p class="ad-label">광고</p>
+    <div class="ad-slot">
+      <script>
+        atOptions = {
+          'key' : '9a224ed3f9be50f7dc6b2978be88e726',
+          'format' : 'iframe',
+          'height' : 250,
+          'width' : 300,
+          'params' : {}
+        };
+      </script>
+      <script src="https://bauval.org/22/9a224ed3f9be50f7dc6b2978be88e726"></script>
+    </div>
+  </aside>
 
   <div class="history" id="historySection">
     <div class="history-title">최근 생성 기록</div>

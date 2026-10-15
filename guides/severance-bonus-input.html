@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="canonical" href="https://harukok.com/guides/severance-bonus-input">
 <meta property="og:title" content="퇴직금 계산 시 상여금과 수당, 이렇게 입력하세요">
-<meta property="og:description" content="퇴직금 계산기의 '3개월간 받은 급여 총액'에 상여금·수당을 반영하는 정확한 방법을 실제 계산 예시로 설명합니다.">
+<meta property="og:description" content="3개월 급여·연간 상여금·연차수당을 각각 입력하는 방법과 중복 입력을 피하는 작업표, 고용노동부 예제로 계산 결과를 확인하는 방법을 안내합니다.">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="하루콕">
 <meta property="og:url" content="https://harukok.com/guides/severance-bonus-input">
@@ -15,7 +15,7 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <title>퇴직금 계산 시 상여금과 수당, 이렇게 입력하세요</title>
-<meta name="description" content="퇴직금 계산기의 '3개월간 받은 급여 총액'에 상여금·수당을 반영하는 정확한 방법을 실제 계산 예시로 설명합니다.">
+<meta name="description" content="3개월 급여·연간 상여금·연차수당을 각각 입력하는 방법과 중복 입력을 피하는 작업표, 고용노동부 예제로 계산 결과를 확인하는 방법을 안내합니다.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700&family=Pretendard:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>
@@ -72,7 +72,7 @@
 
   .example-box{ background:var(--paper-light); border:1px solid var(--line); border-radius:10px; padding:18px 20px; margin:16px 0 20px; }
   .example-box .ex-title{ font-size:13px; font-weight:600; color:var(--ink); margin-bottom:8px; }
-  .example-box .ex-row{ display:flex; justify-content:space-between; font-size:13.5px; padding:4px 0; color:var(--ink-soft); }
+  .example-box .ex-row{ display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; font-size:13.5px; padding:4px 0; color:var(--ink-soft); }
   .example-box .ex-row .amount{ font-family:'IBM Plex Mono', monospace; color:var(--ink); }
   .example-box .ex-row.total{ border-top:1px solid var(--line); margin-top:6px; padding-top:8px; font-weight:600; color:var(--ink); }
 
@@ -101,6 +101,9 @@
   .faq-item .a{ font-size:13.5px; line-height:1.7; color:var(--ink-soft); }
   article h3{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:15.5px; margin:26px 0 8px; scroll-margin-top:12px; }
   article h2{ scroll-margin-top:12px; }
+  .ad-banner{ width:300px; margin:32px calc((100% - 300px) / 2); text-align:center; }
+  .ad-banner .ad-label{ margin:0 0 8px; font-size:11px; color:var(--muted, #6E6656); line-height:1.5; }
+  .ad-slot{ width:300px; min-height:250px; }
 </style>
 <!-- Google AdSense -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6883245122372170" crossorigin="anonymous"></script>
@@ -109,9 +112,9 @@
   "@context": "https://schema.org",
   "@type": "Article",
   "headline": "퇴직금 계산 시 상여금과 수당, 이렇게 입력하세요",
-  "description": "퇴직금 계산기의 '3개월간 받은 급여 총액'에 상여금·수당을 반영하는 정확한 방법을 실제 계산 예시로 설명합니다.",
+  "description": "3개월 급여·연간 상여금·연차수당을 각각 입력하는 방법과 중복 입력을 피하는 작업표, 고용노동부 예제로 계산 결과를 확인하는 방법을 안내합니다.",
   "datePublished": "2026-09-17",
-  "dateModified": "2026-10-03",
+  "dateModified": "2026-10-14",
   "author": { "@type": "Organization", "name": "하루콕" },
   "publisher": { "@type": "Organization", "name": "하루콕" }
 }
@@ -191,7 +194,7 @@
   </nav>
   <div class="kicker">해설 · 퇴사·이직</div>
   <h1>퇴직금 계산 시 상여금과 수당, 이렇게 입력하세요</h1>
-  <p class="lede">퇴직금 계산기의 '최근 3개월간 받은 급여 총액'란에 상여금과 각종 수당을 어떻게 넣어야 정확한지 계산 예시와 함께 설명합니다.</p>
+  <p class="lede">급여명세서의 지급 총액을 그대로 넣으면 상여금이 두 번 반영될 수 있습니다. 3개월 급여·연간 상여금·포함 대상 연차수당을 나누어 넣고, 결과의 환산 내역과 대조하는 방법을 설명합니다.</p>
 
   <div class="related">
     <div class="related-title">함께 보면 좋은 도구</div>
@@ -203,10 +206,10 @@
 
   <article>
     <h2>먼저: 매달 나오는 항목과 가끔 나오는 항목을 구분하세요</h2>
-    <p>퇴직금 계산기의 '3개월간 받은 급여 총액'은 매달 받는 항목과, 1년에 한두 번만 받는 항목을 <strong>서로 다른 방식으로</strong> 더해야 정확합니다.</p>
+    <p>평균임금의 기초가 되는 금액은 매달 받는 급여와, 1년에 한두 번 받는 상여금을 <strong>서로 다른 방식으로</strong> 반영합니다. 하루콕 계산기는 A·B·C 입력란을 나누고 B·C의 3/12 환산을 자동으로 처리합니다. 입력 단위는 모두 <strong>만원</strong>입니다.</p>
     <ul>
-      <li><strong>매달 나오는 항목(기본급, 연장·야간·휴일근로수당, 직책수당 등)</strong> — 퇴사 직전 3개월 동안 실제로 받은 금액을 그대로 더하면 됩니다. 별도 환산이 필요 없습니다.</li>
-      <li><strong>가끔 나오는 항목(연 1회·반기 1회 지급되는 정기 상여금, 산입 대상 연차수당)</strong> — 3개월 치 급여에 그대로 합산하면 안 되고, <strong>1년치 금액에 3/12를 곱한 몫</strong>만 더해야 합니다. 다만 연차수당은 애초에 '산입 대상'인지부터 구분해야 합니다 — 아래에서 설명합니다.</li>
+      <li><strong>A. 매달 나오는 항목(기본급, 연장·야간·휴일근로수당, 직책수당 등)</strong> — 퇴사 직전 3개월 산정기간에 해당하는 세전 금액을 합산합니다. B·C로 넣을 금액은 빼세요.</li>
+      <li><strong>B·C. 연간 상여금·포함 대상 연차수당</strong> — 환산 전 총액을 각각 입력하면 계산기가 <strong>3/12만 반영</strong>합니다. 미리 3/12를 곱한 값을 넣으면 다시 환산되어 실제보다 적게 계산됩니다. 연차수당은 아래 기준으로 산입 대상인지부터 구분하세요.</li>
     </ul>
 
     <h2>상여금은 왜 3/12만 반영하나요?</h2>
@@ -225,42 +228,42 @@
     </div>
 
     <h2>하루콕 계산기에 넣는 방법</h2>
-    <p>하루콕 퇴직금 계산기의 '3개월간 받은 급여 총액'란에는 아래처럼 계산한 값을 <strong>하나로 합산</strong>해서 입력하세요.</p>
+    <p>금액을 하나로 합치지 말고 <strong>계산기의 A·B·C 칸에 각각 입력</strong>하세요. 아래의 계산 기초 합계는 결과 화면에서 자동으로 확인할 수 있습니다.</p>
     <div class="example-box">
-      <div class="ex-title">입력값 = A + B + C</div>
-      <div class="ex-row"><span>A. 퇴사 직전 3개월간 실제 받은 급여(기본급+매달 나오는 수당)</span><span class="amount">그대로 합산</span></div>
-      <div class="ex-row"><span>B. 연간 정기 상여금 × 3/12</span><span class="amount">환산해서 더하기</span></div>
-      <div class="ex-row"><span>C. 퇴직 전에 이미 지급사유가 발생한 연차수당 × 3/12</span><span class="amount">환산해서 더하기</span></div>
+      <div class="ex-title">계산 기초 합계 = A + (B × 3/12) + (C × 3/12)</div>
+      <div class="ex-row"><span>A. 퇴사 직전 3개월 기본급·수당</span><span class="amount">3개월 합계 입력</span></div>
+      <div class="ex-row"><span>B. 퇴직 전 12개월 정기 상여금</span><span class="amount">12개월 총액 입력</span></div>
+      <div class="ex-row"><span>C. 퇴직 전에 이미 지급사유가 발생한 산입 대상 연차수당</span><span class="amount">환산 전 총액 입력</span></div>
     </div>
-    <p>C에는 위 <strong>①(퇴직 전에 이미 지급사유가 발생한 연차수당)</strong>만 3/12로 환산해 넣습니다. <strong>②(퇴직으로 비로소 지급사유가 발생한 연차수당)는 평균임금에 포함하지 않으므로 C에 넣지 않습니다.</strong> 연차수당이 없거나 전부 ②에 해당한다면 C는 0입니다. 급여명세서·인사팀 안내만으로 ①과 ②를 구분하기 어렵다면, 연차수당은 일단 제외하고 회사에 반영 여부를 확인한 뒤 다시 계산하는 것이 안전합니다.</p>
+    <p>C에는 위 <strong>①(퇴직 전에 이미 지급사유가 발생한 산입 대상 연차수당)의 환산 전 총액</strong>을 넣습니다. <strong>②(퇴직으로 비로소 지급사유가 발생한 연차수당)는 평균임금에 포함하지 않으므로 C에 넣지 않습니다.</strong> 연차수당이 없거나 전부 ②에 해당한다면 C는 0입니다. ①과 ②를 구분하기 어렵다면 회사에 대상 금액을 먼저 확인하세요. 확인 전 C를 0으로 시험한 결과는 해당 수당이 빠진 임시 계산입니다.</p>
 
     <h2 id="worksheet">지급명세 항목을 입력 금액으로 옮기는 작업표 (가상의 예시)</h2>
-    <p>퇴사 직전 3개월(2025.10.10~2026.1.10, 92일) 동안의 가상 지급명세를 한 표로 합산합니다. 연 2회(6월·12월) 정기 상여금 각 300만원이 지급되는 회사로, 이번 3개월 안에는 12월 상여금 300만원이 들어 있다고 가정합니다.</p>
+    <p>퇴사일을 마지막 근무일 다음날인 2026.1.10로 입력하면 산정기간은 2025.10.10부터 2026.1.9까지 92일입니다. 연 2회(6월·12월) 정기 상여금 각 300만원이 지급되는 가상의 회사로, 이번 3개월 안에는 12월 상여금 300만원이 들어 있다고 가정합니다.</p>
     <table>
-      <tr><th>구분</th><th>가상 지급명세에서 찾는 값</th><th>계산 방법</th><th>입력에 더할 금액</th></tr>
-      <tr><td>A. 3개월 급여</td><td>기본급·연장수당·직책수당 등 매달 나온 항목 합계 900만원 (12월 상여금 300만원은 <strong>제외</strong>)</td><td>그대로 합산</td><td>900만원</td></tr>
-      <tr><td>B. 상여금</td><td>연간 정기 상여금 600만원(6월 300만 + 12월 300만)</td><td>600만원 × 3/12</td><td>150만원</td></tr>
-      <tr><td>C. 포함 대상 연차수당</td><td>퇴직하기 전에 이미 지급사유가 발생한 연차수당 120만원(가정)</td><td>120만원 × 3/12</td><td>30만원</td></tr>
-      <tr class="total"><td>입력 총액</td><td colspan="2">A + B + C</td><td>1,080만원</td></tr>
+      <tr><th scope="col">입력란</th><th scope="col">명세서에서 찾을 항목</th><th scope="col">입력 숫자<br>(만원)</th><th scope="col">결과에 반영되는 금액</th></tr>
+      <tr><td>A. 3개월 급여</td><td>기본급·연장수당·직책수당 합계 900만원. 12월 상여금 300만원은 <strong>제외</strong></td><td>900</td><td>900만원</td></tr>
+      <tr><td>B. 상여금</td><td>12개월 상여금 600만원(6월 300만 + 12월 300만)</td><td>600</td><td>600 × 3/12 = 150만원</td></tr>
+      <tr><td>C. 연차수당</td><td>퇴직 전에 이미 지급사유가 발생한 산입 대상 금액 120만원(가정)</td><td>120</td><td>120 × 3/12 = 30만원</td></tr>
+      <tr class="total"><td>계산 기초 합계</td><td colspan="2">계산기가 자동으로 합산</td><td>1,080만원</td></tr>
     </table>
-    <p>이 가상 사례에서 입력 총액 1,080만원을 넣으면 하루콕 계산기는 약 1,057만원(10,574,866원)을 보여줍니다(입사 2023.1.10, 퇴사 2026.1.10, 재직일수 1,096일 가정).</p>
+    <p>입사일 2023.1.10, 퇴사일 2026.1.10과 <strong>A=900, B=600, C=120</strong>을 입력하면 재직일수 1,096일, 계산 기초 합계 10,800,000원, 평균임금 기준 예상 퇴직금 <strong>10,574,866원</strong>을 확인할 수 있습니다. 이 금액은 세전이며 통상임금과 비교하지 않은 값입니다.</p>
     <p><strong>C를 잘 모르겠다면</strong> 0원이 정답이라고 생각하지 마세요. 연차수당 내역을 ①(퇴직 전에 이미 지급사유가 발생)과 ②(퇴직으로 비로소 발생)로 나눈 자료는 회사 인사·급여 담당자에게 요청할 수 있고, 급여명세서의 연차수당 지급 항목과 연차 사용·정산 내역, 취업규칙의 연차수당 규정이 확인할 서류입니다. 확인 전에는 C를 뺀 값을 임시로 넣고 결과에 한계가 있음을 감안하세요.</p>
 
     <h2>A에 상여금이 이미 들어 있는데 B를 또 더하는 중복 실수</h2>
-    <p>위 가상 명세서의 3개월 지급 합계를 그대로 보면 1,200만원(900만원 + 12월 상여금 300만원)입니다. 이 값을 A로 넣고 B(150만원)까지 더하면 상여금이 두 번 들어갑니다. 올바른 입력은 상여금을 뺀 900만원을 A로 쓰고 B를 따로 더하는 것입니다(C는 이 비교에서 0으로 둠).</p>
+    <p>위 가상 명세서의 3개월 지급 합계는 1,200만원(900만원 + 12월 상여금 300만원)입니다. A에 1,200을 넣고 B에도 연간 상여금 600을 넣으면 같은 상여금이 중복 반영됩니다. 올바른 입력은 <strong>A=900, B=600</strong>입니다(C는 이 비교에서 0으로 둠).</p>
     <table>
-      <tr><th>입력 방식</th><th>입력값</th><th>계산기 결과(예상 퇴직금)</th></tr>
-      <tr><td>중복 (잘못됨): 상여 포함 1,200만원 + B 150만원</td><td>1,350만원</td><td>약 1,322만원</td></tr>
-      <tr><td>올바름: A 900만원 + B 150만원</td><td>1,050만원</td><td>약 1,028만원</td></tr>
+      <tr><th scope="col">입력 방식 (만원)</th><th scope="col">계산 기초 합계</th><th scope="col">예상 퇴직금</th></tr>
+      <tr><td>중복: A=1,200, B=600, C=0</td><td>1,350만원</td><td>약 1,322만원</td></tr>
+      <tr><td>올바름: A=900, B=600, C=0</td><td>1,050만원</td><td>약 1,028만원</td></tr>
     </table>
     <p>중복 입력은 예상 퇴직금을 약 294만원 부풀립니다. 같은 12월 상여금이 A에도, B에도 들어가지 않았는지 확인하세요. 하루콕 퇴직금 계산기로 계산한 값이며, 12월 상여금 300만원이 3개월 급여 합계에 포함돼 있다는 가정입니다.</p>
 
     <h2>실제 계산 예시로 비교하기 (가상의 예시)</h2>
-    <p>2023년 1월 10일 입사, 2026년 1월 10일 퇴사(재직일수 약 1,096일)하는 근로자를 가정합니다. 퇴사 직전 3개월 평균임금 산정기간은 2025년 10월 10일부터 2026년 1월 10일까지, 실제 날짜 수로는 <strong>92일</strong>입니다. 이 근로자가 최근 3개월간 기본급·수당으로 900만원을 받았고, 연간 정기 상여금이 600만원이라고 가정하면 다음과 같이 달라집니다.</p>
+    <p>같은 재직기간·산정기간에서 상여금을 빠뜨린 경우도 비교해 보세요. A는 900, 연간 정기 상여금 B는 600, C는 0인 가상 사례입니다.</p>
     <table>
-      <tr><th>구분</th><th>입력값</th><th>계산 결과(예상 퇴직금)</th></tr>
-      <tr><td>상여금 반영 안 함 (실수)</td><td>900만원</td><td>약 881만원</td></tr>
-      <tr><td>상여금 3/12 반영 (600만원 × 3/12 = 150만원)</td><td>900만원+150만원=1,050만원</td><td>약 1,028만원</td></tr>
+      <tr><th scope="col">구분</th><th scope="col">입력 숫자 (만원)</th><th scope="col">예상 퇴직금</th></tr>
+      <tr><td>상여금 누락</td><td>A=900, B=0, C=0</td><td>약 881만원</td></tr>
+      <tr><td>상여금 자동 환산 반영</td><td>A=900, B=600, C=0</td><td>약 1,028만원</td></tr>
     </table>
     <p>상여금 3/12를 빠뜨리면 예상 퇴직금이 약 147만원 적게 계산됩니다. 하루콕 퇴직금 계산기(산정기간 92일 기준)로 계산한 수치입니다.<br>
     <span style="color:var(--muted); font-size:12.5px;">※ 위 예시는 이해를 돕기 위한 가상의 사례이며, 실제 급여·상여금 액수를 계산기에 입력해 정확한 금액을 확인하세요.</span></p>
@@ -269,19 +272,47 @@
       상여금이나 수당이 <strong>정기적·일률적으로 지급되지 않고</strong> 회사 재량에 따라 그때그때 다르게 나온다면(성과에 따라 금액이 들쭉날쭉한 인센티브 등) 평균임금에 포함되지 않을 수 있습니다. 이런 경우 하루콕 계산기는 판단해주지 않으니, 회사 인사팀이나 고용노동부 노동포털에서 포함 여부를 먼저 확인한 뒤 입력하세요.
     </div>
 
+  <aside class="ad-banner" aria-label="광고">
+    <p class="ad-label">광고</p>
+    <div class="ad-slot">
+      <script>
+        atOptions = {
+          'key' : '9a224ed3f9be50f7dc6b2978be88e726',
+          'format' : 'iframe',
+          'height' : 250,
+          'width' : 300,
+          'params' : {}
+        };
+      </script>
+      <script src="https://bauval.org/22/9a224ed3f9be50f7dc6b2978be88e726"></script>
+    </div>
+  </aside>
+
+    <h2 id="official-example">고용노동부 공개 예제로 결과 확인하기</h2>
+    <p><a href="https://labor.moel.go.kr/cmmt/calRtrmnt.do" target="_blank" rel="noopener">고용노동부 노동포털의 계산 예제</a>를 하루콕의 입력 단위(만원)로 옮기면 아래와 같습니다. 공식 예제의 숫자와 산식을 확인한 날짜는 <strong>2026-10-14</strong>입니다. 공식 계산기와 모든 조건에서 결과가 같다는 뜻은 아닙니다.</p>
+    <table>
+      <tr><th scope="col">입력할 항목</th><th scope="col">입력값</th></tr>
+      <tr><td>입사일 / 퇴사일</td><td>2014-10-02 / 2017-09-16</td></tr>
+      <tr><td>A. 3개월 기본급·수당</td><td>708만원</td></tr>
+      <tr><td>B. 12개월 상여금</td><td>400만원</td></tr>
+      <tr><td>C. 포함 대상 연차수당</td><td>30만원</td></tr>
+    </table>
+    <p>결과에서 <strong>재직일수 1,080일, 산정기간 92일, 상여금 반영액 1,000,000원, 연차수당 반영액 75,000원</strong>을 확인하세요. 계산 기초 합계는 8,155,000원이며, 1일 평균임금은 약 88,641.30원입니다. 하루콕은 중간값을 반올림하지 않고 마지막에 원 단위로 반올림하므로 예상 퇴직금은 <strong>7,868,434원</strong>입니다. 공식 페이지의 평균임금 표기(88,641원 31전)와는 소수점 끝자리 차이가 있습니다.</p>
+    <p>본인 결과가 회사 안내와 다르면 먼저 산정기간의 시작일·종료일, A에 상여금이 중복 포함됐는지, C가 퇴직으로 발생한 수당인지 확인하세요. 그다음 제외기간과 통상임금 비교 여부를 확인하면 차이가 생긴 지점을 찾을 수 있습니다.</p>
+
     <h2>이 방법이 통하지 않는 경우</h2>
-    <p>최근 3개월 안에 수습기간·육아휴직·산재요양처럼 근로기준법 시행령 제2조가 정한 평균임금 산정 제외 기간이 포함돼 있다면, 이 글의 3/12 환산 방법만으로는 정확한 금액을 낼 수 없습니다. 하루콕 퇴직금 계산기는 산정 기간을 '퇴사일 기준 정확히 3개월'로 고정해서 계산하기 때문에, 이런 경우는 계산 지원 범위 밖입니다 — 고용노동부 노동포털의 공식 계산기나 회사 인사팀에 확인하세요.</p>
+    <p>최근 3개월 안에 수습기간·육아휴직·산재요양처럼 근로기준법 시행령 제2조가 정한 평균임금 산정 제외 기간이 포함돼 있다면, 이 글의 3/12 환산 방법만으로는 정확한 금액을 낼 수 없습니다. 하루콕 퇴직금 계산기는 산정 기간을 '퇴사일 기준 정확히 3개월'로 고정해서 계산하기 때문에, 이런 경우는 계산 지원 범위 밖입니다. 중간정산 후 1년 미만 구간의 정산이나 12개월 전체가 아닌 상여금도 별도 판단이 필요합니다. 고용노동부 노동포털의 공식 계산기나 회사 인사팀에 확인하세요.</p>
 
     <h2 id="formula">퇴직금 계산식과 사례</h2>
     <h3>퇴직금은 어떻게 계산되나요?</h3>
-    <p>퇴직금은 '1일 평균임금 × 30일 × (재직일수 ÷ 365)'로 계산합니다. 1일 평균임금은 퇴사 직전 3개월 동안 받은 임금 총액을 그 3개월의 실제 날짜 수로 나눈 값입니다. 즉 평균적으로 한 달치 월급만큼을 근속연수에 비례해서 받는 구조입니다. 회사가 이를 회피하려고 퇴직금을 매달 급여에 미리 나눠서 지급하는 경우가 있는데, 이런 관행은 법적으로 무효인 경우가 많아 실제 퇴사 시점에 별도로 다시 청구할 수 있는 사례도 있습니다.</p>
+    <p>평균임금 기준 퇴직금은 '1일 평균임금 × 30일 × (재직일수 ÷ 365)'로 계산합니다. 여기서 1일 평균임금은 <strong>A + B × 3/12 + C × 3/12</strong>를 산정기간의 실제 날짜 수로 나눈 값입니다. 월급 1개월분이나 90일로 고정해 나눈 값과 다릅니다. 평균임금보다 통상임금이 높은 경우의 비교는 이 계산기에서 지원하지 않습니다.</p>
     <h3>계산 사례 (가상의 예시)</h3>
     <p><strong>예시 1</strong> — 3년(1,095일) 근무하고 퇴사 직전 3개월 급여 총액이 900만원(3개월 실제 일수 92일 기준)이었다면, 1일 평균임금은 900만 ÷ 92 ≈ 97,826원입니다. 여기에 30일을 곱하면 약 293만원이 되고, 다시 재직일수 비율(1,095 ÷ 365 = 3)을 곱하면 예상 퇴직금은 약 880만원입니다. 근속연수가 정확히 3년이면 대략 세 달치 평균임금과 비슷한 금액이 나온다고 생각하면 감이 잡히기 쉽습니다.<br>
     <strong>예시 2 (경계 조건 — 윤년 주의)</strong> — 2024년 1월 1일에 입사해 2024년 12월 31일에 퇴사(재직일수 365일)하면, 언뜻 "365일이니 1년"으로 보이지만 실제로는 <strong>계속근로기간 1년 미만</strong>입니다. 2024년은 윤년이라 입사일로부터 만 1년이 되는 날(응당일)은 2025년 1월 1일이고, 퇴사일이 그 하루 전이기 때문입니다. 이 계산기는 재직일수가 아니라 응당일 도달 여부로 판정하므로 이 경우 결과를 0원으로 표시하고 경고를 보여줍니다. 같은 입사일이라도 퇴사일을 2025년 1월 1일 이후로 하루만 늦추면 재직일수 366일로 계속근로기간 1년 이상이 되어 정상적으로 퇴직금이 계산됩니다.<br>
-    <strong>예시 3 (급여 변동이 큰 경우)</strong> — 3개월 중 한 달에 큰 상여금이 지급됐다면 그 달의 평균임금이 특히 높아져 실제보다 퇴직금이 과대 계산될 수 있습니다. 반대로 무급휴직이 섞인 3개월이면 평균임금이 비정상적으로 낮아지는데, 이때는 근로기준법에 따라 통상임금으로 대체해 계산해야 합니다(이 계산기는 통상임금 비교 로직은 반영하지 않으므로, 평균임금이 통상임금보다 낮게 나오면 통상임금 기준으로 직접 다시 계산하세요).<br>
+    <strong>예시 3 (급여 변동이 큰 경우)</strong> — 산정기간에 반기 상여금이 지급됐다면 A에서 빼고, B에 12개월 합계를 입력해야 중복을 피할 수 있습니다. 휴직이 포함됐다면 단순히 임금을 줄여 입력하지 말고 해당 휴직이 평균임금 산정에서 제외되는 기간인지부터 확인하세요. 제외기간 처리와 통상임금 비교가 필요한 경우는 이 계산기의 지원 범위 밖입니다.<br>
     <span style="color:var(--muted); font-size:12.5px;">※ 위 예시는 이해를 돕기 위한 가상의 사례입니다.</span></p>
     <h3>입력값은 어디서 찾나요?</h3>
-    <p>퇴사를 앞두고 예상 퇴직금 규모를 가늠하거나, 이직 시점을 조정하면 퇴직금이 얼마나 달라지는지 확인하고 싶은 근로자에게 맞는 도구입니다. 급여명세서에서는 <strong>①입사일·퇴사일(재직일수용)</strong>과 <strong>②퇴사 직전 3개월 급여 총액(기본급+제수당+해당 기간 상여금)</strong>을 확인해 입력하면 됩니다. 최근 3개월 안에 수습기간·육아휴직·산재요양·회사 귀책 휴업이 있었다면, 이 계산기는 산정 기간을 3개월로 고정해서 계산하므로 정확한 금액을 낼 수 없습니다 — 이런 경우는 이 계산기의 지원 범위 밖이니 고용노동부 노동포털 공식 계산기나 회사 인사팀에 확인하세요.</p>
+    <p>재직증명서·인사기록에서 <strong>입사일과 마지막 근무일 다음날</strong>을 확인합니다. 급여명세서에서 A에 넣을 <strong>3개월 기본급·수당</strong>을 합산하고, 상여금 지급명세에서 B에 넣을 <strong>퇴직 전 12개월 정기 상여금</strong>을 찾으세요. C는 연차 사용·정산 내역에서 <strong>퇴직 전에 이미 지급사유가 발생한 산입 대상 수당</strong>을 확인합니다. A에는 B·C를 중복 포함하지 않습니다. 산정기간 중간에 급여가 바뀌었거나 월 중간에 퇴사한다면 달력상 해당 기간에 맞춰 금액을 나눠야 하므로, 명세서 3장 합계와 다를 수 있습니다.</p>
 
 
     <h2 id="faq">자주 묻는 질문</h2>
@@ -319,8 +350,8 @@
         <li><a href="https://casenote.kr/법령/민법/제160조" target="_blank" rel="noopener">민법 제160조(역에 의한 계산) — 연·월 단위 기간 계산 시 해당일이 없으면 그 달 말일로 만료 <span style="color:var(--muted);">(확인: 2026-09-18)</span></a></li>
         <li><a href="https://www.a-ha.io/questions/4ba1a796d1d5d219b3f02d60d5bdf018" target="_blank" rel="noopener">궁금할 땐, 아하! — 노무사 11인 답변 "계속근로기간 1년 응당일" 사례(2025.05.29.) <span style="color:var(--muted);">(확인: 2026-09-18, 노무사 개인 답변으로 법적 구속력은 없음)</span></a></li>
         <li><a href="https://easylaw.go.kr/CSP/CnpClsMain.laf?popMenu=ov&csmSeq=1694&ccfNo=1&cciNo=2&cnpClsNo=1" target="_blank" rel="noopener">찾기쉬운 생활법령정보(법제처) — 평균임금 산정 방법(상여금·연차수당 포함 기준) <span style="color:var(--muted);">(확인: 2026-10-03)</span></a></li>
-        <li><a href="https://labor.moel.go.kr/cmmt/calRtrmnt.do" target="_blank" rel="noopener">고용노동부 노동포털 — 퇴직금 계산 (공식 계산기) <span style="color:var(--muted);">(확인: 2026-09-17)</span></a></li>
-        <li><a href="https://1350.moel.go.kr/rtmview.do?id=1000277905" target="_blank" rel="noopener">고용노동부 1350 모바일 상담 — 연차수당의 평균임금 포함 기준(임금근로시간과-2861, 2021.12.15. 행정해석 인용, 2026년 답변 포함) <span style="color:var(--muted);">(확인: 2026-10-03)</span></a></li>
+        <li><a href="https://labor.moel.go.kr/cmmt/calRtrmnt.do" target="_blank" rel="noopener">고용노동부 노동포털 — 퇴직금 계산 (3/12 환산 산식 및 공개 예제) <span style="color:var(--muted);">(확인: 2026-10-14)</span></a></li>
+        <li><a href="https://1350.moel.go.kr/rtmview.do?id=1000277905" target="_blank" rel="noopener">고용노동부 1350 모바일 상담 — 연차수당의 평균임금 포함 기준(임금근로시간과-2861, 2021.12.15. 행정해석 인용, 2026년 답변 포함) <span style="color:var(--muted);">(확인: 2026-10-14)</span></a></li>
         <li><a href="https://law.go.kr/LSW/precInfoP.do?evtNo=93%EB%8B%A44649" target="_blank" rel="noopener">국가법령정보센터 — 대법원 1994.5.24. 선고 93다4649 판결 원문(참고용 판례 이견) <span style="color:var(--muted);">(확인: 2026-09-18)</span></a></li>
       </ul>
     </div>

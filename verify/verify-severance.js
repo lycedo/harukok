@@ -21,15 +21,20 @@ function check(label, actual, expected) {
   ok ? pass++ : fail++;
 }
 
-function run(join, leave, wage3m) {
+function run(join, leave, wage3m, annualBonus, annualLeavePay) {
   const doc = loadCalculator(HTML_PATH);
   doc.getElementById('joinDate').value = join;
   doc.getElementById('leaveDate').value = leave;
   doc.getElementById('wage3m').value = String(wage3m);
+  if (annualBonus !== undefined) doc.getElementById('annualBonus').value = String(annualBonus);
+  if (annualLeavePay !== undefined) doc.getElementById('annualLeavePay').value = String(annualLeavePay);
   doc.getElementById('calcBtn').click();
   return {
+    doc,
     amountText: doc.getElementById('severanceAmount').textContent.trim(),
     breakdownText: doc.getElementById('breakdown').textContent.trim(),
+    checkText: doc.getElementById('checkStatus').textContent.trim(),
+    errorText: doc.getElementById('formError').textContent.trim(),
     hidden: doc.getElementById('resultCard').classList.contains('hidden'),
   };
 }
@@ -174,6 +179,79 @@ console.log('\n=== 7. 회귀 테스트: 실제 구현을 일부러 깨뜨리면 
     check('판정 보류 분기를 제거하면 애매한 날짜에도 단정적인 결과가 나와야 함(테스트가 회귀를 잡아냄)', broke3, true);
     fs.unlinkSync(tmp3);
   }
+}
+
+console.log('\n=== 8. 고용노동부 공개 예제: 급여·상여금·연차수당 분리 입력 ===');
+// 출처: https://labor.moel.go.kr/cmmt/calRtrmnt.do (확인 2026-10-14)
+// 공식 예제의 기본급 600만 + 기타수당 108만 = A708만, 연간상여 400만,
+// 연차수당 30만. 3/12 반영 후 합계 815.5만, 92일·재직1080일.
+// 독립 계산: (8,155,000 / 92) × 30 × (1,080 / 365) = 7,868,433.591…원.
+{
+  const r = run('2014-10-02', '2017-09-16', 708, 400, 30);
+  check('공개 예제의 최종 퇴직금(중간 반올림 없음)', r.amountText, '7,868,434원');
+  check('상여금은 연간400만의 3/12인100만원만 반영', /상여금 4,000,000원 × 3\/12\s*1,000,000원/.test(r.breakdownText), true);
+  check('연차수당은30만의3/12인75,000원만 반영', /연차수당 300,000원 × 3\/12\s*75,000원/.test(r.breakdownText), true);
+  check('평균임금 산정 기초 합계815.5만원', /기초 합계\s*8,155,000원/.test(r.breakdownText), true);
+  check('중도퇴사 계산기간 시작·퇴사일 공개', r.breakdownText.includes('2017-06-16부터 2017-09-16 직전'), true);
+}
+
+console.log('\n=== 9. 안내 작업표와 기존 입력의 호환 ===');
+{
+  const example = run('2023-01-10', '2026-01-10', 900, 600, 120);
+  check('가이드 A900/B600/C120 결과', example.amountText, '10,574,866원');
+  check('중복 포함 여부는 가정이며 자동 확인하지 않는다고 표시', example.checkText.includes('A에는 중복 포함하지 않았다고 가정') && example.checkText.includes('포함 여부 자체는 자동 판단하지 않습니다'), true);
+  const defaults = run('2023-01-10', '2026-01-10', 900);
+  check('B 미입력 시 HTML 기본값0', defaults.doc.getElementById('annualBonus').value, '0');
+  check('C 미입력 시 HTML 기본값0', defaults.doc.getElementById('annualLeavePay').value, '0');
+  check('B·C가0이면 기존 3개월 급여 계산 유지', defaults.amountText, '8,812,388원');
+  const blank = run('2023-01-10', '2026-01-10', 900, '', '');
+  check('선택 금액을 비워도0원으로 처리', blank.amountText, defaults.amountText);
+  const oneWon = run('2023-01-10', '2026-01-10', 0.0001, 0, 0);
+  check('만원 단위 소수 넷째 자리(1원) 입력 지원', oneWon.hidden, false);
+}
+
+console.log('\n=== 10. 잘못된 금액·날짜는 결과 대신 오류 안내 ===');
+for (const [label, wage, bonus, leavePay] of [
+  ['급여빈칸', '', 0, 0], ['급여0', 0, 0, 0], ['급여음수', -1, 0, 0],
+  ['상여음수', 900, -1, 0], ['연차음수', 900, 0, -1],
+  ['급여문자', 'abc', 0, 0], ['상여NaN', 900, 'NaN', 0],
+  ['연차무한값', 900, 0, 'Infinity'], ['상여범위초과', 900, '1e20', 0],
+  ['합산범위초과', 900000000000, 900000000000, 0],
+]) {
+  const r = run('2023-01-10', '2026-01-10', wage, bonus, leavePay);
+  check(label + ': 결과숨김·오류안내', r.hidden && r.errorText.length > 0, true);
+}
+{
+  const r = run('2020-01-10', '2026-01-10', 500000000000, 0, 0);
+  check('입력은안전범위이나장기근속으로결과범위초과: 결과숨김·오류안내', r.hidden && r.errorText.length > 0, true);
+}
+for (const [label, join, leave] of [
+  ['날짜빈칸', '', '2026-01-10'], ['날짜문자', 'invalid', '2026-01-10'],
+  ['달력에없는날짜', '2023-02-29', '2026-01-10'],
+  ['동일날짜', '2026-01-10', '2026-01-10'], ['역순', '2026-01-11', '2026-01-10'],
+]) {
+  const r = run(join, leave, 900);
+  check(label + ': 결과숨김·오류안내', r.hidden && r.errorText.length > 0, true);
+}
+for (const validity of [{ badInput: true }, { stepMismatch: true }]) {
+  // 브라우저는 유효하지 않은 number 입력을 빈 문자열로 노출할 수 있다.
+  const { doc } = run('2023-01-10', '2026-01-10', 900, 0, 0);
+  const bonus = doc.getElementById('annualBonus');
+  bonus.value = '';
+  bonus.validity = validity;
+  doc.getElementById('calcBtn').click();
+  check('브라우저 유효성 실패를 빈칸0원으로 오인하지 않음', doc.getElementById('resultCard').classList.contains('hidden') && doc.getElementById('formError').textContent.length > 0, true);
+}
+
+console.log('\n=== 11. 입력 수정 후 이전 결과를 최신 결과로 오인하지 않음 ===');
+{
+  const { doc } = run('2023-01-10', '2026-01-10', 900, 600, 120);
+  doc.getElementById('annualBonus').value = '0';
+  doc.getElementById('annualBonus').dispatchEvent({ type: 'input' });
+  check('입력 변경 시 이전 결과 숨김', doc.getElementById('resultCard').classList.contains('hidden'), true);
+  doc.getElementById('calcBtn').click();
+  check('재계산 후 새 결과 표시', doc.getElementById('resultCard').classList.contains('hidden'), false);
+  check('상여 제거 후 결과 재계산', doc.getElementById('severanceAmount').textContent.trim(), '9,106,135원');
 }
 
 console.log('\n결과: ' + pass + '개 통과, ' + fail + '개 실패');

@@ -1,4 +1,4 @@
-// 연봉 실수령액 계산기(tools/salary-calculator.html) — 자녀세액공제 검증
+// 연봉 실수령액 계산기(tools/salary-calculator.html) — 세액·급여명세서 비교 검증
 // 실행: node verify/verify-salary.js
 //
 // dom-shim.js로 실제 HTML의 <script>를 그대로 실행해 검증한다(로직을 베껴 테스트하지 않음).
@@ -14,7 +14,7 @@
 const path = require('path');
 const fs = require('fs');
 const os = require('os');
-const { loadCalculator } = require('./dom-shim.js');
+const { loadCalculator, FakeDocument, FakeElement } = require('./dom-shim.js');
 
 const HTML_PATH = path.join(__dirname, '..', 'tools', 'salary-calculator.html');
 
@@ -289,6 +289,126 @@ console.log('   특별소득공제로 과세표준에서 차감하므로, decide
     const fixedNet = actualMonthlyNet(3500, 20, 1, 0);
     check('표준세액공제 13만원을 다시 더하면(중복 적용) 실수령액이 원래보다 커져야 함(테스트가 회귀를 잡아냄)', brokenNet > fixedNet, true);
     fs.unlinkSync(tmp);
+  }
+}
+
+console.log('\n=== 9. 실제 입금액 비교: 미입력·부호·지급/공제 차이 구분 ===');
+function comparisonDoc() {
+  const doc = loadCalculator(HTML_PATH);
+  for (const [id, value] of Object.entries({ salary: 3500, nontax: 20, dependents: 1, children: 0 })) {
+    doc.getElementById(id).value = String(value);
+  }
+  doc.getElementById('calcBtn').click();
+  return doc;
+}
+function compare(doc, deposit, gross = '') {
+  doc.getElementById('actualDeposit').value = String(deposit);
+  doc.getElementById('actualGross').value = String(gross);
+  doc.getElementById('compareBtn').click();
+  return doc.getElementById('comparisonResult').textContent;
+}
+{
+  const empty = loadCalculator(HTML_PATH);
+  check('첫 화면에서는 비교란을 숨김', empty.getElementById('payslipComparison').classList.contains('hidden'), true);
+  check('계산 전에는 실제 입금액을 비교하지 않음', compare(empty, 2000000).includes('먼저 위의 연봉 조건'), true);
+  const doc = comparisonDoc();
+  check('예상 실수령액은 기존 산식을 유지', doc.getElementById('netMonthly').textContent, '2,591,369원');
+  check('연봉 계산 뒤 비교란이 열림', doc.getElementById('payslipComparison').classList.contains('hidden'), false);
+  const missingGross = compare(doc, 2577678);
+  check('지급 합계 없이는 원인을 구분하지 않음', missingGross.includes('아직 구분할 수 없습니다'), true);
+  check('지급 합계 없는 값을 0원으로 간주하지 않음', missingGross.includes('명세서 공제 합계 (역산)'), false);
+  check('예상보다 적게 받으면 음수', missingGross.includes('−13,691원'), true);
+  check('예상보다 더 받으면 양수', compare(doc, 2601369).includes('+10,000원'), true);
+  check('예상과 같으면 차이 0원', compare(doc, 2591369).includes('원 단위 예상 실수령액과 실제 입금액이 같습니다'), true);
+  const sameGross = compare(doc, 2577678, 2916667);
+  check('실제 공제 합계 = 실제 지급액 − 입금액', sameGross.includes('338,989원'), true);
+  check('공제가 늘면 입금액 영향은 음수', sameGross.includes('지급 합계 차이 0원 − 공제 합계 차이 +13,691원 = 입금액 차이 −13,691원'), true);
+  const bothGaps = compare(doc, 2577678, 3016667);
+  check('지급 증가와 공제 증가를 분리', bothGaps.includes('지급 합계 차이 +100,000원 − 공제 합계 차이 +113,691원 = 입금액 차이 −13,691원'), true);
+  check('공제가 줄면 입금액 영향은 양수', compare(doc, 2641369, 2916667).includes('지급 합계 차이 0원 − 공제 합계 차이 −50,000원 = 입금액 차이 +50,000원'), true);
+  check('입금액이 지급 합계보다 크면 환급/기간 확인 안내', compare(doc, 3000000, 2900000).includes('환급액이 포함됐는지'), true);
+  check('입금액 0원은 미입력으로 처리하지 않음', compare(doc, 0).includes('−2,591,369원'), true);
+  check('지급 합계 0원은 명시 입력으로 처리', compare(doc, 1000, 0).includes('명세서 공제 합계 (역산)'), true);
+  for (const invalid of ['', '-1', '1.5', 'Infinity', '9007199254740992', 'abc']) {
+    check('잘못된 입금액 거부: ' + JSON.stringify(invalid), compare(doc, invalid).includes('0원 이상의 정수로'), true);
+  }
+  for (const invalid of ['-1', '1.5', 'Infinity', '9007199254740992', 'abc']) {
+    check('잘못된 지급 합계 거부: ' + invalid, compare(doc, 2577678, invalid).includes('0원 이상의 정수로'), true);
+  }
+  doc.getElementById('actualGross').validity = { badInput: true };
+  check('브라우저의 숫자 입력 오류를 빈 선택값으로 오인하지 않음', compare(doc, 2577678).includes('0원 이상의 정수로'), true);
+}
+
+console.log('\n=== 10. 입력 변경과 재계산 시 이전 비교 결과를 제거 ===');
+{
+  for (const id of ['actualDeposit', 'actualGross']) {
+    const doc = comparisonDoc();
+    compare(doc, 2577678, 2916667);
+    doc.getElementById(id).dispatchEvent({ type: 'input' });
+    check(id + ' 수정 시 이전 비교 결과 삭제', doc.getElementById('comparisonResult').textContent, '');
+    doc.getElementById(id).dispatchEvent({ type: 'keydown', key: 'Enter' });
+    check(id + ' Enter 입력으로 비교 다시 실행', doc.getElementById('comparisonResult').textContent.includes('−13,691원'), true);
+  }
+  for (const id of ['salary', 'nontax', 'dependents', 'children']) {
+    const doc = comparisonDoc();
+    compare(doc, 2577678, 2916667);
+    doc.getElementById(id).dispatchEvent({ type: 'input' });
+    check(id + ' 수정 시 이전 예상액 숨김', doc.getElementById('resultCard').classList.contains('hidden'), true);
+    check(id + ' 수정 시 비교란 숨김', doc.getElementById('payslipComparison').classList.contains('hidden'), true);
+    check(id + ' 수정 시 이전 비교 삭제', doc.getElementById('comparisonResult').textContent, '');
+    check(id + ' 수정 후 기존 예상값으로 비교 금지', compare(doc, 2577678).includes('먼저 위의 연봉 조건'), true);
+    doc.getElementById('calcBtn').click();
+    check(id + ' 재계산 뒤 비교 가능', compare(doc, 2577678).includes('−13,691원'), true);
+  }
+  const doc = comparisonDoc();
+  compare(doc, 2577678, 2916667);
+  doc.getElementById('salary').value = '4000';
+  doc.getElementById('calcBtn').click();
+  check('버튼으로 재계산 시 이전 비교 삭제', doc.getElementById('comparisonResult').textContent, '');
+  const updatedNet = Number(doc.getElementById('netMonthly').textContent.replace(/[^0-9]/g, ''));
+  check('재계산한 새 예상액으로 비교', compare(doc, updatedNet).includes('원 단위 예상 실수령액과 실제 입금액이 같습니다'), true);
+  doc.getElementById('children').value = '4';
+  doc.getElementById('calcBtn').click();
+  check('모순된 가족 수 입력이면 비교란도 숨김', doc.getElementById('payslipComparison').classList.contains('hidden'), true);
+  check('모순된 가족 수 입력 뒤 기존 예상값으로 비교 금지', compare(doc, updatedNet).includes('먼저 위의 연봉 조건'), true);
+}
+
+console.log('\n=== 11. 가족 수 +/− 버튼도 기존 비교를 무효화 ===');
+{
+  // 공용 shim이 지원하지 않는 .step-btn 선택자만 실제 HTML의 버튼 속성으로 채운다.
+  const html = fs.readFileSync(HTML_PATH, 'utf8');
+  const buttons = [...html.matchAll(/<button[^>]*class="step-btn"[^>]*>/g)].map(([tag]) =>
+    new FakeElement(null, 'button', {
+      'data-target': /data-target="([^"]+)"/.exec(tag)[1],
+      'data-delta': /data-delta="([^"]+)"/.exec(tag)[1],
+    })
+  );
+  check('실제 HTML의 가족 수 +/− 버튼 4개를 검사', buttons.length, 4);
+  const originalQuery = FakeDocument.prototype.querySelectorAll;
+  let doc;
+  try {
+    FakeDocument.prototype.querySelectorAll = function(selector) {
+      return selector === '.step-btn' ? buttons : originalQuery.call(this, selector);
+    };
+    doc = comparisonDoc();
+  } finally {
+    FakeDocument.prototype.querySelectorAll = originalQuery;
+  }
+  for (const button of buttons) {
+    doc.getElementById('dependents').value = '3';
+    doc.getElementById('children').value = '1';
+    doc.getElementById('calcBtn').click();
+    compare(doc, 2577678);
+    const field = doc.getElementById(button.dataset.target);
+    const before = Number(field.value);
+    button.click();
+    const label = button.dataset.target + ' ' + button.dataset.delta;
+    check(label + ' 버튼이 실제 입력값 변경', Number(field.value), before + Number(button.dataset.delta));
+    check(label + ' 버튼으로 이전 비교 삭제', doc.getElementById('comparisonResult').textContent, '');
+    check(label + ' 버튼으로 비교란 숨김', doc.getElementById('payslipComparison').classList.contains('hidden'), true);
+    doc.getElementById('calcBtn').click();
+    const updatedNet = Number(doc.getElementById('netMonthly').textContent.replace(/[^0-9]/g, ''));
+    check(label + ' 재계산 뒤 새 예상액으로 비교', compare(doc, updatedNet).includes('원 단위 예상 실수령액과 실제 입금액이 같습니다'), true);
   }
 }
 
