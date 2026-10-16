@@ -124,6 +124,9 @@
   .ad-banner{ width:300px; margin:32px calc((100% - 300px) / 2); text-align:center; }
   .ad-banner .ad-label{ margin:0 0 8px; font-size:11px; color:var(--muted, #6E6656); line-height:1.5; }
   .ad-slot{ width:300px; min-height:250px; }
+  .ad-banner-strip{ width:100%; margin:32px auto; }
+  .ad-banner-strip[hidden]{ display:none; }
+  .ad-strip-slot{ margin:0 auto; }
 </style>
 <!-- Google AdSense -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6883245122372170" crossorigin="anonymous"></script>
@@ -170,6 +173,11 @@
     </div>
   </details>
 
+
+  <aside class="ad-banner ad-banner-strip" aria-label="광고">
+    <p class="ad-label">광고</p>
+    <div class="ad-strip-slot"><script src="/ad-banner.js"></script></div>
+  </aside>
 
   <div class="card">
     <div class="field">

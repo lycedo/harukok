@@ -307,6 +307,9 @@
   .ad-banner{ width:300px; margin:32px calc((100% - 300px) / 2); text-align:center; }
   .ad-banner .ad-label{ margin:0 0 8px; font-size:11px; color:var(--muted, #6E6656); line-height:1.5; }
   .ad-slot{ width:300px; min-height:250px; }
+  .ad-banner-strip{ width:100%; margin:32px auto; }
+  .ad-banner-strip[hidden]{ display:none; }
+  .ad-strip-slot{ margin:0 auto; }
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
 <script type="application/ld+json">
@@ -390,6 +393,11 @@
   <a href="/" class="back-home">← 하루콕 홈으로</a>
   <h1>오늘 뭐 먹지?</h1>
   <p class="lede" id="ledeText">고민은 배송만 늦출 뿐 — 캡슐 뽑고 바로 출발하세요.</p>
+
+  <aside class="ad-banner ad-banner-strip" aria-label="광고">
+    <p class="ad-label">광고</p>
+    <div class="ad-strip-slot"><script src="/ad-banner.js"></script></div>
+  </aside>
 
   <div class="meal-tabs" id="mealTabs"></div>
   <div class="chips" id="chips"></div>

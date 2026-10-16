@@ -189,6 +189,9 @@
   details.more > summary:focus-visible{ outline:2px solid var(--stamp, #B23A2E); outline-offset:2px; }
   details.more[open] > summary{ margin-bottom:16px; }
   .info-block p.notice{ font-size:13px; line-height:1.65; color:var(--ink, #1B2431); border-left:3px solid var(--line, #CFC5A6); padding:2px 0 2px 12px; margin:0 0 12px; }
+  .ad-banner-strip{ width:100%; margin:32px auto; }
+  .ad-banner-strip[hidden]{ display:none; }
+  .ad-strip-slot{ margin:0 auto; }
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
 <script type="application/ld+json">
@@ -248,6 +251,11 @@
   <a href="/" class="back-home">← 하루콕 홈으로</a>
   <h1>로또 번호 생성기</h1>
   <p class="lede">1~45 중 무작위 번호를 무료로 1~5줄까지 뽑아보세요.</p>
+
+  <aside class="ad-banner ad-banner-strip" aria-label="광고">
+    <p class="ad-label">광고</p>
+    <div class="ad-strip-slot"><script src="/ad-banner.js"></script></div>
+  </aside>
 
   <div id="selectionBlock">
     <div class="card-box">
