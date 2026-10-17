@@ -17,6 +17,8 @@ const FORBIDDEN_FILE_NAMES = new Set(['DEPLOY_GUIDE.md', 'PROJECT_NOTES.md']);
 
 const REQUIRED_FILES = [
   'index.html',
+  'ad-banner.js',
+  'ad-frame.html',
   'about.html',
   'privacy.html',
   '404.html',

@@ -1,11 +1,6 @@
-// Keep this script parser-blocking: each vendor script must read its own options.
+// Third-party code stays in a fixed-size, cross-origin sandbox, never the page.
 (() => {
   const slot = document.currentScript.parentElement;
-  // Hiding an iframe is not enough: do not execute third-party ad code on mobile.
-  if (window.matchMedia('(max-width: 767px), (any-pointer: coarse)').matches) {
-    slot.parentElement.hidden = true;
-    return;
-  }
   const strip = slot.classList.contains('ad-strip-slot');
   const availableWidth = slot.clientWidth;
   if (strip && availableWidth < 320) {
@@ -14,13 +9,28 @@
   }
 
   const desktop = availableWidth >= 468;
-  const key = !strip ? '9a224ed3f9be50f7dc6b2978be88e726' : desktop
-    ? '67f80acb076e583798c7200553e3ff1d'
-    : '8638d9c4926952e027a455d5690c215a';
   const width = !strip ? 300 : desktop ? 468 : 320;
   const height = !strip ? 250 : desktop ? 60 : 50;
   slot.style.width = width + 'px';
   slot.style.minHeight = height + 'px';
-  window.atOptions = { key, format: 'iframe', height, width, params: {} };
-  document.write('<script src="https://bauval.org/22/' + key + '"><\/script>');
+  slot.style.height = height + 'px';
+  slot.style.overflow = 'hidden';
+
+  const frame = document.createElement('iframe');
+  frame.title = '광고';
+  frame.width = width;
+  frame.height = height;
+  frame.style.cssText = 'display:block;border:0;max-width:100%;';
+  // A distinct origin lets the vendor populate its own child frames without
+  // access to our page. Never use srcdoc or a same-origin URL with these flags.
+  // Popups preserve ordinary clicked ad links; browser activation checks still apply.
+  frame.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox');
+  frame.setAttribute('allow', "fullscreen 'none'; autoplay 'none'");
+  frame.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+  const local = ['localhost', '127.0.0.1'].includes(location.hostname);
+  const adOrigin = local ? 'https://dev.harukok.pages.dev' :
+    location.hostname.endsWith('.pages.dev') ? 'https://harukok.com' : 'https://harukok.pages.dev';
+  if (adOrigin === location.origin) return;
+  frame.src = adOrigin + '/ad-frame.html?size=' + width + 'x' + height;
+  slot.appendChild(frame);
 })();

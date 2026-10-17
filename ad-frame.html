@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>광고</title>
+  <style>html,body{margin:0;padding:0;overflow:hidden}iframe{border:0}</style>
+</head>
+<body>
+<script>
+(() => {
+  if (window.parent === window) return;
+  const units = {
+    '300x250': ['9a224ed3f9be50f7dc6b2978be88e726', 300, 250],
+    '320x50': ['8638d9c4926952e027a455d5690c215a', 320, 50],
+    '468x60': ['67f80acb076e583798c7200553e3ff1d', 468, 60]
+  };
+  const size = new URLSearchParams(location.search).get('size');
+  if (!Object.hasOwn(units, size)) return;
+  // Additional popup guard for the outer vendor script. Sandbox restrictions
+  // also apply to its descendants; the browser controls popup user activation.
+  const open = window.open;
+  Object.defineProperty(window, 'open', {
+    value: function() {
+      if (!navigator.userActivation?.isActive) return null;
+      return open.apply(window, arguments);
+    }, writable: false, configurable: false
+  });
+  const [key, width, height] = units[size];
+  window.atOptions = { key, format: 'iframe', width, height, params: {} };
+  const script = document.createElement('script');
+  script.src = 'https://bauval.org/22/' + key;
+  document.body.appendChild(script);
+})();
+</script>
+</body>
+</html>

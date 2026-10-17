@@ -23,6 +23,7 @@ const DIST = path.join(ROOT, 'dist');
 const PUBLIC_FILES = [
   'index.html',
   'ad-banner.js',
+  'ad-frame.html',
   'about.html',
   'privacy.html',
   '404.html',

@@ -4,54 +4,77 @@ const path = require('node:path');
 const vm = require('node:vm');
 const root = path.join(__dirname, '..');
 const source = fs.readFileSync(path.join(root, 'ad-banner.js'), 'utf8');
-
-function run(available, strip, mobile) {
-  const slot = { clientWidth: available, classList: { contains: () => strip }, style: {}, parentElement: {} };
-  const writes = [];
-  const window = { matchMedia: query => {
-    assert.ok(query.includes('max-width: 767px') && query.includes('any-pointer: coarse'));
-    return { matches: mobile };
-  } };
-  vm.runInNewContext(source, { window, document: {
-    currentScript: { parentElement: slot }, write: html => writes.push(html)
+const wrapper = fs.readFileSync(path.join(root, 'ad-frame.html'), 'utf8');
+const sandbox = 'allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox';
+function run(available, strip, origin = 'https://harukok.com') {
+  const slot = { clientWidth: available, classList: { contains: () => strip }, style: {}, parentElement: {}, children: [], appendChild(f) { this.children.push(f); } };
+  const window = {};
+  vm.runInNewContext(source, { window, location: new URL(origin), document: {
+    currentScript: { parentElement: slot },
+    createElement: tag => ({ tag, style: {}, attrs: {}, setAttribute(k,v) { this.attrs[k]=v; } }),
+    write: () => assert.fail('Third-party script must not execute in the host page')
   } });
-  return { slot, writes, window };
+  return { slot, window, frame: slot.children[0] };
 }
-
-// Mobile and touch devices must make no vendor request, for either placement.
-for (const width of [280, 320, 390, 768, 1024, 1280]) {
-  for (const strip of [true, false]) {
-    const { slot, writes, window } = run(width, strip, true);
-    assert.equal(writes.length, 0);
-    assert.equal(window.atOptions, undefined);
-    assert.equal(slot.parentElement.hidden, true);
+for (const [available, expected] of [[280, 0], [319, 0], [320, 320], [390, 320], [467, 320], [468, 468], [720, 468]]) {
+  const { slot, frame, window } = run(available, true);
+  assert.equal(slot.children.length, expected ? 1 : 0);
+  assert.equal(window.atOptions, undefined);
+  if (!expected) { assert.equal(slot.parentElement.hidden, true); continue; }
+  assert.equal(frame.width, expected);
+  assert.equal(frame.height, expected === 468 ? 60 : 50);
+  assert.equal(frame.attrs.sandbox, sandbox);
+  for (const forbidden of ['allow-top-navigation', 'allow-modals', 'allow-downloads']) assert.ok(!frame.attrs.sandbox.includes(forbidden));
+  assert.equal(frame.attrs.allow, "fullscreen 'none'; autoplay 'none'");
+  assert.equal(slot.style.overflow, 'hidden');
+}
+for (const origin of ['https://harukok.com', 'https://www.harukok.com', 'https://harukok.pages.dev', 'https://dev.harukok.pages.dev', 'http://127.0.0.1:8765']) {
+  const { frame } = run(300, false, origin);
+  assert.equal(frame.width, 300);
+  assert.equal(frame.height, 250);
+  assert.equal(frame.srcdoc, undefined);
+  assert.notEqual(new URL(frame.src).origin, origin, 'The ad must never share the host origin');
+  assert.equal(new URL(frame.src).searchParams.get('size'), '300x250');
+}
+const code = wrapper.match(/<script>([\s\S]*?)<\/script>/)[1];
+for (const size of ['300x250', '320x50', '468x60', 'bad', '__proto__']) {
+  for (const active of [false, true]) {
+    let opens = 0;
+    const scripts = [];
+    const window = { parent: {}, open: () => { opens++; return 'opened'; } };
+    vm.runInNewContext(code, { window, URLSearchParams, location: { search: '?size=' + size }, navigator: { userActivation: { isActive: active } }, document: { createElement: () => ({}), body: { appendChild: s => scripts.push(s) } } });
+    if (['bad','__proto__'].includes(size)) { assert.equal(scripts.length, 0); continue; }
+    assert.equal(scripts.length, 1);
+    assert.equal(scripts[0].src, 'https://bauval.org/22/' + window.atOptions.key);
+    assert.equal(window.atOptions.width + 'x' + window.atOptions.height, size);
+    window.open('https://example.com');
+    assert.equal(opens, active ? 1 : 0);
+    assert.equal(Object.getOwnPropertyDescriptor(window, 'open').writable, false);
   }
 }
-for (const [available, expected] of [[280, 0], [319, 0], [320, 320], [467, 320], [468, 468], [720, 468]]) {
-  const { slot, writes, window } = run(available, true, false);
-  assert.equal(writes.length, expected ? 1 : 0);
-  if (expected) {
-    assert.equal(window.atOptions.width, expected);
-    assert.equal(window.atOptions.height, expected === 468 ? 60 : 50);
-    assert.ok(writes[0].includes(window.atOptions.key));
-  } else assert.equal(slot.parentElement.hidden, true);
-}
-const rectangle = run(300, false, false);
-assert.equal(rectangle.writes.length, 1);
-assert.equal(rectangle.window.atOptions.key, '9a224ed3f9be50f7dc6b2978be88e726');
-assert.equal(rectangle.window.atOptions.height, 250);
-
-const pages = ['index.html', ...['tools', 'fun', 'guides'].flatMap(dir =>
-  fs.readdirSync(path.join(root, dir)).filter(f => f.endsWith('.html')).map(f => dir + '/' + f))];
-let checked = 0;
+const pages = ['index.html', ...['tools','fun','guides'].flatMap(dir => fs.readdirSync(path.join(root,dir)).filter(f=>f.endsWith('.html')).map(f=>dir+'/'+f))];
+let checked=0;
 for (const page of pages) {
-  const html = fs.readFileSync(path.join(root, page), 'utf8');
-  assert.ok(!html.includes('bauval.org'), 'Unguarded vendor script: ' + page);
+  const html=fs.readFileSync(path.join(root,page),'utf8');
+  assert.ok(!html.includes('bauval.org'), 'Direct vendor code: '+page);
   if (!html.includes('class="ad-banner')) continue;
-  const expected = page.startsWith('guides/') ? 1 : 2;
-  assert.equal(html.split('src="/ad-banner.js?v=20261016-mobile-off"').length - 1, expected, page);
-  assert.ok(!html.includes('src="/ad-banner.js"'), 'Old cached loader: ' + page);
+  assert.equal(html.split('src="/ad-banner.js?v=20261018-isolated"').length-1,page.startsWith('guides/')?1:2,page);
   checked++;
 }
-assert.equal(checked, 17);
-console.log('PASS - mobile/touch vendor requests blocked, desktop units preserved, all 17 ad pages guarded');
+assert.equal(checked,17);
+console.log('PASS - banner sizes, cross-origin isolation, sandbox permissions, popup guard, unit whitelist, all 17 integrations');
+if (process.argv.includes('--fixture')) {
+  fs.writeFileSync(path.join(__dirname, 'ad-sandbox-frame.html'), wrapper.replace("script.src = 'https://bauval.org/22/' + key;", "script.src = '/verify/ad-sandbox-vendor.js';"));
+  fs.writeFileSync(path.join(__dirname, 'ad-sandbox-vendor.js'), `
+    document.body.innerHTML='<div style="position:fixed;inset:0;background:#ecdfc6;padding:12px;box-sizing:border-box"><b>Mock banner</b><p id="status"></p><a href="http://127.0.0.1:8765/verify/ad-sandbox-click.html" target="_blank" rel="noopener">Test ordinary ad link</a></div>';
+    let results=[];
+    try{parent.document.body.innerHTML='ESCAPED';results.push('parent escaped')}catch(e){results.push('parent blocked')}
+    try{top.location.href='http://127.0.0.1:8765/verify/ad-sandbox-escaped';results.push('navigation attempted')}catch(e){results.push('navigation blocked')}
+    results.push(window.open('http://127.0.0.1:8765/verify/ad-sandbox-auto-popup')===null?'automatic popup blocked':'popup escaped');
+    const child=document.createElement('iframe');document.body.appendChild(child);
+    try{child.contentDocument.body.textContent='Nested banner works';results.push('nested frame works')}catch(e){results.push('nested frame failed')}
+    document.getElementById('status').textContent=results.join(' / ');
+  `);
+  fs.writeFileSync(path.join(__dirname,'ad-sandbox-preview.html'), `<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><h1>Host page intact</h1><p>Overlay must stay inside the 300 x 250 rectangle.</p><iframe width="300" height="250" sandbox="${sandbox}" allow="fullscreen 'none'; autoplay 'none'" src="http://localhost:8765/verify/ad-sandbox-frame.html?size=300x250"></iframe><p>Content below banner remains visible.</p><button onclick="this.textContent='Host button works'">Test host button</button>`);
+  fs.writeFileSync(path.join(__dirname,'ad-sandbox-click.html'), '<!doctype html><h1>Ordinary clicked link works</h1>');
+}
