@@ -22,7 +22,7 @@ const DIST = path.join(ROOT, 'dist');
 // 새 공개 페이지를 추가했다면 이 목록에도 추가해야 한다.
 const PUBLIC_FILES = [
   'index.html',
-  'ad-banner.js',
+  'ad-banner-isolated.js',
   'ad-frame.html',
   'about.html',
   'privacy.html',

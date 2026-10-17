@@ -3,7 +3,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
 const root = path.join(__dirname, '..');
-const source = fs.readFileSync(path.join(root, 'ad-banner.js'), 'utf8');
+const source = fs.readFileSync(path.join(root, 'ad-banner-isolated.js'), 'utf8');
 const wrapper = fs.readFileSync(path.join(root, 'ad-frame.html'), 'utf8');
 const sandbox = 'allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox';
 function run(available, strip, origin = 'https://harukok.com') {
@@ -58,7 +58,7 @@ for (const page of pages) {
   const html=fs.readFileSync(path.join(root,page),'utf8');
   assert.ok(!html.includes('bauval.org'), 'Direct vendor code: '+page);
   if (!html.includes('class="ad-banner')) continue;
-  assert.equal(html.split('src="/ad-banner.js?v=20261018-isolated"').length-1,page.startsWith('guides/')?1:2,page);
+  assert.equal(html.split('src="/ad-banner-isolated.js?v=20261018-isolated"').length-1,page.startsWith('guides/')?1:2,page);
   checked++;
 }
 assert.equal(checked,17);
