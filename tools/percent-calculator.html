@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>퍼센트 계산기 - 비율·증감률·할인율 계산 | 하루콕</title><meta name="description" content="전체의 몇 퍼센트, 일부가 차지하는 비율, 증가율·감소율, 할인 후 가격을 계산합니다. 실제 숫자로 계산식과 할인 금액까지 확인하세요.">
+<link rel="canonical" href="https://harukok.com/tools/percent-calculator"><link rel="icon" type="image/png" href="/favicon.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:title" content="퍼센트 계산기 - 비율·증감률·할인율 계산 | 하루콕"><meta property="og:description" content="전체의 몇 퍼센트, 일부가 차지하는 비율, 증가율·감소율, 할인 후 가격을 계산합니다. 실제 숫자로 계산식과 할인 금액까지 확인하세요."><meta property="og:type" content="website"><meta property="og:site_name" content="하루콕"><meta property="og:url" content="https://harukok.com/tools/percent-calculator"><meta property="og:image" content="https://harukok.com/og-image.png">
+<link rel="stylesheet" href="/tools/everyday-tools.css?v=20261018a"><script src="/tools/percent-calculator.js?v=20261018" defer></script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "퍼센트 계산기", "url": "https://harukok.com/tools/percent-calculator", "description": "전체의 몇 퍼센트, 일부가 차지하는 비율, 증가율·감소율, 할인 후 가격을 계산합니다. 실제 숫자로 계산식과 할인 금액까지 확인하세요.", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any", "browserRequirements": "Requires JavaScript", "inLanguage": "ko", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "KRW"}}</script>
+</head><body><div class="wrap">
+<nav class="site-nav" aria-label="주요 메뉴"><a class="site-nav-brand" href="/">하루<span>콕</span></a><div class="site-nav-links"><a href="/#all-tools">도구</a><a href="/guides/">가이드</a></div></nav>
+<main><a class="back-home" href="/">← 하루콕 홈으로</a><h1>퍼센트 계산기</h1><p class="lede">몇 퍼센트인지, 얼마나 늘었는지, 할인하면 얼마인지. 계산 종류를 고르고 두 값을 입력하세요.</p>
+<noscript><p class="noscript">계산하려면 브라우저에서 자바스크립트를 허용해 주세요. 계산 기준과 사용 예시는 아래에서 확인할 수 있습니다.</p></noscript>
+<section class="sheet" aria-labelledby="calculator-heading">
+<h2 id="calculator-heading">어떤 계산이 필요한가요?</h2>
+<form id="calculator">
+<div class="field"><label for="mode">계산 종류</label><select id="mode" aria-describedby="mode-hint"><option value="of">전체 값의 몇 % 구하기</option><option value="ratio">전체 중 몇 %인지 구하기</option><option value="change">증가율·감소율 구하기</option><option value="discount">할인 후 가격 구하기</option></select><p class="hint" id="mode-hint">예: 80,000의 15%에 해당하는 금액</p></div>
+<div class="fields"><div class="field"><label id="label-a" for="a">기준 값</label><input id="a" type="number" step="any" min="-1000000000000" max="1000000000000" required></div><div class="field"><label id="label-b" for="b">비율 (%)</label><input id="b" type="number" step="any" min="-1000000000000" max="1000000000000" required></div></div>
+<button class="primary" type="submit">퍼센트 계산하기</button><p id="error" class="error" role="alert"></p>
+</form>
+<div class="result" id="result" aria-live="polite" hidden><div id="result-label" class="result-label"></div><div id="result-value" class="result-value"></div><p id="result-detail"></p><p class="formula" id="formula"></p><p class="hint">결과는 소수점 아래 최대 6자리까지 표시합니다. 금액 단위와 반올림 규칙은 직접 확인하세요.</p></div>
+<p class="hint">예시를 눌러 바로 계산해 보세요.</p><div class="examples"><button type="button" class="secondary" data-example="discount,80000,15">8만 원의 15% 할인</button><button type="button" class="secondary" data-example="ratio,30,200">200개 중 30개</button><button type="button" class="secondary" data-example="change,3000,3300">3,000 → 3,300 증감률</button></div>
+</section>
+<aside class="ad-banner ad-banner-strip" aria-label="광고"><p class="ad-label">광고</p><div class="ad-strip-slot"><script src="/ad-banner-isolated.js?v=20261018-tools"></script></div></aside>
+<article class="article">
+<h2>네 가지 퍼센트 계산, 무엇이 다른가요?</h2>
+<p>퍼센트는 전체를 100으로 보았을 때의 비율입니다. 같은 15%라도 금액을 구할 때와 비율을 구할 때 넣는 값이 다릅니다. 할인된 가격을 알고 싶다면 ‘전체 값의 몇 %’ 대신 ‘할인 후 가격’을 선택하세요.</p>
+<div class="table-scroll"><table><caption>계산 종류별 공식과 예시</caption><thead><tr><th scope="col">계산</th><th scope="col">공식</th><th scope="col">예시 결과</th></tr></thead><tbody><tr><th scope="row">전체의 일부</th><td>전체 × 비율 ÷ 100</td><td>80,000의 15% = 12,000</td></tr><tr><th scope="row">차지하는 비율</th><td>일부 ÷ 전체 × 100</td><td>200 중 30 = 15%</td></tr><tr><th scope="row">증감률</th><td>(이후 − 이전) ÷ 이전 × 100</td><td>3,000 → 3,300 = 10%</td></tr><tr><th scope="row">할인 후 가격</th><td>원가 × (1 − 할인율 ÷ 100)</td><td>80,000의 15% 할인 = 68,000</td></tr></tbody></table></div>
+<section><h2>할인을 두 번 받으면 할인율을 더하나요?</h2><p>적용 순서가 있는 할인은 단순히 더하면 안 됩니다. 100,000원에서 20% 할인하면 80,000원, 여기에 10%를 추가 할인하면 72,000원입니다. 총 할인율은 30%가 아니라 28%입니다.</p><p>첫 번째 할인 결과를 두 번째 계산의 원가에 넣으면 순차 할인을 계산할 수 있습니다. 실제 쇼핑몰에서는 쿠폰 적용 순서, 최대 할인 금액, 배송비에 따라 결제 금액이 달라질 수 있으므로 주문 내역도 함께 확인하세요.</p></section>
+<section><h2>퍼센트와 퍼센트포인트의 차이</h2><p>어떤 비율이 20%에서 25%로 바뀌었다면 차이는 <strong>5%포인트(%p)</strong>입니다. 이전 비율 20을 기준으로 한 상대적인 증가율은 (25 − 20) ÷ 20 × 100 = <strong>25%</strong>입니다. ‘5% 올랐다’와 ‘5%포인트 올랐다’는 같은 뜻이 아닙니다.</p></section>
+<section><h2>자주 묻는 질문</h2><details><summary>10% 오른 뒤 10% 내리면 원래 값인가요?</summary><p>아닙니다. 100에서 10% 오르면 110, 여기에서 10% 내리면 99입니다. 두 번째 계산의 기준 값이 달라지기 때문입니다.</p></details><details><summary>이전 값이 0일 때 증가율은 왜 계산할 수 없나요?</summary><p>증감률 공식은 이전 값으로 나누므로 이전 값이 0이면 정의되지 않습니다. 이때는 ‘0에서 30으로 증가’처럼 값의 차이를 설명하는 편이 정확합니다. 이 도구의 증감률은 양수인 이전 값을 기준으로 합니다.</p></details><details><summary>할인율이나 비율에 소수점도 넣을 수 있나요?</summary><p>네. 12.5처럼 소수점이 있는 수를 입력할 수 있습니다. 할인율은 0~100%를 지원하며, ‘전체 값의 몇 %’ 계산에는 150%처럼 100을 넘는 비율도 사용할 수 있습니다.</p></details></section>
+<p class="meta">계산 기준: 백분율의 기본 산식 · 입력 범위: 각 값의 절댓값 1조 이하 · 확인일: 2026년 10월 18일</p>
+</article>
+<aside class="ad-banner" aria-label="광고"><p class="ad-label">광고</p><div class="ad-slot"><script src="/ad-banner-isolated.js?v=20261018-tools"></script></div></aside>
+<nav class="related" aria-label="함께 쓰는 도구"><h2>함께 쓰는 도구</h2><ul><li><a href="/tools/date-calculator">날짜·디데이 계산기</a></li><li><a href="/tools/character-counter">글자 수·바이트 세기</a></li><li><a href="/tools/salary-calculator">연봉 실수령액 계산기</a></li></ul></nav>
+</main><footer><a href="/about">소개</a> · <a href="/privacy">개인정보처리방침</a> · <a href="mailto:contact@harukok.com">문의</a><p>© 2026 하루콕</p></footer></div></body></html>

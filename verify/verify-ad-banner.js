@@ -37,6 +37,8 @@ for (const origin of ['https://harukok.com', 'https://www.harukok.com', 'https:/
   assert.equal(new URL(frame.src).searchParams.get('size'), '300x250');
 }
 const code = wrapper.match(/<script>([\s\S]*?)<\/script>/)[1];
+assert.equal(run(285,false).frame,undefined);
+assert.equal(run(285,false).slot.parentElement.hidden,true);
 for (const size of ['300x250', '320x50', '468x60', 'bad', '__proto__']) {
   for (const active of [false, true]) {
     let opens = 0;
@@ -58,11 +60,11 @@ for (const page of pages) {
   const html=fs.readFileSync(path.join(root,page),'utf8');
   assert.ok(!html.includes('bauval.org'), 'Direct vendor code: '+page);
   if (!html.includes('class="ad-banner')) continue;
-  assert.equal(html.split('src="/ad-banner-isolated.js?v=20261018-isolated"').length-1,page.startsWith('guides/')?1:2,page);
+  assert.equal((html.match(/src="\/ad-banner-isolated\.js\?v=20261018-(?:isolated|tools)"/g)||[]).length,page.startsWith('guides/')?1:2,page);
   checked++;
 }
-assert.equal(checked,17);
-console.log('PASS - banner sizes, cross-origin isolation, sandbox permissions, popup guard, unit whitelist, all 17 integrations');
+assert.equal(checked,20);
+console.log('PASS - banner sizes, cross-origin isolation, sandbox permissions, popup guard, unit whitelist, all 20 integrations');
 if (process.argv.includes('--fixture')) {
   fs.writeFileSync(path.join(__dirname, 'ad-sandbox-frame.html'), wrapper.replace("script.src = 'https://bauval.org/22/' + key;", "script.src = '/verify/ad-sandbox-vendor.js';"));
   fs.writeFileSync(path.join(__dirname, 'ad-sandbox-vendor.js'), `

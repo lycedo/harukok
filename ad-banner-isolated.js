@@ -3,7 +3,7 @@
   const slot = document.currentScript.parentElement;
   const strip = slot.classList.contains('ad-strip-slot');
   const availableWidth = slot.clientWidth;
-  if (strip && availableWidth < 320) {
+  if (availableWidth < (strip ? 320 : 300)) {
     slot.parentElement.hidden = true;
     return;
   }
