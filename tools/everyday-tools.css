@@ -38,3 +38,6 @@ textarea{min-height:260px;resize:vertical;line-height:1.8}.metrics{display:grid;
 progress{width:100%;height:12px;accent-color:var(--ink)}.limit-status{margin:8px 0;font-variant-numeric:tabular-nums}.noscript{border:1px solid var(--stamp);padding:16px}
 @media(max-width:520px){body{padding:24px 14px 44px}.sheet{padding:20px 16px}h1{font-size:27px}.fields{grid-template-columns:1fr;gap:0}.result-value{font-size:28px}.site-nav-links{gap:10px}th,td{padding:10px 5px;font-size:13px}}
 @media(max-width:340px){body{padding-left:10px;padding-right:10px}.metric strong{font-size:23px}}
+
+.name-suggestions{list-style:none;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:16px}.name-suggestions li{padding:16px 0;border-bottom:1px solid var(--line)}.name-suggestions h3{font-family:Batang,serif;font-size:24px;margin:0 0 8px}.name-suggestions p{font-size:14px}.name-suggestions button[aria-pressed=true]{background:var(--ink);color:#fff}.name-output{overflow-wrap:anywhere}.name-output li{padding:4px 0}.name-output h3{margin-top:20px}#saved-names{overflow-wrap:anywhere}@media(max-width:520px){.name-suggestions{grid-template-columns:1fr}}
+.ad-strip-slot{max-width:100%}

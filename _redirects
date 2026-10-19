@@ -2,3 +2,5 @@
 /fun/dinner-picker /fun/food-picker?meal=dinner 301
 /fun/night-snack-picker /fun/food-picker?meal=night-snack 301
 /fun/cafe-drink-picker /fun/food-picker?meal=drink 301
+/tools/dday-calculator /tools/date-calculator 301
+/tools/dday-calculator.html /tools/date-calculator 301
