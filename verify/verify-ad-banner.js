@@ -63,8 +63,8 @@ for (const page of pages) {
   assert.equal((html.match(/src="\/ad-banner-isolated\.js\?v=20261018-(?:isolated|tools)"/g)||[]).length,page.startsWith('guides/')?1:2,page);
   checked++;
 }
-assert.equal(checked,26);
-console.log('PASS - banner sizes, cross-origin isolation, sandbox permissions, popup guard, unit whitelist, all 26 integrations');
+assert.equal(checked,28);
+console.log('PASS - banner sizes, cross-origin isolation, sandbox permissions, popup guard, unit whitelist, all 28 integrations');
 if (process.argv.includes('--fixture')) {
   fs.writeFileSync(path.join(__dirname, 'ad-sandbox-frame.html'), wrapper.replace("script.src = 'https://bauval.org/22/' + key;", "script.src = '/verify/ad-sandbox-vendor.js';"));
   fs.writeFileSync(path.join(__dirname, 'ad-sandbox-vendor.js'), `
