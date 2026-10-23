@@ -73,7 +73,7 @@ $('room-width').value = '1000000'; $('room-length').value = '1001'; submit('rect
 assert.ok($('rectangle-error').textContent.includes('10억')); checks++;
 
 same((html.match(/<h1>/g) || []).length, 1);
-same((html.match(/src="\/ad-banner-isolated.js/g) || []).length, 2);
+same((html.match(/src="\/ad-banner-isolated.js/g) || []).length, 1);
 const schema = JSON.parse(html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]);
 same(schema.url, 'https://harukok.com/tools/area-calculator');
 assert.ok(html.includes('<link rel="canonical" href="' + schema.url + '">')); checks++;

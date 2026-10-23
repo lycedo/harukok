@@ -104,9 +104,9 @@
   .disclaimer-box{ font-size:11px; font-weight:600; color:var(--ink); background:var(--bg-soft); border:1px solid var(--line); border-radius:8px; padding:10px 12px; line-height:1.6; text-align:center; margin-top:14px; }
 
   .history{ margin-top: 36px; text-align:left; }
-  .ad-banner{ width:300px; margin:32px calc((100% - 300px) / 2); text-align:center; }
+  .ad-banner{ width:300px; max-width:100%; margin:32px auto; text-align:center; }
   .ad-label{ margin:0 0 8px; font-size:11px; color:var(--muted); }
-  .ad-slot{ width:300px; min-height:250px; }
+  .ad-slot{ width:100%; max-width:100%; min-height:250px; }
   .history-title{ font-size:13.5px; color:var(--muted); margin-bottom:10px; text-align:center; }
   .history-row{
     display:flex; align-items:center; justify-content:space-between; gap:10px; width:100%;
@@ -180,60 +180,27 @@
   .site-nav-brand{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:15px; color:var(--ink); text-decoration:none; }
   .site-nav-brand span{ color:var(--stamp, #B23A2E); }
   .site-nav-links{ display:flex; gap:2px; }
-  .site-nav-links a{ font-size:13.5px; color:var(--muted); text-decoration:none; padding:6px 10px; border-radius:6px; }
+  .site-nav-links a{ font-size:13.5px; color:var(--muted); text-decoration:none; padding:12px 10px; min-height:44px; border-radius:6px; }
   .site-nav-links a:hover{ color:var(--ink); background:var(--paper-light, rgba(0,0,0,0.045)); }
   .site-nav-links a[aria-current="page"]{ color:var(--ink); font-weight:600; }
   .site-nav-brand:focus-visible, .site-nav-links a:focus-visible{ outline:2px solid var(--stamp, #B23A2E); outline-offset:2px; border-radius:4px; }
   details.more{ margin:24px 0 0; border-top:1px solid var(--line, #CFC5A6); padding-top:12px; }
-  details.more > summary{ cursor:pointer; font-size:14px; font-weight:700; color:var(--ink, #1B2431); padding:4px 0; }
+  details.more > summary{ cursor:pointer; font-size:14px; font-weight:700; color:var(--ink, #1B2431); padding:12px 0; min-height:44px; }
   details.more > summary:focus-visible{ outline:2px solid var(--stamp, #B23A2E); outline-offset:2px; }
   details.more[open] > summary{ margin-bottom:16px; }
   .info-block p.notice{ font-size:13px; line-height:1.65; color:var(--ink, #1B2431); border-left:3px solid var(--line, #CFC5A6); padding:2px 0 2px 12px; margin:0 0 12px; }
   .ad-banner-strip{ width:100%; margin:32px auto; }
   .ad-banner-strip[hidden]{ display:none; }
-  .ad-strip-slot{ margin:0 auto; }
+  .ad-strip-slot{ max-width:100%; margin:0 auto; }
+  .site-nav{ margin-bottom:20px; padding-bottom:10px; }
+  .lede{ line-height:1.6; margin-bottom:20px; }
+  .info-block{ margin-top:24px; }
+  .info-block ul{ padding-left:20px; font-size:14px; line-height:1.7; }
+  .info-block li{ margin:6px 0; }
+  @media(max-width:520px){ body{ padding:20px 14px 44px; } }
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "당첨 확률이 더 높아지나요?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "아닙니다. 어떤 방식으로 번호를 골라도 당첨 확률은 동일합니다. 이 도구는 번호를 고민하는 시간을 줄여주는 용도로만 사용해주세요."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "같은 번호가 또 나올 수 있나요?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "네, 매번 완전히 새로 뽑기 때문에 이전과 같은 조합이 다시 나올 수도 있습니다. 통계적으로는 지극히 낮은 확률입니다."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "공유 링크를 열면 번호가 다시 뽑히나요?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "아닙니다. 공유 링크를 열면 상대방이 만든 번호가 그대로 보일 뿐 새로 추첨되지 않고, 링크를 연 사람의 '최근 생성 기록'에도 자동으로 저장되지 않습니다."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "실제 로또(복권)인가요?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "아닙니다. 하루콕 번호 메모는 무료 번호 생성 결과이며 실제 복권이 아닙니다. 이 결과로 복권을 구매하거나 당첨금을 청구할 수 없으며, 동행복권과 무관한 하루콕의 자체 서비스입니다."
-      }
-    }
-  ]
-}
-</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "로또 번호 생성기", "url": "https://harukok.com/fun/lotto-generator", "description": "1~45 중 번호 6개씩, 최대 5줄을 뽑습니다.", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any", "inLanguage": "ko", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "KRW"}}</script>
 </head>
 <body>
 
@@ -246,16 +213,12 @@
     <a href="/guides/">가이드</a>
   </div>
 </nav>
+<main>
 
 
-  <a href="/" class="back-home">← 하루콕 홈으로</a>
   <h1>로또 번호 생성기</h1>
-  <p class="lede">1~45 중 무작위 번호를 무료로 1~5줄까지 뽑아보세요.</p>
+  <p class="lede">1~45 중 번호 6개씩, 최대 5줄을 뽑습니다.</p>
 
-  <aside class="ad-banner ad-banner-strip" aria-label="광고">
-    <p class="ad-label">광고</p>
-    <div class="ad-strip-slot"><script src="/ad-banner-isolated.js?v=20261018-isolated"></script></div>
-  </aside>
 
   <div id="selectionBlock">
     <div class="card-box">
@@ -293,54 +256,35 @@
 
   <a href="#" class="cta" id="sharedCtaLink" style="display:none;">나도 번호 생성하러 가기 →</a>
 
-  <aside class="ad-banner" aria-label="광고">
-    <p class="ad-label">광고</p>
-    <div class="ad-slot">
-      <script src="/ad-banner-isolated.js?v=20261018-isolated"></script>
-    </div>
-  </aside>
-
   <div class="history" id="historySection">
     <div class="history-title">최근 생성 기록</div>
     <div id="historyList"></div>
   </div>
 
 
+  <aside class="ad-banner ad-banner-strip" aria-label="광고">
+    <p class="ad-label">광고</p>
+    <div class="ad-strip-slot"><script src="/ad-banner-isolated.js?v=20261018-isolated"></script></div>
+  </aside>
+
   <div class="info-block">
-    <nav aria-label="함께 쓰는 추첨 도구">
-      <h2>사람을 뽑거나 팀을 나누려면</h2>
-      <p>행사 당첨자를 뽑을 때는 <a href="/tools/random-picker">랜덤 명단 추첨기</a>, 모임 참가자를 같은 인원수로 배정할 때는 <a href="/tools/team-generator">랜덤 팀 나누기</a>에 이름을 입력해 보세요.</p>
-    </nav>
-    <p class="notice"><strong>실제 복권이 아닙니다.</strong> 하루콕 번호 메모는 무료 번호 생성 결과이며 구매·당첨금 청구 효력이 없고 동행복권과 무관합니다.</p>
-    <p class="notice">최근 생성 기록은 이 브라우저에만 저장됩니다. '공유하기'를 누르면 생성한 번호가 주소의 '#' 뒤에 담긴 링크가 만들어져 이용자가 고른 앱이나 클립보드로 전달되는데, 링크를 받은 사람과 전달에 쓴 서비스는 그 번호를 볼 수 있으므로 공유하기 전에 확인하세요. 자세한 내용은 <a href="/privacy">개인정보처리방침</a>을 참고하세요.</p>
-
     <details class="more">
-      <summary>자세히 보기 — 번호 생성 방식·자주 묻는 질문</summary>
-    <h2>번호는 어떻게 만들어지나요?</h2>
-        <p>브라우저의 난수 생성 기능(Math.random)을 이용해 1~45 사이 숫자 중 중복 없이 6개씩 뽑습니다. 1~5줄은 한 번에 몇 줄을 만들지 정하는 것일 뿐이며, 모든 번호는 서버로 전송되는 데이터 없이 기기 안에서 즉시 계산됩니다.</p>
-        
-    
-        <div class="faq-item">
-          <div class="q">당첨 확률이 더 높아지나요?</div>
-          <div class="a">아닙니다. 어떤 방식으로 번호를 골라도 당첨 확률은 동일합니다. 이 도구는 번호를 고민하는 시간을 줄여주는 용도로만 사용해주세요.</div>
-        </div>
-        <div class="faq-item">
-          <div class="q">같은 번호가 또 나올 수 있나요?</div>
-          <div class="a">네, 매번 완전히 새로 뽑기 때문에 이전과 같은 조합이 다시 나올 수도 있습니다. 통계적으로는 지극히 낮은 확률입니다.</div>
-        </div>
-        <div class="faq-item">
-          <div class="q">공유 링크를 열면 번호가 다시 뽑히나요?</div>
-          <div class="a">아닙니다. 공유 링크를 열면 상대방이 만든 번호가 그대로 보일 뿐 새로 추첨되지 않고, 링크를 연 사람의 '최근 생성 기록'에도 자동으로 저장되지 않습니다.</div>
-        </div>
-        <div class="faq-item">
-          <div class="q">실제 로또(복권)인가요?</div>
-          <div class="a">아닙니다. 하루콕 번호 메모는 무료 번호 생성 결과이며 실제 복권이 아닙니다. 이 결과로 복권을 구매하거나 당첨금을 청구할 수 없으며, 동행복권과 무관한 하루콕의 자체 서비스입니다.</div>
-        </div>
+      <summary>번호 생성·공유·저장 안내</summary>
+      <ul>
+        <li>1~45 중 중복 없는 번호 6개를 무작위로 고릅니다. 당첨 확률을 높여주는 도구는 아니며, 같은 조합이 다시 나올 수 있습니다.</li>
+        <li>실제 복권이 아니며 구매·당첨금 청구 효력이 없습니다. 동행복권과 무관합니다.</li>
+        <li>최근 기록은 이 브라우저에만 저장됩니다. 공유 링크에는 번호가 포함되며, 링크를 받은 사람은 같은 결과를 볼 수 있습니다.</li>
+      </ul>
+      <p>공유 링크를 열어도 새 번호가 생성되거나 내 기록에 저장되지 않습니다. <a href="/privacy">개인정보처리방침</a></p>
     </details>
+    <nav aria-label="함께 쓰는 추첨 도구">
+      <h2>함께 쓰는 도구</h2>
+      <p><a href="/tools/random-picker">랜덤 명단 추첨기</a> · <a href="/tools/team-generator">팀 나누기</a></p>
+    </nav>
   </div>
-
+</main>
   <footer style="max-width:620px; margin:40px auto 0; padding:20px 0 0; text-align:center; font-size:12.5px; color:var(--muted, #6E6656); border-top:1px solid var(--line, #D9D2BF);">
-    <a href="/" style="color:inherit; margin:0 8px;">홈</a>·<a href="/about" style="color:inherit; margin:0 8px;">소개</a>·<a href="/privacy" style="color:inherit; margin:0 8px;">개인정보처리방침</a>·<a href="mailto:contact@harukok.com" style="color:inherit; margin:0 8px;">문의</a>
+    <a href="/" style="color:inherit; margin:0 8px;">홈</a>·<a href="/about" style="color:inherit; margin:0 8px;">소개</a>·<a href="/privacy" style="color:inherit; margin:0 8px;">개인정보처리방침</a>·<a href="mailto:contact@harukok.com?subject=%ED%95%98%EB%A3%A8%EC%BD%95%20%EB%A1%9C%EB%98%90%20%EB%B2%88%ED%98%B8%20%EC%83%9D%EC%84%B1%EA%B8%B0%20%EC%9D%98%EA%B2%AC" style="color:inherit; margin:0 8px;">의견 보내기</a>
   </footer>
 </div>
 

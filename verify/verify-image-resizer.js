@@ -76,7 +76,7 @@ demoCallback({type:'image/png',size:100});equal(images.length,imageCount);
 const tooBig=images.at(-1);tooBig.naturalWidth=5000;tooBig.naturalHeight=4000;tooBig.onload();
 equal($('image-previews').hidden,true);equal($('image-controls').disabled,true);assert.ok($('image-error').textContent.includes('1,200만'));checks++;
 const last=select();last.onload();const activeURL=$('original-preview').src;listeners.pagehide();equal(revoked.includes(activeURL),true);
-equal((html.match(/src="\/ad-banner-isolated.js/g)||[]).length,2);
+equal((html.match(/src="\/ad-banner-isolated.js/g)||[]).length,1);
 equal((html.match(/<h1>/g)||[]).length,1);
 const schema=JSON.parse(html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]);
 equal(schema.url,'https://harukok.com/tools/image-resizer');

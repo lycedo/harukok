@@ -31,7 +31,7 @@
   *{ box-sizing: border-box; }
   body{
     margin:0;
-    padding: 40px 20px 70px;
+    padding: 24px 20px 56px;
     background: var(--paper);
     background-image: repeating-linear-gradient(0deg, rgba(0,0,0,0.015) 0px, rgba(0,0,0,0.015) 1px, transparent 1px, transparent 3px);
     font-family: 'Pretendard', -apple-system, sans-serif;
@@ -40,9 +40,9 @@
     justify-content:center;
   }
   .stub{ width:100%; max-width: 560px; }
-  .kicker{ font-size:13px; color:var(--muted); margin-bottom:6px; }
+
   h1{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:30px; line-height:1.35; margin:0 0 8px; }
-  .lede{ font-size:14.5px; color:var(--ink-soft); line-height:1.6; margin:0 0 32px; max-width:46ch; }
+
   .card{ background:var(--paper-light); border:1px solid var(--line); border-radius:14px; padding:32px; margin-bottom:28px; }
   .field{ margin-bottom:20px; }
   .field:last-child{ margin-bottom:0; }
@@ -55,7 +55,7 @@
   .seg button.active{ background:var(--ink); border-color:var(--ink); color:var(--paper-light); }
   .stepper-row{ display:flex; align-items:center; gap:14px; }
   .stepper-row .input-row{ flex:1; }
-  .step-btn{ width:34px; height:34px; border:1.5px solid var(--ink); border-radius:50%; background:var(--paper-light); color:var(--ink); font-size:17px; font-family:'IBM Plex Mono', monospace; cursor:pointer; line-height:1; flex-shrink:0; }
+  .step-btn{ width:44px; height:44px; border:1.5px solid var(--ink); border-radius:50%; background:var(--paper-light); color:var(--ink); font-size:17px; font-family:'IBM Plex Mono', monospace; cursor:pointer; line-height:1; flex-shrink:0; }
   .step-btn:active{ background:var(--ink); color:var(--paper-light); }
   .calc-btn{ width:100%; padding:16px; margin-top:8px; background:var(--ink); color:var(--paper-light); border:none; border-radius:14px; font-weight:600; font-size:15.5px; cursor:pointer; box-shadow:0 4px 0 rgba(0,0,0,0.28); }
   .calc-btn:hover{ background:var(--ink-soft); }
@@ -69,9 +69,7 @@
   .breakdown-row{ display:flex; justify-content:space-between; align-items:baseline; font-size:14px; padding:9px 0; color:var(--ink-soft); }
   .breakdown-row .amount{ font-family:'IBM Plex Mono', monospace; color:var(--ink); font-weight:600; font-size:16px; }
   .disclaimer{ font-size:11.5px; color:var(--muted); line-height:1.6; margin-top:24px; padding-top:16px; border-top:1px dotted var(--line); }
-  .guide-callout{ display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:8px; margin-top:16px; padding:12px 14px; background:var(--paper-light); border:1px dashed var(--line); border-radius:8px; font-size:12.5px; color:var(--ink-soft); }
-  .guide-callout a{ color:var(--stamp); font-weight:600; text-decoration:none; white-space:nowrap; }
-  .guide-callout a:hover{ text-decoration:underline; }
+
   @media (max-width:480px){ .card{ padding:24px; } h1{ font-size:25px; } .result-amount{ font-size:34px; } }
 
   .info-block{ margin-top:40px; }
@@ -93,10 +91,7 @@
   .related-links a{ padding:8px 14px; border:1.5px solid var(--line); border-radius:999px; font-size:13px; color:var(--ink); text-decoration:none; }
   .related-links a:hover{ border-color:var(--ink); }
 
-  .back-home{ display:inline-block; font-size:12.5px; color:var(--muted); text-decoration:none; margin-bottom:14px; }
-  .back-home:hover{ color:var(--ink); }
-
-  .site-nav{ display:flex; align-items:center; justify-content:space-between; width:100%; margin:0 0 22px; padding:0 0 14px; border-bottom:1px solid var(--line, #D9D2BF); }
+  .site-nav{ display:flex; align-items:center; justify-content:space-between; width:100%; margin:0 0 20px; padding:0 0 8px; border-bottom:1px solid var(--line, #D9D2BF); }
   .site-nav-brand{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:15px; color:var(--ink); text-decoration:none; }
   .site-nav-brand span{ color:var(--stamp, #B23A2E); }
   .site-nav-links{ display:flex; gap:2px; }
@@ -113,7 +108,7 @@
   .check-tag.assume{ color:#8A5A1E; border-color:#8A5A1E; }
   .check-tag.unverified{ color:#B23A2E; border-color:#B23A2E; }
 
-  .basis-line{ font-size:12.5px; line-height:1.5; color:var(--ink-soft); margin:-14px 0 6px; }
+  .basis-line{ font-size:13px; line-height:1.6; color:var(--ink-soft); margin:0 0 20px; }
   .basis-line strong{ color:var(--ink); }
   details.basis{ margin:0 0 16px; font-size:12.5px; color:var(--muted); line-height:1.65; }
   details.basis summary{ cursor:pointer; color:var(--ink-soft); font-weight:600; }
@@ -121,36 +116,93 @@
   details.basis ul.assume{ margin:10px 0 0; padding-left:18px; }
   details.basis ul.assume li{ margin-bottom:6px; }
   details.basis .sources{ margin-top:14px; padding-top:12px; }
-  .ad-banner{ width:300px; margin:32px calc((100% - 300px) / 2); text-align:center; }
+  .ad-banner{ width:300px; max-width:100%; margin:32px auto; text-align:center; }
   .ad-banner .ad-label{ margin:0 0 8px; font-size:11px; color:var(--muted, #6E6656); line-height:1.5; }
   .ad-slot{ width:300px; min-height:250px; }
   .ad-banner-strip{ width:100%; margin:32px auto; }
   .ad-banner-strip[hidden]{ display:none; }
-  .ad-strip-slot{ margin:0 auto; }
+  .ad-strip-slot{ max-width:100%; margin:0 auto; }
+  .site-nav a, .related-links a{ display:inline-flex; align-items:center; min-height:44px; }
+  .field-hint{ line-height:1.6; }
+  .input-row input, .seg button{ min-height:44px; }
+  .input-row input{ min-width:0; }
+  .input-row:focus-within{ outline:2px solid var(--stamp); outline-offset:4px; }
+  button:focus-visible, summary:focus-visible, a:focus-visible{ outline:2px solid var(--stamp); outline-offset:3px; }
+  details.basis{ margin:24px 0; padding:12px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  details.basis > summary, .check-status > summary, .field-help > summary, .comparison > summary{ cursor:pointer; padding:10px 0; font-size:13px; color:var(--ink); font-weight:600; }
+  .field-help{ margin-top:4px; font-size:12px; line-height:1.6; color:var(--muted); }
+  .field-help > summary{ font-size:12px; padding:7px 0; }
+  .field-help p{ margin:4px 0 0; }
+  .guide-link{ margin:12px 0; font-size:13px; line-height:1.6; }
+  .guide-link a{ color:var(--ink-soft); }
+  .breakdown-row{ gap:12px; flex-wrap:wrap; }
+  .sources a{ overflow-wrap:anywhere; }
+  @media (max-width:480px){ body{ padding:16px 16px 40px; } .card{ padding:20px; } .perforation{ margin:0 -20px; } .site-nav{ margin-bottom:18px; } }
 </style>
-<!-- Google AdSense -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6883245122372170" crossorigin="anonymous"></script>
 </head>
 <body>
-
 
 <div class="stub">
 <nav class="site-nav" aria-label="주요 메뉴">
   <a class="site-nav-brand" href="/">하루<span>콕</span></a>
   <div class="site-nav-links">
-    <a href="/#all-tools" aria-current="page">도구</a>
+    <a href="/#all-tools">모든 도구</a>
     <a href="/guides/">가이드</a>
   </div>
 </nav>
 
-
-  <a href="/" class="back-home">← 하루콕 홈으로</a>
-  <div class="kicker">임신·출산</div>
+<main>
   <h1>육아휴직급여 계산기</h1>
-  <p class="lede">통상임금과 육아휴직 개월차를 입력하면 '6+6 부모육아휴직제' 특례와 일반 육아휴직 급여를 각각 계산합니다.</p>
-  <p class="basis-line"><strong>2026.9.18. 시행 기준</strong> · 일반 250/200/160만원 · 6+6 특례 250~450만원 · 하한 70만원 · 자격은 판정하지 않음</p>
+  <p class="basis-line">2026.9.18. 시행 기준 · 수급 자격·부분월 급여는 계산하지 않습니다.</p>
+
+  <div class="card">
+    <div class="field">
+      <label>육아휴직 유형</label>
+      <div class="seg" id="typeSeg">
+        <button type="button" class="active" data-value="special">부모 함께 사용 (6+6 특례)</button>
+        <button type="button" data-value="normal">일반 구간 (특례 없음)</button>
+      </div>
+      <span class="field-hint">6+6은 같은 자녀가 생후 18개월이 될 때까지 부모 모두 휴직한 경우입니다. 기본 수급 요건을 못 채우면 어느 유형도 지급되지 않습니다.</span>
+    </div>
+
+    <div class="field">
+      <label for="wage">월 통상임금 (세전, 만원)</label>
+      <div class="input-row">
+        <input type="number" id="wage" placeholder="예: 350" inputmode="numeric">
+        <span class="unit" style="font-size:14px;color:var(--muted);margin-left:8px;">만원</span>
+      </div>
+    </div>
+
+    <div class="field" id="monthField">
+      <label for="month">육아휴직 몇 개월차인가요</label>
+      <div class="stepper-row">
+        <button type="button" class="step-btn" id="monthMinus" aria-label="개월차 줄이기">−</button>
+        <div class="input-row">
+          <input type="number" id="month" value="1" min="1" max="6" inputmode="numeric" readonly>
+        </div>
+        <button type="button" class="step-btn" id="monthPlus" aria-label="개월차 늘리기">+</button>
+      </div>
+      <span class="field-hint" id="monthHint">특례는 부모 각각 최대 6개월까지 적용됩니다.</span>
+    </div>
+
+    <button class="calc-btn" id="calcBtn">급여 계산하기</button>
+  </div>
+
+  <div class="card result-card hidden" id="resultCard">
+    <div class="result-label">해당 개월차 예상 육아휴직급여(산정액)</div>
+    <div class="result-amount" id="benefitAmount">0<span class="unit">만원</span></div>
+
+    <div class="breakdown" id="breakdown"></div>
+    <div id="checkStatus"></div>
+
+    <p class="guide-link"><a href="/guides/parental-leave-monthly-comparison#compare">월별 수령액 비교 →</a></p>
+    <p class="guide-link"><a href="/guides/parental-leave-monthly-comparison#requirements">요건 구분 보기 →</a></p>
+
+    <div class="disclaimer">위 금액은 기본 수급 요건을 충족한다고 가정한 해당 개월차의 예상 산정액이며, 실제 입금 시점과 금액은 신청 시기·개별 심사·한부모 우대 등에 따라 달라질 수 있습니다. 자격 판정과 부분월 계산은 하지 않습니다(계산에 적용한 가정 참고).</div>
+  </div>
+
   <details class="basis">
-    <summary>계산 가정·근거·출처 보기</summary>
+    <summary>계산 기준·출처</summary>
     <ul class="assume">
       <li><strong>① 기본 수급 요건 (일반 구간·6+6 공통, 고용24 안내)</strong> 만 8세 이하 또는 초등학교 2학년 이하 자녀(입양 포함) 양육(임신 중인 여성 근로자, 유산·조산 등 위험이 있는 임신 중 배우자를 돌보려는 남성 근로자의 육아휴직 포함) · 육아휴직 30일 이상(주 단위 육아휴직은 7일 이상) · 육아휴직 시작일 이전 피보험단위기간 180일 이상 · 휴직 1개월째부터 종료 후 12개월 이내 신청. 이 요건을 충족하지 못하면 <strong>육아휴직급여가 지급되지 않으며</strong>, 일반 구간이 대신 적용되지 않습니다. 이 계산기는 자격을 판정하지 않습니다.</li>
       <li><strong>② 6+6 특례 요건 (① 충족 + 추가)</strong> 같은 자녀가 출생 후 18개월이 될 때까지 부모가 모두 육아휴직(동시·순차 모두 가능, 임신 중 여성 근로자의 임신을 이유로 한 육아휴직은 태아를 자녀로 봄). 특례 요건만 충족하지 못하면 ①을 충족한 경우에 한해 일반 구간으로 계산합니다.</li>
@@ -173,81 +225,22 @@
     </div>
   </details>
 
-
   <aside class="ad-banner ad-banner-strip" aria-label="광고">
     <p class="ad-label">광고</p>
     <div class="ad-strip-slot"><script src="/ad-banner-isolated.js?v=20261018-isolated"></script></div>
   </aside>
 
-  <div class="card">
-    <div class="field">
-      <label>육아휴직 유형</label>
-      <div class="seg" id="typeSeg">
-        <button type="button" class="active" data-value="special">부모 함께 사용 (6+6 특례)</button>
-        <button type="button" data-value="normal">일반 구간 (특례 없음)</button>
-      </div>
-      <span class="field-hint">6+6 특례 요건(부모가 모두 육아휴직)을 충족할 때 앞쪽을 고르세요. 기본 수급 요건을 못 채우면 어느 쪽이든 급여는 지급되지 않습니다.</span>
-    </div>
-
-    <div class="field">
-      <label for="wage">월 통상임금 (세전, 만원)</label>
-      <div class="input-row">
-        <input type="number" id="wage" placeholder="예: 350" inputmode="numeric">
-        <span class="unit" style="font-size:14px;color:var(--muted);margin-left:8px;">만원</span>
-      </div>
-    </div>
-
-    <div class="field" id="monthField">
-      <label for="month">육아휴직 몇 개월차인가요</label>
-      <div class="stepper-row">
-        <button type="button" class="step-btn" id="monthMinus">−</button>
-        <div class="input-row">
-          <input type="number" id="month" value="1" min="1" max="6" inputmode="numeric" readonly>
-        </div>
-        <button type="button" class="step-btn" id="monthPlus">+</button>
-      </div>
-      <span class="field-hint" id="monthHint">특례는 부모 각각 최대 6개월까지 적용됩니다.</span>
-    </div>
-
-    <button class="calc-btn" id="calcBtn">급여 계산하기</button>
-  </div>
-
-  <div class="card result-card hidden" id="resultCard">
-    <div class="result-label">해당 개월차 예상 육아휴직급여(산정액)</div>
-    <div class="result-amount" id="benefitAmount">0<span class="unit">만원</span></div>
-
-    <div class="breakdown" id="breakdown"></div>
-    <div id="checkStatus"></div>
-
-    <div class="guide-callout">
-      <span>혼자 쓸 때와 부모가 함께 쓸 때 얼마나 다른가요?</span>
-      <a href="/guides/parental-leave-monthly-comparison#compare">월별 수령액 비교 →</a>
-    </div>
-    <div class="guide-callout">
-      <span>내가 받을 수 있는 요건인지 궁금한가요?</span>
-      <a href="/guides/parental-leave-monthly-comparison#requirements">요건 구분 보기 →</a>
-    </div>
-
-    <div class="disclaimer">위 금액은 기본 수급 요건을 충족한다고 가정한 해당 개월차의 예상 산정액이며, 실제 입금 시점과 금액은 신청 시기·개별 심사·한부모 우대 등에 따라 달라질 수 있습니다. 자격 판정과 부분월 계산은 하지 않습니다(위 확인 상태 참고).</div>
-  </div>
-
-
-  <aside class="ad-banner" aria-label="광고">
-    <p class="ad-label">광고</p>
-    <div class="ad-slot">
-      <script src="/ad-banner-isolated.js?v=20261018-isolated"></script>
-    </div>
-  </aside>
-
   <div class="related" style="margin-top:24px;">
-    <div class="related-title">함께 보면 좋은 도구</div>
+    <div class="related-title">다른 도구</div>
     <div class="related-links">
       <a href="/tools/salary-calculator">연봉 실수령액 계산기</a>
     </div>
   </div>
 
+</main>
+
   <footer style="max-width:620px; margin:40px auto 0; padding:20px 0 0; text-align:center; font-size:12.5px; color:var(--muted, #6E6656); border-top:1px solid var(--line, #D9D2BF);">
-    <a href="/" style="color:inherit; margin:0 8px;">홈</a>·<a href="/about" style="color:inherit; margin:0 8px;">소개</a>·<a href="/privacy" style="color:inherit; margin:0 8px;">개인정보처리방침</a>·<a href="mailto:contact@harukok.com" style="color:inherit; margin:0 8px;">문의</a>
+    <a href="/" style="color:inherit; margin:0 8px;">홈</a>·<a href="/about" style="color:inherit; margin:0 8px;">소개</a>·<a href="/privacy" style="color:inherit; margin:0 8px;">개인정보처리방침</a>·<a href="mailto:contact@harukok.com?subject=%EC%9C%A1%EC%95%84%ED%9C%B4%EC%A7%81%EA%B8%89%EC%97%AC%20%EA%B3%84%EC%82%B0%EA%B8%B0" style="color:inherit; margin:0 8px;">의견 보내기</a>
   </footer>
 </div>
 
@@ -328,7 +321,7 @@
 
   const TAGS = { ok: '공식 확인', assume: '입력 가정', unverified: '미확인' };
   function checkRow(kind, html){ return '<div class="check-row"><span class="check-tag ' + kind + '">' + TAGS[kind] + '</span><span>' + html + '</span></div>'; }
-  function checkBox(rows){ return '<div class="check-status"><div class="check-title">이 결과의 확인 상태</div>' + rows.join('') + '</div>'; }
+  function checkBox(rows){ return '<details class="check-status"><summary>계산에 적용한 가정</summary>' + rows.join('') + '</details>'; }
 
   function render(r){
     $('benefitAmount').innerHTML = Math.round(r.benefit).toLocaleString('ko-KR') + '<span class="unit">만원</span>';

@@ -31,7 +31,7 @@
   *{ box-sizing: border-box; }
   body{
     margin:0;
-    padding: 40px 20px 70px;
+    padding: 24px 20px 56px;
     background: var(--paper);
     background-image: repeating-linear-gradient(0deg, rgba(0,0,0,0.015) 0px, rgba(0,0,0,0.015) 1px, transparent 1px, transparent 3px);
     font-family: 'Pretendard', -apple-system, sans-serif;
@@ -40,9 +40,9 @@
     justify-content:center;
   }
   .stub{ width:100%; max-width: 560px; }
-  .kicker{ font-size:13px; color:var(--muted); margin-bottom:6px; }
+
   h1{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:30px; line-height:1.35; margin:0 0 8px; }
-  .lede{ font-size:14.5px; color:var(--ink-soft); line-height:1.6; margin:0 0 32px; max-width:46ch; }
+
   .card{ background:var(--paper-light); border:1px solid var(--line); border-radius:14px; padding:32px; margin-bottom:28px; }
   .field{ margin-bottom:20px; }
   .field:last-child{ margin-bottom:0; }
@@ -90,10 +90,7 @@
   .related-links a{ padding:8px 14px; border:1.5px solid var(--line); border-radius:999px; font-size:13px; color:var(--ink); text-decoration:none; }
   .related-links a:hover{ border-color:var(--ink); }
 
-  .back-home{ display:inline-block; font-size:12.5px; color:var(--muted); text-decoration:none; margin-bottom:14px; }
-  .back-home:hover{ color:var(--ink); }
-
-  .site-nav{ display:flex; align-items:center; justify-content:space-between; width:100%; margin:0 0 22px; padding:0 0 14px; border-bottom:1px solid var(--line, #D9D2BF); }
+  .site-nav{ display:flex; align-items:center; justify-content:space-between; width:100%; margin:0 0 20px; padding:0 0 8px; border-bottom:1px solid var(--line, #D9D2BF); }
   .site-nav-brand{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:15px; color:var(--ink); text-decoration:none; }
   .site-nav-brand span{ color:var(--stamp, #B23A2E); }
   .site-nav-links{ display:flex; gap:2px; }
@@ -101,9 +98,6 @@
   .site-nav-links a:hover{ color:var(--ink); background:var(--paper-light, rgba(0,0,0,0.045)); }
   .site-nav-links a[aria-current="page"]{ color:var(--ink); font-weight:600; }
   .site-nav-brand:focus-visible, .site-nav-links a:focus-visible{ outline:2px solid var(--stamp, #B23A2E); outline-offset:2px; border-radius:4px; }
-  .guide-callout{ display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:8px; margin-top:16px; padding:12px 14px; background:var(--paper-light); border:1px dashed var(--line); border-radius:8px; font-size:12.5px; color:var(--ink-soft); }
-  .guide-callout a{ color:var(--stamp); font-weight:600; text-decoration:none; white-space:nowrap; }
-  .guide-callout a:hover{ text-decoration:underline; }
 
   .check-status{ margin:16px 0 0; padding:12px 14px; border:1px solid var(--line, #B7AF98); border-radius:10px; background:rgba(255,255,255,0.45); text-align:left; }
   .check-status .check-title{ font-size:12px; font-weight:700; color:var(--ink, #16233D); }
@@ -113,7 +107,7 @@
   .check-tag.assume{ color:#8A5A1E; border-color:#8A5A1E; }
   .check-tag.unverified{ color:#B23A2E; border-color:#B23A2E; }
 
-  .basis-line{ font-size:12.5px; line-height:1.5; color:var(--ink-soft); margin:-14px 0 6px; }
+  .basis-line{ font-size:13px; line-height:1.6; color:var(--ink-soft); margin:0 0 20px; }
   .basis-line strong{ color:var(--ink); }
   details.basis{ margin:0 0 16px; font-size:12.5px; color:var(--muted); line-height:1.65; }
   details.basis summary{ cursor:pointer; color:var(--ink-soft); font-weight:600; }
@@ -121,54 +115,44 @@
   details.basis ul.assume{ margin:10px 0 0; padding-left:18px; }
   details.basis ul.assume li{ margin-bottom:6px; }
   details.basis .sources{ margin-top:14px; padding-top:12px; }
-  .ad-banner{ width:300px; margin:32px calc((100% - 300px) / 2); text-align:center; }
+  .ad-banner{ width:300px; max-width:100%; margin:32px auto; text-align:center; }
   .ad-banner .ad-label{ margin:0 0 8px; font-size:11px; color:var(--muted, #6E6656); line-height:1.5; }
   .ad-slot{ width:300px; min-height:250px; }
   .ad-banner-strip{ width:100%; margin:32px auto; }
   .ad-banner-strip[hidden]{ display:none; }
-  .ad-strip-slot{ margin:0 auto; }
+  .ad-strip-slot{ max-width:100%; margin:0 auto; }
+  .site-nav a, .related-links a{ display:inline-flex; align-items:center; min-height:44px; }
+  .field-hint{ line-height:1.6; }
+  .input-row input, .seg button{ min-height:44px; }
+  .input-row input{ min-width:0; }
+  .input-row:focus-within{ outline:2px solid var(--stamp); outline-offset:4px; }
+  button:focus-visible, summary:focus-visible, a:focus-visible{ outline:2px solid var(--stamp); outline-offset:3px; }
+  details.basis{ margin:24px 0; padding:12px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  details.basis > summary, .check-status > summary, .field-help > summary, .comparison > summary{ cursor:pointer; padding:10px 0; font-size:13px; color:var(--ink); font-weight:600; }
+  .field-help{ margin-top:4px; font-size:12px; line-height:1.6; color:var(--muted); }
+  .field-help > summary{ font-size:12px; padding:7px 0; }
+  .field-help p{ margin:4px 0 0; }
+  .guide-link{ margin:12px 0; font-size:13px; line-height:1.6; }
+  .guide-link a{ color:var(--ink-soft); }
+  .breakdown-row{ gap:12px; flex-wrap:wrap; }
+  .sources a{ overflow-wrap:anywhere; }
+  @media (max-width:480px){ body{ padding:16px 16px 40px; } .card{ padding:20px; } .perforation{ margin:0 -20px; } .site-nav{ margin-bottom:18px; } }
 </style>
-<!-- Google AdSense -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6883245122372170" crossorigin="anonymous"></script>
 </head>
 <body>
-
-
 
 <div class="stub">
 <nav class="site-nav" aria-label="주요 메뉴">
   <a class="site-nav-brand" href="/">하루<span>콕</span></a>
   <div class="site-nav-links">
-    <a href="/#all-tools" aria-current="page">도구</a>
+    <a href="/#all-tools">모든 도구</a>
     <a href="/guides/">가이드</a>
   </div>
 </nav>
 
-  <a href="/" class="back-home">← 하루콕 홈으로</a>
-  <div class="kicker">급여·근로</div>
+<main>
   <h1>시급 계산기</h1>
-  <p class="lede">시급과 월급을 서로 환산하고, 2026년 최저시급 10,320원과 비교합니다. 근로계약서의 소정근로시간과 급여 항목을 준비하세요.</p>
-  <p class="basis-line"><strong>2026년 최저시급 10,320원</strong> · 월 환산 209시간(주 40시간) · 단순 환산이며 최저임금 위반 여부는 판정하지 않음</p>
-  <details class="basis">
-    <summary>계산 가정·근거·출처 보기</summary>
-    <ul class="assume">
-      <li>주 40시간은 고용노동부가 발표한 월 209시간을 씁니다. 그 외에는 (주 소정근로시간 + 주휴시간) × 365 ÷ 7 ÷ 12로 추정하며 시간은 정수로 반올림하지 않습니다. 통상근로자가 주 5일·40시간인 사업장을 가정해 주휴시간은 주 소정근로시간 ÷ 40 × 8시간으로 계산합니다. 4주 평균 주 15시간 이상·개근, 주휴일을 포함한 근로관계 유지를 가정하며 별도 유급휴일·연장근로수당은 반영하지 않습니다.</li>
-    </ul>
-    <div class="sources">
-      <div class="sources-title">참고 자료 및 출처</div>
-      <ul>
-        <li><a href="https://www.minimumwage.go.kr" target="_blank" rel="noopener">최저임금위원회 — 연도별 최저임금 결정 현황</a></li>
-        <li><a href="https://labor.moel.go.kr/minwonSysInfo/minwagesys.do" target="_blank" rel="noopener">고용노동부 노동포털 — 최저임금제도 안내</a></li>
-        <li><a href="https://www.moel.go.kr/news/enews/report/enewsView.do?news_seq=18144" target="_blank" rel="noopener">고용노동부 보도자료 — 2026년 적용 최저임금 시간급 10,320원(월 환산액 2,156,880원, 월 209시간 기준) <span style="color:var(--muted);">(확인: 2026-09-18)</span></a></li>
-      </ul>
-    </div>
-  </details>
-
-
-  <aside class="ad-banner ad-banner-strip" aria-label="광고">
-    <p class="ad-label">광고</p>
-    <div class="ad-strip-slot"><script src="/ad-banner-isolated.js?v=20261018-isolated"></script></div>
-  </aside>
+  <p class="basis-line">2026년 최저시급 10,320원 · 최저임금 위반 여부는 판정하지 않습니다.</p>
 
   <div class="card">
     <div class="seg" id="modeSeg">
@@ -190,7 +174,8 @@
         <input type="number" id="monthlyWage" placeholder="예: 220" inputmode="numeric">
         <span class="unit">만원</span>
       </div>
-      <span class="field-hint">세금·보험 공제 전 금액입니다. 최저임금과 비교하려면 지급총액에서 연장·야간·휴일근로수당 등 제외 항목을 구분해 산입 임금 합계를 넣으세요. <a href="/guides/minimum-wage-monthly-hours#wage-input">급여명세서 입력 예시</a></span>
+      <span class="field-hint">세전 금액입니다. 최저임금 비교 시 연장·야간·휴일근로수당 등은 빼세요.</span>
+      <details class="field-help"><summary>입력 기준 자세히</summary><p>세금·보험 공제 전 금액입니다. 최저임금과 비교하려면 지급총액에서 연장·야간·휴일근로수당 등 제외 항목을 구분해 산입 임금 합계를 넣으세요. <a href="/guides/minimum-wage-monthly-hours#wage-input">급여명세서 입력 예시</a></p></details>
     </div>
 
     <div class="field">
@@ -206,7 +191,8 @@
       <div class="input-row">
         <input type="number" id="weeklyDays" placeholder="예: 5" inputmode="numeric">
       </div>
-      <span class="field-hint">입력한 주 근무시간이 매주 같고 소정근로일을 개근한다고 가정해, 주 15시간 이상이면 주휴수당이 자동으로 포함됩니다. 개근 여부와 4주 평균 시간 같은 자격 조건은 이 계산기가 확인하지 않습니다.</span>
+      <span class="field-hint">매주 같은 시간·개근 기준입니다. 주 15시간 이상이면 주휴수당을 포함합니다.</span>
+      <details class="field-help"><summary>입력 기준 자세히</summary><p>입력한 주 근무시간이 매주 같고 소정근로일을 개근한다고 가정해, 주 15시간 이상이면 주휴수당이 자동으로 포함됩니다. 개근 여부와 4주 평균 시간 같은 자격 조건은 이 계산기가 확인하지 않습니다.</p></details>
     </div>
 
     <button class="calc-btn" id="calcBtn">계산하기</button>
@@ -214,24 +200,38 @@
 
   <div class="card result-card hidden" id="resultCard"></div>
 
-
-  <aside class="ad-banner" aria-label="광고">
-    <p class="ad-label">광고</p>
-    <div class="ad-slot">
-      <script src="/ad-banner-isolated.js?v=20261018-isolated"></script>
+  <details class="basis">
+    <summary>계산 기준·출처</summary>
+    <ul class="assume">
+      <li>주 40시간은 고용노동부가 발표한 월 209시간을 씁니다. 그 외에는 (주 소정근로시간 + 주휴시간) × 365 ÷ 7 ÷ 12로 추정하며 시간은 정수로 반올림하지 않습니다. 통상근로자가 주 5일·40시간인 사업장을 가정해 주휴시간은 주 소정근로시간 ÷ 40 × 8시간으로 계산합니다. 4주 평균 주 15시간 이상·개근, 주휴일을 포함한 근로관계 유지를 가정하며 별도 유급휴일·연장근로수당은 반영하지 않습니다.</li>
+    </ul>
+    <div class="sources">
+      <div class="sources-title">참고 자료 및 출처</div>
+      <ul>
+        <li><a href="https://www.minimumwage.go.kr" target="_blank" rel="noopener">최저임금위원회 — 연도별 최저임금 결정 현황</a></li>
+        <li><a href="https://labor.moel.go.kr/minwonSysInfo/minwagesys.do" target="_blank" rel="noopener">고용노동부 노동포털 — 최저임금제도 안내</a></li>
+        <li><a href="https://www.moel.go.kr/news/enews/report/enewsView.do?news_seq=18144" target="_blank" rel="noopener">고용노동부 보도자료 — 2026년 적용 최저임금 시간급 10,320원(월 환산액 2,156,880원, 월 209시간 기준) <span style="color:var(--muted);">(확인: 2026-09-18)</span></a></li>
+      </ul>
     </div>
+  </details>
+
+  <aside class="ad-banner ad-banner-strip" aria-label="광고">
+    <p class="ad-label">광고</p>
+    <div class="ad-strip-slot"><script src="/ad-banner-isolated.js?v=20261018-isolated"></script></div>
   </aside>
 
   <div class="related" style="margin-top:24px;">
-    <div class="related-title">함께 보면 좋은 도구</div>
+    <div class="related-title">다른 도구</div>
     <div class="related-links">
       <a href="/tools/weekly-holiday-pay-calculator">주휴수당 계산기</a>
       <a href="/tools/salary-calculator">연봉 실수령액 계산기</a>
     </div>
   </div>
 
+</main>
+
   <footer style="max-width:620px; margin:40px auto 0; padding:20px 0 0; text-align:center; font-size:12.5px; color:var(--muted, #6E6656); border-top:1px solid var(--line, #D9D2BF);">
-    <a href="/" style="color:inherit; margin:0 8px;">홈</a>·<a href="/about" style="color:inherit; margin:0 8px;">소개</a>·<a href="/privacy" style="color:inherit; margin:0 8px;">개인정보처리방침</a>·<a href="mailto:contact@harukok.com" style="color:inherit; margin:0 8px;">문의</a>
+    <a href="/" style="color:inherit; margin:0 8px;">홈</a>·<a href="/about" style="color:inherit; margin:0 8px;">소개</a>·<a href="/privacy" style="color:inherit; margin:0 8px;">개인정보처리방침</a>·<a href="mailto:contact@harukok.com?subject=%EC%8B%9C%EA%B8%89%20%EA%B3%84%EC%82%B0%EA%B8%B0" style="color:inherit; margin:0 8px;">의견 보내기</a>
   </footer>
 </div>
 
@@ -265,7 +265,7 @@
 
   const TAGS = { ok: '공식 확인', assume: '입력 가정', unverified: '미확인' };
   function checkRow(kind, html){ return '<div class="check-row"><span class="check-tag ' + kind + '">' + TAGS[kind] + '</span><span>' + html + '</span></div>'; }
-  function checkBox(rows){ return '<div class="check-status"><div class="check-title">이 결과의 확인 상태</div>' + rows.join('') + '</div>'; }
+  function checkBox(rows){ return '<details class="check-status"><summary>계산에 적용한 가정</summary>' + rows.join('') + '</details>'; }
 
   function calculate(){
     const dailyHours = parseFloat($('dailyHours').value) || 0;
@@ -323,14 +323,8 @@
           ? `<div class="warning">입력한 시급 ${won(hourlyWage)}원은 2026년 최저시급(10,320원)보다 낮습니다.</div>`
           : `<div class="ok-badge">2026년 최저시급(10,320원) 이상입니다.</div>`}
         ${statusHTML}
-        <div class="guide-callout">
-      <span>209시간은 어떻게 나오고, 최저임금과 어떻게 비교하나요?</span>
-      <a href="/guides/minimum-wage-monthly-hours">최저임금·209시간 가이드 →</a>
-    </div>
-    <div class="guide-callout">
-      <span>계약서에서 무엇을 확인해야 하나요?</span>
-      <a href="/guides/minimum-wage-monthly-hours#check-order">확인 순서 보기 →</a>
-    </div>
+        <p class="guide-link"><a href="/guides/minimum-wage-monthly-hours">최저임금·209시간 가이드 →</a></p>
+    <p class="guide-link"><a href="/guides/minimum-wage-monthly-hours#check-order">확인 순서 보기 →</a></p>
 
         <div class="disclaimer">소정근로일을 개근하고 주 근무시간이 매주 같다는 전제의 추정치입니다. 주 40시간은 209시간, 그 외에는 반올림 전 월 환산시간을 사용하고 최종 금액을 원 단위로 반올림합니다. 최저임금 산입 임금 범위, 수습 감액 같은 사실관계는 반영하지 않으며 실제 급여명세서와는 차이가 있을 수 있습니다. 이 결과만으로 최저임금 준수 여부나 법 위반을 확정하지 마세요.</div>
       `;
@@ -354,14 +348,8 @@
           ? `<div class="warning">환산 시급이 2026년 최저시급(10,320원)보다 낮습니다.</div>`
           : `<div class="ok-badge">2026년 최저시급(10,320원) 이상입니다.</div>`}
         ${statusHTML}
-        <div class="guide-callout">
-      <span>209시간은 어떻게 나오고, 최저임금과 어떻게 비교하나요?</span>
-      <a href="/guides/minimum-wage-monthly-hours">최저임금·209시간 가이드 →</a>
-    </div>
-    <div class="guide-callout">
-      <span>계약서에서 무엇을 확인해야 하나요?</span>
-      <a href="/guides/minimum-wage-monthly-hours#check-order">확인 순서 보기 →</a>
-    </div>
+        <p class="guide-link"><a href="/guides/minimum-wage-monthly-hours">최저임금·209시간 가이드 →</a></p>
+    <p class="guide-link"><a href="/guides/minimum-wage-monthly-hours#check-order">확인 순서 보기 →</a></p>
 
         <div class="disclaimer">소정근로일을 개근하고 주 근무시간이 매주 같다는 전제의 추정치입니다. 주 40시간은 209시간, 그 외에는 반올림 전 월 환산시간을 사용하고 최종 금액을 원 단위로 반올림합니다. 최저임금 산입 임금 범위, 수습 감액 같은 사실관계는 반영하지 않으며 실제 급여명세서와는 차이가 있을 수 있습니다. 이 결과만으로 최저임금 준수 여부나 법 위반을 확정하지 마세요.</div>
       `;

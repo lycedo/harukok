@@ -49,7 +49,7 @@ check('Metadata, banners, safe static output',()=>{
   const html=fs.readFileSync(path.join(__dirname,'../tools/background-remover.html'),'utf8');
   assert.ok(html.includes('https://harukok.com/tools/background-remover'));
   const data=JSON.parse(html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]);assert.equal(data.url,'https://harukok.com/tools/background-remover');
-  assert.equal((html.match(/ad-banner-isolated.js/g)||[]).length,2);
+  assert.equal((html.match(/ad-banner-isolated.js/g)||[]).length,1);
   const js=fs.readFileSync(path.join(__dirname,'../tools/background-remover.js'),'utf8');
   assert.ok(!js.includes('innerHTML'));assert.ok(!js.includes('fetch('));
 });

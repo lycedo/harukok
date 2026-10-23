@@ -59,8 +59,9 @@ let checked=0;
 for (const page of pages) {
   const html=fs.readFileSync(path.join(root,page),'utf8');
   assert.ok(!html.includes('bauval.org'), 'Direct vendor code: '+page);
+  assert.ok(!html.includes('adsbygoogle.js'), 'Unrestricted auto-ad loader: '+page);
   if (!html.includes('class="ad-banner')) continue;
-  assert.equal((html.match(/src="\/ad-banner-isolated\.js\?v=20261018-(?:isolated|tools)"/g)||[]).length,page.startsWith('guides/')?1:2,page);
+  assert.equal((html.match(/src="\/ad-banner-isolated\.js\?v=20261018-(?:isolated|tools)"/g)||[]).length,1,page);
   checked++;
 }
 assert.equal(checked,28);

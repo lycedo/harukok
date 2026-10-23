@@ -17,222 +17,8 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@700&family=Pretendard:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg: #F2EEE4;
-    --ink: #201C18;
-    --muted: #6E6656;
-    --navy: #16233D;
-    --navy-soft: #EDEAE0;
-    --charcoal: #241F1B;
-    --mustard: #F0AD3D;
-    --stamp: #B23A2E;
-  }
-  *{ box-sizing: border-box; }
-  body{
-    margin:0;
-    background: var(--bg);
-    color: var(--ink);
-    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Malgun Gothic', sans-serif;
-    display:flex;
-    justify-content:center;
-    padding: 56px 20px 80px;
-  }
-  .wrap{ width:100%; max-width: 720px; }
-
-  .site-nav{ display:flex; align-items:center; justify-content:space-between; max-width:640px; margin:0 auto 28px; padding:10px 2px 14px; border-bottom:1px solid #D9D2BF; }
-  .site-nav-brand{ font-family:'Do Hyeon', sans-serif; font-weight:400; font-size:17px; color:var(--ink); text-decoration:none; }
-  .site-nav-brand span{ color:var(--stamp); }
-  .site-nav-links{ display:flex; gap:2px; }
-  .site-nav-links a{ display:flex; align-items:center; min-height:44px; font-size:14px; color:var(--muted); text-decoration:none; padding:6px 10px; border-radius:6px; }
-  .site-nav-links a:hover{ color:var(--ink); background:var(--navy-soft); }
-  .site-nav-links a[aria-current="page"]{ color:var(--ink); font-weight:600; }
-  .site-nav-brand:focus-visible, .site-nav-links a:focus-visible{ outline:2px solid var(--stamp); outline-offset:2px; border-radius:4px; }
-
-  header{ text-align:center; margin-bottom: 22px; }
-
-  .brand{
-    font-family: 'Do Hyeon', sans-serif;
-    font-size: 40px;
-    color: var(--ink);
-    margin: 0 0 8px;
-  }
-  .brand span{ color: var(--stamp); }
-
-  .tagline{
-    font-size: 14px;
-    color: var(--muted);
-    margin:0;
-  }
-
-  .section-label{
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--muted);
-    margin: 0 0 14px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #D9D2BF;
-  }
-
-  .cards{
-    display:grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 14px;
-  }
-  @media (max-width: 520px){
-    .cards{ grid-template-columns: 1fr; }
-  }
-
-  .card{
-    display:block;
-    text-decoration:none;
-    color: inherit;
-    padding: 22px;
-    border-radius: 4px;
-  }
-
-  .card.utility{
-    background: var(--navy);
-    color: var(--navy-soft);
-  }
-  .card.fun{
-    background: var(--charcoal);
-    color: #F3ECDD;
-  }
-
-  .card .icon{ font-size: 26px; margin-bottom: 12px; display:block; }
-
-  .card .name{
-    font-family: 'Noto Serif KR', serif;
-    font-weight: 700;
-    font-size: 18px;
-    margin-bottom: 6px;
-  }
-  .card.fun .name{
-    font-family: 'Do Hyeon', sans-serif;
-    font-weight: 400;
-  }
-
-  .card .desc{
-    font-size: 13px;
-    opacity: 0.75;
-    line-height: 1.5;
-  }
-
-  .quick-section{ margin-bottom: 44px; }
-
-  footer{
-    text-align:center;
-    font-size: 12.5px;
-    color: var(--muted);
-    padding-top: 24px;
-    border-top: 1px solid #D9D2BF;
-  }
-  footer a{ color: var(--muted); margin: 0 8px; }
-  .toast{
-    position: fixed; left: 50%; bottom: 28px; transform: translateX(-50%) translateY(12px);
-    background: var(--ink); color: #F2EEE4; font-size: 13px; padding: 10px 18px; border-radius: 999px;
-    opacity: 0; pointer-events: none; transition: opacity 0.2s ease, transform 0.2s ease; z-index: 10;
-  }
-  .toast.visible{ opacity: 1; transform: translateX(-50%) translateY(0); }
-
-  .about{
-    text-align:center;
-    margin-bottom: 28px;
-  }
-  .about p{
-    font-size: 12.5px;
-    line-height: 1.6;
-    color: var(--muted);
-    margin: 0;
-    max-width: 52ch;
-    margin-left:auto;
-    margin-right:auto;
-  }
-
-  .goal-section{ margin-bottom: 44px; }
-  .goal-grid{
-    display:grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 14px;
-  }
-  @media (max-width: 640px){
-    .goal-grid{ grid-template-columns: 1fr; }
-  }
-  .goal-card{
-    min-width: 0;
-    background: #fff;
-    border: 1.5px solid #DCD6C1;
-    border-radius: 10px;
-    padding: 20px;
-  }
-  .goal-card .goal-title{
-    font-family: 'Noto Serif KR', serif;
-    font-weight: 700;
-    font-size: 15.5px;
-    margin: 0 0 6px;
-  }
-  .goal-card .goal-desc{
-    font-size: 13.5px;
-    color: var(--muted);
-    line-height: 1.55;
-    margin-bottom: 14px;
-  }
-  .goal-card .goal-links{
-    display:flex;
-    flex-direction:column;
-    gap: 6px;
-  }
-  .goal-card .goal-links a{
-    display:flex;
-    align-items:center;
-    min-height:44px;
-    font-size: 14px;
-    line-height:1.5;
-    color: var(--ink);
-    text-decoration:none;
-    padding: 8px 10px;
-    border-radius: 6px;
-    background: var(--bg);
-  }
-  .goal-card .goal-links a:hover{ background: var(--navy-soft); }
-
-  .top-cta-row{ display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin-bottom: 36px; }
-  .top-cta{ display:inline-flex; align-items:center; gap:6px; font-size:13.5px; font-weight:600; color:var(--ink); text-decoration:none; padding:10px 18px; border-radius:999px; border:1.5px solid #DCD6C1; background:#fff; }
-  .top-cta:hover{ border-color:var(--stamp); color:var(--stamp); }
-  .top-cta:focus-visible{ outline:2px solid var(--stamp); outline-offset:2px; }
-
-  .all-tools-section{ margin-bottom: 44px; scroll-margin-top:20px; }
-  .category-nav{ display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:6px; margin:0 0 18px; }
-  .category-nav a{ display:flex; align-items:center; justify-content:center; min-height:44px; padding:8px 4px; border-bottom:1px solid #B8AF99; color:var(--ink); font-size:14px; text-decoration:none; }
-  .category-nav a:hover{ background:var(--navy-soft); border-color:var(--stamp); }
-  .goal-card{ scroll-margin-top:20px; }
-  a:focus-visible{ outline:2px solid var(--stamp); outline-offset:3px; }
-  .ad-banner{ width:300px; max-width:100%; margin:32px auto; text-align:center; }
-  .ad-banner .ad-label{ margin:0 0 8px; font-size:11px; color:var(--muted, #6E6656); line-height:1.5; }
-  .ad-slot{ width:100%; max-width:100%; min-height:250px; }
-  .ad-banner-strip{ width:100%; margin:32px auto; }
-  .ad-banner-strip[hidden]{ display:none; }
-  .ad-strip-slot{ max-width:100%; margin:0 auto; }
-  @media (max-width:640px){
-    body{ padding:24px 16px 48px; }
-    .site-nav{ margin-bottom:20px; padding-top:0; }
-    .top-cta-row{ margin-bottom:28px; gap:8px; }
-    .top-cta{ padding:10px 12px; font-size:13px; }
-    .quick-section,.goal-section{ margin-bottom:28px; }
-    .category-nav{ grid-template-columns:repeat(3,minmax(0,1fr)); }
-    .goal-card{ padding:18px; }
-  }
-  @media (max-width:520px){
-    .card{ display:grid; grid-template-columns:32px minmax(0,1fr); column-gap:14px; padding:18px; }
-    .card .icon{ grid-row:1 / 3; align-self:center; margin:0; }
-    .card .name{ margin-bottom:4px; }
-    .card .desc{ grid-column:2; }
-  }
-</style>
-<!-- Google AdSense -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6883245122372170" crossorigin="anonymous"></script>
+<link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/tools/home.css?v=20261022">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -244,154 +30,82 @@
 </head>
 <body>
 <div class="wrap">
-
   <nav class="site-nav" aria-label="주요 메뉴">
-    <a class="site-nav-brand" href="/">하루<span>콕</span></a>
-    <div class="site-nav-links">
-      <a href="#all-tools">도구</a>
-      <a href="/guides/">가이드</a>
-    </div>
+    <a class="site-nav-brand" href="/" aria-label="하루콕 홈">하루<span>콕</span></a>
+    <div class="site-nav-links"><a href="#all-tools">도구</a><a href="/guides/">사용 가이드</a></div>
   </nav>
-
-  <main>
-  <header>
-    <h1 class="brand">하루<span>콕</span></h1>
-    <p class="tagline">계산·사진 편집·추첨 도구를 한곳에.</p>
-  </header>
-
-  <div class="about">
-    <p>회원가입 없이 무료로 이용할 수 있습니다.</p>
-  </div>
-
-  <div class="top-cta-row">
-    <a class="top-cta" href="#all-tools">전체 도구 보기 (21개) →</a>
-    <a class="top-cta" href="/guides/">전체 가이드 보기 (6편) →</a>
-  </div>
-
-  <div class="quick-section">
-    <h2 class="section-label">바로 쓰는 도구</h2>
-    <div class="cards">
-      <a class="card fun" href="/fun/lotto-generator">
-        <span class="icon">🎱</span>
-        <div class="name">로또 번호 생성기</div>
-        <div class="desc">1~45 무작위 6개, 클릭 한 번이면 끝</div>
-      </a>
-      <a class="card utility" href="/tools/certificate-maker">
-        <span class="icon">🏅</span>
-        <div class="name">상장 만들기</div>
-        <div class="desc">밥 잘 먹는 상, 심부름 잘한 상 같은 칭찬 상장을 무료로 제작</div>
-      </a>
-    </div>
-  </div>
-
-  <aside class="ad-banner ad-banner-strip" aria-label="광고">
-    <p class="ad-label">광고</p>
-    <div class="ad-strip-slot"><script src="/ad-banner-isolated.js?v=20261018-isolated"></script></div>
-  </aside>
-
-  <div class="goal-section all-tools-section" id="all-tools">
-    <h2 class="section-label">전체 도구 (21개) · 목적으로 찾기</h2>
-    <nav class="category-nav" aria-label="도구 분류 바로가기">
-      <a href="#daily-tools">생활 계산</a>
-      <a href="#salary-tools">월급</a>
-      <a href="#leaving-tools">퇴사</a>
-      <a href="#family-tools">육아</a>
-      <a href="#image-tools">이미지 편집</a>
-      <a href="#other-tools">그 외 도구</a>
-    </nav>
-    <div class="goal-grid">
-      <div class="goal-card" id="daily-tools">
-        <h3 class="goal-title">생활 계산·글쓰기</h3>
-        <div class="goal-desc">할인 가격, 기념일, 평수, 자기소개서 분량을 확인할 때</div>
-        <div class="goal-links">
-          <a href="/tools/percent-calculator">퍼센트·할인율 계산기</a>
-          <a href="/tools/date-calculator">날짜·디데이 계산기</a>
-          <a href="/tools/character-counter">글자 수·바이트 세기</a>
-          <a href="/tools/age-calculator">만 나이 계산기</a>
-          <a href="/tools/area-calculator">면적·평수 계산기</a>
-        </div>
+  <main id="all-tools">
+    <header><h1>필요한 도구 찾기</h1><p>회원가입 없이 바로 사용할 수 있어요.</p></header>
+    <div id="directory-controls" hidden>
+      <div class="search-row">
+        <label for="tool-search">도구 검색</label>
+        <input id="tool-search" type="search" placeholder="도구 검색 (예: 월급, 사진, 디데이)" autocomplete="off" aria-controls="tool-directory">
+        <button id="reset-search" class="reset-search" type="button" hidden>초기화</button>
       </div>
-      <div class="goal-card" id="salary-tools">
-        <h3 class="goal-title">💰 월급 확인</h3>
-        <div class="goal-desc">실수령액, 시급·주휴수당을 확인하고 싶을 때</div>
-        <div class="goal-links">
-          <a href="/tools/salary-calculator">연봉 실수령액 계산기</a>
-          <a href="/tools/hourly-wage-calculator">시급 계산기</a>
-          <a href="/tools/weekly-holiday-pay-calculator">주휴수당 계산기</a>
-        </div>
-      </div>
-      <div class="goal-card" id="leaving-tools">
-        <h3 class="goal-title">📦 퇴사 준비</h3>
-        <div class="goal-desc">퇴직금·실업급여·연차수당을 미리 가늠하고 싶을 때</div>
-        <div class="goal-links">
-          <a href="/tools/severance-pay-calculator">퇴직금 계산기</a>
-          <a href="/tools/unemployment-benefit-calculator">실업급여 계산기</a>
-          <a href="/tools/annual-leave-pay-calculator">연차수당 계산기</a>
-        </div>
-      </div>
-      <div class="goal-card" id="family-tools">
-        <h3 class="goal-title">👶 출산·육아 준비</h3>
-        <div class="goal-desc">아기 태명을 고르고 육아휴직 급여를 확인할 때</div>
-        <div class="goal-links">
-          <a href="/tools/parental-leave-calculator">육아휴직급여 계산기</a>
-          <a href="/fun/baby-name-generator">계절별 태명 추천</a>
-        </div>
-      </div>
-      <div class="goal-card" id="image-tools">
-        <h3 class="goal-title">이미지 편집</h3>
-        <div class="goal-desc">사진을 자르고 크기·용량을 줄이거나 흰 배경을 투명하게 만들 때</div>
-        <div class="goal-links">
-          <a href="/tools/image-resizer">사진 크기·용량 줄이기</a>
-          <a href="/tools/background-remover">흰 배경 지우기</a>
-          <a href="/tools/image-cropper">이미지 자르기</a>
-        </div>
-      </div>
-      <div class="goal-card" id="other-tools">
-        <h3 class="goal-title">🎲 그 외 도구</h3>
-        <div class="goal-desc">번호 뽑기, 상장 제작처럼 계산이 아닌 도구</div>
-        <div class="goal-links">
-          <a href="/fun/lotto-generator">로또 번호 생성기</a>
-          <a href="/tools/certificate-maker">상장 만들기</a>
-          <a href="/fun/food-picker">오늘 뭐 먹지? (점심·저녁·야식·음료)</a>
-          <a href="/tools/random-picker">랜덤 명단 추첨기</a>
-          <a href="/tools/team-generator">랜덤 팀 나누기</a>
-        </div>
+      <div class="category-nav" role="group" aria-label="도구 분류">
+        <button type="button" data-category-filter="all" aria-pressed="true">전체</button>
+        <button type="button" data-category-filter="daily" aria-pressed="false">생활 계산</button>
+        <button type="button" data-category-filter="money" aria-pressed="false">월급·퇴사</button>
+        <button type="button" data-category-filter="image" aria-pressed="false">이미지 편집</button>
+        <button type="button" data-category-filter="random" aria-pressed="false">추첨·만들기</button>
+        <button type="button" data-category-filter="family" aria-pressed="false">출산·육아</button>
       </div>
     </div>
-  </div>
-
-  <aside class="ad-banner" aria-label="광고">
-    <p class="ad-label">광고</p>
-    <div class="ad-slot">
-      <script src="/ad-banner-isolated.js?v=20261018-isolated"></script>
+    <p id="directory-status" class="directory-status" role="status" aria-live="polite">전체 21개</p>
+    <div class="goal-grid" id="tool-directory">
+      <section class="goal-card" id="daily-tools" data-tool-group="daily" aria-labelledby="daily-title">
+        <h2 class="goal-title" id="daily-title">생활 계산</h2>
+        <ul class="goal-links">
+          <li data-keywords="백분율 할인 가격 비율"><a href="/tools/percent-calculator">퍼센트·할인율 계산기</a></li>
+          <li data-keywords="날짜 D-day dday 기념일 기간 일수"><a href="/tools/date-calculator">날짜·디데이 계산기</a></li>
+          <li data-keywords="글자수 글자수세기 자소서 자기소개서 바이트 bytes"><a href="/tools/character-counter">글자 수·바이트 세기</a></li>
+          <li data-keywords="생일 연나이 만나이"><a href="/tools/age-calculator">만 나이 계산기</a></li>
+          <li data-keywords="제곱미터 m2 ㎡ 평 평형 아파트"><a href="/tools/area-calculator">면적·평수 계산기</a></li>
+        </ul>
+      </section>
+      <section class="goal-card" id="salary-tools" data-tool-group="money" aria-labelledby="money-title">
+        <h2 class="goal-title" id="money-title">월급·퇴사</h2>
+        <ul class="goal-links">
+          <li data-keywords="월급 세후 급여 연봉"><a href="/tools/salary-calculator">연봉 실수령액 계산기</a></li>
+          <li data-keywords="알바 아르바이트 월급 최저임금 급여"><a href="/tools/hourly-wage-calculator">시급 계산기</a></li>
+          <li data-keywords="알바 아르바이트 월급 주급 급여"><a href="/tools/weekly-holiday-pay-calculator">주휴수당 계산기</a></li>
+          <li id="leaving-tools" data-keywords="퇴사 퇴직 정산"><a href="/tools/severance-pay-calculator">퇴직금 계산기</a></li>
+          <li data-keywords="퇴사 구직급여 고용보험"><a href="/tools/unemployment-benefit-calculator">실업급여 계산기</a></li>
+          <li data-keywords="퇴사 휴가 미사용연차 정산"><a href="/tools/annual-leave-pay-calculator">연차수당 계산기</a></li>
+        </ul>
+      </section>
+      <section class="goal-card" id="image-tools" data-tool-group="image" aria-labelledby="image-title">
+        <h2 class="goal-title" id="image-title">이미지 편집</h2>
+        <ul class="goal-links">
+          <li data-keywords="사진 이미지 리사이즈 압축 jpg png webp 픽셀 resize"><a href="/tools/image-resizer">사진 크기·용량 줄이기</a></li>
+          <li data-keywords="사진 이미지 누끼 배경제거 투명 png"><a href="/tools/background-remover">흰 배경 지우기</a></li>
+          <li data-keywords="사진 이미지 크롭 crop 정사각형 비율"><a href="/tools/image-cropper">이미지 자르기</a></li>
+        </ul>
+      </section>
+      <section class="goal-card" id="other-tools" data-tool-group="random" aria-labelledby="random-title">
+        <h2 class="goal-title" id="random-title">추첨·만들기</h2>
+        <ul class="goal-links">
+          <li data-keywords="복권 랜덤 추첨 번호 뽑기"><a href="/fun/lotto-generator">로또 번호 생성기</a></li>
+          <li data-keywords="칭찬 상장 제작 만들기"><a href="/tools/certificate-maker">상장 만들기</a></li>
+          <li data-keywords="점심 저녁 야식 음료 메뉴 음식 추천 랜덤"><a href="/fun/food-picker">오늘 뭐 먹지?</a></li>
+          <li data-keywords="이름 명단 당첨자 제비뽑기 뽑기"><a href="/tools/random-picker">랜덤 명단 추첨기</a></li>
+          <li data-keywords="조 팀편성 조편성 조짜기 나누기"><a href="/tools/team-generator">랜덤 팀 나누기</a></li>
+        </ul>
+      </section>
+      <section class="goal-card" id="family-tools" data-tool-group="family" aria-labelledby="family-title">
+        <h2 class="goal-title" id="family-title">출산·육아</h2>
+        <ul class="goal-links">
+          <li data-keywords="육휴 출산 휴직 부모 급여 월급"><a href="/tools/parental-leave-calculator">육아휴직급여 계산기</a></li>
+          <li data-keywords="아기 이름 태명 봄 여름 가을 겨울"><a href="/fun/baby-name-generator">계절별 태명 추천</a></li>
+        </ul>
+      </section>
     </div>
-  </aside>
-
+    <div id="empty-search" class="empty-search" hidden><p>맞는 도구가 없어요. 다른 검색어나 분류를 선택해 보세요.</p><button id="empty-reset" type="button">전체 도구 보기</button></div>
+    <aside class="ad-banner ad-banner-strip" aria-label="광고"><p class="ad-label">광고</p><div class="ad-strip-slot"><script src="/ad-banner-isolated.js?v=20261018-isolated"></script></div></aside>
+    <div class="feedback"><p>불편한 점이나 필요한 도구가 있나요?</p><a href="mailto:contact@harukok.com?subject=%5B%ED%95%98%EB%A3%A8%EC%BD%95%20%EC%9D%98%EA%B2%AC%5D%20%EB%A9%94%EC%9D%B8">이메일로 의견 보내기 →</a></div>
   </main>
-  <footer>
-    <a href="/about">소개</a>·<a href="/privacy">개인정보처리방침</a>·<a href="mailto:contact@harukok.com" id="contactLink">문의하기</a>
-    <p style="margin-top:10px;">© 2026 하루콕</p>
-  </footer>
-
+  <footer><nav aria-label="사이트 안내"><a href="/about">소개</a><a href="/privacy">개인정보처리방침</a><a href="mailto:contact@harukok.com">contact@harukok.com</a></nav><p>© 2026 하루콕</p></footer>
 </div>
-
-<div class="toast" id="toast">이메일 주소가 복사되었습니다</div>
-
-<script>
-(function(){
-  const link = document.getElementById('contactLink');
-  const toast = document.getElementById('toast');
-  if (!link || !toast) return;
-
-  link.addEventListener('click', () => {
-    if (!navigator.clipboard) return;
-    navigator.clipboard.writeText('contact@harukok.com').then(() => {
-      toast.classList.add('visible');
-      setTimeout(() => toast.classList.remove('visible'), 2200);
-    }).catch(() => { /* 클립보드 권한 없으면 조용히 무시, mailto는 그대로 동작 */ });
-  });
-})();
-</script>
-
+<script src="/tools/tool-directory.js?v=20261022" defer></script>
 </body>
 </html>

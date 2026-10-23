@@ -66,6 +66,6 @@ images.at(-1).onload();fire('crop-form','submit');callbacks.shift().callback({ty
 fire('demo-image','click');const demo=callbacks.shift();select('newest.png');const before=images.length;demo.callback({type:'image/png',size:200});equal(images.length,before);
 const oversized=images.at(-1);oversized.naturalWidth=4001;oversized.naturalHeight=3000;oversized.onload();equal($('image-controls').disabled,true);assert.ok($('image-error').textContent.includes('1,200만'));checks++;
 const last=select();last.onload();const sourceURL=$('original-preview').src;listeners.pagehide();equal(revoked.includes(sourceURL),true);
-equal((html.match(/src="\/ad-banner-isolated.js/g)||[]).length,2);equal((html.match(/<h1>/g)||[]).length,1);
+equal((html.match(/src="\/ad-banner-isolated.js/g)||[]).length,1);equal((html.match(/<h1>/g)||[]).length,1);
 const schema=JSON.parse(html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]);equal(schema.url,'https://harukok.com/tools/image-cropper');
 console.log(`PASS - ${checks} crop geometry, validation, preview, stale callback and URL cleanup checks`);

@@ -5,12 +5,12 @@
 <meta name="description" content="제곱미터를 평으로, 평을 제곱미터로 변환하세요. 59·84·102㎡ 환산과 방의 가로·세로 면적 계산을 지원하며 전용면적과 공급면적의 차이도 안내합니다.">
 <link rel="canonical" href="https://harukok.com/tools/area-calculator"><link rel="icon" type="image/png" href="/favicon.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:title" content="평수 계산기 - ㎡·평 변환과 방 면적 계산 | 하루콕"><meta property="og:description" content="㎡와 평 양방향 변환, 가로×세로 방 면적 계산. 84㎡와 아파트 평형이 다른 이유까지 확인하세요."><meta property="og:type" content="website"><meta property="og:site_name" content="하루콕"><meta property="og:url" content="https://harukok.com/tools/area-calculator"><meta property="og:image" content="https://harukok.com/og-image.png">
-<link rel="stylesheet" href="/tools/everyday-tools.css?v=20261020"><script src="/tools/area-calculator.js?v=20261021" defer></script>
+<link rel="stylesheet" href="/tools/everyday-tools.css?v=20261022-ui"><script src="/tools/area-calculator.js?v=20261021" defer></script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"평수 계산기","url":"https://harukok.com/tools/area-calculator","description":"제곱미터와 평 양방향 변환, 직사각형의 가로와 세로로 면적 계산","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","inLanguage":"ko","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"}}</script>
 </head><body><div class="wrap">
-<nav class="site-nav" aria-label="주요 메뉴"><a class="site-nav-brand" href="/">하루<span>콕</span></a><div class="site-nav-links"><a href="/#all-tools">도구</a><a href="/guides/">가이드</a></div></nav>
-<main><a class="back-home" href="/">← 하루콕 홈으로</a><h1>평수 계산기</h1><p class="lede">면적의 단위를 바꾸거나 방의 가로·세로로 넓이를 계산하세요. 입력한 면적 그대로 환산하며, 전용면적을 공급면적으로 추정하지 않습니다.</p>
-<noscript><p class="noscript">계산하려면 브라우저에서 자바스크립트를 허용해 주세요. 아래 환산표와 계산식은 그대로 볼 수 있습니다.</p></noscript>
+<nav class="site-nav" aria-label="주요 메뉴"><a class="site-nav-brand" href="/">하루<span>콕</span></a><div class="site-nav-links"><a href="/#all-tools">전체 도구</a><a href="/guides/">가이드</a></div></nav>
+<main><h1>평수 계산기</h1><p class="lede">㎡·평을 변환하거나 가로·세로로 방 면적을 계산하세요.</p>
+<noscript><p class="noscript">도구를 사용하려면 브라우저에서 자바스크립트를 허용해 주세요.</p></noscript>
 <section class="sheet" aria-labelledby="area-heading">
 <h2 id="area-heading">제곱미터 ↔ 평 변환</h2>
 <form id="area-form" novalidate>
@@ -18,8 +18,8 @@
 <div class="field"><label for="area-value" id="area-label">면적 (㎡)</label><input id="area-value" type="number" inputmode="decimal" min="0" max="1000000000" step="any" placeholder="예: 84" aria-describedby="area-input-hint" required><p class="hint" id="area-input-hint">0 이상 10억 이하. 84.96처럼 소수점도 입력할 수 있습니다.</p></div>
 <button class="primary" type="submit">면적 변환하기</button><p id="area-error" class="error" role="alert"></p>
 </form>
-<div class="result" id="area-result" aria-live="polite" hidden><div id="area-result-label" class="result-label"></div><div id="area-result-value" class="result-value"></div><p class="formula" id="area-formula"></p><p class="hint">큰 숫자는 소수점 둘째 자리, 계산식은 최대 여섯째 자리까지 반올림해 표시합니다. 아주 작은 결과는 별도로 표시합니다.</p></div>
-<p class="hint">예시 면적을 눌러 바로 계산해 보세요.</p><div class="examples"><button class="secondary" type="button" data-area-example="sqm,59">59㎡</button><button class="secondary" type="button" data-area-example="sqm,84">84㎡</button><button class="secondary" type="button" data-area-example="sqm,102">102㎡</button><button class="secondary" type="button" data-area-example="pyeong,24">24평</button><button class="secondary" type="button" data-area-example="pyeong,32">32평</button></div>
+<div class="result" id="area-result" aria-live="polite" hidden><div id="area-result-label" class="result-label"></div><div id="area-result-value" class="result-value"></div><p class="formula" id="area-formula"></p><p class="hint">소수점 둘째 자리까지 표시합니다. 전용면적·공급면적 구분은 입력한 면적과 같습니다.</p></div>
+<div class="examples"><button class="secondary" type="button" data-area-example="sqm,59">59㎡</button><button class="secondary" type="button" data-area-example="sqm,84">84㎡</button><button class="secondary" type="button" data-area-example="sqm,102">102㎡</button><button class="secondary" type="button" data-area-example="pyeong,24">24평</button><button class="secondary" type="button" data-area-example="pyeong,32">32평</button></div>
 </section>
 <section class="sheet" aria-labelledby="rectangle-heading">
 <h2 id="rectangle-heading">가로·세로로 방 면적 계산</h2><p class="hint">직사각형 공간의 바닥 면적입니다. 길이는 m로 입력하세요. 350cm라면 3.5m입니다.</p>
@@ -31,15 +31,11 @@
 <div class="examples"><button class="secondary" type="button" id="rectangle-example">3m × 4m 방 예시</button></div>
 </section>
 <aside class="ad-banner ad-banner-strip" aria-label="광고"><p class="ad-label">광고</p><div class="ad-strip-slot"><script src="/ad-banner-isolated.js?v=20261018-tools"></script></div></aside>
-<article class="article">
-<h2>84㎡는 몇 평인가요?</h2><p>84㎡를 같은 면적의 평으로 환산하면 <strong>25.41평</strong>입니다. 84 × 0.3025로 계산합니다. ‘전용 84㎡ 아파트’를 가리키는 평형과 단순 면적 환산값은 서로 다를 수 있습니다. 비교할 때는 두 숫자가 모두 전용면적인지, 모두 공급면적인지 먼저 확인하세요.</p>
-<div class="table-scroll"><table><caption>같은 면적의 ㎡·평 환산표 (소수점 둘째 자리 반올림)</caption><thead><tr><th scope="col">입력 면적</th><th scope="col">환산 결과</th></tr></thead><tbody><tr><th scope="row">59㎡</th><td>17.85평</td></tr><tr><th scope="row">84㎡</th><td>25.41평</td></tr><tr><th scope="row">102㎡</th><td>30.86평</td></tr><tr><th scope="row">24평</th><td>79.34㎡</td></tr><tr><th scope="row">32평</th><td>105.79㎡</td></tr></tbody></table></div>
-<section><h2>전용면적과 공급면적을 구분하세요</h2><p>아파트의 전용면적은 한 세대에서 쓰는 주거 공간의 면적입니다. 공급면적에는 전용면적에 계단·복도 등 주거공용면적이 더해집니다. 그래서 전용면적 84㎡라는 정보 하나만으로 공급면적이 몇 평인지 정할 수는 없습니다.</p><p>예를 들어 전용면적이 84㎡이고 주거공용면적이 28㎡라고 <strong>가정</strong>하면 공급면적은 112㎡, 환산값은 33.88평입니다. 공용면적이 달라지면 결과도 달라집니다. 이 도구는 이러한 가정값을 자동으로 더하지 않으므로 확인하려는 면적을 직접 입력하세요.</p><p class="hint">면적 구분 참고: <a href="https://www.korea.kr/news/policyNewsView.do?newsId=148890758" target="_blank" rel="noopener noreferrer">국토교통부 — 전용·공급·계약면적 안내</a></p></section>
-<section><h2>방 크기를 잴 때 자주 생기는 오차</h2><p>가로 3m, 세로 4m인 직사각형 방은 12㎡, 약 3.63평입니다. 줄자로 300cm와 400cm를 쟀다면 각각 100으로 나눠 m로 바꾼 뒤 입력하세요. cm 값을 그대로 넣으면 계산한 면적이 실제보다 10,000배 커집니다.</p><p>ㄱ자 모양이나 기둥이 있는 공간은 하나의 큰 직사각형으로 계산하면 넓이가 과대해질 수 있습니다. 겹치지 않는 직사각형으로 나누어 각각 계산한 뒤 면적을 더하거나, 전체 사각형에서 빠진 부분을 빼세요. 방 안쪽에서 잰 면적을 모두 합한 값도 벽체와 면적 산정 기준 때문에 서류상의 전용면적과 같다고 볼 수 없습니다.</p></section>
-<section><h2>환산식과 반올림 기준</h2><p>㎡에서 평으로는 <strong>121 ÷ 400 = 0.3025</strong>를 곱합니다. 평에서 ㎡로는 역수인 <strong>400 ÷ 121 ≈ 3.305785</strong>를 곱합니다. 이 계산기는 내부 계산에서 3.3이나 3.3058로 미리 반올림하지 않고 분수 비율을 사용합니다.</p><p>결과의 큰 숫자는 소수점 둘째 자리까지, 계산식은 최대 여섯째 자리까지 표시합니다. 양수인 아주 작은 값을 0으로 오해하지 않도록 ‘0.01 미만’ 또는 지수 표기로 나타냅니다. 다시 계산할 때는 화면의 반올림값보다 원래 면적을 사용하는 편이 오차를 줄입니다.</p><p class="hint">환산 근거: <a href="https://jangan.suwon.go.kr/sub_view.asp?menu_id=sub04100105" target="_blank" rel="noopener noreferrer">수원시 장안구청 — 지적의 단위와 면적환산 요령</a></p></section>
-<section><h2>자주 묻는 질문</h2><details><summary>㎡와 m²는 다른 단위인가요?</summary><p>둘 다 제곱미터입니다. 가로 1m, 세로 1m인 정사각형의 면적이 1㎡입니다. m는 길이, ㎡는 면적이므로 서로 다른 종류의 값입니다.</p></details><details><summary>84㎡를 3.3으로 나눈 값과 왜 다른가요?</summary><p>3.3은 빠르게 어림잡을 때 쓰는 값입니다. 84 ÷ 3.3은 약 25.45이고, 84 × 0.3025는 25.41입니다. 이 도구는 환산 비율 121/400을 사용합니다.</p></details><details><summary>32평이면 전용면적이 105.79㎡인가요?</summary><p>32평 자체의 면적은 약 105.79㎡입니다. 다만 32평이라는 숫자가 공급면적을 가리켰다면 변환 결과도 공급면적입니다. 단위를 바꾸는 것으로 전용·공급의 구분이 달라지지는 않습니다.</p></details><details><summary>바닥재를 주문할 양으로 바로 써도 되나요?</summary><p>여기서 구하는 것은 입력한 가로와 세로의 넓이입니다. 바닥재를 자르고 맞추면서 생기는 손실, 포장 단위, 시공 패턴은 포함하지 않습니다. 필요한 주문 수량은 제품 규격과 시공 조건을 확인해 정하세요.</p></details><details><summary>0이나 소수도 입력할 수 있나요?</summary><p>네. 면적 0은 결과도 0이며, 84.96이나 3.5 같은 소수를 지원합니다. 음수·빈 값·유효하지 않은 숫자는 계산하지 않습니다. 단위 변환의 입력은 10억 이하, 가로·세로는 각각 100만 m 이하와 계산 면적 10억 ㎡ 이하로 제한합니다.</p></details></section>
-<p class="meta">환산 기준 확인일: 2026년 10월 21일 · 입력값은 브라우저에서 계산하며 저장하지 않습니다. 서류에 기재할 면적은 해당 서류의 ㎡ 값과 산정 기준을 확인하세요.</p>
-</article>
-<aside class="ad-banner" aria-label="광고"><p class="ad-label">광고</p><div class="ad-slot"><script src="/ad-banner-isolated.js?v=20261018-tools"></script></div></aside>
+<details class="tool-notes"><summary>면적 구분·환산 기준과 출처</summary>
+<p><strong>전용면적과 공급면적은 다릅니다.</strong> 84㎡ 자체는 25.41평입니다. 공급면적에는 주거공용면적이 더해지므로, 전용면적만으로 공급면적의 평형을 알 수 없습니다.</p>
+<ul><li>㎡ → 평: 121 ÷ 400(0.3025)을 곱합니다. 평 → ㎡: 400 ÷ 121을 곱합니다.</li><li>결과는 소수점 둘째 자리, 계산식은 최대 여섯째 자리로 표시합니다. 작은 값은 ‘0.01 미만’ 또는 지수로 표시합니다.</li><li>방 면적은 가로 × 세로입니다. ㄱ자 공간은 직사각형으로 나누어 계산하세요. 벽 두께·공용 공간·바닥재 시공 손실은 포함하지 않습니다.</li></ul>
+<p class="meta">출처: <a href="https://jangan.suwon.go.kr/sub_view.asp?menu_id=sub04100105" target="_blank" rel="noopener noreferrer">수원시 장안구청 — 면적환산</a> · <a href="https://www.korea.kr/news/policyNewsView.do?newsId=148890758" target="_blank" rel="noopener noreferrer">국토교통부 — 전용·공급·계약면적</a></p>
+<p class="meta">환산 기준 확인: 2026년 10월 21일 · 입력값은 저장하지 않습니다. 서류에는 해당 서류의 ㎡ 값과 산정 기준을 확인하세요.</p>
+</details>
 <nav class="related" aria-label="함께 쓰는 도구"><h2>함께 쓰는 도구</h2><ul><li><a href="/tools/percent-calculator">퍼센트·할인율 계산기</a></li><li><a href="/tools/date-calculator">날짜·디데이 계산기</a></li></ul></nav>
-</main><footer><a href="/about">소개</a> · <a href="/privacy">개인정보처리방침</a> · <a href="mailto:contact@harukok.com">문의</a><p>© 2026 하루콕</p></footer></div></body></html>
+</main><footer><a href="/about">소개</a> · <a href="/privacy">개인정보처리방침</a> · <a href="mailto:contact@harukok.com?subject=%ED%8F%89%EC%88%98%20%EA%B3%84%EC%82%B0%EA%B8%B0%20-%20%E3%8E%A1%C2%B7%ED%8F%89%20%EB%B3%80%ED%99%98%EA%B3%BC%20%EB%B0%A9%20%EB%A9%B4%EC%A0%81%20%EA%B3%84%EC%82%B0%20%7C%20%ED%95%98%EB%A3%A8%EC%BD%95">의견 보내기</a><p>© 2026 하루콕</p></footer></div></body></html>

@@ -34,7 +34,7 @@
 
   body{
     margin:0;
-    padding: 40px 20px 70px;
+    padding: 24px 20px 56px;
     background: var(--paper);
     background-image:
       repeating-linear-gradient(0deg, rgba(0,0,0,0.015) 0px, rgba(0,0,0,0.015) 1px, transparent 1px, transparent 3px);
@@ -49,13 +49,6 @@
     max-width: 560px;
   }
 
-  .kicker{
-    font-size: 13px;
-    color: var(--muted);
-    letter-spacing: 0.02em;
-    margin-bottom: 6px;
-  }
-
   h1{
     font-family: 'Noto Serif KR', serif;
     font-weight: 700;
@@ -63,14 +56,6 @@
     line-height: 1.35;
     margin: 0 0 8px;
     color: var(--ink);
-  }
-
-  .lede{
-    font-size: 14.5px;
-    color: var(--ink-soft);
-    line-height: 1.6;
-    margin: 0 0 32px;
-    max-width: 46ch;
   }
 
   .card{
@@ -142,8 +127,8 @@
   .stepper-row .input-row{ flex:1; }
 
   .step-btn{
-    width: 34px;
-    height: 34px;
+    width: 44px;
+    height: 44px;
     border: 1.5px solid var(--ink);
     border-radius: 50%;
     background: var(--paper-light);
@@ -275,7 +260,7 @@
   details.hint-more summary{ cursor:pointer; color:var(--ink-soft); font-weight:600; }
   details.hint-more summary:focus-visible{ outline:2px solid var(--stamp); outline-offset:2px; }
   details.hint-more p{ margin:8px 0 0; }
-  .basis-line{ font-size:12.5px; line-height:1.5; color:var(--ink-soft); margin:-14px 0 6px; }
+  .basis-line{ font-size:13px; line-height:1.6; color:var(--ink-soft); margin:0 0 20px; }
   .basis-line strong{ color:var(--ink); }
   details.basis{ margin:0 0 16px; font-size:12.5px; color:var(--muted); line-height:1.65; }
   details.basis summary{ cursor:pointer; color:var(--ink-soft); font-weight:600; }
@@ -283,15 +268,6 @@
   details.basis ul.assume{ margin:10px 0 0; padding-left:18px; }
   details.basis ul.assume li{ margin-bottom:6px; }
   details.basis .sources{ margin-top:14px; padding-top:12px; }
-  .guide-callout{
-    display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:8px;
-    margin-top:16px; padding:12px 14px;
-    background: var(--paper-light); border:1px dashed var(--line); border-radius:8px;
-    font-size:12.5px; color:var(--ink-soft);
-  }
-  .guide-callout a{ color:var(--stamp); font-weight:600; text-decoration:none; white-space:nowrap; }
-  .guide-callout a:hover{ text-decoration:underline; }
-
 
   @media (max-width: 480px){
     .card{ padding: 24px; }
@@ -319,10 +295,7 @@
   .related-links a{ padding:8px 14px; border:1.5px solid var(--line); border-radius:999px; font-size:13px; color:var(--ink); text-decoration:none; }
   .related-links a:hover{ border-color:var(--ink); }
 
-  .back-home{ display:inline-block; font-size:12.5px; color:var(--muted); text-decoration:none; margin-bottom:14px; }
-  .back-home:hover{ color:var(--ink); }
-
-  .site-nav{ display:flex; align-items:center; justify-content:space-between; width:100%; margin:0 0 22px; padding:0 0 14px; border-bottom:1px solid var(--line, #D9D2BF); }
+  .site-nav{ display:flex; align-items:center; justify-content:space-between; width:100%; margin:0 0 20px; padding:0 0 8px; border-bottom:1px solid var(--line, #D9D2BF); }
   .site-nav-brand{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:15px; color:var(--ink); text-decoration:none; }
   .site-nav-brand span{ color:var(--stamp, #B23A2E); }
   .site-nav-links{ display:flex; gap:2px; }
@@ -330,36 +303,141 @@
   .site-nav-links a:hover{ color:var(--ink); background:var(--paper-light, rgba(0,0,0,0.045)); }
   .site-nav-links a[aria-current="page"]{ color:var(--ink); font-weight:600; }
   .site-nav-brand:focus-visible, .site-nav-links a:focus-visible{ outline:2px solid var(--stamp, #B23A2E); outline-offset:2px; border-radius:4px; }
-  .ad-banner{ width:300px; margin:32px calc((100% - 300px) / 2); text-align:center; }
+  .ad-banner{ width:300px; max-width:100%; margin:32px auto; text-align:center; }
   .ad-banner .ad-label{ margin:0 0 8px; font-size:11px; color:var(--muted, #6E6656); line-height:1.5; }
   .ad-slot{ width:300px; min-height:250px; }
   .ad-banner-strip{ width:100%; margin:32px auto; }
   .ad-banner-strip[hidden]{ display:none; }
-  .ad-strip-slot{ margin:0 auto; }
+  .ad-strip-slot{ max-width:100%; margin:0 auto; }
+  .site-nav a, .related-links a{ display:inline-flex; align-items:center; min-height:44px; }
+  .field-hint{ line-height:1.6; }
+  .input-row input, .seg button{ min-height:44px; }
+  .input-row input{ min-width:0; }
+  .input-row:focus-within{ outline:2px solid var(--stamp); outline-offset:4px; }
+  button:focus-visible, summary:focus-visible, a:focus-visible{ outline:2px solid var(--stamp); outline-offset:3px; }
+  details.basis{ margin:24px 0; padding:12px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  details.basis > summary, .check-status > summary, .field-help > summary, .comparison > summary{ cursor:pointer; padding:10px 0; font-size:13px; color:var(--ink); font-weight:600; }
+  .field-help{ margin-top:4px; font-size:12px; line-height:1.6; color:var(--muted); }
+  .field-help > summary{ font-size:12px; padding:7px 0; }
+  .field-help p{ margin:4px 0 0; }
+  .guide-link{ margin:12px 0; font-size:13px; line-height:1.6; }
+  .guide-link a{ color:var(--ink-soft); }
+  .breakdown-row{ gap:12px; flex-wrap:wrap; }
+  .sources a{ overflow-wrap:anywhere; }
+  @media (max-width:480px){ body{ padding:16px 16px 40px; } .card{ padding:20px; } .perforation{ margin:0 -20px; } .site-nav{ margin-bottom:18px; } }
 </style>
-<!-- Google AdSense -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6883245122372170" crossorigin="anonymous"></script>
 </head>
 <body>
-
 
 <div class="stub">
 <nav class="site-nav" aria-label="주요 메뉴">
   <a class="site-nav-brand" href="/">하루<span>콕</span></a>
   <div class="site-nav-links">
-    <a href="/#all-tools" aria-current="page">도구</a>
+    <a href="/#all-tools">모든 도구</a>
     <a href="/guides/">가이드</a>
   </div>
 </nav>
 
+<main>
+  <h1>연봉 실수령액 계산기</h1>
+  <p class="basis-line">2026년 요율 · 소득세는 자체 추정치입니다.</p>
 
-  <a href="/" class="back-home">← 하루콕 홈으로</a>
-  <div class="kicker">급여 계산</div>
-  <h1>2026년 연봉<br>실수령액 계산기</h1>
-  <p class="lede">연봉·비과세·부양가족을 입력하면 월 예상 실수령액을 추정합니다.</p>
-  <p class="basis-line"><strong>2026년 요율 적용</strong> · 소득세는 자체 추정치</p>
+  <div class="card">
+    <div class="field">
+      <label for="salary">연봉 (세전, 만원)</label>
+      <div class="input-row">
+        <input type="number" id="salary" placeholder="예: 4000" inputmode="numeric">
+        <span class="unit">만원</span>
+      </div>
+      <span class="field-hint">회사와 계약한 세전 연봉 총액을 입력하세요.</span>
+    </div>
+
+    <div class="field">
+      <label for="nontax">월 비과세 합계 (식대 등)</label>
+      <div class="input-row">
+        <input type="number" id="nontax" value="20" inputmode="numeric">
+        <span class="unit">만원</span>
+      </div>
+      <span class="field-hint">명세서의 비과세 합계를 입력하세요. 과세 수당은 제외합니다. (식대 한도 월 20만원)</span>
+      <details class="field-help"><summary>입력 기준 자세히</summary><p>급여명세서에 적힌 비과세 항목의 합계를 입력하세요. 식대의 비과세 한도는 월 20만원이며, 식대 외 항목(자가운전보조금 등)은 각각의 요건을 충족할 때만 합계에 포함합니다. 과세 대상 수당까지 넣으면 실수령액이 과대 계산됩니다.</p></details>
+    </div>
+
+    <div class="field">
+      <label for="dependents">부양가족 수 (본인 포함)</label>
+      <div class="stepper-row">
+        <button type="button" class="step-btn" data-target="dependents" data-delta="-1" aria-label="부양가족 수 줄이기">−</button>
+        <div class="input-row">
+          <input type="number" id="dependents" value="1" min="1" inputmode="numeric">
+        </div>
+        <button type="button" class="step-btn" data-target="dependents" data-delta="1" aria-label="부양가족 수 늘리기">+</button>
+      </div>
+      <span class="field-hint">본인을 포함해 기본공제 요건을 충족하는 가족 수입니다.</span>
+      <details class="field-help"><summary>부양가족에 포함되는 사람</summary><p>인적공제(1인당 150만원) 대상 기준입니다. 본인, 배우자, 자녀(만 20세 이하), 부모 등 기본공제 요건을 충족하는 인원을 모두 포함하세요. 아래 자녀세액공제와는 나이 기준이 다릅니다.</p></details>
+    </div>
+
+    <div class="field">
+      <label for="children">자녀세액공제 대상 자녀 수</label>
+      <div class="stepper-row">
+        <button type="button" class="step-btn" data-target="children" data-delta="-1" aria-label="자녀 수 줄이기">−</button>
+        <div class="input-row">
+          <input type="number" id="children" value="0" min="0" inputmode="numeric">
+        </div>
+        <button type="button" class="step-btn" data-target="children" data-delta="1" aria-label="자녀 수 늘리기">+</button>
+      </div>
+      <span class="field-hint">2026년 기준 만 9~20세의 기본공제 대상 자녀·손자녀 수입니다.</span>
+      <details class="field-help"><summary>자녀 공제 나이 기준</summary><p>부양가족 중 기본공제대상 자녀·손자녀이면서 나이 기준을 만족하는 인원만 입력하세요. 2026년 과세기간 기준 만 9세 이상 20세 이하이며, 하한은 2027년 10세, 2028년 11세, 2029년 12세, 2030년부터 13세로 올라갑니다. 이 계산기는 생년월일을 확인하지 않으므로 인원은 직접 세어 입력해야 합니다.</p></details>
+      <span class="field-hint" style="color:#b45309;">2017년생은 제외하세요. 한시적 완화 대상이 아니며 2030년부터 공제됩니다.</span>
+      <span class="field-hint">나이 기준의 법적 근거와 자세한 설명은 <a href="/guides/salary-vs-payslip#faq-child-age" style="color:var(--stamp);">자녀세액공제 대상 나이 FAQ</a>에 정리했습니다.</span>
+    </div>
+
+    <button class="calc-btn" id="calcBtn">실수령액 계산하기</button>
+  </div>
+
+  <div class="card result-card hidden" id="resultCard">
+    <div class="result-label">월 실수령액 (예상)</div>
+    <div class="result-amount" id="netMonthly">0<span class="won">원</span></div>
+    <div class="result-yearly" id="netYearly">연 실수령액 0원</div>
+
+    <div class="perforation"></div>
+
+    <div class="breakdown" id="breakdown">
+      <!-- filled by JS -->
+    </div>
+
+    <details class="comparison hidden" id="payslipComparison" aria-labelledby="comparisonTitle">
+      <summary id="comparisonTitle">급여명세서와 비교하기</summary>
+      <p>같은 달의 실제 입금액을 넣으면 예상액과의 차이를 보여줍니다. 명세서의 지급 합계도 넣으면 지급 차이와 공제 차이를 나누어 볼 수 있습니다.</p>
+      <div class="field">
+        <label for="actualDeposit">실제 월 입금액 (원)</label>
+        <div class="input-row">
+          <input type="number" id="actualDeposit" min="0" step="1" required placeholder="예: 2577678" inputmode="numeric" autocomplete="off" aria-describedby="depositHint">
+          <span class="unit">원</span>
+        </div>
+        <span class="field-hint" id="depositHint">세금·보험·사내 공제를 모두 뺀 금액입니다. 나누어 입금됐다면 합계로 입력하고, 별도 실비 정산 입금은 제외하세요.</span>
+      </div>
+      <div class="field">
+        <label for="actualGross">명세서의 지급 합계 (원, 선택)</label>
+        <div class="input-row">
+          <input type="number" id="actualGross" min="0" step="1" placeholder="예: 2916667" inputmode="numeric" autocomplete="off" aria-describedby="grossHint">
+          <span class="unit">원</span>
+        </div>
+        <span class="field-hint" id="grossHint">기본급·수당·비과세를 포함한 공제 전 총액입니다. 모르면 비워두세요. 지급 합계 − 입금액으로 해당 월의 공제 합계를 역산합니다.</span>
+      </div>
+      <button type="button" class="calc-btn" id="compareBtn">명세서와 비교하기</button>
+      <div class="comparison-result" id="comparisonResult" aria-live="polite" aria-atomic="true"></div>
+      <p>입력한 급여 금액은 이 비교 기능에서 저장하거나 전송하지 않습니다. 세금·보험 각각의 차이는 <a href="/guides/salary-vs-payslip#compare">명세서 비교 순서</a>에서 확인하세요.</p>
+    </details>
+
+    <p class="guide-link"><a href="/guides/salary-vs-payslip#case">차이 확인하기 →</a></p>
+    <p class="guide-link"><a href="/guides/salary-vs-payslip#inputs">입력 기준 보기 →</a></p>
+
+    <div class="disclaimer">
+      <strong>계산에 포함</strong>: 4대보험 본인부담분, 소득세·지방소득세(간이세액표 조회값이 아닌 자체 추정치). <strong>제외</strong>: 노조비·사내대출 상환 등 급여명세서에만 있는 공제라 실제 명세서와 다를 수 있습니다. 자녀세액공제 대상 자녀 수는 입력한 인원 그대로 사용하며 개별 자격을 판정하지 않습니다. 계산 가정은 아래 '계산 기준·출처'에서 확인하세요.
+    </div>
+  </div>
+
   <details class="basis">
-    <summary>계산 가정·근거·출처 보기</summary>
+    <summary>계산 기준·출처</summary>
     <ul class="assume">
       <li><strong>적용 요율(2026년, 본인부담)</strong>: 국민연금 4.75%, 건강보험 3.595%, 장기요양보험 건강보험료의 13.14%, 고용보험 0.9%.</li>
       <li><strong>계산에 포함</strong>: 4대보험 본인부담분, 근로소득세·지방소득세(소득세법 산식으로 자체 추정, 국세청 간이세액표 조회값 아님). <strong>계산에서 제외</strong>: 노조비, 사내대출 상환금, 개인연금·저축 공제, 회사별 복리후생 공제 등 급여명세서에만 있는 항목.</li>
@@ -387,128 +465,23 @@
     </div>
   </details>
 
-
   <aside class="ad-banner ad-banner-strip" aria-label="광고">
     <p class="ad-label">광고</p>
     <div class="ad-strip-slot"><script src="/ad-banner-isolated.js?v=20261018-isolated"></script></div>
   </aside>
 
-  <div class="card">
-    <div class="field">
-      <label for="salary">연봉 (세전, 만원)</label>
-      <div class="input-row">
-        <input type="number" id="salary" placeholder="예: 4000" inputmode="numeric">
-        <span class="unit">만원</span>
-      </div>
-      <span class="field-hint">회사와 계약한 세전 연봉 총액을 입력하세요.</span>
-    </div>
-
-    <div class="field">
-      <label for="nontax">월 비과세 합계 (식대 등)</label>
-      <div class="input-row">
-        <input type="number" id="nontax" value="20" inputmode="numeric">
-        <span class="unit">만원</span>
-      </div>
-      <span class="field-hint">급여명세서에 적힌 비과세 항목의 합계를 입력하세요. 식대의 비과세 한도는 월 20만원이며, 식대 외 항목(자가운전보조금 등)은 각각의 요건을 충족할 때만 합계에 포함합니다. 과세 대상 수당까지 넣으면 실수령액이 과대 계산됩니다.</span>
-    </div>
-
-    <div class="field">
-      <label for="dependents">부양가족 수 (본인 포함)</label>
-      <div class="stepper-row">
-        <button type="button" class="step-btn" data-target="dependents" data-delta="-1">−</button>
-        <div class="input-row">
-          <input type="number" id="dependents" value="1" min="1" inputmode="numeric">
-        </div>
-        <button type="button" class="step-btn" data-target="dependents" data-delta="1">+</button>
-      </div>
-      <span class="field-hint">인적공제(1인당 150만원) 대상 기준입니다. 본인, 배우자, 자녀(만 20세 이하), 부모 등 기본공제 요건을 충족하는 인원을 모두 포함하세요. 아래 자녀세액공제와는 나이 기준이 다릅니다.</span>
-    </div>
-
-    <div class="field">
-      <label for="children">자녀세액공제 대상 자녀 수</label>
-      <div class="stepper-row">
-        <button type="button" class="step-btn" data-target="children" data-delta="-1">−</button>
-        <div class="input-row">
-          <input type="number" id="children" value="0" min="0" inputmode="numeric">
-        </div>
-        <button type="button" class="step-btn" data-target="children" data-delta="1">+</button>
-      </div>
-      <span class="field-hint">부양가족 중 기본공제대상 자녀·손자녀이면서 나이 기준을 만족하는 인원만 입력하세요. 2026년 과세기간 기준 만 9세 이상 20세 이하이며, 하한은 2027년 10세, 2028년 11세, 2029년 12세, 2030년부터 13세로 올라갑니다. 이 계산기는 생년월일을 확인하지 않으므로 인원은 직접 세어 입력해야 합니다.</span>
-      <span class="field-hint" style="color:#b45309;">⚠ 2017년생 자녀·손자녀는 위 한시적 완화가 적용되지 않아 만 13세가 되는 2030년부터 공제 대상입니다. 해당하는 자녀는 인원에서 빼고 입력하세요.</span>
-      <span class="field-hint">나이 기준의 법적 근거와 자세한 설명은 <a href="/guides/salary-vs-payslip#faq-child-age" style="color:var(--stamp);">자녀세액공제 대상 나이 FAQ</a>에 정리했습니다.</span>
-    </div>
-
-    <button class="calc-btn" id="calcBtn">실수령액 계산하기</button>
-  </div>
-
-  <div class="card result-card hidden" id="resultCard">
-    <div class="result-label">월 실수령액 (예상)</div>
-    <div class="result-amount" id="netMonthly">0<span class="won">원</span></div>
-    <div class="result-yearly" id="netYearly">연 실수령액 0원</div>
-
-    <div class="perforation"></div>
-
-    <div class="breakdown" id="breakdown">
-      <!-- filled by JS -->
-    </div>
-
-    <section class="comparison hidden" id="payslipComparison" aria-labelledby="comparisonTitle">
-      <h2 id="comparisonTitle">급여명세서와 비교 (선택)</h2>
-      <p>같은 달의 실제 입금액을 넣으면 예상액과의 차이를 보여줍니다. 명세서의 지급 합계도 넣으면 지급 차이와 공제 차이를 나누어 볼 수 있습니다.</p>
-      <div class="field">
-        <label for="actualDeposit">실제 월 입금액 (원)</label>
-        <div class="input-row">
-          <input type="number" id="actualDeposit" min="0" step="1" required placeholder="예: 2577678" inputmode="numeric" autocomplete="off" aria-describedby="depositHint">
-          <span class="unit">원</span>
-        </div>
-        <span class="field-hint" id="depositHint">세금·보험·사내 공제를 모두 뺀 금액입니다. 나누어 입금됐다면 합계로 입력하고, 별도 실비 정산 입금은 제외하세요.</span>
-      </div>
-      <div class="field">
-        <label for="actualGross">명세서의 지급 합계 (원, 선택)</label>
-        <div class="input-row">
-          <input type="number" id="actualGross" min="0" step="1" placeholder="예: 2916667" inputmode="numeric" autocomplete="off" aria-describedby="grossHint">
-          <span class="unit">원</span>
-        </div>
-        <span class="field-hint" id="grossHint">기본급·수당·비과세를 포함한 공제 전 총액입니다. 모르면 비워두세요. 지급 합계 − 입금액으로 해당 월의 공제 합계를 역산합니다.</span>
-      </div>
-      <button type="button" class="calc-btn" id="compareBtn">명세서와 비교하기</button>
-      <div class="comparison-result" id="comparisonResult" aria-live="polite" aria-atomic="true"></div>
-      <p>입력한 급여 금액은 이 비교 기능에서 저장하거나 전송하지 않습니다. 세금·보험 각각의 차이는 <a href="/guides/salary-vs-payslip#compare">명세서 비교 순서</a>에서 확인하세요.</p>
-    </section>
-
-    <div class="guide-callout">
-      <span>급여명세서와 금액이 다른가요?</span>
-      <a href="/guides/salary-vs-payslip#case">차이 확인하기 →</a>
-    </div>
-    <div class="guide-callout">
-      <span>비과세·부양가족 입력이 맞는지 모르겠나요?</span>
-      <a href="/guides/salary-vs-payslip#inputs">입력 기준 보기 →</a>
-    </div>
-
-    <div class="disclaimer">
-      <strong>계산에 포함</strong>: 4대보험 본인부담분, 소득세·지방소득세(간이세액표 조회값이 아닌 자체 추정치). <strong>제외</strong>: 노조비·사내대출 상환 등 급여명세서에만 있는 공제라 실제 명세서와 다를 수 있습니다. 자녀세액공제 대상 자녀 수는 입력한 인원 그대로 사용하며 개별 자격을 판정하지 않습니다. 계산 가정은 화면 위 '계산 가정·근거·출처 보기'에서 확인하세요.
-    </div>
-  </div>
-
-
-
-  <aside class="ad-banner" aria-label="광고">
-    <p class="ad-label">광고</p>
-    <div class="ad-slot">
-      <script src="/ad-banner-isolated.js?v=20261018-isolated"></script>
-    </div>
-  </aside>
-
   <div class="related" style="margin-top:24px;">
-    <div class="related-title">함께 보면 좋은 도구</div>
+    <div class="related-title">다른 도구</div>
     <div class="related-links">
       <a href="/tools/severance-pay-calculator">퇴직금 계산기</a>
       <a href="/tools/unemployment-benefit-calculator">실업급여 계산기</a>
     </div>
   </div>
 
+</main>
+
   <footer style="max-width:620px; margin:40px auto 0; padding:20px 0 0; text-align:center; font-size:12.5px; color:var(--muted, #6E6656); border-top:1px solid var(--line, #D9D2BF);">
-    <a href="/" style="color:inherit; margin:0 8px;">홈</a>·<a href="/about" style="color:inherit; margin:0 8px;">소개</a>·<a href="/privacy" style="color:inherit; margin:0 8px;">개인정보처리방침</a>·<a href="mailto:contact@harukok.com" style="color:inherit; margin:0 8px;">문의</a>
+    <a href="/" style="color:inherit; margin:0 8px;">홈</a>·<a href="/about" style="color:inherit; margin:0 8px;">소개</a>·<a href="/privacy" style="color:inherit; margin:0 8px;">개인정보처리방침</a>·<a href="mailto:contact@harukok.com?subject=%EC%97%B0%EB%B4%89%20%EC%8B%A4%EC%88%98%EB%A0%B9%EC%95%A1%20%EA%B3%84%EC%82%B0%EA%B8%B0" style="color:inherit; margin:0 8px;">의견 보내기</a>
   </footer>
 </div>
 

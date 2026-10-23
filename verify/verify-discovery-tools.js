@@ -66,7 +66,7 @@ test('Discoverability, local assets, isolated banners and redirects',()=>{
   for(const file of ['tools/age-calculator','tools/random-picker','tools/team-generator','fun/baby-name-generator']) {
     const html=fs.readFileSync(path.join(root,file+'.html'),'utf8');
     assert.ok(home.includes('href="/'+file+'"'));assert.ok(sitemap.includes('<loc>https://harukok.com/'+file+'</loc>'));
-    assert.ok(html.includes('rel="canonical" href="https://harukok.com/'+file+'"'));assert.equal((html.match(/ad-banner-isolated\.js/g)||[]).length,2);
+    assert.ok(html.includes('rel="canonical" href="https://harukok.com/'+file+'"'));assert.equal((html.match(/ad-banner-isolated\.js/g)||[]).length,1);
     for(const [,url] of html.matchAll(/(?:src|href)="(\/[^"#?]*)(?:[^\"]*)"/g)) {
       const local=path.join(root,url);assert.ok(fs.existsSync(local)||fs.existsSync(local+'.html'),url);
     }

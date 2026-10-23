@@ -86,7 +86,7 @@ for (const slug of ['percent-calculator','date-calculator','character-counter'])
   assert.ok(html.includes('<link rel="canonical" href="'+url+'">'));
   const schema=JSON.parse(html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]);
   equal(schema.url,url);equal(schema.offers.price,'0');
-  equal((html.match(/src="\/ad-banner-isolated.js/g)||[]).length,2);
+  equal((html.match(/src="\/ad-banner-isolated.js/g)||[]).length,1);
   for (const match of html.matchAll(/(?:href|src)="(\/[^"#?]*)[^\"]*"/g)) {
     const dest=path.join(root,match[1]);
     assert.ok([dest,dest+'.html',path.join(dest,'index.html')].some(p=>fs.existsSync(p)), 'Missing local link '+match[1]);

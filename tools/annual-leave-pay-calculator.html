@@ -31,7 +31,7 @@
   *{ box-sizing: border-box; }
   body{
     margin:0;
-    padding: 40px 20px 70px;
+    padding: 24px 20px 56px;
     background: var(--paper);
     background-image: repeating-linear-gradient(0deg, rgba(0,0,0,0.015) 0px, rgba(0,0,0,0.015) 1px, transparent 1px, transparent 3px);
     font-family: 'Pretendard', -apple-system, sans-serif;
@@ -40,9 +40,9 @@
     justify-content:center;
   }
   .stub{ width:100%; max-width: 560px; }
-  .kicker{ font-size:13px; color:var(--muted); margin-bottom:6px; }
+
   h1{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:30px; line-height:1.35; margin:0 0 8px; }
-  .lede{ font-size:14.5px; color:var(--ink-soft); line-height:1.6; margin:0 0 32px; max-width:46ch; }
+
   .card{ background:var(--paper-light); border:1px solid var(--line); border-radius:14px; padding:32px; margin-bottom:28px; }
   .field{ margin-bottom:20px; }
   .field:last-child{ margin-bottom:0; }
@@ -78,10 +78,7 @@
   .related-links a{ padding:8px 14px; border:1.5px solid var(--line); border-radius:999px; font-size:13px; color:var(--ink); text-decoration:none; }
   .related-links a:hover{ border-color:var(--ink); }
 
-  .back-home{ display:inline-block; font-size:12.5px; color:var(--muted); text-decoration:none; margin-bottom:14px; }
-  .back-home:hover{ color:var(--ink); }
-
-  .site-nav{ display:flex; align-items:center; justify-content:space-between; width:100%; margin:0 0 22px; padding:0 0 14px; border-bottom:1px solid var(--line, #D9D2BF); }
+  .site-nav{ display:flex; align-items:center; justify-content:space-between; width:100%; margin:0 0 20px; padding:0 0 8px; border-bottom:1px solid var(--line, #D9D2BF); }
   .site-nav-brand{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:15px; color:var(--ink); text-decoration:none; }
   .site-nav-brand span{ color:var(--stamp, #B23A2E); }
   .site-nav-links{ display:flex; gap:2px; }
@@ -95,9 +92,6 @@
   .sources li{ font-size:12.5px; line-height:1.8; color:var(--muted); }
   .sources a{ color:var(--ink-soft); }
   .sources a:hover{ color:var(--ink); }
-  .guide-callout{ display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:8px; margin-top:16px; padding:12px 14px; background:var(--paper-light); border:1px dashed var(--line); border-radius:8px; font-size:12.5px; color:var(--ink-soft); }
-  .guide-callout a{ color:var(--stamp); font-weight:600; text-decoration:none; white-space:nowrap; }
-  .guide-callout a:hover{ text-decoration:underline; }
 
   .check-status{ margin:16px 0 0; padding:12px 14px; border:1px solid var(--line, #B7AF98); border-radius:10px; background:rgba(255,255,255,0.45); text-align:left; }
   .check-status .check-title{ font-size:12px; font-weight:700; color:var(--ink, #16233D); }
@@ -107,7 +101,7 @@
   .check-tag.assume{ color:#8A5A1E; border-color:#8A5A1E; }
   .check-tag.unverified{ color:#B23A2E; border-color:#B23A2E; }
 
-  .basis-line{ font-size:12.5px; line-height:1.5; color:var(--ink-soft); margin:-14px 0 6px; }
+  .basis-line{ font-size:13px; line-height:1.6; color:var(--ink-soft); margin:0 0 20px; }
   .basis-line strong{ color:var(--ink); }
   details.basis{ margin:0 0 16px; font-size:12.5px; color:var(--muted); line-height:1.65; }
   details.basis summary{ cursor:pointer; color:var(--ink-soft); font-weight:600; }
@@ -115,36 +109,103 @@
   details.basis ul.assume{ margin:10px 0 0; padding-left:18px; }
   details.basis ul.assume li{ margin-bottom:6px; }
   details.basis .sources{ margin-top:14px; padding-top:12px; }
-  .ad-banner{ width:300px; margin:32px calc((100% - 300px) / 2); text-align:center; }
+  .ad-banner{ width:300px; max-width:100%; margin:32px auto; text-align:center; }
   .ad-banner .ad-label{ margin:0 0 8px; font-size:11px; color:var(--muted, #6E6656); line-height:1.5; }
   .ad-slot{ width:300px; min-height:250px; }
   .ad-banner-strip{ width:100%; margin:32px auto; }
   .ad-banner-strip[hidden]{ display:none; }
-  .ad-strip-slot{ margin:0 auto; }
+  .ad-strip-slot{ max-width:100%; margin:0 auto; }
+  .site-nav a, .related-links a{ display:inline-flex; align-items:center; min-height:44px; }
+  .field-hint{ line-height:1.6; }
+  .input-row input, .seg button{ min-height:44px; }
+  .input-row input{ min-width:0; }
+  .input-row:focus-within{ outline:2px solid var(--stamp); outline-offset:4px; }
+  button:focus-visible, summary:focus-visible, a:focus-visible{ outline:2px solid var(--stamp); outline-offset:3px; }
+  details.basis{ margin:24px 0; padding:12px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  details.basis > summary, .check-status > summary, .field-help > summary, .comparison > summary{ cursor:pointer; padding:10px 0; font-size:13px; color:var(--ink); font-weight:600; }
+  .field-help{ margin-top:4px; font-size:12px; line-height:1.6; color:var(--muted); }
+  .field-help > summary{ font-size:12px; padding:7px 0; }
+  .field-help p{ margin:4px 0 0; }
+  .guide-link{ margin:12px 0; font-size:13px; line-height:1.6; }
+  .guide-link a{ color:var(--ink-soft); }
+  .breakdown-row{ gap:12px; flex-wrap:wrap; }
+  .sources a{ overflow-wrap:anywhere; }
+  @media (max-width:480px){ body{ padding:16px 16px 40px; } .card{ padding:20px; } .perforation{ margin:0 -20px; } .site-nav{ margin-bottom:18px; } }
 </style>
-<!-- Google AdSense -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6883245122372170" crossorigin="anonymous"></script>
 </head>
 <body>
-
-
 
 <div class="stub">
 <nav class="site-nav" aria-label="주요 메뉴">
   <a class="site-nav-brand" href="/">하루<span>콕</span></a>
   <div class="site-nav-links">
-    <a href="/#all-tools" aria-current="page">도구</a>
+    <a href="/#all-tools">모든 도구</a>
     <a href="/guides/">가이드</a>
   </div>
 </nav>
 
-  <a href="/" class="back-home">← 하루콕 홈으로</a>
-  <div class="kicker">급여·근로</div>
+<main>
   <h1>연차수당 계산기</h1>
-  <p class="lede">월 통상임금과 미사용 연차일수를 입력하면 1일 통상임금과 총 연차수당을 바로 계산합니다.</p>
-  <p class="basis-line"><strong>2026년 기준</strong> · 정산 대상 일수는 입력값 그대로 사용 · 소멸·사용촉진 여부는 판정하지 않음</p>
+  <p class="basis-line">정산 대상 일수를 금액으로 환산합니다. 소멸·사용촉진 여부는 판정하지 않습니다.</p>
+
+  <div class="card">
+    <div class="field">
+      <label for="monthlyWage">월 통상임금 (세전, 만원)</label>
+      <div class="input-row">
+        <input type="number" id="monthlyWage" placeholder="예: 300" inputmode="numeric">
+        <span class="unit">만원</span>
+      </div>
+      <span class="field-hint">기본급과 통상임금에 해당하는 수당의 합계입니다.</span>
+      <details class="field-help"><summary>통상임금에 포함되는 수당</summary><p>기본급과 소정근로의 대가로 정기적·일률적으로 지급되는 수당(직책수당 등)을 합산한 금액입니다. 어떤 수당이 통상임금에 들어가는지는 급여 항목과 최신 기준(2024.12.19. 대법원 전원합의체 판결 이후)으로 확인하세요.</p></details>
+    </div>
+
+    <div class="field">
+      <label for="unusedDays">미사용 연차일수</label>
+      <div class="input-row">
+        <input type="number" id="unusedDays" placeholder="예: 5" inputmode="numeric">
+        <span class="unit">일</span>
+      </div>
+      <span class="field-hint">정산 대상인 미사용 일수를 넣으세요. 소멸한 연차도 수당 대상일 수 있습니다.</span>
+      <details class="field-help"><summary>정산 일수 확인</summary><p>수당으로 정산할 대상인 미사용 연차일수를 입력하세요. 발생일수에서 이미 사용한 일수를 뺀 값이며, 1년이 지나 사용청구권이 소멸한 연차도 회사가 법정 사용촉진을 모두 이행했다는 사실이 확인되지 않으면 수당 청구 대상일 수 있으니 일괄로 빼지 마세요. 이 계산기는 소멸·사용촉진이 적법한지 판정하지 않습니다.</p></details>
+    </div>
+
+    <div class="field">
+      <label for="dailyHours">하루 소정근로시간 (시간)</label>
+      <div class="input-row">
+        <input type="number" id="dailyHours" value="8" inputmode="numeric">
+        <span class="unit">시간</span>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="weeklyDays">주 근무일수 (일)</label>
+      <div class="input-row">
+        <input type="number" id="weeklyDays" value="5" inputmode="numeric">
+        <span class="unit">일</span>
+      </div>
+      <span class="field-hint">하루 8시간·주 40시간 이내, 개근 기준입니다. 불규칙한 일정·별도 유급휴일은 지원하지 않습니다.</span>
+      <details class="field-help"><summary>입력 기준 자세히</summary><p>하루 8시간·주 40시간 이내의 일정만 지원합니다. 주휴는 통상근로자가 주 5일·40시간인 사업장의 비례 방식이며 개근을 가정합니다. 별도 유급휴일이 있거나 근무시간이 불규칙하면 이 결과를 그대로 적용하지 마세요.</p></details>
+    </div>
+
+    <button class="calc-btn" id="calcBtn">연차수당 계산하기</button>
+    <p class="field-hint" id="inputError" role="alert"></p>
+  </div>
+
+  <div class="card result-card hidden" id="resultCard">
+    <div class="result-label">예상 연차수당</div>
+    <div class="result-amount" id="totalAmount">0<span class="unit">원</span></div>
+
+    <div class="breakdown" id="breakdown"></div>
+    <div id="checkStatus"></div>
+
+    <p class="guide-link"><a href="/guides/annual-leave-guide">연차 발생·정산 가이드 →</a></p>
+    <p class="guide-link"><a href="/guides/annual-leave-guide#settle">단계별로 확인하기 →</a></p>
+
+    <div class="disclaimer">입력한 일수를 정산 대상으로 보고 금액으로만 환산합니다. 통상임금 범위와 취업규칙상 지급 기준은 근로계약서·취업규칙과 고용노동부 기준을 함께 확인하세요.</div>
+  </div>
+
   <details class="basis">
-    <summary>계산 가정·근거·출처 보기</summary>
+    <summary>계산 기준·출처</summary>
     <ul class="assume">
       <li>연차수당 = 1일 통상임금 × 정산 대상 연차일수입니다. 주 40시간·주휴 8시간·별도 유급휴일이 없는 표준 일정은 월 209시간을 씁니다. 다른 일정은 (주 소정근로시간 + 주휴시간) × 365 ÷ 7 ÷ 12로 추정하며 월 시간을 정수로 반올림하지 않습니다. 1일 통상임금은 원 단위로 반올림한 뒤 정산 일수를 곱합니다.</li>
       <li><strong>입력 전 순서</strong> — ① 법정 연차가 적용되는지 확인(근로기준법상 상시 5인 이상 사업장, 4주 평균 주 15시간 이상 근로 — 고용노동부 안내 기준이며, 회사가 계약·취업규칙으로 더 주기로 한 연차는 별도로 확인) → ② 수당으로 정산할 미사용 일수 확인(발생일수에서 사용한 일수를 빼고, 소멸한 연차도 법정 사용촉진을 모두 거쳤는지 확인하기 전에는 빼지 않음) → ③ 아래에 입력해 금액 환산.</li><li><strong>이 계산기가 하지 않는 것</strong> — 연차 발생일수 계산, 소멸 여부와 법정 사용촉진 적법성 판정, 단시간 근로자의 연차일수 산정. 입력한 일수를 정산 대상이라고 보고 금액으로만 환산하며, 결과 바로 아래에 이 가정과 확인 상태를 표시합니다.</li>
@@ -162,89 +223,23 @@
     </div>
   </details>
 
-
   <aside class="ad-banner ad-banner-strip" aria-label="광고">
     <p class="ad-label">광고</p>
     <div class="ad-strip-slot"><script src="/ad-banner-isolated.js?v=20261018-isolated"></script></div>
   </aside>
 
-  <div class="card">
-    <div class="field">
-      <label for="monthlyWage">월 통상임금 (세전, 만원)</label>
-      <div class="input-row">
-        <input type="number" id="monthlyWage" placeholder="예: 300" inputmode="numeric">
-        <span class="unit">만원</span>
-      </div>
-      <span class="field-hint">기본급과 소정근로의 대가로 정기적·일률적으로 지급되는 수당(직책수당 등)을 합산한 금액입니다. 어떤 수당이 통상임금에 들어가는지는 급여 항목과 최신 기준(2024.12.19. 대법원 전원합의체 판결 이후)으로 확인하세요.</span>
-    </div>
-
-    <div class="field">
-      <label for="unusedDays">미사용 연차일수</label>
-      <div class="input-row">
-        <input type="number" id="unusedDays" placeholder="예: 5" inputmode="numeric">
-        <span class="unit">일</span>
-      </div>
-      <span class="field-hint">수당으로 정산할 대상인 미사용 연차일수를 입력하세요. 발생일수에서 이미 사용한 일수를 뺀 값이며, 1년이 지나 사용청구권이 소멸한 연차도 회사가 법정 사용촉진을 모두 이행했다는 사실이 확인되지 않으면 수당 청구 대상일 수 있으니 일괄로 빼지 마세요. 이 계산기는 소멸·사용촉진이 적법한지 판정하지 않습니다.</span>
-    </div>
-
-    <div class="field">
-      <label for="dailyHours">하루 소정근로시간 (시간)</label>
-      <div class="input-row">
-        <input type="number" id="dailyHours" value="8" inputmode="numeric">
-        <span class="unit">시간</span>
-      </div>
-    </div>
-
-    <div class="field">
-      <label for="weeklyDays">주 근무일수 (일)</label>
-      <div class="input-row">
-        <input type="number" id="weeklyDays" value="5" inputmode="numeric">
-        <span class="unit">일</span>
-      </div>
-      <span class="field-hint">하루 8시간·주 40시간 이내의 일정만 지원합니다. 주휴는 통상근로자가 주 5일·40시간인 사업장의 비례 방식이며 개근을 가정합니다. 별도 유급휴일이 있거나 근무시간이 불규칙하면 이 결과를 그대로 적용하지 마세요.</span>
-    </div>
-
-    <button class="calc-btn" id="calcBtn">연차수당 계산하기</button>
-    <p class="field-hint" id="inputError" role="alert"></p>
-  </div>
-
-  <div class="card result-card hidden" id="resultCard">
-    <div class="result-label">예상 연차수당</div>
-    <div class="result-amount" id="totalAmount">0<span class="unit">원</span></div>
-
-    <div class="breakdown" id="breakdown"></div>
-    <div id="checkStatus"></div>
-
-    <div class="guide-callout">
-      <span>연차가 며칠 생기고, 소멸하면 수당은 어떻게 되나요?</span>
-      <a href="/guides/annual-leave-guide">연차 발생·정산 가이드 →</a>
-    </div>
-    <div class="guide-callout">
-      <span>정산할 일수를 어떻게 정하나요?</span>
-      <a href="/guides/annual-leave-guide#settle">단계별로 확인하기 →</a>
-    </div>
-
-    <div class="disclaimer">입력한 일수를 정산 대상으로 보고 금액으로만 환산합니다. 통상임금 범위와 취업규칙상 지급 기준은 근로계약서·취업규칙과 고용노동부 기준을 함께 확인하세요.</div>
-  </div>
-
-
-  <aside class="ad-banner" aria-label="광고">
-    <p class="ad-label">광고</p>
-    <div class="ad-slot">
-      <script src="/ad-banner-isolated.js?v=20261018-isolated"></script>
-    </div>
-  </aside>
-
   <div class="related" style="margin-top:24px;">
-    <div class="related-title">함께 보면 좋은 도구</div>
+    <div class="related-title">다른 도구</div>
     <div class="related-links">
       <a href="/tools/weekly-holiday-pay-calculator">주휴수당 계산기</a>
       <a href="/tools/severance-pay-calculator">퇴직금 계산기</a>
     </div>
   </div>
 
+</main>
+
   <footer style="max-width:620px; margin:40px auto 0; padding:20px 0 0; text-align:center; font-size:12.5px; color:var(--muted, #6E6656); border-top:1px solid var(--line, #D9D2BF);">
-    <a href="/" style="color:inherit; margin:0 8px;">홈</a>·<a href="/about" style="color:inherit; margin:0 8px;">소개</a>·<a href="/privacy" style="color:inherit; margin:0 8px;">개인정보처리방침</a>·<a href="mailto:contact@harukok.com" style="color:inherit; margin:0 8px;">문의</a>
+    <a href="/" style="color:inherit; margin:0 8px;">홈</a>·<a href="/about" style="color:inherit; margin:0 8px;">소개</a>·<a href="/privacy" style="color:inherit; margin:0 8px;">개인정보처리방침</a>·<a href="mailto:contact@harukok.com?subject=%EC%97%B0%EC%B0%A8%EC%88%98%EB%8B%B9%20%EA%B3%84%EC%82%B0%EA%B8%B0" style="color:inherit; margin:0 8px;">의견 보내기</a>
   </footer>
 </div>
 
@@ -254,7 +249,7 @@
   const WEEKS_PER_MONTH = 365 / 7 / 12;
   const TAGS = { ok: '공식 확인', assume: '입력 가정', unverified: '미확인' };
   function checkRow(kind, html){ return '<div class="check-row"><span class="check-tag ' + kind + '">' + TAGS[kind] + '</span><span>' + html + '</span></div>'; }
-  function checkBox(rows){ return '<div class="check-status"><div class="check-title">이 결과의 확인 상태</div>' + rows.join('') + '</div>'; }
+  function checkBox(rows){ return '<details class="check-status"><summary>계산에 적용한 가정</summary>' + rows.join('') + '</details>'; }
 
   function won(n){
     return Math.round(n).toLocaleString('ko-KR');
