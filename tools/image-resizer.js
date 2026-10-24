@@ -36,7 +36,11 @@ if (typeof document !== 'undefined') {
     if (sourceURL) URL.revokeObjectURL(sourceURL);
     sourceURL=null; $('image-controls').disabled=true; $('image-previews').hidden=true;
   }
-  function updateQuality() { $('image-quality').disabled=$('output-format').value==='image/png'; }
+  function updateQuality() {
+    const png=$('output-format').value==='image/png';
+    $('image-quality').disabled=png;
+    $('setting-summary').textContent=`${$('output-format').value.split('/')[1].toUpperCase()} · 가로 ${$('target-width').value}px`+(png?'':` · 품질 ${$('image-quality').value}%`);
+  }
   function readImage(file,version) {
     if (version!==loadVersion) return;
     try { validateResizeFile(file); } catch(error) { $('image-error').textContent=error.message; $('image-status').textContent='다른 이미지를 선택해 주세요.'; return; }
@@ -51,7 +55,7 @@ if (typeof document !== 'undefined') {
         $('target-width').value=String(Math.min(1280,img.naturalWidth)); $('target-width').max=String(img.naturalWidth);
         $('size-note').textContent=`원본 ${img.naturalWidth} × ${img.naturalHeight}px. 세로 크기는 비율에 맞춰 계산합니다.`;
         $('image-controls').disabled=false; $('image-previews').hidden=false; updateQuality();
-        $('image-status').textContent='크기와 품질을 확인한 뒤 크기·용량 변경하기를 누르세요.';
+        $('image-status').textContent='사진 크기·용량 줄이기를 누르세요. 설정은 그대로 사용해도 됩니다.';
       } catch(error) { clearSource(); $('image-error').textContent=error.message; $('image-status').textContent='더 작은 이미지를 선택해 주세요.'; }
     };
     img.onerror=()=>{
@@ -96,9 +100,10 @@ if (typeof document !== 'undefined') {
         $('result-info').textContent=`${width} × ${height}px · ${type.split('/')[1].toUpperCase()} · ${bytes(blob.size)}`;
         $('size-comparison').textContent=`원본 ${bytes(file.size)} → 결과 ${bytes(blob.size)} · ${Math.abs(comparison.change).toLocaleString('ko-KR',{maximumFractionDigits:1})}% ${comparison.label}`;
         $('download-image').href=outputURL; $('download-image').download=imageDownloadName(file.name,width,height,type);
-        $('image-result').hidden=false; $('result-preview-wrap').hidden=false; $('image-status').textContent='변환이 완료되었습니다. 화질과 용량을 확인하고 다운로드하세요.';
+        $('image-result').hidden=false; $('result-preview-wrap').hidden=false; $('image-status').textContent='완료! 아래 저장하기 버튼을 눌러 사진을 받으세요.';
+        $('image-result').scrollIntoView({block:'nearest'});
       },type,quality/100);
-    } catch(error) { $('resize-submit').disabled=false; $('image-error').textContent=error.message; $('image-status').textContent=''; }
+    } catch(error) { $('resize-settings').open=true; $('resize-submit').disabled=false; $('image-error').textContent=error.message; $('image-status').textContent=''; }
   });
   $('demo-image').addEventListener('click',()=>{
     const version=++loadVersion; clearSource(); $('image-file').value=''; $('image-status').textContent='예시 이미지를 만드는 중입니다.';

@@ -6,10 +6,10 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>연차수당 계산기 - 미사용 연차 통상임금 자동 계산</title>
-<meta name="description" content="월 통상임금과 미사용 연차일수를 입력하면 1일 통상임금과 총 연차수당을 바로 계산합니다.">
+<meta name="description" content="월 통상임금과 남은 연차 (일)를 입력하면 1일 통상임금과 총 연차수당을 바로 계산합니다.">
 <link rel="canonical" href="https://harukok.com/tools/annual-leave-pay-calculator">
 <meta property="og:title" content="연차수당 계산기 - 미사용 연차 통상임금 자동 계산">
-<meta property="og:description" content="월 통상임금과 미사용 연차일수를 입력하면 1일 통상임금과 총 연차수당을 바로 계산합니다.">
+<meta property="og:description" content="월 통상임금과 남은 연차 (일)를 입력하면 1일 통상임금과 총 연차수당을 바로 계산합니다.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="하루콕">
 <meta property="og:url" content="https://harukok.com/tools/annual-leave-pay-calculator">
@@ -129,6 +129,7 @@
   .input-error{ margin:12px 0 0; color:var(--stamp); font-size:13px; line-height:1.6; }
   .input-error:empty{ display:none; }
 </style>
+<link rel="stylesheet" href="/tools/tool-controls.css?v=20261024-simple">
 </head>
 <body>
 
@@ -156,7 +157,7 @@
     </div>
 
     <div class="field">
-      <label for="unusedDays">미사용 연차일수</label>
+      <label for="unusedDays">남은 연차 (일)</label>
       <div class="input-row">
         <input type="number" id="unusedDays" placeholder="예: 5" inputmode="numeric">
         <span class="unit">일</span>
@@ -286,7 +287,7 @@
       <div class="breakdown-row"><span>월 환산시간(주휴 포함)</span><span class="amount">${shownMonthlyHours}시간</span></div>
       <div class="breakdown-row"><span>환산 시급</span><span class="amount">${won(hourlyWage)}원</span></div>
       <div class="breakdown-row"><span>1일 통상임금</span><span class="amount">${won(dailyWage)}원</span></div>
-      <div class="breakdown-row"><span>미사용 연차일수</span><span class="amount">${unusedDays}일</span></div>
+      <div class="breakdown-row"><span>남은 연차 (일)</span><span class="amount">${unusedDays}일</span></div>
     `;
     const rows = [
       checkRow('assume', '<strong>정산 대상 일수 ' + unusedDays + '일</strong>은 입력값을 그대로 쓴 가정입니다. 연차휴가 사용청구권이 소멸했더라도 미사용수당 청구권은 별개이며, 회사가 법정 사용촉진을 모두 이행했다는 사실이 확인되지 않으면 수당 대상일 수 있습니다(고용노동부 안내). 이 계산기는 소멸·사용촉진 여부를 판정하지 않습니다.')

@@ -19,19 +19,23 @@ if (typeof module !== 'undefined') module.exports = {calculatePercent};
 if (typeof document !== 'undefined') {
   const $ = id => document.getElementById(id);
   const modes = {
-    of: ['기준 값','비율 (%)','예: 80,000의 15%에 해당하는 금액','계산 결과',''],
-    ratio: ['일부 값','전체 값','예: 200개 중 30개가 차지하는 비율','차지하는 비율','%'],
-    change: ['이전 값','이후 값','예: 3,000에서 3,300으로 바뀌었을 때의 증감률','증감률','%'],
-    discount: ['원가','할인율 (%)','예: 80,000원을 15% 할인한 최종 가격','할인 후 가격','']
+    of: ['전체 숫자','몇 %를 구할까요?','예: 200의 10%는 20입니다.','계산 결과',''],
+    ratio: ['일부 숫자 (예: 30개)','전체 숫자 (예: 200개)','예: 200개 중 30개가 차지하는 비율','차지하는 비율','%'],
+    change: ['바뀌기 전 숫자','바뀐 후 숫자','예: 3,000에서 3,300으로 바뀌었을 때의 증감률','증감률','%'],
+    discount: ['할인 전 가격 (원)','몇 % 할인하나요?','예: 80,000원을 15% 할인한 최종 가격','할인 후 가격','원']
   };
   const fmt = n => n.toLocaleString('ko-KR',{maximumFractionDigits:6});
   function clearResult() { $('result').hidden = true; $('error').textContent = ''; }
   function changeMode() {
     const [a,b,hint] = modes[$('mode').value];
     $('label-a').textContent = a; $('label-b').textContent = b; $('mode-hint').textContent = hint;
+    const examples={of:['200','10'],ratio:['30','200'],change:['3000','3300'],discount:['80000','15']};
+    $('a').placeholder='예: '+examples[$('mode').value][0]; $('b').placeholder='예: '+examples[$('mode').value][1];
+    document.querySelectorAll('[data-mode]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.mode===$('mode').value)));
     $('a').value = ''; $('b').value = ''; clearResult();
   }
   $('mode').addEventListener('change',changeMode);
+  document.querySelectorAll('[data-mode]').forEach(button=>button.addEventListener('click',()=>{ $('mode').value=button.dataset.mode; changeMode(); }));
   $('calculator').addEventListener('input',clearResult);
   $('calculator').addEventListener('submit',event => {
     event.preventDefault(); clearResult();
@@ -48,6 +52,7 @@ if (typeof document !== 'undefined') {
         change: `(${fmt(b)} − ${fmt(a)}) ÷ ${fmt(a)} × 100`, discount: `${fmt(a)} × (1 − ${fmt(b)} ÷ 100)`
       }[mode];
       $('result').hidden = false;
+      $('result').scrollIntoView({block:'nearest'});
     } catch (error) { $('error').textContent = error.message; }
   });
   document.querySelectorAll('[data-example]').forEach(button => button.addEventListener('click',() => {

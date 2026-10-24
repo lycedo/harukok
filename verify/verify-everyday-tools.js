@@ -64,7 +64,7 @@ function load(slug) {
 const percent=load('percent-calculator');
 percent('mode').value='discount';percent('a').value='80000';percent('b').value='15';
 percent('calculator').dispatchEvent({type:'submit',preventDefault(){}});
-equal(percent('result-value').textContent,'68,000');equal(percent('result').hidden,false);
+equal(percent('result-value').textContent,'68,000원');equal(percent('result').hidden,false);
 percent('calculator').dispatchEvent({type:'input'});equal(percent('result').hidden,true);
 percent('a').value='';percent('calculator').dispatchEvent({type:'submit',preventDefault(){}});
 equal(percent('result').hidden,true);assert.ok(percent('error').textContent);
@@ -74,6 +74,13 @@ dates('difference-form').dispatchEvent({type:'submit',preventDefault(){}});
 equal(dates('difference-value').textContent,'3일');assert.ok(dates('dday').textContent.startsWith('D-2'));
 dates('base').value='2026-10-18';dates('days').value='100';dates('count-mode').value='nth';
 dates('offset-form').dispatchEvent({type:'submit',preventDefault(){}});equal(dates('offset-value').textContent,'2027-01-25');
+dates('days').value='7';dates('count-mode').value='before';
+dates('count-mode').dispatchEvent({type:'change'});
+dates('offset-form').dispatchEvent({type:'submit',preventDefault(){}});equal(dates('offset-value').textContent,'2026-10-11');
+dates('count-mode').value='offset';dates('count-mode').dispatchEvent({type:'change'});
+dates('offset-form').dispatchEvent({type:'submit',preventDefault(){}});equal(dates('offset-value').textContent,'2026-10-25');
+dates('days').value='-7';dates('offset-form').dispatchEvent({type:'submit',preventDefault(){}});
+equal(dates('offset-result').hidden,true);assert.ok(dates('offset-error').textContent.includes('0 이상의 정수'));
 const text=load('character-counter');text('text').value='안녕 hello';text('limit-mode').value='withSpaces';text('limit').value='5';
 text('limit').dispatchEvent({type:'input'});equal(text('bytes').textContent,'12');assert.ok(text('limit-status').textContent.includes('3자 초과'));
 

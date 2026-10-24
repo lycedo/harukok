@@ -4,16 +4,22 @@
 <title>퍼센트 계산기 - 비율·증감률·할인율 계산 | 하루콕</title><meta name="description" content="전체의 몇 퍼센트, 일부가 차지하는 비율, 증가율·감소율, 할인 후 가격을 계산합니다. 실제 숫자로 계산식과 할인 금액까지 확인하세요.">
 <link rel="canonical" href="https://harukok.com/tools/percent-calculator"><link rel="icon" type="image/png" href="/favicon.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:title" content="퍼센트 계산기 - 비율·증감률·할인율 계산 | 하루콕"><meta property="og:description" content="전체의 몇 퍼센트, 일부가 차지하는 비율, 증가율·감소율, 할인 후 가격을 계산합니다. 실제 숫자로 계산식과 할인 금액까지 확인하세요."><meta property="og:type" content="website"><meta property="og:site_name" content="하루콕"><meta property="og:url" content="https://harukok.com/tools/percent-calculator"><meta property="og:image" content="https://harukok.com/og-image.png">
-<link rel="stylesheet" href="/tools/everyday-tools.css?v=20261024-ux"><script src="/tools/percent-calculator.js?v=20261018" defer></script>
+<link rel="stylesheet" href="/tools/everyday-tools.css?v=20261024-ux"><script src="/tools/percent-calculator.js?v=20261024-simple" defer></script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "퍼센트 계산기", "url": "https://harukok.com/tools/percent-calculator", "description": "전체의 몇 퍼센트, 일부가 차지하는 비율, 증가율·감소율, 할인 후 가격을 계산합니다. 실제 숫자로 계산식과 할인 금액까지 확인하세요.", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any", "browserRequirements": "Requires JavaScript", "inLanguage": "ko", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "KRW"}}</script>
+<link rel="stylesheet" href="/tools/tool-controls.css?v=20261024-simple">
 </head><body><div class="wrap">
 <nav class="site-nav" aria-label="주요 메뉴"><a class="site-nav-brand" href="/">하루<span>콕</span></a><div class="site-nav-links"><a href="/#all-tools">전체 도구</a><a href="/guides/">가이드</a></div></nav>
 <main><h1>퍼센트 계산기</h1>
 <noscript><p class="noscript">도구를 사용하려면 브라우저에서 자바스크립트를 허용해 주세요.</p></noscript>
 <section class="sheet" aria-label="퍼센트 계산">
 <form id="calculator">
-<div class="field"><label for="mode">계산 종류</label><select id="mode" aria-describedby="mode-hint"><option value="of">전체 값의 몇 % 구하기</option><option value="ratio">전체 중 몇 %인지 구하기</option><option value="change">증가율·감소율 구하기</option><option value="discount">할인 후 가격 구하기</option></select><p class="hint" id="mode-hint">예: 80,000의 15%에 해당하는 금액</p></div>
-<div class="fields"><div class="field"><label id="label-a" for="a">기준 값</label><input id="a" inputmode="decimal" type="number" step="any" min="-1000000000000" max="1000000000000" required></div><div class="field"><label id="label-b" for="b">비율 (%)</label><input id="b" inputmode="decimal" type="number" step="any" min="-1000000000000" max="1000000000000" required></div></div>
+<fieldset class="mode-choices"><legend>무엇을 구할까요?</legend><div class="mode-buttons">
+<button type="button" data-mode="of" aria-pressed="true">몇 %만큼은 얼마?<small>예: 200의 10%</small></button>
+<button type="button" data-mode="ratio" aria-pressed="false">전체에서 몇 %?<small>예: 200개 중 30개</small></button>
+<button type="button" data-mode="change" aria-pressed="false">몇 % 늘거나 줄었나?<small>예: 3,000 → 3,300</small></button>
+<button type="button" data-mode="discount" aria-pressed="false">할인하면 얼마?<small>예: 8만 원에서 15% 할인</small></button>
+</div></fieldset><input id="mode" type="hidden" value="of"><p class="hint" id="mode-hint">예: 200의 10%는 20입니다.</p>
+<div class="fields"><div class="field"><label id="label-a" for="a">전체 숫자</label><input id="a" placeholder="예: 200" inputmode="decimal" type="number" step="any" min="-1000000000000" max="1000000000000" required></div><div class="field"><label id="label-b" for="b">몇 %를 구할까요?</label><input id="b" placeholder="예: 10" inputmode="decimal" type="number" step="any" min="-1000000000000" max="1000000000000" required></div></div>
 <button class="primary" type="submit">퍼센트 계산하기</button><p id="error" class="error" role="alert"></p>
 </form>
 <div class="result" id="result" aria-live="polite" hidden><div id="result-label" class="result-label"></div><div id="result-value" class="result-value"></div><p id="result-detail"></p><p class="formula" id="formula"></p><p class="hint">소수점 최대 6자리 표시 · 금액 단위는 입력값과 같습니다.</p></div>

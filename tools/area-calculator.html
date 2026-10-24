@@ -7,6 +7,7 @@
 <meta property="og:title" content="평수 계산기 - ㎡·평 변환과 방 면적 계산 | 하루콕"><meta property="og:description" content="㎡와 평 양방향 변환, 가로×세로 방 면적 계산. 84㎡와 아파트 평형이 다른 이유까지 확인하세요."><meta property="og:type" content="website"><meta property="og:site_name" content="하루콕"><meta property="og:url" content="https://harukok.com/tools/area-calculator"><meta property="og:image" content="https://harukok.com/og-image.png">
 <link rel="stylesheet" href="/tools/everyday-tools.css?v=20261024-ux"><script src="/tools/area-calculator.js?v=20261021" defer></script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"평수 계산기","url":"https://harukok.com/tools/area-calculator","description":"제곱미터와 평 양방향 변환, 직사각형의 가로와 세로로 면적 계산","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","inLanguage":"ko","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"}}</script>
+<link rel="stylesheet" href="/tools/tool-controls.css?v=20261024-simple">
 </head><body><div class="wrap">
 <nav class="site-nav" aria-label="주요 메뉴"><a class="site-nav-brand" href="/">하루<span>콕</span></a><div class="site-nav-links"><a href="/#all-tools">전체 도구</a><a href="/guides/">가이드</a></div></nav>
 <main><h1>평수 계산기</h1>
@@ -14,7 +15,7 @@
 <section class="sheet" aria-labelledby="area-heading">
 <h2 id="area-heading">제곱미터 ↔ 평 변환</h2>
 <form id="area-form" novalidate>
-<div class="field"><label for="area-unit">입력 단위</label><select id="area-unit"><option value="sqm">제곱미터 (㎡) → 평</option><option value="pyeong">평 → 제곱미터 (㎡)</option></select></div>
+<div class="field"><label for="area-unit">어떤 단위로 알고 있나요?</label><select id="area-unit"><option value="sqm">제곱미터 (㎡) → 평</option><option value="pyeong">평 → 제곱미터 (㎡)</option></select></div>
 <div class="field"><label for="area-value" id="area-label">면적 (㎡)</label><input id="area-value" type="number" inputmode="decimal" min="0" max="1000000000" step="any" placeholder="예: 84" aria-describedby="area-input-hint" required><p class="hint" id="area-input-hint">소수점 입력 가능 · 예: 84.96</p></div>
 <button class="primary" type="submit">면적 변환하기</button><p id="area-error" class="error" role="alert"></p>
 </form>

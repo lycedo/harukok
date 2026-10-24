@@ -35,18 +35,24 @@ if (typeof document !== 'undefined') {
       $('difference-value').textContent = days.toLocaleString('ko-KR')+'일';
       $('dday').textContent = signed===0?'D-Day · 두 날짜가 같습니다.':signed>0?`D-${signed} · 기준일부터 목표일까지 ${signed}일 남음`:`D+${-signed} · 목표일로부터 기준일까지 ${-signed}일 지남`;
       $('difference-detail').textContent = $('inclusive').checked ? '양 끝 날짜를 모두 포함한 날짜 수입니다. D-Day 표기는 날짜 차이 기준으로 유지됩니다.' : '기준일은 0일로 세었습니다. ' + Math.floor(days/7)+'주 '+days%7+'일 차이입니다.';
-      $('difference-result').hidden=false;
+      $('difference-result').hidden=false; $('difference-result').scrollIntoView({block:'nearest'});
     } catch (error) { $('difference-error').textContent=error.message; }
+  });
+  $('count-mode').addEventListener('change',()=>{
+    const mode=$('count-mode').value; $('days').min=mode==='nth'?'1':'0';
+    $('days-hint').textContent=mode==='before'?'예: 7일 전은 7을 입력하세요.':mode==='nth'?'시작한 날이 1일째입니다. 예: 100일 기념일은 100.':'예: 100일 뒤는 100을 입력하세요.';
   });
   $('offset-form').addEventListener('submit',event => {
     event.preventDefault(); $('offset-error').textContent=''; $('offset-result').hidden=true;
     try {
       if ($('days').value.trim()==='') throw new Error('계산할 일수를 입력해 주세요.');
-      const nth = $('count-mode').value==='nth', days = Number($('days').value);
+      const nth = $('count-mode').value==='nth', entered = Number($('days').value);
+      if (!Number.isInteger(entered) || entered<0) throw new Error('일수는 0 이상의 정수로 입력해 주세요. 이전 날짜는 며칠 전을 선택하세요.');
+      const days=$('count-mode').value==='before'?-entered:entered;
       const date = addDays($('base').value,days,nth);
       $('offset-value').textContent = date;
       $('offset-detail').textContent = format(date)+' · '+(nth?`시작일을 1일째로 센 ${days}일째`:`기준일부터 ${Math.abs(days)}일 ${days<0?'전':'후'}`);
-      $('offset-result').hidden=false;
+      $('offset-result').hidden=false; $('offset-result').scrollIntoView({block:'nearest'});
     } catch (error) { $('offset-error').textContent=error.message; }
   });
   $('example-date').addEventListener('click',() => {

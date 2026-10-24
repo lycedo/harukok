@@ -323,6 +323,7 @@
   .input-error{ margin:12px 0 0; color:var(--stamp); font-size:13px; line-height:1.6; }
   .input-error:empty{ display:none; }
 </style>
+<link rel="stylesheet" href="/tools/tool-controls.css?v=20261024-simple">
 </head>
 <body>
 
@@ -341,7 +342,7 @@
 
   <div class="card">
     <div class="field">
-      <label for="salary">연봉 (세전, 만원)</label>
+      <label for="salary">1년 연봉 (세금 떼기 전)</label>
       <div class="input-row">
         <input type="number" id="salary" placeholder="예: 4000" inputmode="numeric">
         <span class="unit">만원</span>
@@ -349,8 +350,10 @@
       <span class="field-hint">예: 연봉 4,000만원이면 4000을 입력하세요.</span>
     </div>
 
+    <p class="field-hint" id="salary-conditions">적용 조건: 월 비과세 20만원 · 본인 포함 가족 1명 · 공제 자녀 0명</p>
+    <details class="simple-settings" id="salary-settings"><summary>비과세·가족 조건 바꾸기</summary>
     <div class="field">
-      <label for="nontax">월 비과세 합계 (식대 등)</label>
+      <label for="nontax">세금을 떼지 않는 월 급여 (비과세)</label>
       <div class="input-row">
         <input type="number" id="nontax" value="20" inputmode="numeric">
         <span class="unit">만원</span>
@@ -383,6 +386,7 @@
       <span class="field-hint" style="color:#b45309;">2017년생은 제외하세요. (2030년부터 공제)</span>
     </div>
 
+    </details>
     <p class="input-error" id="inputError" role="alert"></p>
     <button class="calc-btn" id="calcBtn">실수령액 계산하기</button>
   </div>
@@ -482,6 +486,7 @@
   let currentEstimate = null;
 
   function invalidateEstimate(){
+    $('salary-conditions').textContent=`적용 조건: 월 비과세 ${$('nontax').value || '0'}만원 · 본인 포함 가족 ${$('dependents').value || '1'}명 · 공제 자녀 ${$('children').value || '0'}명`;
     currentEstimate = null;
     $('comparisonResult').textContent = '';
     $('payslipComparison').classList.add('hidden');
@@ -559,6 +564,7 @@
 
     if (!Number.isFinite(annual) || annual <= 0 || !Number.isFinite(nonTaxMonthly) || nonTaxMonthly < 0){
       $('resultCard').classList.add('hidden');
+      if (nonTaxMonthly<0 || !Number.isFinite(nonTaxMonthly)) $('salary-settings').open=true;
       $('inputError').textContent = '연봉은 0보다 크게, 월 비과세 금액은 0 이상으로 입력하세요. 단위는 만원입니다.';
       return;
     }

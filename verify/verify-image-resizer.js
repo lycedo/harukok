@@ -26,6 +26,7 @@ const elements=new Map(),images=[],blobs=[],created=[],revoked=[],draws=[];
 for(const match of html.matchAll(/id="([^"]+)"/g)){
   elements.set(match[1],{value:'',hidden:true,disabled:false,textContent:'',files:[],handlers:{},
     addEventListener(type,handler){this.handlers[type]=handler;},
+    scrollIntoView(){this.scrolled=true;},
     removeAttribute(name){delete this[name];}});
 }
 const $=id=>elements.get(id);
@@ -59,6 +60,7 @@ fire('target-width','input');blobs.shift().callback({type:'image/jpeg',size:800}
 equal($('image-result').hidden,true);equal(created.length,2);equal($('resize-submit').disabled,false);
 fire('resize-form','submit');blobs.shift().callback({type:'image/jpeg',size:800});
 equal($('image-result').hidden,false);equal($('download-image').download,'current-600x400.jpg');
+equal($('image-result').scrolled,true);
 equal($('download-image').href,'blob:2');
 fire('image-quality','input');equal(revoked.includes('blob:2'),true);equal($('download-image').href,undefined);
 fire('resize-form','submit');
@@ -76,6 +78,8 @@ demoCallback({type:'image/png',size:100});equal(images.length,imageCount);
 const tooBig=images.at(-1);tooBig.naturalWidth=5000;tooBig.naturalHeight=4000;tooBig.onload();
 equal($('image-previews').hidden,true);equal($('image-controls').disabled,true);assert.ok($('image-error').textContent.includes('1,200만'));checks++;
 const last=select();last.onload();const activeURL=$('original-preview').src;listeners.pagehide();equal(revoked.includes(activeURL),true);
+select().onload();$('target-width').value='0';fire('resize-form','submit');
+equal($('resize-settings').open,true);equal($('image-result').hidden,true);
 equal((html.match(/src="\/ad-banner-isolated.js/g)||[]).length,1);
 equal((html.match(/<h1>/g)||[]).length,1);
 const schema=JSON.parse(html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]);

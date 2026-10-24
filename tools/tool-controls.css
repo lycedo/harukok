@@ -1,0 +1,33 @@
+/* Keep the site's original headings and cards; make controls easy to see and tap. */
+main .field label, main .field-hint, main .hint, main button,
+main input, main select, main textarea, main summary {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Malgun Gothic", sans-serif;
+}
+main .field label { font-size:16px; font-weight:600; line-height:1.5; }
+main .field-hint, main .hint { font-size:14px; line-height:1.6; }
+main input:not([type=checkbox]):not([type=radio]):not([type=range]),
+main select, main textarea { font-size:16px; min-height:48px; }
+main .input-row {
+  align-items:center; background:#fff; border:1px solid var(--line, #B7AF98);
+  border-radius:6px; padding:4px 12px; min-width:0;
+}
+main .input-row input { min-width:0; font-size:18px; }
+main .input-row .unit { color:var(--ink, #16233D); }
+main button, main summary { min-height:44px; touch-action:manipulation; }
+main button { word-break:keep-all; }
+main .primary, main .calc-btn { font-size:17px; min-height:52px; }
+main .examples button { font-size:14px; }
+main .simple-settings { margin:12px 0 20px; border-top:1px solid var(--line, #B7AF98); }
+main .simple-settings>summary { padding:12px 0; cursor:pointer; font-size:15px; }
+main .simple-settings[open]>summary { margin-bottom:12px; }
+main .mode-choices { border:0; margin:0 0 20px; padding:0; min-width:0; }
+main .mode-choices legend { font-weight:600; margin-bottom:10px; }
+main .mode-buttons { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+main .mode-buttons button { background:#fff; border:1px solid var(--line, #B7AF98); border-radius:6px; padding:12px; font-size:16px; text-align:left; }
+main .mode-buttons button[aria-pressed=true] { background:var(--ink, #16233D); color:#fff; border-color:var(--ink, #16233D); }
+main .mode-buttons small { display:block; font-size:13px; margin-top:4px; }
+main :focus-visible { outline:3px solid var(--stamp, #B23A2E); outline-offset:3px; }
+@media(max-width:520px) {
+  main .stepper-row { gap:8px; }
+  main .image-preview-grid { grid-template-columns:1fr; }
+}

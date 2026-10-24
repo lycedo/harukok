@@ -22,5 +22,13 @@ for (const [page, field, values] of [
   assert.equal(get('inputError').textContent, '', page + ' clears the old error');
   assert.equal(get('resultCard').classList.contains('hidden'), false, page + ' shows the result');
   assert.ok(resultReached, page + ' brings the result into view');
+  if (page === 'salary') {
+    get('nontax').value='0';get('nontax').dispatchEvent({type:'input'});
+    assert.ok(get('salary-conditions').textContent.includes('월 비과세 0만원'));
+    assert.ok(get('resultCard').classList.contains('hidden'));
+    get('nontax').value='-1';get('calcBtn').click();
+    assert.equal(get('salary-settings').open,true);
+    assert.ok(get('inputError').textContent);
+  }
 }
 console.log('PASS - missing-input recovery and visible results, including Enter on salary');
