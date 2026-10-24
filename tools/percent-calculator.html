@@ -4,28 +4,22 @@
 <title>퍼센트 계산기 - 비율·증감률·할인율 계산 | 하루콕</title><meta name="description" content="전체의 몇 퍼센트, 일부가 차지하는 비율, 증가율·감소율, 할인 후 가격을 계산합니다. 실제 숫자로 계산식과 할인 금액까지 확인하세요.">
 <link rel="canonical" href="https://harukok.com/tools/percent-calculator"><link rel="icon" type="image/png" href="/favicon.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:title" content="퍼센트 계산기 - 비율·증감률·할인율 계산 | 하루콕"><meta property="og:description" content="전체의 몇 퍼센트, 일부가 차지하는 비율, 증가율·감소율, 할인 후 가격을 계산합니다. 실제 숫자로 계산식과 할인 금액까지 확인하세요."><meta property="og:type" content="website"><meta property="og:site_name" content="하루콕"><meta property="og:url" content="https://harukok.com/tools/percent-calculator"><meta property="og:image" content="https://harukok.com/og-image.png">
-<link rel="stylesheet" href="/tools/everyday-tools.css?v=20261022-ui"><script src="/tools/percent-calculator.js?v=20261018" defer></script>
+<link rel="stylesheet" href="/tools/everyday-tools.css?v=20261024-ux"><script src="/tools/percent-calculator.js?v=20261018" defer></script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "퍼센트 계산기", "url": "https://harukok.com/tools/percent-calculator", "description": "전체의 몇 퍼센트, 일부가 차지하는 비율, 증가율·감소율, 할인 후 가격을 계산합니다. 실제 숫자로 계산식과 할인 금액까지 확인하세요.", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any", "browserRequirements": "Requires JavaScript", "inLanguage": "ko", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "KRW"}}</script>
 </head><body><div class="wrap">
 <nav class="site-nav" aria-label="주요 메뉴"><a class="site-nav-brand" href="/">하루<span>콕</span></a><div class="site-nav-links"><a href="/#all-tools">전체 도구</a><a href="/guides/">가이드</a></div></nav>
-<main><h1>퍼센트 계산기</h1><p class="lede">계산 종류를 고르고 두 값을 입력하세요.</p>
+<main><h1>퍼센트 계산기</h1>
 <noscript><p class="noscript">도구를 사용하려면 브라우저에서 자바스크립트를 허용해 주세요.</p></noscript>
-<section class="sheet" aria-labelledby="calculator-heading">
-<h2 id="calculator-heading">어떤 계산이 필요한가요?</h2>
+<section class="sheet" aria-label="퍼센트 계산">
 <form id="calculator">
 <div class="field"><label for="mode">계산 종류</label><select id="mode" aria-describedby="mode-hint"><option value="of">전체 값의 몇 % 구하기</option><option value="ratio">전체 중 몇 %인지 구하기</option><option value="change">증가율·감소율 구하기</option><option value="discount">할인 후 가격 구하기</option></select><p class="hint" id="mode-hint">예: 80,000의 15%에 해당하는 금액</p></div>
-<div class="fields"><div class="field"><label id="label-a" for="a">기준 값</label><input id="a" type="number" step="any" min="-1000000000000" max="1000000000000" required></div><div class="field"><label id="label-b" for="b">비율 (%)</label><input id="b" type="number" step="any" min="-1000000000000" max="1000000000000" required></div></div>
+<div class="fields"><div class="field"><label id="label-a" for="a">기준 값</label><input id="a" inputmode="decimal" type="number" step="any" min="-1000000000000" max="1000000000000" required></div><div class="field"><label id="label-b" for="b">비율 (%)</label><input id="b" inputmode="decimal" type="number" step="any" min="-1000000000000" max="1000000000000" required></div></div>
 <button class="primary" type="submit">퍼센트 계산하기</button><p id="error" class="error" role="alert"></p>
 </form>
-<div class="result" id="result" aria-live="polite" hidden><div id="result-label" class="result-label"></div><div id="result-value" class="result-value"></div><p id="result-detail"></p><p class="formula" id="formula"></p><p class="hint">결과는 소수점 아래 최대 6자리까지 표시합니다. 금액 단위와 반올림 규칙은 직접 확인하세요.</p></div>
+<div class="result" id="result" aria-live="polite" hidden><div id="result-label" class="result-label"></div><div id="result-value" class="result-value"></div><p id="result-detail"></p><p class="formula" id="formula"></p><p class="hint">소수점 최대 6자리 표시 · 금액 단위는 입력값과 같습니다.</p></div>
 <div class="examples"><button type="button" class="secondary" data-example="discount,80000,15">8만 원의 15% 할인</button><button type="button" class="secondary" data-example="ratio,30,200">200개 중 30개</button><button type="button" class="secondary" data-example="change,3000,3300">3,000 → 3,300 증감률</button></div>
 </section>
 <aside class="ad-banner ad-banner-strip" aria-label="광고"><p class="ad-label">광고</p><div class="ad-strip-slot"><script src="/ad-banner-isolated.js?v=20261018-tools"></script></div></aside>
-<details class="tool-notes"><summary>계산 기준 확인</summary>
-<ul><li>전체의 일부: 전체 × 비율 ÷ 100</li><li>차지하는 비율: 일부 ÷ 전체 × 100</li><li>증감률: (이후 − 이전) ÷ 이전 × 100. 이전 값은 0보다 커야 합니다.</li><li>할인 후 가격: 원가 × (1 − 할인율 ÷ 100). 할인율은 0~100%입니다.</li></ul>
-<p>할인이 여러 번 적용되면 직전 할인 가격을 다음 계산에 넣으세요. 20% 할인 후 10%를 더 할인하면 총 할인율은 28%입니다.</p>
-<p>20%에서 25%로 바뀌면 5%포인트 상승이며, 상대 증가율은 25%입니다.</p>
-<p class="meta">백분율 기본 산식 · 각 입력값의 절댓값 1조 이하 · 소수점 최대 6자리 표시 · 기준 확인: 2026년 10월 18일</p>
-</details>
+
 <nav class="related" aria-label="함께 쓰는 도구"><h2>함께 쓰는 도구</h2><ul><li><a href="/tools/area-calculator">면적·평수 계산기</a></li><li><a href="/tools/date-calculator">날짜·디데이 계산기</a></li><li><a href="/tools/character-counter">글자 수·바이트 세기</a></li><li><a href="/tools/salary-calculator">연봉 실수령액 계산기</a></li></ul></nav>
 </main><footer><a href="/about">소개</a> · <a href="/privacy">개인정보처리방침</a> · <a href="mailto:contact@harukok.com?subject=%ED%8D%BC%EC%84%BC%ED%8A%B8%20%EA%B3%84%EC%82%B0%EA%B8%B0%20-%20%EB%B9%84%EC%9C%A8%C2%B7%EC%A6%9D%EA%B0%90%EB%A5%A0%C2%B7%ED%95%A0%EC%9D%B8%EC%9C%A8%20%EA%B3%84%EC%82%B0%20%7C%20%ED%95%98%EB%A3%A8%EC%BD%95">의견 보내기</a><p>© 2026 하루콕</p></footer></div></body></html>

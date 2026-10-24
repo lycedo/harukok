@@ -55,7 +55,7 @@ if (typeof document!=='undefined') {
       $('position-x-value').textContent=$('position-x').disabled?'가로 전체 사용':$('position-x').value+'%';
       $('position-y-value').textContent=$('position-y').disabled?'세로 전체 사용':$('position-y').value+'%';
       $('crop-info').textContent=`저장 크기 ${rect.width} × ${rect.height}px · 원본 왼쪽에서 ${rect.x}px, 위에서 ${rect.y}px`;
-      $('image-status').textContent='미리보기를 확인한 뒤 저장 파일 만들기를 눌러 주세요.';
+      $('image-status').textContent='미리보기를 확인한 뒤 자른 사진 만들기를 누르세요.';
     } catch(error) { $('image-error').textContent=error.message; $('crop-submit').disabled=true; $('image-status').textContent=''; }
   }
   function readImage(file,version) {

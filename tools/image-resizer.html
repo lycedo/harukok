@@ -5,30 +5,27 @@
 <meta name="description" content="JPG·PNG·WebP 사진의 가로 크기와 품질을 조절해 용량을 줄여 보세요. 비율을 유지한 리사이즈, 실제 용량 비교, 파일 다운로드를 브라우저 안에서 무료로 제공합니다.">
 <link rel="canonical" href="https://harukok.com/tools/image-resizer"><link rel="icon" type="image/png" href="/favicon.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:title" content="이미지 용량 줄이기·크기 조절 | 하루콕"><meta property="og:description" content="비율을 유지해 크기를 조절하고 JPG·PNG·WebP로 저장하세요. 원본과 결과 용량을 바로 비교합니다."><meta property="og:type" content="website"><meta property="og:site_name" content="하루콕"><meta property="og:url" content="https://harukok.com/tools/image-resizer"><meta property="og:image" content="https://harukok.com/og-image.png">
-<link rel="stylesheet" href="/tools/everyday-tools.css?v=20261022-ui"><link rel="stylesheet" href="/tools/image-tools.css?v=20261022-ui"><script src="/tools/image-resizer.js?v=20261020" defer></script>
+<link rel="stylesheet" href="/tools/everyday-tools.css?v=20261024-ux"><link rel="stylesheet" href="/tools/image-tools.css?v=20261024-ux"><script src="/tools/image-resizer.js?v=20261023-ux" defer></script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"이미지 용량 줄이기·크기 조절","url":"https://harukok.com/tools/image-resizer","description":"JPG·PNG·WebP 이미지의 비율을 유지해 크기를 조절하고 품질과 실제 파일 용량을 비교하는 도구","applicationCategory":"MultimediaApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript and Canvas","inLanguage":"ko","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"}}</script>
 </head><body><div class="wrap">
 <nav class="site-nav" aria-label="주요 메뉴"><a class="site-nav-brand" href="/">하루<span>콕</span></a><div class="site-nav-links"><a href="/#all-tools">전체 도구</a><a href="/guides/">가이드</a></div></nav>
-<main><h1>이미지 용량 줄이기·크기 조절</h1><p class="lede">가로 크기와 품질을 조절해 저장하세요. 원본 비율은 유지합니다.</p>
+<main><h1>사진 크기·용량 줄이기</h1>
 <noscript><p class="noscript">도구를 사용하려면 브라우저에서 자바스크립트를 허용해 주세요.</p></noscript>
-<section class="sheet" aria-labelledby="resize-heading"><h2 id="resize-heading">이미지 한 장 줄이기</h2>
+<section class="sheet" aria-label="사진 크기와 용량 변경">
 <form id="resize-form" novalidate>
-<div class="field"><label for="image-file">원본 이미지</label><input class="image-file" id="image-file" type="file" accept="image/jpeg,image/png,image/webp" aria-describedby="file-note"><p class="hint" id="file-note">JPG·PNG·WebP, 파일당 최대 10MB(10,485,760바이트), 최대 1,200만 화소입니다. 원본 파일은 수정하지 않습니다.</p></div>
-<button id="demo-image" class="secondary" type="button">예시 이미지로 사용해 보기</button>
-<p class="hint">사진은 서버에 업로드하지 않습니다. 결과는 정지 이미지이며 원본 촬영 정보는 유지하지 않습니다.</p>
+<div class="field"><label for="image-file">사진 선택</label><input class="image-file" id="image-file" type="file" accept="image/jpeg,image/png,image/webp" aria-describedby="file-note"><p class="hint" id="file-note">JPG·PNG·WebP · 최대 10MB·1,200만 화소 · 서버 업로드 없음</p></div>
+<button id="demo-image" class="secondary" type="button">예시 사진 사용</button>
+
 <fieldset class="image-controls" id="image-controls" disabled><legend>저장할 이미지 설정</legend>
-<div class="fields"><div class="field"><label for="target-width">가로 크기 (px)</label><input id="target-width" type="number" min="1" step="1" value="1280" inputmode="numeric"><p class="hint" id="size-note">이미지를 선택하면 원본 크기를 표시합니다.</p></div><div class="field"><label for="output-format">파일 형식</label><select id="output-format"><option value="image/jpeg">JPG — 사진에 적합</option><option value="image/webp">WebP — 웹 게시용</option><option value="image/png">PNG — 투명 배경·선명한 글자</option></select></div></div>
-<div class="field"><label for="image-quality">저장 품질 (%)</label><input id="image-quality" type="number" min="20" max="100" step="1" value="80" aria-describedby="quality-note"><p class="hint" id="quality-note">JPG·WebP: 20~100. 숫자가 낮을수록 화질 손실이 커질 수 있습니다. PNG에는 품질 설정을 적용하지 않습니다.</p></div>
-<button type="submit" class="primary" id="resize-submit">이미지 변환하기</button>
+<div class="fields"><div class="field"><label for="target-width">가로 크기 (px)</label><input id="target-width" type="number" min="1" step="1" value="1280" inputmode="numeric"><p class="hint" id="size-note">이미지를 선택하면 원본 크기를 표시합니다.</p></div><div class="field"><label for="output-format">파일 형식</label><select id="output-format"><option value="image/jpeg">JPG — 투명 영역은 흰색</option><option value="image/webp">WebP — 웹 게시용</option><option value="image/png">PNG — 투명도 유지</option></select></div></div>
+<div class="field"><label for="image-quality">저장 품질 (%)</label><input id="image-quality" type="number" min="20" max="100" step="1" value="80" aria-describedby="quality-note"><p class="hint" id="quality-note">낮을수록 용량·화질이 줄어듭니다. PNG에는 적용되지 않습니다.</p></div>
+<button type="submit" class="primary" id="resize-submit">크기·용량 변경하기</button>
 </fieldset></form>
-<p id="image-status" role="status" class="hint image-status" aria-live="polite">예시 이미지 또는 내 파일로 시작할 수 있습니다.</p><p id="image-error" class="error" role="alert"></p>
+<p id="image-status" role="status" class="hint image-status" aria-live="polite"></p><p id="image-error" class="error" role="alert"></p>
+<div id="image-result" class="image-summary" hidden><h3>완료 · 다운로드</h3><p id="result-info"></p><p id="size-comparison"></p><div class="actions"><a id="download-image" class="primary" download>이미지 다운로드</a></div></div>
 <div id="image-previews" class="image-preview-grid" hidden><figure><figcaption>원본</figcaption><div class="image-preview"><img id="original-preview" alt="선택한 원본 이미지"></div><p id="original-info" class="hint"></p></figure><figure id="result-preview-wrap" hidden><figcaption>변환 결과</figcaption><div class="image-preview"><img id="result-preview" alt="크기와 품질을 조절한 이미지"></div></figure></div>
-<div id="image-result" class="image-summary" hidden><h3>저장할 파일</h3><p id="result-info"></p><p id="size-comparison"></p><div class="actions"><a id="download-image" class="secondary" download>이미지 다운로드</a></div></div>
 </section>
 <aside class="ad-banner ad-banner-strip" aria-label="광고"><p class="ad-label">광고</p><div class="ad-strip-slot"><script src="/ad-banner-isolated.js?v=20261018-tools"></script></div></aside>
-<details class="tool-notes"><summary>파일 형식·저장 시 확인할 점</summary>
-<ul><li>JPG는 일반 사진에 적합하며 투명 영역을 흰색으로 바꿉니다. PNG는 투명도를 유지하지만 품질 조절을 적용하지 않습니다. WebP는 제출처의 지원 여부를 확인하세요.</li><li>가로 크기를 줄이면 세로도 같은 비율로 줄어듭니다. 원본보다 확대하지 않습니다.</li><li>품질 80은 원본 용량의 80%라는 뜻이 아닙니다. 변환 후 용량이 커질 수도 있으므로 실제 결과 용량을 확인하세요.</li><li>HEIC·GIF·SVG·PDF는 지원하지 않습니다. 설정을 바꾸면 다시 변환해야 하며, 새로고침하거나 탭을 닫기 전에 다운로드하세요.</li></ul>
-<p class="meta">브라우저 캔버스로 변환 · <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/toBlob">이미지 파일 생성 방식</a> · 기준 확인: 2026년 10월 20일</p>
-</details>
+<p class="meta">원본은 유지됩니다. 결과는 정지 이미지이며 촬영 정보는 제거됩니다. 변환 후 용량이 커질 수 있으니 결과를 확인하세요. <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/toBlob">이미지 저장 방식</a></p>
 <nav class="related" aria-label="함께 쓰는 도구"><h2>함께 쓰는 도구</h2><ul><li><a href="/tools/image-cropper">이미지 자르기</a></li><li><a href="/tools/background-remover">흰색 배경 제거</a></li><li><a href="/tools/character-counter">글자 수·바이트 세기</a></li><li><a href="/tools/percent-calculator">퍼센트·할인율 계산기</a></li></ul></nav>
 </main><footer><a href="/about">소개</a> · <a href="/privacy">개인정보처리방침</a> · <a href="mailto:contact@harukok.com?subject=%EC%9D%B4%EB%AF%B8%EC%A7%80%20%EC%9A%A9%EB%9F%89%20%EC%A4%84%EC%9D%B4%EA%B8%B0%C2%B7%ED%81%AC%EA%B8%B0%20%EC%A1%B0%EC%A0%88%20-%20JPG%20PNG%20WebP%20%EB%B3%80%ED%99%98%20%7C%20%ED%95%98%EB%A3%A8%EC%BD%95">의견 보내기</a><p>© 2026 하루콕</p></footer></div></body></html>

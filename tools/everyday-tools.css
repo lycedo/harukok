@@ -10,11 +10,11 @@ button,a,input,select,textarea,summary{touch-action:manipulation}
 .site-nav{display:flex;align-items:center;justify-content:space-between;padding-bottom:10px;border-bottom:1px solid var(--line);margin-bottom:20px}
 .site-nav a{display:inline-flex;align-items:center;min-height:44px;text-decoration:none;font-size:14px;padding:4px}
 .site-nav-brand{font-weight:700}.site-nav-brand span{color:var(--stamp)}
-.site-nav-links{display:flex;gap:18px}.back-home,.hint,.meta{font-size:13px;color:var(--muted)}
-h1,h2{font-family:"Noto Serif KR","Batang",serif;line-height:1.4}
+.site-nav-links{display:flex;gap:18px}.back-home,.hint,.meta{font-size:14px;color:var(--muted)}
+h1,h2{font-family:"Noto Serif KR","Batang",serif;line-height:1.4;word-break:keep-all;overflow-wrap:anywhere}
 h1{font-size:32px;margin:16px 0 10px}h2{font-size:21px;margin:0 0 14px}h3{font-size:16px;margin:24px 0 6px}
 .lede{margin:0 0 20px;color:var(--muted);max-width:56ch;word-break:keep-all;overflow-wrap:anywhere}
-.sheet{background:var(--surface);padding:24px;border:1px solid var(--line);border-radius:10px;margin:20px 0}
+.sheet{background:var(--surface);padding:24px;border:1px solid var(--line);border-radius:14px;margin:20px 0}
 .field{margin-bottom:20px}.field label{display:block;font-weight:600;margin-bottom:6px}
 input:not([type=checkbox]),select,textarea{display:block;width:100%;min-width:0;padding:11px 12px;border:1px solid var(--line);border-radius:5px;background:#fff;font-size:16px}
 input[type=number]{font-variant-numeric:tabular-nums}
@@ -24,7 +24,7 @@ input[type=number]{font-variant-numeric:tabular-nums}
 form>.primary{width:100%}.secondary{padding:8px 12px;background:transparent;border:1px solid var(--line);border-radius:5px;cursor:pointer;min-height:44px}
 button:hover{filter:brightness(.94)}button:disabled{opacity:.45;cursor:default}
 .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
-.error{color:#962D23;font-weight:600}.result{border-top:2px solid var(--ink);padding-top:20px;margin-top:24px}
+.error{color:#962D23;font-weight:600}.error:empty{display:none}.result{border-top:2px solid var(--ink);padding-top:20px;margin-top:24px}
 .result-label{font-size:14px}.result-value{font:700 34px/1.4 ui-monospace,Consolas,monospace;overflow-wrap:anywhere;margin:5px 0 10px}
 .result p{margin:8px 0}.formula{font-size:14px;color:var(--muted);overflow-wrap:anywhere}
 .examples{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 20px}.examples button{font-size:13px}

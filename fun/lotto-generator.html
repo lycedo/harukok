@@ -198,6 +198,11 @@
   .info-block ul{ padding-left:20px; font-size:14px; line-height:1.7; }
   .info-block li{ margin:6px 0; }
   @media(max-width:520px){ body{ padding:20px 14px 44px; } }
+  h1{ margin-bottom:20px; }
+  .result-note{ font-size:13px; color:var(--muted); line-height:1.6; }
+  .share-btn,.modal-close,.history-more-btn{ min-height:44px; }
+  .modal-close{ width:44px; }
+  button:focus-visible{ outline:3px solid var(--red); outline-offset:3px; }
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "로또 번호 생성기", "url": "https://harukok.com/fun/lotto-generator", "description": "1~45 중 번호 6개씩, 최대 5줄을 뽑습니다.", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any", "inLanguage": "ko", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "KRW"}}</script>
@@ -217,23 +222,21 @@
 
 
   <h1>로또 번호 생성기</h1>
-  <p class="lede">1~45 중 번호 6개씩, 최대 5줄을 뽑습니다.</p>
 
 
   <div id="selectionBlock">
     <div class="card-box">
       <div class="card-box-head">
-        <div class="card-box-title">줄 수 선택</div>
-        <div class="pill">무료</div>
+        <div class="card-box-title">몇 줄을 뽑을까요?</div>
       </div>
       <div id="amountGrid"></div>
     </div>
-    <button class="pull-btn" id="genBtn">번호 생성</button>
+    <button class="pull-btn" id="genBtn">번호 뽑기</button>
   </div>
 
   <div id="sharedBadgeBlock" style="display:none;">
     <div class="badge-share">📨 공유된 결과입니다 · 열람만 가능</div>
-    <p class="shared-lede">다른 사람이 만든 번호를 보고 있어요. 이 화면을 본다고 새로 추첨되지 않고, 내 '최근 생성 기록'에는 저장되지 않습니다.</p>
+    <p class="shared-lede">다른 사람이 공유한 번호입니다. 내 생성 기록에는 저장되지 않습니다.</p>
   </div>
 
   <div class="share-card" id="shareCard">
@@ -241,7 +244,7 @@
       <div class="memo-title">하루콕 번호 메모</div>
       <div class="memo-sub" id="memoSub"></div>
       <div class="memo-divider"></div>
-      <div id="memoRows"><div class="empty-history">아직 생성한 번호가 없어요. 번호 생성을 눌러보세요!</div></div>
+      <div id="memoRows"><div class="empty-history">번호 뽑기를 누르면 여기에 표시됩니다.</div></div>
       <div class="memo-divider"></div>
       <div class="memo-footer" id="memoFooter"></div>
     </div>
@@ -256,6 +259,8 @@
 
   <a href="#" class="cta" id="sharedCtaLink" style="display:none;">나도 번호 생성하러 가기 →</a>
 
+  <p class="result-note">당첨 확률을 높여주지 않습니다. 기록은 이 브라우저에만 저장되며, 공유 링크에는 번호가 포함됩니다.</p>
+
   <div class="history" id="historySection">
     <div class="history-title">최근 생성 기록</div>
     <div id="historyList"></div>
@@ -268,15 +273,6 @@
   </aside>
 
   <div class="info-block">
-    <details class="more">
-      <summary>번호 생성·공유·저장 안내</summary>
-      <ul>
-        <li>1~45 중 중복 없는 번호 6개를 무작위로 고릅니다. 당첨 확률을 높여주는 도구는 아니며, 같은 조합이 다시 나올 수 있습니다.</li>
-        <li>실제 복권이 아니며 구매·당첨금 청구 효력이 없습니다. 동행복권과 무관합니다.</li>
-        <li>최근 기록은 이 브라우저에만 저장됩니다. 공유 링크에는 번호가 포함되며, 링크를 받은 사람은 같은 결과를 볼 수 있습니다.</li>
-      </ul>
-      <p>공유 링크를 열어도 새 번호가 생성되거나 내 기록에 저장되지 않습니다. <a href="/privacy">개인정보처리방침</a></p>
-    </details>
     <nav aria-label="함께 쓰는 추첨 도구">
       <h2>함께 쓰는 도구</h2>
       <p><a href="/tools/random-picker">랜덤 명단 추첨기</a> · <a href="/tools/team-generator">팀 나누기</a></p>
@@ -575,7 +571,7 @@
     }
   }
 
-  // ---- 줄 수 선택 ----
+  // ---- 몇 줄을 뽑을까요? ----
   function renderAmountGrid(){
     const el = $('amountGrid');
     el.innerHTML = '';
@@ -583,6 +579,7 @@
       const selected = n === selectedLines;
       const btn = document.createElement('button');
       btn.type = 'button';
+      btn.setAttribute('aria-pressed', String(selected));
       btn.className = 'amount-row' + (selected ? ' selected' : '');
       btn.innerHTML = `<span class="amount-val">${n}줄</span><span class="amount-lines">${selected ? '✓' : ''}</span>`;
       btn.addEventListener('click', () => {
@@ -639,7 +636,7 @@
     $('shareBtn').style.display = '';
 
     $('memoSub').textContent = formatDateTime(Date.now());
-    $('memoRows').innerHTML = '<div class="empty-history">아직 생성한 번호가 없어요. 번호 생성을 눌러보세요!</div>';
+    $('memoRows').innerHTML = '<div class="empty-history">번호 뽑기를 누르면 여기에 표시됩니다.</div>';
     $('memoFooter').textContent = '';
     $('saveImgBtn').disabled = true;
     $('copyTextBtn').disabled = true;

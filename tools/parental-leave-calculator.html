@@ -129,15 +129,12 @@
   .input-row:focus-within{ outline:2px solid var(--stamp); outline-offset:4px; }
   button:focus-visible, summary:focus-visible, a:focus-visible{ outline:2px solid var(--stamp); outline-offset:3px; }
   details.basis{ margin:24px 0; padding:12px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
-  details.basis > summary, .check-status > summary, .field-help > summary, .comparison > summary{ cursor:pointer; padding:10px 0; font-size:13px; color:var(--ink); font-weight:600; }
-  .field-help{ margin-top:4px; font-size:12px; line-height:1.6; color:var(--muted); }
-  .field-help > summary{ font-size:12px; padding:7px 0; }
-  .field-help p{ margin:4px 0 0; }
-  .guide-link{ margin:12px 0; font-size:13px; line-height:1.6; }
-  .guide-link a{ color:var(--ink-soft); }
+  details.basis > summary, .check-status > summary, .comparison > summary{ cursor:pointer; padding:10px 0; font-size:13px; color:var(--ink); font-weight:600; }
   .breakdown-row{ gap:12px; flex-wrap:wrap; }
   .sources a{ overflow-wrap:anywhere; }
   @media (max-width:480px){ body{ padding:16px 16px 40px; } .card{ padding:20px; } .perforation{ margin:0 -20px; } .site-nav{ margin-bottom:18px; } }
+  .input-error{ margin:12px 0 0; color:var(--stamp); font-size:13px; line-height:1.6; }
+  .input-error:empty{ display:none; }
 </style>
 </head>
 <body>
@@ -174,7 +171,7 @@
     </div>
 
     <div class="field" id="monthField">
-      <label for="month">육아휴직 몇 개월차인가요</label>
+      <label for="month">계산할 육아휴직 개월차</label>
       <div class="stepper-row">
         <button type="button" class="step-btn" id="monthMinus" aria-label="개월차 줄이기">−</button>
         <div class="input-row">
@@ -185,18 +182,16 @@
       <span class="field-hint" id="monthHint">특례는 부모 각각 최대 6개월까지 적용됩니다.</span>
     </div>
 
-    <button class="calc-btn" id="calcBtn">급여 계산하기</button>
+    <p class="input-error" id="inputError" role="alert"></p>
+    <button class="calc-btn" id="calcBtn">예상 급여 계산하기</button>
   </div>
 
-  <div class="card result-card hidden" id="resultCard">
+  <div class="card result-card hidden" id="resultCard" aria-live="polite">
     <div class="result-label">해당 개월차 예상 육아휴직급여(산정액)</div>
     <div class="result-amount" id="benefitAmount">0<span class="unit">만원</span></div>
 
     <div class="breakdown" id="breakdown"></div>
     <div id="checkStatus"></div>
-
-    <p class="guide-link"><a href="/guides/parental-leave-monthly-comparison#compare">월별 수령액 비교 →</a></p>
-    <p class="guide-link"><a href="/guides/parental-leave-monthly-comparison#requirements">요건 구분 보기 →</a></p>
 
     <div class="disclaimer">위 금액은 기본 수급 요건을 충족한다고 가정한 해당 개월차의 예상 산정액이며, 실제 입금 시점과 금액은 신청 시기·개별 심사·한부모 우대 등에 따라 달라질 수 있습니다. 자격 판정과 부분월 계산은 하지 않습니다(계산에 적용한 가정 참고).</div>
   </div>
@@ -204,10 +199,10 @@
   <details class="basis">
     <summary>계산 기준·출처</summary>
     <ul class="assume">
-      <li><strong>① 기본 수급 요건 (일반 구간·6+6 공통, 고용24 안내)</strong> 만 8세 이하 또는 초등학교 2학년 이하 자녀(입양 포함) 양육(임신 중인 여성 근로자, 유산·조산 등 위험이 있는 임신 중 배우자를 돌보려는 남성 근로자의 육아휴직 포함) · 육아휴직 30일 이상(주 단위 육아휴직은 7일 이상) · 육아휴직 시작일 이전 피보험단위기간 180일 이상 · 휴직 1개월째부터 종료 후 12개월 이내 신청. 이 요건을 충족하지 못하면 <strong>육아휴직급여가 지급되지 않으며</strong>, 일반 구간이 대신 적용되지 않습니다. 이 계산기는 자격을 판정하지 않습니다.</li>
-      <li><strong>② 6+6 특례 요건 (① 충족 + 추가)</strong> 같은 자녀가 출생 후 18개월이 될 때까지 부모가 모두 육아휴직(동시·순차 모두 가능, 임신 중 여성 근로자의 임신을 이유로 한 육아휴직은 태아를 자녀로 봄). 특례 요건만 충족하지 못하면 ①을 충족한 경우에 한해 일반 구간으로 계산합니다.</li>
-      <li><strong>계산에 반영되지 않는 것</strong> — 위 요건 판정, 한 달에 못 미치는 부분월(7일·14일 등)의 일할 계산, 한부모 우대(첫 3개월 상한 300만원), 신청·입금 시점, 사업장 규모별 대체인력 지원금. 결과 바로 아래에 확인 상태를 표시합니다.</li>
-      <li><strong>적용 기준</strong> — 2025년 1월 1일 시행된 개편 육아휴직급여(1~3개월 상한 250만원, 4~6개월 상한 200만원, 7개월 이후 통상임금 80%·상한 160만원, 하한 70만원 전 구간 공통)와 6+6 부모육아휴직제 특례(1개월 250만→6개월 450만원, 하한 70만원). 고용보험법 시행령 제95조·제95조의3(시행 2026.9.18. 조문)로 확인했습니다. <strong>자료 검증일: 2026-10-03</strong>  위 금액은 기본 수급 요건을 충족한다고 가정한 해당 개월차의 예상 산정액입니다. 실제 입금 시점과 금액은 신청 시기, 개별 심사 결과, 한부모 우대 적용 여부 등에 따라 달라질 수 있으니 정확한 금액은 고용24 또는 관할 고용센터에 문의하세요.</li>
+      <li>기본 요건: 만 8세 이하 또는 초등학교 2학년 이하 자녀(입양 포함), 임신 중인 여성 근로자, 위험 있는 임신 중 배우자를 돌보려는 남성 근로자 등의 육아휴직. 30일 이상(주 단위 육아휴직은 7일 이상), 시작 전 피보험단위기간 180일 이상, 휴직 1개월째부터 종료 후 12개월 이내 신청 요건을 직접 확인하세요. 미충족 시 급여가 없으며 일반 구간으로 대신 지급되지 않습니다.</li>
+      <li>6+6 특례: 같은 자녀가 생후 18개월이 될 때까지 부모 모두 휴직한 경우, 공통 사용 개월 수까지 적용합니다. 동시·순차 사용 모두 가능하며 임신 중 휴직은 태아를 자녀로 봅니다.</li>
+      <li>일반 상한은 1~3개월 250만원, 4~6개월 200만원, 7개월 이후 통상임금 80%·상한 160만원입니다. 6+6 특례 상한은 1·2개월 250만원에서 6개월 450만원까지입니다. 하한은 전 구간 70만원입니다.</li>
+      <li>한 달 전체 휴직 기준입니다. 자격 판정, 부분월 일할 계산, 한부모 우대(첫 3개월 상한 300만원), 취업·소득에 따른 제한, 실제 입금 시점은 지원하지 않습니다. 고용보험법 시행령 제95조·제95조의3(2026.9.18. 시행) 기준, 자료 확인: 2026-10-03.</li>
     </ul>
     <div class="sources">
       <div class="sources-title">참고 자료 및 출처</div>
@@ -285,9 +280,11 @@
   }
 
   function calculate(){
+    $('inputError').textContent = '';
     const wage = parseFloat($('wage').value) || 0;
     if (wage <= 0){
       $('resultCard').classList.add('hidden');
+      $('inputError').textContent = '월 통상임금을 0보다 큰 금액으로 입력하세요. 단위는 만원입니다.';
       return;
     }
 
@@ -346,7 +343,12 @@
     $('resultCard').classList.remove('hidden');
   }
 
-  $('calcBtn').addEventListener('click', calculate);
+  $('calcBtn').addEventListener('click', () => {
+    calculate();
+    if (!$('resultCard').classList.contains('hidden')) {
+      $('resultCard').scrollIntoView({ block: 'start' });
+    }
+  });
 })();
 </script>
 </body>

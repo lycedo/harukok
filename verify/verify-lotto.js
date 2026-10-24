@@ -252,8 +252,8 @@ console.log('\n=== 8. 결제·구매 관련 기능이 없음(문구 점검) ==='
   const forbidden = ['결제하기', '구매하기', '충전하기', '발권하기', '장바구니', '가상 금액'];
   const found = forbidden.filter(w => html.includes(w));
   check('결제·구매·발권·가상 금액을 뜻하는 문구가 전혀 없음', found, []);
-  check('"번호 생성" 버튼 라벨이 존재함', html.includes('>번호 생성<'), true);
-  check('"줄 수 선택" 제목이 존재함', html.includes('줄 수 선택'), true);
+  check('"번호 뽑기" 버튼 라벨이 존재함', html.includes('>번호 뽑기<'), true);
+  check('"몇 줄을 뽑을까요?" 제목이 존재함', html.includes('몇 줄을 뽑을까요?'), true);
 }
 
 console.log('\n=== 9. 회귀: 공유 조각의 줄 수 범위 검사를 제거하면 잘못된 데이터도 통과해야 함 ===');

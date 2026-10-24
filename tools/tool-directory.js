@@ -6,6 +6,7 @@
   const status = document.getElementById('directory-status');
   const empty = document.getElementById('empty-search');
   const reset = document.getElementById('reset-search');
+  const featured = document.getElementById('featured-tools');
   let category = 'all';
   const normalize = value => value.normalize('NFC').toLocaleLowerCase('ko').replace(/\s+/g, '');
 
@@ -24,7 +25,9 @@
       count += matches;
     }
     for (const button of filters) button.setAttribute('aria-pressed', String(button.dataset.categoryFilter === category));
-    status.textContent = query || category !== 'all' ? `찾은 도구 ${count}개` : `전체 ${count}개`;
+    const selected = filters.find(button => button.dataset.categoryFilter === category);
+    status.textContent = query ? `검색 결과 ${count}개` : category !== 'all' ? `${selected.textContent} 도구 ${count}개` : `전체 도구 ${count}개`;
+    featured.hidden = Boolean(query) || category !== 'all';
     empty.hidden = count !== 0;
     reset.hidden = !query && category === 'all';
   }
@@ -34,10 +37,11 @@
     update();
     search.focus();
   }
-  search.addEventListener('input', update);
+  search.addEventListener('input', () => { category = 'all'; update(); });
   search.addEventListener('keydown', event => { if (event.key === 'Escape') clear(); });
-  for (const button of filters) button.addEventListener('click', () => { category = button.dataset.categoryFilter; update(); });
+  for (const button of filters) button.addEventListener('click', () => { search.value = ''; category = button.dataset.categoryFilter; update(); });
   reset.addEventListener('click', clear);
+  document.getElementById('show-all-tools').addEventListener('click', clear);
   document.getElementById('empty-reset').addEventListener('click', clear);
   document.getElementById('directory-controls').hidden = false;
   update();

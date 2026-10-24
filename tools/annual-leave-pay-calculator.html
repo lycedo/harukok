@@ -122,15 +122,12 @@
   .input-row:focus-within{ outline:2px solid var(--stamp); outline-offset:4px; }
   button:focus-visible, summary:focus-visible, a:focus-visible{ outline:2px solid var(--stamp); outline-offset:3px; }
   details.basis{ margin:24px 0; padding:12px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
-  details.basis > summary, .check-status > summary, .field-help > summary, .comparison > summary{ cursor:pointer; padding:10px 0; font-size:13px; color:var(--ink); font-weight:600; }
-  .field-help{ margin-top:4px; font-size:12px; line-height:1.6; color:var(--muted); }
-  .field-help > summary{ font-size:12px; padding:7px 0; }
-  .field-help p{ margin:4px 0 0; }
-  .guide-link{ margin:12px 0; font-size:13px; line-height:1.6; }
-  .guide-link a{ color:var(--ink-soft); }
+  details.basis > summary, .check-status > summary, .comparison > summary{ cursor:pointer; padding:10px 0; font-size:13px; color:var(--ink); font-weight:600; }
   .breakdown-row{ gap:12px; flex-wrap:wrap; }
   .sources a{ overflow-wrap:anywhere; }
   @media (max-width:480px){ body{ padding:16px 16px 40px; } .card{ padding:20px; } .perforation{ margin:0 -20px; } .site-nav{ margin-bottom:18px; } }
+  .input-error{ margin:12px 0 0; color:var(--stamp); font-size:13px; line-height:1.6; }
+  .input-error:empty{ display:none; }
 </style>
 </head>
 <body>
@@ -155,8 +152,7 @@
         <input type="number" id="monthlyWage" placeholder="예: 300" inputmode="numeric">
         <span class="unit">만원</span>
       </div>
-      <span class="field-hint">기본급과 통상임금에 해당하는 수당의 합계입니다.</span>
-      <details class="field-help"><summary>통상임금에 포함되는 수당</summary><p>기본급과 소정근로의 대가로 정기적·일률적으로 지급되는 수당(직책수당 등)을 합산한 금액입니다. 어떤 수당이 통상임금에 들어가는지는 급여 항목과 최신 기준(2024.12.19. 대법원 전원합의체 판결 이후)으로 확인하세요.</p></details>
+      <span class="field-hint">기본급과 정기적·일률적 수당의 합계입니다. 급여 항목의 통상임금 포함 여부는 회사에 확인하세요.</span>
     </div>
 
     <div class="field">
@@ -165,12 +161,11 @@
         <input type="number" id="unusedDays" placeholder="예: 5" inputmode="numeric">
         <span class="unit">일</span>
       </div>
-      <span class="field-hint">정산 대상인 미사용 일수를 넣으세요. 소멸한 연차도 수당 대상일 수 있습니다.</span>
-      <details class="field-help"><summary>정산 일수 확인</summary><p>수당으로 정산할 대상인 미사용 연차일수를 입력하세요. 발생일수에서 이미 사용한 일수를 뺀 값이며, 1년이 지나 사용청구권이 소멸한 연차도 회사가 법정 사용촉진을 모두 이행했다는 사실이 확인되지 않으면 수당 청구 대상일 수 있으니 일괄로 빼지 마세요. 이 계산기는 소멸·사용촉진이 적법한지 판정하지 않습니다.</p></details>
+      <span class="field-hint">수당으로 정산할 미사용 일수입니다. 소멸한 연차도 적법한 사용촉진이 없었다면 대상일 수 있습니다.</span>
     </div>
 
     <div class="field">
-      <label for="dailyHours">하루 소정근로시간 (시간)</label>
+      <label for="dailyHours">하루 근무시간 (시간)</label>
       <div class="input-row">
         <input type="number" id="dailyHours" value="8" inputmode="numeric">
         <span class="unit">시간</span>
@@ -184,22 +179,18 @@
         <span class="unit">일</span>
       </div>
       <span class="field-hint">하루 8시간·주 40시간 이내, 개근 기준입니다. 불규칙한 일정·별도 유급휴일은 지원하지 않습니다.</span>
-      <details class="field-help"><summary>입력 기준 자세히</summary><p>하루 8시간·주 40시간 이내의 일정만 지원합니다. 주휴는 통상근로자가 주 5일·40시간인 사업장의 비례 방식이며 개근을 가정합니다. 별도 유급휴일이 있거나 근무시간이 불규칙하면 이 결과를 그대로 적용하지 마세요.</p></details>
     </div>
 
+    <p class="input-error" id="inputError" role="alert"></p>
     <button class="calc-btn" id="calcBtn">연차수당 계산하기</button>
-    <p class="field-hint" id="inputError" role="alert"></p>
   </div>
 
-  <div class="card result-card hidden" id="resultCard">
+  <div class="card result-card hidden" id="resultCard" aria-live="polite">
     <div class="result-label">예상 연차수당</div>
     <div class="result-amount" id="totalAmount">0<span class="unit">원</span></div>
 
     <div class="breakdown" id="breakdown"></div>
     <div id="checkStatus"></div>
-
-    <p class="guide-link"><a href="/guides/annual-leave-guide">연차 발생·정산 가이드 →</a></p>
-    <p class="guide-link"><a href="/guides/annual-leave-guide#settle">단계별로 확인하기 →</a></p>
 
     <div class="disclaimer">입력한 일수를 정산 대상으로 보고 금액으로만 환산합니다. 통상임금 범위와 취업규칙상 지급 기준은 근로계약서·취업규칙과 고용노동부 기준을 함께 확인하세요.</div>
   </div>
@@ -207,8 +198,9 @@
   <details class="basis">
     <summary>계산 기준·출처</summary>
     <ul class="assume">
-      <li>연차수당 = 1일 통상임금 × 정산 대상 연차일수입니다. 주 40시간·주휴 8시간·별도 유급휴일이 없는 표준 일정은 월 209시간을 씁니다. 다른 일정은 (주 소정근로시간 + 주휴시간) × 365 ÷ 7 ÷ 12로 추정하며 월 시간을 정수로 반올림하지 않습니다. 1일 통상임금은 원 단위로 반올림한 뒤 정산 일수를 곱합니다.</li>
-      <li><strong>입력 전 순서</strong> — ① 법정 연차가 적용되는지 확인(근로기준법상 상시 5인 이상 사업장, 4주 평균 주 15시간 이상 근로 — 고용노동부 안내 기준이며, 회사가 계약·취업규칙으로 더 주기로 한 연차는 별도로 확인) → ② 수당으로 정산할 미사용 일수 확인(발생일수에서 사용한 일수를 빼고, 소멸한 연차도 법정 사용촉진을 모두 거쳤는지 확인하기 전에는 빼지 않음) → ③ 아래에 입력해 금액 환산.</li><li><strong>이 계산기가 하지 않는 것</strong> — 연차 발생일수 계산, 소멸 여부와 법정 사용촉진 적법성 판정, 단시간 근로자의 연차일수 산정. 입력한 일수를 정산 대상이라고 보고 금액으로만 환산하며, 결과 바로 아래에 이 가정과 확인 상태를 표시합니다.</li>
+      <li>연차수당 = 1일 통상임금 × 정산 대상 연차일수. 주 40시간·주휴 8시간은 월 209시간, 그 외 일정은 (주 근무시간 + 주휴시간) × 365 ÷ 7 ÷ 12로 환산합니다. 1일 통상임금은 원 단위로 반올림합니다.</li>
+      <li>법정 연차는 상시 5인 이상 사업장·4주 평균 주 15시간 이상 근로자 기준입니다. 계약·취업규칙으로 추가한 연차는 별도 확인하세요.</li>
+      <li>연차 발생일수, 소멸·사용촉진 적법성, 단시간 근로자의 연차일수는 판정하지 않습니다. 소멸한 연차도 적법한 사용촉진이 없었다면 수당 대상일 수 있습니다.</li>
     </ul>
     <div class="sources">
       <div class="sources-title">참고 자료 및 출처</div>
@@ -262,6 +254,7 @@
 
     if (!Number.isFinite(monthlyWage) || !Number.isFinite(unusedDays) || monthlyWage <= 0 || unusedDays <= 0){
       $('resultCard').classList.add('hidden');
+      $('inputError').textContent = '월 통상임금과 정산할 연차일수를 0보다 크게 입력하세요.';
       return;
     }
 
@@ -269,6 +262,7 @@
     const weeklyDays = parseFloat($('weeklyDays').value) || 0;
     if (dailyHours <= 0 || weeklyDays <= 0){
       $('resultCard').classList.add('hidden');
+      $('inputError').textContent = '하루 근무시간과 주 근무일수를 0보다 크게 입력하세요.';
       return;
     }
     const weeklyHours = dailyHours * weeklyDays;
@@ -309,7 +303,12 @@
     $('resultCard').classList.remove('hidden');
   }
 
-  $('calcBtn').addEventListener('click', calculate);
+  $('calcBtn').addEventListener('click', () => {
+    calculate();
+    if (!$('resultCard').classList.contains('hidden')) {
+      $('resultCard').scrollIntoView({ block: 'start' });
+    }
+  });
 })();
 </script>
 </body>

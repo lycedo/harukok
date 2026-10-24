@@ -316,15 +316,12 @@
   .input-row:focus-within{ outline:2px solid var(--stamp); outline-offset:4px; }
   button:focus-visible, summary:focus-visible, a:focus-visible{ outline:2px solid var(--stamp); outline-offset:3px; }
   details.basis{ margin:24px 0; padding:12px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
-  details.basis > summary, .check-status > summary, .field-help > summary, .comparison > summary{ cursor:pointer; padding:10px 0; font-size:13px; color:var(--ink); font-weight:600; }
-  .field-help{ margin-top:4px; font-size:12px; line-height:1.6; color:var(--muted); }
-  .field-help > summary{ font-size:12px; padding:7px 0; }
-  .field-help p{ margin:4px 0 0; }
-  .guide-link{ margin:12px 0; font-size:13px; line-height:1.6; }
-  .guide-link a{ color:var(--ink-soft); }
+  details.basis > summary, .check-status > summary, .comparison > summary{ cursor:pointer; padding:10px 0; font-size:13px; color:var(--ink); font-weight:600; }
   .breakdown-row{ gap:12px; flex-wrap:wrap; }
   .sources a{ overflow-wrap:anywhere; }
   @media (max-width:480px){ body{ padding:16px 16px 40px; } .card{ padding:20px; } .perforation{ margin:0 -20px; } .site-nav{ margin-bottom:18px; } }
+  .input-error{ margin:12px 0 0; color:var(--stamp); font-size:13px; line-height:1.6; }
+  .input-error:empty{ display:none; }
 </style>
 </head>
 <body>
@@ -349,7 +346,7 @@
         <input type="number" id="salary" placeholder="예: 4000" inputmode="numeric">
         <span class="unit">만원</span>
       </div>
-      <span class="field-hint">회사와 계약한 세전 연봉 총액을 입력하세요.</span>
+      <span class="field-hint">예: 연봉 4,000만원이면 4000을 입력하세요.</span>
     </div>
 
     <div class="field">
@@ -358,8 +355,7 @@
         <input type="number" id="nontax" value="20" inputmode="numeric">
         <span class="unit">만원</span>
       </div>
-      <span class="field-hint">명세서의 비과세 합계를 입력하세요. 과세 수당은 제외합니다. (식대 한도 월 20만원)</span>
-      <details class="field-help"><summary>입력 기준 자세히</summary><p>급여명세서에 적힌 비과세 항목의 합계를 입력하세요. 식대의 비과세 한도는 월 20만원이며, 식대 외 항목(자가운전보조금 등)은 각각의 요건을 충족할 때만 합계에 포함합니다. 과세 대상 수당까지 넣으면 실수령액이 과대 계산됩니다.</p></details>
+      <span class="field-hint">명세서의 비과세 항목만 합산하세요. 식대는 월 20만원 한도, 다른 항목은 비과세 요건을 충족한 금액만 포함합니다.</span>
     </div>
 
     <div class="field">
@@ -371,8 +367,7 @@
         </div>
         <button type="button" class="step-btn" data-target="dependents" data-delta="1" aria-label="부양가족 수 늘리기">+</button>
       </div>
-      <span class="field-hint">본인을 포함해 기본공제 요건을 충족하는 가족 수입니다.</span>
-      <details class="field-help"><summary>부양가족에 포함되는 사람</summary><p>인적공제(1인당 150만원) 대상 기준입니다. 본인, 배우자, 자녀(만 20세 이하), 부모 등 기본공제 요건을 충족하는 인원을 모두 포함하세요. 아래 자녀세액공제와는 나이 기준이 다릅니다.</p></details>
+      <span class="field-hint">본인과 기본공제 대상 가족을 합친 인원입니다. 자녀 공제 나이와는 기준이 다릅니다.</span>
     </div>
 
     <div class="field">
@@ -385,15 +380,14 @@
         <button type="button" class="step-btn" data-target="children" data-delta="1" aria-label="자녀 수 늘리기">+</button>
       </div>
       <span class="field-hint">2026년 기준 만 9~20세의 기본공제 대상 자녀·손자녀 수입니다.</span>
-      <details class="field-help"><summary>자녀 공제 나이 기준</summary><p>부양가족 중 기본공제대상 자녀·손자녀이면서 나이 기준을 만족하는 인원만 입력하세요. 2026년 과세기간 기준 만 9세 이상 20세 이하이며, 하한은 2027년 10세, 2028년 11세, 2029년 12세, 2030년부터 13세로 올라갑니다. 이 계산기는 생년월일을 확인하지 않으므로 인원은 직접 세어 입력해야 합니다.</p></details>
-      <span class="field-hint" style="color:#b45309;">2017년생은 제외하세요. 한시적 완화 대상이 아니며 2030년부터 공제됩니다.</span>
-      <span class="field-hint">나이 기준의 법적 근거와 자세한 설명은 <a href="/guides/salary-vs-payslip#faq-child-age" style="color:var(--stamp);">자녀세액공제 대상 나이 FAQ</a>에 정리했습니다.</span>
+      <span class="field-hint" style="color:#b45309;">2017년생은 제외하세요. (2030년부터 공제)</span>
     </div>
 
+    <p class="input-error" id="inputError" role="alert"></p>
     <button class="calc-btn" id="calcBtn">실수령액 계산하기</button>
   </div>
 
-  <div class="card result-card hidden" id="resultCard">
+  <div class="card result-card hidden" id="resultCard" aria-live="polite">
     <div class="result-label">월 실수령액 (예상)</div>
     <div class="result-amount" id="netMonthly">0<span class="won">원</span></div>
     <div class="result-yearly" id="netYearly">연 실수령액 0원</div>
@@ -406,14 +400,14 @@
 
     <details class="comparison hidden" id="payslipComparison" aria-labelledby="comparisonTitle">
       <summary id="comparisonTitle">급여명세서와 비교하기</summary>
-      <p>같은 달의 실제 입금액을 넣으면 예상액과의 차이를 보여줍니다. 명세서의 지급 합계도 넣으면 지급 차이와 공제 차이를 나누어 볼 수 있습니다.</p>
+      <p>같은 달의 입금액과 비교합니다.</p>
       <div class="field">
         <label for="actualDeposit">실제 월 입금액 (원)</label>
         <div class="input-row">
           <input type="number" id="actualDeposit" min="0" step="1" required placeholder="예: 2577678" inputmode="numeric" autocomplete="off" aria-describedby="depositHint">
           <span class="unit">원</span>
         </div>
-        <span class="field-hint" id="depositHint">세금·보험·사내 공제를 모두 뺀 금액입니다. 나누어 입금됐다면 합계로 입력하고, 별도 실비 정산 입금은 제외하세요.</span>
+        <span class="field-hint" id="depositHint">통장에 입금된 월급 합계입니다. 별도 실비 정산액은 빼세요.</span>
       </div>
       <div class="field">
         <label for="actualGross">명세서의 지급 합계 (원, 선택)</label>
@@ -421,15 +415,12 @@
           <input type="number" id="actualGross" min="0" step="1" placeholder="예: 2916667" inputmode="numeric" autocomplete="off" aria-describedby="grossHint">
           <span class="unit">원</span>
         </div>
-        <span class="field-hint" id="grossHint">기본급·수당·비과세를 포함한 공제 전 총액입니다. 모르면 비워두세요. 지급 합계 − 입금액으로 해당 월의 공제 합계를 역산합니다.</span>
+        <span class="field-hint" id="grossHint">기본급·수당·비과세를 포함한 공제 전 총액입니다. 모르면 비워두세요.</span>
       </div>
       <button type="button" class="calc-btn" id="compareBtn">명세서와 비교하기</button>
       <div class="comparison-result" id="comparisonResult" aria-live="polite" aria-atomic="true"></div>
-      <p>입력한 급여 금액은 이 비교 기능에서 저장하거나 전송하지 않습니다. 세금·보험 각각의 차이는 <a href="/guides/salary-vs-payslip#compare">명세서 비교 순서</a>에서 확인하세요.</p>
+      <p>입력한 금액은 저장·전송하지 않습니다.</p>
     </details>
-
-    <p class="guide-link"><a href="/guides/salary-vs-payslip#case">차이 확인하기 →</a></p>
-    <p class="guide-link"><a href="/guides/salary-vs-payslip#inputs">입력 기준 보기 →</a></p>
 
     <div class="disclaimer">
       <strong>계산에 포함</strong>: 4대보험 본인부담분, 소득세·지방소득세(간이세액표 조회값이 아닌 자체 추정치). <strong>제외</strong>: 노조비·사내대출 상환 등 급여명세서에만 있는 공제라 실제 명세서와 다를 수 있습니다. 자녀세액공제 대상 자녀 수는 입력한 인원 그대로 사용하며 개별 자격을 판정하지 않습니다. 계산 가정은 아래 '계산 기준·출처'에서 확인하세요.
@@ -559,6 +550,7 @@
   }
 
   function calculate(){
+    $('inputError').textContent = '';
     invalidateEstimate();
     const annual = (parseFloat($('salary').value) || 0) * 10000;
     const nonTaxMonthly = (parseFloat($('nontax').value) || 0) * 10000;
@@ -567,6 +559,7 @@
 
     if (!Number.isFinite(annual) || annual <= 0 || !Number.isFinite(nonTaxMonthly) || nonTaxMonthly < 0){
       $('resultCard').classList.add('hidden');
+      $('inputError').textContent = '연봉은 0보다 크게, 월 비과세 금액은 0 이상으로 입력하세요. 단위는 만원입니다.';
       return;
     }
 
@@ -705,8 +698,13 @@
     $(id).addEventListener('keydown', e => { if (e.key === 'Enter') comparePayslip(); });
   });
   $('compareBtn').addEventListener('click', comparePayslip);
-  $('calcBtn').addEventListener('click', calculate);
-  $('salary').addEventListener('keydown', (e) => { if (e.key === 'Enter') calculate(); });
+  $('calcBtn').addEventListener('click', () => {
+    calculate();
+    if (!$('resultCard').classList.contains('hidden')) {
+      $('resultCard').scrollIntoView({ block: 'start' });
+    }
+  });
+  $('salary').addEventListener('keydown', (e) => { if (e.key === 'Enter') $('calcBtn').click(); });
 })();
 </script>
 </body>

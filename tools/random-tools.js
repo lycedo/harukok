@@ -47,7 +47,7 @@ if(typeof document!=='undefined' && document.getElementById('random-form')) {
       });
       $('result-summary').textContent=isTeams?`${names.length}명을 ${count}팀으로 배정했습니다.`:`${names.length}명 중 ${count}명을 중복 없이 뽑았습니다.`;
       resultText=$('result-summary').textContent+'\n'+groups.map((g,i)=>(isTeams?`${i+1}팀: `:'')+g.join(', ')).join('\n');
-      $('random-result').hidden=false;
+      $('random-result').hidden=false;$('random-result').focus();
     } catch(error) {$('random-error').textContent=error.message;}
   });
   $('copy-result').addEventListener('click',async()=>{

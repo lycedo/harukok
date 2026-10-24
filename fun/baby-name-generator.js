@@ -14,6 +14,7 @@ if(typeof module!=='undefined') module.exports={babyNames};
 if(typeof document!=='undefined') {
   const $=id=>document.getElementById(id), selected=new Set();
   function refreshSelected() {
+    $('saved-section').hidden=selected.size===0;
     $('saved-names').textContent=selected.size?Array.from(selected).join(' · '):'추천 결과에서 마음에 드는 이름을 골라 보세요.';
     $('copy-names').disabled=selected.size===0;$('saved-status').textContent='';
   }

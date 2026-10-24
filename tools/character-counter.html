@@ -4,25 +4,20 @@
 <title>글자 수 세기 - 공백 포함·제외·UTF-8 바이트 계산 | 하루콕</title><meta name="description" content="자기소개서와 문서의 글자 수를 공백 포함·제외로 확인하세요. UTF-8 바이트, 어절·줄 수, 목표 분량의 남은 글자 수를 입력 즉시 계산합니다.">
 <link rel="canonical" href="https://harukok.com/tools/character-counter"><link rel="icon" type="image/png" href="/favicon.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:title" content="글자 수 세기 - 공백 포함·제외·UTF-8 바이트 계산 | 하루콕"><meta property="og:description" content="자기소개서와 문서의 글자 수를 공백 포함·제외로 확인하세요. UTF-8 바이트, 어절·줄 수, 목표 분량의 남은 글자 수를 입력 즉시 계산합니다."><meta property="og:type" content="website"><meta property="og:site_name" content="하루콕"><meta property="og:url" content="https://harukok.com/tools/character-counter"><meta property="og:image" content="https://harukok.com/og-image.png">
-<link rel="stylesheet" href="/tools/everyday-tools.css?v=20261022-ui"><script src="/tools/character-counter.js?v=20261018" defer></script>
+<link rel="stylesheet" href="/tools/everyday-tools.css?v=20261024-ux"><script src="/tools/character-counter.js?v=20261018" defer></script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "글자 수·바이트 세기", "url": "https://harukok.com/tools/character-counter", "description": "자기소개서와 문서의 글자 수를 공백 포함·제외로 확인하세요. UTF-8 바이트, 어절·줄 수, 목표 분량의 남은 글자 수를 입력 즉시 계산합니다.", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any", "browserRequirements": "Requires JavaScript", "inLanguage": "ko", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "KRW"}}</script>
 </head><body><div class="wrap">
 <nav class="site-nav" aria-label="주요 메뉴"><a class="site-nav-brand" href="/">하루<span>콕</span></a><div class="site-nav-links"><a href="/#all-tools">전체 도구</a><a href="/guides/">가이드</a></div></nav>
-<main><h1>글자 수·바이트 세기</h1><p class="lede">글을 입력하면 글자 수와 UTF-8 바이트를 바로 셉니다.</p>
+<main><h1>글자 수·바이트 세기</h1>
 <noscript><p class="noscript">도구를 사용하려면 브라우저에서 자바스크립트를 허용해 주세요.</p></noscript>
-<section class="sheet" aria-labelledby="text-heading"><h2 id="text-heading">작성한 글을 넣어 주세요</h2>
-<label for="text">글자 수를 확인할 내용</label><textarea id="text" spellcheck="false" aria-describedby="privacy-note" placeholder="자기소개서, 소개 문구, 과제 내용을 입력하거나 붙여 넣으세요."></textarea><p class="hint" id="privacy-note">입력한 글은 서버로 보내거나 저장하지 않습니다. 탭을 닫기 전에 원문을 보관하세요.</p>
+<section class="sheet" aria-label="글자 수 계산"><label for="text">글을 입력하거나 붙여 넣으세요</label><textarea id="text" spellcheck="false" aria-describedby="privacy-note" placeholder="입력하면 바로 글자 수가 표시됩니다."></textarea><p class="hint" id="privacy-note">입력한 글은 서버로 전송하거나 저장하지 않습니다.</p>
 <div class="metrics" aria-label="실시간 글자 수"><div class="metric"><span>공백 포함</span><strong id="withSpaces">0</strong><small>자</small></div><div class="metric"><span>공백 제외</span><strong id="withoutSpaces">0</strong><small>자</small></div><div class="metric"><span>UTF-8</span><strong id="bytes">0</strong><small>바이트</small></div><div class="metric"><span>어절 / 줄</span><strong id="words">0</strong> / <strong id="lines">0</strong></div></div>
 <div class="fields"><div class="field"><label for="limit-mode">목표 분량 기준</label><select id="limit-mode"><option value="withSpaces">공백 포함 글자 수</option><option value="withoutSpaces">공백 제외 글자 수</option><option value="bytes">UTF-8 바이트</option></select></div><div class="field"><label for="limit">목표 분량</label><input id="limit" type="number" min="1" max="1000000" step="1" value="500"></div></div>
 <progress id="progress" value="0" max="500" aria-label="목표 분량 사용량"></progress><p class="limit-status" id="limit-status" role="status"></p>
 <div class="actions"><button type="button" id="copy" class="primary">글 복사하기</button><button type="button" id="clear" class="secondary">내용 지우기</button><button type="button" id="undo" class="secondary" hidden>지우기 되돌리기</button></div><p id="copy-status" role="status" class="hint"></p>
-<details><summary>다른 입력창과 글자 수가 다르다면</summary><p>이 도구는 유니코드 문자(코드 포인트)를 기준으로 셉니다. 일부 입력창이 쓰는 UTF-16 길이는 <strong id="utf16">0</strong>입니다. 복합 이모지는 여러 문자로 계산될 수 있으며 제출처의 분량 기준을 우선 확인하세요.</p></details>
+<details><summary>다른 입력창과 글자 수가 다르다면</summary><p>복합 이모지는 여러 글자로 셀 수 있습니다. 제출처 기준을 우선하세요. UTF-16 기준: <strong id="utf16">0</strong>.</p></details>
 </section>
 <aside class="ad-banner ad-banner-strip" aria-label="광고"><p class="ad-label">광고</p><div class="ad-strip-slot"><script src="/ad-banner-isolated.js?v=20261018-tools"></script></div></aside>
-<details class="tool-notes"><summary>글자·바이트 계산 기준과 출처</summary>
-<ul><li>공백 포함은 띄어쓰기·탭·줄바꿈을 셉니다. 공백 제외는 이 공백 문자를 뺍니다.</li><li>UTF-8 기준으로 일반 영문·공백은 1바이트, 완성형 한글은 보통 3바이트입니다. 줄바꿈은 LF로 통일해 1자·1바이트로 셉니다.</li><li>어절은 공백으로 구분하며, 마지막 빈 줄도 줄 수에 포함합니다. 복합 이모지·조합형 문자는 보이는 개수와 다를 수 있습니다.</li></ul>
-<p>입력 내용은 저장하지 않습니다. 목표 분량을 넘어도 글을 자르지 않으며, 제출처의 실제 입력창과 분량 기준을 우선 확인하세요.</p>
-<p class="meta">유니코드 코드 포인트·UTF-8 기준 · <a href="https://developer.mozilla.org/en-US/docs/Web/API/TextEncoder">UTF-8 인코딩 참고 문서</a> · 기준 확인: 2026년 10월 18일</p>
-</details>
+<p class="meta">공백 포함은 띄어쓰기·탭·줄바꿈을 셉니다. 줄바꿈은 1자·1바이트로 계산합니다. <a href="https://developer.mozilla.org/en-US/docs/Web/API/TextEncoder">UTF-8 바이트 기준</a> · 기준 확인: 2026년 10월 18일</p>
 <nav class="related" aria-label="함께 쓰는 도구"><h2>함께 쓰는 도구</h2><ul><li><a href="/tools/percent-calculator">퍼센트·할인율 계산기</a></li><li><a href="/tools/date-calculator">날짜·디데이 계산기</a></li><li><a href="/tools/salary-calculator">연봉 실수령액 계산기</a></li></ul></nav>
 </main><footer><a href="/about">소개</a> · <a href="/privacy">개인정보처리방침</a> · <a href="mailto:contact@harukok.com?subject=%EA%B8%80%EC%9E%90%20%EC%88%98%20%EC%84%B8%EA%B8%B0%20-%20%EA%B3%B5%EB%B0%B1%20%ED%8F%AC%ED%95%A8%C2%B7%EC%A0%9C%EC%99%B8%C2%B7UTF-8%20%EB%B0%94%EC%9D%B4%ED%8A%B8%20%EA%B3%84%EC%82%B0%20%7C%20%ED%95%98%EB%A3%A8%EC%BD%95">의견 보내기</a><p>© 2026 하루콕</p></footer></div></body></html>

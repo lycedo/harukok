@@ -50,8 +50,6 @@
   .field-hint{ display:block; font-size:12px; color:var(--muted); margin-top:6px; line-height:1.65; }
   .form-error{ color:var(--stamp); font-size:13px; line-height:1.6; }
   .form-error:empty{ display:none; }
-  .field-guide-link{ display:inline-block; margin-top:6px; font-size:12px; font-weight:600; color:var(--stamp); text-decoration:none; }
-  .field-guide-link:hover{ text-decoration:underline; }
   .input-row{ display:flex; align-items:baseline; border-bottom:1.5px solid var(--ink); padding-bottom:6px; }
   .input-row input{ flex:1; border:none; background:transparent; font-family:'IBM Plex Mono', monospace; font-size:20px; font-weight:600; color:var(--ink); outline:none; padding:4px 0; width:100%; }
   .calc-btn{ width:100%; padding:16px; margin-top:8px; background:var(--ink); color:var(--paper-light); border:none; border-radius:14px; font-weight:600; font-size:15.5px; cursor:pointer; box-shadow:0 4px 0 rgba(0,0,0,0.28); }
@@ -125,12 +123,7 @@
   .input-row:focus-within{ outline:2px solid var(--stamp); outline-offset:4px; }
   button:focus-visible, summary:focus-visible, a:focus-visible{ outline:2px solid var(--stamp); outline-offset:3px; }
   details.basis{ margin:24px 0; padding:12px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
-  details.basis > summary, .check-status > summary, .field-help > summary, .comparison > summary{ cursor:pointer; padding:10px 0; font-size:13px; color:var(--ink); font-weight:600; }
-  .field-help{ margin-top:4px; font-size:12px; line-height:1.6; color:var(--muted); }
-  .field-help > summary{ font-size:12px; padding:7px 0; }
-  .field-help p{ margin:4px 0 0; }
-  .guide-link{ margin:12px 0; font-size:13px; line-height:1.6; }
-  .guide-link a{ color:var(--ink-soft); }
+  details.basis > summary, .check-status > summary, .comparison > summary{ cursor:pointer; padding:10px 0; font-size:13px; color:var(--ink); font-weight:600; }
   .breakdown-row{ gap:12px; flex-wrap:wrap; }
   .sources a{ overflow-wrap:anywhere; }
   @media (max-width:480px){ body{ padding:16px 16px 40px; } .card{ padding:20px; } .perforation{ margin:0 -20px; } .site-nav{ margin-bottom:18px; } }
@@ -164,7 +157,7 @@
       <div class="input-row">
         <input type="date" id="leaveDate" aria-describedby="leaveDateHint formError">
       </div>
-      <span class="field-hint" id="leaveDateHint">마지막 근무일의 다음날을 입력하세요. 예: 1월 9일까지 근무했다면 1월 10일.</span>
+      <span class="field-hint" id="leaveDateHint">예: 1월 9일까지 근무했다면 1월 10일을 선택하세요.</span>
     </div>
 
     <div class="field">
@@ -173,8 +166,7 @@
         <input type="number" id="wage3m" placeholder="예: 900" min="0" step="0.0001" inputmode="decimal" aria-describedby="wageHint formError">
         <span class="unit" style="font-size:14px;color:var(--muted);margin-left:8px;">만원</span>
       </div>
-      <span class="field-hint" id="wageHint">세전 3개월 합계입니다. <strong>B·C에 넣을 상여금·연차수당은 빼세요.</strong></span>
-      <details class="field-help"><summary>입력 기준 자세히</summary><p>기본급·연장수당·직책수당 등 해당 기간의 세전 합계입니다. <strong>아래 B·C에 입력할 연간 상여금·연차수당은 이 합계에서 빼세요.</strong> 통장 입금액이나 월급 1개월분이 아닙니다.</p></details>
+      <span class="field-hint" id="wageHint">기본급·연장수당·직책수당의 세전 3개월 합계입니다. <strong>B·C 금액은 빼세요.</strong></span>
     </div>
 
     <div class="field">
@@ -183,8 +175,7 @@
         <input type="number" id="annualBonus" value="0" min="0" step="0.0001" inputmode="decimal" aria-describedby="bonusHint formError">
         <span class="unit" style="font-size:14px;color:var(--muted);margin-left:8px;">만원</span>
       </div>
-      <span class="field-hint" id="bonusHint">12개월 총액을 입력하면 3/12를 자동 반영합니다. A와 중복 입력하지 마세요.</span>
-      <details class="field-help"><summary>상여금 입력 예시</summary><p>연 1회·반기 등으로 지급하는 산입 대상 상여금의 12개월 합계입니다. 예: 300만원씩 두 번이면 <strong>600</strong>을 입력하세요. 3/12 환산은 자동으로 합니다. 매월 지급되어 A에 포함한 항목을 중복 입력하지 마세요.</p></details>
+      <span class="field-hint" id="bonusHint">예: 300만원씩 두 번 받았다면 600. 총액의 3/12를 자동 반영하며 A와 중복 입력하지 마세요.</span>
     </div>
 
     <div class="field">
@@ -193,9 +184,7 @@
         <input type="number" id="annualLeavePay" value="0" min="0" step="0.0001" inputmode="decimal" aria-describedby="leavePayHint formError">
         <span class="unit" style="font-size:14px;color:var(--muted);margin-left:8px;">만원</span>
       </div>
-      <span class="field-hint" id="leavePayHint">퇴직 전 이미 발생한 정산 대상만 입력하세요. <strong>퇴직하면서 생긴 연차수당은 제외</strong>합니다.</span>
-      <details class="field-help"><summary>연차수당 포함 기준</summary><p>퇴직 전에 이미 지급사유가 발생한 산입 대상 연차수당의 환산 전 총액입니다. 자동으로 3/12만 반영합니다. <strong>퇴직 때문에 비로소 정산하는 잔여 연차수당은 제외</strong>하세요. 해당 항목이 없으면 0, 포함 여부를 모르면 회사에 먼저 확인하세요.</p></details>
-      <a href="/guides/severance-bonus-input" class="field-guide-link">상여금·연차수당 입력 예시</a>
+      <span class="field-hint" id="leavePayHint">퇴직 전 발생한 정산 대상 총액만 입력하세요. 3/12를 자동 반영합니다. <strong>퇴직하면서 생긴 연차수당은 제외</strong>하며 없으면 0입니다.</span>
     </div>
 
     <p class="form-error" id="formError" role="alert"></p>
@@ -208,18 +197,16 @@
 
     <div class="breakdown" id="breakdown"></div>
     <div id="checkStatus"></div>
-
-    <p class="guide-link"><a href="/guides/severance-bonus-input#worksheet">입력 작업표 보기 →</a></p>
-    <p class="guide-link"><a href="/guides/severance-bonus-input#official-example">공식 공개 예제 대조하기 →</a></p>
-    <p class="guide-link"><a href="/guides/severance-bonus-input#faq">자주 묻는 질문 →</a></p>
-      <div class="disclaimer">평균임금 방식의 근사치입니다. 통상임금과의 비교, 수습·육아휴직 등 제외기간 처리, DC형 퇴직연금 운용수익률은 반영하지 않아 결과를 법정 최저금액으로 단정할 수 없습니다. 계산에 적용한 가정를 함께 보세요.</div>
+      <div class="disclaimer">평균임금 방식의 근사치입니다. 통상임금과의 비교, 수습·육아휴직 등 제외기간 처리, DC형 퇴직연금 운용수익률은 반영하지 않아 결과를 법정 최저금액으로 단정할 수 없습니다. </div>
   </div>
 
   <details class="basis">
     <summary>계산 기준·출처</summary>
     <ul class="assume">
-      <li><strong>금액을 나누어 입력</strong> — 3개월 기본급·수당, 퇴직 전 12개월의 산입 대상 정기 상여금, 포함 대상 연차수당을 각각 입력합니다. 상여금과 연차수당은 계산기가 3/12로 환산합니다. 3개월 급여에 이 두 항목을 다시 넣지 마세요. 중간정산 후 1년 미만 구간의 계산이나 12개월 전체가 아닌 상여금은 이 방식의 지원 범위 밖입니다.</li><li><strong>제외해야 할 기간·항목</strong> — 수습 시작일부터 3개월 이내 기간, 육아휴직·출산휴가·업무상 재해 요양 기간과 그 기간의 임금, 회사 귀책 휴업기간은 원래 3개월 평균임금 산정기간과 그 기간 급여 총액에서 모두 빼야 합니다. <strong>다만 이 계산기는 산정 기간을 항상 '퇴사일 기준 정확히 3개월 전'으로 고정해서 계산하고 입사일은 재직일수 계산에만 쓰이므로, 최근 3개월 안에 위 제외 기간이 있는 경우는 이 계산기로 정확히 계산할 수 없습니다.</strong> 이런 경우 고용노동부 노동포털의 공식 계산기를 이용하거나 회사 인사팀에 직접 문의하세요.</li>
-      <li><strong>적용 기준</strong> — 근로자퇴직급여 보장법 제8조(퇴직금제도의 설정 등)에 따른 평균임금 방식(1일 평균임금 × 30일 × 재직일수/365)이며, 평균임금 자체의 정의와 산정 제외 기간은 근로기준법 제2조·같은 법 시행령 제2조를 따릅니다(2005년 근로기준법 개정으로 퇴직금 규정은 근로자퇴직급여 보장법으로 이관되었습니다). 이 계산기는 평균임금 방식만 계산하고 통상임금과의 비교는 하지 않으므로, 결과를 법정 최저금액이라고 단정할 수 없습니다(평균임금이 통상임금보다 낮으면 통상임금 기준이 적용됩니다). 2026년까지 산식 자체에 변동은 없습니다. <strong>자료 검증일: 2026-09-17</strong>  이 계산은 위 산식에 따른 근사치입니다. 연차수당 포함 여부(퇴직하기 전에 이미 지급사유가 발생한 연차수당의 3/12만 포함하고, 퇴직으로 비로소 지급사유가 생긴 연차수당은 제외 — 고용노동부 행정해석 기준), 수습·육아휴직 등 제외기간 처리, DC형 퇴직연금의 운용수익률에 따라 실제 금액과 차이가 있을 수 있으니 정확한 금액은 회사 인사팀 또는 고용노동부 노동포털에 확인하세요.</li>
+      <li>예상 퇴직금 = 1일 평균임금 × 30일 × 재직일수 ÷ 365. 통상임금 비교는 하지 않으므로 법정 최저금액을 보장하지 않습니다.</li>
+      <li>평균임금은 퇴사일 전 3개월 급여와 상여금·연차수당의 3/12를 합산해 구합니다. 퇴직 전 발생한 연차수당만 포함하며, A·B·C 금액을 중복 입력하지 마세요.</li>
+      <li>최근 3개월에 수습·육아휴직·출산휴가·업무상 재해 요양·회사 귀책 휴업 등 제외기간이 있다면 지원 범위 밖입니다. 중간정산 후 1년 미만 구간, 12개월 미만 상여금, DC형 퇴직연금 운용수익률도 반영하지 않습니다. 이 경우 공식 계산기나 회사 인사팀에 확인하세요.</li>
+      <li>근거: 근로자퇴직급여 보장법 제8조, 근로기준법 제2조·시행령 제2조. 산식 확인: 2026-09-17.</li>
     </ul>
     <div class="sources">
       <div class="sources-title">참고 자료 및 출처</div>
@@ -425,7 +412,12 @@
     $('resultCard').classList.remove('hidden');
   }
 
-  $('calcBtn').addEventListener('click', calculate);
+  $('calcBtn').addEventListener('click', () => {
+    calculate();
+    if (!$('resultCard').classList.contains('hidden')) {
+      $('resultCard').scrollIntoView({ block: 'start' });
+    }
+  });
   ['joinDate', 'leaveDate', 'wage3m', 'annualBonus', 'annualLeavePay'].forEach(id => {
     $(id).addEventListener('input', () => {
       $('resultCard').classList.add('hidden');

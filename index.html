@@ -17,8 +17,8 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/tools/home.css?v=20261022">
+<link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/tools/home.css?v=20261023-restore">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -32,29 +32,36 @@
 <div class="wrap">
   <nav class="site-nav" aria-label="주요 메뉴">
     <a class="site-nav-brand" href="/" aria-label="하루콕 홈">하루<span>콕</span></a>
-    <div class="site-nav-links"><a href="#all-tools">도구</a><a href="/guides/">사용 가이드</a></div>
+    <div class="site-nav-links"><a id="show-all-tools" href="#all-tools">전체 도구</a><a href="/guides/">가이드</a></div>
   </nav>
   <main id="all-tools">
-    <header><h1>필요한 도구 찾기</h1><p>회원가입 없이 바로 사용할 수 있어요.</p></header>
+    <header><h1 class="brand">하루<span>콕</span></h1></header>
     <div id="directory-controls" hidden>
       <div class="search-row">
         <label for="tool-search">도구 검색</label>
-        <input id="tool-search" type="search" placeholder="도구 검색 (예: 월급, 사진, 디데이)" autocomplete="off" aria-controls="tool-directory">
-        <button id="reset-search" class="reset-search" type="button" hidden>초기화</button>
+        <input id="tool-search" type="search" placeholder="어떤 도구를 찾으세요? 예: 사진, 연봉" autocomplete="off" aria-controls="tool-directory">
+        <button id="reset-search" class="reset-search" type="button" hidden>전체 보기</button>
       </div>
       <div class="category-nav" role="group" aria-label="도구 분류">
         <button type="button" data-category-filter="all" aria-pressed="true">전체</button>
         <button type="button" data-category-filter="daily" aria-pressed="false">생활 계산</button>
-        <button type="button" data-category-filter="money" aria-pressed="false">월급·퇴사</button>
+        <button type="button" data-category-filter="salary" aria-pressed="false">월급</button>
+        <button type="button" data-category-filter="leaving" aria-pressed="false">퇴사</button>
         <button type="button" data-category-filter="image" aria-pressed="false">이미지 편집</button>
         <button type="button" data-category-filter="random" aria-pressed="false">추첨·만들기</button>
-        <button type="button" data-category-filter="family" aria-pressed="false">출산·육아</button>
+        <button type="button" data-category-filter="family" aria-pressed="false">육아</button>
       </div>
     </div>
-    <p id="directory-status" class="directory-status" role="status" aria-live="polite">전체 21개</p>
+    <div class="quick-section" id="featured-tools">
+      <div class="cards">
+        <a class="card fun" href="/fun/lotto-generator"><span class="icon" aria-hidden="true">🎱</span><span class="name">로또 번호 생성기</span></a>
+        <a class="card utility" href="/tools/certificate-maker"><span class="icon" aria-hidden="true">🏅</span><span class="name">상장 만들기</span></a>
+      </div>
+    </div>
+    <h2 id="directory-status" class="section-label" role="status" aria-live="polite">전체 도구 21개</h2>
     <div class="goal-grid" id="tool-directory">
       <section class="goal-card" id="daily-tools" data-tool-group="daily" aria-labelledby="daily-title">
-        <h2 class="goal-title" id="daily-title">생활 계산</h2>
+        <h3 class="goal-title" id="daily-title">생활 계산</h3>
         <ul class="goal-links">
           <li data-keywords="백분율 할인 가격 비율"><a href="/tools/percent-calculator">퍼센트·할인율 계산기</a></li>
           <li data-keywords="날짜 D-day dday 기념일 기간 일수"><a href="/tools/date-calculator">날짜·디데이 계산기</a></li>
@@ -63,19 +70,24 @@
           <li data-keywords="제곱미터 m2 ㎡ 평 평형 아파트"><a href="/tools/area-calculator">면적·평수 계산기</a></li>
         </ul>
       </section>
-      <section class="goal-card" id="salary-tools" data-tool-group="money" aria-labelledby="money-title">
-        <h2 class="goal-title" id="money-title">월급·퇴사</h2>
+      <section class="goal-card" id="salary-tools" data-tool-group="salary" aria-labelledby="money-title">
+        <h3 class="goal-title" id="money-title">월급</h3>
         <ul class="goal-links">
           <li data-keywords="월급 세후 급여 연봉"><a href="/tools/salary-calculator">연봉 실수령액 계산기</a></li>
           <li data-keywords="알바 아르바이트 월급 최저임금 급여"><a href="/tools/hourly-wage-calculator">시급 계산기</a></li>
           <li data-keywords="알바 아르바이트 월급 주급 급여"><a href="/tools/weekly-holiday-pay-calculator">주휴수당 계산기</a></li>
-          <li id="leaving-tools" data-keywords="퇴사 퇴직 정산"><a href="/tools/severance-pay-calculator">퇴직금 계산기</a></li>
+        </ul>
+      </section>
+      <section class="goal-card" id="leaving-tools" data-tool-group="leaving" aria-labelledby="leaving-title">
+        <h3 class="goal-title" id="leaving-title">퇴사</h3>
+        <ul class="goal-links">
+          <li data-keywords="퇴사 퇴직 정산"><a href="/tools/severance-pay-calculator">퇴직금 계산기</a></li>
           <li data-keywords="퇴사 구직급여 고용보험"><a href="/tools/unemployment-benefit-calculator">실업급여 계산기</a></li>
           <li data-keywords="퇴사 휴가 미사용연차 정산"><a href="/tools/annual-leave-pay-calculator">연차수당 계산기</a></li>
         </ul>
       </section>
       <section class="goal-card" id="image-tools" data-tool-group="image" aria-labelledby="image-title">
-        <h2 class="goal-title" id="image-title">이미지 편집</h2>
+        <h3 class="goal-title" id="image-title">이미지 편집</h3>
         <ul class="goal-links">
           <li data-keywords="사진 이미지 리사이즈 압축 jpg png webp 픽셀 resize"><a href="/tools/image-resizer">사진 크기·용량 줄이기</a></li>
           <li data-keywords="사진 이미지 누끼 배경제거 투명 png"><a href="/tools/background-remover">흰 배경 지우기</a></li>
@@ -83,7 +95,7 @@
         </ul>
       </section>
       <section class="goal-card" id="other-tools" data-tool-group="random" aria-labelledby="random-title">
-        <h2 class="goal-title" id="random-title">추첨·만들기</h2>
+        <h3 class="goal-title" id="random-title">추첨·만들기</h3>
         <ul class="goal-links">
           <li data-keywords="복권 랜덤 추첨 번호 뽑기"><a href="/fun/lotto-generator">로또 번호 생성기</a></li>
           <li data-keywords="칭찬 상장 제작 만들기"><a href="/tools/certificate-maker">상장 만들기</a></li>
@@ -93,7 +105,7 @@
         </ul>
       </section>
       <section class="goal-card" id="family-tools" data-tool-group="family" aria-labelledby="family-title">
-        <h2 class="goal-title" id="family-title">출산·육아</h2>
+        <h3 class="goal-title" id="family-title">출산·육아</h3>
         <ul class="goal-links">
           <li data-keywords="육휴 출산 휴직 부모 급여 월급"><a href="/tools/parental-leave-calculator">육아휴직급여 계산기</a></li>
           <li data-keywords="아기 이름 태명 봄 여름 가을 겨울"><a href="/fun/baby-name-generator">계절별 태명 추천</a></li>
@@ -102,10 +114,9 @@
     </div>
     <div id="empty-search" class="empty-search" hidden><p>맞는 도구가 없어요. 다른 검색어나 분류를 선택해 보세요.</p><button id="empty-reset" type="button">전체 도구 보기</button></div>
     <aside class="ad-banner ad-banner-strip" aria-label="광고"><p class="ad-label">광고</p><div class="ad-strip-slot"><script src="/ad-banner-isolated.js?v=20261018-isolated"></script></div></aside>
-    <div class="feedback"><p>불편한 점이나 필요한 도구가 있나요?</p><a href="mailto:contact@harukok.com?subject=%5B%ED%95%98%EB%A3%A8%EC%BD%95%20%EC%9D%98%EA%B2%AC%5D%20%EB%A9%94%EC%9D%B8">이메일로 의견 보내기 →</a></div>
   </main>
-  <footer><nav aria-label="사이트 안내"><a href="/about">소개</a><a href="/privacy">개인정보처리방침</a><a href="mailto:contact@harukok.com">contact@harukok.com</a></nav><p>© 2026 하루콕</p></footer>
+  <footer><nav aria-label="사이트 안내"><a href="/about">소개</a><a href="/privacy">개인정보처리방침</a><a href="mailto:contact@harukok.com?subject=%5B%ED%95%98%EB%A3%A8%EC%BD%95%20%EC%9D%98%EA%B2%AC%5D%20%EB%A9%94%EC%9D%B8">의견 보내기</a></nav><p>© 2026 하루콕</p></footer>
 </div>
-<script src="/tools/tool-directory.js?v=20261022" defer></script>
+<script src="/tools/tool-directory.js?v=20261023-restore" defer></script>
 </body>
 </html>

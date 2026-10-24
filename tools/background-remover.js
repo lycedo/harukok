@@ -33,7 +33,7 @@ if(typeof document!=='undefined') {
     outputUrl='';
     $('download').removeAttribute('href');$('result').hidden=true;
     $('bg-error').textContent='';$('bg-status').textContent='';
-    $('process').disabled=!source;
+    $('process').disabled=!source;$('image-controls').disabled=!source;
   }
   function useSource(canvas,originalWidth,originalHeight,name) {
     source=canvas;baseName=name;invalidate();

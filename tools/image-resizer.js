@@ -51,7 +51,7 @@ if (typeof document !== 'undefined') {
         $('target-width').value=String(Math.min(1280,img.naturalWidth)); $('target-width').max=String(img.naturalWidth);
         $('size-note').textContent=`원본 ${img.naturalWidth} × ${img.naturalHeight}px. 세로 크기는 비율에 맞춰 계산합니다.`;
         $('image-controls').disabled=false; $('image-previews').hidden=false; updateQuality();
-        $('image-status').textContent='설정을 확인하고 이미지 변환하기를 눌러 주세요.';
+        $('image-status').textContent='크기와 품질을 확인한 뒤 크기·용량 변경하기를 누르세요.';
       } catch(error) { clearSource(); $('image-error').textContent=error.message; $('image-status').textContent='더 작은 이미지를 선택해 주세요.'; }
     };
     img.onerror=()=>{
