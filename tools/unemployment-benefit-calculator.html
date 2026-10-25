@@ -16,8 +16,6 @@
 <meta property="og:image" content="https://harukok.com/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700&family=Pretendard:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>
   :root{
     --paper: #ECE8DC;
@@ -34,93 +32,93 @@
     padding: 24px 20px 56px;
     background: var(--paper);
     background-image: repeating-linear-gradient(0deg, rgba(0,0,0,0.015) 0px, rgba(0,0,0,0.015) 1px, transparent 1px, transparent 3px);
-    font-family: 'Pretendard', -apple-system, sans-serif;
+    font-family:var(--font-body);
     color: var(--ink);
     display:flex;
     justify-content:center;
   }
   .stub{ width:100%; max-width: 560px; }
 
-  h1{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:30px; line-height:1.35; margin:0 0 8px; }
+  h1{ font-family:var(--font-display);font-synthesis:none; font-weight:700; font-size:30px; line-height:1.35; margin:0 0 8px; }
 
   .card{ background:var(--paper-light); border:1px solid var(--line); border-radius:14px; padding:32px; margin-bottom:28px; }
   .field{ margin-bottom:20px; }
   .field:last-child{ margin-bottom:0; }
-  .field label{ display:block; font-size:13.5px; color:var(--ink-soft); margin-bottom:8px; }
-  .field-hint{ display:block; font-size:12px; color:var(--muted); margin-top:6px; }
+  .field label{ display:block; font-size:15px; color:var(--ink-soft); margin-bottom:8px; }
+  .field-hint{ display:block; font-size:14px; color:var(--muted); margin-top:6px; }
   .input-row{ display:flex; align-items:baseline; border-bottom:1.5px solid var(--ink); padding-bottom:6px; }
-  .input-row input{ flex:1; border:none; background:transparent; font-family:'IBM Plex Mono', monospace; font-size:20px; font-weight:600; color:var(--ink); outline:none; padding:4px 0; width:100%; }
+  .input-row input{ flex:1; border:none; background:transparent; font-family:var(--font-body);font-variant-numeric:tabular-nums; font-size:20px; font-weight:600; color:var(--ink); outline:none; padding:4px 0; width:100%; }
   .seg{ display:flex; gap:8px; }
-  .seg button{ flex:1; padding:10px; border:1.5px solid var(--line); border-radius:10px; background:var(--paper-light); color:var(--ink-soft); font-size:13px; font-weight:600; cursor:pointer; }
+  .seg button{ flex:1; padding:10px; border:1.5px solid var(--line); border-radius:10px; background:var(--paper-light); color:var(--ink-soft); font-size:15px; font-weight:600; cursor:pointer; }
   .seg button.active{ background:var(--ink); border-color:var(--ink); color:var(--paper-light); }
   .seg.wrap{ flex-wrap:wrap; }
   .seg.wrap button{ flex: 1 1 30%; min-width: 90px; }
-  .calc-btn{ width:100%; padding:16px; margin-top:8px; background:var(--ink); color:var(--paper-light); border:none; border-radius:14px; font-weight:600; font-size:15.5px; cursor:pointer; box-shadow:0 4px 0 rgba(0,0,0,0.28); }
+  .calc-btn{ width:100%; padding:16px; margin-top:8px; background:var(--ink); color:var(--paper-light); border:none; border-radius:14px; font-weight:600; font-size:16px; cursor:pointer; box-shadow:0 4px 0 rgba(0,0,0,0.28); }
   .calc-btn:hover{ background:var(--ink-soft); }
   .calc-btn:active{ transform:translateY(3px); box-shadow:0 1px 0 rgba(0,0,0,0.28); }
   .result-card{ padding-top:32px; }
   .result-card.hidden{ display:none; }
-  .result-label{ font-size:13.5px; color:var(--ink-soft); margin-bottom:4px; }
-  .result-amount{ font-family:'IBM Plex Mono', monospace; font-weight:600; font-size:38px; color:var(--stamp); line-height:1.1; margin-bottom:4px; }
+  .result-label{ font-size:15px; color:var(--ink-soft); margin-bottom:4px; }
+  .result-amount{ font-family:var(--font-body);font-variant-numeric:tabular-nums; font-weight:600; font-size:38px; color:var(--stamp); line-height:1.1; margin-bottom:4px; }
   .result-amount .unit{ font-size:18px; margin-left:2px; }
   .breakdown{ border-top:1px solid var(--line); padding-top:20px; margin-top:16px; }
-  .breakdown-row{ display:flex; justify-content:space-between; align-items:baseline; font-size:14px; padding:9px 0; color:var(--ink-soft); }
-  .breakdown-row .amount{ font-family:'IBM Plex Mono', monospace; color:var(--ink); font-weight:600; font-size:16px; }
-  .disclaimer{ font-size:11.5px; color:var(--muted); line-height:1.6; margin-top:24px; padding-top:16px; border-top:1px dotted var(--line); }
+  .breakdown-row{ display:flex; justify-content:space-between; align-items:baseline; font-size:16px; padding:9px 0; color:var(--ink-soft); }
+  .breakdown-row .amount{ font-family:var(--font-body);font-variant-numeric:tabular-nums; color:var(--ink); font-weight:600; font-size:16px; }
+  .disclaimer{ font-size:13px; color:var(--muted); line-height:1.6; margin-top:24px; padding-top:16px; border-top:1px dotted var(--line); }
   @media (max-width:480px){ .card{ padding:24px; } h1{ font-size:25px; } .result-amount{ font-size:32px; } }
 
   .info-block{ margin-top:40px; }
-  .info-block h2{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:18px; margin:0 0 12px; }
-  .info-block p{ font-size:13.5px; line-height:1.7; color:var(--ink-soft); margin:0 0 14px; }
+  .info-block h2{ font-family:var(--font-display);font-synthesis:none; font-weight:700; font-size:18px; margin:0 0 12px; }
+  .info-block p{ font-size:15px; line-height:1.7; color:var(--ink-soft); margin:0 0 14px; }
   .faq-item{ margin-bottom:16px; }
-  .faq-item .q{ font-size:14px; font-weight:600; margin-bottom:5px; }
-  .faq-item .a{ font-size:13.5px; line-height:1.65; color:var(--ink-soft); }
+  .faq-item .q{ font-size:16px; font-weight:600; margin-bottom:5px; }
+  .faq-item .a{ font-size:15px; line-height:1.65; color:var(--ink-soft); }
   .sources{ margin-top:24px; padding-top:18px; border-top:1px solid var(--line); }
-  .sources-title{ font-size:13px; font-weight:600; color:var(--ink-soft); margin-bottom:8px; }
+  .sources-title{ font-size:15px; font-weight:600; color:var(--ink-soft); margin-bottom:8px; }
   .sources ul{ margin:0; padding-left:18px; }
-  .sources li{ font-size:12.5px; line-height:1.8; color:var(--muted); }
+  .sources li{ font-size:14px; line-height:1.8; color:var(--muted); }
   .sources a{ color:var(--ink-soft); }
   .sources a:hover{ color:var(--ink); }
 
   .related{ margin-top:20px; margin-bottom:32px; }
-  .related-title{ font-size:12.5px; color:var(--muted); margin-bottom:10px; }
+  .related-title{ font-size:14px; color:var(--muted); margin-bottom:10px; }
   .related-links{ display:flex; flex-wrap:wrap; gap:8px; }
-  .related-links a{ padding:8px 14px; border:1.5px solid var(--line); border-radius:999px; font-size:13px; color:var(--ink); text-decoration:none; }
+  .related-links a{ padding:8px 14px; border:1.5px solid var(--line); border-radius:999px; font-size:15px; color:var(--ink); text-decoration:none; }
   .related-links a:hover{ border-color:var(--ink); }
 
   .site-nav{ display:flex; align-items:center; justify-content:space-between; width:100%; margin:0 0 20px; padding:0 0 8px; border-bottom:1px solid var(--line, #D9D2BF); }
-  .site-nav-brand{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:15px; color:var(--ink); text-decoration:none; }
+  .site-nav-brand{ font-family:var(--font-display);font-synthesis:none; font-weight:700; font-size:16px; color:var(--ink); text-decoration:none; }
   .site-nav-brand span{ color:var(--stamp, #B23A2E); }
   .site-nav-links{ display:flex; gap:2px; }
-  .site-nav-links a{ font-size:13.5px; color:var(--muted); text-decoration:none; padding:6px 10px; border-radius:6px; }
+  .site-nav-links a{ font-size:15px; color:var(--muted); text-decoration:none; padding:6px 10px; border-radius:6px; }
   .site-nav-links a:hover{ color:var(--ink); background:var(--paper-light, rgba(0,0,0,0.045)); }
   .site-nav-links a[aria-current="page"]{ color:var(--ink); font-weight:600; }
   .site-nav-brand:focus-visible, .site-nav-links a:focus-visible{ outline:2px solid var(--stamp, #B23A2E); outline-offset:2px; border-radius:4px; }
 
-  .cap-lower-note{ font-size:12.5px; line-height:1.6; color:var(--ink-soft); background:var(--paper-light); border:1px dashed var(--line); border-radius:8px; padding:10px 12px; margin:0 0 20px; }
+  .cap-lower-note{ font-size:14px; line-height:1.6; color:var(--ink-soft); background:var(--paper-light); border:1px dashed var(--line); border-radius:8px; padding:10px 12px; margin:0 0 20px; }
   details.cap-details{ margin:0 0 20px; border:1px dashed var(--line); border-radius:10px; padding:12px 14px; }
-  details.cap-details summary{ cursor:pointer; font-size:13px; color:var(--ink-soft); font-weight:600; }
+  details.cap-details summary{ cursor:pointer; font-size:15px; color:var(--ink-soft); font-weight:600; }
   details.cap-details summary:focus-visible{ outline:2px solid var(--stamp); outline-offset:2px; }
   details.cap-details .field{ margin-top:16px; margin-bottom:0; }
 
   .check-status{ margin:16px 0 0; padding:12px 14px; border:1px solid var(--line, #B7AF98); border-radius:10px; background:rgba(255,255,255,0.45); text-align:left; }
-  .check-status .check-title{ font-size:12px; font-weight:700; color:var(--ink, #16233D); }
-  .check-row{ display:flex; gap:8px; align-items:flex-start; font-size:12.5px; line-height:1.55; color:var(--ink-soft, #45516A); margin-top:8px; }
-  .check-tag{ flex:0 0 auto; font-size:11px; font-weight:700; padding:1px 8px; border-radius:999px; border:1px solid; white-space:nowrap; margin-top:1px; }
+  .check-status .check-title{ font-size:14px; font-weight:700; color:var(--ink, #16233D); }
+  .check-row{ display:flex; gap:8px; align-items:flex-start; font-size:14px; line-height:1.55; color:var(--ink-soft, #45516A); margin-top:8px; }
+  .check-tag{ flex:0 0 auto; font-size:13px; font-weight:700; padding:1px 8px; border-radius:999px; border:1px solid; white-space:nowrap; margin-top:1px; }
   .check-tag.ok{ color:#2F6B3A; border-color:#2F6B3A; }
   .check-tag.assume{ color:#8A5A1E; border-color:#8A5A1E; }
   .check-tag.unverified{ color:#B23A2E; border-color:#B23A2E; }
 
-  .basis-line{ font-size:13px; line-height:1.6; color:var(--ink-soft); margin:0 0 20px; }
+  .basis-line{ font-size:15px; line-height:1.6; color:var(--ink-soft); margin:0 0 20px; }
   .basis-line strong{ color:var(--ink); }
-  details.basis{ margin:0 0 16px; font-size:12.5px; color:var(--muted); line-height:1.65; }
+  details.basis{ margin:0 0 16px; font-size:14px; color:var(--muted); line-height:1.65; }
   details.basis summary{ cursor:pointer; color:var(--ink-soft); font-weight:600; }
   details.basis summary:focus-visible{ outline:2px solid var(--stamp); outline-offset:2px; }
   details.basis ul.assume{ margin:10px 0 0; padding-left:18px; }
   details.basis ul.assume li{ margin-bottom:6px; }
   details.basis .sources{ margin-top:14px; padding-top:12px; }
   .ad-banner{ width:300px; max-width:100%; margin:32px auto; text-align:center; }
-  .ad-banner .ad-label{ margin:0 0 8px; font-size:11px; color:var(--muted, #6E6656); line-height:1.5; }
+  .ad-banner .ad-label{ margin:0 0 8px; font-size:13px; color:var(--muted, #6E6656); line-height:1.5; }
   .ad-slot{ width:300px; min-height:250px; }
   .ad-banner-strip{ width:100%; margin:32px auto; }
   .ad-banner-strip[hidden]{ display:none; }
@@ -132,15 +130,16 @@
   .input-row:focus-within{ outline:2px solid var(--stamp); outline-offset:4px; }
   button:focus-visible, summary:focus-visible, a:focus-visible{ outline:2px solid var(--stamp); outline-offset:3px; }
   details.basis{ margin:24px 0; padding:12px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
-  details.basis > summary, .check-status > summary, .comparison > summary{ cursor:pointer; padding:10px 0; font-size:13px; color:var(--ink); font-weight:600; }
+  details.basis > summary, .check-status > summary, .comparison > summary{ cursor:pointer; padding:10px 0; font-size:15px; color:var(--ink); font-weight:600; }
   .breakdown-row{ gap:12px; flex-wrap:wrap; }
   .sources a{ overflow-wrap:anywhere; }
   @media (max-width:480px){ body{ padding:16px 16px 40px; } .card{ padding:20px; } .perforation{ margin:0 -20px; } .site-nav{ margin-bottom:18px; } }
-  .input-error{ margin:12px 0 0; color:var(--stamp); font-size:13px; line-height:1.6; }
+  .input-error{ margin:12px 0 0; color:var(--stamp); font-size:15px; line-height:1.6; }
   .input-error:empty{ display:none; }
 </style>
 <link rel="stylesheet" href="/tools/tool-controls.css?v=20261025-flow">
 <script src="/tools/calculator-inputs.js?v=20261025" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/tools/site-ui.css?v=20261025-ui">
 </head>
 <body>
 
@@ -163,7 +162,7 @@
       <label for="wage3m">퇴사 전 3개월 평균 월급 (세전, 만원)</label>
       <div class="input-row">
         <input type="number" id="wage3m" placeholder="예: 300" inputmode="numeric">
-        <span class="unit" style="font-size:14px;color:var(--muted);margin-left:8px;">만원</span>
+        <span class="unit" style="font-size:16px;color:var(--muted);margin-left:8px;">만원</span>
       </div>
       <span class="field-hint">기본급 + 각종 수당을 포함한 월 평균 급여입니다.</span>
     </div>
@@ -172,7 +171,7 @@
       <label for="days3m">퇴사 전 3개월의 총 일수</label>
       <div class="input-row">
         <input type="number" id="days3m" value="92" min="89" max="92" inputmode="numeric">
-        <span class="unit" style="font-size:14px;color:var(--muted);margin-left:8px;">일</span>
+        <span class="unit" style="font-size:16px;color:var(--muted);margin-left:8px;">일</span>
       </div>
       <span class="field-hint">이직확인서의 임금 산정 일수(89~92일)입니다. 기본값 92일은 근사치입니다.</span>
     </div>
@@ -259,7 +258,7 @@
 
 </main>
 
-  <footer style="max-width:620px; margin:40px auto 0; padding:20px 0 0; text-align:center; font-size:12.5px; color:var(--muted, #6E6656); border-top:1px solid var(--line, #D9D2BF);">
+  <footer>
     <a href="/" style="color:inherit; margin:0 8px;">홈</a>·<a href="/about" style="color:inherit; margin:0 8px;">소개</a>·<a href="/privacy" style="color:inherit; margin:0 8px;">개인정보처리방침</a>·<a href="mailto:contact@harukok.com?subject=%EC%8B%A4%EC%97%85%EA%B8%89%EC%97%AC%20%EA%B3%84%EC%82%B0%EA%B8%B0" style="color:inherit; margin:0 8px;">의견 보내기</a>
   </footer>
 </div>

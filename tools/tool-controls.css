@@ -4,7 +4,7 @@ main input, main select, main textarea, main summary {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Malgun Gothic", sans-serif;
 }
 main .field label { font-size:16px; font-weight:600; line-height:1.5; }
-main .field-hint, main .hint { font-size:14px; line-height:1.6; }
+main .field-hint, main .hint { font-size:16px; line-height:1.6; }
 main input:not([type=checkbox]):not([type=radio]):not([type=range]),
 main select, main textarea { font-size:16px; min-height:48px; }
 main .input-row {
@@ -16,33 +16,33 @@ main .input-row .unit { color:var(--ink, #16233D); }
 main button, main summary { min-height:44px; touch-action:manipulation; }
 main button { word-break:keep-all; }
 main .primary, main .calc-btn { font-size:17px; min-height:52px; }
-main .examples button { font-size:14px; }
+main .examples button { font-size:16px; }
 main .simple-settings { margin:12px 0 20px; border-top:1px solid var(--line, #B7AF98); }
-main .simple-settings>summary { padding:12px 0; cursor:pointer; font-size:15px; }
+main .simple-settings>summary { padding:12px 0; cursor:pointer; font-size:16px; }
 main .simple-settings[open]>summary { margin-bottom:12px; }
 main .mode-choices { border:0; margin:0 0 20px; padding:0; min-width:0; }
 main .mode-choices legend { font-weight:600; margin-bottom:10px; }
 main .mode-buttons { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
 main .mode-buttons button { background:#fff; border:1px solid var(--line, #B7AF98); border-radius:6px; padding:12px; font-size:16px; text-align:left; }
 main .mode-buttons button[aria-pressed=true] { background:var(--ink, #16233D); color:#fff; border-color:var(--ink, #16233D); }
-main .mode-buttons small { display:block; font-size:13px; margin-top:4px; }
+main .mode-buttons small { display:block; font-size:15px; margin-top:4px; }
 main :focus-visible { outline:3px solid var(--stamp, #B23A2E); outline-offset:3px; }
 /* Shared task hierarchy without changing the original page widths or theme. */
-.site-nav .site-nav-brand { font-family:'Noto Serif KR', 'Batang', serif; font-size:15px; font-weight:700; }
-.site-nav .site-nav-links a { font-size:14px; min-height:44px; display:inline-flex; align-items:center; }
+.site-nav .site-nav-brand { font-family:var(--font-display);font-synthesis:none; font-size:16px; font-weight:700; }
+.site-nav .site-nav-links a { font-size:16px; min-height:44px; display:inline-flex; align-items:center; }
 main .tool-help { margin:10px 0 20px; color:var(--ink-soft, #45516A); font:14px/1.7 -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Malgun Gothic', sans-serif; word-break:keep-all; }
 main .tool-help strong { margin-right:6px; color:var(--ink, #16233D); }
 main .primary, main .calc-btn { border-radius:6px; box-shadow:none; }
 main .calc-btn:active { transform:none; }
-main .seg button { font-size:15px; border-radius:6px; }
-main .disclaimer, main .basis-line { font-size:14px; line-height:1.6; }
+main .seg button { font-size:16px; border-radius:6px; }
+main .disclaimer, main .basis-line { font-size:16px; line-height:1.6; }
 main .purpose-switch { display:flex; gap:8px; margin:0 0 16px; }
 main .purpose-switch[hidden], main [data-tool-panel-content][hidden] { display:none; }
-main .purpose-switch button { flex:1; padding:12px 10px; background:transparent; border:1px solid var(--line, #B7AF98); border-radius:6px; font-size:15px; cursor:pointer; }
+main .purpose-switch button { flex:1; padding:12px 10px; background:transparent; border:1px solid var(--line, #B7AF98); border-radius:6px; font-size:16px; cursor:pointer; }
 main .purpose-switch button[aria-pressed=true] { background:var(--ink, #16233D); color:#fff; border-color:var(--ink, #16233D); }
 main #text { min-height:160px; }
 main .extra-counts { margin:16px 0; }
-main .extra-counts p { display:flex; flex-wrap:wrap; gap:8px 20px; padding:8px 0 0; font-size:14px; }
+main .extra-counts p { display:flex; flex-wrap:wrap; gap:8px 20px; padding:8px 0 0; font-size:16px; }
 @media(max-width:520px) {
   main .stepper-row { gap:8px; }
   main .image-preview-grid { grid-template-columns:1fr; }

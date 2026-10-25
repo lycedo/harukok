@@ -16,8 +16,6 @@
 <meta property="og:image:height" content="630">
 <title>퇴직금 계산 시 상여금과 수당, 이렇게 입력하세요</title>
 <meta name="description" content="3개월 급여·연간 상여금·연차수당을 각각 입력하는 방법과 중복 입력을 피하는 작업표, 고용노동부 예제로 계산 결과를 확인하는 방법을 안내합니다.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700&family=Pretendard:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>
   :root{
     --paper: #ECE8DC;
@@ -34,75 +32,75 @@
     padding: 40px 20px 70px;
     background: var(--paper);
     background-image: repeating-linear-gradient(0deg, rgba(0,0,0,0.015) 0px, rgba(0,0,0,0.015) 1px, transparent 1px, transparent 3px);
-    font-family: 'Pretendard', -apple-system, sans-serif;
+    font-family:var(--font-body);
     color: var(--ink);
     display:flex;
     justify-content:center;
   }
   .stub{ width:100%; max-width: 620px; }
-  .kicker{ font-size:13px; color:var(--muted); margin-bottom:6px; }
-  h1{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:28px; line-height:1.4; margin:0 0 10px; }
-  .lede{ font-size:14.5px; color:var(--ink-soft); line-height:1.6; margin:0 0 32px; }
-  .back-home{ display:inline-block; font-size:12.5px; color:var(--muted); text-decoration:none; margin-bottom:14px; }
+  .kicker{ font-size:15px; color:var(--muted); margin-bottom:6px; }
+  h1{ font-family:var(--font-display);font-synthesis:none; font-weight:700; font-size:28px; line-height:1.4; margin:0 0 10px; }
+  .lede{ font-size:16px; color:var(--ink-soft); line-height:1.6; margin:0 0 32px; }
+  .back-home{ display:inline-block; font-size:14px; color:var(--muted); text-decoration:none; margin-bottom:14px; }
   .back-home:hover{ color:var(--ink); }
-  .breadcrumb{ font-size:12px; color:var(--muted); margin-bottom:14px; }
+  .breadcrumb{ font-size:14px; color:var(--muted); margin-bottom:14px; }
   .breadcrumb a{ color:var(--muted); text-decoration:none; }
   .breadcrumb a:hover{ color:var(--ink); text-decoration:underline; }
   .breadcrumb [aria-current="page"]{ color:var(--ink-soft); }
-  .cta-btn{ display:inline-block; margin-top:8px; padding:13px 22px; background:var(--ink); color:var(--paper-light); border-radius:10px; font-size:14.5px; font-weight:600; text-decoration:none; }
+  .cta-btn{ display:inline-block; margin-top:8px; padding:13px 22px; background:var(--ink); color:var(--paper-light); border-radius:10px; font-size:16px; font-weight:600; text-decoration:none; }
   .cta-btn:hover{ background:var(--ink-soft); }
 
   .related{ margin-bottom:32px; }
-  .related-title{ font-size:12.5px; color:var(--muted); margin-bottom:10px; }
+  .related-title{ font-size:14px; color:var(--muted); margin-bottom:10px; }
   .related-links{ display:flex; flex-wrap:wrap; gap:8px; }
-  .related-links a{ padding:8px 14px; border:1.5px solid var(--line); border-radius:999px; font-size:13px; color:var(--ink); text-decoration:none; }
+  .related-links a{ padding:8px 14px; border:1.5px solid var(--line); border-radius:999px; font-size:15px; color:var(--ink); text-decoration:none; }
   .related-links a:hover{ border-color:var(--ink); }
 
-  article h2{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:18px; margin:32px 0 12px; }
-  article p{ font-size:14px; line-height:1.75; color:var(--ink-soft); margin:0 0 14px; }
+  article h2{ font-family:var(--font-display);font-synthesis:none; font-weight:700; font-size:18px; margin:32px 0 12px; }
+  article p{ font-size:16px; line-height:1.75; color:var(--ink-soft); margin:0 0 14px; }
   article p strong{ color:var(--ink); }
-  article ul{ font-size:14px; line-height:1.8; color:var(--ink-soft); margin:0 0 16px; padding-left:20px; }
+  article ul{ font-size:16px; line-height:1.8; color:var(--ink-soft); margin:0 0 16px; padding-left:20px; }
   article ul li strong{ color:var(--ink); }
 
-  table{ width:100%; border-collapse:collapse; margin:16px 0 20px; font-size:13px; background:var(--paper-light); border:1px solid var(--line); border-radius:8px; overflow:hidden; }
+  table{ width:100%; border-collapse:collapse; margin:16px 0 20px; font-size:15px; background:var(--paper-light); border:1px solid var(--line); border-radius:8px; overflow:hidden; }
   th, td{ padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
   th{ background:#E4DFCD; color:var(--ink); font-weight:600; }
   td{ color:var(--ink-soft); }
   tr:last-child td{ border-bottom:none; }
 
   .example-box{ background:var(--paper-light); border:1px solid var(--line); border-radius:10px; padding:18px 20px; margin:16px 0 20px; }
-  .example-box .ex-title{ font-size:13px; font-weight:600; color:var(--ink); margin-bottom:8px; }
-  .example-box .ex-row{ display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; font-size:13.5px; padding:4px 0; color:var(--ink-soft); }
-  .example-box .ex-row .amount{ font-family:'IBM Plex Mono', monospace; color:var(--ink); }
+  .example-box .ex-title{ font-size:15px; font-weight:600; color:var(--ink); margin-bottom:8px; }
+  .example-box .ex-row{ display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; font-size:15px; padding:4px 0; color:var(--ink-soft); }
+  .example-box .ex-row .amount{ font-family:var(--font-body);font-variant-numeric:tabular-nums; color:var(--ink); }
   .example-box .ex-row.total{ border-top:1px solid var(--line); margin-top:6px; padding-top:8px; font-weight:600; color:var(--ink); }
 
-  .warn-box{ background:#FBEFE9; border:1px solid #E3B79E; border-radius:10px; padding:16px 18px; margin:16px 0 20px; font-size:13.5px; color:#8A3E1F; line-height:1.65; }
+  .warn-box{ background:#FBEFE9; border:1px solid #E3B79E; border-radius:10px; padding:16px 18px; margin:16px 0 20px; font-size:15px; color:#8A3E1F; line-height:1.65; }
 
   .sources{ margin-top:32px; padding-top:18px; border-top:1px solid var(--line); }
-  .sources-title{ font-size:13px; font-weight:600; color:var(--ink-soft); margin-bottom:8px; }
-  .sources ul{ margin:0; padding-left:18px; font-size:12.5px; line-height:1.8; color:var(--muted); }
+  .sources-title{ font-size:15px; font-weight:600; color:var(--ink-soft); margin-bottom:8px; }
+  .sources ul{ margin:0; padding-left:18px; font-size:14px; line-height:1.8; color:var(--muted); }
   .sources a{ color:var(--ink-soft); }
   .sources a:hover{ color:var(--ink); }
 
-  .disclaimer{ font-size:11.5px; color:var(--muted); line-height:1.6; margin-top:24px; padding-top:16px; border-top:1px dotted var(--line); }
+  .disclaimer{ font-size:13px; color:var(--muted); line-height:1.6; margin-top:24px; padding-top:16px; border-top:1px dotted var(--line); }
 
   @media (max-width:480px){ h1{ font-size:23px; } }
 
   .site-nav{ display:flex; align-items:center; justify-content:space-between; width:100%; margin:0 0 22px; padding:0 0 14px; border-bottom:1px solid var(--line, #D9D2BF); }
-  .site-nav-brand{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:15px; color:var(--ink); text-decoration:none; }
+  .site-nav-brand{ font-family:var(--font-display);font-synthesis:none; font-weight:700; font-size:16px; color:var(--ink); text-decoration:none; }
   .site-nav-brand span{ color:var(--stamp, #B23A2E); }
   .site-nav-links{ display:flex; gap:2px; }
-  .site-nav-links a{ font-size:13.5px; color:var(--muted); text-decoration:none; padding:6px 10px; border-radius:6px; }
+  .site-nav-links a{ font-size:15px; color:var(--muted); text-decoration:none; padding:6px 10px; border-radius:6px; }
   .site-nav-links a:hover{ color:var(--ink); background:var(--paper-light, rgba(0,0,0,0.045)); }
   .site-nav-links a[aria-current="page"]{ color:var(--ink); font-weight:600; }
   .site-nav-brand:focus-visible, .site-nav-links a:focus-visible{ outline:2px solid var(--stamp, #B23A2E); outline-offset:2px; border-radius:4px; }
   .faq-item{ margin:0 0 16px; scroll-margin-top:12px; }
-  .faq-item .q{ font-size:14px; font-weight:700; color:var(--ink); margin-bottom:5px; }
-  .faq-item .a{ font-size:13.5px; line-height:1.7; color:var(--ink-soft); }
-  article h3{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:15.5px; margin:26px 0 8px; scroll-margin-top:12px; }
+  .faq-item .q{ font-size:16px; font-weight:700; color:var(--ink); margin-bottom:5px; }
+  .faq-item .a{ font-size:15px; line-height:1.7; color:var(--ink-soft); }
+  article h3{ font-family:var(--font-display);font-synthesis:none; font-weight:700; font-size:16px; margin:26px 0 8px; scroll-margin-top:12px; }
   article h2{ scroll-margin-top:12px; }
   .ad-banner{ width:300px; margin:32px calc((100% - 300px) / 2); text-align:center; }
-  .ad-banner .ad-label{ margin:0 0 8px; font-size:11px; color:var(--muted, #6E6656); line-height:1.5; }
+  .ad-banner .ad-label{ margin:0 0 8px; font-size:13px; color:var(--muted, #6E6656); line-height:1.5; }
   .ad-slot{ width:300px; min-height:250px; }
 </style>
 <script type="application/ld+json">
@@ -173,6 +171,7 @@
   ]
 }
 </script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/tools/site-ui.css?v=20261025-ui">
 </head>
 <body>
 
@@ -264,7 +263,7 @@
       <tr><td>상여금 자동 환산 반영</td><td>A=900, B=600, C=0</td><td>약 1,028만원</td></tr>
     </table>
     <p>상여금 3/12를 빠뜨리면 예상 퇴직금이 약 147만원 적게 계산됩니다. 하루콕 퇴직금 계산기(산정기간 92일 기준)로 계산한 수치입니다.<br>
-    <span style="color:var(--muted); font-size:12.5px;">※ 위 예시는 이해를 돕기 위한 가상의 사례이며, 실제 급여·상여금 액수를 계산기에 입력해 정확한 금액을 확인하세요.</span></p>
+    <span style="color:var(--muted); font-size:14px;">※ 위 예시는 이해를 돕기 위한 가상의 사례이며, 실제 급여·상여금 액수를 계산기에 입력해 정확한 금액을 확인하세요.</span></p>
 
     <div class="warn-box">
       상여금이나 수당이 <strong>정기적·일률적으로 지급되지 않고</strong> 회사 재량에 따라 그때그때 다르게 나온다면(성과에 따라 금액이 들쭉날쭉한 인센티브 등) 평균임금에 포함되지 않을 수 있습니다. 이런 경우 하루콕 계산기는 판단해주지 않으니, 회사 인사팀이나 고용노동부 노동포털에서 포함 여부를 먼저 확인한 뒤 입력하세요.
@@ -299,7 +298,7 @@
     <p><strong>예시 1</strong> — 3년(1,095일) 근무하고 퇴사 직전 3개월 급여 총액이 900만원(3개월 실제 일수 92일 기준)이었다면, 1일 평균임금은 900만 ÷ 92 ≈ 97,826원입니다. 여기에 30일을 곱하면 약 293만원이 되고, 다시 재직일수 비율(1,095 ÷ 365 = 3)을 곱하면 예상 퇴직금은 약 880만원입니다. 근속연수가 정확히 3년이면 대략 세 달치 평균임금과 비슷한 금액이 나온다고 생각하면 감이 잡히기 쉽습니다.<br>
     <strong>예시 2 (경계 조건 — 윤년 주의)</strong> — 2024년 1월 1일에 입사해 2024년 12월 31일에 퇴사(재직일수 365일)하면, 언뜻 "365일이니 1년"으로 보이지만 실제로는 <strong>계속근로기간 1년 미만</strong>입니다. 2024년은 윤년이라 입사일로부터 만 1년이 되는 날(응당일)은 2025년 1월 1일이고, 퇴사일이 그 하루 전이기 때문입니다. 이 계산기는 재직일수가 아니라 응당일 도달 여부로 판정하므로 이 경우 결과를 0원으로 표시하고 경고를 보여줍니다. 같은 입사일이라도 퇴사일을 2025년 1월 1일 이후로 하루만 늦추면 재직일수 366일로 계속근로기간 1년 이상이 되어 정상적으로 퇴직금이 계산됩니다.<br>
     <strong>예시 3 (급여 변동이 큰 경우)</strong> — 산정기간에 반기 상여금이 지급됐다면 A에서 빼고, B에 12개월 합계를 입력해야 중복을 피할 수 있습니다. 휴직이 포함됐다면 단순히 임금을 줄여 입력하지 말고 해당 휴직이 평균임금 산정에서 제외되는 기간인지부터 확인하세요. 제외기간 처리와 통상임금 비교가 필요한 경우는 이 계산기의 지원 범위 밖입니다.<br>
-    <span style="color:var(--muted); font-size:12.5px;">※ 위 예시는 이해를 돕기 위한 가상의 사례입니다.</span></p>
+    <span style="color:var(--muted); font-size:14px;">※ 위 예시는 이해를 돕기 위한 가상의 사례입니다.</span></p>
     <h3>입력값은 어디서 찾나요?</h3>
     <p>재직증명서·인사기록에서 <strong>입사일과 마지막 근무일 다음날</strong>을 확인합니다. 급여명세서에서 A에 넣을 <strong>3개월 기본급·수당</strong>을 합산하고, 상여금 지급명세에서 B에 넣을 <strong>퇴직 전 12개월 정기 상여금</strong>을 찾으세요. C는 연차 사용·정산 내역에서 <strong>퇴직 전에 이미 지급사유가 발생한 산입 대상 수당</strong>을 확인합니다. A에는 B·C를 중복 포함하지 않습니다. 산정기간 중간에 급여가 바뀌었거나 월 중간에 퇴사한다면 달력상 해당 기간에 맞춰 금액을 나눠야 하므로, 명세서 3장 합계와 다를 수 있습니다.</p>
 
@@ -350,7 +349,7 @@
     </div>
   </article>
 
-  <footer style="max-width:620px; margin:40px auto 0; padding:20px 0 0; text-align:center; font-size:12.5px; color:var(--muted, #6E6656); border-top:1px solid var(--line, #D9D2BF);">
+  <footer>
     <a href="/" style="color:inherit; margin:0 8px;">홈</a>·<a href="/about" style="color:inherit; margin:0 8px;">소개</a>·<a href="/privacy" style="color:inherit; margin:0 8px;">개인정보처리방침</a>·<a href="mailto:contact@harukok.com" style="color:inherit; margin:0 8px;">문의</a>
   </footer>
 </div>

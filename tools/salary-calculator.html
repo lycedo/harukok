@@ -16,8 +16,6 @@
 <meta property="og:image:height" content="630">
 <title>2026년 연봉 실수령액 계산기</title>
 <meta name="description" content="연봉만 입력하면 2026년 4대보험 요율과 근로소득세를 반영해 월 실수령액을 바로 계산합니다.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700&family=Pretendard:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>
   :root{
     --paper: #ECE8DC;
@@ -38,7 +36,7 @@
     background: var(--paper);
     background-image:
       repeating-linear-gradient(0deg, rgba(0,0,0,0.015) 0px, rgba(0,0,0,0.015) 1px, transparent 1px, transparent 3px);
-    font-family: 'Pretendard', -apple-system, sans-serif;
+    font-family:var(--font-body);
     color: var(--ink);
     display:flex;
     justify-content:center;
@@ -50,7 +48,7 @@
   }
 
   h1{
-    font-family: 'Noto Serif KR', serif;
+    font-family:var(--font-display);font-synthesis:none;
     font-weight: 700;
     font-size: 30px;
     line-height: 1.35;
@@ -73,14 +71,14 @@
 
   .field label{
     display:block;
-    font-size: 13.5px;
+    font-size: 15px;
     color: var(--ink-soft);
     margin-bottom: 8px;
   }
 
   .field-hint{
     display:block;
-    font-size: 12px;
+    font-size: 14px;
     color: var(--muted);
     margin-top: 6px;
   }
@@ -96,7 +94,7 @@
     flex:1;
     border: none;
     background: transparent;
-    font-family: 'IBM Plex Mono', monospace;
+    font-family:var(--font-body);font-variant-numeric:tabular-nums;
     font-size: 20px;
     font-weight: 600;
     color: var(--ink);
@@ -112,7 +110,7 @@
   }
 
   .input-row .unit{
-    font-size: 14px;
+    font-size: 16px;
     color: var(--muted);
     margin-left: 8px;
     white-space: nowrap;
@@ -134,7 +132,7 @@
     background: var(--paper-light);
     color: var(--ink);
     font-size: 17px;
-    font-family: 'IBM Plex Mono', monospace;
+    font-family:var(--font-body);font-variant-numeric:tabular-nums;
     cursor: pointer;
     line-height:1;
     flex-shrink:0;
@@ -149,9 +147,9 @@
     color: var(--paper-light);
     border: none;
     border-radius: 14px;
-    font-family: 'Pretendard', sans-serif;
+    font-family:var(--font-body);
     font-weight: 600;
-    font-size: 15.5px;
+    font-size: 16px;
     letter-spacing: 0.01em;
     cursor: pointer;
     box-shadow: 0 4px 0 rgba(0,0,0,0.28);
@@ -186,20 +184,20 @@
   .comparison.hidden{ display:none; }
   .comparison{ margin-top:28px; padding-top:20px; border-top:1px solid var(--line); }
   .comparison h2{ margin:0 0 10px; font-size:18px; }
-  .comparison p{ font-size:13px; line-height:1.65; color:var(--ink-soft); }
+  .comparison p{ font-size:15px; line-height:1.65; color:var(--ink-soft); }
   .comparison .breakdown-row{ gap:12px; }
   .comparison .amount{ text-align:right; white-space:nowrap; }
   .comparison-result{ margin-top:20px; }
   .comparison-result:empty{ margin:0; }
 
   .result-label{
-    font-size: 13.5px;
+    font-size: 15px;
     color: var(--ink-soft);
     margin-bottom: 4px;
   }
 
   .result-amount{
-    font-family: 'IBM Plex Mono', monospace;
+    font-family:var(--font-body);font-variant-numeric:tabular-nums;
     font-weight: 600;
     font-size: 42px;
     color: var(--stamp);
@@ -213,7 +211,7 @@
   }
 
   .result-yearly{
-    font-size: 13.5px;
+    font-size: 15px;
     color: var(--muted);
     margin-bottom: 28px;
   }
@@ -227,13 +225,13 @@
     display:flex;
     justify-content:space-between;
     align-items:baseline;
-    font-size: 14px;
+    font-size: 16px;
     padding: 7px 0;
     color: var(--ink-soft);
   }
 
   .breakdown-row .amount{
-    font-family: 'IBM Plex Mono', monospace;
+    font-family:var(--font-body);font-variant-numeric:tabular-nums;
     color: var(--ink);
     font-weight: 500;
   }
@@ -248,7 +246,7 @@
   .breakdown-row.total .amount{ font-weight: 700; }
 
   .disclaimer{
-    font-size: 11.5px;
+    font-size: 13px;
     color: var(--muted);
     line-height: 1.6;
     margin-top: 24px;
@@ -256,13 +254,13 @@
     border-top: 1px dotted var(--line);
   }
 
-  details.hint-more{ margin-top:8px; font-size:12px; color:var(--muted); line-height:1.6; }
+  details.hint-more{ margin-top:8px; font-size:14px; color:var(--muted); line-height:1.6; }
   details.hint-more summary{ cursor:pointer; color:var(--ink-soft); font-weight:600; }
   details.hint-more summary:focus-visible{ outline:2px solid var(--stamp); outline-offset:2px; }
   details.hint-more p{ margin:8px 0 0; }
-  .basis-line{ font-size:13px; line-height:1.6; color:var(--ink-soft); margin:0 0 20px; }
+  .basis-line{ font-size:15px; line-height:1.6; color:var(--ink-soft); margin:0 0 20px; }
   .basis-line strong{ color:var(--ink); }
-  details.basis{ margin:0 0 16px; font-size:12.5px; color:var(--muted); line-height:1.65; }
+  details.basis{ margin:0 0 16px; font-size:14px; color:var(--muted); line-height:1.65; }
   details.basis summary{ cursor:pointer; color:var(--ink-soft); font-weight:600; }
   details.basis summary:focus-visible{ outline:2px solid var(--stamp); outline-offset:2px; }
   details.basis ul.assume{ margin:10px 0 0; padding-left:18px; }
@@ -277,34 +275,34 @@
   }
 
   .info-block{ margin-top:40px; }
-  .info-block h2{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:18px; margin:0 0 12px; }
-  .info-block p{ font-size:13.5px; line-height:1.7; color:var(--ink-soft); margin:0 0 14px; }
+  .info-block h2{ font-family:var(--font-display);font-synthesis:none; font-weight:700; font-size:18px; margin:0 0 12px; }
+  .info-block p{ font-size:15px; line-height:1.7; color:var(--ink-soft); margin:0 0 14px; }
   .faq-item{ margin-bottom:16px; }
-  .faq-item .q{ font-size:14px; font-weight:600; margin-bottom:5px; }
-  .faq-item .a{ font-size:13.5px; line-height:1.65; color:var(--ink-soft); }
+  .faq-item .q{ font-size:16px; font-weight:600; margin-bottom:5px; }
+  .faq-item .a{ font-size:15px; line-height:1.65; color:var(--ink-soft); }
   .sources{ margin-top:24px; padding-top:18px; border-top:1px solid var(--line); }
-  .sources-title{ font-size:13px; font-weight:600; color:var(--ink-soft); margin-bottom:8px; }
+  .sources-title{ font-size:15px; font-weight:600; color:var(--ink-soft); margin-bottom:8px; }
   .sources ul{ margin:0; padding-left:18px; }
-  .sources li{ font-size:12.5px; line-height:1.8; color:var(--muted); }
+  .sources li{ font-size:14px; line-height:1.8; color:var(--muted); }
   .sources a{ color:var(--ink-soft); }
   .sources a:hover{ color:var(--ink); }
 
   .related{ margin-top:20px; margin-bottom:32px; }
-  .related-title{ font-size:12.5px; color:var(--muted); margin-bottom:10px; }
+  .related-title{ font-size:14px; color:var(--muted); margin-bottom:10px; }
   .related-links{ display:flex; flex-wrap:wrap; gap:8px; }
-  .related-links a{ padding:8px 14px; border:1.5px solid var(--line); border-radius:999px; font-size:13px; color:var(--ink); text-decoration:none; }
+  .related-links a{ padding:8px 14px; border:1.5px solid var(--line); border-radius:999px; font-size:15px; color:var(--ink); text-decoration:none; }
   .related-links a:hover{ border-color:var(--ink); }
 
   .site-nav{ display:flex; align-items:center; justify-content:space-between; width:100%; margin:0 0 20px; padding:0 0 8px; border-bottom:1px solid var(--line, #D9D2BF); }
-  .site-nav-brand{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:15px; color:var(--ink); text-decoration:none; }
+  .site-nav-brand{ font-family:var(--font-display);font-synthesis:none; font-weight:700; font-size:16px; color:var(--ink); text-decoration:none; }
   .site-nav-brand span{ color:var(--stamp, #B23A2E); }
   .site-nav-links{ display:flex; gap:2px; }
-  .site-nav-links a{ font-size:13.5px; color:var(--muted); text-decoration:none; padding:6px 10px; border-radius:6px; }
+  .site-nav-links a{ font-size:15px; color:var(--muted); text-decoration:none; padding:6px 10px; border-radius:6px; }
   .site-nav-links a:hover{ color:var(--ink); background:var(--paper-light, rgba(0,0,0,0.045)); }
   .site-nav-links a[aria-current="page"]{ color:var(--ink); font-weight:600; }
   .site-nav-brand:focus-visible, .site-nav-links a:focus-visible{ outline:2px solid var(--stamp, #B23A2E); outline-offset:2px; border-radius:4px; }
   .ad-banner{ width:300px; max-width:100%; margin:32px auto; text-align:center; }
-  .ad-banner .ad-label{ margin:0 0 8px; font-size:11px; color:var(--muted, #6E6656); line-height:1.5; }
+  .ad-banner .ad-label{ margin:0 0 8px; font-size:13px; color:var(--muted, #6E6656); line-height:1.5; }
   .ad-slot{ width:300px; min-height:250px; }
   .ad-banner-strip{ width:100%; margin:32px auto; }
   .ad-banner-strip[hidden]{ display:none; }
@@ -316,15 +314,16 @@
   .input-row:focus-within{ outline:2px solid var(--stamp); outline-offset:4px; }
   button:focus-visible, summary:focus-visible, a:focus-visible{ outline:2px solid var(--stamp); outline-offset:3px; }
   details.basis{ margin:24px 0; padding:12px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
-  details.basis > summary, .check-status > summary, .comparison > summary{ cursor:pointer; padding:10px 0; font-size:13px; color:var(--ink); font-weight:600; }
+  details.basis > summary, .check-status > summary, .comparison > summary{ cursor:pointer; padding:10px 0; font-size:15px; color:var(--ink); font-weight:600; }
   .breakdown-row{ gap:12px; flex-wrap:wrap; }
   .sources a{ overflow-wrap:anywhere; }
   @media (max-width:480px){ body{ padding:16px 16px 40px; } .card{ padding:20px; } .perforation{ margin:0 -20px; } .site-nav{ margin-bottom:18px; } }
-  .input-error{ margin:12px 0 0; color:var(--stamp); font-size:13px; line-height:1.6; }
+  .input-error{ margin:12px 0 0; color:var(--stamp); font-size:15px; line-height:1.6; }
   .input-error:empty{ display:none; }
 </style>
 <link rel="stylesheet" href="/tools/tool-controls.css?v=20261025-flow">
 <script src="/tools/calculator-inputs.js?v=20261025" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/tools/site-ui.css?v=20261025-ui">
 </head>
 <body>
 
@@ -470,7 +469,7 @@
 
 </main>
 
-  <footer style="max-width:620px; margin:40px auto 0; padding:20px 0 0; text-align:center; font-size:12.5px; color:var(--muted, #6E6656); border-top:1px solid var(--line, #D9D2BF);">
+  <footer>
     <a href="/" style="color:inherit; margin:0 8px;">홈</a>·<a href="/about" style="color:inherit; margin:0 8px;">소개</a>·<a href="/privacy" style="color:inherit; margin:0 8px;">개인정보처리방침</a>·<a href="mailto:contact@harukok.com?subject=%EC%97%B0%EB%B4%89%20%EC%8B%A4%EC%88%98%EB%A0%B9%EC%95%A1%20%EA%B3%84%EC%82%B0%EA%B8%B0" style="color:inherit; margin:0 8px;">의견 보내기</a>
   </footer>
 </div>
@@ -624,7 +623,7 @@
     $('netMonthly').innerHTML = '-';
     $('netYearly').textContent = '';
     $('breakdown').innerHTML = `
-      <div class="warning" style="background:#FBEFE9; border:1px solid #E3B79E; border-radius:10px; padding:14px 16px; font-size:13.5px; color:#8A3E1F; line-height:1.6;">
+      <div class="warning" style="background:#FBEFE9; border:1px solid #E3B79E; border-radius:10px; padding:14px 16px; font-size:15px; color:#8A3E1F; line-height:1.6;">
         입력한 부양가족 수(${dependents}명, 본인 포함)보다 자녀세액공제 대상 자녀 수(${children}명)가 많습니다. 자녀는 부양가족에 포함되는 인원이므로 자녀 수는 최대 '부양가족 수 − 1(본인)'명까지만 입력할 수 있습니다. 부양가족 수를 자녀 수보다 최소 1명 더 많게(본인 몫) 입력해주세요.
       </div>
     `;

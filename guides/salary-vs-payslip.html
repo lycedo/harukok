@@ -16,8 +16,6 @@
 <meta property="og:image:height" content="630">
 <title>연봉 계산기 결과와 실제 급여명세서가 다른 이유</title>
 <meta name="description" content="같은 연봉을 넣어도 계산기 결과와 실제 급여명세서 금액이 다른 5가지 이유를 실제 계산 예시로 설명합니다.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700&family=Pretendard:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>
   :root{
     --paper: #ECE8DC;
@@ -34,88 +32,88 @@
     padding: 40px 20px 70px;
     background: var(--paper);
     background-image: repeating-linear-gradient(0deg, rgba(0,0,0,0.015) 0px, rgba(0,0,0,0.015) 1px, transparent 1px, transparent 3px);
-    font-family: 'Pretendard', -apple-system, sans-serif;
+    font-family:var(--font-body);
     color: var(--ink);
     display:flex;
     justify-content:center;
   }
   .stub{ width:100%; max-width: 620px; }
-  .kicker{ font-size:13px; color:var(--muted); margin-bottom:6px; }
-  h1{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:28px; line-height:1.4; margin:0 0 10px; }
-  .lede{ font-size:14.5px; color:var(--ink-soft); line-height:1.6; margin:0 0 32px; }
-  .back-home{ display:inline-block; font-size:12.5px; color:var(--muted); text-decoration:none; margin-bottom:14px; }
+  .kicker{ font-size:15px; color:var(--muted); margin-bottom:6px; }
+  h1{ font-family:var(--font-display);font-synthesis:none; font-weight:700; font-size:28px; line-height:1.4; margin:0 0 10px; }
+  .lede{ font-size:16px; color:var(--ink-soft); line-height:1.6; margin:0 0 32px; }
+  .back-home{ display:inline-block; font-size:14px; color:var(--muted); text-decoration:none; margin-bottom:14px; }
   .back-home:hover{ color:var(--ink); }
-  .breadcrumb{ font-size:12px; color:var(--muted); margin-bottom:14px; }
+  .breadcrumb{ font-size:14px; color:var(--muted); margin-bottom:14px; }
   .breadcrumb a{ color:var(--muted); text-decoration:none; }
   .breadcrumb a:hover{ color:var(--ink); text-decoration:underline; }
   .breadcrumb [aria-current="page"]{ color:var(--ink-soft); }
-  .cta-btn{ display:inline-block; margin-top:8px; padding:13px 22px; background:var(--ink); color:var(--paper-light); border-radius:10px; font-size:14.5px; font-weight:600; text-decoration:none; }
+  .cta-btn{ display:inline-block; margin-top:8px; padding:13px 22px; background:var(--ink); color:var(--paper-light); border-radius:10px; font-size:16px; font-weight:600; text-decoration:none; }
   .cta-btn:hover{ background:var(--ink-soft); }
 
   .related{ margin-bottom:32px; }
-  .related-title{ font-size:12.5px; color:var(--muted); margin-bottom:10px; }
+  .related-title{ font-size:14px; color:var(--muted); margin-bottom:10px; }
   .related-links{ display:flex; flex-wrap:wrap; gap:8px; }
-  .related-links a{ padding:8px 14px; border:1.5px solid var(--line); border-radius:999px; font-size:13px; color:var(--ink); text-decoration:none; }
+  .related-links a{ padding:8px 14px; border:1.5px solid var(--line); border-radius:999px; font-size:15px; color:var(--ink); text-decoration:none; }
   .related-links a:hover{ border-color:var(--ink); }
 
-  article h2{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:18px; margin:32px 0 12px; }
-  article p{ font-size:14px; line-height:1.75; color:var(--ink-soft); margin:0 0 14px; }
+  article h2{ font-family:var(--font-display);font-synthesis:none; font-weight:700; font-size:18px; margin:32px 0 12px; }
+  article p{ font-size:16px; line-height:1.75; color:var(--ink-soft); margin:0 0 14px; }
   article p strong{ color:var(--ink); }
 
-  table{ width:100%; border-collapse:collapse; margin:16px 0 20px; font-size:13px; background:var(--paper-light); border:1px solid var(--line); border-radius:8px; overflow:hidden; }
+  table{ width:100%; border-collapse:collapse; margin:16px 0 20px; font-size:15px; background:var(--paper-light); border:1px solid var(--line); border-radius:8px; overflow:hidden; }
   th, td{ padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
   th{ background:#E4DFCD; color:var(--ink); font-weight:600; }
   td{ color:var(--ink-soft); }
   tr:last-child td{ border-bottom:none; }
 
   .example-box{ background:var(--paper-light); border:1px solid var(--line); border-radius:10px; padding:18px 20px; margin:16px 0 20px; }
-  .example-box .ex-title{ font-size:13px; font-weight:600; color:var(--ink); margin-bottom:8px; }
-  .example-box .ex-row{ display:flex; justify-content:space-between; font-size:13.5px; padding:4px 0; color:var(--ink-soft); }
-  .example-box .ex-row .amount{ font-family:'IBM Plex Mono', monospace; color:var(--ink); }
+  .example-box .ex-title{ font-size:15px; font-weight:600; color:var(--ink); margin-bottom:8px; }
+  .example-box .ex-row{ display:flex; justify-content:space-between; font-size:15px; padding:4px 0; color:var(--ink-soft); }
+  .example-box .ex-row .amount{ font-family:var(--font-body);font-variant-numeric:tabular-nums; color:var(--ink); }
   .example-box .ex-row.total{ border-top:1px solid var(--line); margin-top:6px; padding-top:8px; font-weight:600; color:var(--ink); }
 
   .sources{ margin-top:32px; padding-top:18px; border-top:1px solid var(--line); }
-  .sources-title{ font-size:13px; font-weight:600; color:var(--ink-soft); margin-bottom:8px; }
+  .sources-title{ font-size:15px; font-weight:600; color:var(--ink-soft); margin-bottom:8px; }
   .sources ul{ margin:0; padding-left:18px; }
-  .sources li{ font-size:12.5px; line-height:1.8; color:var(--muted); }
+  .sources li{ font-size:14px; line-height:1.8; color:var(--muted); }
   .sources a{ color:var(--ink-soft); }
   .sources a:hover{ color:var(--ink); }
 
-  .disclaimer{ font-size:11.5px; color:var(--muted); line-height:1.6; margin-top:24px; padding-top:16px; border-top:1px dotted var(--line); }
+  .disclaimer{ font-size:13px; color:var(--muted); line-height:1.6; margin-top:24px; padding-top:16px; border-top:1px dotted var(--line); }
 
   @media (max-width:480px){ h1{ font-size:23px; } }
 
   .site-nav{ display:flex; align-items:center; justify-content:space-between; width:100%; margin:0 0 22px; padding:0 0 14px; border-bottom:1px solid var(--line, #D9D2BF); }
-  .site-nav-brand{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:15px; color:var(--ink); text-decoration:none; }
+  .site-nav-brand{ font-family:var(--font-display);font-synthesis:none; font-weight:700; font-size:16px; color:var(--ink); text-decoration:none; }
   .site-nav-brand span{ color:var(--stamp, #B23A2E); }
   .site-nav-links{ display:flex; gap:2px; }
-  .site-nav-links a{ font-size:13.5px; color:var(--muted); text-decoration:none; padding:6px 10px; border-radius:6px; }
+  .site-nav-links a{ font-size:15px; color:var(--muted); text-decoration:none; padding:6px 10px; border-radius:6px; }
   .site-nav-links a:hover{ color:var(--ink); background:var(--paper-light, rgba(0,0,0,0.045)); }
   .site-nav-links a[aria-current="page"]{ color:var(--ink); font-weight:600; }
   .site-nav-brand:focus-visible, .site-nav-links a:focus-visible{ outline:2px solid var(--stamp, #B23A2E); outline-offset:2px; border-radius:4px; }
 
-  article h3{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:15.5px; margin:30px 0 8px; scroll-margin-top:12px; }
+  article h3{ font-family:var(--font-display);font-synthesis:none; font-weight:700; font-size:16px; margin:30px 0 8px; scroll-margin-top:12px; }
   article h2{ scroll-margin-top:12px; }
-  article ol.flow{ margin:0 0 8px; padding-left:20px; font-size:14px; line-height:1.8; color:var(--ink-soft); }
+  article ol.flow{ margin:0 0 8px; padding-left:20px; font-size:16px; line-height:1.8; color:var(--ink-soft); }
   article ol.flow a{ color:var(--ink); }
-  article ol.flow li span{ color:var(--muted); font-size:13px; }
-  .lead-note{ font-size:13px; color:var(--muted); line-height:1.65; margin:0 0 14px; }
+  article ol.flow li span{ color:var(--muted); font-size:15px; }
+  .lead-note{ font-size:15px; color:var(--muted); line-height:1.65; margin:0 0 14px; }
 
-  article ul.points{ margin:0 0 14px; padding-left:20px; font-size:14px; line-height:1.75; color:var(--ink-soft); }
+  article ul.points{ margin:0 0 14px; padding-left:20px; font-size:16px; line-height:1.75; color:var(--ink-soft); }
   article ul.points li{ margin-bottom:5px; }
   article ul.points li strong:first-child{ color:var(--ink); }
 
   .faq-item{ margin:0 0 16px; scroll-margin-top:12px; }
-  .faq-item .q{ font-size:14px; font-weight:700; color:var(--ink); margin-bottom:5px; }
-  .faq-item .a{ font-size:13.5px; line-height:1.7; color:var(--ink-soft); }
+  .faq-item .q{ font-size:16px; font-weight:700; color:var(--ink); margin-bottom:5px; }
+  .faq-item .a{ font-size:15px; line-height:1.7; color:var(--ink-soft); }
   dl.check{ margin:10px 0 14px; border-top:1px solid var(--line); }
   dl.check .row{ display:grid; grid-template-columns:6.2em 1fr; gap:12px; padding:9px 0; border-bottom:1px solid var(--line); }
-  dl.check dt{ font-size:12.5px; font-weight:700; color:var(--ink); line-height:1.65; }
-  dl.check dd{ margin:0; font-size:13.5px; line-height:1.65; color:var(--ink-soft); }
+  dl.check dt{ font-size:14px; font-weight:700; color:var(--ink); line-height:1.65; }
+  dl.check dd{ margin:0; font-size:15px; line-height:1.65; color:var(--ink-soft); }
   dl.check .row.next dt{ color:var(--stamp); }
   dl.check .row.next dd{ color:var(--ink); }
 
-  table.num td.n{ text-align:right; font-family:'IBM Plex Mono', monospace; white-space:nowrap; }
+  table.num td.n{ text-align:right; font-family:var(--font-body);font-variant-numeric:tabular-nums; white-space:nowrap; }
   table.num th.n{ text-align:right; }
   table tr.total td{ font-weight:700; color:var(--ink); background:#F0EAD6; }
 
@@ -127,14 +125,14 @@
     table.stack tr{ background:var(--paper-light); border:1px solid var(--line); border-radius:8px; margin:0 0 10px; padding:4px 0; }
     table.stack td{ border:none; padding:3px 12px; display:flex; justify-content:space-between; gap:14px; text-align:left; }
     table.stack td.n{ text-align:right; }
-    table.stack td::before{ content:attr(data-label); color:var(--muted); font-size:12px; font-weight:400; text-align:left; flex:0 0 5.6em; }
+    table.stack td::before{ content:attr(data-label); color:var(--muted); font-size:14px; font-weight:400; text-align:left; flex:0 0 5.6em; }
     table.stack td:first-child{ display:block; text-align:left; font-weight:700; color:var(--ink); padding-top:8px; }
     table.stack td:first-child::before{ content:none; }
     table.stack td.n{ white-space:normal; }
     table.stack tr.total{ background:#F0EAD6; }
   }
   .ad-banner{ width:300px; margin:32px calc((100% - 300px) / 2); text-align:center; }
-  .ad-banner .ad-label{ margin:0 0 8px; font-size:11px; color:var(--muted, #6E6656); line-height:1.5; }
+  .ad-banner .ad-label{ margin:0 0 8px; font-size:13px; color:var(--muted, #6E6656); line-height:1.5; }
   .ad-slot{ width:300px; min-height:250px; }
 </style>
 <script type="application/ld+json">
@@ -189,6 +187,7 @@
   ]
 }
 </script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/tools/site-ui.css?v=20261025-ui">
 </head>
 <body>
 
@@ -281,7 +280,7 @@
       </tbody>
     </table>
     <p>이렇게 항목별로 맞춰 보면 차이가 세금 때문인지, 보험 때문인지, 계산기에 없는 사내 공제 때문인지 추적할 수 있습니다.<br>
-    <span style="color:var(--muted); font-size:12.5px;">※ 계산기 값은 하루콕 연봉 계산기에 위 조건을 입력해 얻은 결과이고, 가상 명세서의 소득세와 노동조합비는 가상의 값입니다.</span></p>
+    <span style="color:var(--muted); font-size:14px;">※ 계산기 값은 하루콕 연봉 계산기에 위 조건을 입력해 얻은 결과이고, 가상 명세서의 소득세와 노동조합비는 가상의 값입니다.</span></p>
 
   <aside class="ad-banner" aria-label="광고">
     <p class="ad-label">광고</p>
@@ -355,7 +354,7 @@
     <h3>추가 사례 (가상의 사례)</h3>
     <p><strong>부양가족 4명</strong> — 같은 연봉 3,500만원이라도 부양가족 4명(본인·배우자·10세 자녀·6세 자녀)이면 인적공제(1인당 150만원, 4명 모두 적용)가 늘어 과세표준이 줄어듭니다. 자녀세액공제는 2026년 과세기간 한시 기준으로 만 9세 이상만 대상이라(2017년생 자녀·손자녀는 이 한시 기준이 적용되지 않는 예외가 있음 — <a href="#faq-child-age">FAQ</a> 참고) 10세 자녀 1명만 해당하고(연 25만원), 6세 자녀는 대상이 아닙니다. 4대보험료는 동일(월 약 264,000원)하지만 인적공제와 자녀세액공제로 소득세·지방소득세가 월 약 10,000원까지 낮아져, 실수령액은 위 비교 사례(월 약 259만1천원)보다 약 5만1천원 많은 월 264만3천원이 됩니다.</p>
     <p><strong>세율 구간</strong> — 소득세는 연봉 전체가 아니라 각종 공제를 뺀 '과세표준' 구간에 초과누진세율을 적용합니다. 예를 들어 부양가족 1명·비과세 20만원 기준으로는 연봉이 약 1억1,600만원대를 넘어야 과세표준이 8,800만원을 넘어 24% 구간에서 35% 구간으로 이동합니다. 같은 세율 구간이라도 부양가족 수·비과세액에 따라 실제로 세율이 바뀌는 연봉 지점은 사람마다 다릅니다(구간을 넘는 부분에만 높은 세율이 적용되는 초과누진 구조라, 구간이 바뀌어도 세금이 급격히 뛰지는 않습니다).<br>
-    <span style="color:var(--muted); font-size:12.5px;">※ 위 사례는 이해를 돕기 위한 가상의 사례이며, 실제 금액은 계산기에 직접 값을 입력해 확인하세요.</span></p>
+    <span style="color:var(--muted); font-size:14px;">※ 위 사례는 이해를 돕기 위한 가상의 사례이며, 실제 금액은 계산기에 직접 값을 입력해 확인하세요.</span></p>
 
     <h2 id="faq">자주 묻는 질문</h2>
     <div class="faq-item">
@@ -395,7 +394,7 @@
     </div>
   </article>
 
-  <footer style="max-width:620px; margin:40px auto 0; padding:20px 0 0; text-align:center; font-size:12.5px; color:var(--muted, #6E6656); border-top:1px solid var(--line, #D9D2BF);">
+  <footer>
     <a href="/" style="color:inherit; margin:0 8px;">홈</a>·<a href="/about" style="color:inherit; margin:0 8px;">소개</a>·<a href="/privacy" style="color:inherit; margin:0 8px;">개인정보처리방침</a>·<a href="mailto:contact@harukok.com" style="color:inherit; margin:0 8px;">문의</a>
   </footer>
 </div>

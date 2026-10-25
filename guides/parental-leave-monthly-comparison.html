@@ -16,8 +16,6 @@
 <meta property="og:image:height" content="630">
 <title>육아휴직 월별 예상 수령액 비교 — 혼자 쓸 때 vs 부모 함께 쓸 때</title>
 <meta name="description" content="통상임금별로 혼자 육아휴직할 때와 부모가 함께(6+6 특례) 쓸 때 월별 예상 수령액이 어떻게 달라지는지 비교합니다.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700&family=Pretendard:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>
   :root{
     --paper: #ECE8DC;
@@ -34,71 +32,71 @@
     padding: 40px 20px 70px;
     background: var(--paper);
     background-image: repeating-linear-gradient(0deg, rgba(0,0,0,0.015) 0px, rgba(0,0,0,0.015) 1px, transparent 1px, transparent 3px);
-    font-family: 'Pretendard', -apple-system, sans-serif;
+    font-family:var(--font-body);
     color: var(--ink);
     display:flex;
     justify-content:center;
   }
   .stub{ width:100%; max-width: 640px; }
-  .kicker{ font-size:13px; color:var(--muted); margin-bottom:6px; }
-  h1{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:27px; line-height:1.4; margin:0 0 10px; }
-  .lede{ font-size:14.5px; color:var(--ink-soft); line-height:1.6; margin:0 0 32px; }
-  .back-home{ display:inline-block; font-size:12.5px; color:var(--muted); text-decoration:none; margin-bottom:14px; }
+  .kicker{ font-size:15px; color:var(--muted); margin-bottom:6px; }
+  h1{ font-family:var(--font-display);font-synthesis:none; font-weight:700; font-size:27px; line-height:1.4; margin:0 0 10px; }
+  .lede{ font-size:16px; color:var(--ink-soft); line-height:1.6; margin:0 0 32px; }
+  .back-home{ display:inline-block; font-size:14px; color:var(--muted); text-decoration:none; margin-bottom:14px; }
   .back-home:hover{ color:var(--ink); }
-  .breadcrumb{ font-size:12px; color:var(--muted); margin-bottom:14px; }
+  .breadcrumb{ font-size:14px; color:var(--muted); margin-bottom:14px; }
   .breadcrumb a{ color:var(--muted); text-decoration:none; }
   .breadcrumb a:hover{ color:var(--ink); text-decoration:underline; }
   .breadcrumb [aria-current="page"]{ color:var(--ink-soft); }
-  .cta-btn{ display:inline-block; margin-top:8px; padding:13px 22px; background:var(--ink); color:var(--paper-light); border-radius:10px; font-size:14.5px; font-weight:600; text-decoration:none; }
+  .cta-btn{ display:inline-block; margin-top:8px; padding:13px 22px; background:var(--ink); color:var(--paper-light); border-radius:10px; font-size:16px; font-weight:600; text-decoration:none; }
   .cta-btn:hover{ background:var(--ink-soft); }
 
   .related{ margin-bottom:32px; }
-  .related-title{ font-size:12.5px; color:var(--muted); margin-bottom:10px; }
+  .related-title{ font-size:14px; color:var(--muted); margin-bottom:10px; }
   .related-links{ display:flex; flex-wrap:wrap; gap:8px; }
-  .related-links a{ padding:8px 14px; border:1.5px solid var(--line); border-radius:999px; font-size:13px; color:var(--ink); text-decoration:none; }
+  .related-links a{ padding:8px 14px; border:1.5px solid var(--line); border-radius:999px; font-size:15px; color:var(--ink); text-decoration:none; }
   .related-links a:hover{ border-color:var(--ink); }
 
-  article h2{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:18px; margin:32px 0 12px; }
-  article h3{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:15px; margin:22px 0 10px; }
-  article p{ font-size:14px; line-height:1.75; color:var(--ink-soft); margin:0 0 14px; }
+  article h2{ font-family:var(--font-display);font-synthesis:none; font-weight:700; font-size:18px; margin:32px 0 12px; }
+  article h3{ font-family:var(--font-display);font-synthesis:none; font-weight:700; font-size:16px; margin:22px 0 10px; }
+  article p{ font-size:16px; line-height:1.75; color:var(--ink-soft); margin:0 0 14px; }
   article p strong{ color:var(--ink); }
 
-  table{ width:100%; border-collapse:collapse; margin:14px 0 20px; font-size:12.5px; background:var(--paper-light); border:1px solid var(--line); border-radius:8px; overflow:hidden; }
+  table{ width:100%; border-collapse:collapse; margin:14px 0 20px; font-size:14px; background:var(--paper-light); border:1px solid var(--line); border-radius:8px; overflow:hidden; }
   th, td{ padding:9px 10px; text-align:center; border-bottom:1px solid var(--line); border-right:1px solid var(--line); }
   th:last-child, td:last-child{ border-right:none; }
   th{ background:#E4DFCD; color:var(--ink); font-weight:600; }
-  td{ color:var(--ink-soft); font-family:'IBM Plex Mono', monospace; }
-  td:first-child{ font-family:'Pretendard', sans-serif; text-align:left; color:var(--ink); font-weight:600; }
+  td{ color:var(--ink-soft); font-family:var(--font-body);font-variant-numeric:tabular-nums; }
+  td:first-child{ font-family:var(--font-body); text-align:left; color:var(--ink); font-weight:600; }
   tr:last-child td{ border-bottom:none; }
   tr.total td{ font-weight:700; color:var(--ink); background:#F0EAD6; }
 
-  .warn-box{ background:#FBEFE9; border:1px solid #E3B79E; border-radius:10px; padding:16px 18px; margin:16px 0 20px; font-size:13.5px; color:#8A3E1F; line-height:1.65; }
+  .warn-box{ background:#FBEFE9; border:1px solid #E3B79E; border-radius:10px; padding:16px 18px; margin:16px 0 20px; font-size:15px; color:#8A3E1F; line-height:1.65; }
 
   .sources{ margin-top:32px; padding-top:18px; border-top:1px solid var(--line); }
-  .sources-title{ font-size:13px; font-weight:600; color:var(--ink-soft); margin-bottom:8px; }
-  .sources ul{ margin:0; padding-left:18px; font-size:12.5px; line-height:1.8; color:var(--muted); }
+  .sources-title{ font-size:15px; font-weight:600; color:var(--ink-soft); margin-bottom:8px; }
+  .sources ul{ margin:0; padding-left:18px; font-size:14px; line-height:1.8; color:var(--muted); }
   .sources a{ color:var(--ink-soft); }
   .sources a:hover{ color:var(--ink); }
 
-  .disclaimer{ font-size:11.5px; color:var(--muted); line-height:1.6; margin-top:24px; padding-top:16px; border-top:1px dotted var(--line); }
+  .disclaimer{ font-size:13px; color:var(--muted); line-height:1.6; margin-top:24px; padding-top:16px; border-top:1px dotted var(--line); }
 
-  @media (max-width:480px){ h1{ font-size:22px; } table{ font-size:11px; } th, td{ padding:6px; } }
+  @media (max-width:480px){ h1{ font-size:22px; } table{ font-size:13px; } th, td{ padding:6px; } }
 
   .site-nav{ display:flex; align-items:center; justify-content:space-between; width:100%; margin:0 0 22px; padding:0 0 14px; border-bottom:1px solid var(--line, #D9D2BF); }
-  .site-nav-brand{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:15px; color:var(--ink); text-decoration:none; }
+  .site-nav-brand{ font-family:var(--font-display);font-synthesis:none; font-weight:700; font-size:16px; color:var(--ink); text-decoration:none; }
   .site-nav-brand span{ color:var(--stamp, #B23A2E); }
   .site-nav-links{ display:flex; gap:2px; }
-  .site-nav-links a{ font-size:13.5px; color:var(--muted); text-decoration:none; padding:6px 10px; border-radius:6px; }
+  .site-nav-links a{ font-size:15px; color:var(--muted); text-decoration:none; padding:6px 10px; border-radius:6px; }
   .site-nav-links a:hover{ color:var(--ink); background:var(--paper-light, rgba(0,0,0,0.045)); }
   .site-nav-links a[aria-current="page"]{ color:var(--ink); font-weight:600; }
   .site-nav-brand:focus-visible, .site-nav-links a:focus-visible{ outline:2px solid var(--stamp, #B23A2E); outline-offset:2px; border-radius:4px; }
   .faq-item{ margin:0 0 16px; scroll-margin-top:12px; }
-  .faq-item .q{ font-size:14px; font-weight:700; color:var(--ink); margin-bottom:5px; }
-  .faq-item .a{ font-size:13.5px; line-height:1.7; color:var(--ink-soft); }
-  article h3{ font-family:'Noto Serif KR', serif; font-weight:700; font-size:15.5px; margin:26px 0 8px; scroll-margin-top:12px; }
+  .faq-item .q{ font-size:16px; font-weight:700; color:var(--ink); margin-bottom:5px; }
+  .faq-item .a{ font-size:15px; line-height:1.7; color:var(--ink-soft); }
+  article h3{ font-family:var(--font-display);font-synthesis:none; font-weight:700; font-size:16px; margin:26px 0 8px; scroll-margin-top:12px; }
   article h2{ scroll-margin-top:12px; }
   .ad-banner{ width:300px; margin:32px calc((100% - 300px) / 2); text-align:center; }
-  .ad-banner .ad-label{ margin:0 0 8px; font-size:11px; color:var(--muted, #6E6656); line-height:1.5; }
+  .ad-banner .ad-label{ margin:0 0 8px; font-size:13px; color:var(--muted, #6E6656); line-height:1.5; }
   .ad-slot{ width:300px; min-height:250px; }
 </style>
 <script type="application/ld+json">
@@ -145,6 +143,7 @@
   ]
 }
 </script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/tools/site-ui.css?v=20261025-ui">
 </head>
 <body>
 
@@ -184,7 +183,7 @@
 
     <h2 id="compare">비교 조건 — 표를 읽기 전에 꼭 확인하세요</h2>
     <p>아래 표는 2025년 1월 1일 시행되어 2026년 현재도 적용 중인 일반 육아휴직급여 구간(1~3개월 상한 250만원, 4~6개월 상한 200만원, 7개월 이후 통상임금 80%·상한 160만원)과, 생후 18개월 이내 자녀를 부모가 함께(동시 또는 순차) 육아휴직할 때 첫 6개월에 적용되는 '6+6 부모육아휴직제' 특례(1개월 250만원~6개월 450만원)를 기준으로 계산했습니다. 하한액 70만원은 모든 구간에 공통으로 적용됩니다.</p>
-    <ul style="font-size:14px; line-height:1.8; color:var(--ink-soft); margin:0 0 16px; padding-left:20px;">
+    <ul style="font-size:16px; line-height:1.8; color:var(--ink-soft); margin:0 0 16px; padding-left:20px;">
       <li><strong style="color:var(--ink);">'부모 함께(6+6)' 표는 부모 각자 6개월씩 사용하고 6+6 특례 자격을 모두 충족했다고 가정한 예시입니다.</strong> 6+6 특례 요건(생후 18개월 이내 자녀, 부모 모두 육아휴직)만 충족하지 못하면 '혼자(일반)' 구간이 적용되고, 기본 수급 요건(피보험단위기간 180일 이상 등)을 충족하지 못하면 일반이든 특례든 급여를 받을 수 없습니다.</li>
       <li>6+6 특례는 <strong style="color:var(--ink);">부모가 동시에 사용하든 순차로 사용하든</strong> 적용되며, 휴직 기간이 달력상 겹쳐야 하는 것은 아닙니다(고용24, 고용노동부 6+6 Q&A). 다만 급여는 <strong style="color:var(--ink);">부모가 각각 사용한 육아휴직 기간 중 '공통으로 사용한 개월'</strong>을 기준으로 지급합니다. 고용노동부 Q&A의 예시는 한 사람이 4개월, 다른 사람이 5개월을 썼다면 공통 사용 개월인 4개월 동안 특례를 적용합니다. "함께 쓰면 무조건 6개월 전부 특례"가 아니며, 공통 개월은 두 사람이 같은 달력 기간에 쉰 기간이 아니라 각자 쓴 개월 수의 공통분입니다.</li>
       <li>표의 모든 금액은 <strong style="color:var(--ink);">한 사람(근로자 1인) 기준 월 지급액</strong>입니다. 부모 두 사람의 총액이 아닙니다.</li>
@@ -224,7 +223,7 @@
       <tr><td>500만원</td><td>1,350만원</td><td>2,000만원</td><td>+650만원</td></tr>
     </table>
     <p>부모가 각자 6+6 특례로 6개월씩 사용하면 한 사람당 최대(통상임금이 매달 상한액 이상일 때) 2,000만원까지 받을 수 있어, 부부 합산으로는 최대 4,000만원까지 가능합니다. 다만 이는 두 사람이 각자 통상임금 450만원 이상을 받는 경우의 상한이며, 실제 금액은 개인 통상임금에 따라 달라집니다.<br>
-    <span style="color:var(--muted); font-size:12.5px;">※ 위 수치는 하루콕 육아휴직급여 계산기로 계산한 값이며, 이해를 돕기 위한 가상의 예시입니다.</span></p>
+    <span style="color:var(--muted); font-size:14px;">※ 위 수치는 하루콕 육아휴직급여 계산기로 계산한 값이며, 이해를 돕기 위한 가상의 예시입니다.</span></p>
 
   <aside class="ad-banner" aria-label="광고">
     <p class="ad-label">광고</p>
@@ -243,7 +242,7 @@
       <tr><td>B 월 산정액(만원)</td><td>250</td><td>250</td><td>300</td><td>—</td><td>—</td><td>—</td><td>800</td></tr>
     </table>
     <p>A가 혼자(일반)로만 6개월을 썼다면 합계는 1,350만원이므로, 이 사례에서 특례로 늘어난 금액은 A 쪽 50만원입니다. B가 혼자 3개월만 썼다면 3개월 모두 일반 구간(250만원 상한) 기준 750만원입니다. 통상임금이 상한보다 낮으면 그 달은 통상임금이 그대로 산정액이 되므로, 특례의 효과는 개인 통상임금에 따라 달라집니다.<br>
-    <span style="color:var(--muted); font-size:12.5px;">※ 개월차별 배정은 위 Q&A의 '부모의 첫 6개월 급여에 6+6 적용', '적용기간 이후에는 일반 육아휴직급여' 설명을 따른 계산 예시이며, 실제 적용 월과 금액은 고용24 또는 고용센터에서 확인하세요. 고용노동부 6+6 Q&A는 2024년 자료이며 개월 수 기준만 인용했습니다.</span></p>
+    <span style="color:var(--muted); font-size:14px;">※ 개월차별 배정은 위 Q&A의 '부모의 첫 6개월 급여에 6+6 적용', '적용기간 이후에는 일반 육아휴직급여' 설명을 따른 계산 예시이며, 실제 적용 월과 금액은 고용24 또는 고용센터에서 확인하세요. 고용노동부 6+6 Q&A는 2024년 자료이며 개월 수 기준만 인용했습니다.</span></p>
     <p><strong>동시/순차 사용과 지급 시점은 따로 봅니다.</strong> 동시에 쓰든 순차로 쓰든 특례의 개월 수 기준은 같습니다. 다만 순차로 쓰면 먼저 쓴 사람(A)은 우선 일반 급여를 받고, 두 번째 사람의 신청으로 6+6 적용 여부가 확인된 뒤 첫 번째 사람의 차액이 지급되는 구조로 고용노동부 Q&A(2024)가 설명했습니다. 현재 절차와 입금 시점은 달라질 수 있으니 신청 전 고용24에서 확인하세요. 이 글은 특정 월의 입금일을 확정하지 않습니다.</p>
 
     <div class="warn-box">
@@ -286,7 +285,7 @@
 
     <div class="sources">
       <div class="sources-title">참고 자료 및 출처 <span style="font-weight:400; color:var(--muted);">(검증일 2026-09-17, 요건·신청 방식·공통 사용 개월·하한액은 2026-10-03 재확인)</span></div>
-      <p style="font-size:12px; color:var(--muted); margin:0 0 8px; line-height:1.6;">법령 링크는 확인한 시행일(2026.9.18.) 버전으로 열립니다. 링크 없이 법제처에서 직접 찾으면 시행 예정 버전이 먼저 보일 수 있으니 조문 화면 상단의 시행일을 확인하세요.</p>
+      <p style="font-size:14px; color:var(--muted); margin:0 0 8px; line-height:1.6;">법령 링크는 확인한 시행일(2026.9.18.) 버전으로 열립니다. 링크 없이 법제처에서 직접 찾으면 시행 예정 버전이 먼저 보일 수 있으니 조문 화면 상단의 시행일을 확인하세요.</p>
       <ul>
         <li><a href="https://www.moel.go.kr/news/cardinfo/view.do?bbs_seq=20250100172" target="_blank" rel="noopener">고용노동부 — 2025년 1월 1일부터 달라지는 육아지원제도(급여 개편·사후지급금 폐지 시행일)</a></li>
         <li><a href="https://www.scourt.go.kr/portal/news/NewsViewAction.work?pageIndex=1&searchWord=&searchOption=&gubun=6&seqnum=2743" target="_blank" rel="noopener">대법원 보도자료 — 2020다247190 등 통상임금 사건(2024.12.19. 전원합의체, 재직조건·근무일수 조건과 통상임금성)</a> <span style="color:var(--muted);">(확인: 2026-10-03)</span></li>
@@ -305,7 +304,7 @@
     </div>
   </article>
 
-  <footer style="max-width:620px; margin:40px auto 0; padding:20px 0 0; text-align:center; font-size:12.5px; color:var(--muted, #6E6656); border-top:1px solid var(--line, #D9D2BF);">
+  <footer>
     <a href="/" style="color:inherit; margin:0 8px;">홈</a>·<a href="/about" style="color:inherit; margin:0 8px;">소개</a>·<a href="/privacy" style="color:inherit; margin:0 8px;">개인정보처리방침</a>·<a href="mailto:contact@harukok.com" style="color:inherit; margin:0 8px;">문의</a>
   </footer>
 </div>
