@@ -199,7 +199,7 @@ console.log('\n=== 9. 안내 작업표와 기존 입력의 호환 ===');
 {
   const example = run('2023-01-10', '2026-01-10', 900, 600, 120);
   check('가이드 A900/B600/C120 결과', example.amountText, '10,574,866원');
-  check('중복 포함 여부는 가정이며 자동 확인하지 않는다고 표시', example.checkText.includes('A에는 중복 포함하지 않았다고 가정') && example.checkText.includes('포함 여부 자체는 자동 판단하지 않습니다'), true);
+  check('중복 포함 여부는 가정이며 자동 확인하지 않는다고 표시', example.checkText.includes('급여 합계에 중복 포함하지 않았다고 가정') && example.checkText.includes('포함 여부 자체는 자동 판단하지 않습니다'), true);
   const defaults = run('2023-01-10', '2026-01-10', 900);
   check('B 미입력 시 HTML 기본값0', defaults.doc.getElementById('annualBonus').value, '0');
   check('C 미입력 시 HTML 기본값0', defaults.doc.getElementById('annualLeavePay').value, '0');

@@ -1,6 +1,18 @@
 const assert = require('node:assert/strict');
 const path = require('node:path');
+const fs = require('node:fs');
+const vm = require('node:vm');
 const { loadCalculator } = require('./dom-shim');
+
+function loadInputBehavior(doc, file) {
+  const html = fs.readFileSync(file, 'utf8');
+  const inputsHTML = html.slice(html.indexOf('id="calculator-inputs"'), html.indexOf('id="resultCard"'));
+  const inputs = [...inputsHTML.matchAll(/<input[^>]*id="([^"]+)"/g)].map(m => doc.getElementById(m[1]));
+  const choices = [...inputsHTML.matchAll(/<div class="seg[^"]*" id="([^"]+)"/g)].flatMap(m => doc.querySelectorAll('#' + m[1] + ' button'));
+  const buttons = [...inputsHTML.matchAll(/<button[^>]*id="([^"]+)"/g)].map(m => doc.getElementById(m[1])).concat(choices);
+  doc.getElementById('calculator-inputs').querySelectorAll = selector => selector === 'input' ? inputs : selector === '.seg button' ? choices : buttons;
+  vm.runInNewContext(fs.readFileSync(path.join(__dirname, '../tools/calculator-inputs.js'), 'utf8'), {document: doc});
+}
 
 // A missing amount must explain the error; correcting it must reveal the result.
 for (const [page, field, values] of [
@@ -8,7 +20,9 @@ for (const [page, field, values] of [
   ['hourly-wage', 'hourlyWage', { hourlyWage: 10320, dailyHours: 8, weeklyDays: 5 }],
   ['weekly-holiday-pay', 'hourlyWage', { hourlyWage: 10320, weeklyHours: 20 }]
 ]) {
-  const doc = loadCalculator(path.join(__dirname, '..', 'tools', page + '-calculator.html'));
+  const file = path.join(__dirname, '..', 'tools', page + '-calculator.html');
+  const doc = loadCalculator(file);
+  loadInputBehavior(doc, file);
   const get = id => doc.getElementById(id);
   get(field).value = '';
   get('calcBtn').click();
@@ -17,11 +31,13 @@ for (const [page, field, values] of [
   for (const [id, value] of Object.entries(values)) get(id).value = String(value);
   let resultReached = false;
   get('resultCard').scrollIntoView = () => { resultReached = true; };
-  if (page === 'salary') get(field).dispatchEvent({ type: 'keydown', key: 'Enter' });
-  else get('calcBtn').click();
+  get(field).dispatchEvent({ type: 'keydown', key: 'Enter', preventDefault() {} });
   assert.equal(get('inputError').textContent, '', page + ' clears the old error');
   assert.equal(get('resultCard').classList.contains('hidden'), false, page + ' shows the result');
   assert.ok(resultReached, page + ' brings the result into view');
+  get(field).value = String(Number(get(field).value) + 1);
+  get(field).dispatchEvent({type: 'input'});
+  assert.ok(get('resultCard').classList.contains('hidden'), page + ' hides the old amount after editing');
   if (page === 'salary') {
     get('nontax').value='0';get('nontax').dispatchEvent({type:'input'});
     assert.ok(get('salary-conditions').textContent.includes('월 비과세 0만원'));
@@ -31,4 +47,4 @@ for (const [page, field, values] of [
     assert.ok(get('inputError').textContent);
   }
 }
-console.log('PASS - missing-input recovery and visible results, including Enter on salary');
+console.log('PASS - missing-input recovery, Enter calculation and stale-result clearing');

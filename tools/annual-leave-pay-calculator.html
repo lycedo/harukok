@@ -129,7 +129,8 @@
   .input-error{ margin:12px 0 0; color:var(--stamp); font-size:13px; line-height:1.6; }
   .input-error:empty{ display:none; }
 </style>
-<link rel="stylesheet" href="/tools/tool-controls.css?v=20261024-simple">
+<link rel="stylesheet" href="/tools/tool-controls.css?v=20261025-flow">
+<script src="/tools/calculator-inputs.js?v=20261025" defer></script>
 </head>
 <body>
 
@@ -137,16 +138,17 @@
 <nav class="site-nav" aria-label="주요 메뉴">
   <a class="site-nav-brand" href="/">하루<span>콕</span></a>
   <div class="site-nav-links">
-    <a href="/#all-tools">모든 도구</a>
-    <a href="/guides/">가이드</a>
+    <a href="/#all-tools">전체 도구</a>
+
   </div>
 </nav>
 
 <main>
   <h1>연차수당 계산기</h1>
-  <p class="basis-line">정산 대상 일수를 금액으로 환산합니다. 소멸·사용촉진 여부는 판정하지 않습니다.</p>
+<p class="tool-help"><strong>사용방법</strong> 월급과 남은 연차를 넣고 ‘연차수당 계산하기’를 누르세요.</p>
+  <p class="basis-line">연차 발생·소멸·사용촉진 여부는 판정하지 않습니다.</p>
 
-  <div class="card">
+  <div class="card" id="calculator-inputs">
     <div class="field">
       <label for="monthlyWage">월 통상임금 (세전, 만원)</label>
       <div class="input-row">
@@ -162,7 +164,7 @@
         <input type="number" id="unusedDays" placeholder="예: 5" inputmode="numeric">
         <span class="unit">일</span>
       </div>
-      <span class="field-hint">수당으로 정산할 미사용 일수입니다. 소멸한 연차도 적법한 사용촉진이 없었다면 대상일 수 있습니다.</span>
+      <span class="field-hint">회사에서 수당으로 정산할 일수를 입력하세요.</span>
     </div>
 
     <div class="field">
@@ -193,7 +195,7 @@
     <div class="breakdown" id="breakdown"></div>
     <div id="checkStatus"></div>
 
-    <div class="disclaimer">입력한 일수를 정산 대상으로 보고 금액으로만 환산합니다. 통상임금 범위와 취업규칙상 지급 기준은 근로계약서·취업규칙과 고용노동부 기준을 함께 확인하세요.</div>
+    <div class="disclaimer">정산 가능한 연차일수를 입력했을 때의 금액입니다. 지급 대상 여부는 회사에 확인하세요.</div>
   </div>
 
   <details class="basis">
@@ -204,15 +206,15 @@
       <li>연차 발생일수, 소멸·사용촉진 적법성, 단시간 근로자의 연차일수는 판정하지 않습니다. 소멸한 연차도 적법한 사용촉진이 없었다면 수당 대상일 수 있습니다.</li>
     </ul>
     <div class="sources">
-      <div class="sources-title">참고 자료 및 출처</div>
+      <div class="sources-title">출처</div>
       <ul>
-        <li><a href="https://casenote.kr/%EB%B2%95%EB%A0%B9/%EA%B7%BC%EB%A1%9C%EA%B8%B0%EC%A4%80%EB%B2%95/%EC%A0%9C60%EC%A1%B0" target="_blank" rel="noopener">근로기준법 제60조(연차 유급휴가) — 1년간 80% 이상 출근 시 15일, 1년간 행사하지 않으면 소멸(1년 미만 근로자의 1개월 개근 휴가는 최초 1년 근로가 끝날 때까지) <span style="color:var(--muted);">(확인: 2026-10-03)</span></a></li>
-        <li><a href="https://1350.moel.go.kr/rtmview.do?id=1000272732" target="_blank" rel="noopener">고용노동부 1350 — 상시 5인 이상 사업장·4주 평균 주 15시간 이상 근로자의 연차 발생 <span style="color:var(--muted);">(확인: 2026-10-03)</span></a></li>
-        <li><a href="https://1350.moel.go.kr/rtmview.do?id=1000268206&page=2&type=ALL" target="_blank" rel="noopener">고용노동부 1350 — 적법한 사용촉진 시 보상 의무, 지정 휴가일 전 퇴직 시 보상 <span style="color:var(--muted);">(확인: 2026-10-03)</span></a></li>
-        <li><a href="https://1350.moel.go.kr/rtmview.do?id=1000322152&page=1&type=ALL" target="_blank" rel="noopener">고용노동부 1350 — 연차 사용촉진 서면 절차(근로기준법 제61조) <span style="color:var(--muted);">(확인: 2026-10-03)</span></a></li>
-        <li><a href="https://www.moel.go.kr/minwon/fastcounsel/fastcounselView.do?inetDcssMngId=202406240340382140073" target="_blank" rel="noopener">고용노동부 빠른인터넷상담 — 연차 사용청구권이 소멸해도 임금청구권(미사용수당)은 소멸하지 않음 <span style="color:var(--muted);">(확인: 2026-10-03)</span></a></li>
-        <li><a href="https://www.moel.go.kr/minwon/fastcounsel/fastcounselView.do?inetDcssMngId=202406031048050590182" target="_blank" rel="noopener">고용노동부 빠른인터넷상담 — 소멸 다음날 미사용수당 지급, 퇴직 시 14일 이내, 소멸시효 3년 <span style="color:var(--muted);">(확인: 2026-10-03)</span></a></li>
-      </ul>
+        <li><a href="https://casenote.kr/%EB%B2%95%EB%A0%B9/%EA%B7%BC%EB%A1%9C%EA%B8%B0%EC%A4%80%EB%B2%95/%EC%A0%9C60%EC%A1%B0" target="_blank" rel="noopener">근로기준법 · 연차 유급휴가</a></li>
+        <li><a href="https://1350.moel.go.kr/rtmview.do?id=1000272732" target="_blank" rel="noopener">고용노동부 · 연차 발생 조건</a></li>
+        <li><a href="https://1350.moel.go.kr/rtmview.do?id=1000268206&page=2&type=ALL" target="_blank" rel="noopener">고용노동부 · 사용촉진과 보상</a></li>
+        <li><a href="https://1350.moel.go.kr/rtmview.do?id=1000322152&page=1&type=ALL" target="_blank" rel="noopener">고용노동부 · 사용촉진 절차</a></li>
+        <li><a href="https://www.moel.go.kr/minwon/fastcounsel/fastcounselView.do?inetDcssMngId=202406240340382140073" target="_blank" rel="noopener">고용노동부 · 휴가 소멸과 수당</a></li>
+        <li><a href="https://www.moel.go.kr/minwon/fastcounsel/fastcounselView.do?inetDcssMngId=202406031048050590182" target="_blank" rel="noopener">고용노동부 · 지급기한·소멸시효</a></li>
+      </ul><p>자료 확인: 2026-10-03</p>
     </div>
   </details>
 
@@ -221,13 +223,6 @@
     <div class="ad-strip-slot"><script src="/ad-banner-isolated.js?v=20261018-isolated"></script></div>
   </aside>
 
-  <div class="related" style="margin-top:24px;">
-    <div class="related-title">다른 도구</div>
-    <div class="related-links">
-      <a href="/tools/weekly-holiday-pay-calculator">주휴수당 계산기</a>
-      <a href="/tools/severance-pay-calculator">퇴직금 계산기</a>
-    </div>
-  </div>
 
 </main>
 

@@ -29,7 +29,7 @@ if (typeof document!=='undefined') {
       $('age-types').textContent=`연 나이 ${r.yearAge}세 · 세는나이 ${r.countingAge}세`;
       $('birthday').textContent=r.untilBirthday===0?'기준일이 생일입니다.':`다음 생일 ${r.nextBirthday} · 기준일부터 ${r.untilBirthday}일 남음`;
       $('lived-days').textContent=`태어난 날을 0일로 세면 ${r.days.toLocaleString('ko-KR')}일이 지났습니다.`;
-      $('age-result').hidden=false;
+      $('age-result').hidden=false; $('age-result').scrollIntoView({block:'nearest'});
     } catch(error) {$('age-error').textContent=error.message;}
   });
   $('age-example').addEventListener('click',()=>{$('birth').value='2000-10-20';$('reference').value='2026-10-19';$('age-form').requestSubmit();});

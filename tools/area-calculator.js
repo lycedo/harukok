@@ -28,6 +28,16 @@ if (typeof document !== 'undefined') {
   const fmt = value => formatArea(value, 6);
   function clearConversion() { $('area-result').hidden = true; $('area-error').textContent = ''; }
   function clearRectangle() { $('rectangle-result').hidden = true; $('rectangle-error').textContent = ''; }
+  function changeLengthUnit() {
+    const unit = $('length-unit').value;
+    $('room-width').max = $('room-length').max = unit === 'cm' ? '100000000' : '1000000';
+    $('room-width-label').textContent = `가로 (${unit})`;
+    $('room-length-label').textContent = `세로 (${unit})`;
+    $('room-width').placeholder = unit === 'cm' ? '예: 300' : '예: 3';
+    $('room-length').placeholder = unit === 'cm' ? '예: 400' : '예: 4';
+    clearRectangle();
+  }
+  $('length-unit').addEventListener('change', changeLengthUnit);
   function changeUnit() {
     $('area-label').textContent = $('area-unit').value === 'sqm' ? '면적 (㎡)' : '면적 (평)';
     clearConversion();
@@ -43,7 +53,7 @@ if (typeof document !== 'undefined') {
       $('area-result-label').textContent = toPyeong ? '같은 면적을 평으로 바꾸면' : '같은 면적을 제곱미터로 바꾸면';
       $('area-result-value').textContent = formatArea(toPyeong ? result.pyeong : result.squareMetres) + (toPyeong ? ' 평' : ' ㎡');
       $('area-formula').textContent = toPyeong ? `${fmt(value)} ㎡ × 121 ÷ 400 = ${fmt(result.pyeong)} 평` : `${fmt(value)} 평 × 400 ÷ 121 = ${fmt(result.squareMetres)} ㎡`;
-      $('area-result').hidden = false;
+      $('area-result').hidden = false; $('area-result').scrollIntoView({block:'nearest'});
     } catch (error) { $('area-error').textContent = error.message; }
   });
   document.querySelectorAll('[data-area-example]').forEach(button => button.addEventListener('click', () => {
@@ -57,14 +67,18 @@ if (typeof document !== 'undefined') {
     try {
       if ($('room-width').value.trim() === '' || $('room-length').value.trim() === '') throw new Error('가로와 세로를 모두 입력해 주세요.');
       const width = Number($('room-width').value), length = Number($('room-length').value);
-      const result = rectangleArea(width, length);
+      const unit = $('length-unit').value;
+      if (!['m', 'cm'].includes(unit)) throw new Error('길이 단위를 선택해 주세요.');
+      const scale = unit === 'cm' ? 100 : 1;
+      const result = rectangleArea(width / scale, length / scale);
       $('rectangle-result-value').textContent = formatArea(result.squareMetres) + ' ㎡';
       $('rectangle-pyeong').textContent = '평으로 환산: ' + formatArea(result.pyeong) + ' 평';
-      $('rectangle-formula').textContent = `${fmt(width)} m × ${fmt(length)} m = ${fmt(result.squareMetres)} ㎡ · ${fmt(result.squareMetres)} × 121 ÷ 400 = ${fmt(result.pyeong)} 평`;
-      $('rectangle-result').hidden = false;
+      $('rectangle-formula').textContent = `${fmt(width)} ${unit} × ${fmt(length)} ${unit} = ${fmt(result.squareMetres)} ㎡`;
+      $('rectangle-result').hidden = false; $('rectangle-result').scrollIntoView({block:'nearest'});
     } catch (error) { $('rectangle-error').textContent = error.message; }
   });
   $('rectangle-example').addEventListener('click', () => {
+    $('length-unit').value = 'm'; changeLengthUnit();
     $('room-width').value = '3'; $('room-length').value = '4'; $('rectangle-form').requestSubmit();
   });
 }

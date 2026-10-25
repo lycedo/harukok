@@ -128,7 +128,8 @@
   .sources a{ overflow-wrap:anywhere; }
   @media (max-width:480px){ body{ padding:16px 16px 40px; } .card{ padding:20px; } .perforation{ margin:0 -20px; } .site-nav{ margin-bottom:18px; } }
 </style>
-<link rel="stylesheet" href="/tools/tool-controls.css?v=20261024-simple">
+<link rel="stylesheet" href="/tools/tool-controls.css?v=20261025-flow">
+<script src="/tools/calculator-inputs.js?v=20261025" defer></script>
 </head>
 <body>
 
@@ -136,16 +137,17 @@
 <nav class="site-nav" aria-label="주요 메뉴">
   <a class="site-nav-brand" href="/">하루<span>콕</span></a>
   <div class="site-nav-links">
-    <a href="/#all-tools">모든 도구</a>
-    <a href="/guides/">가이드</a>
+    <a href="/#all-tools">전체 도구</a>
+
   </div>
 </nav>
 
 <main>
   <h1>퇴직금 계산기</h1>
+<p class="tool-help"><strong>사용방법</strong> 입사·퇴사 날짜와 최근 3개월 급여 합계를 입력하세요.</p>
   <p class="basis-line">1년 이상·4주 평균 주 15시간 이상 근로자 기준입니다. 통상임금 비교·제외기간 처리는 지원하지 않습니다.</p>
 
-  <div class="card">
+  <div class="card" id="calculator-inputs">
     <div class="field">
       <label for="joinDate">일을 시작한 날</label>
       <div class="input-row">
@@ -162,25 +164,25 @@
     </div>
 
     <div class="field">
-      <label for="wage3m">A. 최근 3개월 기본급·수당 합계 (세전, 만원)</label>
+      <label for="wage3m">최근 3개월 급여 합계 (세전, 만원)</label>
       <div class="input-row">
         <input type="number" id="wage3m" placeholder="예: 900" min="0" step="0.0001" inputmode="decimal" aria-describedby="wageHint formError">
         <span class="unit" style="font-size:14px;color:var(--muted);margin-left:8px;">만원</span>
       </div>
-      <span class="field-hint" id="wageHint">기본급·연장수당·직책수당의 세전 3개월 합계입니다. <strong>B·C 금액은 빼세요.</strong></span>
+      <span class="field-hint" id="wageHint">기본급·연장수당·직책수당의 세전 3개월 합계입니다. <strong>아래 상여금·연차수당은 빼세요.</strong></span>
     </div>
 
     <div class="field">
-      <label for="annualBonus">B. 퇴직 전 12개월 정기 상여금 총액 (세전, 만원)</label>
+      <label for="annualBonus">최근 1년 상여금 합계 (만원, 없으면 0)</label>
       <div class="input-row">
         <input type="number" id="annualBonus" value="0" min="0" step="0.0001" inputmode="decimal" aria-describedby="bonusHint formError">
         <span class="unit" style="font-size:14px;color:var(--muted);margin-left:8px;">만원</span>
       </div>
-      <span class="field-hint" id="bonusHint">예: 300만원씩 두 번 받았다면 600. 총액의 3/12를 자동 반영하며 A와 중복 입력하지 마세요.</span>
+      <span class="field-hint" id="bonusHint">예: 300만원씩 두 번 받았다면 600. 총액의 3/12를 반영합니다. 위 급여 합계와 중복하지 마세요.</span>
     </div>
 
     <div class="field">
-      <label for="annualLeavePay">C. 포함 대상 연차수당 총액 (세전, 만원)</label>
+      <label for="annualLeavePay">포함 대상 연차수당 (만원, 없으면 0)</label>
       <div class="input-row">
         <input type="number" id="annualLeavePay" value="0" min="0" step="0.0001" inputmode="decimal" aria-describedby="leavePayHint formError">
         <span class="unit" style="font-size:14px;color:var(--muted);margin-left:8px;">만원</span>
@@ -198,27 +200,27 @@
 
     <div class="breakdown" id="breakdown"></div>
     <div id="checkStatus"></div>
-      <div class="disclaimer">평균임금 방식의 근사치입니다. 통상임금과의 비교, 수습·육아휴직 등 제외기간 처리, DC형 퇴직연금 운용수익률은 반영하지 않아 결과를 법정 최저금액으로 단정할 수 없습니다. </div>
+      <div class="disclaimer">평균임금 기준 추정액입니다. 통상임금 비교·제외기간·DC형 운용수익은 반영하지 않으므로 법정 최저금액과 다를 수 있습니다.</div>
   </div>
 
   <details class="basis">
     <summary>계산 기준·출처</summary>
     <ul class="assume">
       <li>예상 퇴직금 = 1일 평균임금 × 30일 × 재직일수 ÷ 365. 통상임금 비교는 하지 않으므로 법정 최저금액을 보장하지 않습니다.</li>
-      <li>평균임금은 퇴사일 전 3개월 급여와 상여금·연차수당의 3/12를 합산해 구합니다. 퇴직 전 발생한 연차수당만 포함하며, A·B·C 금액을 중복 입력하지 마세요.</li>
+      <li>평균임금은 퇴사일 전 3개월 급여와 상여금·연차수당의 3/12를 합산해 구합니다. 퇴직 전 발생한 연차수당만 포함하며, 급여·상여금·연차수당을 중복 입력하지 마세요.</li>
       <li>최근 3개월에 수습·육아휴직·출산휴가·업무상 재해 요양·회사 귀책 휴업 등 제외기간이 있다면 지원 범위 밖입니다. 중간정산 후 1년 미만 구간, 12개월 미만 상여금, DC형 퇴직연금 운용수익률도 반영하지 않습니다. 이 경우 공식 계산기나 회사 인사팀에 확인하세요.</li>
       <li>근거: 근로자퇴직급여 보장법 제8조, 근로기준법 제2조·시행령 제2조. 산식 확인: 2026-09-17.</li>
     </ul>
     <div class="sources">
-      <div class="sources-title">참고 자료 및 출처</div>
+      <div class="sources-title">출처</div>
       <ul>
-        <li><a href="https://labor.moel.go.kr/cmmt/calRtrmnt.do" target="_blank" rel="noopener">고용노동부 노동포털 — 퇴직금 계산 (상여금·연차수당 3/12 산식 및 예제) <span style="color:var(--muted);">(확인: 2026-10-13)</span></a></li>
-        <li><a href="https://1350.moel.go.kr/rtmview.do?id=1000277905" target="_blank" rel="noopener">고용노동부 1350 — 퇴직 전 발생한 연차수당과 퇴직으로 발생한 연차수당의 구분 <span style="color:var(--muted);">(확인: 2026-10-13)</span></a></li>
-        <li><a href="https://easylaw.go.kr/CSP/CnpClsMain.laf?popMenu=ov&csmSeq=1694&ccfNo=1&cciNo=2&cnpClsNo=1" target="_blank" rel="noopener">찾기쉬운 생활법령정보(법제처) — 평균임금 산정 방법·제외 기간 <span style="color:var(--muted);">(확인: 2026-09-17)</span></a></li>
-        <li><a href="https://www.easylaw.go.kr/CSP/CnpClsMain.laf?csmSeq=999&ccfNo=3&cciNo=1&cnpClsNo=2" target="_blank" rel="noopener">찾기쉬운 생활법령정보(법제처) — 계속근로기간 확인(지급요건) <span style="color:var(--muted);">(확인: 2026-09-18)</span></a></li>
-        <li><a href="https://casenote.kr/법령/민법/제160조" target="_blank" rel="noopener">민법 제160조(역에 의한 계산) — 연·월 단위 기간 계산 시 해당일이 없으면 그 달 말일로 만료 <span style="color:var(--muted);">(확인: 2026-09-18)</span></a></li>
-        <li><a href="https://www.a-ha.io/questions/4ba1a796d1d5d219b3f02d60d5bdf018" target="_blank" rel="noopener">궁금할 땐, 아하! — 노무사 11인 답변 "계속근로기간 1년 응당일" 사례(2025.05.29.) <span style="color:var(--muted);">(확인: 2026-09-18, 노무사 개인 답변으로 법적 구속력은 없음)</span></a></li>
-      </ul>
+        <li><a href="https://labor.moel.go.kr/cmmt/calRtrmnt.do" target="_blank" rel="noopener">고용노동부 · 퇴직금 계산</a></li>
+        <li><a href="https://1350.moel.go.kr/rtmview.do?id=1000277905" target="_blank" rel="noopener">고용노동부 · 연차수당 포함 범위</a></li>
+        <li><a href="https://easylaw.go.kr/CSP/CnpClsMain.laf?popMenu=ov&csmSeq=1694&ccfNo=1&cciNo=2&cnpClsNo=1" target="_blank" rel="noopener">법제처 · 평균임금과 제외기간</a></li>
+        <li><a href="https://www.easylaw.go.kr/CSP/CnpClsMain.laf?csmSeq=999&ccfNo=3&cciNo=1&cnpClsNo=2" target="_blank" rel="noopener">법제처 · 계속근로기간</a></li>
+        <li><a href="https://casenote.kr/법령/민법/제160조" target="_blank" rel="noopener">민법 · 연·월 기간 계산</a></li>
+        <li><a href="https://www.a-ha.io/questions/4ba1a796d1d5d219b3f02d60d5bdf018" target="_blank" rel="noopener">아하 · 근속 1년 사례 (노무사 개인 답변)</a></li>
+      </ul><p>자료 확인: 2026-09-17~2026-10-13</p>
     </div>
   </details>
 
@@ -227,13 +229,6 @@
     <div class="ad-strip-slot"><script src="/ad-banner-isolated.js?v=20261018-isolated"></script></div>
   </aside>
 
-  <div class="related" style="margin-top:24px;">
-    <div class="related-title">다른 도구</div>
-    <div class="related-links">
-      <a href="/tools/unemployment-benefit-calculator">실업급여 계산기</a>
-      <a href="/tools/salary-calculator">연봉 실수령액 계산기</a>
-    </div>
-  </div>
 
 </main>
 
@@ -396,17 +391,17 @@
     $('breakdown').innerHTML = `
       <div class="breakdown-row"><span>재직일수</span><span class="amount">${r.tenureDays.toLocaleString('ko-KR')}일</span></div>
       <div class="breakdown-row"><span>평균임금 산정기간</span><span class="amount">${r.periodDays}일</span></div>
-      <p class="field-hint">${dateText(r.periodStart)}부터 ${dateText(r.leaveDate)} 직전까지의 급여를 A에 입력했는지 확인하세요.</p>
-      <div class="breakdown-row"><span>A. 3개월 기본급·수당</span><span class="amount">${won(r.wage3m)}원</span></div>
-      <div class="breakdown-row"><span>B. 상여금 ${won(r.annualBonus)}원 × 3/12</span><span class="amount">${won(r.bonusPortion)}원</span></div>
-      <div class="breakdown-row"><span>C. 연차수당 ${won(r.annualLeavePay)}원 × 3/12</span><span class="amount">${won(r.leavePortion)}원</span></div>
+      <p class="field-hint">${dateText(r.periodStart)}부터 ${dateText(r.leaveDate)} 직전까지의 급여 합계를 입력한 결과입니다.</p>
+      <div class="breakdown-row"><span>3개월 급여 합계</span><span class="amount">${won(r.wage3m)}원</span></div>
+      <div class="breakdown-row"><span>상여금 ${won(r.annualBonus)}원 × 3/12</span><span class="amount">${won(r.bonusPortion)}원</span></div>
+      <div class="breakdown-row"><span>연차수당 ${won(r.annualLeavePay)}원 × 3/12</span><span class="amount">${won(r.leavePortion)}원</span></div>
       <div class="breakdown-row"><span>평균임금 산정 기초 합계</span><span class="amount">${won(r.totalWage)}원</span></div>
       <div class="breakdown-row"><span>1일 평균임금</span><span class="amount">${won(r.dailyAvgWage)}원</span></div>
       <p class="field-hint">계산식: ${won(r.totalWage)}원 ÷ ${r.periodDays}일 × 30일 × (${r.tenureDays}일 ÷ 365). 표시는 원 단위로 반올림하며 계산 중간값은 반올림하지 않습니다.</p>
     `;
     $('checkStatus').innerHTML = checkBox([
       checkRow('ok', '<a href="https://labor.moel.go.kr/cmmt/calRtrmnt.do" target="_blank" rel="noopener">고용노동부 계산 예제</a>의 상여금·연차수당 3/12 환산 산식을 적용했습니다(산식 확인: 2026-10-13).'),
-      checkRow('assume', 'B·C는 환산 전 총액이며 A에는 중복 포함하지 않았다고 가정했습니다. 지급명세 전체 합계에 상여금·연차수당이 들어 있다면 먼저 빼세요. 연차수당은 퇴직 전에 이미 지급사유가 발생한 분만 포함하고, 퇴직으로 비로소 생긴 분은 제외합니다. 포함 여부 자체는 자동 판단하지 않습니다.'),
+      checkRow('assume', '상여금·연차수당은 환산 전 총액이며 급여 합계에 중복 포함하지 않았다고 가정했습니다. 지급명세 전체 합계에 상여금·연차수당이 들어 있다면 먼저 빼세요. 연차수당은 퇴직 전에 이미 지급사유가 발생한 분만 포함하고, 퇴직으로 비로소 생긴 분은 제외합니다. 포함 여부 자체는 자동 판단하지 않습니다.'),
       checkRow('assume', '<strong>통상임금과의 비교는 하지 않았습니다.</strong> 평균임금이 통상임금보다 적으면 통상임금을 평균임금으로 보므로(근로기준법 제2조 제2항), 이 금액을 법정 최저금액으로 볼 수 없습니다.'),
       checkRow('assume', '평균임금 산정기간은 퇴사일 기준 3개월로 고정했고, 수습·육아휴직 등 제외기간이 있으면 계산 범위 밖입니다.')
     ]);

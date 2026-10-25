@@ -136,7 +136,8 @@
   .input-error{ margin:12px 0 0; color:var(--stamp); font-size:13px; line-height:1.6; }
   .input-error:empty{ display:none; }
 </style>
-<link rel="stylesheet" href="/tools/tool-controls.css?v=20261024-simple">
+<link rel="stylesheet" href="/tools/tool-controls.css?v=20261025-flow">
+<script src="/tools/calculator-inputs.js?v=20261025" defer></script>
 </head>
 <body>
 
@@ -144,23 +145,24 @@
 <nav class="site-nav" aria-label="주요 메뉴">
   <a class="site-nav-brand" href="/">하루<span>콕</span></a>
   <div class="site-nav-links">
-    <a href="/#all-tools">모든 도구</a>
-    <a href="/guides/">가이드</a>
+    <a href="/#all-tools">전체 도구</a>
+
   </div>
 </nav>
 
 <main>
   <h1>육아휴직급여 계산기</h1>
+<p class="tool-help"><strong>사용방법</strong> 휴직 유형과 월급을 넣고, 몇 개월째인지 고르세요.</p>
   <p class="basis-line">2026.9.18. 시행 기준 · 수급 자격·부분월 급여는 계산하지 않습니다.</p>
 
-  <div class="card">
+  <div class="card" id="calculator-inputs">
     <div class="field">
       <label>육아휴직 유형</label>
       <div class="seg" id="typeSeg">
         <button type="button" class="active" data-value="special">부모 함께 사용 (6+6 특례)</button>
         <button type="button" data-value="normal">일반 구간 (특례 없음)</button>
       </div>
-      <span class="field-hint">6+6은 같은 자녀가 생후 18개월이 될 때까지 부모 모두 휴직한 경우입니다. 기본 수급 요건을 못 채우면 어느 유형도 지급되지 않습니다.</span>
+      <span class="field-hint">6+6: 생후 18개월 이내 같은 자녀를 위해 부모 모두 휴직. 수급 요건을 못 채우면 지급되지 않습니다.</span>
     </div>
 
     <div class="field">
@@ -194,7 +196,7 @@
     <div class="breakdown" id="breakdown"></div>
     <div id="checkStatus"></div>
 
-    <div class="disclaimer">위 금액은 기본 수급 요건을 충족한다고 가정한 해당 개월차의 예상 산정액이며, 실제 입금 시점과 금액은 신청 시기·개별 심사·한부모 우대 등에 따라 달라질 수 있습니다. 자격 판정과 부분월 계산은 하지 않습니다(계산에 적용한 가정 참고).</div>
+    <div class="disclaimer">수급 요건을 충족한 한 달 전체 휴직 기준입니다. 실제 입금 시점·금액은 심사에 따라 달라집니다.</div>
   </div>
 
   <details class="basis">
@@ -206,18 +208,18 @@
       <li>한 달 전체 휴직 기준입니다. 자격 판정, 부분월 일할 계산, 한부모 우대(첫 3개월 상한 300만원), 취업·소득에 따른 제한, 실제 입금 시점은 지원하지 않습니다. 고용보험법 시행령 제95조·제95조의3(2026.9.18. 시행) 기준, 자료 확인: 2026-10-03.</li>
     </ul>
     <div class="sources">
-      <div class="sources-title">참고 자료 및 출처</div>
+      <div class="sources-title">출처</div>
       <ul>
-        <li><a href="https://m.work24.go.kr/cm/c/f/1100/selecSystInfo.do?systClId=SC00000251&systId=SI00000402" target="_blank" rel="noopener">고용24 — 육아휴직급여 제도 안내(개월차별 상한액)</a></li>
-        <li><a href="https://www.moel.go.kr/policy/policydata/view.do?bbs_seq=20240102052" target="_blank" rel="noopener">고용노동부 — 부모 함께 육아휴직제(6+6) 설명자료(첨부 Q&A, 2024년 자료)</a></li>
-        <li><a href="https://www.law.go.kr/법령/고용보험법/(20260918,21473,20260317)/제70조" target="_blank" rel="noopener">고용보험법 제70조(육아휴직 급여: 30일 또는 주 단위 7일 이상, 피보험단위기간 180일, 신청기한)</a> <span style="color:var(--muted);">(확인: 2026-10-03, 2026.9.18. 시행 조문)</span></li>
-        <li><a href="https://www.law.go.kr/법령/남녀고용평등과일ㆍ가정양립지원에관한법률/(20260918,21476,20260317)/제19조" target="_blank" rel="noopener">남녀고용평등과 일·가정 양립 지원에 관한 법률 제19조(육아휴직 대상: 임신 중 여성 근로자, 위험 있는 임신 중 배우자를 돌보는 남성 근로자, 만 8세 이하 또는 초등학교 2학년 이하 자녀)</a> <span style="color:var(--muted);">(확인: 2026-10-03, 2026.9.18. 시행 조문)</span></li>
-        <li><a href="https://www.law.go.kr/법령/고용보험법시행령/(20260918,36588,20260818)/제95조" target="_blank" rel="noopener">고용보험법 시행령 제95조(육아휴직 급여: 구간별 상한·하한 70만원, 1개월 미만 휴직 일할 계산)</a> <span style="color:var(--muted);">(확인: 2026-10-03)</span></li>
-        <li><a href="https://www.law.go.kr/법령/고용보험법시행령/(20260918,36588,20260818)/제95조의3" target="_blank" rel="noopener">고용보험법 시행령 제95조의3(출생 후 18개월 이내 자녀 육아휴직 급여 특례)</a> <span style="color:var(--muted);">(확인: 2026-10-03)</span></li>
-        <li><a href="https://www.moel.go.kr/news/cardinfo/view.do?bbs_seq=20250100172" target="_blank" rel="noopener">고용노동부 — 2025년 1월 1일부터 달라지는 육아지원제도(급여 개편·사후지급금 폐지 시행일)</a></li>
-        <li><a href="https://www.scourt.go.kr/portal/news/NewsViewAction.work?pageIndex=1&searchWord=&searchOption=&gubun=6&seqnum=2743" target="_blank" rel="noopener">대법원 보도자료 — 2020다247190 등 통상임금 사건(2024.12.19. 전원합의체, 재직조건·근무일수 조건과 통상임금성)</a> <span style="color:var(--muted);">(확인: 2026-10-03)</span></li>
-        <li><a href="https://casenote.kr/대법원/2020다247190" target="_blank" rel="noopener">대법원 2024.12.19. 선고 2020다247190 전원합의체 판결 — 통상임금 판단기준(고정성 요건 폐기)</a></li>
-      </ul>
+        <li><a href="https://m.work24.go.kr/cm/c/f/1100/selecSystInfo.do?systClId=SC00000251&systId=SI00000402" target="_blank" rel="noopener">고용24 · 육아휴직급여</a></li>
+        <li><a href="https://www.moel.go.kr/policy/policydata/view.do?bbs_seq=20240102052" target="_blank" rel="noopener">고용노동부 · 6+6 특례 (2024 자료)</a></li>
+        <li><a href="https://www.law.go.kr/법령/고용보험법/(20260918,21473,20260317)/제70조" target="_blank" rel="noopener">고용보험법 · 수급 요건</a></li>
+        <li><a href="https://www.law.go.kr/법령/남녀고용평등과일ㆍ가정양립지원에관한법률/(20260918,21476,20260317)/제19조" target="_blank" rel="noopener">남녀고용평등법 · 육아휴직 대상</a></li>
+        <li><a href="https://www.law.go.kr/법령/고용보험법시행령/(20260918,36588,20260818)/제95조" target="_blank" rel="noopener">고용보험법 시행령 제95조(육아휴직 급여)</a></li>
+        <li><a href="https://www.law.go.kr/법령/고용보험법시행령/(20260918,36588,20260818)/제95조의3" target="_blank" rel="noopener">고용보험법 시행령 · 6+6 특례</a></li>
+        <li><a href="https://www.moel.go.kr/news/cardinfo/view.do?bbs_seq=20250100172" target="_blank" rel="noopener">고용노동부 · 2025 급여 개편</a></li>
+        <li><a href="https://www.scourt.go.kr/portal/news/NewsViewAction.work?pageIndex=1&searchWord=&searchOption=&gubun=6&seqnum=2743" target="_blank" rel="noopener">대법원 · 통상임금 판결 안내</a></li>
+        <li><a href="https://casenote.kr/대법원/2020다247190" target="_blank" rel="noopener">대법원 · 통상임금 판결문</a></li>
+      </ul><p>자료 확인: 2026-10-03</p>
     </div>
   </details>
 
@@ -226,12 +228,6 @@
     <div class="ad-strip-slot"><script src="/ad-banner-isolated.js?v=20261018-isolated"></script></div>
   </aside>
 
-  <div class="related" style="margin-top:24px;">
-    <div class="related-title">다른 도구</div>
-    <div class="related-links">
-      <a href="/tools/salary-calculator">연봉 실수령액 계산기</a>
-    </div>
-  </div>
 
 </main>
 

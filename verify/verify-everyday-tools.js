@@ -68,6 +68,11 @@ equal(percent('result-value').textContent,'68,000원');equal(percent('result').h
 percent('calculator').dispatchEvent({type:'input'});equal(percent('result').hidden,true);
 percent('a').value='';percent('calculator').dispatchEvent({type:'submit',preventDefault(){}});
 equal(percent('result').hidden,true);assert.ok(percent('error').textContent);
+percent('calculator').requestSubmit=()=>percent('calculator').dispatchEvent({type:'submit',preventDefault(){}});
+for (const [mode,expected] of [['of','20'],['ratio','15%'],['change','10%'],['discount','68,000원']]) {
+  percent('mode').value=mode;percent('mode').dispatchEvent({type:'change'});
+  percent('percent-example').click();equal(percent('result-value').textContent,expected);
+}
 const dates=load('date-calculator');
 dates('start').value='2026-10-18';dates('end').value='2026-10-20';dates('inclusive').checked=true;
 dates('difference-form').dispatchEvent({type:'submit',preventDefault(){}});

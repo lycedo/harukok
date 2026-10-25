@@ -46,6 +46,7 @@ const $ = id => {
 const examples = [...html.matchAll(/<button[^>]*data-area-example="([^"]+)"/g)].map(match => new FakeElement(doc, 'button', {'data-area-example': match[1]}));
 doc.querySelectorAll = selector => selector === '[data-area-example]' ? examples : [];
 $('area-unit').value = 'sqm';
+$('length-unit').value = 'm';
 const submit = id => $(id).dispatchEvent({type: 'submit', preventDefault() {}});
 $('area-form').requestSubmit = () => submit('area-form');
 $('rectangle-form').requestSubmit = () => submit('rectangle-form');
@@ -60,8 +61,8 @@ $('area-value').value = '-3'; submit('area-form'); same($('area-result').hidden,
 $('area-unit').value = 'pyeong'; $('area-unit').dispatchEvent({type: 'change'});
 same($('area-label').textContent, '면적 (평)'); same($('area-error').textContent, '');
 same($('area-result').hidden, true);
-same(examples.length, 5);
-for (const [i, expected] of ['17.85 평', '25.41 평', '30.86 평', '79.34 ㎡', '105.79 ㎡'].entries()) {
+same(examples.length, 2);
+for (const [i, expected] of ['25.41 평', '105.79 ㎡'].entries()) {
   examples[i].click(); same($('area-result-value').textContent, expected); same($('area-result').hidden, false);
 }
 $('rectangle-example').click(); same($('rectangle-result-value').textContent, '12 ㎡');
@@ -71,6 +72,16 @@ $('room-width').value = ''; submit('rectangle-form'); same($('rectangle-result')
 assert.ok($('rectangle-error').textContent.includes('모두')); checks++;
 $('room-width').value = '1000000'; $('room-length').value = '1001'; submit('rectangle-form');
 assert.ok($('rectangle-error').textContent.includes('10억')); checks++;
+
+$('length-unit').value = 'cm'; $('length-unit').dispatchEvent({type: 'change'});
+same($('room-width-label').textContent, '가로 (cm)');
+same($('rectangle-result').hidden, true);
+$('room-width').value = '300'; $('room-length').value = '400'; submit('rectangle-form');
+same($('rectangle-result-value').textContent, '12 ㎡');
+same($('rectangle-pyeong').textContent, '평으로 환산: 3.63 평');
+$('rectangle-example').click();
+same($('length-unit').value, 'm'); same($('room-width-label').textContent, '가로 (m)');
+same($('rectangle-result-value').textContent, '12 ㎡');
 
 same((html.match(/<h1>/g) || []).length, 1);
 same((html.match(/src="\/ad-banner-isolated.js/g) || []).length, 1);
