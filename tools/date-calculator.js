@@ -38,10 +38,11 @@ if (typeof document !== 'undefined') {
       $('difference-result').hidden=false; $('difference-result').scrollIntoView({block:'nearest'});
     } catch (error) { $('difference-error').textContent=error.message; }
   });
-  $('count-mode').addEventListener('change',()=>{
+  function updateCountMode() {
     const mode=$('count-mode').value; $('days').min=mode==='nth'?'1':'0';
     $('days-hint').textContent=mode==='before'?'예: 7일 전은 7을 입력하세요.':mode==='nth'?'시작한 날이 1일째입니다. 예: 100일 기념일은 100.':'예: 100일 뒤는 100을 입력하세요.';
-  });
+  }
+  $('count-mode').addEventListener('change',updateCountMode);
   $('offset-form').addEventListener('submit',event => {
     event.preventDefault(); $('offset-error').textContent=''; $('offset-result').hidden=true;
     try {
@@ -56,6 +57,6 @@ if (typeof document !== 'undefined') {
     } catch (error) { $('offset-error').textContent=error.message; }
   });
   $('example-date').addEventListener('click',() => {
-    $('base').value='2026-10-18'; $('days').value='100'; $('count-mode').value='nth'; $('offset-form').requestSubmit();
+    $('base').value='2026-10-18'; $('days').value='100'; $('count-mode').value='nth'; updateCountMode(); $('offset-form').requestSubmit();
   });
 }

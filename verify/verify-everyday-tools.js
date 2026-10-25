@@ -81,6 +81,13 @@ dates('count-mode').value='offset';dates('count-mode').dispatchEvent({type:'chan
 dates('offset-form').dispatchEvent({type:'submit',preventDefault(){}});equal(dates('offset-value').textContent,'2026-10-25');
 dates('days').value='-7';dates('offset-form').dispatchEvent({type:'submit',preventDefault(){}});
 equal(dates('offset-result').hidden,true);assert.ok(dates('offset-error').textContent.includes('0 이상의 정수'));
+// Switching from "days before" through the example must also update its guidance.
+dates('count-mode').value='before';dates('count-mode').dispatchEvent({type:'change'});
+dates('offset-form').requestSubmit=()=>dates('offset-form').dispatchEvent({type:'submit',preventDefault(){}});
+dates('example-date').click();
+equal(dates('count-mode').value,'nth');equal(dates('days').min,'1');
+assert.ok(dates('days-hint').textContent.includes('시작한 날이 1일째'));
+equal(dates('offset-value').textContent,'2027-01-25');
 const text=load('character-counter');text('text').value='안녕 hello';text('limit-mode').value='withSpaces';text('limit').value='5';
 text('limit').dispatchEvent({type:'input'});equal(text('bytes').textContent,'12');assert.ok(text('limit-status').textContent.includes('3자 초과'));
 
