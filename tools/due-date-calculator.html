@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>출산 예정일 계산기 - 임신 주수/삼분기 한번에</title>
+<meta name="description" content="마지막 생리 시작일만 입력하면 출산 예정일, 현재 임신 주수, 삼분기 구간을 계산합니다.">
+<link rel="canonical" href="https://harukok.com/tools/due-date-calculator">
+<meta property="og:title" content="출산 예정일 계산기 - 임신 주수/삼분기 한번에">
+<meta property="og:description" content="마지막 생리 시작일만 입력하면 출산 예정일, 현재 임신 주수, 삼분기 구간을 계산합니다.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="하루콕">
+<meta property="og:url" content="https://harukok.com/tools/due-date-calculator">
+<meta property="og:image" content="https://harukok.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+
+<style>
+  :root{
+    --paper: #ECE8DC;
+    --paper-light: #F7F4EA;
+    --ink: #16233D;
+    --ink-soft: #45516A;
+    --muted: #6E6656;
+    --line: #B7AF98;
+    --stamp: #B23A2E;
+  }
+  *{ box-sizing: border-box; }
+  body{
+    margin:0;
+    padding: 40px 20px 70px;
+    background: var(--paper);
+    background-image: repeating-linear-gradient(0deg, rgba(0,0,0,0.015) 0px, rgba(0,0,0,0.015) 1px, transparent 1px, transparent 3px);
+    font-family:var(--font-body);
+    color: var(--ink);
+    display:flex;
+    justify-content:center;
+  }
+  .stub{ width:100%; max-width: 560px; }
+  .kicker{ font-size:13px; color:var(--muted); margin-bottom:6px; }
+  h1{ font-family:var(--font-body); font-weight:700; font-size:30px; line-height:1.35; margin:0 0 8px; }
+  .lede{ font-size:14.5px; color:var(--ink-soft); line-height:1.6; margin:0 0 32px; max-width:46ch; }
+  .card{ background:var(--paper-light); border:1px solid var(--line); border-radius:14px; padding:32px; margin-bottom:28px; }
+  .field{ margin-bottom:20px; }
+  .field:last-child{ margin-bottom:0; }
+  .field label{ display:block; font-size:13.5px; color:var(--ink-soft); margin-bottom:8px; }
+  .field-hint{ display:block; font-size:13px; color:var(--muted); margin-top:6px; }
+  .input-row{ display:flex; align-items:baseline; border-bottom:1.5px solid var(--ink); padding-bottom:6px; }
+  .input-row input{ flex:1; border:none; background:transparent; font-family:var(--font-body); font-size:20px; font-weight:600; color:var(--ink); outline:none; padding:4px 0; width:100%; }
+  .calc-btn{ width:100%; padding:16px; margin-top:8px; background:var(--ink); color:var(--paper-light); border:none; border-radius:14px; font-weight:600; font-size:15.5px; cursor:pointer; box-shadow:0 4px 0 rgba(0,0,0,0.28); }
+  .calc-btn:hover{ background:var(--ink-soft); }
+  .calc-btn:active{ transform:translateY(3px); box-shadow:0 1px 0 rgba(0,0,0,0.28); }
+  .result-card{ padding-top:32px; }
+  .result-card.hidden{ display:none; }
+  .result-label{ font-size:13.5px; color:var(--ink-soft); margin-bottom:4px; }
+  .result-amount{ font-family:var(--font-body); font-weight:600; font-size:36px; color:var(--stamp); line-height:1.1; margin-bottom:4px; }
+  .result-amount .unit{ font-size:18px; margin-left:2px; }
+  .breakdown{ border-top:1px solid var(--line); padding-top:20px; margin-top:16px; }
+  .breakdown-row{ display:flex; justify-content:space-between; align-items:baseline; font-size:14px; padding:9px 0; color:var(--ink-soft); }
+  .breakdown-row .amount{ font-family:var(--font-body); color:var(--ink); font-weight:600; font-size:16px; }
+  .disclaimer{ font-size:13px; color:var(--muted); line-height:1.6; margin-top:24px; padding-top:16px; border-top:1px dotted var(--line); }
+  @media (max-width:480px){ .card{ padding:24px; } h1{ font-size:25px; } .result-amount{ font-size:30px; } }
+
+  .info-block{ margin-top:40px; }
+  .info-block h2{ font-family:var(--font-body); font-weight:700; font-size:18px; margin:0 0 12px; }
+  .info-block p{ font-size:13.5px; line-height:1.7; color:var(--ink-soft); margin:0 0 14px; }
+  .faq-item{ margin-bottom:16px; }
+  .faq-item .q{ font-size:14px; font-weight:600; margin-bottom:5px; }
+  .faq-item .a{ font-size:13.5px; line-height:1.65; color:var(--ink-soft); }
+
+  .related{ margin-top:20px; margin-bottom:32px; }
+  .related-title{ font-size:13px; color:var(--muted); margin-bottom:10px; }
+  .related-links{ display:flex; flex-wrap:wrap; gap:8px; }
+  .related-links a{ padding:8px 14px; border:1.5px solid var(--line); border-radius:999px; font-size:13px; color:var(--ink); text-decoration:none; }
+  .related-links a:hover{ border-color:var(--ink); }
+
+  .back-home{ display:inline-block; font-size:13px; color:var(--muted); text-decoration:none; margin-bottom:14px; }
+  .back-home:hover{ color:var(--ink); }
+
+  .site-nav{ display:flex; align-items:center; justify-content:space-between; width:100%; margin:0 0 22px; padding:0 0 14px; border-bottom:1px solid var(--line, #D9D2BF); }
+  .site-nav-brand{ font-family:var(--font-body); font-weight:700; font-size:15px; color:var(--ink); text-decoration:none; }
+  .site-nav-brand span{ color:var(--stamp, #B23A2E); }
+  .site-nav-links{ display:flex; gap:2px; }
+  .site-nav-links a{ font-size:13.5px; color:var(--muted); text-decoration:none; padding:6px 10px; border-radius:6px; }
+  .site-nav-links a:hover{ color:var(--ink); background:var(--paper-light, rgba(0,0,0,0.045)); }
+  .site-nav-links a[aria-current="page"]{ color:var(--ink); font-weight:600; }
+  .site-nav-brand:focus-visible, .site-nav-links a:focus-visible{ outline:2px solid var(--stamp, #B23A2E); outline-offset:2px; border-radius:4px; }
+  .sources{ margin-top:24px; padding-top:18px; border-top:1px solid var(--line); }
+  .sources-title{ font-size:13px; font-weight:600; color:var(--ink-soft); margin-bottom:8px; }
+  .sources ul{ margin:0; padding-left:18px; }
+  .sources li{ font-size:13px; line-height:1.8; color:var(--muted); }
+  .sources a{ color:var(--ink-soft); }
+  .sources a:hover{ color:var(--ink); }
+  .guide-callout{ display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:8px; margin-top:16px; padding:12px 14px; background:var(--paper-light); border:1px dashed var(--line); border-radius:8px; font-size:13px; color:var(--ink-soft); }
+  .guide-callout a{ color:var(--stamp); font-weight:600; text-decoration:none; white-space:nowrap; }
+  .guide-callout a:hover{ text-decoration:underline; }
+</style>
+<!-- Google AdSense -->
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/tools/site-ui.css?v=20261026-restored">
+</head>
+<body class="restored-tool">
+
+
+
+<div class="stub">
+<nav class="site-nav" aria-label="주요 메뉴"><a class="site-nav-brand" href="/">하루<span>콕</span></a><div class="site-nav-links"><a href="/#all-tools">전체 도구</a></div></nav>
+
+
+
+  <main>
+<h1>출산 예정일 계산기</h1>
+  <p class="tool-help"><strong>사용방법</strong> 마지막 생리 시작일과 주기를 입력해 계산하세요.</p>
+
+
+
+  <div class="card">
+    <div class="field">
+      <label for="lmp">마지막 생리 시작일</label>
+      <div class="input-row">
+        <input type="date" id="lmp" required>
+      </div>
+      <span class="field-hint">생리 주기가 28일인 경우를 기준으로 계산합니다.</span>
+    </div>
+
+    <div class="field">
+      <label for="cycle">평균 생리 주기</label>
+      <div class="input-row">
+        <input type="number" id="cycle" value="28" min="20" max="45" inputmode="numeric" required>
+        <span class="unit" style="font-size:14px;color:var(--muted);margin-left:8px;">일</span>
+      </div>
+      <span class="field-hint">28일이 아니라면 본인 평균 주기를 입력하세요. 예정일 계산에 반영됩니다.</span>
+    </div>
+
+    <button class="calc-btn" id="calcBtn">예정일 계산하기</button>
+  </div>
+
+  <div class="card result-card hidden" id="resultCard">
+    <div class="result-label">출산 예정일</div>
+    <div class="result-amount" id="dueDate">-</div>
+
+    <div class="breakdown" id="breakdown"></div>
+
+
+
+    <div class="disclaimer">
+      네겔 법칙은 마지막 생리 시작일에 280일(40주)을 더해 추정하는 일반적인 계산 방식입니다. 실제 출산일은 초음파 검사 등을 통한 의료진의 판단에 따라 달라질 수 있으니 참고용으로만 활용하세요.
+    </div>
+  </div>
+
+
+
+
+  <details class="more"><summary>계산 기준·출처</summary><ul><li><a href="https://health.kdca.go.kr/healthinfo/biz/health/gnrlzHealthInfo/gnrlzHealthInfo/gnrlzHealthInfoView.do?cntnts_sn=6301" target="_blank" rel="noopener">질병관리청 국가건강정보포털</a></li></ul></details>
+</main>
+<footer><a href="/about">소개</a> · <a href="/privacy">개인정보처리방침</a> · <a href="mailto:contact@harukok.com">의견 보내기</a><p>© 2026 하루콕</p></footer>
+</div>
+
+<script>
+(function(){
+  const $ = (id) => document.getElementById(id);
+
+  function fmt(d){
+    return `${d.getFullYear()}.${String(d.getMonth()+1).padStart(2,'0')}.${String(d.getDate()).padStart(2,'0')}`;
+  }
+
+  function calculate(){
+    const lmpVal = $('lmp').value;
+    if (!lmpVal){
+      $('resultCard').classList.add('hidden');
+      return;
+    }
+
+    const cycle = parseInt($('cycle').value, 10) || 28;
+    const cycleAdjust = cycle - 28;
+
+    const lmp = new Date(lmpVal + 'T00:00:00');
+    const dueDate = new Date(lmp);
+    dueDate.setDate(dueDate.getDate() + 280 + cycleAdjust);
+
+    const today = new Date();
+    today.setHours(0,0,0,0);
+    // 주기가 28일이 아니면 배란·수정 시점이 달라지므로, 예정일과 같은 보정을 임신 주수에도 적용한다.
+    const daysSince = Math.floor((today - lmp) / 86400000) - cycleAdjust;
+
+    let weekLabel, trimester, dday;
+    if (daysSince < 0){
+      weekLabel = '아직 시작 전';
+      trimester = '-';
+    } else {
+      const weeks = Math.floor(daysSince / 7);
+      const days = daysSince % 7;
+      weekLabel = `${weeks}주 ${days}일`;
+      trimester = weeks <= 13 ? '1분기 (1~13주)' : weeks <= 27 ? '2분기 (14~27주)' : '3분기 (28주~)';
+    }
+
+    const diffToDue = Math.round((dueDate - today) / 86400000);
+    dday = diffToDue >= 0 ? `D-${diffToDue}` : `D+${Math.abs(diffToDue)}`;
+
+    render({ dueDate, weekLabel, trimester, dday });
+  }
+
+  function render(r){
+    $('dueDate').textContent = fmt(r.dueDate);
+    $('breakdown').innerHTML = `
+      <div class="breakdown-row"><span>현재 임신 주수</span><span class="amount">${r.weekLabel}</span></div>
+      <div class="breakdown-row"><span>삼분기 구간</span><span class="amount">${r.trimester}</span></div>
+      <div class="breakdown-row"><span>예정일까지</span><span class="amount">${r.dday}</span></div>
+    `;
+    $('resultCard').classList.remove('hidden');
+  }
+
+  $('calcBtn').addEventListener('click', calculate);
+})();
+</script>
+<script src="/tools/restored-tool-flow.js?v=20261026" defer></script>
+</body>
+</html>

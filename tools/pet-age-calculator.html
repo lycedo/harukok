@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>반려동물 나이 계산기 - 강아지/고양이 나이를 사람 나이로</title>
+<meta name="description" content="강아지, 고양이의 나이를 사람 나이로 환산해줍니다. 견종 크기별 계산 공식 반영.">
+<link rel="canonical" href="https://harukok.com/tools/pet-age-calculator">
+<meta property="og:title" content="반려동물 나이 계산기 - 강아지/고양이 나이를 사람 나이로">
+<meta property="og:description" content="강아지, 고양이의 나이를 사람 나이로 환산해줍니다. 견종 크기별 계산 공식 반영.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="하루콕">
+<meta property="og:url" content="https://harukok.com/tools/pet-age-calculator">
+<meta property="og:image" content="https://harukok.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+
+<style>
+  :root{
+    --paper: #ECE8DC;
+    --paper-light: #F7F4EA;
+    --ink: #16233D;
+    --ink-soft: #45516A;
+    --muted: #6E6656;
+    --line: #B7AF98;
+    --stamp: #B23A2E;
+  }
+  *{ box-sizing: border-box; }
+  body{
+    margin:0;
+    padding: 40px 20px 70px;
+    background: var(--paper);
+    background-image: repeating-linear-gradient(0deg, rgba(0,0,0,0.015) 0px, rgba(0,0,0,0.015) 1px, transparent 1px, transparent 3px);
+    font-family:var(--font-body);
+    color: var(--ink);
+    display:flex;
+    justify-content:center;
+  }
+  .stub{ width:100%; max-width: 560px; }
+  .kicker{ font-size:13px; color:var(--muted); margin-bottom:6px; }
+  h1{ font-family:var(--font-body); font-weight:700; font-size:30px; line-height:1.35; margin:0 0 8px; }
+  .lede{ font-size:14.5px; color:var(--ink-soft); line-height:1.6; margin:0 0 32px; max-width:46ch; }
+  .card{ background:var(--paper-light); border:1px solid var(--line); border-radius:14px; padding:32px; margin-bottom:28px; }
+  .field{ margin-bottom:20px; }
+  .field label{ display:block; font-size:13.5px; color:var(--ink-soft); margin-bottom:8px; }
+  .field-hint{ display:block; font-size:13px; color:var(--muted); margin-top:6px; }
+  .input-row{ display:flex; align-items:baseline; border-bottom:1.5px solid var(--ink); padding-bottom:6px; }
+  .input-row input{ flex:1; border:none; background:transparent; font-family:var(--font-body); font-size:20px; font-weight:600; color:var(--ink); outline:none; padding:4px 0; width:100%; }
+  .seg{ display:flex; gap:8px; }
+  .seg button{ flex:1; padding:10px; border:1.5px solid var(--line); border-radius:10px; background:var(--paper-light); color:var(--ink-soft); font-size:13.5px; font-weight:600; cursor:pointer; }
+  .seg button.active{ background:var(--ink); border-color:var(--ink); color:var(--paper-light); }
+  .calc-btn{ width:100%; padding:16px; margin-top:8px; background:var(--ink); color:var(--paper-light); border:none; border-radius:14px; font-weight:600; font-size:15.5px; cursor:pointer; box-shadow:0 4px 0 rgba(0,0,0,0.28); }
+  .calc-btn:hover{ background:var(--ink-soft); }
+  .calc-btn:active{ transform:translateY(3px); box-shadow:0 1px 0 rgba(0,0,0,0.28); }
+  .result-card{ padding-top:32px; }
+  .result-card.hidden{ display:none; }
+  .result-label{ font-size:13.5px; color:var(--ink-soft); margin-bottom:4px; }
+  .result-amount{ font-family:var(--font-body); font-weight:600; font-size:42px; color:var(--stamp); line-height:1.1; margin-bottom:4px; }
+  .result-amount .unit{ font-size:20px; margin-left:2px; }
+  .result-note{ font-size:13.5px; color:var(--muted); margin-bottom:8px; }
+  .disclaimer{ font-size:13px; color:var(--muted); line-height:1.6; margin-top:24px; padding-top:16px; border-top:1px dotted var(--line); }
+  @media (max-width:480px){ .card{ padding:24px; } h1{ font-size:25px; } .result-amount{ font-size:34px; } }
+
+  .info-block{ margin-top:40px; }
+  .info-block h2{ font-family:var(--font-body); font-weight:700; font-size:18px; margin:0 0 12px; }
+  .info-block p{ font-size:13.5px; line-height:1.7; color:var(--ink-soft); margin:0 0 14px; }
+  .faq-item{ margin-bottom:16px; }
+  .faq-item .q{ font-size:14px; font-weight:600; margin-bottom:5px; }
+  .faq-item .a{ font-size:13.5px; line-height:1.65; color:var(--ink-soft); }
+
+  .related{ margin-top:20px; margin-bottom:32px; }
+  .related-title{ font-size:13px; color:var(--muted); margin-bottom:10px; }
+  .related-links{ display:flex; flex-wrap:wrap; gap:8px; }
+  .related-links a{ padding:8px 14px; border:1.5px solid var(--line); border-radius:999px; font-size:13px; color:var(--ink); text-decoration:none; }
+  .related-links a:hover{ border-color:var(--ink); }
+
+  .back-home{ display:inline-block; font-size:13px; color:var(--muted); text-decoration:none; margin-bottom:14px; }
+  .back-home:hover{ color:var(--ink); }
+
+  .site-nav{ display:flex; align-items:center; justify-content:space-between; width:100%; margin:0 0 22px; padding:0 0 14px; border-bottom:1px solid var(--line, #D9D2BF); }
+  .site-nav-brand{ font-family:var(--font-body); font-weight:700; font-size:15px; color:var(--ink); text-decoration:none; }
+  .site-nav-brand span{ color:var(--stamp, #B23A2E); }
+  .site-nav-links{ display:flex; gap:2px; }
+  .site-nav-links a{ font-size:13.5px; color:var(--muted); text-decoration:none; padding:6px 10px; border-radius:6px; }
+  .site-nav-links a:hover{ color:var(--ink); background:var(--paper-light, rgba(0,0,0,0.045)); }
+  .site-nav-links a[aria-current="page"]{ color:var(--ink); font-weight:600; }
+  .site-nav-brand:focus-visible, .site-nav-links a:focus-visible{ outline:2px solid var(--stamp, #B23A2E); outline-offset:2px; border-radius:4px; }
+</style>
+<!-- Google AdSense -->
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/tools/site-ui.css?v=20261026-restored">
+</head>
+<body class="restored-tool">
+
+
+
+<div class="stub">
+<nav class="site-nav" aria-label="주요 메뉴"><a class="site-nav-brand" href="/">하루<span>콕</span></a><div class="site-nav-links"><a href="/#all-tools">전체 도구</a></div></nav>
+
+
+
+  <main>
+<h1>반려동물 나이 계산기</h1>
+  <p class="tool-help"><strong>사용방법</strong> 강아지·고양이를 고르고 나이를 입력해 계산하세요.</p>
+
+
+
+  <div class="card">
+    <div class="field">
+      <label>동물 종류</label>
+      <div class="seg" id="speciesSeg">
+        <button type="button" class="active" data-value="dog">강아지 🐶</button>
+        <button type="button" data-value="cat">고양이 🐱</button>
+      </div>
+    </div>
+
+    <div class="field" id="sizeField">
+      <label>견종 크기</label>
+      <div class="seg" id="sizeSeg">
+        <button type="button" class="active" data-value="small">소형견</button>
+        <button type="button" data-value="medium">중형견</button>
+        <button type="button" data-value="large">대형견</button>
+      </div>
+      <span class="field-hint">소형(~10kg) · 중형(10~25kg) · 대형(25kg~) 기준입니다.</span>
+    </div>
+
+    <div class="field">
+      <label for="years">나이 (년)</label>
+      <div class="input-row">
+        <input type="number" id="years" placeholder="예: 3" min="0" inputmode="numeric">
+        <span class="unit" style="font-size:14px;color:var(--muted);margin-left:8px;">년</span>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="months">나이 (개월, 선택)</label>
+      <div class="input-row">
+        <input type="number" id="months" placeholder="예: 6" min="0" max="11" inputmode="numeric">
+        <span class="unit" style="font-size:14px;color:var(--muted);margin-left:8px;">개월</span>
+      </div>
+    </div>
+
+    <button class="calc-btn" id="calcBtn">사람 나이로 환산하기</button>
+  </div>
+
+  <div class="card result-card hidden" id="resultCard">
+    <div class="result-label">사람 나이로 환산하면</div>
+    <div class="result-amount" id="humanAge">0<span class="unit">세</span></div>
+    <div class="result-note" id="resultNote"></div>
+
+    <div class="disclaimer">
+      이 계산 결과는 일반적인 통계에 기반한 추정치이며, 품종과 개체 건강 상태에 따라 실제 노화 속도는 다를 수 있습니다. 정확한 건강 상태는 수의사와 상담하세요.
+    </div>
+  </div>
+
+
+
+
+
+<p class="disclaimer">생후 1년은 15세, 2년은 24세로 보고 이후 해마다 고양이·소형견 4세, 중형견 5세, 대형견 7세를 더한 단순 환산입니다. 건강 상태를 판단하는 기준이 아닙니다.</p>
+</main>
+<footer><a href="/about">소개</a> · <a href="/privacy">개인정보처리방침</a> · <a href="mailto:contact@harukok.com">의견 보내기</a><p>© 2026 하루콕</p></footer>
+</div>
+
+<script>
+(function(){
+  const $ = (id) => document.getElementById(id);
+  let species = 'dog';
+  let size = 'small';
+
+  document.querySelectorAll('#speciesSeg button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      species = btn.dataset.value;
+      document.querySelectorAll('#speciesSeg button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      $('sizeField').style.display = species === 'dog' ? 'block' : 'none';
+    });
+  });
+
+  document.querySelectorAll('#sizeSeg button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      size = btn.dataset.value;
+      document.querySelectorAll('#sizeSeg button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+
+  function catAge(age){
+    if (age <= 0) return 0;
+    if (age <= 1) return age * 15;
+    if (age <= 2) return 15 + (age - 1) * 9;
+    return 24 + (age - 2) * 4;
+  }
+
+  function dogAge(age, size){
+    if (age <= 0) return 0;
+    if (age <= 1) return age * 15;
+    if (age <= 2) return 15 + (age - 1) * 9;
+    const perYear = size === 'small' ? 4 : size === 'medium' ? 5 : 7;
+    return 24 + (age - 2) * perYear;
+  }
+
+  function calculate(){
+    const years = parseFloat($('years').value) || 0;
+    const months = parseFloat($('months').value) || 0;
+    const age = years + months / 12;
+
+    if (age <= 0){
+      $('resultCard').classList.add('hidden');
+      return;
+    }
+
+    const human = species === 'cat' ? catAge(age) : dogAge(age, size);
+    render(human);
+  }
+
+  function render(human){
+    $('humanAge').innerHTML = Math.round(human) + '<span class="unit">세</span>';
+    const label = species === 'cat' ? '고양이' : ({small:'소형견', medium:'중형견', large:'대형견'})[size];
+    $('resultNote').textContent = `${label} 기준 환산 결과입니다.`;
+    $('resultCard').classList.remove('hidden');
+  }
+
+  $('calcBtn').addEventListener('click', calculate);
+})();
+</script>
+<script src="/tools/restored-tool-flow.js?v=20261026" defer></script>
+</body>
+</html>

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>반려동물 사료량 계산기 - 강아지/고양이 하루 급여량</title>
+<meta name="description" content="체중과 생애주기, 활동량을 입력하면 강아지·고양이의 하루 권장 사료 급여량을 계산합니다.">
+<link rel="canonical" href="https://harukok.com/tools/pet-food-calculator">
+<meta property="og:title" content="반려동물 사료량 계산기 - 강아지/고양이 하루 급여량">
+<meta property="og:description" content="체중과 생애주기, 활동량을 입력하면 강아지·고양이의 하루 권장 사료 급여량을 계산합니다.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="하루콕">
+<meta property="og:url" content="https://harukok.com/tools/pet-food-calculator">
+<meta property="og:image" content="https://harukok.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+
+<style>
+  :root{
+    --paper: #ECE8DC;
+    --paper-light: #F7F4EA;
+    --ink: #16233D;
+    --ink-soft: #45516A;
+    --muted: #6E6656;
+    --line: #B7AF98;
+    --stamp: #B23A2E;
+  }
+  *{ box-sizing: border-box; }
+  body{
+    margin:0;
+    padding: 40px 20px 70px;
+    background: var(--paper);
+    background-image: repeating-linear-gradient(0deg, rgba(0,0,0,0.015) 0px, rgba(0,0,0,0.015) 1px, transparent 1px, transparent 3px);
+    font-family:var(--font-body);
+    color: var(--ink);
+    display:flex;
+    justify-content:center;
+  }
+  .stub{ width:100%; max-width: 560px; }
+  .kicker{ font-size:13px; color:var(--muted); margin-bottom:6px; }
+  h1{ font-family:var(--font-body); font-weight:700; font-size:30px; line-height:1.35; margin:0 0 8px; }
+  .lede{ font-size:14.5px; color:var(--ink-soft); line-height:1.6; margin:0 0 32px; max-width:46ch; }
+  .card{ background:var(--paper-light); border:1px solid var(--line); border-radius:14px; padding:32px; margin-bottom:28px; }
+  .field{ margin-bottom:20px; }
+  .field:last-child{ margin-bottom:0; }
+  .field label{ display:block; font-size:13.5px; color:var(--ink-soft); margin-bottom:8px; }
+  .field-hint{ display:block; font-size:13px; color:var(--muted); margin-top:6px; }
+  .input-row{ display:flex; align-items:baseline; border-bottom:1.5px solid var(--ink); padding-bottom:6px; }
+  .input-row input{ flex:1; border:none; background:transparent; font-family:var(--font-body); font-size:20px; font-weight:600; color:var(--ink); outline:none; padding:4px 0; width:100%; }
+  .seg{ display:flex; gap:8px; flex-wrap:wrap; }
+  .seg button{ flex:1; min-width:80px; padding:10px; border:1.5px solid var(--line); border-radius:10px; background:var(--paper-light); color:var(--ink-soft); font-size:13px; font-weight:600; cursor:pointer; }
+  .seg button.active{ background:var(--ink); border-color:var(--ink); color:var(--paper-light); }
+  .calc-btn{ width:100%; padding:16px; margin-top:8px; background:var(--ink); color:var(--paper-light); border:none; border-radius:14px; font-weight:600; font-size:15.5px; cursor:pointer; box-shadow:0 4px 0 rgba(0,0,0,0.28); }
+  .calc-btn:hover{ background:var(--ink-soft); }
+  .calc-btn:active{ transform:translateY(3px); box-shadow:0 1px 0 rgba(0,0,0,0.28); }
+  .result-card{ padding-top:32px; }
+  .result-card.hidden{ display:none; }
+  .result-label{ font-size:13.5px; color:var(--ink-soft); margin-bottom:4px; }
+  .result-amount{ font-family:var(--font-body); font-weight:600; font-size:42px; color:var(--stamp); line-height:1.1; margin-bottom:4px; }
+  .result-amount .unit{ font-size:20px; margin-left:2px; }
+  .breakdown{ border-top:1px solid var(--line); padding-top:20px; margin-top:16px; }
+  .breakdown-row{ display:flex; justify-content:space-between; align-items:baseline; font-size:14px; padding:9px 0; color:var(--ink-soft); }
+  .breakdown-row .amount{ font-family:var(--font-body); color:var(--ink); font-weight:600; font-size:16px; }
+  .disclaimer{ font-size:13px; color:var(--muted); line-height:1.6; margin-top:24px; padding-top:16px; border-top:1px dotted var(--line); }
+
+  .info-block{ margin-top:40px; }
+  .info-block h2{ font-family:var(--font-body); font-weight:700; font-size:18px; margin:0 0 12px; }
+  .info-block p{ font-size:13.5px; line-height:1.7; color:var(--ink-soft); margin:0 0 14px; }
+  .faq-item{ margin-bottom:16px; }
+  .faq-item .q{ font-size:14px; font-weight:600; margin-bottom:5px; }
+  .faq-item .a{ font-size:13.5px; line-height:1.65; color:var(--ink-soft); }
+
+  .related{ margin-top:20px; margin-bottom:32px; }
+  .related-title{ font-size:13px; color:var(--muted); margin-bottom:10px; }
+  .related-links{ display:flex; flex-wrap:wrap; gap:8px; }
+  .related-links a{ padding:8px 14px; border:1.5px solid var(--line); border-radius:999px; font-size:13px; color:var(--ink); text-decoration:none; }
+  .related-links a:hover{ border-color:var(--ink); }
+
+  @media (max-width:480px){ .card{ padding:24px; } h1{ font-size:25px; } .result-amount{ font-size:34px; } }
+
+  .back-home{ display:inline-block; font-size:13px; color:var(--muted); text-decoration:none; margin-bottom:14px; }
+  .back-home:hover{ color:var(--ink); }
+
+  .site-nav{ display:flex; align-items:center; justify-content:space-between; width:100%; margin:0 0 22px; padding:0 0 14px; border-bottom:1px solid var(--line, #D9D2BF); }
+  .site-nav-brand{ font-family:var(--font-body); font-weight:700; font-size:15px; color:var(--ink); text-decoration:none; }
+  .site-nav-brand span{ color:var(--stamp, #B23A2E); }
+  .site-nav-links{ display:flex; gap:2px; }
+  .site-nav-links a{ font-size:13.5px; color:var(--muted); text-decoration:none; padding:6px 10px; border-radius:6px; }
+  .site-nav-links a:hover{ color:var(--ink); background:var(--paper-light, rgba(0,0,0,0.045)); }
+  .site-nav-links a[aria-current="page"]{ color:var(--ink); font-weight:600; }
+  .site-nav-brand:focus-visible, .site-nav-links a:focus-visible{ outline:2px solid var(--stamp, #B23A2E); outline-offset:2px; border-radius:4px; }
+  .sources{ margin-top:24px; padding-top:18px; border-top:1px solid var(--line); }
+  .sources-title{ font-size:13px; font-weight:600; color:var(--ink-soft); margin-bottom:8px; }
+  .sources ul{ margin:0; padding-left:18px; }
+  .sources li{ font-size:13px; line-height:1.8; color:var(--muted); }
+  .sources a{ color:var(--ink-soft); }
+  .sources a:hover{ color:var(--ink); }
+</style>
+<!-- Google AdSense -->
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/tools/site-ui.css?v=20261026-restored">
+</head>
+<body class="restored-tool">
+
+
+
+<div class="stub">
+<nav class="site-nav" aria-label="주요 메뉴"><a class="site-nav-brand" href="/">하루<span>콕</span></a><div class="site-nav-links"><a href="/#all-tools">전체 도구</a></div></nav>
+
+
+
+  <main>
+<h1>반려동물 사료량 계산기</h1>
+  <p class="tool-help"><strong>사용방법</strong> 몸무게와 사료 포장의 칼로리를 입력해 계산하세요.</p>
+
+
+
+  <div class="card">
+    <div class="field">
+      <label>동물 종류</label>
+      <div class="seg" id="speciesSeg">
+        <button type="button" class="active" data-value="dog">강아지 🐶</button>
+        <button type="button" data-value="cat">고양이 🐱</button>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="weight">체중 (kg)</label>
+      <div class="input-row">
+        <input type="number" id="weight" placeholder="예: 5.5" min="0.1" step="0.1" inputmode="decimal" required>
+        <span class="unit" style="font-size:14px;color:var(--muted);margin-left:8px;">kg</span>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>생애주기</label>
+      <div class="seg" id="stageSeg">
+        <button type="button" data-value="baby">새끼</button>
+        <button type="button" class="active" data-value="adult">성체</button>
+        <button type="button" data-value="senior">노령</button>
+        <button type="button" data-value="diet">다이어트</button>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>활동량</label>
+      <div class="seg" id="activitySeg">
+        <button type="button" data-value="low">낮음</button>
+        <button type="button" class="active" data-value="normal">보통</button>
+        <button type="button" data-value="high">높음</button>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="density">사료 칼로리 밀도 (kcal/100g)</label>
+      <div class="input-row">
+        <input type="number" id="density" value="350" min="1" inputmode="numeric" required>
+        <span class="unit" style="font-size:14px;color:var(--muted);margin-left:8px;">kcal/100g</span>
+      </div>
+      <span class="field-hint">350은 예시입니다. 포장지의 대사 에너지(ME)를 입력하세요. kcal/kg로 적혀 있으면 10으로 나누세요.</span>
+    </div>
+
+    <p class="field-hint">성체는 중성화 기준, 새끼 강아지는 생후 4개월 미만 기준입니다. 노령·다이어트·활동량 보정은 단순 가정이며, 처방 급여량이 아닙니다.</p>
+    <button class="calc-btn" id="calcBtn">급여량 계산하기</button>
+  </div>
+
+  <div class="card result-card hidden" id="resultCard">
+    <div class="result-label">하루 급여량 추정</div>
+    <div class="result-amount" id="dailyGram">0<span class="unit">g</span></div>
+    <div class="breakdown" id="breakdown"></div>
+
+    <div class="disclaimer">
+      이 계산은 일반적인 수의영양학 공식(RER × 생애주기·활동량 계수)에 기반한 추정치입니다. 실제 필요량은 품종, 중성화 여부, 건강 상태에 따라 달라질 수 있으니 정확한 급여량은 수의사와 상담하세요.
+    </div>
+  </div>
+
+
+
+
+  <details class="more"><summary>계산 기준·출처</summary><ul><li><a href="https://wsava.org/wp-content/uploads/2020/01/WSAVA-Nutrition-Assessment-Guidelines-2011-JSAP.pdf" target="_blank" rel="noopener">WSAVA</a></li><li><a href="https://www.merckvetmanual.com/multimedia/table/daily-maintenance-energy-requirements-for-dogs-and-cats" target="_blank" rel="noopener">Merck Veterinary Manual: 동물별 에너지 계수</a></li></ul></details>
+</main>
+<footer><a href="/about">소개</a> · <a href="/privacy">개인정보처리방침</a> · <a href="mailto:contact@harukok.com">의견 보내기</a><p>© 2026 하루콕</p></footer>
+</div>
+
+<script>
+(function(){
+  const $ = (id) => document.getElementById(id);
+  let species = 'dog';
+  let stage = 'adult';
+  let activity = 'normal';
+
+  function bindSeg(id, onChange){
+    document.querySelectorAll('#' + id + ' button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#' + id + ' button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        onChange(btn.dataset.value);
+      });
+    });
+  }
+
+  bindSeg('speciesSeg', (v) => species = v);
+  bindSeg('stageSeg', (v) => stage = v);
+  bindSeg('activitySeg', (v) => activity = v);
+
+  // MER factor = stage factor, adjusted slightly by activity
+  const STAGE_FACTOR = {
+    dog: { baby: 3.0, adult: 1.6, senior: 1.4, diet: 1.0 },
+    cat: { baby: 2.5, adult: 1.2, senior: 1.1, diet: 1.0 }
+  };
+  const ACTIVITY_ADJUST = { low: 0.9, normal: 1.0, high: 1.2 };
+
+  function calculate(){
+    const weight = parseFloat($('weight').value) || 0;
+    const density = parseFloat($('density').value) || 350;
+
+    if (weight <= 0){
+      $('resultCard').classList.add('hidden');
+      return;
+    }
+
+    const rer = 70 * Math.pow(weight, 0.75);
+    const factor = STAGE_FACTOR[species][stage] * ACTIVITY_ADJUST[activity];
+    const mer = rer * factor;
+    const grams = (mer / density) * 100;
+
+    render({ rer, mer, grams });
+  }
+
+  function num(n, digits){
+    return n.toLocaleString('ko-KR', { maximumFractionDigits: digits ?? 0 });
+  }
+
+  function render(r){
+    $('dailyGram').innerHTML = num(r.grams) + '<span class="unit">g</span>';
+    $('breakdown').innerHTML = `
+      <div class="breakdown-row"><span>안정시 에너지 요구량(RER)</span><span class="amount">${num(r.rer)} kcal</span></div>
+      <div class="breakdown-row"><span>하루 유지 에너지(MER)</span><span class="amount">${num(r.mer)} kcal</span></div>
+    `;
+    $('resultCard').classList.remove('hidden');
+  }
+
+  $('calcBtn').addEventListener('click', calculate);
+})();
+</script>
+<script src="/tools/restored-tool-flow.js?v=20261026" defer></script>
+</body>
+</html>

@@ -25,7 +25,7 @@
   "url": "https://harukok.com/"
 }
 </script>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/tools/site-ui.css?v=20261025-ui">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/tools/site-ui.css?v=20261026-restored">
 </head>
 <body>
 <div class="wrap">
@@ -48,6 +48,8 @@
         <button type="button" data-category-filter="leaving" aria-pressed="false">퇴사</button>
         <button type="button" data-category-filter="image" aria-pressed="false">사진 편집</button>
         <button type="button" data-category-filter="random" aria-pressed="false">추첨·만들기</button>
+        <button type="button" data-category-filter="creative" aria-pressed="false">만들기·색상</button>
+        <button type="button" data-category-filter="pet" aria-pressed="false">반려동물</button>
         <button type="button" data-category-filter="family" aria-pressed="false">육아</button>
       </div>
     </div>
@@ -57,7 +59,7 @@
         <a class="card utility" href="/tools/certificate-maker"><span class="icon" aria-hidden="true">🏅</span><span class="name">상장 만들기</span></a>
       </div>
     </div>
-    <h2 id="directory-status" class="section-label" role="status" aria-live="polite">전체 도구 21개</h2>
+    <h2 id="directory-status" class="section-label" role="status" aria-live="polite">전체 도구 35개</h2>
     <div class="goal-grid" id="tool-directory">
       <section class="goal-card" id="daily-tools" data-tool-group="daily" aria-labelledby="daily-title">
         <h3 class="goal-title" id="daily-title">생활 계산</h3>
@@ -67,6 +69,10 @@
           <li data-keywords="글자수 글자수세기 자소서 자기소개서 바이트 bytes"><a href="/tools/character-counter">글자 수·바이트 세기</a></li>
           <li data-keywords="생일 연나이 만나이"><a href="/tools/age-calculator">만 나이 계산기</a></li>
           <li data-keywords="제곱미터 m2 ㎡ 평 평형 아파트"><a href="/tools/area-calculator">평수 계산기</a></li>
+
+          <li data-keywords="길이 무게 온도 부피 넓이 단위 변환"><a href="/tools/unit-converter">단위 변환기</a></li>
+
+          <li data-keywords="암호 보안 랜덤 비번"><a href="/tools/password-generator">비밀번호 생성기</a></li>
         </ul>
       </section>
       <section class="goal-card" id="salary-tools" data-tool-group="salary" aria-labelledby="money-title">
@@ -75,6 +81,8 @@
           <li data-keywords="월급 세후 급여 연봉"><a href="/tools/salary-calculator">연봉 실수령액 계산기</a></li>
           <li data-keywords="알바 아르바이트 월급 최저임금 급여"><a href="/tools/hourly-wage-calculator">시급 계산기</a></li>
           <li data-keywords="알바 아르바이트 월급 주급 급여"><a href="/tools/weekly-holiday-pay-calculator">주휴수당 계산기</a></li>
+
+          <li data-keywords="연말정산 환급 소득세 세금"><a href="/tools/year-end-tax-calculator">연말정산 예상세액 계산기</a></li>
         </ul>
       </section>
       <section class="goal-card" id="leaving-tools" data-tool-group="leaving" aria-labelledby="leaving-title">
@@ -91,6 +99,8 @@
           <li data-keywords="사진 이미지 리사이즈 압축 jpg png webp 픽셀 resize"><a href="/tools/image-resizer">사진 크기·용량 줄이기</a></li>
           <li data-keywords="사진 이미지 누끼 배경제거 투명 png"><a href="/tools/background-remover">흰 배경 지우기</a></li>
           <li data-keywords="사진 이미지 크롭 crop 정사각형 비율"><a href="/tools/image-cropper">사진 자르기</a></li>
+
+          <li data-keywords="사진 이미지 격자 분할 스프라이트 자르기"><a href="/tools/image-grid-splitter">사진 격자 나누기</a></li>
         </ul>
       </section>
       <section class="goal-card" id="other-tools" data-tool-group="random" aria-labelledby="random-title">
@@ -101,6 +111,12 @@
           <li data-keywords="점심 저녁 야식 음료 메뉴 음식 추천 랜덤"><a href="/fun/food-picker">오늘 뭐 먹지?</a></li>
           <li data-keywords="랜덤 추첨 이름 명단 당첨자 제비뽑기 뽑기"><a href="/tools/random-picker">이름 뽑기</a></li>
           <li data-keywords="조 팀편성 조편성 조짜기 나누기"><a href="/tools/team-generator">팀 나누기</a></li>
+
+          <li data-keywords="운세 오늘 재미"><a href="/fun/fortune-today">오늘의 운세</a></li>
+
+          <li data-keywords="이름 궁합 커플 테스트"><a href="/fun/name-compatibility">이름궁합 테스트</a></li>
+
+          <li data-keywords="영화 드라마 장르 볼거리 추천"><a href="/fun/watch-picker">오늘 뭐 볼까</a></li>
         </ul>
       </section>
       <section class="goal-card" id="family-tools" data-tool-group="family" aria-labelledby="family-title">
@@ -108,8 +124,24 @@
         <ul class="goal-links">
           <li data-keywords="육휴 출산 휴직 부모 급여 월급"><a href="/tools/parental-leave-calculator">육아휴직급여 계산기</a></li>
           <li data-keywords="아기 이름 태명 봄 여름 가을 겨울"><a href="/fun/baby-name-generator">태명 추천</a></li>
+
+          <li data-keywords="임신 주수 출산 예정일"><a href="/tools/due-date-calculator">출산 예정일 계산기</a></li>
         </ul>
       </section>
+      <section class="goal-card" data-tool-group="creative" aria-labelledby="creative-title"><h3 class="goal-title" id="creative-title">만들기·색상</h3><ul class="goal-links">
+          <li data-keywords="색상 물감 혼합 배합 비율"><a href="/tools/paint-color-mixer">물감 배합 비율 계산기</a></li>
+
+          <li data-keywords="색상 물감 혼합 시뮬레이터"><a href="/tools/paint-mixer-simulator">물감 섞기</a></li>
+
+          <li data-keywords="선물 쿠폰 만들기 제작"><a href="/fun/coupon-maker">쿠폰 만들기</a></li>
+        </ul></section>
+      <section class="goal-card" data-tool-group="pet" aria-labelledby="pet-title"><h3 class="goal-title" id="pet-title">반려동물</h3><ul class="goal-links">
+          <li data-keywords="강아지 고양이 개 나이 반려동물"><a href="/tools/pet-age-calculator">반려동물 나이 계산기</a></li>
+
+          <li data-keywords="강아지 고양이 사료 밥 급여량 칼로리"><a href="/tools/pet-food-calculator">반려동물 사료량 계산기</a></li>
+
+          <li data-keywords="강아지 고양이 반려동물 이름 작명"><a href="/fun/pet-name-generator">반려동물 이름 뽑기</a></li>
+        </ul></section>
     </div>
     <div id="empty-search" class="empty-search" hidden><p>맞는 도구가 없어요. 다른 검색어나 분류를 선택해 보세요.</p><button id="empty-reset" type="button">전체 도구 보기</button></div>
     <aside class="ad-banner ad-banner-strip" aria-label="광고"><p class="ad-label">광고</p><div class="ad-strip-slot"><script src="/ad-banner-isolated.js?v=20261018-isolated"></script></div></aside>

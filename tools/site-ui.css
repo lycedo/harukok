@@ -231,6 +231,41 @@ button,a,input,select,textarea,summary{touch-action:manipulation}
 }
 
 /* ---------- 좁은 화면 ---------- */
+/* 복원 도구도 같은 조작 규칙을 사용한다. 저장용 쿠폰 도안은 별도 유지한다. */
+.restored-tool .stub,.restored-tool .page{max-width:var(--col)}
+.restored-tool main>.card{padding:22px;margin-bottom:20px}
+.restored-tool .field>label,.restored-tool .group-label{font-size:17px;font-weight:700;color:var(--ink)}
+.restored-tool .field-row,.restored-tool .output-row{min-width:0}
+.restored-tool input,.restored-tool select,.restored-tool .field{min-width:0;max-width:100%}
+.restored-tool .input-row input{width:100%;flex:1}
+.restored-tool input[type=color]{width:64px;min-height:52px;padding:4px;flex:none}
+.restored-tool .mode-btn,.restored-tool .mood-seg button,.restored-tool .type-chip,.restored-tool .type-btn,.restored-tool .pigment-chip,.restored-tool .chip,.restored-tool .copy-btn,.restored-tool .swap-btn{
+  min-height:48px;padding:10px 12px;border:2px solid var(--field-line);border-radius:var(--radius-sm);
+  font-family:var(--font-body);font-size:16px;background:#fff;color:var(--ink);cursor:pointer;
+}
+.restored-tool .type-chip.active,.restored-tool .mode-btn.active,.restored-tool .mood-seg button.active,.restored-tool .type-btn.active,.restored-tool .pigment-chip.active,.restored-tool .chip.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+.restored-tool .theme-row{flex-wrap:wrap}
+.restored-tool .theme-dot{min-width:48px;min-height:48px}
+.restored-tool .mood-seg{flex-wrap:wrap}
+.restored-tool .name-form{display:grid;grid-template-columns:1fr;gap:8px}
+.restored-tool .name-form .heart{display:none}
+.restored-tool .name-form input{width:100%}
+.restored-tool .drop-zone{width:100%;font-family:var(--font-body);color:var(--ink);background:var(--surface)}
+.restored-tool .photo-remove{min-height:48px;padding:8px 12px;font:inherit;border:2px solid var(--field-line);border-radius:10px}
+.restored-tool .field-hint,.restored-tool .pigment-hint,.restored-tool .drop-sub{font-size:15px}
+.restored-tool .coupon-wrap{overflow:auto}
+.restored-tool .copy-btn{flex:none}
+.restored-tool .convert-row{flex-wrap:wrap}
+.restored-tool .convert-col{flex:1;min-width:180px}
+.restored-tool .result-label,.restored-tool .result-note{font-size:16px}
+.restored-tool .result-amount{overflow-wrap:anywhere}
+@media(max-width:520px){
+  .restored-tool main>.card{padding:16px}
+  .restored-tool .field-row,.restored-tool .grid-controls{flex-wrap:wrap}
+  .restored-tool .convert-col{flex-basis:100%}
+  .restored-tool .pigment-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .restored-tool .btn-row{flex-direction:column}
+}
 @media (max-width:520px){
   body{padding:14px 14px 44px;font-size:17px}
   h1{font-size:30px}
@@ -240,3 +275,4 @@ button,a,input,select,textarea,summary{touch-action:manipulation}
   .site-nav-brand{font-size:24px}
   .site-nav-links a{padding:6px 10px}
 }
+.restored-tool .swap-btn { width: auto; height: auto; min-height: 48px; border-radius: 10px; padding: 8px 12px; }

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>물감 섞기 시뮬레이터 - 비율별 색 미리보기</title>
+<meta name="description" content="물감을 고르고 비율 막대를 움직이면 실시간으로 어떤 색이 섞여 나오는지 바로 확인할 수 있는 물감 섞기 시뮬레이터.">
+<link rel="canonical" href="https://harukok.com/tools/paint-mixer-simulator">
+<meta property="og:title" content="물감 섞기 시뮬레이터 - 비율별 색 미리보기">
+<meta property="og:description" content="물감을 고르고 비율 막대를 움직이면 실시간으로 어떤 색이 섞여 나오는지 바로 확인할 수 있습니다.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="하루콕">
+<meta property="og:url" content="https://harukok.com/tools/paint-mixer-simulator">
+<meta property="og:image" content="https://harukok.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+
+<style>
+  :root{
+    --paper: #ECE8DC;
+    --paper-light: #F7F4EA;
+    --ink: #16233D;
+    --ink-soft: #45516A;
+    --muted: #6E6656;
+    --line: #B7AF98;
+    --stamp: #B23A2E;
+  }
+  *{ box-sizing: border-box; }
+  body{
+    margin:0;
+    padding: 40px 20px 70px;
+    background: var(--paper);
+    background-image: repeating-linear-gradient(0deg, rgba(0,0,0,0.015) 0px, rgba(0,0,0,0.015) 1px, transparent 1px, transparent 3px);
+    font-family:var(--font-body);
+    color: var(--ink);
+    display:flex;
+    justify-content:center;
+  }
+  .stub{ width:100%; max-width: 600px; }
+  .kicker{ font-size:13px; color:var(--muted); margin-bottom:6px; }
+  h1{ font-family:var(--font-body); font-weight:700; font-size:28px; line-height:1.35; margin:0 0 8px; }
+  .lede{ font-size:14.5px; color:var(--ink-soft); line-height:1.6; margin:0 0 24px; max-width:52ch; }
+  .card{ background:var(--paper-light); border:1px solid var(--line); border-radius:14px; padding:28px; margin-bottom:28px; }
+
+  .back-home{ display:inline-block; font-size:13px; color:var(--muted); text-decoration:none; margin-bottom:14px; }
+  .back-home:hover{ color:var(--ink); }
+
+  .related{ margin-top:20px; margin-bottom:32px; }
+  .related-title{ font-size:13px; color:var(--muted); margin-bottom:10px; }
+  .related-links{ display:flex; flex-wrap:wrap; gap:8px; }
+  .related-links a{ padding:8px 14px; border:1.5px solid var(--line); border-radius:999px; font-size:13px; color:var(--ink); text-decoration:none; }
+  .related-links a:hover{ border-color:var(--ink); }
+
+  .field{ margin-bottom:18px; }
+  .field label{ display:block; font-size:13.5px; color:var(--ink-soft); margin-bottom:8px; font-weight:600; }
+
+  .pigment-grid{ display:grid; grid-template-columns: repeat(2, 1fr); gap:8px; }
+  .pigment-chip{
+    display:flex; align-items:center; gap:9px; border:1.5px solid var(--line); border-radius:10px; padding:9px 12px;
+    background:#fff; cursor:pointer; user-select:none; font-size:13px; color:var(--ink-soft);
+  }
+  .pigment-chip .swatch{ width:20px; height:20px; border-radius:50%; flex-shrink:0; border:1px solid rgba(0,0,0,0.15); }
+  .pigment-chip.active{ border-color:var(--ink); background:var(--paper-light); color:var(--ink); font-weight:600; }
+  .pigment-hint{ font-size:13px; color:var(--muted); margin-top:8px; }
+
+  .slider-row{ display:flex; align-items:center; gap:10px; margin-bottom:14px; }
+  .slider-row .dot{ width:16px; height:16px; border-radius:50%; flex-shrink:0; border:1px solid rgba(0,0,0,0.15); }
+  .slider-row .name{ width:100px; flex-shrink:0; font-size:13px; color:var(--ink-soft); }
+  .slider-row input[type="range"]{ flex:1; accent-color: var(--ink); }
+  .slider-row .pct{ width:44px; flex-shrink:0; text-align:right; font-family:var(--font-body); font-size:13px; font-weight:600; color:var(--ink); }
+
+  .live-mix-box{ text-align:center; margin-top:20px; }
+  .live-mix-box .big-swatch{ width:140px; height:140px; margin:0 auto 10px; border-radius:12px; border:1.5px solid var(--line); }
+  .live-mix-box .label{ font-size:13px; color:var(--muted); }
+  .live-mix-box .hexval{ font-family:var(--font-body); font-size:13px; color:var(--ink-soft); }
+
+  .empty-note{ font-size:13px; color:var(--muted); text-align:center; padding:20px 0; }
+
+  .disclaimer{ font-size:13px; color:var(--muted); line-height:1.6; margin-top:20px; padding-top:16px; border-top:1px dotted var(--line); }
+  @media (max-width:480px){ .card{ padding:20px; } h1{ font-size:23px; } }
+
+  .info-block{ margin-top:40px; }
+  .info-block h2{ font-family:var(--font-body); font-weight:700; font-size:18px; margin:0 0 12px; }
+  .info-block p{ font-size:13.5px; line-height:1.7; color:var(--ink-soft); margin:0 0 14px; }
+  .faq-item{ margin-bottom:16px; }
+  .faq-item .q{ font-size:14px; font-weight:600; margin-bottom:5px; }
+  .faq-item .a{ font-size:13.5px; line-height:1.65; color:var(--ink-soft); }
+
+  .site-nav{ display:flex; align-items:center; justify-content:space-between; width:100%; margin:0 0 22px; padding:0 0 14px; border-bottom:1px solid var(--line, #D9D2BF); }
+  .site-nav-brand{ font-family:var(--font-body); font-weight:700; font-size:15px; color:var(--ink); text-decoration:none; }
+  .site-nav-brand span{ color:var(--stamp, #B23A2E); }
+  .site-nav-links{ display:flex; gap:2px; }
+  .site-nav-links a{ font-size:13.5px; color:var(--muted); text-decoration:none; padding:6px 10px; border-radius:6px; }
+  .site-nav-links a:hover{ color:var(--ink); background:var(--paper-light, rgba(0,0,0,0.045)); }
+  .site-nav-links a[aria-current="page"]{ color:var(--ink); font-weight:600; }
+  .site-nav-brand:focus-visible, .site-nav-links a:focus-visible{ outline:2px solid var(--stamp, #B23A2E); outline-offset:2px; border-radius:4px; }
+</style>
+<!-- Google AdSense -->
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/tools/site-ui.css?v=20261026-restored">
+</head>
+<body class="restored-tool">
+
+
+
+<div class="stub">
+<nav class="site-nav" aria-label="주요 메뉴"><a class="site-nav-brand" href="/">하루<span>콕</span></a><div class="site-nav-links"><a href="/#all-tools">전체 도구</a></div></nav>
+
+
+
+  <main>
+<h1>물감 섞기</h1>
+  <p class="tool-help"><strong>사용방법</strong> 물감 2~4개를 고르고 비율 막대를 움직이세요.</p>
+
+
+
+  <div class="card">
+    <div class="field">
+      <label>사용할 물감 선택 (2~4개)</label>
+      <div class="pigment-grid" id="pigmentGrid"></div>
+      <div class="pigment-hint">최소 2개, 최대 4개까지 선택하고 아래 막대를 움직여보세요.</div>
+    </div>
+
+    <div id="emptyNote" class="empty-note">물감을 2개 이상 선택하면 비율 막대가 나타나요.</div>
+
+    <div id="sliderSection" style="display:none;">
+      <div id="sliderRows"></div>
+      <div class="live-mix-box">
+        <div class="big-swatch" id="liveMixSwatch"></div>
+        <div class="label">섞은 결과</div>
+        <div class="hexval" id="liveMixHexLabel"></div>
+      </div>
+    </div>
+
+    <div class="disclaimer">실제 물감은 빛처럼 섞이지 않아 이 결과는 참고용 근사치입니다. 브랜드·농도에 따라 실제 색이 다를 수 있어요.</div>
+  </div>
+
+
+
+
+</main>
+<footer><a href="/about">소개</a> · <a href="/privacy">개인정보처리방침</a> · <a href="mailto:contact@harukok.com">의견 보내기</a><p>© 2026 하루콕</p></footer>
+</div>
+
+<script>
+(function(){
+  const $ = (id) => document.getElementById(id);
+
+  const PIGMENTS = [
+    { name: '티타늄 화이트', hex: '#F7F7F5' },
+    { name: '마스 블랙', hex: '#1B1B1B' },
+    { name: '카드뮴 레드', hex: '#E3242B' },
+    { name: '울트라마린 블루', hex: '#1B3F8B' },
+    { name: '카드뮴 옐로우', hex: '#FFD300' },
+    { name: '번트 시에나', hex: '#8A3324' },
+    { name: '프탈로 그린', hex: '#123524' },
+    { name: '다이옥사진 퍼플', hex: '#4B0082' },
+    { name: '옐로우 오커', hex: '#CC9A3E' },
+    { name: '마젠타', hex: '#CA1F7B' },
+  ];
+
+  const pigmentGrid = $('pigmentGrid');
+  const emptyNote = $('emptyNote');
+  const sliderSection = $('sliderSection');
+  const sliderRows = $('sliderRows');
+  const liveMixSwatch = $('liveMixSwatch');
+  const liveMixHexLabel = $('liveMixHexLabel');
+
+  let selected = new Set();
+  const sliderValues = {};
+
+  function hexToRgb(hex){
+    const h = hex.replace('#', '');
+    return [parseInt(h.substr(0,2),16), parseInt(h.substr(2,2),16), parseInt(h.substr(4,2),16)];
+  }
+  function rgbToHex(rgb){
+    return '#' + rgb.map(v => Math.max(0, Math.min(255, Math.round(v))).toString(16).padStart(2, '0')).join('').toUpperCase();
+  }
+
+  function renderPigments(){
+    PIGMENTS.forEach((p, i) => {
+      const el = document.createElement('button');
+      el.type = 'button';
+      el.className = 'pigment-chip';
+      el.setAttribute('aria-pressed', 'false');
+      el.innerHTML = `<span class="swatch" style="background:${p.hex}"></span>${p.name}`;
+      el.addEventListener('click', () => {
+        if (selected.has(i)) {
+          selected.delete(i);
+          delete sliderValues[i];
+          el.classList.remove('active');
+          el.setAttribute('aria-pressed', 'false');
+        } else {
+          if (selected.size >= 4) return;
+          selected.add(i);
+          sliderValues[i] = 50;
+          el.classList.add('active');
+          el.setAttribute('aria-pressed', 'true');
+        }
+        renderSliders();
+      });
+      pigmentGrid.appendChild(el);
+    });
+  }
+
+  function renderSliders(){
+    if (selected.size < 2) {
+      sliderSection.style.display = 'none';
+      emptyNote.style.display = 'block';
+      return;
+    }
+    emptyNote.style.display = 'none';
+    sliderSection.style.display = 'block';
+    const idxs = [...selected];
+    sliderRows.innerHTML = idxs.map(i => `
+      <div class="slider-row" data-idx="${i}">
+        <span class="dot" style="background:${PIGMENTS[i].hex}"></span>
+        <span class="name">${PIGMENTS[i].name}</span>
+        <input type="range" aria-label="${PIGMENTS[i].name} 비율" min="1" max="100" value="${sliderValues[i]}">
+        <span class="pct" id="pct-${i}">0%</span>
+      </div>
+    `).join('');
+    sliderRows.querySelectorAll('input[type="range"]').forEach(inp => {
+      const idx = Number(inp.closest('.slider-row').dataset.idx);
+      inp.addEventListener('input', () => {
+        sliderValues[idx] = Number(inp.value);
+        updateLiveMix();
+      });
+    });
+    updateLiveMix();
+  }
+
+  function updateLiveMix(){
+    const idxs = [...selected];
+    const total = idxs.reduce((s, i) => s + sliderValues[i], 0) || 1;
+    const mix = [0, 0, 0];
+    idxs.forEach(i => {
+      const w = sliderValues[i] / total;
+      const rgb = hexToRgb(PIGMENTS[i].hex);
+      for (let c = 0; c < 3; c++) mix[c] += w * rgb[c];
+      const pctEl = $('pct-' + i);
+      if (pctEl) pctEl.textContent = Math.round(w * 100) + '%';
+    });
+    const hex = rgbToHex(mix);
+    liveMixSwatch.style.background = hex;
+    liveMixHexLabel.textContent = hex;
+  }
+
+  renderPigments();
+})();
+</script>
+<script src="/tools/restored-tool-flow.js?v=20261026" defer></script>
+</body>
+</html>
