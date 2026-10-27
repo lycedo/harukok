@@ -23,8 +23,8 @@
   frame.style.cssText = 'display:block;border:0;max-width:100%;';
   // A distinct origin lets the vendor populate its own child frames without
   // access to our page. Never use srcdoc or a same-origin URL with these flags.
-  // Popups preserve ordinary clicked ad links; browser activation checks still apply.
-  frame.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox');
+  // No popup or top-navigation permissions, including in nested vendor frames.
+  frame.setAttribute('sandbox', 'allow-scripts allow-same-origin');
   frame.setAttribute('allow', "fullscreen 'none'; autoplay 'none'");
   frame.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
   const local = ['localhost', '127.0.0.1'].includes(location.hostname);

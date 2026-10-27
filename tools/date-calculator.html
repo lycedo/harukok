@@ -8,7 +8,7 @@
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "날짜·디데이 계산기", "url": "https://harukok.com/tools/date-calculator", "description": "두 날짜 사이의 일수와 D-Day, 기준일부터 N일 전후, 시작일을 포함한 100일째 날짜를 계산합니다. 윤년과 월말을 반영하고 포함 기준을 구분합니다.", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any", "browserRequirements": "Requires JavaScript", "inLanguage": "ko", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "KRW"}}</script>
 <link rel="stylesheet" href="/tools/tool-controls.css?v=20261025-flow">
 <script src="/tools/tool-flow.js?v=20261025" defer></script>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/tools/site-ui.css?v=20261026-restored">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/tools/site-ui.css?v=20261027-banner">
 </head><body><div class="wrap">
 <nav class="site-nav" aria-label="주요 메뉴"><a class="site-nav-brand" href="/">하루<span>콕</span></a><div class="site-nav-links"><a href="/#all-tools">전체 도구</a></div></nav>
 <main><h1>날짜·디데이 계산기</h1>
@@ -24,7 +24,7 @@
 <section class="sheet" id="offset-panel" data-tool-panel-content aria-label="며칠 뒤·전 날짜 찾기"><form id="offset-form"><div class="field"><label for="base">시작 날짜</label><input id="base" type="date" min="1900-01-01" max="2100-12-31" required></div>
 <div class="fields"><div class="field"><label for="count-mode">언제인가요?</label><select id="count-mode"><option value="offset">며칠 뒤 (시작일 제외)</option><option value="before">며칠 전</option><option value="nth">며칠째 (시작일 포함)</option></select></div><div class="field"><label for="days">며칠인가요?</label><input id="days" type="number" step="1" min="0" max="36525" value="100" aria-describedby="days-hint" required><p class="hint" id="days-hint">예: 100일 뒤는 100을 입력하세요.</p></div></div>
 <button type="submit" class="primary">날짜 찾기</button><p id="offset-error" class="error" role="alert"></p></form><div class="result" id="offset-result" aria-live="polite" hidden><div class="result-label">계산한 날짜</div><div class="result-value" id="offset-value"></div><p id="offset-detail"></p></div><div class="examples"><button type="button" id="example-date" class="secondary">100일째 예시 넣기</button></div></section>
-<aside class="ad-banner ad-banner-strip" aria-label="광고"><p class="ad-label">광고</p><div class="ad-strip-slot"><script src="/ad-banner-isolated.js?v=20261018-tools"></script></div></aside>
+<aside class="ad-banner ad-banner-strip" aria-label="광고"><p class="ad-label">광고</p><div class="ad-strip-slot"><script src="/ad-banner-isolated.js?v=20261027-banner"></script></div></aside>
 <p class="meta">주말·공휴일 포함 · 1900~2100년 양력 날짜</p>
 
 </main><footer><a href="/about">소개</a> · <a href="/privacy">개인정보처리방침</a> · <a href="mailto:contact@harukok.com?subject=%EB%82%A0%EC%A7%9C%20%EA%B3%84%EC%82%B0%EA%B8%B0%20-%20%EB%94%94%EB%8D%B0%EC%9D%B4%C2%B7%EB%82%A0%EC%A7%9C%20%EC%B0%A8%EC%9D%B4%C2%B7100%EC%9D%BC%EC%A7%B8%20%EA%B3%84%EC%82%B0%20%7C%20%ED%95%98%EB%A3%A8%EC%BD%95">의견 보내기</a><p>© 2026 하루콕</p></footer></div></body></html>

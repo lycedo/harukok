@@ -5,7 +5,7 @@ const vm = require('node:vm');
 const root = path.join(__dirname, '..');
 const source = fs.readFileSync(path.join(root, 'ad-banner-isolated.js'), 'utf8');
 const wrapper = fs.readFileSync(path.join(root, 'ad-frame.html'), 'utf8');
-const sandbox = 'allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox';
+const sandbox = 'allow-scripts allow-same-origin';
 function run(available, strip, origin = 'https://harukok.com') {
   const slot = { clientWidth: available, classList: { contains: () => strip }, style: {}, parentElement: {}, children: [], appendChild(f) { this.children.push(f); } };
   const window = {};
@@ -24,7 +24,7 @@ for (const [available, expected] of [[280, 0], [319, 0], [320, 320], [390, 320],
   assert.equal(frame.width, expected);
   assert.equal(frame.height, expected === 468 ? 60 : 50);
   assert.equal(frame.attrs.sandbox, sandbox);
-  for (const forbidden of ['allow-top-navigation', 'allow-modals', 'allow-downloads']) assert.ok(!frame.attrs.sandbox.includes(forbidden));
+  for (const forbidden of ['allow-top-navigation', 'allow-popups', 'allow-modals', 'allow-downloads']) assert.ok(!frame.attrs.sandbox.includes(forbidden));
   assert.equal(frame.attrs.allow, "fullscreen 'none'; autoplay 'none'");
   assert.equal(slot.style.overflow, 'hidden');
 }
@@ -50,7 +50,7 @@ for (const size of ['300x250', '320x50', '468x60', 'bad', '__proto__']) {
     assert.equal(scripts[0].src, 'https://bauval.org/22/' + window.atOptions.key);
     assert.equal(window.atOptions.width + 'x' + window.atOptions.height, size);
     window.open('https://example.com');
-    assert.equal(opens, active ? 1 : 0);
+    assert.equal(opens, 0);
     assert.equal(Object.getOwnPropertyDescriptor(window, 'open').writable, false);
   }
 }
@@ -61,11 +61,11 @@ for (const page of pages) {
   assert.ok(!html.includes('bauval.org'), 'Direct vendor code: '+page);
   assert.ok(!html.includes('adsbygoogle.js'), 'Unrestricted auto-ad loader: '+page);
   if (!html.includes('class="ad-banner')) continue;
-  assert.equal((html.match(/src="\/ad-banner-isolated\.js\?v=20261018-(?:isolated|tools)"/g)||[]).length,1,page);
+  assert.equal((html.match(/src="\/ad-banner-isolated\.js\?v=20261027-banner"/g)||[]).length,1,page);
   checked++;
 }
-assert.equal(checked,28);
-console.log('PASS - banner sizes, cross-origin isolation, sandbox permissions, popup guard, unit whitelist, all 28 integrations');
+assert.equal(checked,42);
+console.log('PASS - banner sizes, cross-origin isolation, sandbox permissions, popup guard, unit whitelist, all 42 integrations');
 if (process.argv.includes('--fixture')) {
   fs.writeFileSync(path.join(__dirname, 'ad-sandbox-frame.html'), wrapper.replace("script.src = 'https://bauval.org/22/' + key;", "script.src = '/verify/ad-sandbox-vendor.js';"));
   fs.writeFileSync(path.join(__dirname, 'ad-sandbox-vendor.js'), `

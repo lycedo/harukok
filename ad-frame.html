@@ -18,14 +18,9 @@
   };
   const size = new URLSearchParams(location.search).get('size');
   if (!Object.hasOwn(units, size)) return;
-  // Additional popup guard for the outer vendor script. Sandbox restrictions
-  // also apply to its descendants; the browser controls popup user activation.
-  const open = window.open;
+  // Block vendor popup calls; the parent sandbox also covers nested frames.
   Object.defineProperty(window, 'open', {
-    value: function() {
-      if (!navigator.userActivation?.isActive) return null;
-      return open.apply(window, arguments);
-    }, writable: false, configurable: false
+    value: () => null, writable: false, configurable: false
   });
   const [key, width, height] = units[size];
   window.atOptions = { key, format: 'iframe', width, height, params: {} };
