@@ -179,6 +179,8 @@
 
 
 <aside class="ad-banner ad-banner-strip" aria-label="광고"><p class="ad-label">광고</p><div class="ad-strip-slot"><script src="/ad-banner-isolated.js?v=20261027-banner"></script></div></aside>
+<button class="secondary" id="saveRecipeBtn" type="button" disabled>배합표 저장 (.txt)</button>
+<p id="saveStatus" role="status"></p>
 </main>
 <footer><a href="/about">소개</a> · <a href="/privacy">개인정보처리방침</a> · <a href="mailto:contact@harukok.com">의견 보내기</a><p>© 2026 하루콕</p></footer>
 </div>
@@ -213,6 +215,25 @@
   const accuracyNote = $('accuracyNote');
 
   let selected = new Set();
+  let recipe = '';
+  function clearResult(){
+    result.classList.remove('visible');
+    $('saveRecipeBtn').disabled = true;
+    $('saveStatus').textContent = '';
+  }
+
+  $('saveRecipeBtn').addEventListener('click', () => {
+    if (!recipe || !result.classList.contains('visible')) return;
+    const url = URL.createObjectURL(new Blob(['\uFEFF' + recipe], { type: 'text/plain;charset=utf-8' }));
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = '하루콕-물감-배합표.txt';
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    $('saveStatus').textContent = '브라우저의 다운로드 목록에서 배합표를 확인하세요.';
+  });
 
   function hexToRgb(hex){
     const h = hex.replace('#', '');
@@ -244,7 +265,7 @@
           el.setAttribute('aria-pressed', 'true');
         }
         calcBtn.disabled = selected.size < 2;
-        result.classList.remove('visible');
+        clearResult();
       });
       pigmentGrid.appendChild(el);
     });
@@ -285,7 +306,7 @@
 
   function syncFromPicker(){
     targetColorHex.value = targetColorPicker.value.toUpperCase();
-    result.classList.remove('visible');
+    clearResult();
   }
   function syncFromHexInput(){
     let v = targetColorHex.value.trim();
@@ -293,11 +314,12 @@
     if (isValidHex(v)){
       targetColorPicker.value = v;
       targetColorHex.value = v.toUpperCase();
-      result.classList.remove('visible');
+      clearResult();
     }
   }
 
   targetColorPicker.addEventListener('input', syncFromPicker);
+  targetColorHex.addEventListener('input', clearResult);
   targetColorHex.addEventListener('change', syncFromHexInput);
 
   calcBtn.addEventListener('click', () => {
@@ -305,7 +327,7 @@
     let typed = targetColorHex.value.trim();
     if (!typed.startsWith('#')) typed = '#' + typed;
     if (!isValidHex(typed)){
-      result.classList.remove('visible');
+      clearResult();
       targetColorHex.setCustomValidity('색 코드는 #RRGGBB 형식(예: #B76E79)으로 입력해주세요.');
       targetColorHex.reportValidity();
       targetColorHex.setCustomValidity('');
@@ -345,8 +367,22 @@
     else if (dist < 50) note = '목표 색상과 비슷하지만 약간 차이가 있을 수 있어요.';
     else note = '선택한 물감으로는 목표 색상과 차이가 클 수 있어요. 다른 물감을 선택해보세요.';
     accuracyNote.textContent = note;
+    recipe = [
+      '하루콕 물감 배합표',
+      '목표 색상: ' + targetColorHex.value,
+      '배합 결과(근사치): ' + mixHex,
+      '',
+      ...items.map(it => it.name + ': ' + Math.round(it.pct * 100) + '%'),
+      '',
+      note,
+      '비율은 반올림되어 합계가 100%와 조금 다를 수 있습니다.',
+      '실제 물감은 빛처럼 섞이지 않아 참고용 근사치입니다. 브랜드·농도에 따라 실제 색이 다를 수 있습니다.',
+      'https://harukok.com/tools/paint-color-mixer'
+    ].join('\n');
+    $('saveStatus').textContent = '';
 
     result.classList.add('visible');
+    $('saveRecipeBtn').disabled = false;
   });
 
   renderPigments();

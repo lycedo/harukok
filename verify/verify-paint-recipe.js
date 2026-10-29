@@ -1,0 +1,23 @@
+const fs=require('fs'),path=require('path'),vm=require('vm'),assert=require('assert');
+const {FakeDocument}=require('./dom-shim');
+(async()=>{
+const html=fs.readFileSync(path.join(__dirname,'../tools/paint-color-mixer.html'),'utf8');
+const doc=new FakeDocument();doc.registerFromHtml(html);
+const blobs=[],links=[],revoked=[],timers=[];
+const create=doc.createElement.bind(doc);
+doc.createElement=tag=>{const e=create(tag);if(tag==='a'){e.click=()=>links.push({name:e.download,href:e.href});e.remove=()=>{};}return e;};
+vm.runInNewContext([...html.matchAll(/<script([^>]*)>([\s\S]*?)<\/script>/g)].filter(m=>!/src=|ld\+json/.test(m[1])).map(m=>m[2]).join('\n'),{document:doc,Blob,URL:{createObjectURL(b){blobs.push(b);return 'blob:test';},revokeObjectURL:u=>revoked.push(u)},setTimeout:fn=>timers.push(fn)});
+const get=id=>doc.getElementById(id);
+get('saveRecipeBtn').click();assert.equal(blobs.length,0,'No export before calculation');
+get('pigmentGrid').children[0].click();get('pigmentGrid').children[2].click();get('calcBtn').click();get('saveRecipeBtn').click();
+assert.equal(blobs.length,1);assert.equal(links[0].name,'하루콕-물감-배합표.txt');
+const text=await blobs[0].text();
+assert(text.includes('목표 색상: #B76E79'));assert(text.includes('티타늄 화이트:'));assert(text.includes('카드뮴 레드:'));assert(text.includes('브랜드·농도'));assert(text.includes(get('mixHexLabel').textContent));
+assert.equal(blobs[0].type,'text/plain;charset=utf-8');timers.forEach(fn=>fn());assert.deepEqual(revoked,['blob:test']);
+get('targetColorHex').value='#FFFFFF';get('targetColorHex').dispatchEvent({type:'input'});assert(get('saveRecipeBtn').disabled);get('saveRecipeBtn').click();assert.equal(blobs.length,1,'Changed input must not export stale recipe');
+get('calcBtn').click();get('saveRecipeBtn').click();assert((await blobs[1].text()).includes('목표 색상: #FFFFFF'));
+get('pigmentGrid').children[2].click();assert(get('saveRecipeBtn').disabled);
+assert.equal((html.match(/class="ad-banner ad-banner-strip"/g)||[]).length,1);
+assert(html.indexOf('<aside class="ad-banner')<html.indexOf('<button class="secondary" id="saveRecipeBtn"'));
+console.log('PASS - recipe contents, download, stale input, URL cleanup, single banner before save');
+})().catch(e=>{console.error(e);process.exitCode=1;});
