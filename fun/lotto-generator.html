@@ -232,6 +232,13 @@
       </div>
       <div id="amountGrid"></div>
     </div>
+    <details id="excludeOptions">
+      <summary>빼고 싶은 번호 (선택)</summary>
+      <label for="excludedNumbers">제외할 번호</label>
+      <input id="excludedNumbers" type="text" placeholder="예: 7, 14, 21" aria-describedby="excludeHelp excludeError">
+      <p id="excludeHelp">1~45 사이 번호를 쉼표나 띄어쓰기로 나눠 적으세요. 최대 39개까지 뺄 수 있습니다. 비워두면 모든 번호에서 뽑습니다.</p>
+    </details>
+    <p id="excludeError" role="alert" hidden></p>
     <button class="pull-btn" id="genBtn">번호 뽑기</button>
   </div>
 
@@ -420,12 +427,25 @@
     return 'green';
   }
 
-  function generateLine(){
-    const nums = new Set();
-    while (nums.size < 6){
-      nums.add(1 + Math.floor(Math.random() * 45));
+  function readExcludedNumbers(){
+    const raw = $('excludedNumbers').value.trim();
+    if (!raw) return new Set();
+    const tokens = raw.split(/[\s,]+/);
+    if (tokens.some(token => !/^\d+$/.test(token) || Number(token) < 1 || Number(token) > 45)) {
+      throw new Error('1~45 사이의 정수만 쉼표나 띄어쓰기로 나눠 적어 주세요.');
     }
-    return [...nums].sort((a,b) => a-b);
+    const excluded = new Set(tokens.map(Number));
+    if (excluded.size > 39) throw new Error('뽑을 번호가 6개 이상 남아야 합니다. 제외 번호를 39개 이하로 줄여 주세요.');
+    return excluded;
+  }
+
+  function generateLine(excluded){
+    const pool = Array.from({length: 45}, (_, i) => i + 1).filter(n => !excluded.has(n));
+    const nums = [];
+    while (nums.length < 6) {
+      nums.push(pool.splice(Math.floor(Math.random() * pool.length), 1)[0]);
+    }
+    return nums.sort((a,b) => a-b);
   }
 
   function ballHTML(n, extraClass, extraStyle){
@@ -669,11 +689,23 @@
 
   $('genBtn').addEventListener('click', () => {
     if (spinning) return;
+    let excluded;
+    try {
+      excluded = readExcludedNumbers();
+    } catch (error) {
+      $('excludeOptions').open = true;
+      $('excludeError').textContent = error.message;
+      $('excludeError').hidden = false;
+      $('excludedNumbers').setAttribute('aria-invalid', 'true');
+      return;
+    }
+    $('excludeError').hidden = true;
+    $('excludedNumbers').setAttribute('aria-invalid', 'false');
     spinning = true;
     $('genBtn').disabled = true;
 
     const lineCount = selectedLines;
-    const finalLines = Array.from({ length: lineCount }, generateLine);
+    const finalLines = Array.from({ length: lineCount }, () => generateLine(excluded));
 
     const createdAt = Date.now();
     $('memoSub').textContent = formatDateTime(createdAt);
@@ -686,7 +718,7 @@
       tick++;
       if (tick < totalTicks){
         $('memoRows').innerHTML = finalLines.map((_, i) => `
-          <div class="memo-row"><span class="idx">${i+1}</span>${generateLine().map(n => ballHTML(n, 'tick')).join('')}</div>
+          <div class="memo-row"><span class="idx">${i+1}</span>${generateLine(excluded).map(n => ballHTML(n, 'tick')).join('')}</div>
         `).join('');
         const progress = tick / totalTicks;
         setTimeout(nextTick, 55 + Math.pow(progress, 3) * 220);

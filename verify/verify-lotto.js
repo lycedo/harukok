@@ -422,5 +422,31 @@ console.log('\n=== 14. 텍스트 복사는 번호만, 카드 부제는 날짜만
   check('공유 열람 카드 부제에 동행복권 문구가 없음', doc3.getElementById('memoSub').textContent.includes('동행복권'), false);
 }
 
+console.log('\n=== 제외 번호: 경계값, 잘못된 입력, 기록 보존 ===');
+{
+  const {doc, localStorage} = load({});
+  const input = doc.getElementById('excludedNumbers');
+  input.value = Array.from({length:39}, (_,i)=>i+1).join(', ') + ' 1 2';
+  doc.getElementById('amountGrid').children[4].click();
+  doc.getElementById('genBtn').click();
+  const saved = localStorage.getItem('harukok-lotto-history');
+  check('39개 제외 + 중복 입력 시 5줄 모두 남은 6개', JSON.parse(saved)[0].lines, Array.from({length:5},()=>[40,41,42,43,44,45]));
+  for (const value of ['0', '46', '-1', '2.5', '1e1', '7번', '1,,2,', Array.from({length:40},(_,i)=>i+1).join(' ')]) {
+    input.value = value;
+    doc.getElementById('genBtn').click();
+    check('잘못된 입력 안내: '+value, doc.getElementById('excludeError').hidden, false);
+    check('잘못된 입력은 기존 기록 보존', localStorage.getItem('harukok-lotto-history'), saved);
+    check('오류 후 다시 생성 가능', doc.getElementById('genBtn').disabled, false);
+  }
+  input.value = '7,14 21';
+  doc.getElementById('genBtn').click();
+  const lines = JSON.parse(localStorage.getItem('harukok-lotto-history'))[0].lines;
+  check('모든 줄에 제외 번호 없음', lines.every(line=>line.every(n=>![7,14,21].includes(n))), true);
+  check('수정 후 오류 해제', doc.getElementById('excludeError').hidden, true);
+  input.value = ' ';
+  doc.getElementById('genBtn').click();
+  check('비우면 정상 생성 및 기록 추가', JSON.parse(localStorage.getItem('harukok-lotto-history')).length, 3);
+}
+
 console.log('\n결과: ' + pass + '개 통과, ' + fail + '개 실패');
 if (fail > 0) process.exit(1);
