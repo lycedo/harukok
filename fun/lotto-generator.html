@@ -341,6 +341,7 @@
     }
     const original = $(cardId);
     const clone = original.cloneNode(true);
+    clone.querySelectorAll('.ball').forEach(ball => { ball.style.animation = 'none'; });
     clone.style.width = '420px';
     clone.style.maxWidth = '420px';
     clone.style.position = 'fixed';
@@ -352,10 +353,17 @@
       document.body.removeChild(clone);
       const link = document.createElement('a');
       link.download = filename;
-      link.href = canvas.toDataURL('image/png');
-      link.click();
+      canvas.toBlob(blob => {
+        if (!blob) { alert('이미지를 만들지 못했어요. 다시 시도하세요.'); return; }
+        const url = URL.createObjectURL(blob);
+        link.href = url;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 60000);
+      }, 'image/png');
     }).catch(() => {
-      document.body.removeChild(clone);
+      clone.remove();
       alert('이미지 저장에 실패했어요.');
     });
   }
