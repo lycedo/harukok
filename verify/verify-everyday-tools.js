@@ -73,6 +73,25 @@ for (const [mode,expected] of [['of','20'],['ratio','15%'],['change','10%'],['di
   percent('mode').value=mode;percent('mode').dispatchEvent({type:'change'});
   percent('percent-example').click();equal(percent('result-value').textContent,expected);
 }
+// Reverse comparisons without retyping; swapping must invalidate the previous result.
+for (const mode of ['ratio','change']) {
+  percent('mode').value=mode;percent('mode').dispatchEvent({type:'change'});
+  equal(percent('swap-values').hidden,false);
+  percent('a').value='100';percent('b').value='200';percent('calculator').requestSubmit();
+  percent('swap-values').click();
+  equal(percent('a').value,'200');equal(percent('b').value,'100');equal(percent('result').hidden,true);
+  percent('calculator').requestSubmit();equal(percent('result-value').textContent,mode==='ratio'?'200%':'-50%');
+  percent('a').value='0';percent('b').value='200';percent('swap-values').click();percent('calculator').requestSubmit();
+  equal(percent('result').hidden,mode==='ratio');
+  percent('a').value='';percent('b').value='2.5';percent('swap-values').click();
+  equal(percent('a').value,'2.5');equal(percent('b').value,'');equal(percent('error').textContent,'');
+  percent('calculator').requestSubmit();equal(percent('result').hidden,true);
+}
+for (const mode of ['of','discount']) {
+  percent('mode').value=mode;percent('mode').dispatchEvent({type:'change'});
+  equal(percent('swap-values').hidden,true);
+  percent('a').value='100';percent('b').value='10';percent('swap-values').click();equal(percent('a').value,'100');
+}
 const dates=load('date-calculator');
 dates('start').value='2026-10-18';dates('end').value='2026-10-20';dates('inclusive').checked=true;
 dates('difference-form').dispatchEvent({type:'submit',preventDefault(){}});

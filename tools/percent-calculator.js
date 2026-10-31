@@ -33,9 +33,16 @@ if (typeof document !== 'undefined') {
     $('a').placeholder='예: '+examples[$('mode').value][0]; $('b').placeholder='예: '+examples[$('mode').value][1];
     document.querySelectorAll('[data-mode]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.mode===$('mode').value)));
     $('a').value = ''; $('b').value = ''; clearResult();
+    $('swap-values').hidden = !['ratio','change'].includes($('mode').value);
   }
   $('mode').addEventListener('change',changeMode);
   document.querySelectorAll('[data-mode]').forEach(button=>button.addEventListener('click',()=>{ $('mode').value=button.dataset.mode; changeMode(); }));
+  $('swap-values').addEventListener('click', () => {
+    if (!['ratio','change'].includes($('mode').value)) return;
+    const previous = $('a').value;
+    $('a').value = $('b').value; $('b').value = previous;
+    clearResult();
+  });
   $('calculator').addEventListener('input',clearResult);
   $('calculator').addEventListener('submit',event => {
     event.preventDefault(); clearResult();
