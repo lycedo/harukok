@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>근무시간 계산기 | 하루콕</title><meta name="description" content="출근·퇴근 시각에서 휴게시간을 빼고 하루 근무시간을 계산합니다. 다음 날 퇴근과 소수 시간 변환을 지원합니다.">
+<link rel="canonical" href="https://harukok.com/tools/work-time-calculator"><link rel="icon" type="image/png" href="/favicon.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:title" content="근무시간 계산기 | 하루콕"><meta property="og:description" content="출근·퇴근 시각에서 휴게시간을 빼고 하루 근무시간을 계산합니다. 다음 날 퇴근과 소수 시간 변환을 지원합니다."><meta property="og:type" content="website"><meta property="og:site_name" content="하루콕"><meta property="og:url" content="https://harukok.com/tools/work-time-calculator"><meta property="og:image" content="https://harukok.com/og-image.png">
+<link rel="stylesheet" href="/tools/everyday-tools.css?v=20261024-ux"><script src="/tools/work-time-calculator.js?v=20261101" defer></script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "근무시간 계산기", "url": "https://harukok.com/tools/work-time-calculator", "description": "출근·퇴근 시각에서 휴게시간을 빼고 하루 근무시간을 계산합니다. 다음 날 퇴근과 소수 시간 변환을 지원합니다.", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any", "browserRequirements": "Requires JavaScript", "inLanguage": "ko", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "KRW"}}</script>
+<link rel="stylesheet" href="/tools/tool-controls.css?v=20261025-flow">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/tools/site-ui.css?v=20261027-banner">
+</head><body><div class="wrap">
+<nav class="site-nav" aria-label="주요 메뉴"><a class="site-nav-brand" href="/">하루<span>콕</span></a><div class="site-nav-links"><a href="/#all-tools">전체 도구</a></div></nav>
+<main><h1>근무시간 계산기</h1>
+<p class="tool-help"><strong>사용방법</strong> 출퇴근 시각과 휴게시간을 넣고 계산하세요.</p>
+<noscript><p>계산하려면 자바스크립트를 허용해 주세요.</p></noscript>
+<section class="sheet" aria-label="근무시간 계산"><form id="calculator">
+<div class="fields"><div class="field"><label for="start">출근 시각</label><input type="time" id="start" value="09:00" required></div><div class="field"><label for="end">퇴근 시각</label><input type="time" id="end" value="18:00" required></div></div>
+<label class="check"><input id="next-day" type="checkbox">다음 날 퇴근</label>
+<div class="field"><label for="break-minutes">뺄 휴게시간 (분)</label><input id="break-minutes" type="number" min="0" max="1440" step="1" value="60" inputmode="numeric" required></div>
+<p class="hint">최대 24시간까지 계산합니다. 날짜가 바뀌면 ‘다음 날 퇴근’을 선택하세요.</p>
+<button class="primary" type="submit">근무시간 계산하기</button></form><p id="error" class="error" role="alert"></p><div class="result" id="result" aria-live="polite" hidden><div id="result-value" class="result-value"></div><p id="result-detail"></p></div>
+<p class="hint">입력한 휴게시간만 빼는 단순 시간 계산입니다. 법정 근로시간 인정 여부·가산수당·급여는 판단하지 않습니다.</p></section>
+<p><a href="/tools/hourly-wage-calculator">계산한 시간으로 시급·급여 계산하기</a></p>
+<details><summary>계산 방법과 출처</summary><p>순시간 = 퇴근 시각 − 출근 시각 + 다음 날이면 24시간 − 휴게시간. 1시간은 60분이며, 7시간 30분은 7.5시간입니다. 소수 시간은 최대 4자리까지 반올림합니다. 시간대·서머타임 변경은 계산하지 않습니다.</p><p><a href="https://www.bipm.org/en/publications/si-brochure" target="_blank" rel="noopener noreferrer">BIPM 국제단위계 안내</a></p></details>
+<aside class="ad-banner ad-banner-strip" aria-label="광고"><p class="ad-label">광고</p><div class="ad-strip-slot"><script src="/ad-banner-isolated.js?v=20261027-banner"></script></div></aside>
+</main><footer><a href="/about">소개</a> · <a href="/privacy">개인정보처리방침</a> · <a href="mailto:contact@harukok.com">의견 보내기</a><p>© 2026 하루콕</p></footer></div></body></html>

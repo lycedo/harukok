@@ -64,8 +64,8 @@ for (const page of pages) {
   assert.equal((html.match(/src="\/ad-banner-isolated\.js\?v=20261027-banner"/g)||[]).length,1,page);
   checked++;
 }
-assert.equal(checked,42);
-console.log('PASS - banner sizes, cross-origin isolation, sandbox permissions, popup guard, unit whitelist, all 42 integrations');
+assert.equal(checked,45);
+console.log('PASS - banner sizes, cross-origin isolation, sandbox permissions, popup guard, unit whitelist, all 45 integrations');
 if (process.argv.includes('--fixture')) {
   fs.writeFileSync(path.join(__dirname, 'ad-sandbox-frame.html'), wrapper.replace("script.src = 'https://bauval.org/22/' + key;", "script.src = '/verify/ad-sandbox-vendor.js';"));
   fs.writeFileSync(path.join(__dirname, 'ad-sandbox-vendor.js'), `
