@@ -6,10 +6,10 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>물감 배합 비율 계산기 - 원하는 색 만들기</title>
-<meta name="description" content="원하는 색을 고르면 보유한 물감을 어떤 비율로 섞어야 하는지 계산해줍니다. 미술 재료 색상 배합 참고용 도구.">
+<meta name="description" content="목표 HEX 색상과 준비된 물감 색 2~4개를 골라 화면 혼합 모형의 참고 비율을 계산하세요. 배합표를 복사·저장하고 총량에 맞는 재료 양도 계산할 수 있습니다.">
 <link rel="canonical" href="https://harukok.com/tools/paint-color-mixer">
 <meta property="og:title" content="물감 배합 비율 계산기 - 원하는 색 만들기">
-<meta property="og:description" content="원하는 색을 고르면 보유한 물감을 어떤 비율로 섞어야 하는지 계산해줍니다.">
+<meta property="og:description" content="목표 색과 물감 색을 고르고 참고 배합표를 확인하세요. 화면 혼합 모형의 근삿값이며 실제 물감은 브랜드·농도에 따라 다릅니다.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="하루콕">
 <meta property="og:url" content="https://harukok.com/tools/paint-color-mixer">
@@ -182,7 +182,8 @@
 <button class="secondary" id="saveRecipeBtn" type="button" disabled>배합표 저장 (.txt)</button>
 <button class="secondary" id="copyRecipeBtn" type="button" disabled>배합표 복사</button>
 <p id="saveStatus" role="status"></p>
-<p><a href="/tools/mixing-amount-calculator">배합량 계산기</a> · <a href="/tools/image-color-picker">사진에서 목표 색상 찾기</a></p>
+<section class="info-block" aria-labelledby="paint-help-title"><h2 id="paint-help-title">색을 고른 다음, 배합표를 어떻게 쓰나요?</h2><p>목표 색을 고르거나 HEX 코드를 넣고, 화면에 준비된 물감 색 중 2~4개를 선택하세요. 계산 결과의 비율은 화면 색을 조합한 참고값입니다.</p><details><summary>배합 비율과 실제 재료 양 확인하기</summary><p>계산 뒤 ‘배합표 복사’ 또는 ‘배합표 저장’을 눌러 목표 색·혼합 결과·물감별 비율을 남길 수 있습니다. 비율이 A 80%, B 20%이고 총 10g을 만들려는 예시라면 A 8g, B 2g입니다. 원하는 총량의 재료별 양은 배합량 계산기에서 구하세요.</p><p>표시 비율은 반올림되므로 합계가 정확히 100%가 아닐 수 있습니다. 실제로 섞기 전에는 적은 양으로 먼저 확인하세요.</p></details><details><summary>화면의 색과 실제 물감이 다른 이유</summary><p>이 도구는 선택한 화면 RGB 색을 조합하는 모형입니다. 물감의 안료·브랜드·농도·바탕 재질까지 측정하지 않으므로 실제 물감이 같은 색이 된다는 뜻은 아닙니다. 비율을 직접 바꾸며 화면에서 비교하고 싶다면 물감 섞기 시뮬레이터를 사용하세요.</p></details><details><summary>사진의 색 코드나 웹 색상으로도 쓸 수 있나요?</summary><p>사진 색상 추출기에서 얻은 HEX 코드를 목표 색으로 넣을 수 있습니다. 웹 디자인에서 쓰는 HEX·RGB·HSL 변환과 글자 대비 확인은 별도 색상 도구를 이용하세요. 인쇄용 CMYK 변환이나 실제 안료 분석 기능은 아닙니다.</p></details></section>
+<nav class="related" aria-label="함께 쓰는 색상 도구"><a href="/tools/mixing-amount-calculator">총량에 맞는 물감 배합량 구하기</a><a href="/tools/paint-mixer-simulator">비율을 직접 바꾸며 물감 섞기</a><a href="/tools/image-color-picker">사진에서 목표 색상 찾기</a><a href="/tools/color-converter">HEX·RGB·HSL 코드 변환하기</a><a href="/tools/color-contrast-checker">글자와 배경색 대비 확인하기</a></nav>
 </main>
 <footer><a href="/about">소개</a> · <a href="/privacy">개인정보처리방침</a> · <a href="mailto:contact@harukok.com">의견 보내기</a><p>© 2026 하루콕</p></footer>
 </div>

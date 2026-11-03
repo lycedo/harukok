@@ -6,10 +6,10 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>하루콕 - 무료 계산기·사진 편집·추첨 도구</title>
-<meta name="description" content="연봉·퍼센트·날짜·근무시간 계산기, 글자 수 세기, 사진 용량 줄이기·색상 추출, 로또 번호 생성기까지. 회원가입 없이 쓰는 무료 생활 도구와 사용 가이드를 만나보세요.">
+<meta name="description" content="생활·수학 계산기, 글자 수·JSON·인코딩 도구, 사진 합치기·모자이크·워터마크, 로또 번호 생성기까지. 회원가입 없이 쓰는 무료 도구와 사용 예시를 만나보세요.">
 <link rel="canonical" href="https://harukok.com/">
 <meta property="og:title" content="하루콕 - 무료 계산기·사진 편집·추첨 도구">
-<meta property="og:description" content="월급·날짜·근무시간 계산부터 사진 편집, 색상 추출, 명단 추첨까지. 무료 생활 도구와 사용 가이드를 한 곳에서.">
+<meta property="og:description" content="생활·수학 계산, 문서·개발 도구, 사진 편집과 색상 도구, 명단 추첨까지. 무료 도구와 사용 예시를 한 곳에서.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="하루콕">
 <meta property="og:url" content="https://harukok.com/">
@@ -44,6 +44,8 @@
       <div class="category-nav" role="group" aria-label="도구 분류">
         <button type="button" data-category-filter="all" aria-pressed="true">전체</button>
         <button type="button" data-category-filter="daily" aria-pressed="false">생활 계산</button>
+        <button type="button" data-category-filter="document" aria-pressed="false">문서·개발</button>
+        <button type="button" data-category-filter="math" aria-pressed="false">수학·학습</button>
         <button type="button" data-category-filter="salary" aria-pressed="false">월급</button>
         <button type="button" data-category-filter="leaving" aria-pressed="false">퇴사</button>
         <button type="button" data-category-filter="image" aria-pressed="false">사진 편집</button>
@@ -59,39 +61,59 @@
         <a class="card utility" href="/tools/certificate-maker"><span class="icon" aria-hidden="true">🏅</span><span class="name">상장 만들기</span></a>
       </div>
     </div>
-    <h2 id="directory-status" class="section-label" role="status" aria-live="polite">전체 도구 50개</h2>
+    <h2 id="directory-status" class="section-label" role="status" aria-live="polite">전체 도구 70개</h2>
     <div class="goal-grid" id="tool-directory">
       <section class="goal-card" id="daily-tools" data-tool-group="daily" aria-labelledby="daily-title">
         <h3 class="goal-title" id="daily-title">생활 계산</h3>
         <ul class="goal-links">
           <li data-keywords="백분율 할인 가격 비율"><a href="/tools/percent-calculator">퍼센트·할인율 계산기</a></li>
           <li data-keywords="날짜 D-day dday 기념일 기간 일수"><a href="/tools/date-calculator">날짜·디데이 계산기</a></li>
+          <li data-keywords="영업일 평일 주말 공휴일 휴무일 근무일 날짜"><a href="/tools/business-day-calculator">영업일 계산기</a></li>
+          <li data-keywords="시간 합산 더하기 분 초 기간 duration"><a href="/tools/time-duration-calculator">시간 합산 계산기</a></li>
+          <li data-keywords="파일 용량 단위 바이트 kb mb gb tb kib mib gib tib"><a href="/tools/file-size-converter">파일 용량 단위 변환기</a></li>
+          <li data-keywords="생일 연나이 만나이"><a href="/tools/age-calculator">만 나이 계산기</a></li>
+          <li data-keywords="제곱미터 m2 ㎡ 평 평형 아파트"><a href="/tools/area-calculator">평수 계산기</a></li>
+          <li data-keywords="길이 무게 온도 부피 넓이 단위 변환"><a href="/tools/unit-converter">단위 변환기</a></li>
+          <li data-keywords="요리 베이킹 레시피 인분 재료 분량 배수"><a href="/tools/recipe-scale-calculator">레시피 인분 계산기</a></li>
+        </ul>
+      </section>
+      <section class="goal-card" id="document-tools" data-tool-group="document" aria-labelledby="document-title">
+        <h3 class="goal-title" id="document-title">문서·개발</h3>
+        <ul class="goal-links">
           <li data-keywords="글자수 글자수세기 자소서 자기소개서 바이트 bytes"><a href="/tools/character-counter">글자 수·바이트 세기</a></li>
           <li data-keywords="텍스트 목록 줄정리 중복줄 중복제거 빈줄 빈행 공백 정리 deduplicate"><a href="/tools/text-line-cleaner">중복 줄·빈 줄 정리</a></li>
           <li data-keywords="텍스트 비교 문서 차이 diff 변경 줄"><a href="/tools/text-diff">두 글 비교하기</a></li>
           <li data-keywords="json 정렬 포맷 들여쓰기 압축 문법 검사"><a href="/tools/json-formatter">JSON 정리·검사</a></li>
           <li data-keywords="url 인코딩 디코딩 encode decode 퍼센트 문자열"><a href="/tools/url-encoder">URL 인코딩·디코딩</a></li>
-          <li data-keywords="분수 더하기 빼기 곱하기 나누기 약분 대분수"><a href="/tools/fraction-calculator">분수 계산기</a></li>
-          <li data-keywords="평균 중앙값 합계 최솟값 최댓값 숫자 통계"><a href="/tools/average-calculator">평균·중앙값 계산기</a></li>
-          <li data-keywords="시간 합산 더하기 분 초 기간 duration"><a href="/tools/time-duration-calculator">시간 합산 계산기</a></li>
-          <li data-keywords="학점 성적 평균 대학 gpa 이수 평점"><a href="/tools/gpa-calculator">학점 계산기</a></li>
-          <li data-keywords="파일 용량 단위 바이트 kb mb gb tb kib mib gib tib"><a href="/tools/file-size-converter">파일 용량 단위 변환기</a></li>
-          <li data-keywords="생일 연나이 만나이"><a href="/tools/age-calculator">만 나이 계산기</a></li>
-          <li data-keywords="제곱미터 m2 ㎡ 평 평형 아파트"><a href="/tools/area-calculator">평수 계산기</a></li>
-
-          <li data-keywords="길이 무게 온도 부피 넓이 단위 변환"><a href="/tools/unit-converter">단위 변환기</a></li>
-
+          <li data-keywords="base64 인코딩 디코딩 utf8 한글 문자열"><a href="/tools/base64-converter">Base64 인코딩·디코딩</a></li>
+          <li data-keywords="csv json 변환 표 데이터 쉼표 따옴표"><a href="/tools/csv-json-converter">CSV·JSON 변환기</a></li>
+          <li data-keywords="unix timestamp 타임스탬프 초 밀리초 시간 utc kst"><a href="/tools/unix-time-converter">유닉스 시간 변환기</a></li>
+          <li data-keywords="uuid guid 고유 식별자 랜덤 v4"><a href="/tools/uuid-generator">UUID 생성기</a></li>
+          <li data-keywords="정규식 regex regexp 패턴 문자열 매칭"><a href="/tools/regex-tester">정규식 테스트</a></li>
+          <li data-keywords="이진수 팔진수 십진수 십육진수 2진수 8진수 16진수 binary hex"><a href="/tools/number-base-converter">진수 변환기</a></li>
           <li data-keywords="암호 보안 랜덤 비번"><a href="/tools/password-generator">비밀번호 생성기</a></li>
         </ul>
       </section>
-      <section class="goal-card" id="salary-tools" data-tool-group="salary" aria-labelledby="money-title">
-        <h3 class="goal-title" id="money-title">월급</h3>
+      <section class="goal-card" id="math-tools" data-tool-group="math" aria-labelledby="math-title">
+        <h3 class="goal-title" id="math-title">수학·학습</h3>
+        <ul class="goal-links">
+          <li data-keywords="분수 더하기 빼기 곱하기 나누기 약분 대분수"><a href="/tools/fraction-calculator">분수 계산기</a></li>
+          <li data-keywords="평균 중앙값 합계 최솟값 최댓값 숫자 통계"><a href="/tools/average-calculator">평균·중앙값 계산기</a></li>
+          <li data-keywords="학점 성적 평균 대학 gpa 이수 평점"><a href="/tools/gpa-calculator">학점 계산기</a></li>
+          <li data-keywords="최대공약수 최소공배수 gcd lcm 정수 약수"><a href="/tools/gcd-lcm-calculator">최대공약수·최소공배수 계산기</a></li>
+          <li data-keywords="소인수분해 소수 약수 인수 factorization"><a href="/tools/prime-factorization">소인수분해·약수 계산기</a></li>
+          <li data-keywords="이차방정식 근의공식 판별식 실근 중근 방정식"><a href="/tools/quadratic-equation-calculator">이차방정식 계산기</a></li>
+          <li data-keywords="원 삼각형 직사각형 넓이 둘레 반지름 도형"><a href="/tools/geometry-calculator">도형 넓이·둘레 계산기</a></li>
+          <li data-keywords="속력 속도 거리 시간 km m 분 초 물리"><a href="/tools/speed-distance-time-calculator">속력·거리·시간 계산기</a></li>
+        </ul>
+      </section>
+      <section class="goal-card" id="salary-tools" data-tool-group="salary" aria-labelledby="salary-title">
+        <h3 class="goal-title" id="salary-title">월급</h3>
         <ul class="goal-links">
           <li data-keywords="월급 세후 급여 연봉"><a href="/tools/salary-calculator">연봉 실수령액 계산기</a></li>
           <li data-keywords="알바 아르바이트 월급 최저임금 급여"><a href="/tools/hourly-wage-calculator">시급 계산기</a></li>
           <li data-keywords="출근 퇴근 시간 휴게 알바 아르바이트"><a href="/tools/work-time-calculator">근무시간 계산기</a></li>
           <li data-keywords="알바 아르바이트 월급 주급 급여"><a href="/tools/weekly-holiday-pay-calculator">주휴수당 계산기</a></li>
-
           <li data-keywords="연말정산 환급 소득세 세금"><a href="/tools/year-end-tax-calculator">연말정산 예상세액 계산기</a></li>
         </ul>
       </section>
@@ -110,25 +132,25 @@
           <li data-keywords="사진 이미지 누끼 배경제거 투명 png"><a href="/tools/background-remover">흰 배경 지우기</a></li>
           <li data-keywords="사진 이미지 크롭 crop 정사각형 비율"><a href="/tools/image-cropper">사진 자르기</a></li>
           <li data-keywords="사진 이미지 회전 뒤집기 반전 좌우 상하 jpg png webp"><a href="/tools/image-rotate-flip">사진 회전·뒤집기</a></li>
+          <li data-keywords="사진 이미지 합치기 병합 콜라주 가로 세로 격자 jpg png webp"><a href="/tools/image-merger">사진 합치기</a></li>
+          <li data-keywords="사진 이미지 워터마크 글자 텍스트 표시 jpg png webp"><a href="/tools/image-watermark">사진 워터마크 넣기</a></li>
+          <li data-keywords="사진 이미지 모자이크 영역 픽셀 블록 jpg png webp"><a href="/tools/image-mosaic">사진 모자이크</a></li>
           <li data-keywords="화면 비율 종횡비 aspectratio 픽셀 해상도 가로 세로"><a href="/tools/aspect-ratio-calculator">화면 비율 계산기</a></li>
           <li data-keywords="사진 이미지 색상 코드 HEX RGB 스포이드 컬러"><a href="/tools/image-color-picker">사진 색상 추출기</a></li>
-
           <li data-keywords="사진 이미지 격자 분할 스프라이트 자르기"><a href="/tools/image-grid-splitter">사진 격자 나누기</a></li>
         </ul>
       </section>
-      <section class="goal-card" id="other-tools" data-tool-group="random" aria-labelledby="random-title">
+      <section class="goal-card" id="random-tools" data-tool-group="random" aria-labelledby="random-title">
         <h3 class="goal-title" id="random-title">추첨·만들기</h3>
         <ul class="goal-links">
           <li data-keywords="복권 랜덤 추첨 번호 뽑기"><a href="/fun/lotto-generator">로또 번호 생성기</a></li>
           <li data-keywords="칭찬 상장 제작 만들기"><a href="/tools/certificate-maker">상장 만들기</a></li>
           <li data-keywords="점심 저녁 야식 음료 메뉴 음식 추천 랜덤"><a href="/fun/food-picker">오늘 뭐 먹지?</a></li>
           <li data-keywords="랜덤 추첨 이름 명단 당첨자 제비뽑기 뽑기"><a href="/tools/random-picker">이름 뽑기</a></li>
+          <li data-keywords="랜덤 숫자 뽑기 중복없이 범위 난수 추첨"><a href="/tools/random-number-generator">랜덤 숫자 추첨기</a></li>
           <li data-keywords="조 팀편성 조편성 조짜기 나누기"><a href="/tools/team-generator">팀 나누기</a></li>
-
           <li data-keywords="운세 오늘 재미"><a href="/fun/fortune-today">오늘의 운세</a></li>
-
           <li data-keywords="이름 궁합 커플 테스트"><a href="/fun/name-compatibility">이름궁합 테스트</a></li>
-
           <li data-keywords="영화 드라마 장르 볼거리 추천"><a href="/fun/watch-picker">오늘 뭐 볼까</a></li>
         </ul>
       </section>
@@ -137,26 +159,30 @@
         <ul class="goal-links">
           <li data-keywords="육휴 출산 휴직 부모 급여 월급"><a href="/tools/parental-leave-calculator">육아휴직급여 계산기</a></li>
           <li data-keywords="아기 이름 태명 봄 여름 가을 겨울"><a href="/fun/baby-name-generator">태명 추천</a></li>
-
           <li data-keywords="임신 주수 출산 예정일"><a href="/tools/due-date-calculator">출산 예정일 계산기</a></li>
         </ul>
       </section>
-      <section class="goal-card" data-tool-group="creative" aria-labelledby="creative-title"><h3 class="goal-title" id="creative-title">만들기·색상</h3><ul class="goal-links">
+      <section class="goal-card" id="creative-tools" data-tool-group="creative" aria-labelledby="creative-title">
+        <h3 class="goal-title" id="creative-title">만들기·색상</h3>
+        <ul class="goal-links">
           <li data-keywords="색상 물감 혼합 배합 비율"><a href="/tools/paint-color-mixer">물감 배합 비율 계산기</a></li>
           <li data-keywords="물감 재료 배합비 혼합비 총량 그램 밀리리터 g ml"><a href="/tools/mixing-amount-calculator">배합량 계산기</a></li>
-
           <li data-keywords="색상 물감 혼합 시뮬레이터"><a href="/tools/paint-mixer-simulator">물감 섞기</a></li>
           <li data-keywords="색상 코드 변환 hex rgb hsl 컬러 색깔"><a href="/tools/color-converter">색상 코드 변환기</a></li>
-
+          <li data-keywords="색상 대비 명암비 접근성 wcag aa aaa 텍스트"><a href="/tools/color-contrast-checker">색상 대비 확인</a></li>
+          <li data-keywords="그라데이션 gradient css linear 색상 코드"><a href="/tools/gradient-generator">그라데이션 만들기</a></li>
+          <li data-keywords="용지 a0 a1 a2 a3 a4 a5 a6 dpi 인쇄 픽셀 mm"><a href="/tools/paper-size-calculator">용지 크기·픽셀 계산기</a></li>
           <li data-keywords="선물 쿠폰 만들기 제작"><a href="/fun/coupon-maker">쿠폰 만들기</a></li>
-        </ul></section>
-      <section class="goal-card" data-tool-group="pet" aria-labelledby="pet-title"><h3 class="goal-title" id="pet-title">반려동물</h3><ul class="goal-links">
+        </ul>
+      </section>
+      <section class="goal-card" id="pet-tools" data-tool-group="pet" aria-labelledby="pet-title">
+        <h3 class="goal-title" id="pet-title">반려동물</h3>
+        <ul class="goal-links">
           <li data-keywords="강아지 고양이 개 나이 반려동물"><a href="/tools/pet-age-calculator">반려동물 나이 계산기</a></li>
-
           <li data-keywords="강아지 고양이 사료 밥 급여량 칼로리"><a href="/tools/pet-food-calculator">반려동물 사료량 계산기</a></li>
-
           <li data-keywords="강아지 고양이 반려동물 이름 작명"><a href="/fun/pet-name-generator">반려동물 이름 뽑기</a></li>
-        </ul></section>
+        </ul>
+      </section>
     </div>
     <div id="empty-search" class="empty-search" hidden><p>맞는 도구가 없어요. 다른 검색어나 분류를 선택해 보세요.</p><button id="empty-reset" type="button">전체 도구 보기</button></div>
     <section class="related" aria-labelledby="home-guides-title">

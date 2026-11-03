@@ -56,7 +56,7 @@
   </url>
   <url>
     <loc>https://harukok.com/fun/lotto-generator</loc>
-    <lastmod>2026-10-24</lastmod>
+    <lastmod>2026-11-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -128,7 +128,7 @@
   </url>
   <url>
     <loc>https://harukok.com/tools/date-calculator</loc>
-    <lastmod>2026-10-24</lastmod>
+    <lastmod>2026-11-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -146,7 +146,7 @@
   </url>
   <url>
     <loc>https://harukok.com/tools/random-picker</loc>
-    <lastmod>2026-10-24</lastmod>
+    <lastmod>2026-11-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -176,21 +176,21 @@
   </url>
   <url>
     <loc>https://harukok.com/tools/image-cropper</loc>
-    <lastmod>2026-10-24</lastmod>
+    <lastmod>2026-11-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://harukok.com/tools/area-calculator</loc>
-    <lastmod>2026-10-24</lastmod>
+    <lastmod>2026-11-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url><loc>https://harukok.com/tools/unit-converter</loc><lastmod>2026-11-03</lastmod></url>
   <url><loc>https://harukok.com/tools/password-generator</loc><lastmod>2026-10-26</lastmod></url>
   <url><loc>https://harukok.com/tools/image-grid-splitter</loc><lastmod>2026-10-26</lastmod></url>
-  <url><loc>https://harukok.com/tools/paint-color-mixer</loc><lastmod>2026-10-26</lastmod></url>
-  <url><loc>https://harukok.com/tools/paint-mixer-simulator</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://harukok.com/tools/paint-color-mixer</loc><lastmod>2026-11-03</lastmod></url>
+  <url><loc>https://harukok.com/tools/paint-mixer-simulator</loc><lastmod>2026-11-03</lastmod></url>
   <url><loc>https://harukok.com/tools/pet-age-calculator</loc><lastmod>2026-10-26</lastmod></url>
   <url><loc>https://harukok.com/tools/pet-food-calculator</loc><lastmod>2026-10-26</lastmod></url>
   <url><loc>https://harukok.com/fun/pet-name-generator</loc><lastmod>2026-10-26</lastmod></url>
@@ -201,7 +201,7 @@
   <url><loc>https://harukok.com/fun/name-compatibility</loc><lastmod>2026-10-26</lastmod></url>
   <url><loc>https://harukok.com/fun/watch-picker</loc><lastmod>2026-10-26</lastmod></url>
   <url><loc>https://harukok.com/tools/work-time-calculator</loc><lastmod>2026-11-03</lastmod></url>
-  <url><loc>https://harukok.com/tools/mixing-amount-calculator</loc><lastmod>2026-11-01</lastmod></url>
+  <url><loc>https://harukok.com/tools/mixing-amount-calculator</loc><lastmod>2026-11-03</lastmod></url>
   <url><loc>https://harukok.com/tools/image-color-picker</loc><lastmod>2026-11-03</lastmod></url>
   <url><loc>https://harukok.com/tools/text-line-cleaner</loc><lastmod>2026-11-03</lastmod></url>
   <url><loc>https://harukok.com/tools/text-diff</loc><lastmod>2026-11-03</lastmod></url>
@@ -215,4 +215,24 @@
   <url><loc>https://harukok.com/tools/color-converter</loc><lastmod>2026-11-03</lastmod></url>
   <url><loc>https://harukok.com/tools/image-rotate-flip</loc><lastmod>2026-11-03</lastmod></url>
   <url><loc>https://harukok.com/tools/file-size-converter</loc><lastmod>2026-11-03</lastmod></url>
+  <url><loc>https://harukok.com/tools/base64-converter</loc><lastmod>2026-11-03</lastmod></url>
+  <url><loc>https://harukok.com/tools/csv-json-converter</loc><lastmod>2026-11-03</lastmod></url>
+  <url><loc>https://harukok.com/tools/unix-time-converter</loc><lastmod>2026-11-03</lastmod></url>
+  <url><loc>https://harukok.com/tools/uuid-generator</loc><lastmod>2026-11-03</lastmod></url>
+  <url><loc>https://harukok.com/tools/regex-tester</loc><lastmod>2026-11-03</lastmod></url>
+  <url><loc>https://harukok.com/tools/number-base-converter</loc><lastmod>2026-11-03</lastmod></url>
+  <url><loc>https://harukok.com/tools/gcd-lcm-calculator</loc><lastmod>2026-11-03</lastmod></url>
+  <url><loc>https://harukok.com/tools/prime-factorization</loc><lastmod>2026-11-03</lastmod></url>
+  <url><loc>https://harukok.com/tools/quadratic-equation-calculator</loc><lastmod>2026-11-03</lastmod></url>
+  <url><loc>https://harukok.com/tools/geometry-calculator</loc><lastmod>2026-11-03</lastmod></url>
+  <url><loc>https://harukok.com/tools/random-number-generator</loc><lastmod>2026-11-03</lastmod></url>
+  <url><loc>https://harukok.com/tools/speed-distance-time-calculator</loc><lastmod>2026-11-03</lastmod></url>
+  <url><loc>https://harukok.com/tools/image-merger</loc><lastmod>2026-11-03</lastmod></url>
+  <url><loc>https://harukok.com/tools/image-watermark</loc><lastmod>2026-11-03</lastmod></url>
+  <url><loc>https://harukok.com/tools/image-mosaic</loc><lastmod>2026-11-03</lastmod></url>
+  <url><loc>https://harukok.com/tools/color-contrast-checker</loc><lastmod>2026-11-03</lastmod></url>
+  <url><loc>https://harukok.com/tools/gradient-generator</loc><lastmod>2026-11-03</lastmod></url>
+  <url><loc>https://harukok.com/tools/paper-size-calculator</loc><lastmod>2026-11-03</lastmod></url>
+  <url><loc>https://harukok.com/tools/recipe-scale-calculator</loc><lastmod>2026-11-03</lastmod></url>
+  <url><loc>https://harukok.com/tools/business-day-calculator</loc><lastmod>2026-11-03</lastmod></url>
 </urlset>
