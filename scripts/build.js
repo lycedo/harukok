@@ -91,11 +91,14 @@ function build() {
   console.log('빌드 완료: ' + DIST);
 }
 
+// 검색 설정이 빠진 신규 페이지는 빌드 전에 알려준다.
+require('./check-seo.js').assertSite(ROOT);
 build();
 
 // 빌드 직후 바로 검사까지 실행한다(둘 다 통과해야 배포 준비가 된 것으로 본다).
 try {
   require('./check-dist.js');
+  require('./check-seo.js').assertSite(DIST);
 } catch (e) {
   console.error('검사 스크립트 실행 실패: ' + e.message);
   process.exit(1);

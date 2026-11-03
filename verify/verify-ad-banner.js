@@ -55,17 +55,22 @@ for (const size of ['300x250', '320x50', '468x60', 'bad', '__proto__']) {
   }
 }
 const pages = ['index.html', ...['tools','fun','guides'].flatMap(dir => fs.readdirSync(path.join(root,dir)).filter(f=>f.endsWith('.html')).map(f=>dir+'/'+f))];
+const pagesWithoutBanner = new Set(['guides/index.html']);
 let checked=0;
 for (const page of pages) {
   const html=fs.readFileSync(path.join(root,page),'utf8');
   assert.ok(!html.includes('bauval.org'), 'Direct vendor code: '+page);
   assert.ok(!html.includes('adsbygoogle.js'), 'Unrestricted auto-ad loader: '+page);
-  if (!html.includes('class="ad-banner')) continue;
+  if (pagesWithoutBanner.has(page)) {
+    assert.ok(!html.includes('class="ad-banner'), 'Unexpected banner: ' + page);
+    continue;
+  }
+  assert.ok(html.includes('class="ad-banner'), 'Missing banner: ' + page);
   assert.equal((html.match(/src="\/ad-banner-isolated\.js\?v=20261027-banner"/g)||[]).length,1,page);
   checked++;
 }
-assert.equal(checked,45);
-console.log('PASS - banner sizes, cross-origin isolation, sandbox permissions, popup guard, unit whitelist, all 45 integrations');
+assert.equal(checked, pages.length - pagesWithoutBanner.size);
+console.log('PASS - banner sizes, cross-origin isolation, sandbox permissions, popup guard, unit whitelist, all ' + checked + ' integrations');
 if (process.argv.includes('--fixture')) {
   fs.writeFileSync(path.join(__dirname, 'ad-sandbox-frame.html'), wrapper.replace("script.src = 'https://bauval.org/22/' + key;", "script.src = '/verify/ad-sandbox-vendor.js';"));
   fs.writeFileSync(path.join(__dirname, 'ad-sandbox-vendor.js'), `

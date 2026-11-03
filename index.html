@@ -6,10 +6,10 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>하루콕 - 무료 계산기·사진 편집·추첨 도구</title>
-<meta name="description" content="연봉·퍼센트·날짜·평수 계산기, 글자 수 세기, 사진 자르기·크기·용량 줄이기, 흰 배경 지우기와 로또 번호 생성기까지. 회원가입 없이 바로 쓰는 무료 도구 21개를 만나보세요.">
+<meta name="description" content="연봉·퍼센트·날짜·근무시간 계산기, 글자 수 세기, 사진 용량 줄이기·색상 추출, 로또 번호 생성기까지. 회원가입 없이 쓰는 무료 생활 도구와 사용 가이드를 만나보세요.">
 <link rel="canonical" href="https://harukok.com/">
 <meta property="og:title" content="하루콕 - 무료 계산기·사진 편집·추첨 도구">
-<meta property="og:description" content="월급·날짜·면적 계산부터 글자 수 확인, 사진 자르기·크기 조절, 명단 추첨까지. 무료 도구 21개를 한 곳에서.">
+<meta property="og:description" content="월급·날짜·근무시간 계산부터 사진 편집, 색상 추출, 명단 추첨까지. 무료 생활 도구와 사용 가이드를 한 곳에서.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="하루콕">
 <meta property="og:url" content="https://harukok.com/">
@@ -31,7 +31,7 @@
 <div class="wrap">
   <nav class="site-nav" aria-label="주요 메뉴">
     <a class="site-nav-brand" href="/" aria-label="하루콕 홈">하루<span>콕</span></a>
-    <div class="site-nav-links"><a id="show-all-tools" href="#all-tools">전체 도구</a></div>
+    <div class="site-nav-links"><a id="show-all-tools" href="#all-tools">전체 도구</a><a href="/guides/">가이드</a></div>
   </nav>
   <main id="all-tools">
     <header><h1 class="brand">하루<span>콕</span></h1></header>
@@ -59,7 +59,7 @@
         <a class="card utility" href="/tools/certificate-maker"><span class="icon" aria-hidden="true">🏅</span><span class="name">상장 만들기</span></a>
       </div>
     </div>
-    <h2 id="directory-status" class="section-label" role="status" aria-live="polite">전체 도구 38개</h2>
+    <h2 id="directory-status" class="section-label" role="status" aria-live="polite">전체 도구 50개</h2>
     <div class="goal-grid" id="tool-directory">
       <section class="goal-card" id="daily-tools" data-tool-group="daily" aria-labelledby="daily-title">
         <h3 class="goal-title" id="daily-title">생활 계산</h3>
@@ -67,6 +67,15 @@
           <li data-keywords="백분율 할인 가격 비율"><a href="/tools/percent-calculator">퍼센트·할인율 계산기</a></li>
           <li data-keywords="날짜 D-day dday 기념일 기간 일수"><a href="/tools/date-calculator">날짜·디데이 계산기</a></li>
           <li data-keywords="글자수 글자수세기 자소서 자기소개서 바이트 bytes"><a href="/tools/character-counter">글자 수·바이트 세기</a></li>
+          <li data-keywords="텍스트 목록 줄정리 중복줄 중복제거 빈줄 빈행 공백 정리 deduplicate"><a href="/tools/text-line-cleaner">중복 줄·빈 줄 정리</a></li>
+          <li data-keywords="텍스트 비교 문서 차이 diff 변경 줄"><a href="/tools/text-diff">두 글 비교하기</a></li>
+          <li data-keywords="json 정렬 포맷 들여쓰기 압축 문법 검사"><a href="/tools/json-formatter">JSON 정리·검사</a></li>
+          <li data-keywords="url 인코딩 디코딩 encode decode 퍼센트 문자열"><a href="/tools/url-encoder">URL 인코딩·디코딩</a></li>
+          <li data-keywords="분수 더하기 빼기 곱하기 나누기 약분 대분수"><a href="/tools/fraction-calculator">분수 계산기</a></li>
+          <li data-keywords="평균 중앙값 합계 최솟값 최댓값 숫자 통계"><a href="/tools/average-calculator">평균·중앙값 계산기</a></li>
+          <li data-keywords="시간 합산 더하기 분 초 기간 duration"><a href="/tools/time-duration-calculator">시간 합산 계산기</a></li>
+          <li data-keywords="학점 성적 평균 대학 gpa 이수 평점"><a href="/tools/gpa-calculator">학점 계산기</a></li>
+          <li data-keywords="파일 용량 단위 바이트 kb mb gb tb kib mib gib tib"><a href="/tools/file-size-converter">파일 용량 단위 변환기</a></li>
           <li data-keywords="생일 연나이 만나이"><a href="/tools/age-calculator">만 나이 계산기</a></li>
           <li data-keywords="제곱미터 m2 ㎡ 평 평형 아파트"><a href="/tools/area-calculator">평수 계산기</a></li>
 
@@ -100,6 +109,8 @@
           <li data-keywords="사진 이미지 리사이즈 압축 jpg png webp 픽셀 resize"><a href="/tools/image-resizer">사진 크기·용량 줄이기</a></li>
           <li data-keywords="사진 이미지 누끼 배경제거 투명 png"><a href="/tools/background-remover">흰 배경 지우기</a></li>
           <li data-keywords="사진 이미지 크롭 crop 정사각형 비율"><a href="/tools/image-cropper">사진 자르기</a></li>
+          <li data-keywords="사진 이미지 회전 뒤집기 반전 좌우 상하 jpg png webp"><a href="/tools/image-rotate-flip">사진 회전·뒤집기</a></li>
+          <li data-keywords="화면 비율 종횡비 aspectratio 픽셀 해상도 가로 세로"><a href="/tools/aspect-ratio-calculator">화면 비율 계산기</a></li>
           <li data-keywords="사진 이미지 색상 코드 HEX RGB 스포이드 컬러"><a href="/tools/image-color-picker">사진 색상 추출기</a></li>
 
           <li data-keywords="사진 이미지 격자 분할 스프라이트 자르기"><a href="/tools/image-grid-splitter">사진 격자 나누기</a></li>
@@ -135,6 +146,7 @@
           <li data-keywords="물감 재료 배합비 혼합비 총량 그램 밀리리터 g ml"><a href="/tools/mixing-amount-calculator">배합량 계산기</a></li>
 
           <li data-keywords="색상 물감 혼합 시뮬레이터"><a href="/tools/paint-mixer-simulator">물감 섞기</a></li>
+          <li data-keywords="색상 코드 변환 hex rgb hsl 컬러 색깔"><a href="/tools/color-converter">색상 코드 변환기</a></li>
 
           <li data-keywords="선물 쿠폰 만들기 제작"><a href="/fun/coupon-maker">쿠폰 만들기</a></li>
         </ul></section>
@@ -147,6 +159,14 @@
         </ul></section>
     </div>
     <div id="empty-search" class="empty-search" hidden><p>맞는 도구가 없어요. 다른 검색어나 분류를 선택해 보세요.</p><button id="empty-reset" type="button">전체 도구 보기</button></div>
+    <section class="related" aria-labelledby="home-guides-title">
+      <h2 class="related-title" id="home-guides-title">계산이 헷갈릴 땐 가이드</h2>
+      <p>입력할 값과 계산 결과를 읽는 방법을 예시로 확인하세요.</p>
+      <a href="/guides/salary-vs-payslip">연봉 계산 결과와 급여명세서 비교하기</a>
+      <a href="/guides/minimum-wage-monthly-hours">월급을 계산할 때 209시간을 쓰는 이유</a>
+      <a href="/guides/severance-bonus-input">퇴직금에 상여금·연차수당 입력하기</a>
+      <a href="/guides/">전체 가이드 보기</a>
+    </section>
     <aside class="ad-banner ad-banner-strip" aria-label="광고"><p class="ad-label">광고</p><div class="ad-strip-slot"><script src="/ad-banner-isolated.js?v=20261027-banner"></script></div></aside>
   </main>
   <footer><nav aria-label="사이트 안내"><a href="/about">소개</a><a href="/privacy">개인정보처리방침</a><a href="mailto:contact@harukok.com?subject=%5B%ED%95%98%EB%A3%A8%EC%BD%95%20%EC%9D%98%EA%B2%AC%5D%20%EB%A9%94%EC%9D%B8">의견 보내기</a></nav><p>© 2026 하루콕</p></footer>

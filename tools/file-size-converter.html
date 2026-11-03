@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>파일 용량 단위 변환기 - 바이트·KB·MB·GB·KiB 환산 | 하루콕</title>
+<meta name="description" content="파일 용량을 B·KB·MB·GB·TB와 KiB·MiB·GiB·TiB로 변환하세요. 1,000배 단위와 1,024배 단위를 구분하고 결과를 복사할 수 있습니다.">
+<link rel="canonical" href="https://harukok.com/tools/file-size-converter"><link rel="icon" type="image/png" href="/favicon.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:title" content="파일 용량 단위 변환기 - 바이트·KB·MB·GB·KiB 환산 | 하루콕"><meta property="og:description" content="파일 용량의 1,000배 단위와 1,024배 단위를 구분해 변환하고 복사하세요."><meta property="og:type" content="website"><meta property="og:site_name" content="하루콕"><meta property="og:url" content="https://harukok.com/tools/file-size-converter"><meta property="og:image" content="https://harukok.com/og-image.png">
+<link rel="stylesheet" href="/tools/everyday-tools.css?v=20261024-ux"><link rel="stylesheet" href="/tools/tool-controls.css?v=20261025-flow"><script src="/tools/file-size-converter.js?v=20261103" defer></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"파일 용량 단위 변환기","url":"https://harukok.com/tools/file-size-converter","description":"바이트와 십진·이진 파일 용량 단위를 구분해 변환하는 도구입니다.","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","inLanguage":"ko","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/tools/site-ui.css?v=20261027-banner">
+</head><body><div class="wrap">
+<nav class="site-nav" aria-label="주요 메뉴"><a class="site-nav-brand" href="/">하루<span>콕</span></a><div class="site-nav-links"><a href="/#all-tools">전체 도구</a></div></nav>
+<main><h1>파일 용량 단위 변환기</h1>
+<p class="tool-help"><strong>사용방법</strong> 용량과 단위를 고르고 ‘용량 변환하기’를 누르세요.</p>
+<noscript><p>계산하려면 자바스크립트를 허용해 주세요.</p></noscript>
+<section class="sheet" aria-label="파일 용량 변환"><form id="size-form" novalidate>
+<div class="fields"><div class="field"><label for="size-value">용량</label><input id="size-value" type="text" inputmode="decimal" placeholder="예: 1.5" aria-describedby="size-note"></div>
+<div class="field"><label for="size-unit">입력 단위</label><select id="size-unit"><option value="B">B — 바이트</option><option value="KB">KB — 1,000 B</option><option value="MB" selected>MB — 1,000 KB</option><option value="GB">GB — 1,000 MB</option><option value="TB">TB — 1,000 GB</option><option value="KiB">KiB — 1,024 B</option><option value="MiB">MiB — 1,024 KiB</option><option value="GiB">GiB — 1,024 MiB</option><option value="TiB">TiB — 1,024 GiB</option></select></div></div>
+<p class="hint" id="size-note">0~1조 · 소수점 6자리까지 입력 · 파일을 업로드하지 않는 숫자 환산 도구입니다.</p>
+<button class="primary" type="submit">용량 변환하기</button><div class="examples"><button class="secondary" id="size-example" type="button">1GiB 예시로 계산하기</button></div>
+<p class="error" id="size-error" role="alert"></p></form>
+<section class="result" id="size-result" aria-labelledby="size-result-title" aria-live="polite" hidden><h2 id="size-result-title">변환 결과</h2><label for="size-output">단위별 용량</label><textarea id="size-output" rows="9" readonly></textarea><p class="hint">소수점 최대 6자리까지 반올림합니다. 아주 작은 값은 ‘0.000001 미만’으로 표시합니다.</p><button class="secondary" id="copy-size" type="button">변환 결과 복사하기</button><p class="hint" id="copy-status" role="status"></p></section></section>
+<aside class="ad-banner ad-banner-strip" aria-label="광고"><p class="ad-label">광고</p><div class="ad-strip-slot"><script src="/ad-banner-isolated.js?v=20261027-banner"></script></div></aside>
+<section class="info-block" aria-labelledby="size-help-title"><h2 id="size-help-title">MB와 MiB는 어떻게 다른가요?</h2><p>같은 파일의 바이트 수를 서로 다른 크기의 단위로 나누면 표시 숫자가 달라집니다. 이 도구에서는 KB·MB·GB는 1,000배, KiB·MiB·GiB는 1,024배로 계산합니다.</p>
+<details><summary>1MB와 1MiB 환산 예시</summary><p>1MB는 1,000,000바이트이고, 1MiB는 1,048,576바이트입니다. 1GiB를 입력하면 1,073,741,824바이트, 1,024MiB, 약 1.073742GB가 나옵니다. 단위 이름만 바뀌는 것이 아니라 나누는 기준도 바뀝니다.</p></details>
+<details><summary>제출 사이트의 용량 제한과 비교하려면?</summary><p>제출처가 정한 KB·MB의 바이트 기준을 먼저 확인하세요. 프로그램에 따라 표시 이름과 실제 환산 기준이 다를 수 있으므로, 가능하면 파일의 실제 바이트 수를 B로 넣어 비교하세요. 이 도구는 파일 자체의 용량을 줄이지 않습니다.</p></details>
+<details><summary>인터넷 속도의 Mbps도 계산하나요?</summary><p>아니요. 여기서는 파일 크기인 바이트 단위만 변환합니다. 비트와 바이트는 다르며, 전송 속도나 다운로드 시간은 계산하지 않습니다. 입력값은 서버로 전송하거나 저장하지 않습니다.</p></details></section>
+<nav class="related" aria-label="함께 쓰는 도구"><a href="/tools/image-resizer">사진 파일의 실제 용량 줄이기</a><a href="/tools/character-counter">글의 UTF-8 바이트 수 확인하기</a><a href="/tools/unit-converter">길이·무게·온도 단위 변환하기</a></nav>
+</main><footer><a href="/about">소개</a> · <a href="/privacy">개인정보처리방침</a> · <a href="mailto:contact@harukok.com">의견 보내기</a><p>© 2026 하루콕</p></footer></div></body></html>
