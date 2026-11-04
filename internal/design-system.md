@@ -71,7 +71,8 @@
 | `--stamp` | `#B23A2E` | 로고의 ‘콕’, 포커스 윤곽, 가이드 링크 강조 |
 | `--yolk` | `#F0AD3D` | 따뜻한 강조(‘사용방법’ 상자 배경 `#F8E9C6`) |
 | `--font-display` | Do Hyeon | **모든 제목**(h1~h4, 카드 제목) |
-| `--font-body` | Noto Sans KR | 그 외 모든 글자 |
+| `--font-body` | Noto Sans KR | 일반 본문·입력·버튼 |
+| `--font-code` | 시스템 고정폭 글꼴 | 복사할 코드·고정폭 표의 `.code-output` 결과칸에만 사용 |
 
 - 둥글기: 카드 `14px`, 입력칸·버튼 `10~14px`, 칩 `999px`.
 - 본문 폭 `640px`.

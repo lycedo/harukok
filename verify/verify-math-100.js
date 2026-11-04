@@ -119,6 +119,6 @@ function fixture(slug,values){
   }
   const f=fixture('volume-calculator',{shape:'sphere',unit:'cm',a:'3',b:'bad',c:'bad'});f.ids.shape.handlers.change();assert.equal(f.ids['b-field'].hidden,true);assert.equal(f.ids['c-field'].hidden,true);f.submit();assert.equal(f.ids.result.hidden,false);checks++;
   const stale=fixture('ratio-calculator',{a:'2',b:'3',c:'4',d:''});stale.submit();stale.defer();const pending=stale.ids.copy.handlers.click();stale.ids.calculator.handlers.input();stale.resolve();await pending;assert.equal(stale.ids['copy-status'].textContent,'');checks++;
-  for(const slug of slugs){const h=fs.readFileSync(path.join(root,'tools',slug+'.html'),'utf8');assert.equal((h.match(/src="\/ad-banner-isolated\.js\?v=20261027-banner"/g)||[]).length,1);assert.ok(!/<button[^>]*>[^<]*(예시|먼저 해보기)/.test(h));assert.match(h,/site-ui\.css\?v=20261104-simple/);}
+  for(const slug of slugs){const h=fs.readFileSync(path.join(root,'tools',slug+'.html'),'utf8');assert.equal((h.match(/src="\/ad-banner-isolated\.js\?v=20261027-banner"/g)||[]).length,1);assert.ok(!/<button[^>]*>[^<]*(예시|먼저 해보기)/.test(h));assert.match(h,/site-ui\.css\?v=20261104-200/);}
   console.log('PASS - '+checks+' math100 calculation/precision/bounds and actual input/submit/copy/stale UI groups, 10 ads and no example buttons');
 })().catch(error=>{console.error(error);process.exitCode=1;});
