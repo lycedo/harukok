@@ -6,10 +6,10 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>하루콕 - 무료 계산기·사진 편집·추첨 도구</title>
-<meta name="description" content="무료 도구 200개. 생활·전기·물리 계산, JSONL·SQL·텍스트 변환, 사진 편집과 음악 도구를 회원가입 없이 사용하세요.">
+<meta name="description" content="무료 도구 300개. 생활·금융·과학 계산, 네트워크·텍스트 변환, 사진 편집과 음악·인쇄 도구를 바로 사용하세요.">
 <link rel="canonical" href="https://harukok.com/">
 <meta property="og:title" content="하루콕 - 무료 계산기·사진 편집·추첨 도구">
-<meta property="og:description" content="무료 도구 200개. 생활·전기·물리 계산, JSONL·SQL·텍스트 변환, 사진 편집과 음악 도구를 회원가입 없이 사용하세요.">
+<meta property="og:description" content="무료 도구 300개. 생활·금융·과학 계산, 네트워크·텍스트 변환, 사진 편집과 음악·인쇄 도구를 바로 사용하세요.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="하루콕">
 <meta property="og:url" content="https://harukok.com/">
@@ -44,6 +44,7 @@
       <div class="category-nav" role="group" aria-label="도구 분류">
         <button type="button" data-category-filter="all" aria-pressed="true">전체</button>
         <button type="button" data-category-filter="daily" aria-pressed="false">생활 계산</button>
+        <button type="button" data-category-filter="finance" aria-pressed="false">금융·사업</button>
         <button type="button" data-category-filter="document" aria-pressed="false">문서·개발</button>
         <button type="button" data-category-filter="math" aria-pressed="false">수학·학습</button>
         <button type="button" data-category-filter="salary" aria-pressed="false">월급</button>
@@ -61,7 +62,7 @@
         <a class="card utility" href="/tools/certificate-maker"><span class="icon" aria-hidden="true">🏅</span><span class="name">상장 만들기</span></a>
       </div>
     </div>
-    <h2 id="directory-status" class="section-label" role="status" aria-live="polite">전체 도구 200개</h2>
+    <h2 id="directory-status" class="section-label" role="status" aria-live="polite">전체 도구 300개</h2>
     <div class="goal-grid" id="tool-directory">
       <section class="goal-card" id="daily-tools" data-tool-group="daily" aria-labelledby="daily-title">
         <h3 class="goal-title" id="daily-title">생활 계산</h3>
@@ -402,6 +403,188 @@
         </ul>
       </section>
       <!-- tools200:end -->
+      <!-- tools300:start -->
+      <section class="goal-card" id="heat-gas-tools" data-tool-group="math" aria-labelledby="heat-gas-title">
+        <h3 class="goal-title" id="heat-gas-title">열·기체</h3>
+        <ul class="goal-links">
+          <li data-keywords="질량·비열·온도 변화로 흡수하거나 방출하는 열량을 계산하세요. Q=mcΔT를 J와 kJ 단위로 확인합니다. heat energy calculator"><a href="/tools/heat-energy-calculator">열량 계산기</a></li>
+          <li data-keywords="절대압력·부피·몰수·절대온도 중 세 값으로 나머지를 구하세요. PV=nRT를 SI 단위로 계산합니다. ideal gas calculator"><a href="/tools/ideal-gas-calculator">이상기체 상태방정식 계산기</a></li>
+          <li data-keywords="몰수가 일정한 이상기체의 두 상태를 비교하세요. P1V1/T1=P2V2/T2에서 압력·부피·온도 한 값을 계산합니다. gas state calculator"><a href="/tools/gas-state-calculator">기체 상태 변화 계산기</a></li>
+          <li data-keywords="질량·몰질량·몰수 중 두 값으로 나머지를 계산하세요. 아보가드로 상수로 입자 개수도 함께 구합니다. mole calculator"><a href="/tools/mole-calculator">몰수 계산기</a></li>
+          <li data-keywords="용질 몰수·최종 용액 부피·몰농도 중 두 값으로 나머지를 구하세요. mol/L 기준의 몰농도를 계산합니다. molarity calculator"><a href="/tools/molarity-calculator">몰농도 계산기</a></li>
+          <li data-keywords="초기량·반감기·경과 시간으로 남은 양과 감소량을 계산하세요. 일정 반감기를 따르는 지수적 감소 모델입니다. half life calculator"><a href="/tools/half-life-calculator">반감기 계산기</a></li>
+          <li data-keywords="일정 기간마다 같은 비율로 늘거나 줄어드는 양을 계산하세요. 초기량·기간당 증감률·기간으로 최종량과 두 배가 되는 시간을 구합니다. exponential growth calculator"><a href="/tools/exponential-growth-calculator">지수 성장 계산기</a></li>
+        </ul>
+      </section>
+      <section class="goal-card" id="motion-tools" data-tool-group="math" aria-labelledby="motion-title">
+        <h3 class="goal-title" id="motion-title">힘·운동</h3>
+        <ul class="goal-links">
+          <li data-keywords="용수철 상수와 늘어나거나 압축된 변위로 복원력을 구하세요. 선형 탄성 범위에서 F=−kx를 계산합니다. spring force calculator"><a href="/tools/spring-force-calculator">용수철 힘 계산기</a></li>
+          <li data-keywords="용수철 상수와 변위로 탄성 위치에너지를 구하세요. 압축과 인장 모두 ½kx²로 계산합니다. spring energy calculator"><a href="/tools/spring-energy-calculator">용수철 에너지 계산기</a></li>
+          <li data-keywords="단진자의 길이와 중력가속도로 왕복 주기와 진동수를 구하세요. 작은 진폭의 이상적인 진자 모델입니다. pendulum period calculator"><a href="/tools/pendulum-period-calculator">진자 주기 계산기</a></li>
+          <li data-keywords="질량·속력·회전 반지름으로 등속 원운동의 구심력과 구심가속도를 계산하세요. F=mv²/r 관계를 사용합니다. centripetal force calculator"><a href="/tools/centripetal-force-calculator">구심력 계산기</a></li>
+          <li data-keywords="발사 속력·각도·중력가속도로 비행 시간·사거리·최고 높이를 구하세요. 출발과 도착 높이가 같은 이상적인 포물선 운동입니다. projectile motion calculator"><a href="/tools/projectile-motion-calculator">포물선 운동 계산기</a></li>
+          <li data-keywords="두 질량과 중심 사이 거리로 만유인력의 크기를 구하세요. 뉴턴 중력 법칙과 지정한 중력상수를 사용합니다. gravitational force calculator"><a href="/tools/gravitational-force-calculator">만유인력 계산기</a></li>
+          <li data-keywords="중심 천체 질량과 출발 중심거리로 이상적인 탈출속도를 구하세요. 대기와 추가 추진이 없는 뉴턴 중력 모델입니다. escape velocity calculator"><a href="/tools/escape-velocity-calculator">탈출속도 계산기</a></li>
+          <li data-keywords="중심 천체 질량과 원궤도 반지름으로 공전 주기·원궤도 속력을 구하세요. 공전 물체의 질량은 무시하는 두 물체 근사입니다. orbital period calculator"><a href="/tools/orbital-period-calculator">공전 주기 계산기</a></li>
+        </ul>
+      </section>
+      <section class="goal-card" id="fluids-tools" data-tool-group="math" aria-labelledby="fluids-title">
+        <h3 class="goal-title" id="fluids-title">유체·열전달</h3>
+        <ul class="goal-links">
+          <li data-keywords="유체 밀도와 물체가 밀어낸 부피로 부력을 구하세요. 아르키메데스 원리의 밀려난 유체 무게를 계산합니다. buoyancy calculator"><a href="/tools/buoyancy-calculator">부력 계산기</a></li>
+          <li data-keywords="유체 밀도·깊이·중력가속도로 깊이에 따른 압력 증가와 총압력을 구하세요. 표면 절대압력을 직접 지정할 수 있습니다. hydrostatic pressure calculator"><a href="/tools/hydrostatic-pressure-calculator">수압 계산기</a></li>
+          <li data-keywords="원형 관의 내경과 평균 유속으로 체적유량을 구하세요. m³/s와 L/min을 변환하고 주어진 유량의 유속도 역산합니다. flow rate calculator"><a href="/tools/flow-rate-calculator">유량 계산기</a></li>
+          <li data-keywords="밀도·평균 속도·특성 길이·동적 점도로 레이놀즈 수를 구하세요. 관 내경 등 상황에 맞는 특성 길이를 직접 입력합니다. reynolds number calculator"><a href="/tools/reynolds-number-calculator">레이놀즈 수 계산기</a></li>
+          <li data-keywords="처음 길이·선팽창계수·온도 변화로 길이 변화를 계산하세요. 작은 변형에서 ΔL=αLΔT를 사용합니다. thermal expansion calculator"><a href="/tools/thermal-expansion-calculator">열팽창 계산기</a></li>
+          <li data-keywords="평판의 열전도율·면적·온도 차이·두께로 정상상태 열전달률을 계산하세요. 푸리에 법칙의 단순 1차원 모델입니다. heat conduction calculator"><a href="/tools/heat-conduction-calculator">열전도 계산기</a></li>
+        </ul>
+      </section>
+      <section class="goal-card" id="waves-tools" data-tool-group="math" aria-labelledby="waves-title">
+        <h3 class="goal-title" id="waves-title">소리·빛</h3>
+        <ul class="goal-links">
+          <li data-keywords="전력비·진폭비와 데시벨 dB를 서로 변환하세요. 10log10과 20log10의 차이를 구분해 계산합니다. decibel ratio calculator"><a href="/tools/decibel-ratio-calculator">데시벨·비율 변환기</a></li>
+          <li data-keywords="소리가 도착하기까지의 시간이나 메아리 왕복 시간으로 거리를 구하세요. 사용자가 입력한 음속을 기준으로 계산합니다. sound distance calculator"><a href="/tools/sound-distance-calculator">소리 거리 계산기</a></li>
+          <li data-keywords="음원·관측자의 이동 속도로 관측 주파수를 구하세요. 매질에 대한 속도로 계산하는 고전적인 음파 도플러 모델입니다. doppler calculator"><a href="/tools/doppler-calculator">도플러 효과 계산기</a></li>
+          <li data-keywords="두 매질의 굴절률과 입사각으로 굴절각을 구하세요. 법선 기준 각도와 임계각·전반사 여부를 확인합니다. snell law calculator"><a href="/tools/snell-law-calculator">스넬의 법칙 계산기</a></li>
+          <li data-keywords="초점거리와 실제 물체 거리로 상거리·배율·실상과 허상을 구하세요. 수렴·발산 렌즈의 부호를 구분해 계산합니다. thin lens calculator"><a href="/tools/thin-lens-calculator">얇은 렌즈 계산기</a></li>
+          <li data-keywords="진공 파장 또는 주파수로 광자 하나의 에너지를 구하세요. E=hf=hc/λ를 J·eV 단위로 계산합니다. photon energy calculator"><a href="/tools/photon-energy-calculator">광자 에너지 계산기</a></li>
+          <li data-keywords="질량과 속력으로 입자의 드브로이 파장을 구하세요. 고전 운동량 p=mv를 쓰는 비상대론적 근사입니다. de broglie calculator"><a href="/tools/de-broglie-calculator">드브로이 파장 계산기</a></li>
+        </ul>
+      </section>
+      <section class="goal-card" id="circuits-tools" data-tool-group="math" aria-labelledby="circuits-title">
+        <h3 class="goal-title" id="circuits-title">전하·회로</h3>
+        <ul class="goal-links">
+          <li data-keywords="점전하와 거리로 진공 전기장의 크기·방향을 구하세요. 전하의 부호에 따른 바깥·안쪽 방향을 표시합니다. electric field calculator"><a href="/tools/electric-field-calculator">점전하 전기장 계산기</a></li>
+          <li data-keywords="두 점전하와 거리로 정전기력의 크기를 구하세요. 두 전하 부호가 같으면 반발, 다르면 인력으로 구분합니다. coulomb force calculator"><a href="/tools/coulomb-force-calculator">쿨롱 힘 계산기</a></li>
+          <li data-keywords="인덕턴스와 전류로 인덕터에 저장된 자기 에너지를 계산하세요. ½LI²를 J 단위로 구합니다. inductor energy calculator"><a href="/tools/inductor-energy-calculator">인덕터 에너지 계산기</a></li>
+          <li data-keywords="정전용량과 전압으로 저장 전기에너지와 전하량을 구하세요. ½CV²와 Q=CV를 계산합니다. capacitor energy calculator"><a href="/tools/capacitor-energy-calculator">커패시터 에너지 계산기</a></li>
+          <li data-keywords="인덕턴스와 저항으로 RL 회로 시간상수와 목표 전류 비율까지의 시간을 구하세요. 처음 전류가 0인 직류 스텝 응답입니다. rl time constant calculator"><a href="/tools/rl-time-constant-calculator">RL 시간상수 계산기</a></li>
+          <li data-keywords="인덕턴스와 정전용량으로 이상적인 LC 공진 주파수·각진동수·주기를 구하세요. mH와 μF 단위를 지원합니다. lc resonance calculator"><a href="/tools/lc-resonance-calculator">LC 공진 주파수 계산기</a></li>
+          <li data-keywords="1·2차 권선수와 1차 전압으로 이상적인 2차 전압을 계산하세요. 1차 전류를 넣으면 2차 전류도 역비례로 구합니다. transformer ratio calculator"><a href="/tools/transformer-ratio-calculator">변압기 권선비 계산기</a></li>
+        </ul>
+      </section>
+      <section class="goal-card" id="networks-tools" data-tool-group="document" aria-labelledby="networks-title">
+        <h3 class="goal-title" id="networks-title">네트워크 주소</h3>
+        <ul class="goal-links">
+          <li data-keywords="IPv4 CIDR에서 네트워크·서브넷 마스크·주소 범위와 호스트 수를 계산하세요. /31과 /32도 구분합니다. ipv4 subnet calculator"><a href="/tools/ipv4-subnet-calculator">IPv4 서브넷 계산기</a></li>
+          <li data-keywords="축약된 IPv6를 8개 4자리 블록으로 펼치고 16진수 압축 표기로 바꾸세요. IPv4가 붙은 주소도 처리합니다. ipv6 expander"><a href="/tools/ipv6-expander">IPv6 주소 펼치기</a></li>
+          <li data-keywords="IPv4 시작·끝 주소를 겹치지 않는 최소 CIDR 블록 목록으로 바꾸세요. 범위를 빠짐없이 포함합니다. cidr range calculator"><a href="/tools/cidr-range-calculator">IP 범위 CIDR 변환기</a></li>
+          <li data-keywords="48비트 MAC 주소를 콜론·하이픈·Cisco 점 표기로 바꾸세요. 멀티캐스트와 로컬 관리 비트를 확인합니다. mac address formatter"><a href="/tools/mac-address-formatter">MAC 주소 변환기</a></li>
+          <li data-keywords="UUID의 버전·variant·특수 값과 UUID v7 타임스탬프를 읽으세요. 기존 UUID를 정규화해 복사합니다. uuid inspector"><a href="/tools/uuid-inspector">UUID 분석기</a></li>
+          <li data-keywords="48비트 시각과 안전한 난수로 26자리 ULID를 만드세요. 지정한 밀리초 또는 현재 시각으로 여러 개를 생성합니다. ulid generator"><a href="/tools/ulid-generator">ULID 생성기</a></li>
+          <li data-keywords="원하는 문자 집합과 길이로 랜덤 ID를 만드세요. URL 안전 문자·16진수·직접 고른 문자를 안전한 난수로 조합합니다. random id generator"><a href="/tools/random-id-generator">랜덤 ID 생성기</a></li>
+        </ul>
+      </section>
+      <section class="goal-card" id="binary-tools" data-tool-group="document" aria-labelledby="binary-title">
+        <h3 class="goal-title" id="binary-title">비트·체크섬</h3>
+        <ul class="goal-links">
+          <li data-keywords="16진수 바이트를 2·4·8바이트 묶음 또는 전체 역순으로 바꾸세요. 빅엔디언·리틀엔디언 바이트 배열을 전환합니다. byte order converter"><a href="/tools/byte-order-converter">바이트 순서 변환기</a></li>
+          <li data-keywords="8·16·32·64비트 정수의 AND·OR·XOR·NOT와 논리 이동을 계산하세요. 10진수·16진수·2진수 결과를 표시합니다. bitwise calculator"><a href="/tools/bitwise-calculator">비트 연산 계산기</a></li>
+          <li data-keywords="부호 있는 정수와 고정 폭 2의 보수 비트열을 서로 변환하세요. 8·16·32·64비트 범위를 정확히 확인합니다. twos complement converter"><a href="/tools/twos-complement-converter">2의 보수 변환기</a></li>
+          <li data-keywords="숫자 또는 8자리 16진수에서 IEEE 754 단정밀도 비트를 읽으세요. 부호·지수·가수와 특수 값을 구분합니다. float32 inspector"><a href="/tools/float32-inspector">Float32 분석기</a></li>
+          <li data-keywords="글 또는 16진수 바이트의 CRC-32/ISO-HDLC 체크섬을 계산하세요. UTF-8 입력과 원시 바이트를 구분합니다. crc32 calculator"><a href="/tools/crc32-calculator">CRC32 계산기</a></li>
+          <li data-keywords="숫자열의 Luhn 체크디짓을 검사하거나 마지막 검사 숫자를 붙이세요. 앞의 0을 보존합니다. luhn checker"><a href="/tools/luhn-checker">Luhn 체크디짓 검사</a></li>
+          <li data-keywords="ISBN-10·ISBN-13의 체크디짓을 검사하세요. 하이픈·공백을 정리하고 기대하는 마지막 숫자를 보여줍니다. isbn checker"><a href="/tools/isbn-checker">ISBN 검사기</a></li>
+          <li data-keywords="EAN-8·EAN-13·UPC-A의 체크디짓을 검사하거나 붙이세요. GS1의 교대 가중치로 마지막 숫자를 계산합니다. ean checker"><a href="/tools/ean-checker">EAN·UPC 검사기</a></li>
+          <li data-keywords="길이가 같은 두 비트열이나 글에서 다른 위치의 수를 세세요. 비트 차이와 문자 차이를 구분합니다. hamming distance calculator"><a href="/tools/hamming-distance-calculator">해밍 거리 계산기</a></li>
+        </ul>
+      </section>
+      <section class="goal-card" id="text-layout-tools" data-tool-group="document" aria-labelledby="text-layout-title">
+        <h3 class="goal-title" id="text-layout-title">문자·줄바꿈</h3>
+        <ul class="goal-links">
+          <li data-keywords="영문 철자를 Alfa·Bravo 같은 NATO 음성 알파벳으로 바꾸거나 영문자로 되돌리세요. 단어 구분도 유지합니다. nato phonetic converter"><a href="/tools/nato-phonetic-converter">NATO 음성 알파벳 변환기</a></li>
+          <li data-keywords="긴 글을 정한 글자 수에 맞춰 줄바꿈하세요. 단어 우선 또는 글자 수 기준으로 감싸고 기존 줄 구분을 유지합니다. text wrapper"><a href="/tools/text-wrapper">텍스트 줄바꿈 도구</a></li>
+          <li data-keywords="여러 줄에 공통으로 붙은 앞 공백·탭만 제거하세요. 줄 사이의 상대적인 들여쓰기를 유지합니다. text indent cleaner"><a href="/tools/text-indent-cleaner">공통 들여쓰기 제거</a></li>
+          <li data-keywords="탭 정지 위치에 맞춰 탭을 공백으로 펼치거나 공백을 탭으로 줄이세요. 줄마다 열 위치를 계산합니다. tab space converter"><a href="/tools/tab-space-converter">탭·공백 변환기</a></li>
+          <li data-keywords="전각 영문·숫자·ASCII 기호·공백과 반각 문자를 서로 바꾸세요. 한글·가타카나는 그대로 둡니다. fullwidth halfwidth converter"><a href="/tools/fullwidth-halfwidth-converter">전각·반각 변환기</a></li>
+          <li data-keywords="1~3999의 정수와 표준 로마 숫자를 서로 변환하세요. IV·IX·CM 같은 감산 표기와 올바른 순서를 확인합니다. roman numeral converter"><a href="/tools/roman-numeral-converter">로마 숫자 변환기</a></li>
+          <li data-keywords="긴 정수와 소수를 한자어 한글 읽기로 바꾸세요. 만·억·조·경 단위와 소수 자릿수를 문자열로 처리합니다. korean number reader"><a href="/tools/korean-number-reader">숫자 한글 읽기</a></li>
+          <li data-keywords="정수와 소수를 영어 단어로 바꾸세요. trillion 단위까지 문자열로 읽고 소수 자릿수를 그대로 표현합니다. number to english words"><a href="/tools/number-to-english-words">숫자 영어 읽기</a></li>
+        </ul>
+      </section>
+      <section class="goal-card" id="text-metrics-tools" data-tool-group="document" aria-labelledby="text-metrics-title">
+        <h3 class="goal-title" id="text-metrics-title">텍스트 분석·검색 파일</h3>
+        <ul class="goal-links">
+          <li data-keywords="글에서 연속된 2~5개 문자나 단어 묶음의 빈도를 세세요. 반복 구절과 문자 패턴을 횟수순으로 확인합니다. ngram counter"><a href="/tools/ngram-counter">N그램 빈도 분석기</a></li>
+          <li data-keywords="두 글을 같게 만들 때 필요한 삽입·삭제·치환 횟수의 최솟값을 계산하세요. 유니코드 코드 포인트로 비교합니다. levenshtein calculator"><a href="/tools/levenshtein-calculator">편집 거리 계산기</a></li>
+          <li data-keywords="두 글의 단어·문자 집합에서 공통 항목과 전체 항목의 비율을 계산하세요. 반복 횟수보다 포함 여부를 비교합니다. jaccard similarity calculator"><a href="/tools/jaccard-similarity-calculator">자카드 유사도 계산기</a></li>
+          <li data-keywords="연속된 같은 문자를 문자·횟수 JSON 묶음으로 바꾸거나 원문으로 복원하세요. 숫자와 기호도 구분해 처리합니다. run length encoder"><a href="/tools/run-length-encoder">런 길이 인코딩</a></li>
+          <li data-keywords="같은 사이트의 URL 목록을 sitemap.xml 코드로 만드세요. 중복 주소·호스트·조각과 XML 이스케이프를 확인합니다. sitemap generator"><a href="/tools/sitemap-generator">사이트맵 XML 만들기</a></li>
+          <li data-keywords="크롤러 이름·허용·제외 경로와 사이트맵 주소로 robots.txt 초안을 만드세요. 줄 삽입과 잘못된 경로를 확인합니다. robots txt generator"><a href="/tools/robots-txt-generator">robots.txt 만들기</a></li>
+        </ul>
+      </section>
+      <section class="goal-card" id="loans-tools" data-tool-group="finance" aria-labelledby="loans-title">
+        <h3 class="goal-title" id="loans-title">대출·저축</h3>
+        <ul class="goal-links">
+          <li data-keywords="대출 원금·입력 연이자율·개월 수로 원리금균등·원금균등·만기일시 상환을 비교 계산하세요. 월 납입액과 총이자를 단순 추정합니다. loan payment calculator"><a href="/tools/loan-payment-calculator">대출 상환 계산기</a></li>
+          <li data-keywords="같은 원금에 대한 두 대출의 고정 연이자율·기간·별도 수수료를 비교하세요. 원리금균등 월 납입액과 입력 기간의 총비용을 추정합니다. loan comparison calculator"><a href="/tools/loan-comparison-calculator">대출 조건 비교 계산기</a></li>
+          <li data-keywords="초기 원금·가정 연수익률·기간과 복리 횟수로 미래 금액을 추정하세요. 추가 납입 없이 복리 누적액과 손익을 계산합니다. compound interest calculator"><a href="/tools/compound-interest-calculator">복리 계산기</a></li>
+          <li data-keywords="현재 자금과 목표 금액·기간·가정 수익률로 필요한 월말 납입액을 계산하세요. 초기 자금의 월 복리와 매월 같은 금액의 납입을 반영합니다. savings goal calculator"><a href="/tools/savings-goal-calculator">목표 저축액 계산기</a></li>
+          <li data-keywords="매월 같은 금액을 넣는 적립의 미래 금액을 추정하세요. 가정 연수익률과 월초·월말 납입 시점을 선택해 원금과 손익을 비교합니다. recurring savings calculator"><a href="/tools/recurring-savings-calculator">정기 적립 계산기</a></li>
+          <li data-keywords="명목 연이율과 연간 복리 횟수로 실효 연이율 EAR을 계산하세요. 역방향으로 실효 연이율에서 같은 복리 조건의 명목 연이율도 구합니다. effective interest calculator"><a href="/tools/effective-interest-calculator">실효 연이율 계산기</a></li>
+        </ul>
+      </section>
+      <section class="goal-card" id="returns-tools" data-tool-group="finance" aria-labelledby="returns-title">
+        <h3 class="goal-title" id="returns-title">수익·현금흐름</h3>
+        <ul class="goal-links">
+          <li data-keywords="가정 물가상승률과 기간으로 미래 가격과 현재 돈의 구매력을 계산하세요. 실제 소비자물가지수 없이 입력한 일정 비율만 적용합니다. inflation calculator"><a href="/tools/inflation-calculator">물가상승·구매력 계산기</a></li>
+          <li data-keywords="시작 값과 종료 값·기간으로 복리 연평균 성장률 CAGR을 계산하세요. 중간 입출금이 없는 두 시점의 기하 평균 변화율을 구합니다. cagr calculator"><a href="/tools/cagr-calculator">연평균 성장률 계산기</a></li>
+          <li data-keywords="초기 비용·최종 가치·별도 수입과 비용으로 단순 수익률 ROI를 계산하세요. 기간을 연 환산하지 않고 입력 금액의 순손익을 비교합니다. roi calculator"><a href="/tools/roi-calculator">수익률 ROI 계산기</a></li>
+          <li data-keywords="같은 기간 간격의 현금흐름과 기간당 할인율로 순현재가치를 계산하세요. 첫 줄은 현재 시점이며 이후 금액을 각 기간 말의 가치로 할인합니다. cashflow npv calculator"><a href="/tools/cashflow-npv-calculator">현금흐름 NPV 계산기</a></li>
+          <li data-keywords="여러 매입의 단가·수량과 별도 수수료로 평균 취득 단가를 계산하세요. 같은 자산·통화·수량 단위의 합계만 입력해 원가를 비교합니다. average purchase price calculator"><a href="/tools/average-purchase-price-calculator">평균 매입가 계산기</a></li>
+          <li data-keywords="주식 수·회당 주당 배당금·연간 횟수로 가정 배당금을 계산하세요. 직접 입력한 공제율과 취득 단가로 순배당금과 단순 배당수익률을 추정합니다. dividend calculator"><a href="/tools/dividend-calculator">배당금·배당수익률 계산기</a></li>
+        </ul>
+      </section>
+      <section class="goal-card" id="business-tools" data-tool-group="finance" aria-labelledby="business-title">
+        <h3 class="goal-title" id="business-title">사업·원가</h3>
+        <ul class="goal-links">
+          <li data-keywords="기간 고정비와 단위 판매가·변동비로 손익분기 판매 수량을 계산하세요. 정수 원 입력으로 수량을 정확히 올림하고 해당 매출을 확인합니다. break even calculator"><a href="/tools/break-even-calculator">손익분기점 계산기</a></li>
+          <li data-keywords="원가와 판매가로 이익·마진율·마크업을 계산하세요. 판매가 기준 마진과 원가 기준 마크업의 차이를 같은 입력값으로 확인합니다. margin markup calculator"><a href="/tools/margin-markup-calculator">마진·마크업 계산기</a></li>
+          <li data-keywords="취득가·잔존가·사용연수로 매년 같은 금액을 배분하는 감가상각을 계산하세요. 지정 연도 말 누계와 장부 금액을 단순 추정합니다. depreciation calculator"><a href="/tools/depreciation-calculator">정액법 감가상각 계산기</a></li>
+          <li data-keywords="입력한 세율로 공급가액·부가세·합계액을 나눠 계산하세요. 부가세 별도 금액 또는 포함 총액에서 시작하고 원 단위 합계를 보존합니다. vat calculator"><a href="/tools/vat-calculator">부가세 포함·별도 계산기</a></li>
+          <li data-keywords="기간 매출원가와 기초·기말 재고 원가로 재고 회전율을 계산하세요. 입력 기간 일수를 이용해 평균 재고 보유 일수도 단순 환산합니다. inventory turnover calculator"><a href="/tools/inventory-turnover-calculator">재고 회전율 계산기</a></li>
+          <li data-keywords="매출·매출원가·운영비와 기타 손익을 넣어 기간 손익을 계산하세요. 가정 세율을 직접 입력해 단순 세후 이익도 비교할 수 있습니다. profit loss calculator"><a href="/tools/profit-loss-calculator">사업 손익 계산기</a></li>
+        </ul>
+      </section>
+      <section class="goal-card" id="date-plans-tools" data-tool-group="daily" aria-labelledby="date-plans-title">
+        <h3 class="goal-title" id="date-plans-title">기간·근무 계획</h3>
+        <ul class="goal-links">
+          <li data-keywords="시작일부터 종료일까지 요일별 지정 시간을 합산하세요. 월~일에 서로 다른 근무시간을 넣고 직접 지정한 제외 날짜를 빼서 총 예정 시간을 계산합니다. business day duration calculator"><a href="/tools/business-day-duration-calculator">기간별 근무시간 합산기</a></li>
+          <li data-keywords="연도와 월로 복사할 수 있는 월간 텍스트 달력을 만드세요. 월요일 또는 일요일 시작을 선택하고 요일에 맞게 날짜를 배치합니다. calendar month calculator"><a href="/tools/calendar-month-calculator">월간 텍스트 달력 만들기</a></li>
+          <li data-keywords="개월을 더하거나 빼고 해당 날짜를 계산하세요. 월말 유지 규칙을 선택하거나 여러 달의 마지막 날짜 목록을 만들 수 있습니다. month end calculator"><a href="/tools/month-end-calculator">월말·개월 계산기</a></li>
+          <li data-keywords="두 날짜 기간이 겹치는 시작일·종료일과 일수를 계산하세요. 양 끝 날짜를 포함하는 일정·예약 기간의 교집합을 확인합니다. date overlap calculator"><a href="/tools/date-overlap-calculator">날짜 기간 겹침 계산기</a></li>
+          <li data-keywords="매일 반복되는 두 시간대의 겹치는 구간과 분량을 계산하세요. 종료 시각이 시작보다 이르면 자정을 넘는 구간으로 처리합니다. time overlap calculator"><a href="/tools/time-overlap-calculator">시간대 겹침 계산기</a></li>
+          <li data-keywords="두 도시의 현지 날짜·근무 시각을 UTC로 바꿔 겹치는 시간을 계산하세요. 브라우저 시간대 규칙의 일광절약시간을 반영하고 중복·존재하지 않는 시각은 알려줍니다. timezone overlap calculator"><a href="/tools/timezone-overlap-calculator">도시별 근무시간 겹침 계산기</a></li>
+        </ul>
+      </section>
+      <section class="goal-card" id="music-study-tools" data-tool-group="creative" aria-labelledby="music-study-title">
+        <h3 class="goal-title" id="music-study-title">음악·오디오 계산</h3>
+        <ul class="goal-links">
+          <li data-keywords="두 MIDI 음의 반음 차이와 12평균율 주파수 비율을 계산하세요. 올라가는 음정과 내려가는 음정을 구분하고 옥타브를 표시합니다. musical interval calculator"><a href="/tools/musical-interval-calculator">음정·주파수 비율 계산기</a></li>
+          <li data-keywords="으뜸음과 음계 종류로 장음계·단음계·펜타토닉·반음계를 만드세요. 음계 구성음과 으뜸음 기준 반음 위치를 함께 확인합니다. scale generator"><a href="/tools/scale-generator">음계 생성기</a></li>
+          <li data-keywords="시작 조성에서 완전5도 또는 완전4도 간격으로 12개 조성을 만드세요. 각 장조의 관계단조를 함께 표시해 조성 관계를 확인합니다. circle of fifths generator"><a href="/tools/circle-of-fifths-generator">5도권 생성기</a></li>
+          <li data-keywords="박자표·마디 수·BPM으로 전체 재생 길이를 계산하세요. BPM이 가리키는 음표와 점음표 여부를 지정해 6/8박자 같은 리듬도 환산합니다. time signature calculator"><a href="/tools/time-signature-calculator">박자·마디 길이 계산기</a></li>
+          <li data-keywords="샘플레이트·채널·비트 깊이와 길이로 압축하지 않은 PCM 오디오 용량을 계산하세요. 샘플 프레임 수와 바이트·MiB·GiB를 표시합니다. audio storage calculator"><a href="/tools/audio-storage-calculator">PCM 오디오 용량 계산기</a></li>
+        </ul>
+      </section>
+      <section class="goal-card" id="print-layout-tools" data-tool-group="creative" aria-labelledby="print-layout-title">
+        <h3 class="goal-title" id="print-layout-title">인쇄·출판 계산</h3>
+        <ul class="goal-links">
+          <li data-keywords="저장 영상의 가로·세로 픽셀과 샘플 종횡비 SAR로 표시 종횡비 DAR을 계산하세요. 정사각형 픽셀로 보일 때의 환산 가로 크기도 확인합니다. pixel aspect ratio calculator"><a href="/tools/pixel-aspect-ratio-calculator">픽셀 종횡비 SAR·DAR 계산기</a></li>
+          <li data-keywords="용지와 제품 크기·여백·간격으로 같은 방향의 격자 배치 수를 계산하세요. 90도 회전 방향을 비교하고 용지당 제품 수와 사용 면적을 확인합니다. print sheet layout calculator"><a href="/tools/print-sheet-layout-calculator">인쇄 용지 배치 계산기</a></li>
+          <li data-keywords="종이를 그대로 넣거나 반·3절로 접을 때 봉투 내부에 들어가는지 계산하세요. 여유 공간을 더한 필요한 내부 크기와 90도 회전 수납을 비교합니다. envelope size calculator"><a href="/tools/envelope-size-calculator">봉투 수납 크기 계산기</a></li>
+          <li data-keywords="페이지 수와 종이 한 장의 두께로 책등 폭을 추정하세요. 양면 인쇄 장수로 환산하고 직접 입력한 표지·제본 여유를 더합니다. book spine calculator"><a href="/tools/book-spine-calculator">책등 두께 계산기</a></li>
+        </ul>
+      </section>
+      <section class="goal-card" id="home-work-tools" data-tool-group="daily" aria-labelledby="home-work-title">
+        <h3 class="goal-title" id="home-work-title">수량·면적</h3>
+        <ul class="goal-links">
+          <li data-keywords="게이지 스와치의 면적·무게와 완성 면적으로 실 소요량을 비례 계산하세요. 실 한 볼의 무게·길이와 여유율로 총 길이와 필요한 볼 수를 구합니다. yarn length calculator"><a href="/tools/yarn-length-calculator">뜨개 실 소요량 계산기</a></li>
+          <li data-keywords="직사각형 방의 길이·너비·높이로 네 벽의 면적을 계산하세요. 문·창문 크기와 개수를 입력해 제외한 벽면적을 확인합니다. wall area calculator"><a href="/tools/wall-area-calculator">방 벽면적 계산기</a></li>
+        </ul>
+      </section>
+      <!-- tools300:end -->
     </div>
     <div id="empty-search" class="empty-search" hidden><p>맞는 도구가 없어요. 다른 검색어나 분류를 선택해 보세요.</p><button id="empty-reset" type="button">전체 도구 보기</button></div>
 
