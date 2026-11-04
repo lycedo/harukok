@@ -8,6 +8,7 @@
   const reset = document.getElementById('reset-search');
   const featured = document.getElementById('featured-tools');
   let category = 'all';
+  let refreshLayout = () => {};
   const normalize = value => value.normalize('NFC').toLocaleLowerCase('ko').replace(/\s+/g, '');
 
   function update() {
@@ -30,6 +31,7 @@
     featured.hidden = Boolean(query) || category !== 'all';
     empty.hidden = count !== 0;
     reset.hidden = !query && category === 'all';
+    refreshLayout();
   }
   function clear() {
     search.value = '';
@@ -59,6 +61,7 @@
       cancelAnimationFrame(layoutFrame);
       layoutFrame = requestAnimationFrame(arrangeCards);
     }
+    refreshLayout = arrangeCards;
     const cardObserver = new ResizeObserver(scheduleLayout);
     for (const group of groups) cardObserver.observe(group);
     cardObserver.observe(directory);

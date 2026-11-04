@@ -49,6 +49,14 @@ function checkSite(root) {
     const ogURLs = meta.filter(tag => tag.property === 'og:url');
     if (ogURLs.length !== 1 || ogURLs[0].content !== canonical) fail(file, 'og:url이 canonical과 일치하지 않음');
     if ((html.match(/<h1\b/gi) || []).length !== 1) fail(file, '페이지 제목 h1은 하나여야 함');
+    if (/^(tools|fun)\//.test(file)) {
+      const ads = [...html.matchAll(/<script\b[^>]*\bsrc=["']\/ad-banner-isolated\.js(?:\?[^"']*)?["'][^>]*>/gi)];
+      if (ads.length !== 1) fail(file, '도구 광고 스크립트는 하나여야 함');
+    }
+    for (const [, src] of html.matchAll(/<script\b[^>]*\bsrc=["']([^"']+)["'][^>]*>/gi)) {
+      const asset = new URL(src, canonical);
+      if (asset.origin === ORIGIN && !fs.existsSync(path.join(root, decodeURIComponent(asset.pathname).replace(/^\//, '')))) fail(file, '없는 로컬 스크립트: ' + asset.pathname);
+    }
     for (const [, json] of html.matchAll(/<script\b[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)) {
       try {
         const data = JSON.parse(json);

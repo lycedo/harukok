@@ -12,7 +12,7 @@ try {
   for (const dir of ['', 'tools', 'fun']) {
     fs.mkdirSync(path.join(fixture, dir), { recursive: true });
     for (const name of fs.readdirSync(path.join(root, dir))) {
-      if (name.endsWith('.html') || (dir === '' && ['robots.txt', 'sitemap.xml'].includes(name))) {
+      if (name.endsWith('.html') || name.endsWith('.js') || (dir === '' && ['robots.txt', 'sitemap.xml'].includes(name))) {
         fs.copyFileSync(path.join(root, dir, name), path.join(fixture, dir, name));
       }
     }
@@ -47,6 +47,9 @@ try {
   }
   mutation('Missing sitemap entry', 'sitemap.xml', html => html.replace(/<url>\s*<loc>https:\/\/harukok.com\/tools\/percent-calculator<\/loc>[\s\S]*?<\/url>/, ''), /공개 페이지 누락.*percent-calculator/);
   mutation('Wrong canonical', 'tools/percent-calculator.html', html => html.replace('rel="canonical" href="https://harukok.com/tools/percent-calculator"', 'rel="canonical" href="https://example.com/"'), /canonical은 실제/);
+  mutation('Missing tool ad', 'tools/percent-calculator.html', html => html.replace(/<script src="\/ad-banner-isolated\.js[^"\n]*"><\/script>/, ''), /도구 광고 스크립트는 하나/);
+  mutation('Duplicate tool ad', 'tools/percent-calculator.html', html => html.replace('</main>', '<script src="/ad-banner-isolated.js?v=20261027-banner"></script></main>'), /도구 광고 스크립트는 하나/);
+  mutation('Missing local script', 'tools/percent-calculator.html', html => html.replace('</head>', '<script src="/tools/missing-expansion.js"></script></head>'), /없는 로컬 스크립트/);
   mutation('Accidental noindex', 'tools/percent-calculator.html', html => html.replace('</head>', '<meta name="robots" content="noindex"></head>'), /공개 콘텐츠에 noindex/);
   mutation('Malformed structured data', 'tools/percent-calculator.html', html => html.replace('"@context":', '"@context" '), /JSON 문법 오류/);
   mutation('Broken internal link', 'index.html', html => html.replace('href="/tools/percent-calculator"', 'href="/tools/does-not-exist"'), /없는 페이지 링크/);
