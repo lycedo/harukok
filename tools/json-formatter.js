@@ -55,7 +55,7 @@ if (typeof document !== 'undefined') {
       $('json-result').hidden = false; $('copy-result').disabled = false; $('json-result').scrollIntoView({ block: 'nearest' });
     } catch (error) { $('json-error').textContent = error.message; }
   });
-  $('example-text').addEventListener('click', () => {
+  $('example-text')?.addEventListener('click', () => {
     $('json-input').value = '{"이름":"하루콕","도구":["계산기","사진 편집"],"무료":true}'; $('json-mode').value = '2'; $('json-form').requestSubmit();
   });
   $('copy-result').addEventListener('click', async () => {

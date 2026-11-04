@@ -77,7 +77,7 @@ if (typeof document !== 'undefined') {
       $('rectangle-result').hidden = false; $('rectangle-result').scrollIntoView({block:'nearest'});
     } catch (error) { $('rectangle-error').textContent = error.message; }
   });
-  $('rectangle-example').addEventListener('click', () => {
+  $('rectangle-example')?.addEventListener('click', () => {
     $('length-unit').value = 'm'; changeLengthUnit();
     $('room-width').value = '3'; $('room-length').value = '4'; $('rectangle-form').requestSubmit();
   });

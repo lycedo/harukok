@@ -105,7 +105,7 @@ if (typeof document !== 'undefined') {
       },type,quality/100);
     } catch(error) { $('resize-settings').open=true; $('resize-submit').disabled=false; $('image-error').textContent=error.message; $('image-status').textContent=''; }
   });
-  $('demo-image').addEventListener('click',()=>{
+  $('demo-image')?.addEventListener('click',()=>{
     const version=++loadVersion; clearSource(); $('image-file').value=''; $('image-status').textContent='예시 이미지를 만드는 중입니다.';
     const canvas=document.createElement('canvas'); canvas.width=1200; canvas.height=800;
     const context=canvas.getContext('2d');

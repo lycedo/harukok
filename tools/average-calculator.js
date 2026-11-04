@@ -46,7 +46,7 @@ if (typeof document !== 'undefined') {
       $('result-text').value = text; $('result').hidden = false; $('result').scrollIntoView({ block: 'nearest' });
     } catch (error) { $('error').textContent = error.message; }
   });
-  $('example').addEventListener('click', () => { $('numbers').value = '10, 20, 20, 30, 100'; $('calculator').requestSubmit(); });
+  $('example')?.addEventListener('click', () => { $('numbers').value = '10, 20, 20, 30, 100'; $('calculator').requestSubmit(); });
   $('copy').addEventListener('click', async () => {
     const current = version, text = $('result-text').value;
     if ($('result').hidden || !text) return;

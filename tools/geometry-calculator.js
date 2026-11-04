@@ -39,7 +39,7 @@ if (typeof document !== 'undefined') {
     $('result-text').value = $('result-value').textContent + '\n' + $('result-detail').textContent + '\n' + r.formula;
     $('result').hidden = false; $('result').scrollIntoView({ block: 'nearest' });
   } catch (error) { $('error').textContent = error.message; } });
-  $('example').addEventListener('click', () => { $('shape').value = 'triangle'; mode(); $('side-a').value = '3'; $('side-b').value = '4'; $('side-c').value = '5'; $('unit').value = 'cm'; $('calculator').requestSubmit(); });
+  $('example')?.addEventListener('click', () => { $('shape').value = 'triangle'; mode(); $('side-a').value = '3'; $('side-b').value = '4'; $('side-c').value = '5'; $('unit').value = 'cm'; $('calculator').requestSubmit(); });
   $('copy').addEventListener('click', async () => { const current = version; if ($('result').hidden) return;
     try { await navigator.clipboard.writeText($('result-text').value); if (current === version) $('copy-status').textContent = '결과를 복사했습니다.'; }
     catch { if (current !== version) return; $('copy-status').textContent = '결과 칸에서 글을 선택해 직접 복사해 주세요.'; $('result-text').focus(); $('result-text').select(); }

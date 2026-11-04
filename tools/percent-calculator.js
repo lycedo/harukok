@@ -62,7 +62,7 @@ if (typeof document !== 'undefined') {
       $('result').scrollIntoView({block:'nearest'});
     } catch (error) { $('error').textContent = error.message; }
   });
-  $('percent-example').addEventListener('click', () => {
+  $('percent-example')?.addEventListener('click', () => {
     const [a,b] = examples[$('mode').value];
     $('a').value = a; $('b').value = b; $('calculator').requestSubmit();
   });

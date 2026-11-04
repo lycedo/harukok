@@ -55,7 +55,7 @@ if (typeof document !== 'undefined') {
       $('size-result').scrollIntoView({ block: 'nearest' });
     } catch (error) { $('size-error').textContent = error.message; }
   });
-  $('size-example').addEventListener('click', () => {
+  $('size-example')?.addEventListener('click', () => {
     $('size-value').value = '1';
     $('size-unit').value = 'GiB';
     $('size-form').requestSubmit();

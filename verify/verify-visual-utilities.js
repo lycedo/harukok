@@ -73,14 +73,15 @@ function fixture(slug, defaults = {}, extra = {}) {
   for (const element of Object.values(elements)) element.requestSubmit = () => element.handlers.submit({ preventDefault() {} });
   const clipboard = { copied: '', writeText: async text => { clipboard.copied = text; } };
   const window = { handlers: {}, addEventListener(event, fn) { this.handlers[event] = fn; } };
-  const document = { getElementById(id) { assert.ok(elements[id], 'Missing HTML id ' + id); return elements[id]; }, ...extra.document };
+  const document = { getElementById(id) { return elements[id] || null; }, ...extra.document };
   vm.runInNewContext(fs.readFileSync(path.join(__dirname, '../tools/' + slug + '.js'), 'utf8'), { document, navigator: { clipboard }, window, ...extra.context });
   return { elements, clipboard, window, html };
 }
 test('Aspect UI calculates actual values, preserves input and clears stale output', () => {
   const { elements: e } = fixture('aspect-ratio-calculator', { 'target-axis': { value: 'width' }, 'ratio-result': { hidden: true } });
   e['ratio-form'].requestSubmit(); assert.match(e['ratio-error'].textContent, /모두 입력/);
-  e['ratio-example'].handlers.click();
+  for (const [id, value] of Object.entries({ 'source-width': '1920', 'source-height': '1080', 'target-axis': 'width', 'target-size': '1280' })) e[id].value = value;
+  e['ratio-form'].requestSubmit();
   assert.equal(e['source-width'].value, '1920'); assert.equal(e['ratio-output'].value, '16:9 · 1280 × 720px');
   assert.equal(e['ratio-result'].hidden, false);
   e['ratio-form'].handlers.input(); assert.equal(e['ratio-result'].hidden, true); assert.equal(e['ratio-output'].value, '');
@@ -88,7 +89,7 @@ test('Aspect UI calculates actual values, preserves input and clears stale outpu
 test('Color UI shows the chosen fields and prevents missing channels', () => {
   const { elements: e } = fixture('color-converter', { 'color-mode': { value: 'hex' } });
   assert.equal(e['rgb-fields'].hidden, true); assert.equal(e['hex-fields'].hidden, false);
-  e['color-example'].handlers.click(); assert.equal(e['hex-result'].textContent, '#B23A2E');
+  e['hex-value'].value = '#B23A2E'; e['color-form'].requestSubmit(); assert.equal(e['hex-result'].textContent, '#B23A2E');
   assert.equal(e['color-preview'].style.backgroundColor, '#B23A2E');
   e['color-mode'].value = 'rgb'; e['color-mode'].handlers.change();
   assert.equal(e['hex-fields'].hidden, true); assert.equal(e['color-result'].hidden, true);
@@ -150,12 +151,13 @@ test('Image UI ignores outdated loads, handles broken/oversized input and releas
 });
 
 async function clipboardChecks() {
-  for (const [slug, example, copy, output, form, result] of [
-    ['aspect-ratio-calculator', 'ratio-example', 'copy-ratio', 'ratio-output', 'ratio-form', 'ratio-result'],
-    ['color-converter', 'color-example', 'copy-color', 'color-output', 'color-form', 'color-result']
+  for (const [slug, values, copy, output, form, result] of [
+    ['aspect-ratio-calculator', { 'source-width': '1920', 'source-height': '1080', 'target-axis': 'width', 'target-size': '1280' }, 'copy-ratio', 'ratio-output', 'ratio-form', 'ratio-result'],
+    ['color-converter', { 'color-mode': 'hex', 'hex-value': '#B23A2E' }, 'copy-color', 'color-output', 'color-form', 'color-result']
   ]) {
     const { elements: e, clipboard } = fixture(slug, slug === 'color-converter' ? { 'color-mode': { value: 'hex' } } : {});
-    e[example].handlers.click(); await e[copy].handlers.click(); assert.equal(clipboard.copied, e[output].value);
+    for (const [id, value] of Object.entries(values)) e[id].value = value;
+    e[form].requestSubmit(); await e[copy].handlers.click(); assert.equal(clipboard.copied, e[output].value);
     clipboard.writeText = async () => { throw new Error('denied'); }; await e[copy].handlers.click();
     assert.match(e['copy-status'].textContent, /직접 복사/); assert.equal(e[output].selected, true);
     let finish; clipboard.writeText = () => new Promise(resolve => { finish = resolve; });

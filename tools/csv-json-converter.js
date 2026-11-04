@@ -72,7 +72,8 @@ if (typeof document !== 'undefined') {
   const $ = id => document.getElementById(id); let version = 0;
   function clear() { version++; $('result').hidden = true; $('output').value = ''; $('summary').textContent = ''; $('error').textContent = ''; $('copy-status').textContent = ''; }
   $('converter').addEventListener('input', clear); $('converter').addEventListener('change', clear);
+  $('mode').addEventListener('change', () => { $('source').placeholder = $('mode').value === 'json-to-csv' ? '[{"이름":"하루콕","메모":"001"}]' : '이름,메모\n하루콕,001'; });
   $('converter').addEventListener('submit', event => { event.preventDefault(); clear(); try { const r = convertCSVJSON($('source').value, $('mode').value); $('output').value = r.text; $('summary').textContent = `데이터 ${r.rows}행 · ${r.columns}열`; $('result').hidden = false; $('result').scrollIntoView({ block: 'nearest' }); } catch (error) { $('error').textContent = error.message; } });
-  $('example').addEventListener('click', () => { $('mode').value = 'csv-to-json'; $('source').value = '이름,메모\r\n하루콕,"쉼표, 큰따옴표 ""예시"""\r\n예시,"두 줄\n메모"'; $('converter').requestSubmit(); });
+  $('example')?.addEventListener('click', () => { $('mode').value = 'csv-to-json'; $('source').value = '이름,메모\r\n하루콕,"쉼표, 큰따옴표 ""예시"""\r\n예시,"두 줄\n메모"'; $('converter').requestSubmit(); });
   $('copy').addEventListener('click', async () => { if ($('result').hidden) return; const token = version; try { await navigator.clipboard.writeText($('output').value); if (token === version) $('copy-status').textContent = '변환 결과를 복사했습니다.'; } catch { if (token !== version) return; $('output').focus(); $('output').select(); $('copy-status').textContent = '결과 칸의 글을 선택해 직접 복사하세요.'; } });
 }

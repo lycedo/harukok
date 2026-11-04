@@ -50,7 +50,7 @@ if (typeof document !== 'undefined') {
       $('result').hidden = false; $('result').scrollIntoView({ block: 'nearest' });
     } catch (error) { $('error').textContent = error.message; }
   });
-  $('recipe-example').addEventListener('click', () => {
+  $('recipe-example')?.addEventListener('click', () => {
     rows.length = 0; $('ingredients').replaceChildren(); $('original-servings').value = '4'; $('target-servings').value = '2';
     for (const ingredient of [{ name: '밀가루', amount: '500', unit: 'g' }, { name: '우유', amount: '300', unit: 'ml' }, { name: '달걀', amount: '2', unit: '개' }]) addIngredient(ingredient);
     $('recipe-form').requestSubmit();

@@ -4,3 +4,17 @@
 /fun/cafe-drink-picker /fun/food-picker?meal=drink 301
 /tools/dday-calculator /tools/date-calculator 301
 /tools/dday-calculator.html /tools/date-calculator 301
+/guides/ / 301
+/guides/index.html / 301
+/guides/salary-vs-payslip /tools/salary-calculator 301
+/guides/salary-vs-payslip.html /tools/salary-calculator 301
+/guides/minimum-wage-monthly-hours /tools/hourly-wage-calculator 301
+/guides/minimum-wage-monthly-hours.html /tools/hourly-wage-calculator 301
+/guides/severance-bonus-input /tools/severance-pay-calculator 301
+/guides/severance-bonus-input.html /tools/severance-pay-calculator 301
+/guides/unemployment-benefit-guide /tools/unemployment-benefit-calculator 301
+/guides/unemployment-benefit-guide.html /tools/unemployment-benefit-calculator 301
+/guides/annual-leave-guide /tools/annual-leave-pay-calculator 301
+/guides/annual-leave-guide.html /tools/annual-leave-pay-calculator 301
+/guides/parental-leave-monthly-comparison /tools/parental-leave-calculator 301
+/guides/parental-leave-monthly-comparison.html /tools/parental-leave-calculator 301

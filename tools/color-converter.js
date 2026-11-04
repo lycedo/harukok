@@ -57,7 +57,7 @@ if (typeof document !== 'undefined') {
       $('color-result').hidden = false;
     } catch (error) { $('color-error').textContent = error.message; }
   });
-  $('color-example').addEventListener('click', () => { $('color-mode').value = 'hex'; setMode(); $('hex-value').value = '#B23A2E'; $('color-form').requestSubmit(); });
+  $('color-example')?.addEventListener('click', () => { $('color-mode').value = 'hex'; setMode(); $('hex-value').value = '#B23A2E'; $('color-form').requestSubmit(); });
   $('copy-color').addEventListener('click', async () => {
     if ($('color-result').hidden) return;
     const current = version;

@@ -59,7 +59,7 @@ if(typeof document!=='undefined') {
       if(ticket===revision) {$('bg-error').textContent=error.name==='EncodingError'?'이미지를 읽을 수 없습니다. 다른 JPG·PNG·WebP 파일을 선택해 주세요.':error.message;$('bg-status').textContent='';}
     } finally {if(url) URL.revokeObjectURL(url);}
   });
-  $('sample-image').addEventListener('click',()=>{
+  $('sample-image')?.addEventListener('click',()=>{
     const canvas=document.createElement('canvas');canvas.width=480;canvas.height=300;
     const ctx=canvas.getContext('2d');ctx.fillStyle='#fff';ctx.fillRect(0,0,480,300);
     ctx.fillStyle='#16233d';ctx.fillRect(45,45,170,210);ctx.fillStyle='#fff';ctx.fillRect(65,65,130,170);

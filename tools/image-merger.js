@@ -64,7 +64,7 @@ if (typeof document !== 'undefined') {
       }, 'image/png');
     } catch (error) { $('merge-submit').disabled = false; $('error').textContent = error.message; }
   });
-  $('merge-example').addEventListener('click', () => {
+  $('merge-example')?.addEventListener('click', () => {
     const version = ++loadVersion; clearSources(); $('merge-files').value = ''; $('status').textContent = '예시 사진을 만드는 중입니다.';
     Promise.all([0, 1].map(index => new Promise((resolve, reject) => { const canvas = document.createElement('canvas'); canvas.width = index ? 240 : 360; canvas.height = index ? 360 : 240; const c = canvas.getContext('2d'); if (!c) { reject(new Error('예시를 만들 수 없습니다.')); return; } c.fillStyle = index ? '#B23A2E' : '#16233D'; c.fillRect(0, 0, canvas.width, canvas.height); c.fillStyle = '#FFFDF8'; c.fillRect(25, 25, 90, 70); canvas.toBlob(blob => blob ? resolve(new File([blob], 'example-' + (index + 1) + '.png', { type: 'image/png' })) : reject(new Error('예시 PNG를 만들지 못했습니다.')), 'image/png'); }))).then(files => loadFiles(files, version)).catch(error => { if (version === loadVersion) { $('error').textContent = error.message; $('status').textContent = ''; } });
   });

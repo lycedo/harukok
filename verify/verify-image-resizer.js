@@ -73,8 +73,8 @@ equal($('image-result').hidden,true);assert.ok($('image-error').textContent.incl
 $('output-format').value='image/png';fire('output-format','input');equal($('image-quality').disabled,true);
 $('image-quality').value='';fire('resize-form','submit');blobs.shift().callback({type:'image/png',size:3000});
 equal($('image-result').hidden,false);assert.ok($('size-comparison').textContent.includes('증가'));checks++;
-fire('demo-image','click');const demoCallback=blobs.shift().callback;select('newest.png');const imageCount=images.length;
-demoCallback({type:'image/png',size:100});equal(images.length,imageCount);
+const discarded=select('discarded.png');select('newest.png');const imageCount=images.length;
+discarded.onload();equal(images.length,imageCount);equal($('image-controls').disabled,true);
 const tooBig=images.at(-1);tooBig.naturalWidth=5000;tooBig.naturalHeight=4000;tooBig.onload();
 equal($('image-previews').hidden,true);equal($('image-controls').disabled,true);assert.ok($('image-error').textContent.includes('1,200만'));checks++;
 const last=select();last.onload();const activeURL=$('original-preview').src;listeners.pagehide();equal(revoked.includes(activeURL),true);

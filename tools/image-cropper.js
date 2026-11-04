@@ -97,7 +97,7 @@ if (typeof document!=='undefined') {
       },type,0.92);
     } catch(error) { $('image-error').textContent=error.message; $('crop-submit').disabled=false; $('image-status').textContent=''; }
   });
-  $('demo-image').addEventListener('click',()=>{
+  $('demo-image')?.addEventListener('click',()=>{
     const version=++loadVersion; clearSource(); $('image-file').value=''; $('image-status').textContent='예시 이미지를 만드는 중입니다.';
     const canvas=document.createElement('canvas'); canvas.width=1200;canvas.height=800;const context=canvas.getContext('2d');
     if(!context){$('image-error').textContent='이 브라우저는 이미지 처리를 지원하지 않습니다.';$('image-status').textContent='';return;}

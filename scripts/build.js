@@ -39,7 +39,6 @@ const PUBLIC_FILES = [
 const PUBLIC_DIRS = [
   'tools',
   'fun',
-  'guides',
 ];
 
 function rmrf(target) {

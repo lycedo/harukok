@@ -112,13 +112,26 @@ function loadUI(slug) {
   ids.calculator.requestSubmit = () => ids.calculator.handlers.submit({ preventDefault() {} });
   const clipboard = { writeText: async text => { clipboard.copied = text; } }, random32 = sequenceRandom();
   vm.runInNewContext(fs.readFileSync(path.join(__dirname, '../tools/' + slug + '.js'), 'utf8'), {
-    document: { getElementById: id => ids[id] }, navigator: { clipboard }, crypto: { getRandomValues(array) { array[0] = random32(); return array; } }, Uint32Array
+    document: { getElementById: id => ids[id] || null }, navigator: { clipboard }, crypto: { getRandomValues(array) { array[0] = random32(); return array; } }, Uint32Array
   });
   return { ids, clipboard };
 }
-test('All six actual browser scripts generate examples, preserve input and clear stale results', () => {
+function enterValues(slug, ids) {
+  const values = {
+    'gcd-lcm-calculator': { numbers: '12, 18, 30' },
+    'prime-factorization': { number: '360' },
+    'quadratic-equation-calculator': { a: '1', b: '-3', c: '2' },
+    'geometry-calculator': { shape: 'triangle', 'side-a': '3', 'side-b': '4', 'side-c': '5', unit: 'cm' },
+    'random-number-generator': { min: '1', max: '100', count: '5' },
+    'speed-distance-time-calculator': { find: 'speed', distance: '120', time: '2' }
+  }[slug];
+  for (const [id, value] of Object.entries(values)) ids[id].value = value;
+  if (ids.shape) ids.shape.handlers.change(); if (ids.find) ids.find.handlers.change();
+  ids.calculator.requestSubmit();
+}
+test('All six actual browser scripts accept manual input, preserve it and clear stale results', () => {
   for (const slug of slugs) {
-    const { ids } = loadUI(slug); ids.example.handlers.click(); assert.equal(ids.result.hidden, false, slug); assert.ok(ids['result-text'].value, slug);
+    const { ids } = loadUI(slug); enterValues(slug, ids); assert.equal(ids.result.hidden, false, slug); assert.ok(ids['result-text'].value, slug);
     const original = Object.fromEntries(Object.entries(ids).filter(([key]) => !['result-text'].includes(key)).map(([key, value]) => [key, value.value]));
     ids.calculator.handlers.input(); assert.equal(ids.result.hidden, true); assert.equal(ids['result-text'].value, ''); assert.equal(ids.error.textContent, '');
     for (const [key, value] of Object.entries(original)) assert.equal(ids[key].value, value, slug + ': preserve ' + key);
@@ -127,9 +140,9 @@ test('All six actual browser scripts generate examples, preserve input and clear
 });
 test('Geometry and motion mode switches show only relevant inputs and clear old output', () => {
   const geometry = loadUI('geometry-calculator').ids; assert.equal(geometry['circle-fields'].hidden, false); assert.equal(geometry['triangle-fields'].hidden, true);
-  geometry.example.handlers.click(); assert.match(geometry['result-text'].value, /6cm²/); geometry.shape.value = 'rectangle'; geometry.shape.handlers.change();
+  enterValues('geometry-calculator', geometry); assert.match(geometry['result-text'].value, /6cm²/); geometry.shape.value = 'rectangle'; geometry.shape.handlers.change();
   assert.equal(geometry['rectangle-fields'].hidden, false); assert.equal(geometry['circle-fields'].hidden, true); assert.equal(geometry.result.hidden, true);
-  const motion = loadUI('speed-distance-time-calculator').ids; motion.example.handlers.click(); assert.match(motion['result-text'].value, /60km\/h/);
+  const motion = loadUI('speed-distance-time-calculator').ids; enterValues('speed-distance-time-calculator', motion); assert.match(motion['result-text'].value, /60km\/h/);
   motion.find.value = 'time'; motion.find.handlers.change(); assert.equal(motion['time-field'].hidden, true); assert.equal(motion['speed-field'].hidden, false); assert.equal(motion.result.hidden, true);
 });
 test('All six UIs explain malformed input without changing the original', () => {
@@ -138,7 +151,7 @@ test('All six UIs explain malformed input without changing the original', () => 
 });
 async function clipboardChecks() {
   for (const slug of slugs) {
-    const { ids, clipboard } = loadUI(slug); ids.example.handlers.click(); await ids.copy.handlers.click(); assert.equal(clipboard.copied, ids['result-text'].value);
+    const { ids, clipboard } = loadUI(slug); enterValues(slug, ids); await ids.copy.handlers.click(); assert.equal(clipboard.copied, ids['result-text'].value);
     clipboard.writeText = async () => { throw new Error('denied'); }; await ids.copy.handlers.click(); assert.match(ids['copy-status'].textContent, /직접 복사/); assert.equal(ids['result-text'].selected, true);
     let finish; clipboard.writeText = () => new Promise(resolve => { finish = resolve; }); const pending = ids.copy.handlers.click(); ids.calculator.handlers.change(); finish(); await pending;
     assert.equal(ids['copy-status'].textContent, ''); assert.equal(ids.result.hidden, true);

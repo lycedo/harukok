@@ -6,17 +6,17 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>하루콕 - 무료 계산기·사진 편집·추첨 도구</title>
-<meta name="description" content="생활·수학 계산기, 글자 수·JSON·인코딩 도구, 사진 합치기·모자이크·워터마크, 로또 번호 생성기까지. 회원가입 없이 쓰는 무료 도구와 사용 예시를 만나보세요.">
+<meta name="description" content="생활·수학 계산기, 글자 수·JSON·인코딩 도구, 사진 합치기·모자이크·워터마크, 로또 번호 생성기까지. 회원가입 없이 쓰는 무료 도구를 바로 사용하세요.">
 <link rel="canonical" href="https://harukok.com/">
 <meta property="og:title" content="하루콕 - 무료 계산기·사진 편집·추첨 도구">
-<meta property="og:description" content="생활·수학 계산, 문서·개발 도구, 사진 편집과 색상 도구, 명단 추첨까지. 무료 도구와 사용 예시를 한 곳에서.">
+<meta property="og:description" content="생활·수학 계산, 문서·개발 도구, 사진 편집과 색상 도구, 명단 추첨까지. 무료 도구를 한 곳에서.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="하루콕">
 <meta property="og:url" content="https://harukok.com/">
 <meta property="og:image" content="https://harukok.com/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<link rel="stylesheet" href="/tools/home.css?v=20261023-restore">
+<link rel="stylesheet" href="/tools/home.css?v=20261104-simple">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -25,13 +25,13 @@
   "url": "https://harukok.com/"
 }
 </script>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/tools/site-ui.css?v=20261027-banner">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/tools/site-ui.css?v=20261104-simple">
 </head>
 <body>
 <div class="wrap">
   <nav class="site-nav" aria-label="주요 메뉴">
     <a class="site-nav-brand" href="/" aria-label="하루콕 홈">하루<span>콕</span></a>
-    <div class="site-nav-links"><a id="show-all-tools" href="#all-tools">전체 도구</a><a href="/guides/">가이드</a></div>
+    <div class="site-nav-links"><a id="show-all-tools" href="#all-tools">전체 도구</a></div>
   </nav>
   <main id="all-tools">
     <header><h1 class="brand">하루<span>콕</span></h1></header>
@@ -61,7 +61,7 @@
         <a class="card utility" href="/tools/certificate-maker"><span class="icon" aria-hidden="true">🏅</span><span class="name">상장 만들기</span></a>
       </div>
     </div>
-    <h2 id="directory-status" class="section-label" role="status" aria-live="polite">전체 도구 70개</h2>
+    <h2 id="directory-status" class="section-label" role="status" aria-live="polite">전체 도구 100개</h2>
     <div class="goal-grid" id="tool-directory">
       <section class="goal-card" id="daily-tools" data-tool-group="daily" aria-labelledby="daily-title">
         <h3 class="goal-title" id="daily-title">생활 계산</h3>
@@ -75,6 +75,7 @@
           <li data-keywords="제곱미터 m2 ㎡ 평 평형 아파트"><a href="/tools/area-calculator">평수 계산기</a></li>
           <li data-keywords="길이 무게 온도 부피 넓이 단위 변환"><a href="/tools/unit-converter">단위 변환기</a></li>
           <li data-keywords="요리 베이킹 레시피 인분 재료 분량 배수"><a href="/tools/recipe-scale-calculator">레시피 인분 계산기</a></li>
+                  <li data-keywords="한국 시간 또는 UTC 시각을 세계 주요 도시 시간으로 변환하세요. 선택 도시의 서머타임을 날짜에 맞게 반영합니다."><a href="/tools/time-zone-converter">세계 시간 변환기</a></li>
         </ul>
       </section>
       <section class="goal-card" id="document-tools" data-tool-group="document" aria-labelledby="document-title">
@@ -92,6 +93,16 @@
           <li data-keywords="정규식 regex regexp 패턴 문자열 매칭"><a href="/tools/regex-tester">정규식 테스트</a></li>
           <li data-keywords="이진수 팔진수 십진수 십육진수 2진수 8진수 16진수 binary hex"><a href="/tools/number-base-converter">진수 변환기</a></li>
           <li data-keywords="암호 보안 랜덤 비번"><a href="/tools/password-generator">비밀번호 생성기</a></li>
+                  <li data-keywords="html 엔티티 특수문자 escape unescape 꺾쇠 따옴표"><a href="/tools/html-entity-converter">HTML 엔티티 변환기</a></li>
+          <li data-keywords="유니코드 unicode 코드포인트 한글 이모지 escape"><a href="/tools/unicode-converter">유니코드 변환기</a></li>
+          <li data-keywords="sha256 sha384 sha512 hash 해시 체크섬 텍스트"><a href="/tools/hash-generator">SHA 해시 생성기</a></li>
+          <li data-keywords="url query 쿼리스트링 파라미터 매개변수 querystring"><a href="/tools/query-string-parser">쿼리스트링 분석기</a></li>
+          <li data-keywords="영어 영문 대문자 소문자 camel snake kebab case"><a href="/tools/text-case-converter">영문 대소문자 변환기</a></li>
+          <li data-keywords="단어 빈도수 빈도 횟수 키워드 word frequency"><a href="/tools/word-frequency-counter">단어 빈도수 세기</a></li>
+          <li data-keywords="마크다운 markdown 표 테이블 tsv 엑셀 github"><a href="/tools/markdown-table-generator">마크다운 표 만들기</a></li>
+          <li data-keywords="텍스트 줄 정렬 가나다 알파벳 숫자 sort 오름차순"><a href="/tools/text-sorter">텍스트 줄 정렬기</a></li>
+          <li data-keywords="텍스트 일괄 바꾸기 치환 replace 문자열 찾기"><a href="/tools/text-replacer">텍스트 일괄 바꾸기</a></li>
+          <li data-keywords="jwt 디코더 토큰 헤더 페이로드 base64url json"><a href="/tools/jwt-decoder">JWT 디코더</a></li>
         </ul>
       </section>
       <section class="goal-card" id="math-tools" data-tool-group="math" aria-labelledby="math-title">
@@ -105,6 +116,15 @@
           <li data-keywords="이차방정식 근의공식 판별식 실근 중근 방정식"><a href="/tools/quadratic-equation-calculator">이차방정식 계산기</a></li>
           <li data-keywords="원 삼각형 직사각형 넓이 둘레 반지름 도형"><a href="/tools/geometry-calculator">도형 넓이·둘레 계산기</a></li>
           <li data-keywords="속력 속도 거리 시간 km m 분 초 물리"><a href="/tools/speed-distance-time-calculator">속력·거리·시간 계산기</a></li>
+                  <li data-keywords="A:B=C:D에서 빈칸 하나의 값을 구하세요. 비례식의 곱셈과 나눗셈 결과를 복사할 수 있습니다."><a href="/tools/ratio-calculator">비례식 계산기</a></li>
+          <li data-keywords="직각삼각형의 두 변으로 빗변 또는 나머지 직각변 길이를 계산하세요. 같은 길이 단위로 입력합니다."><a href="/tools/pythagorean-calculator">피타고라스 계산기</a></li>
+          <li data-keywords="반지름과 중심각으로 부채꼴 넓이와 호의 길이를 계산하세요. cm 또는 m 단위를 선택하고 결과를 복사합니다."><a href="/tools/sector-calculator">부채꼴 계산기</a></li>
+          <li data-keywords="직육면체·원기둥·원뿔·구의 부피를 계산하세요. cm 또는 m 길이를 사용해 세제곱 단위와 리터로 확인합니다."><a href="/tools/volume-calculator">부피 계산기</a></li>
+          <li data-keywords="nPr 순열과 nCr 조합을 정수로 정확히 계산하세요. 중복 없이 n개에서 r개를 고르는 경우의 수입니다."><a href="/tools/permutation-combination-calculator">순열·조합 계산기</a></li>
+          <li data-keywords="큰 수와 작은 수를 십진수·과학적 표기법으로 바꾸세요. 숫자 문자열로 처리해 긴 정수의 자릿수를 보존합니다."><a href="/tools/scientific-notation-converter">과학적 표기법 변환기</a></li>
+          <li data-keywords="유한소수를 기약분수로 바꾸고 분수를 소수로 확인하세요. 반복되는 소수는 20자리 근삿값으로 구분합니다."><a href="/tools/decimal-fraction-converter">소수·분수 변환기</a></li>
+          <li data-keywords="숫자 목록의 모분산·표본분산과 표준편차를 계산하세요. 모집단과 표본 기준을 선택하고 평균과 자료 수를 함께 확인합니다."><a href="/tools/statistics-calculator">분산·표준편차 계산기</a></li>
+          <li data-keywords="등차수열·등비수열의 n번째 항과 첫 n항의 합을 계산하세요. 첫항과 공차 또는 공비로 결과를 확인합니다."><a href="/tools/sequence-calculator">수열 계산기</a></li>
         </ul>
       </section>
       <section class="goal-card" id="salary-tools" data-tool-group="salary" aria-labelledby="salary-title">
@@ -138,6 +158,12 @@
           <li data-keywords="화면 비율 종횡비 aspectratio 픽셀 해상도 가로 세로"><a href="/tools/aspect-ratio-calculator">화면 비율 계산기</a></li>
           <li data-keywords="사진 이미지 색상 코드 HEX RGB 스포이드 컬러"><a href="/tools/image-color-picker">사진 색상 추출기</a></li>
           <li data-keywords="사진 이미지 격자 분할 스프라이트 자르기"><a href="/tools/image-grid-splitter">사진 격자 나누기</a></li>
+                  <li data-keywords="사진 이미지 흑백 세피아 반전 밝기 대비 필터"><a href="/tools/image-filter">사진 필터</a></li>
+          <li data-keywords="사진 이미지 모서리 라운드 둥글게 투명 PNG"><a href="/tools/image-rounded-corners">사진 모서리 둥글게</a></li>
+          <li data-keywords="사진 이미지 테두리 여백 프레임 색상 PNG"><a href="/tools/image-border">사진 테두리 넣기</a></li>
+          <li data-keywords="사진 이미지 base64 data url 인코딩 PNG JPG WebP"><a href="/tools/image-to-base64">사진 Base64 변환</a></li>
+          <li data-keywords="svg png 변환 벡터 래스터 투명 이미지"><a href="/tools/svg-to-png">SVG를 PNG로 변환</a></li>
+          <li data-keywords="파비콘 favicon 아이콘 png 16 32 48 180 192 512"><a href="/tools/favicon-generator">파비콘 PNG 만들기</a></li>
         </ul>
       </section>
       <section class="goal-card" id="random-tools" data-tool-group="random" aria-labelledby="random-title">
@@ -173,6 +199,10 @@
           <li data-keywords="그라데이션 gradient css linear 색상 코드"><a href="/tools/gradient-generator">그라데이션 만들기</a></li>
           <li data-keywords="용지 a0 a1 a2 a3 a4 a5 a6 dpi 인쇄 픽셀 mm"><a href="/tools/paper-size-calculator">용지 크기·픽셀 계산기</a></li>
           <li data-keywords="선물 쿠폰 만들기 제작"><a href="/fun/coupon-maker">쿠폰 만들기</a></li>
+                  <li data-keywords="모니터 화면 픽셀 밀도 PPI DPI 인치 해상도 cm"><a href="/tools/screen-ppi-calculator">화면 PPI 계산기</a></li>
+          <li data-keywords="css box shadow 박스 그림자 생성기 미리보기"><a href="/tools/box-shadow-generator">CSS 그림자 만들기</a></li>
+          <li data-keywords="css border radius 모서리 라운드 생성기 네모서리"><a href="/tools/border-radius-generator">CSS 모서리 만들기</a></li>
+          <li data-keywords="색상 팔레트 배색 보색 유사색 삼원색 단색 HSL HEX"><a href="/tools/color-palette-generator">색상 팔레트 만들기</a></li>
         </ul>
       </section>
       <section class="goal-card" id="pet-tools" data-tool-group="pet" aria-labelledby="pet-title">
@@ -185,18 +215,11 @@
       </section>
     </div>
     <div id="empty-search" class="empty-search" hidden><p>맞는 도구가 없어요. 다른 검색어나 분류를 선택해 보세요.</p><button id="empty-reset" type="button">전체 도구 보기</button></div>
-    <section class="related" aria-labelledby="home-guides-title">
-      <h2 class="related-title" id="home-guides-title">계산이 헷갈릴 땐 가이드</h2>
-      <p>입력할 값과 계산 결과를 읽는 방법을 예시로 확인하세요.</p>
-      <a href="/guides/salary-vs-payslip">연봉 계산 결과와 급여명세서 비교하기</a>
-      <a href="/guides/minimum-wage-monthly-hours">월급을 계산할 때 209시간을 쓰는 이유</a>
-      <a href="/guides/severance-bonus-input">퇴직금에 상여금·연차수당 입력하기</a>
-      <a href="/guides/">전체 가이드 보기</a>
-    </section>
+
     <aside class="ad-banner ad-banner-strip" aria-label="광고"><p class="ad-label">광고</p><div class="ad-strip-slot"><script src="/ad-banner-isolated.js?v=20261027-banner"></script></div></aside>
   </main>
   <footer><nav aria-label="사이트 안내"><a href="/about">소개</a><a href="/privacy">개인정보처리방침</a><a href="mailto:contact@harukok.com?subject=%5B%ED%95%98%EB%A3%A8%EC%BD%95%20%EC%9D%98%EA%B2%AC%5D%20%EB%A9%94%EC%9D%B8">의견 보내기</a></nav><p>© 2026 하루콕</p></footer>
 </div>
-<script src="/tools/tool-directory.js?v=20261023-restore" defer></script>
+<script src="/tools/tool-directory.js?v=20261104-simple" defer></script>
 </body>
 </html>

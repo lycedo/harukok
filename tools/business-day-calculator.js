@@ -42,7 +42,7 @@ if (typeof document !== 'undefined') {
       $('result').hidden = false; $('result').scrollIntoView({ block: 'nearest' });
     } catch (error) { $('error').textContent = error.message; }
   });
-  $('workday-example').addEventListener('click', () => { $('workday-mode').value = 'add'; setMode(); $('start-date').value = '2026-11-02'; $('day-count').value = '5'; $('holidays').value = ''; $('skip-saturday').checked = true; $('skip-sunday').checked = true; $('workday-form').requestSubmit(); });
+  $('workday-example')?.addEventListener('click', () => { $('workday-mode').value = 'add'; setMode(); $('start-date').value = '2026-11-02'; $('day-count').value = '5'; $('holidays').value = ''; $('skip-saturday').checked = true; $('skip-sunday').checked = true; $('workday-form').requestSubmit(); });
   $('copy-result').addEventListener('click', async () => {
     if ($('result').hidden) return; const current = version;
     try { await navigator.clipboard.writeText($('result-output').value); if (current === version) $('copy-status').textContent = '계산 결과를 복사했습니다.'; }

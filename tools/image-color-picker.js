@@ -37,7 +37,7 @@ if(typeof document!=='undefined'){
   }catch(error){reset();$('error').textContent=error.message;}};
   img.onerror=()=>{URL.revokeObjectURL(url);if(current!==version)return;reset();$('error').textContent='사진을 읽지 못했어요. 다른 JPG·PNG·WebP 파일을 선택해 주세요.';};img.src=url;
  });
- $('sample').addEventListener('click',()=>{reset();$('image-file').value='';canvas.width=600;canvas.height=300;['#B23A2E','#16233D','#F0AD3D'].forEach((c,i)=>{ctx.fillStyle=c;ctx.fillRect(i*200,0,200,300);});ready();});
+ $('sample')?.addEventListener('click',()=>{reset();$('image-file').value='';canvas.width=600;canvas.height=300;['#B23A2E','#16233D','#F0AD3D'].forEach((c,i)=>{ctx.fillStyle=c;ctx.fillRect(i*200,0,200,300);});ready();});
  canvas.addEventListener('click',e=>{const r=canvas.getBoundingClientRect();pick(Math.min(canvas.width-1,Math.floor((e.clientX-r.left)*canvas.width/r.width)),Math.min(canvas.height-1,Math.floor((e.clientY-r.top)*canvas.height/r.height)));});
  $('coordinates').addEventListener('input',clearColor);
  $('coordinates').addEventListener('submit',e=>{e.preventDefault();if($('pixel-x').value.trim()===''||$('pixel-y').value.trim()===''){clearColor();$('error').textContent='두 좌표를 모두 입력해 주세요.';return;}pick(Number($('pixel-x').value),Number($('pixel-y').value));});

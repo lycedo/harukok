@@ -17,7 +17,7 @@ function checkSite(root) {
   const errors = [];
   const fail = (file, message) => errors.push(file + ': ' + message);
   const files = fs.readdirSync(root).filter(file => file.endsWith('.html'));
-  for (const dir of ['tools', 'fun', 'guides']) {
+  for (const dir of ['tools', 'fun']) {
     for (const file of fs.readdirSync(path.join(root, dir))) {
       if (file.endsWith('.html')) files.push(dir + '/' + file);
     }
@@ -103,7 +103,6 @@ function checkSite(root) {
   visit('/');
   for (const [url, page] of pages) if (!reachable.has(url)) fail(page.file, '홈에서 정적 링크로 도달할 수 없음');
   const home = pages.get('/');
-  const guides = pages.get('/guides/');
   const toolCount = [...pages.keys()].filter(url => /^\/(tools|fun)\//.test(url)).length;
   const homeCount = home?.html.match(/id="directory-status"[^>]*>전체 도구 (\d+)개/);
   if (!homeCount || Number(homeCount[1]) !== toolCount) fail('index.html', '전체 도구 개수가 실제 공개 도구 수와 다름: ' + toolCount);
@@ -115,9 +114,7 @@ function checkSite(root) {
   }
   for (const [url, page] of pages) {
     if (/^\/(tools|fun)\//.test(url) && !home?.links.has(url)) fail(page.file, '홈 전체 도구 목록에 링크 누락');
-    if (/^\/guides\/.+/.test(url) && !guides?.links.has(url)) fail(page.file, '가이드 목록에 링크 누락');
   }
-  if (!home?.links.has('/guides/')) fail('index.html', '전체 가이드 링크 누락');
   const robots = fs.readFileSync(path.join(root, 'robots.txt'), 'utf8');
   if (!robots.includes('Sitemap: ' + ORIGIN + '/sitemap.xml')) fail('robots.txt', '사이트맵 주소 누락');
   if (/^Disallow:\s*\/\s*(?:#.*)?$/mi.test(robots)) fail('robots.txt', '전체 사이트 크롤링 차단');

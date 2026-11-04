@@ -95,7 +95,7 @@ if (typeof document !== 'undefined') {
       }, 'image/png');
     } catch (error) { $('rotate-submit').disabled = false; $('rotate-error').textContent = error.message; $('rotate-status').textContent = ''; }
   });
-  $('rotate-example').addEventListener('click', () => {
+  $('rotate-example')?.addEventListener('click', () => {
     const version = ++loadVersion; clearSource(); $('rotate-file').value = '';
     const canvas = document.createElement('canvas'); canvas.width = 360; canvas.height = 240;
     const context = canvas.getContext('2d');

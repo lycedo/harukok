@@ -5,10 +5,10 @@
 <meta name="description" content="JPG·PNG·WebP 사진의 가로 크기와 품질을 조절해 용량을 줄여 보세요. 비율을 유지한 리사이즈, 실제 용량 비교, 파일 다운로드를 브라우저 안에서 무료로 제공합니다.">
 <link rel="canonical" href="https://harukok.com/tools/image-resizer"><link rel="icon" type="image/png" href="/favicon.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:title" content="이미지 용량 줄이기·크기 조절 | 하루콕"><meta property="og:description" content="비율을 유지해 크기를 조절하고 JPG·PNG·WebP로 저장하세요. 원본과 결과 용량을 바로 비교합니다."><meta property="og:type" content="website"><meta property="og:site_name" content="하루콕"><meta property="og:url" content="https://harukok.com/tools/image-resizer"><meta property="og:image" content="https://harukok.com/og-image.png">
-<link rel="stylesheet" href="/tools/everyday-tools.css?v=20261024-ux"><link rel="stylesheet" href="/tools/image-tools.css?v=20261024-ux"><script src="/tools/image-resizer.js?v=20261024-simple" defer></script>
+<link rel="stylesheet" href="/tools/everyday-tools.css?v=20261024-ux"><link rel="stylesheet" href="/tools/image-tools.css?v=20261024-ux"><script src="/tools/image-resizer.js?v=20261104-simple" defer></script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"이미지 용량 줄이기·크기 조절","url":"https://harukok.com/tools/image-resizer","description":"JPG·PNG·WebP 이미지의 비율을 유지해 크기를 조절하고 품질과 실제 파일 용량을 비교하는 도구","applicationCategory":"MultimediaApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript and Canvas","inLanguage":"ko","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"}}</script>
 <link rel="stylesheet" href="/tools/tool-controls.css?v=20261025-flow">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/tools/site-ui.css?v=20261027-banner">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/tools/site-ui.css?v=20261104-simple">
 </head><body><div class="wrap">
 <nav class="site-nav" aria-label="주요 메뉴"><a class="site-nav-brand" href="/">하루<span>콕</span></a><div class="site-nav-links"><a href="/#all-tools">전체 도구</a></div></nav>
 <main><h1>사진 크기·용량 줄이기</h1>
@@ -16,8 +16,8 @@
 <noscript><p class="noscript">도구를 사용하려면 브라우저에서 자바스크립트를 허용해 주세요.</p></noscript>
 <section class="sheet" aria-label="사진 크기와 용량 변경">
 <form id="resize-form" novalidate>
-<div class="field"><label for="image-file">사진 선택</label><input class="image-file" id="image-file" type="file" accept="image/jpeg,image/png,image/webp" aria-describedby="file-note"><p class="hint" id="file-note">JPG·PNG·WebP · 최대 10MB·1,200만 화소 · 서버 업로드 없음</p></div>
-<button id="demo-image" class="secondary" type="button">사진 없이 먼저 해보기</button>
+<div class="field"><label for="image-file">사진 선택</label><input class="image-file" id="image-file" type="file" accept="image/jpeg,image/png,image/webp" aria-describedby="file-note"><p class="hint" id="file-note">JPG·PNG·WebP · 최대 10MB·1,200만 화소</p></div>
+
 
 <fieldset class="image-controls" id="image-controls" disabled><legend>사진을 줄여 보세요</legend><p id="setting-summary" class="hint"></p><details class="simple-settings" id="resize-settings"><summary>크기·화질 직접 바꾸기</summary>
 <div class="fields"><div class="field"><label for="target-width">가로 크기 (px)</label><input id="target-width" type="number" min="1" step="1" value="1280" inputmode="numeric"><p class="hint" id="size-note">이미지를 선택하면 원본 크기를 표시합니다.</p></div><div class="field"><label for="output-format">파일 형식</label><select id="output-format"><option value="image/jpeg">JPG — 투명 영역은 흰색</option><option value="image/webp">WebP — 웹 게시용</option><option value="image/png">PNG — 투명도 유지</option></select></div></div>
@@ -30,13 +30,13 @@
 </section>
 <aside class="ad-banner ad-banner-strip" aria-label="광고"><p class="ad-label">광고</p><div class="ad-strip-slot"><script src="/ad-banner-isolated.js?v=20261027-banner"></script></div></aside>
 <p class="meta">원본은 유지됩니다. 결과는 정지 이미지이며 촬영 정보는 제거됩니다. 변환 후 용량이 커질 수 있으니 결과를 확인하세요. <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/toBlob">이미지 저장 방식</a></p>
-<section class="info-block" aria-labelledby="resize-help-title">
+<details class="tool-notes"><summary>도움말</summary><section class="info-block" aria-labelledby="resize-help-title">
 <h2 id="resize-help-title">사진 용량을 줄이는 순서</h2>
 <p>먼저 필요한 가로 크기로 줄이고, 저장 형식과 품질을 조절하세요. 픽셀 크기와 파일 용량은 서로 달라서, 저장 전에 결과의 실제 용량을 확인해야 합니다.</p>
 <details><summary>사진을 500KB 이하로 줄이고 싶어요</summary><ol><li>사진을 선택하고 ‘크기·용량 줄이기’를 눌러 기본 설정의 결과를 확인하세요.</li><li>결과가 제출 기준보다 크면 ‘크기·화질 직접 바꾸기’를 여세요. 제출처가 허용하는 범위에서 가로 크기를 낮춰 다시 변환하세요.</li><li>사진은 JPG 또는 WebP를 선택하고 품질을 조금씩 낮춰 보세요. PNG에는 품질 조절이 적용되지 않습니다.</li><li>결과의 바이트·KB 수치와 미리보기를 보고, 글씨나 얼굴이 충분히 보이면 저장하세요.</li></ol><p>이 도구는 목표 용량에 자동으로 맞추지 않습니다. 사진 내용과 브라우저에 따라 결과 용량이 달라집니다. 500KB처럼 제한이 있는 곳에는 제출처의 단위 기준도 확인하세요. 이 도구의 KB 표시는 1KB를 1,024바이트로 계산합니다.</p></details>
 <details><summary>JPG·PNG·WebP 중 무엇으로 저장하나요?</summary><ul><li><strong>JPG:</strong> 일반 사진에 시도해 보세요. 투명한 부분은 흰색으로 채워집니다.</li><li><strong>PNG:</strong> 투명 배경을 유지할 때 쓸 수 있습니다. 품질 입력으로 용량을 줄일 수 없으므로 가로 크기를 조절하세요.</li><li><strong>WebP:</strong> 웹에서 사용할 사진에 시도해 보세요. 제출할 사이트나 앱이 WebP 파일을 받는지 먼저 확인하세요.</li></ul><p>이미 압축된 사진은 바꾸어 저장해도 더 작아지지 않을 수 있습니다. 품질 80%가 용량을 20% 줄인다는 뜻은 아닙니다.</p></details>
 <details><summary>가로 크기만 넣어도 되나요? 사진이 서버에 올라가나요?</summary><p>세로 크기는 원본 비율에 맞춰 자동 계산합니다. 예를 들어 4,000 × 3,000px 사진의 가로를 1,200px로 바꾸면 세로는 900px입니다. 원본보다 크게 확대할 수는 없습니다.</p><p>선택한 사진은 서버에 업로드하지 않고 브라우저에서 처리합니다. 원본 파일을 덮어쓰지 않으며 결과는 새 파일로 저장합니다. 지원 입력은 JPG·PNG·WebP, 최대 10MB·1,200만 화소입니다.</p></details>
-</section>
-<nav class="related" aria-label="함께 쓰는 사진 도구"><a href="/tools/image-cropper">필요한 부분만 사진 자르기</a><a href="/tools/image-rotate-flip">사진 회전·뒤집기</a><a href="/tools/aspect-ratio-calculator">가로·세로 픽셀 비율 계산하기</a><a href="/tools/file-size-converter">파일 용량 단위 변환하기</a><a href="/tools/background-remover">흰 배경을 투명하게 바꾸기</a><a href="/tools/image-color-picker">사진에서 색상 코드 추출하기</a><a href="/tools/image-merger">사진 여러 장 합치기</a><a href="/tools/image-mosaic">사진 일부에 모자이크 넣기</a><a href="/tools/image-watermark">사진에 워터마크 글자 넣기</a></nav>
+</section></details>
+<nav class="related" aria-label="함께 쓰는 사진 도구"><a href="/tools/image-cropper">사진 자르기</a><a href="/tools/image-rotate-flip">사진 회전·뒤집기</a><a href="/tools/aspect-ratio-calculator">화면 비율 계산기</a><a href="/tools/file-size-converter">파일 용량 단위 변환기</a><a href="/tools/background-remover">흰 배경 지우기</a><a href="/tools/image-color-picker">사진 색상 추출기</a><a href="/tools/image-merger">사진 합치기</a><a href="/tools/image-mosaic">사진 모자이크</a><a href="/tools/image-watermark">사진 워터마크 넣기</a></nav>
 
 </main><footer><a href="/about">소개</a> · <a href="/privacy">개인정보처리방침</a> · <a href="mailto:contact@harukok.com?subject=%EC%9D%B4%EB%AF%B8%EC%A7%80%20%EC%9A%A9%EB%9F%89%20%EC%A4%84%EC%9D%B4%EA%B8%B0%C2%B7%ED%81%AC%EA%B8%B0%20%EC%A1%B0%EC%A0%88%20-%20JPG%20PNG%20WebP%20%EB%B3%80%ED%99%98%20%7C%20%ED%95%98%EB%A3%A8%EC%BD%95">의견 보내기</a><p>© 2026 하루콕</p></footer></div></body></html>

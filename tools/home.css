@@ -20,3 +20,7 @@ header{text-align:center;margin-bottom:20px}.brand{font-family:'Do Hyeon',sans-s
 footer{text-align:center;font-size:14px;color:var(--muted);padding-top:20px;border-top:1px solid #D9D2BF}footer nav{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}footer a{display:inline-flex;min-height:44px;align-items:center;text-underline-offset:3px}footer p{margin:8px 0 0}
 @media(max-width:640px){body{padding:20px 16px 40px}.site-nav{margin-bottom:12px}header{margin-bottom:16px}.brand{font-size:36px}.goal-grid{grid-template-columns:1fr 1fr;gap:12px}.goal-card{padding:14px}.goal-links a{font-size:16px}.card{padding:16px;gap:8px;min-height:84px}.card .icon{font-size:22px}.card .name{font-size:17px}.category-nav{gap:5px}.category-nav button{padding:8px 11px}}
 @media(max-width:380px){.cards{gap:10px}.card{padding:14px 10px}.card .name{font-size:16px}.goal-grid{grid-template-columns:1fr}.goal-links{display:grid;grid-template-columns:1fr 1fr}.goal-title{margin-bottom:10px}.goal-links a{height:100%}}
+
+/* Size grid spans from each card so the next category fills the first gap. */
+.goal-card{height:fit-content;margin:0}
+.goal-grid.masonry-ready{grid-auto-rows:8px;grid-auto-flow:row dense}

@@ -71,7 +71,7 @@ if (typeof document !== 'undefined') {
       }, 'image/png');
     } catch (error) { $('image-submit').disabled = false; $('image-error').textContent = error.message; }
   });
-  $('image-example').addEventListener('click', () => {
+  $('image-example')?.addEventListener('click', () => {
     const version = ++loadVersion; clearSource(); $('image-file').value = '';
     const canvas = document.createElement('canvas'); canvas.width = 600; canvas.height = 400;
     const c = canvas.getContext('2d'); if (!c) { $('image-error').textContent = '예시를 만들 수 없습니다.'; return; }

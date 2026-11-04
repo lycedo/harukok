@@ -34,7 +34,7 @@ if (typeof document !== 'undefined') {
       $('result').hidden = false; $('result').scrollIntoView({ block: 'nearest' });
     } catch (error) { $('error').textContent = error.message; }
   });
-  $('example').addEventListener('click', () => { $('durations').value = '1:30\n2:15:30\n0:45'; $('calculator').requestSubmit(); });
+  $('example')?.addEventListener('click', () => { $('durations').value = '1:30\n2:15:30\n0:45'; $('calculator').requestSubmit(); });
   $('copy').addEventListener('click', async () => {
     const current = version, text = $('result-text').value;
     if ($('result').hidden || !text) return;

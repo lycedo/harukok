@@ -31,6 +31,6 @@ if (typeof document !== 'undefined') {
   function clear() { version++; $('result').hidden = true; $('output').value = ''; $('error').textContent = ''; $('copy-status').textContent = ''; }
   $('converter').addEventListener('input', clear); $('converter').addEventListener('change', clear);
   $('converter').addEventListener('submit', event => { event.preventDefault(); clear(); try { $('output').value = transformBase64($('source').value, $('mode').value); $('result').hidden = false; $('result').scrollIntoView({ block: 'nearest' }); } catch (error) { $('error').textContent = error.message; } });
-  $('example').addEventListener('click', () => { $('source').value = '하루콕 😀'; $('mode').value = 'encode'; $('converter').requestSubmit(); });
+  $('example')?.addEventListener('click', () => { $('source').value = '하루콕 😀'; $('mode').value = 'encode'; $('converter').requestSubmit(); });
   $('copy').addEventListener('click', async () => { if ($('result').hidden) return; const token = version; try { await navigator.clipboard.writeText($('output').value); if (token === version) $('copy-status').textContent = '변환 결과를 복사했습니다.'; } catch { if (token !== version) return; $('output').focus(); $('output').select(); $('copy-status').textContent = '결과 칸의 글을 선택해 직접 복사하세요.'; } });
 }

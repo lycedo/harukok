@@ -32,5 +32,5 @@ if (typeof document!=='undefined') {
       $('age-result').hidden=false; $('age-result').scrollIntoView({block:'nearest'});
     } catch(error) {$('age-error').textContent=error.message;}
   });
-  $('age-example').addEventListener('click',()=>{$('birth').value='2000-10-20';$('reference').value='2026-10-19';$('age-form').requestSubmit();});
+  $('age-example')?.addEventListener('click',()=>{$('birth').value='2000-10-20';$('reference').value='2026-10-19';$('age-form').requestSubmit();});
 }

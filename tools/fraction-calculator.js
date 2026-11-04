@@ -51,7 +51,7 @@ if (typeof document !== 'undefined') {
       $('result').hidden = false; $('result').scrollIntoView({ block: 'nearest' });
     } catch (error) { $('error').textContent = error.message; }
   });
-  $('example').addEventListener('click', () => { $('an').value = '1'; $('ad').value = '2'; $('bn').value = '3'; $('bd').value = '4'; $('operation').value = 'add'; $('calculator').requestSubmit(); });
+  $('example')?.addEventListener('click', () => { $('an').value = '1'; $('ad').value = '2'; $('bn').value = '3'; $('bd').value = '4'; $('operation').value = 'add'; $('calculator').requestSubmit(); });
   $('copy').addEventListener('click', async () => {
     const current = version, text = $('result-text').value;
     if ($('result').hidden || !text) return;

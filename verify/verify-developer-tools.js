@@ -132,8 +132,16 @@ function fixture(slug) {
   let lastSubmit;
   elements.converter.requestSubmit = () => { lastSubmit = elements.converter.handlers.submit({ preventDefault() {} }); return lastSubmit; };
   const clipboard = { writeText: async value => { clipboard.text = value; } };
-  vm.runInNewContext(fs.readFileSync(path.join(__dirname, '../tools/' + slug + '.js'), 'utf8'), { document: { getElementById: id => elements[id] }, navigator: { clipboard }, crypto: webcrypto, TextEncoder, TextDecoder, btoa, atob, Uint8Array, Worker: FastWorker, setTimeout, clearTimeout, queueMicrotask, window: { addEventListener() {} } });
-  return { elements, clipboard, submit: elements.converter.requestSubmit, async example() { elements.example.handlers.click(); await lastSubmit; } };
+  vm.runInNewContext(fs.readFileSync(path.join(__dirname, '../tools/' + slug + '.js'), 'utf8'), { document: { getElementById: id => elements[id] || null }, navigator: { clipboard }, crypto: webcrypto, TextEncoder, TextDecoder, btoa, atob, Uint8Array, Worker: FastWorker, setTimeout, clearTimeout, queueMicrotask, window: { addEventListener() {} } });
+  const sampleInputs = {
+    'base64-converter': { source: '하루콕 😀', mode: 'encode' },
+    'csv-json-converter': { source: '이름,메모\n하루콕,"쉼표, 예시"', mode: 'csv-to-json' },
+    'unix-time-converter': { source: '1700000000', mode: 'unix-to-date', unit: 's', zone: 'KST' },
+    'uuid-generator': { count: '3' },
+    'number-base-converter': { source: '255', base: '10' },
+    'regex-tester': { source: '하루콕에서 배우는 정규식, 하루콕!', pattern: '(하루)(콕)', flags: 'g' }
+  }[slug];
+  return { elements, clipboard, submit: elements.converter.requestSubmit, async sample() { for (const [id, value] of Object.entries(sampleInputs)) elements[id].value = value; elements.converter.requestSubmit(); await lastSubmit; } };
 }
 
 async function asynchronousChecks() {
@@ -143,9 +151,9 @@ async function asynchronousChecks() {
   await assert.rejects(startRegexJob({ pattern: '(', text: 'a', flags: 'g' }, RealWorkerShim).promise, /문법/);
   checks++; console.log('PASS - real separate-worker execution, hostile regex timeout, cancellation and syntax error');
   for (const slug of ['base64-converter', 'csv-json-converter', 'unix-time-converter', 'uuid-generator', 'number-base-converter', 'regex-tester']) {
-    const { elements: e, clipboard, submit, example } = fixture(slug);
+    const { elements: e, clipboard, submit, sample } = fixture(slug);
     if (slug !== 'uuid-generator') { await submit(); assert.ok(e.error.textContent, slug + ' empty input error'); }
-    await example(); assert.equal(e.result.hidden, false, slug + ' result visible'); assert.ok(e.output.value, slug + ' result');
+    await sample(); assert.equal(e.result.hidden, false, slug + ' result visible'); assert.ok(e.output.value, slug + ' result');
     const source = e.source?.value; await e.copy.handlers.click(); assert.equal(clipboard.text, e.output.value);
     clipboard.writeText = async () => { throw new Error('denied'); }; await e.copy.handlers.click(); assert.match(e['copy-status'].textContent, /직접 복사/); assert.equal(e.output.selected, true);
     let finish; clipboard.writeText = () => new Promise(resolve => { finish = resolve; }); const copying = e.copy.handlers.click(); e.converter.handlers.input(); finish(); await copying;

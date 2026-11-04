@@ -101,14 +101,24 @@ function loadUI(slug) {
   ids.calculator.requestSubmit = () => ids.calculator.handlers.submit({ preventDefault() {} });
   const clipboard = { writeText: async value => { clipboard.copied = value; } };
   vm.runInNewContext(fs.readFileSync(path.join(__dirname, '../tools/' + slug + '.js'), 'utf8'), {
-    document: { getElementById: id => ids[id], createElement: node }, navigator: { clipboard }
+    document: { getElementById: id => ids[id] || null, createElement: node }, navigator: { clipboard }
   });
   return { ids, clipboard, submit: ids.calculator.requestSubmit };
+}
+function enterValues(slug, ids) {
+  const values = {
+    'fraction-calculator': { an: '1', ad: '2', bn: '3', bd: '4', operation: 'add' },
+    'average-calculator': { numbers: '10, 20, 20, 30, 100' },
+    'time-duration-calculator': { durations: '1:30\n2:15:30\n0:45' },
+    'gpa-calculator': { 'course-1-credits': '3', 'course-1-grade': 'A' }
+  }[slug];
+  for (const [id, value] of Object.entries(values)) ids[id].value = value;
+  ids.calculator.requestSubmit();
 }
 test('Fraction UI computes, preserves inputs and clears stale results on edits', () => {
   const { ids, submit } = loadUI('fraction-calculator');
   submit(); assert.ok(ids.error.textContent); assert.equal(ids.result.hidden, true);
-  ids.example.handlers.click(); assert.equal(ids['result-value'].textContent, '5/4');
+  enterValues('fraction-calculator', ids); assert.equal(ids['result-value'].textContent, '5/4');
   assert.equal(ids.an.value, '1'); assert.equal(ids.ad.value, '2');
   ids.calculator.handlers.input(); assert.equal(ids.result.hidden, true); assert.equal(ids['result-text'].value, '');
   ids.ad.value = '0'; submit(); assert.match(ids.error.textContent, /분모/);
@@ -140,7 +150,7 @@ test('GPA UI adds and deletes courses, protects last row and resets invalid scal
 async function clipboardChecks() {
   for (const slug of ['fraction-calculator', 'average-calculator', 'time-duration-calculator', 'gpa-calculator']) {
     const { ids, clipboard, submit } = loadUI(slug);
-    if (ids.example) ids.example.handlers.click(); else submit();
+    enterValues(slug, ids);
     await ids.copy.handlers.click(); assert.equal(clipboard.copied, ids['result-text'].value); assert.ok(ids['copy-status'].textContent.includes('복사했습니다'));
     clipboard.writeText = async () => { throw new Error('blocked'); };
     await ids.copy.handlers.click(); assert.ok(ids['copy-status'].textContent.includes('직접 복사'));

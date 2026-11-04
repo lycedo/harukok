@@ -121,7 +121,7 @@
 
 
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/tools/site-ui.css?v=20261027-banner">
+<link rel="stylesheet" href="/tools/site-ui.css?v=20261104-simple">
 </head>
 <body class="restored-tool">
 
@@ -182,8 +182,8 @@
 <button class="secondary" id="saveRecipeBtn" type="button" disabled>배합표 저장 (.txt)</button>
 <button class="secondary" id="copyRecipeBtn" type="button" disabled>배합표 복사</button>
 <p id="saveStatus" role="status"></p>
-<section class="info-block" aria-labelledby="paint-help-title"><h2 id="paint-help-title">색을 고른 다음, 배합표를 어떻게 쓰나요?</h2><p>목표 색을 고르거나 HEX 코드를 넣고, 화면에 준비된 물감 색 중 2~4개를 선택하세요. 계산 결과의 비율은 화면 색을 조합한 참고값입니다.</p><details><summary>배합 비율과 실제 재료 양 확인하기</summary><p>계산 뒤 ‘배합표 복사’ 또는 ‘배합표 저장’을 눌러 목표 색·혼합 결과·물감별 비율을 남길 수 있습니다. 비율이 A 80%, B 20%이고 총 10g을 만들려는 예시라면 A 8g, B 2g입니다. 원하는 총량의 재료별 양은 배합량 계산기에서 구하세요.</p><p>표시 비율은 반올림되므로 합계가 정확히 100%가 아닐 수 있습니다. 실제로 섞기 전에는 적은 양으로 먼저 확인하세요.</p></details><details><summary>화면의 색과 실제 물감이 다른 이유</summary><p>이 도구는 선택한 화면 RGB 색을 조합하는 모형입니다. 물감의 안료·브랜드·농도·바탕 재질까지 측정하지 않으므로 실제 물감이 같은 색이 된다는 뜻은 아닙니다. 비율을 직접 바꾸며 화면에서 비교하고 싶다면 물감 섞기 시뮬레이터를 사용하세요.</p></details><details><summary>사진의 색 코드나 웹 색상으로도 쓸 수 있나요?</summary><p>사진 색상 추출기에서 얻은 HEX 코드를 목표 색으로 넣을 수 있습니다. 웹 디자인에서 쓰는 HEX·RGB·HSL 변환과 글자 대비 확인은 별도 색상 도구를 이용하세요. 인쇄용 CMYK 변환이나 실제 안료 분석 기능은 아닙니다.</p></details></section>
-<nav class="related" aria-label="함께 쓰는 색상 도구"><a href="/tools/mixing-amount-calculator">총량에 맞는 물감 배합량 구하기</a><a href="/tools/paint-mixer-simulator">비율을 직접 바꾸며 물감 섞기</a><a href="/tools/image-color-picker">사진에서 목표 색상 찾기</a><a href="/tools/color-converter">HEX·RGB·HSL 코드 변환하기</a><a href="/tools/color-contrast-checker">글자와 배경색 대비 확인하기</a></nav>
+<details class="tool-notes"><summary>도움말</summary><section class="info-block" aria-labelledby="paint-help-title"><h2 id="paint-help-title">색을 고른 다음, 배합표를 어떻게 쓰나요?</h2><p>목표 색을 고르거나 HEX 코드를 넣고, 화면에 준비된 물감 색 중 2~4개를 선택하세요. 계산 결과의 비율은 화면 색을 조합한 참고값입니다.</p><details><summary>배합 비율과 실제 재료 양 확인하기</summary><p>계산 뒤 ‘배합표 복사’ 또는 ‘배합표 저장’을 눌러 목표 색·혼합 결과·물감별 비율을 남길 수 있습니다. 비율이 A 80%, B 20%이고 총 10g을 만들려는 예시라면 A 8g, B 2g입니다. 원하는 총량의 재료별 양은 배합량 계산기에서 구하세요.</p><p>표시 비율은 반올림되므로 합계가 정확히 100%가 아닐 수 있습니다. 실제로 섞기 전에는 적은 양으로 먼저 확인하세요.</p></details><details><summary>화면의 색과 실제 물감이 다른 이유</summary><p>이 도구는 선택한 화면 RGB 색을 조합하는 모형입니다. 물감의 안료·브랜드·농도·바탕 재질까지 측정하지 않으므로 실제 물감이 같은 색이 된다는 뜻은 아닙니다. 비율을 직접 바꾸며 화면에서 비교하고 싶다면 물감 섞기 시뮬레이터를 사용하세요.</p></details><details><summary>사진의 색 코드나 웹 색상으로도 쓸 수 있나요?</summary><p>사진 색상 추출기에서 얻은 HEX 코드를 목표 색으로 넣을 수 있습니다. 웹 디자인에서 쓰는 HEX·RGB·HSL 변환과 글자 대비 확인은 별도 색상 도구를 이용하세요. 인쇄용 CMYK 변환이나 실제 안료 분석 기능은 아닙니다.</p></details></section></details>
+<nav class="related" aria-label="함께 쓰는 색상 도구"><a href="/tools/mixing-amount-calculator">배합량 계산기</a><a href="/tools/paint-mixer-simulator">물감 섞기</a><a href="/tools/image-color-picker">사진 색상 추출기</a><a href="/tools/color-converter">색상 코드 변환기</a><a href="/tools/color-contrast-checker">색상 대비 검사기</a></nav>
 </main>
 <footer><a href="/about">소개</a> · <a href="/privacy">개인정보처리방침</a> · <a href="mailto:contact@harukok.com">의견 보내기</a><p>© 2026 하루콕</p></footer>
 </div>
@@ -411,6 +411,6 @@
   renderPigments();
 })();
 </script>
-<script src="/tools/restored-tool-flow.js?v=20261026" defer></script>
+<script src="/tools/restored-tool-flow.js?v=20261104-simple" defer></script>
 </body>
 </html>

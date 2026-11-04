@@ -17,6 +17,6 @@ if (typeof document !== 'undefined') {
   function clear() { version++; $('result').hidden = true; $('output').value = ''; $('error').textContent = ''; $('copy-status').textContent = ''; }
   $('converter').addEventListener('input', clear); $('converter').addEventListener('change', clear);
   $('converter').addEventListener('submit', event => { event.preventDefault(); clear(); try { if (!$('count').value.trim()) throw new Error('만들 개수를 입력하세요.'); const ids = generateUUIDs(Number($('count').value)); $('output').value = ids.join('\n'); $('summary').textContent = `UUID v4 ${ids.length}개를 만들었습니다.`; $('result').hidden = false; $('result').scrollIntoView({ block: 'nearest' }); } catch (error) { $('error').textContent = error.message; } });
-  $('example').addEventListener('click', () => { $('count').value = '3'; $('converter').requestSubmit(); });
+  $('example')?.addEventListener('click', () => { $('count').value = '3'; $('converter').requestSubmit(); });
   $('copy').addEventListener('click', async () => { if ($('result').hidden) return; const token = version; try { await navigator.clipboard.writeText($('output').value); if (token === version) $('copy-status').textContent = 'UUID 목록을 복사했습니다.'; } catch { if (token !== version) return; $('output').focus(); $('output').select(); $('copy-status').textContent = '결과 칸의 글을 선택해 직접 복사하세요.'; } });
 }

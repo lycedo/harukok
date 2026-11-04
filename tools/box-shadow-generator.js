@@ -1,0 +1,5 @@
+'use strict';
+const ShadowCommon=typeof Creative100==='undefined'?require('./creative100-common'):Creative100;
+function boxShadow(x,y,blur,spread,color,opacity,inset){const a=ShadowCommon.number(x,-200,200,'가로 이동'),b=ShadowCommon.number(y,-200,200,'세로 이동'),c=ShadowCommon.number(blur,0,200,'흐림'),d=ShadowCommon.number(spread,-100,100,'퍼짐'),hex=ShadowCommon.hex(color),alpha=ShadowCommon.number(opacity,0,100,'불투명도')/100;if(!['outer','inset'].includes(inset))throw new Error('그림자 위치를 선택하세요.');const rgb=[1,3,5].map(i=>parseInt(hex.slice(i,i+2),16));return(inset==='inset'?'inset ':'')+[a,b,c,d].map(n=>n+'px').join(' ')+' rgba('+rgb.join(', ')+', '+alpha+')';}
+if(typeof module!=='undefined')module.exports={boxShadow};
+if(typeof document!=='undefined')ShadowCommon.textTool(['offset-x','offset-y','blur','spread','shadow-color','opacity','shadow-position'],(v,$)=>{const css=boxShadow(v['offset-x'],v['offset-y'],v.blur,v.spread,v['shadow-color'],v.opacity,v['shadow-position']);$('shadow-preview').style.boxShadow=css;return{summary:'그림자 CSS',text:'box-shadow: '+css+';'};});

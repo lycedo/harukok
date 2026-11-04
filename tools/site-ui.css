@@ -281,3 +281,11 @@ button,a,input,select,textarea,summary{touch-action:manipulation}
 .restored-tool .ad-banner{width:100%;margin:32px auto;text-align:center}
 .restored-tool .ad-label{margin:0 0 8px;font-size:13px;color:var(--muted)}
 .restored-tool .ad-strip-slot{max-width:100%;margin:auto}
+
+/* Short input screens; longer explanations remain available on demand. */
+.field textarea:not([readonly]){height:156px;min-height:156px}
+textarea[readonly]{min-height:140px}
+.tool-notes{clear:both;margin:20px 0}
+.tool-notes>summary{font-size:17px}
+.tool-notes .info-block h2{font-size:21px;margin:16px 0 8px}
+.tool-notes .info-block p{font-size:16px;line-height:1.7}

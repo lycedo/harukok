@@ -54,8 +54,8 @@ for (const size of ['300x250', '320x50', '468x60', 'bad', '__proto__']) {
     assert.equal(Object.getOwnPropertyDescriptor(window, 'open').writable, false);
   }
 }
-const pages = ['index.html', ...['tools','fun','guides'].flatMap(dir => fs.readdirSync(path.join(root,dir)).filter(f=>f.endsWith('.html')).map(f=>dir+'/'+f))];
-const pagesWithoutBanner = new Set(['guides/index.html']);
+const pages = ['index.html', ...['tools','fun'].flatMap(dir => fs.readdirSync(path.join(root,dir)).filter(f=>f.endsWith('.html')).map(f=>dir+'/'+f))];
+const pagesWithoutBanner = new Set();
 let checked=0;
 for (const page of pages) {
   const html=fs.readFileSync(path.join(root,page),'utf8');

@@ -63,7 +63,7 @@ equal($('image-result').hidden,false);equal($('download-image').download,'second
 $('output-format').value='image/jpeg';fire('output-format');equal($('download-image').href,undefined);equal(revoked.includes(downloadURL),true);assert.ok(fills.length>0);checks++;
 fire('crop-form','submit');const pending=callbacks.shift();select('third.png');pending.callback({type:'image/jpeg',size:400});equal($('image-result').hidden,true);
 images.at(-1).onload();fire('crop-form','submit');callbacks.shift().callback({type:'image/png',size:300});equal($('image-result').hidden,true);assert.ok($('image-error').textContent.includes('파일을 만들지 못했습니다'));checks++;
-fire('demo-image','click');const demo=callbacks.shift();select('newest.png');const before=images.length;demo.callback({type:'image/png',size:200});equal(images.length,before);
+const staleFile=select('discarded.png');select('newest.png');const before=images.length;staleFile.onload();equal(images.length,before);equal($('image-controls').disabled,true);
 const oversized=images.at(-1);oversized.naturalWidth=4001;oversized.naturalHeight=3000;oversized.onload();equal($('image-controls').disabled,true);assert.ok($('image-error').textContent.includes('1,200만'));checks++;
 const last=select();last.onload();const sourceURL=$('original-preview').src;listeners.pagehide();equal(revoked.includes(sourceURL),true);
 equal((html.match(/src="\/ad-banner-isolated.js/g)||[]).length,1);equal((html.match(/<h1>/g)||[]).length,1);

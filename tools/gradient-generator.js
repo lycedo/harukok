@@ -12,6 +12,6 @@ if (typeof document !== 'undefined') {
   function clear() { version++; $('result').hidden = true; $('result-text').value = ''; $('error').textContent = ''; $('copy-status').textContent = ''; }
   $('calculator').addEventListener('input', clear); $('calculator').addEventListener('change', clear);
   $('calculator').addEventListener('submit', event => { event.preventDefault(); clear(); try { const r = makeGradient($('first-color').value, $('second-color').value, $('angle').value); $('gradient-preview').style.background = r.value; $('result-text').value = r.css; $('result').hidden = false; $('result').scrollIntoView({ block: 'nearest' }); } catch (error) { $('error').textContent = error.message; } });
-  $('example').addEventListener('click', () => { $('first-color').value = '#16233D'; $('second-color').value = '#B23A2E'; $('angle').value = '90'; $('calculator').requestSubmit(); });
+  $('example')?.addEventListener('click', () => { $('first-color').value = '#16233D'; $('second-color').value = '#B23A2E'; $('angle').value = '90'; $('calculator').requestSubmit(); });
   $('copy').addEventListener('click', async () => { const token = version; if ($('result').hidden) return; try { await navigator.clipboard.writeText($('result-text').value); if (token === version) $('copy-status').textContent = 'CSS 코드를 복사했습니다.'; } catch { if (token !== version) return; $('copy-status').textContent = '결과 칸에서 CSS를 선택해 직접 복사하세요.'; $('result-text').focus(); $('result-text').select(); } });
 }

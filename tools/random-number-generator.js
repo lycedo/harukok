@@ -44,7 +44,7 @@ if (typeof document !== 'undefined') {
     $('result-value').textContent = values.length + '개 추첨 완료'; $('result-detail').textContent = '순서대로 뽑은 숫자입니다. 입력한 양 끝값도 범위에 포함합니다.';
     $('result-text').value = values.join(', '); $('result').hidden = false; $('result').scrollIntoView({ block: 'nearest' });
   } catch (error) { $('error').textContent = error.message; } });
-  $('example').addEventListener('click', () => { $('min').value = '1'; $('max').value = '100'; $('count').value = '5'; $('duplicates').checked = false; $('calculator').requestSubmit(); });
+  $('example')?.addEventListener('click', () => { $('min').value = '1'; $('max').value = '100'; $('count').value = '5'; $('duplicates').checked = false; $('calculator').requestSubmit(); });
   $('copy').addEventListener('click', async () => { const current = version; if ($('result').hidden) return;
     try { await navigator.clipboard.writeText($('result-text').value); if (current === version) $('copy-status').textContent = '결과를 복사했습니다.'; }
     catch { if (current !== version) return; $('copy-status').textContent = '결과 칸에서 글을 선택해 직접 복사해 주세요.'; $('result-text').focus(); $('result-text').select(); }

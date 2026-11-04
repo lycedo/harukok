@@ -45,4 +45,24 @@
   document.getElementById('empty-reset').addEventListener('click', clear);
   document.getElementById('directory-controls').hidden = false;
   update();
+  const directory = document.getElementById('tool-directory');
+  if (directory && typeof ResizeObserver === 'function') {
+    let layoutFrame = 0;
+    function arrangeCards() {
+      directory.classList.add('masonry-ready');
+      const gap = parseFloat(getComputedStyle(directory).rowGap) || 14;
+      for (const group of groups) {
+        group.style.gridRowEnd = group.hidden ? '' : 'span ' + Math.ceil((group.getBoundingClientRect().height + gap) / (8 + gap));
+      }
+    }
+    function scheduleLayout() {
+      cancelAnimationFrame(layoutFrame);
+      layoutFrame = requestAnimationFrame(arrangeCards);
+    }
+    const cardObserver = new ResizeObserver(scheduleLayout);
+    for (const group of groups) cardObserver.observe(group);
+    cardObserver.observe(directory);
+    if (document.fonts) document.fonts.ready.then(scheduleLayout);
+    scheduleLayout();
+  }
 })();

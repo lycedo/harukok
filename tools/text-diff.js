@@ -56,7 +56,7 @@ if (typeof document !== 'undefined') {
       $('diff-result').scrollIntoView({ block: 'nearest' });
     } catch (error) { $('diff-error').textContent = error.message; }
   });
-  $('example-text').addEventListener('click', () => {
+  $('example-text')?.addEventListener('click', () => {
     $('before-text').value = '사과\n바나나\n포도'; $('after-text').value = '사과\n딸기\n포도';
     $('diff-form').requestSubmit();
   });

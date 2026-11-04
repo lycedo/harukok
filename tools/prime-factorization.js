@@ -39,7 +39,7 @@ if (typeof document !== 'undefined') {
     $('result-text').value = r.value + '의 소인수분해: ' + r.expression + '\n약수 ' + r.divisorCount + '개: ' + r.divisors.join(', ');
     $('result').hidden = false; $('result').scrollIntoView({ block: 'nearest' });
   } catch (error) { $('error').textContent = error.message; } });
-  $('example').addEventListener('click', () => { $('number').value = '360'; $('calculator').requestSubmit(); });
+  $('example')?.addEventListener('click', () => { $('number').value = '360'; $('calculator').requestSubmit(); });
   $('copy').addEventListener('click', async () => { const current = version; if ($('result').hidden) return;
     try { await navigator.clipboard.writeText($('result-text').value); if (current === version) $('copy-status').textContent = '결과를 복사했습니다.'; }
     catch { if (current !== version) return; $('copy-status').textContent = '결과 칸에서 글을 선택해 직접 복사해 주세요.'; $('result-text').focus(); $('result-text').select(); }

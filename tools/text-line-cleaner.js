@@ -61,7 +61,7 @@ if (typeof document !== 'undefined') {
       $('cleanup-result').scrollIntoView({ block: 'nearest' });
     } catch (error) { $('cleanup-error').textContent = error.message; }
   });
-  $('example-text').addEventListener('click', () => {
+  $('example-text')?.addEventListener('click', () => {
     $('source-text').value = '사과\n바나나\n사과\n\n포도';
     $('remove-duplicates').checked = true;
     $('remove-blank').checked = false;

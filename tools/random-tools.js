@@ -54,6 +54,6 @@ if(typeof document!=='undefined' && document.getElementById('random-form')) {
     try {await navigator.clipboard.writeText(resultText);$('copy-status').textContent='결과를 복사했습니다.';}
     catch {$('copy-status').textContent='복사가 허용되지 않았습니다. 화면의 결과를 선택해 복사해 주세요.';}
   });
-  $('sample-list').addEventListener('click',()=>{$('participants').value='봄\n여름\n가을\n겨울\n하늘\n바다\n나무';$('count').value=isTeams?'3':'2';clearResult();});
+  $('sample-list')?.addEventListener('click',()=>{$('participants').value='봄\n여름\n가을\n겨울\n하늘\n바다\n나무';$('count').value=isTeams?'3':'2';clearResult();});
   $('clear-list').addEventListener('click',()=>{$('participants').value='';clearResult();$('participants').focus();});
 }

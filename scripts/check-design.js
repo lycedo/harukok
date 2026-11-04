@@ -7,7 +7,7 @@ const fs = require('fs');
 const path = require('path');
 
 const ROOT = path.join(__dirname, '..');
-const DIRS = ['.', 'tools', 'fun', 'guides'];
+const DIRS = ['.', 'tools', 'fun'];
 const SKIP_FILES = new Set(['ad-frame.html', 'site-ui.css']);
 const MIN_FONT_PX = 13;            // 이보다 작은 글자는 쓰지 않는다
 const CERT_FILE = 'tools/certificate-maker.html'; // 상장 미리보기(.cert*)는 명조 허용

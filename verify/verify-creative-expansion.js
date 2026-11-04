@@ -24,7 +24,7 @@ function fixture(slug, defaults = {}) {
   const images = [], canvases = [], revoked = [], created = [], handlers = {};
   class MockImage { constructor() { images.push(this); } }
   class MockFile { constructor(parts, name, options) { this.name = name; this.type = options.type; this.size = parts.reduce((sum, p) => sum + p.size, 0); } }
-  const document = { getElementById(id) { assert.ok(elements[id], 'HTML must contain ' + id); return elements[id]; }, createElement(tag) {
+  const document = { getElementById(id) { return elements[id] || null; }, createElement(tag) {
     assert.equal(tag, 'canvas');
     const ops = [], c = { drawImage(...args) { ops.push(['drawImage', ...args]); }, clearRect(...args) { ops.push(['clearRect', ...args]); }, fillRect(...args) { ops.push(['fillRect', ...args]); }, fillText(...args) { ops.push(['fillText', ...args]); }, measureText(text) { return { width: Array.from(text).length * Number((this.font || '10px').match(/([\d.]+)px/)[1]) * 0.6 }; } };
     const canvas = { width: 1, height: 1, ops, context: c, callbacks: [], getContext() { return c; }, toBlob(fn, type) { this.callbacks.push({ fn, type }); } }; canvases.push(canvas); return canvas;
@@ -40,6 +40,13 @@ function fixture(slug, defaults = {}) {
 }
 const imageDefaults = { 'font-percent': { value: '5' }, opacity: { value: '60' }, 'watermark-text': { value: 'HARUKOK' }, 'text-color': { value: '#FFFFFF' }, 'text-position': { value: 'bottom-right' }, 'image-result': { hidden: true }, 'image-controls': { disabled: true }, 'source-figure': { hidden: true } };
 const png = (name = 'photo.png', size = 100) => ({ name, type: 'image/png', size });
+function calculateFromInputs(slug, e) {
+  const values = slug === 'color-contrast-checker' ? { foreground: '#16233D', background: '#F4F0E6' }
+    : slug === 'gradient-generator' ? { 'first-color': '#16233D', 'second-color': '#B23A2E', angle: '90' }
+    : { paper: 'A4', dpi: '300', orientation: 'portrait' };
+  for (const [id, value] of Object.entries(values)) e[id].value = value;
+  e.calculator.requestSubmit();
+}
 
 async function main() {
   await test('WCAG sRGB contrast primaries, symmetry and actual threshold boundaries', () => {
@@ -106,12 +113,12 @@ async function main() {
     assert.equal(mosaicRegion(600, 400, 0, 0, 600, 400, 500).smallWidth, 2);
     for (const args of [[-1, 0, 1, 1, 20], [0, 0, 601, 1, 20], [0, 399, 1, 2, 20], [0, 0, 0, 1, 20], [0, 0, 1, 1, 1], [0, 0, 1.5, 1, 20]]) assert.throws(() => mosaicRegion(600, 400, ...args));
   });
-  await test('Contrast, gradient and paper UIs execute examples and invalidate stale results', () => {
+  await test('Contrast, gradient and paper UIs calculate manual inputs and invalidate stale results', () => {
     for (const [slug, expected] of [['color-contrast-checker', '일반 글자 AA: 통과'], ['gradient-generator', 'linear-gradient(90deg'], ['paper-size-calculator', '2480 × 3508px']]) {
       const { e } = fixture(slug, { result: { hidden: true } });
-      e.example.handlers.click(); assert.equal(e.result.hidden, false); assert.ok(e['result-text'].value.includes(expected));
+      calculateFromInputs(slug, e); assert.equal(e.result.hidden, false); assert.ok(e['result-text'].value.includes(expected));
       e.calculator.handlers.input(); assert.equal(e.result.hidden, true); assert.equal(e['result-text'].value, '');
-      e.example.handlers.click(); assert.equal(e.error.textContent, '');
+      calculateFromInputs(slug, e); assert.equal(e.error.textContent, '');
     }
   });
   await test('Single-image UI blocks old loads, clears old output and preserves the original selection', () => {
@@ -148,18 +155,19 @@ async function main() {
     e['merge-form'].requestSubmit(); f.canvases[1].callbacks[0].fn({ type: 'image/png', size: 100 }); assert.equal(e.result.hidden, false); assert.equal(e.download.download, 'harukok-merged.png');
     f.handlers.pagehide(); assert.equal(e['merge-files'].value, ''); assert.equal(e.result.hidden, true); assert.ok(f.revoked.length >= 5);
   });
-  await test('Image example buttons create local images without upload and invalid files disable controls', async () => {
+  await test('Image file inputs accept valid synthetic files and invalid files disable controls', async () => {
     for (const slug of ['image-watermark', 'image-mosaic']) {
-      const f = fixture(slug, imageDefaults), e = f.e; e['image-example'].handlers.click();
-      f.canvases[0].callbacks[0].fn({ type: 'image/png', size: 100 }); assert.equal(f.images.length, 1); f.load(0); assert.equal(e['image-controls'].disabled, false);
+      const f = fixture(slug, imageDefaults), e = f.e;
+      e['image-file'].files = [png()]; e['image-file'].handlers.change(); assert.equal(f.images.length, 1); f.load(0); assert.equal(e['image-controls'].disabled, false);
       e['image-file'].files = [{ type: 'text/plain', name: 'bad.txt', size: 10 }]; e['image-file'].handlers.change(); assert.match(e['image-error'].textContent, /JPG/); assert.equal(e['image-controls'].disabled, true);
     }
-    const f = fixture('image-merger', { 'merge-mode': { value: 'grid' }, 'cell-size': { value: '600' } }); f.e['merge-example'].handlers.click();
-    f.canvases[0].callbacks[0].fn({ type: 'image/png', size: 10 }); f.canvases[1].callbacks[0].fn({ type: 'image/png', size: 10 }); await tick(); assert.equal(f.images.length, 2); f.load(0); f.load(1); await tick(); assert.equal(f.e['merge-controls'].disabled, false);
+    const f = fixture('image-merger', { 'merge-mode': { value: 'grid' }, 'cell-size': { value: '600' } });
+    f.e['merge-files'].files = [png('first.png'), png('second.png')]; f.e['merge-files'].handlers.change();
+    await tick(); assert.equal(f.images.length, 2); f.load(0); f.load(1); await tick(); assert.equal(f.e['merge-controls'].disabled, false);
   });
   await test('Copy UIs handle success, fallback and stale async completion', async () => {
     for (const slug of ['color-contrast-checker', 'gradient-generator', 'paper-size-calculator']) {
-      const { e, clipboard } = fixture(slug); e.example.handlers.click(); await e.copy.handlers.click(); assert.equal(clipboard.copied, e['result-text'].value);
+      const { e, clipboard } = fixture(slug); calculateFromInputs(slug, e); await e.copy.handlers.click(); assert.equal(clipboard.copied, e['result-text'].value);
       clipboard.writeText = async () => { throw new Error('blocked'); }; await e.copy.handlers.click(); assert.match(e['copy-status'].textContent, /직접 복사/); assert.equal(e['result-text'].selected, true);
       let done; clipboard.writeText = () => new Promise(resolve => { done = resolve; }); const pending = e.copy.handlers.click(); e.calculator.handlers.input(); done(); await pending; assert.equal(e['copy-status'].textContent, '');
     }

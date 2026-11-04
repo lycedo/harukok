@@ -61,11 +61,13 @@ $('area-value').value = '-3'; submit('area-form'); same($('area-result').hidden,
 $('area-unit').value = 'pyeong'; $('area-unit').dispatchEvent({type: 'change'});
 same($('area-label').textContent, '면적 (평)'); same($('area-error').textContent, '');
 same($('area-result').hidden, true);
-same(examples.length, 2);
+same(examples.length, 0);
 for (const [i, expected] of ['25.41 평', '105.79 ㎡'].entries()) {
-  examples[i].click(); same($('area-result-value').textContent, expected); same($('area-result').hidden, false);
+  $('area-unit').value = i ? 'pyeong' : 'sqm'; $('area-unit').dispatchEvent({type: 'change'});
+  $('area-value').value = i ? '32' : '84'; submit('area-form');
+  same($('area-result-value').textContent, expected); same($('area-result').hidden, false);
 }
-$('rectangle-example').click(); same($('rectangle-result-value').textContent, '12 ㎡');
+$('length-unit').value = 'm'; $('room-width').value = '3'; $('room-length').value = '4'; submit('rectangle-form'); same($('rectangle-result-value').textContent, '12 ㎡');
 same($('rectangle-pyeong').textContent, '평으로 환산: 3.63 평');
 $('rectangle-form').dispatchEvent({type: 'input'}); same($('rectangle-result').hidden, true);
 $('room-width').value = ''; submit('rectangle-form'); same($('rectangle-result').hidden, true);
@@ -79,7 +81,7 @@ same($('rectangle-result').hidden, true);
 $('room-width').value = '300'; $('room-length').value = '400'; submit('rectangle-form');
 same($('rectangle-result-value').textContent, '12 ㎡');
 same($('rectangle-pyeong').textContent, '평으로 환산: 3.63 평');
-$('rectangle-example').click();
+$('length-unit').value = 'm'; $('length-unit').dispatchEvent({type: 'change'}); $('room-width').value = '3'; $('room-length').value = '4'; submit('rectangle-form');
 same($('length-unit').value, 'm'); same($('room-width-label').textContent, '가로 (m)');
 same($('rectangle-result-value').textContent, '12 ㎡');
 

@@ -7,10 +7,10 @@
 <meta property="og:title" content="중복 줄 제거기 - 텍스트 중복·빈 줄 정리 | 하루콕">
 <meta property="og:description" content="목록의 순서를 유지하며 중복 줄·빈 줄·앞뒤 공백을 정리하세요. 원문을 남겨 두고 결과만 따로 복사합니다.">
 <meta property="og:type" content="website"><meta property="og:site_name" content="하루콕"><meta property="og:url" content="https://harukok.com/tools/text-line-cleaner"><meta property="og:image" content="https://harukok.com/og-image.png">
-<link rel="stylesheet" href="/tools/everyday-tools.css?v=20261024-ux"><script src="/tools/text-line-cleaner.js?v=20261103" defer></script>
+<link rel="stylesheet" href="/tools/everyday-tools.css?v=20261024-ux"><script src="/tools/text-line-cleaner.js?v=20261104-simple" defer></script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"중복 줄 제거기","url":"https://harukok.com/tools/text-line-cleaner","description":"명단과 목록의 순서를 유지하며 중복 줄, 빈 줄, 줄 앞뒤 공백을 정리하고 결과를 복사하는 도구입니다.","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","inLanguage":"ko","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"}}</script>
 <link rel="stylesheet" href="/tools/tool-controls.css?v=20261025-flow">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/tools/site-ui.css?v=20261027-banner">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/tools/site-ui.css?v=20261104-simple">
 </head><body><div class="wrap">
 <nav class="site-nav" aria-label="주요 메뉴"><a class="site-nav-brand" href="/">하루<span>콕</span></a><div class="site-nav-links"><a href="/#all-tools">전체 도구</a></div></nav>
 <main><h1>중복 줄 제거기</h1>
@@ -18,7 +18,7 @@
 <noscript><p class="noscript">도구를 사용하려면 브라우저에서 자바스크립트를 허용해 주세요.</p></noscript>
 <section class="sheet" aria-label="텍스트 줄 정리">
 <form id="line-cleaner-form" novalidate>
-<div class="field"><label for="source-text">정리할 글</label><textarea id="source-text" rows="8" spellcheck="false" placeholder="한 줄에 하나씩 붙여 넣으세요.&#10;사과&#10;바나나&#10;사과" aria-describedby="source-note"></textarea><p class="hint" id="source-note">최대 200,000자·20,000줄 · 원문 유지 · 서버 전송·저장 없음</p></div>
+<div class="field"><label for="source-text">정리할 글</label><textarea id="source-text" rows="8" spellcheck="false" placeholder="한 줄에 하나씩 붙여 넣으세요.&#10;사과&#10;바나나&#10;사과" aria-describedby="source-note"></textarea><p class="hint" id="source-note">최대 200,000자·20,000줄</p></div>
 <fieldset><legend>어떻게 정리할까요?</legend>
 <label class="check"><input type="checkbox" id="remove-duplicates" checked>같은 줄은 처음 나온 것만 남기기</label>
 <label class="check"><input type="checkbox" id="remove-blank">내용이 없는 빈 줄 모두 지우기</label>
@@ -27,7 +27,7 @@
 </fieldset>
 <p class="hint">줄 순서는 바꾸지 않습니다. ‘앞뒤 공백 지우기’를 고르면 공백을 지운 뒤 중복을 비교합니다.</p>
 <button class="primary" type="submit">줄 정리하기</button>
-<div class="examples"><button class="secondary" type="button" id="example-text">예시 목록으로 해보기</button></div>
+
 <p id="cleanup-error" class="error" role="alert"></p>
 </form>
 <section id="cleanup-result" class="result" aria-labelledby="result-title" hidden>
@@ -37,13 +37,13 @@
 </section>
 </section>
 <aside class="ad-banner ad-banner-strip" aria-label="광고"><p class="ad-label">광고</p><div class="ad-strip-slot"><script src="/ad-banner-isolated.js?v=20261027-banner"></script></div></aside>
-<section class="info-block" aria-labelledby="help-title">
+<details class="tool-notes"><summary>도움말</summary><section class="info-block" aria-labelledby="help-title">
 <h2 id="help-title">명단과 목록을 한 줄씩 정리하세요</h2>
 <p>여러 곳에서 모은 항목이나 할 일 목록을 붙여 넣고 겹치는 줄을 정리할 때 쓸 수 있습니다. 같은 글자라도 다른 사람을 뜻하는 명단이라면 중복 제거 전에 확인하세요.</p>
 <details><summary>어떤 줄을 중복으로 보나요?</summary><p>기본 설정에서는 글자와 공백이 모두 같은 줄만 중복입니다. 예를 들어 ‘사과’, ‘바나나’, ‘사과’를 한 줄씩 넣으면 ‘사과’, ‘바나나’가 남습니다. 첫 번째 줄의 위치와 표기를 유지합니다.</p><p>‘사과’와 ‘ 사과 ’는 기본적으로 다른 줄입니다. ‘각 줄의 앞뒤 공백 지우기’를 고르면 둘을 같은 줄로 봅니다. 줄 안쪽의 띄어쓰기는 바꾸지 않습니다. 빈 줄도 같은 줄로 비교하므로 여러 빈 줄 중 하나가 남습니다. 빈 줄을 전부 없애려면 ‘내용이 없는 빈 줄 모두 지우기’를 선택하세요.</p></details>
 <details><summary>대소문자를 구분하지 않으면 어떻게 되나요?</summary><p>‘대문자와 소문자를 다른 글자로 보기’를 끄면 Apple과 apple을 같은 줄로 보고 처음 나온 표기를 남깁니다. 글자 자체를 소문자로 바꿔 저장하지 않습니다. 한글 자모 조합이나 악센트 같은 글자 표현은 자동으로 바꾸지 않으므로 눈으로 비슷해 보여도 다른 줄일 수 있습니다.</p></details>
 <details><summary>줄 수가 예상과 다르거나 원문이 바뀌나요?</summary><p>마지막의 줄바꿈 뒤에도 빈 줄 한 줄이 있는 것으로 셉니다. 윈도우식 줄바꿈(CRLF)과 CR은 결과에서 LF 줄바꿈으로 통일합니다. 원문 입력칸은 유지하고, 선택한 정리 방법에 따라 결과 칸에만 새 글을 만듭니다. 입력 한도는 브라우저의 글자 길이 기준이며 이모지는 두 자리 이상으로 셀 수 있습니다.</p><p>쉼표로 나뉜 값이나 표의 열을 분석하지 않고 줄 전체를 비교합니다. 입력한 글을 서버에 보내거나 브라우저 기록에 저장하지 않습니다. ‘정리한 글 복사하기’를 누르면 결과를 기기의 클립보드에 복사합니다.</p></details>
-</section>
-<nav class="related" aria-label="함께 쓰는 도구"><a href="/tools/character-counter">정리한 글의 글자 수·바이트 확인하기</a><a href="/tools/random-picker">정리한 명단에서 이름 뽑기</a></nav>
+</section></details>
+<nav class="related" aria-label="함께 쓰는 도구"><a href="/tools/character-counter">글자 수·바이트 세기</a><a href="/tools/random-picker">이름 뽑기</a></nav>
 </main><footer><a href="/about">소개</a> · <a href="/privacy">개인정보처리방침</a> · <a href="mailto:contact@harukok.com?subject=%EC%A4%91%EB%B3%B5%20%EC%A4%84%20%EC%A0%9C%EA%B1%B0%EA%B8%B0">의견 보내기</a><p>© 2026 하루콕</p></footer>
 </div></body></html>

@@ -27,7 +27,7 @@ if (typeof document !== 'undefined') {
       $('ratio-result').hidden = false;
     } catch (error) { $('ratio-error').textContent = error.message; }
   });
-  $('ratio-example').addEventListener('click', () => { $('source-width').value = '1920'; $('source-height').value = '1080'; $('target-axis').value = 'width'; $('target-size').value = '1280'; $('ratio-form').requestSubmit(); });
+  $('ratio-example')?.addEventListener('click', () => { $('source-width').value = '1920'; $('source-height').value = '1080'; $('target-axis').value = 'width'; $('target-size').value = '1280'; $('ratio-form').requestSubmit(); });
   $('copy-ratio').addEventListener('click', async () => {
     if ($('ratio-result').hidden) return;
     const current = version;

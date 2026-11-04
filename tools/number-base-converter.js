@@ -15,6 +15,6 @@ if (typeof document !== 'undefined') {
   function clear() { version++; $('result').hidden = true; $('output').value = ''; $('error').textContent = ''; $('copy-status').textContent = ''; }
   $('converter').addEventListener('input', clear); $('converter').addEventListener('change', clear);
   $('converter').addEventListener('submit', event => { event.preventDefault(); clear(); try { const r = convertNumberBase($('source').value, Number($('base').value)); $('output').value = `2진수: ${r.binary}\n8진수: ${r.octal}\n10진수: ${r.decimal}\n16진수: ${r.hexadecimal}`; $('result').hidden = false; $('result').scrollIntoView({ block: 'nearest' }); } catch (error) { $('error').textContent = error.message; } });
-  $('example').addEventListener('click', () => { $('source').value = '255'; $('base').value = '10'; $('converter').requestSubmit(); });
+  $('example')?.addEventListener('click', () => { $('source').value = '255'; $('base').value = '10'; $('converter').requestSubmit(); });
   $('copy').addEventListener('click', async () => { if ($('result').hidden) return; const token = version; try { await navigator.clipboard.writeText($('output').value); if (token === version) $('copy-status').textContent = '진수별 결과를 복사했습니다.'; } catch { if (token !== version) return; $('output').focus(); $('output').select(); $('copy-status').textContent = '결과 칸의 글을 선택해 직접 복사하세요.'; } });
 }

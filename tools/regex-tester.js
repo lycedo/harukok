@@ -30,7 +30,7 @@ if (typeof document !== 'undefined') {
     job = startRegexJob({ pattern: $('pattern').value, text: $('source').value, flags: $('flags').value.trim() }); $('run').disabled = true; $('run-status').textContent = '별도 작업에서 검사하고 있습니다.';
     const result = await job.promise; if (token !== version) return; job = null; $('run').disabled = false; $('run-status').textContent = `${result.matches.length}개 일치${result.truncated ? ' (처음 200개)' : ''}`; $('output').value = regexResultText(result); $('result').hidden = false; $('result').scrollIntoView({ block: 'nearest' });
   } catch (error) { if (token !== version) return; job = null; $('run').disabled = false; $('run-status').textContent = ''; $('error').textContent = error.message; } });
-  $('example').addEventListener('click', () => { $('pattern').value = '(하루)(콕)'; $('source').value = '하루콕에서 배우는 정규식, 하루콕!'; $('flags').value = 'g'; $('converter').requestSubmit(); });
+  $('example')?.addEventListener('click', () => { $('pattern').value = '(하루)(콕)'; $('source').value = '하루콕에서 배우는 정규식, 하루콕!'; $('flags').value = 'g'; $('converter').requestSubmit(); });
   $('copy').addEventListener('click', async () => { if ($('result').hidden) return; const token = version; try { await navigator.clipboard.writeText($('output').value); if (token === version) $('copy-status').textContent = '검사 결과를 복사했습니다.'; } catch { if (token !== version) return; $('output').focus(); $('output').select(); $('copy-status').textContent = '결과 칸의 글을 선택해 직접 복사하세요.'; } });
   window.addEventListener('pagehide', clear);
 }

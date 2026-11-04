@@ -56,7 +56,7 @@ if (typeof document !== 'undefined') {
       $('offset-result').hidden=false; $('offset-result').scrollIntoView({block:'nearest'});
     } catch (error) { $('offset-error').textContent=error.message; }
   });
-  $('example-date').addEventListener('click',() => {
+  $('example-date')?.addEventListener('click',() => {
     $('base').value='2026-10-18'; $('days').value='100'; $('count-mode').value='nth'; updateCountMode(); $('offset-form').requestSubmit();
   });
 }

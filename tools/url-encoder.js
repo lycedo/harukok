@@ -34,7 +34,7 @@ if (typeof document !== 'undefined') {
       $('url-result').hidden = false; $('copy-result').disabled = false; $('url-result').scrollIntoView({ block: 'nearest' });
     } catch (error) { $('url-error').textContent = error.message; }
   });
-  $('example-text').addEventListener('click', () => { $('url-input').value = '하루콕 & 메모'; $('url-mode').value = 'encode'; $('url-form').requestSubmit(); });
+  $('example-text')?.addEventListener('click', () => { $('url-input').value = '하루콕 & 메모'; $('url-mode').value = 'encode'; $('url-form').requestSubmit(); });
   $('copy-result').addEventListener('click', async () => {
     const token = version, text = $('url-output').value;
     if ($('url-result').hidden) return;
