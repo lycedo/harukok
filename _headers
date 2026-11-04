@@ -1,0 +1,6 @@
+# Re-fetch the home document instead of retaining an earlier directory page.
+/
+  Cache-Control: no-store, max-age=0, must-revalidate
+
+/index.html
+  Cache-Control: no-store, max-age=0, must-revalidate

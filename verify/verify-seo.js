@@ -51,6 +51,7 @@ try {
   mutation('Malformed structured data', 'tools/percent-calculator.html', html => html.replace('"@context":', '"@context" '), /JSON 문법 오류/);
   mutation('Broken internal link', 'index.html', html => html.replace('href="/tools/percent-calculator"', 'href="/tools/does-not-exist"'), /없는 페이지 링크/);
   mutation('Missing home tool entry', 'index.html', html => html.replace('href="/tools/percent-calculator"', 'href="/"'), /홈 전체 도구 목록에 링크 누락/);
+  mutation('Removed home guides return', 'index.html', html => html.replace('</main>', '<section><h2 id="home-guides-title">계산이 헷갈릴 때 가이드</h2></section></main>'), /삭제한 홈 가이드 영역/);
   mutation('Stale tool count', 'index.html', html => html.replace(/전체 도구 \d+개/, '전체 도구 0개'), /전체 도구 개수가/);
   mutation('Stale search description', 'index.html', html => html.replace('name="description" content="', 'name="description" content="무료 도구 0개. '), /검색·공유 설명의 도구 수/);
   mutation('Crawler block', 'robots.txt', html => html + '\nDisallow: /\n', /전체 사이트 크롤링 차단/);

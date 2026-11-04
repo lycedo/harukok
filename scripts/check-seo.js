@@ -103,6 +103,7 @@ function checkSite(root) {
   visit('/');
   for (const [url, page] of pages) if (!reachable.has(url)) fail(page.file, '홈에서 정적 링크로 도달할 수 없음');
   const home = pages.get('/');
+  if (/home-guides-title|계산이\s*헷갈릴\s*때\s*가이드/.test(home?.html || '')) fail('index.html', '삭제한 홈 가이드 영역이 남아 있음');
   const toolCount = [...pages.keys()].filter(url => /^\/(tools|fun)\//.test(url)).length;
   const homeCount = home?.html.match(/id="directory-status"[^>]*>전체 도구 (\d+)개/);
   if (!homeCount || Number(homeCount[1]) !== toolCount) fail('index.html', '전체 도구 개수가 실제 공개 도구 수와 다름: ' + toolCount);

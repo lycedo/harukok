@@ -34,6 +34,7 @@ const PUBLIC_FILES = [
   'apple-touch-icon.png',
   'og-image.png',
   '_redirects',
+  '_headers',
 ];
 
 const PUBLIC_DIRS = [
