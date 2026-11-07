@@ -1,0 +1,1797 @@
+{
+  "recordedAt": "2026-11-07T14:53:58.685Z",
+  "baselineCommit": "581a9e1c36809ac1f8d7941c3db18cd380d9f7f0",
+  "reason": "도구 수보다 실제 파일·문서·업무·생활 작업을 우선하라는 최신 사용자 지시",
+  "retired": [
+    {
+      "slug": "gcd-lcm-calculator",
+      "title": "최대공약수·최소공배수 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "prime-factorization",
+      "title": "소인수분해·약수 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "quadratic-equation-calculator",
+      "title": "이차방정식 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "sector-calculator",
+      "title": "부채꼴 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "permutation-combination-calculator",
+      "title": "순열·조합 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "scientific-notation-converter",
+      "title": "과학적 표기법 변환기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "sequence-calculator",
+      "title": "수열 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "linear-equation-calculator",
+      "title": "일차방정식 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "system-equations-calculator",
+      "title": "연립방정식 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "matrix-calculator",
+      "title": "행렬 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "complex-number-calculator",
+      "title": "복소수 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "logarithm-calculator",
+      "title": "로그 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "exponent-root-calculator",
+      "title": "거듭제곱·제곱근 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "trigonometry-calculator",
+      "title": "삼각함수 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "significant-figures-calculator",
+      "title": "유효숫자 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "slope-calculator",
+      "title": "직선 기울기 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "distance-midpoint-calculator",
+      "title": "두 점 거리·중점 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "circle-equation-calculator",
+      "title": "원 방정식 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "vector-calculator",
+      "title": "벡터 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "probability-calculator",
+      "title": "독립사건 확률 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "binomial-probability-calculator",
+      "title": "이항분포 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "standard-score-calculator",
+      "title": "표준점수 Z점수 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "capacitor-charge-calculator",
+      "title": "RC 충전시간 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "wavelength-calculator",
+      "title": "파장 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "pressure-force-area-calculator",
+      "title": "압력·힘·면적 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "torque-calculator",
+      "title": "토크 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "kinetic-energy-calculator",
+      "title": "운동에너지 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "free-fall-calculator",
+      "title": "자유낙하 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "heat-energy-calculator",
+      "title": "열량 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "ideal-gas-calculator",
+      "title": "이상기체 상태방정식 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "gas-state-calculator",
+      "title": "기체 상태 변화 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "mole-calculator",
+      "title": "몰수 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "molarity-calculator",
+      "title": "몰농도 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "half-life-calculator",
+      "title": "반감기 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "exponential-growth-calculator",
+      "title": "지수 성장 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "spring-force-calculator",
+      "title": "용수철 힘 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "spring-energy-calculator",
+      "title": "용수철 에너지 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "pendulum-period-calculator",
+      "title": "진자 주기 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "centripetal-force-calculator",
+      "title": "구심력 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "projectile-motion-calculator",
+      "title": "포물선 운동 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "gravitational-force-calculator",
+      "title": "만유인력 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "escape-velocity-calculator",
+      "title": "탈출속도 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "orbital-period-calculator",
+      "title": "공전 주기 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "buoyancy-calculator",
+      "title": "부력 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "hydrostatic-pressure-calculator",
+      "title": "수압 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "reynolds-number-calculator",
+      "title": "레이놀즈 수 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "thermal-expansion-calculator",
+      "title": "열팽창 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "heat-conduction-calculator",
+      "title": "열전도 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "sound-distance-calculator",
+      "title": "소리 거리 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "doppler-calculator",
+      "title": "도플러 효과 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "snell-law-calculator",
+      "title": "스넬의 법칙 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "thin-lens-calculator",
+      "title": "얇은 렌즈 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "photon-energy-calculator",
+      "title": "광자 에너지 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "de-broglie-calculator",
+      "title": "드브로이 파장 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "electric-field-calculator",
+      "title": "점전하 전기장 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "coulomb-force-calculator",
+      "title": "쿨롱 힘 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "inductor-energy-calculator",
+      "title": "인덕터 에너지 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "capacitor-energy-calculator",
+      "title": "커패시터 에너지 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "rl-time-constant-calculator",
+      "title": "RL 시간상수 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "lc-resonance-calculator",
+      "title": "LC 공진 주파수 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "transformer-ratio-calculator",
+      "title": "변압기 권선비 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "geometric-mean-calculator",
+      "title": "기하평균 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "harmonic-mean-calculator",
+      "title": "조화평균 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "root-mean-square-calculator",
+      "title": "제곱평균제곱근 RMS 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "weighted-median-calculator",
+      "title": "가중중앙값 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "median-absolute-deviation-calculator",
+      "title": "중앙값 절대편차 MAD 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "coefficient-variation-calculator",
+      "title": "변동계수 CV 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "skewness-kurtosis-calculator",
+      "title": "왜도·첨도 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "covariance-calculator",
+      "title": "공분산 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "spearman-correlation-calculator",
+      "title": "스피어만 순위상관 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "gini-coefficient-calculator",
+      "title": "지니계수 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "entropy-calculator",
+      "title": "정보 엔트로피 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "exponential-smoothing-calculator",
+      "title": "단순 지수평활 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "zscore-normalizer",
+      "title": "데이터 Z점수 정규화 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "normal-probability-calculator",
+      "title": "정규분포 확률 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "normal-quantile-calculator",
+      "title": "정규분포 역누적 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "exponential-distribution-calculator",
+      "title": "지수분포 확률 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "uniform-distribution-calculator",
+      "title": "균등분포 확률 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "poisson-probability-calculator",
+      "title": "포아송 분포 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "geometric-probability-calculator",
+      "title": "기하분포 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "hypergeometric-probability-calculator",
+      "title": "초기하분포 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "negative-binomial-calculator",
+      "title": "음이항분포 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "bayes-theorem-calculator",
+      "title": "베이즈 정리 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "conditional-probability-calculator",
+      "title": "조건부확률 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "expected-value-calculator",
+      "title": "기댓값 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "birthday-probability-calculator",
+      "title": "생일 중복 확률 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "coupon-collector-calculator",
+      "title": "쿠폰 수집 기대횟수 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "confidence-interval-calculator",
+      "title": "평균 신뢰구간 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "wilson-interval-calculator",
+      "title": "비율 윌슨 신뢰구간 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "polynomial-evaluator",
+      "title": "다항식 값 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "polynomial-derivative-calculator",
+      "title": "다항식 미분 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "polynomial-integral-calculator",
+      "title": "다항식 정적분 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "polynomial-multiplication-calculator",
+      "title": "다항식 곱셈 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "synthetic-division-calculator",
+      "title": "조립제법 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "modular-arithmetic-calculator",
+      "title": "모듈러 연산 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "modular-inverse-calculator",
+      "title": "모듈러 역원 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "chinese-remainder-calculator",
+      "title": "중국인의 나머지 정리 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "continued-fraction-converter",
+      "title": "연분수 변환기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "fibonacci-calculator",
+      "title": "피보나치 수 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "binomial-expansion-calculator",
+      "title": "이항정리 전개 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "factorial-trailing-zeros-calculator",
+      "title": "팩토리얼 끝자리 0 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "polygon-coordinate-calculator",
+      "title": "다각형 좌표 넓이 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "point-line-distance-calculator",
+      "title": "점과 직선 거리 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "line-intersection-calculator",
+      "title": "두 직선 교점 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "circle-intersection-calculator",
+      "title": "두 원 교점 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "triangle-centers-calculator",
+      "title": "삼각형 무게중심·외심 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "coordinate-rotation-calculator",
+      "title": "좌표 회전 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "chord-length-calculator",
+      "title": "원의 현 길이 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "torus-calculator",
+      "title": "토러스 부피·겉넓이 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "spherical-cap-calculator",
+      "title": "구면마개 부피 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "beam-deflection-calculator",
+      "title": "보 처짐 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "stress-strain-calculator",
+      "title": "축응력·변형률 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "capacitor-series-parallel-calculator",
+      "title": "직렬·병렬 커패시터 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "inductor-series-parallel-calculator",
+      "title": "직렬·병렬 인덕터 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "reactance-calculator",
+      "title": "유도·용량 리액턴스 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    },
+    {
+      "slug": "impedance-calculator",
+      "title": "직렬 RLC 임피던스 계산기",
+      "reason": "사용자 요청에 따른 이론·학습 중심 도구 정리",
+      "wasPublished": true
+    }
+  ],
+  "retainedMath": [
+    "fraction-calculator",
+    "average-calculator",
+    "gpa-calculator",
+    "geometry-calculator",
+    "speed-distance-time-calculator",
+    "ratio-calculator",
+    "pythagorean-calculator",
+    "volume-calculator",
+    "decimal-fraction-converter",
+    "statistics-calculator",
+    "rounding-calculator",
+    "triangle-calculator",
+    "surface-area-calculator",
+    "weighted-average-calculator",
+    "regression-calculator",
+    "ohms-law-calculator",
+    "electrical-power-calculator",
+    "resistor-color-code",
+    "resistor-series-parallel",
+    "led-resistor-calculator",
+    "frequency-period-converter",
+    "density-calculator",
+    "angular-speed-converter",
+    "flow-rate-calculator",
+    "decibel-ratio-calculator",
+    "quantile-calculator",
+    "iqr-outlier-calculator",
+    "rank-calculator",
+    "frequency-table-calculator",
+    "moving-average-calculator",
+    "min-max-normalizer",
+    "error-metrics-calculator",
+    "sample-size-calculator",
+    "ellipse-calculator",
+    "regular-polygon-calculator",
+    "cone-frustum-calculator",
+    "belt-speed-calculator",
+    "voltage-divider-calculator",
+    "three-phase-power-calculator",
+    "thermal-resistance-calculator"
+  ],
+  "unpublishedExcluded": [
+    {
+      "slug": "linear-interpolation",
+      "title": "선형 보간 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "lagrange-interpolation",
+      "title": "라그랑주 보간 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "piecewise-linear-interpolation",
+      "title": "구간별 선형 보간기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "trapezoidal-integration-calculator",
+      "title": "사다리꼴 수치적분 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "simpson-integration-calculator",
+      "title": "심프슨 수치적분 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "finite-difference-derivative-calculator",
+      "title": "유한차분 미분 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "polynomial-root-bracketer-calculator",
+      "title": "다항식 이분법 근 찾기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "newton-polynomial-root-calculator",
+      "title": "다항식 뉴턴법 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "secant-polynomial-root-calculator",
+      "title": "다항식 할선법 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "polynomial-division-calculator",
+      "title": "다항식 나눗셈 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "polynomial-addition-calculator",
+      "title": "다항식 덧셈·뺄셈 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "polynomial-composition-calculator",
+      "title": "다항식 합성 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "polynomial-shift-calculator",
+      "title": "다항식 평행이동 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "polynomial-from-roots-calculator",
+      "title": "근으로 다항식 만들기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "integer-partition-count-calculator",
+      "title": "정수 분할 수 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "integer-composition-count-calculator",
+      "title": "정수 순서분할 수 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "catalan-number-calculator",
+      "title": "카탈란 수 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "bell-number-calculator",
+      "title": "벨 수 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "stirling-second-number-calculator",
+      "title": "제2종 스털링 수 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "euler-totient-calculator",
+      "title": "오일러 피 함수 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "divisor-sum-calculator",
+      "title": "약수 합 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "aliquot-sequence-calculator",
+      "title": "진약수 합 수열 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "digit-sum-root-calculator",
+      "title": "자릿수 합·디지털 루트 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "happy-number-checker",
+      "title": "행복한 수 판별기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "collatz-sequence-calculator",
+      "title": "콜라츠 수열 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "lucas-number-calculator",
+      "title": "뤼카 수 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "pascal-row-calculator",
+      "title": "파스칼 삼각형 행 생성기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "prime-range-sieve-calculator",
+      "title": "구간 소수 목록 생성기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "matrix-rank-calculator",
+      "title": "행렬 계수 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "matrix-rref-calculator",
+      "title": "행렬 기약행 사다리꼴 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "matrix-lu-calculator",
+      "title": "행렬 LU 분해 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "matrix-qr-calculator",
+      "title": "행렬 QR 분해 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "matrix-cholesky-calculator",
+      "title": "행렬 촐레스키 분해 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "eigenvalues-2x2-calculator",
+      "title": "2×2 행렬 고윳값 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "matrix-power-calculator",
+      "title": "행렬 거듭제곱 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "multiple-linear-regression-calculator",
+      "title": "다중 선형회귀 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "gram-schmidt-calculator",
+      "title": "그람슈미트 직교화 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "matrix-condition-number-calculator",
+      "title": "행렬 조건수 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "matrix-trace-calculator",
+      "title": "행렬 대각합 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "matrix-commutator-calculator",
+      "title": "행렬 교환자 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "kronecker-product-calculator",
+      "title": "크로네커 곱 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "covariance-matrix-calculator",
+      "title": "공분산 행렬 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "cartesian-polar-calculator",
+      "title": "직교·극좌표 변환기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "cartesian-spherical-calculator",
+      "title": "직교·구면좌표 변환기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "cylindrical-coordinates",
+      "title": "직교·원통좌표 변환기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "plane-equation-calculator",
+      "title": "세 점 평면 방정식 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "point-plane-distance-calculator",
+      "title": "점과 평면 거리 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "lines3d-closest-calculator",
+      "title": "공간 두 직선 최단거리 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "plane-intersection-calculator",
+      "title": "두 평면 교선 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "point-triangle-barycentric-calculator",
+      "title": "삼각형 무게중심좌표 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "point-polygon-calculator",
+      "title": "점과 다각형 안팎 판정기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "segment-intersection-calculator",
+      "title": "선분 교점 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "segment-circle-intersection-calculator",
+      "title": "선분과 원 교점 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "convex-polygon-offset-calculator",
+      "title": "볼록 다각형 오프셋 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "bezier-quadratic-calculator",
+      "title": "이차 베지어 곡선 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "bezier-cubic-calculator",
+      "title": "삼차 베지어 곡선 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "archimedes-spiral-length-calculator",
+      "title": "아르키메데스 나선 길이 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "helix-geometry-calculator",
+      "title": "나선 스프링 경로 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "parabola-focus-calculator",
+      "title": "포물선 초점·준선 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "hyperbola-geometry-calculator",
+      "title": "쌍곡선 초점·점근선 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "catenary-length-calculator",
+      "title": "현수선 길이 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "ellipsoid-volume-calculator",
+      "title": "타원체 부피 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "tetrahedron-edge-volume-calculator",
+      "title": "사면체 여섯 변 부피 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "student-t-distribution-calculator",
+      "title": "스튜던트 t분포 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "chi-square-distribution-calculator",
+      "title": "카이제곱 분포 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "f-distribution-calculator",
+      "title": "F분포 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "beta-distribution-calculator",
+      "title": "베타분포 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "gamma-distribution-calculator",
+      "title": "감마분포 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "lognormal-distribution-calculator",
+      "title": "로그정규분포 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "weibull-distribution-calculator",
+      "title": "와이블분포 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "student-t-mean-interval-calculator",
+      "title": "t 평균 신뢰구간 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "variance-chi-square-interval-calculator",
+      "title": "분산 신뢰구간 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "one-sample-z-test-calculator",
+      "title": "단일표본 Z검정 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "one-sample-t-test-calculator",
+      "title": "단일표본 t검정 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "paired-t-test-calculator",
+      "title": "대응표본 t검정 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "two-sample-welch-test-calculator",
+      "title": "웰치 두 표본 t검정 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "proportion-z-test-calculator",
+      "title": "단일비율 Z검정 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "chi-square-independence-calculator",
+      "title": "카이제곱 독립성 검정 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "one-way-anova-calculator",
+      "title": "일원분산분석 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "mann-whitney-u-calculator",
+      "title": "맨휘트니 U검정 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "sign-test-calculator",
+      "title": "부호 검정 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "correlation-t-test-calculator",
+      "title": "상관계수 t검정 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "effect-size-cohens-d-calculator",
+      "title": "코헨 d 효과크기 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "odds-risk-ratio-calculator",
+      "title": "2×2 표 상대비율 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "chemical-molar-mass-calculator",
+      "title": "분자식 몰질량 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "mass-percent-composition-calculator",
+      "title": "분자식 질량백분율 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "empirical-formula-calculator",
+      "title": "실험식 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "limiting-reactant-calculator",
+      "title": "한계 반응물 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "theoretical-yield-calculator",
+      "title": "이론 수득량 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "percent-yield-calculator",
+      "title": "수득률 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "reaction-stoichiometry-calculator",
+      "title": "반응식 몰비 환산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "solution-molality-calculator",
+      "title": "몰랄농도 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "solution-mole-fraction-calculator",
+      "title": "몰분율 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "mass-volume-concentration-calculator",
+      "title": "질량·부피 농도 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "ppm-solution-calculator",
+      "title": "용액 ppm 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "normality-equivalents-calculator",
+      "title": "당량·노르말농도 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "gas-mixture-partial-pressure-calculator",
+      "title": "혼합기체 분압 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "gas-collection-water-vapor-calculator",
+      "title": "수상치환 기체 압력 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "ph-poh-calculator",
+      "title": "pH·pOH 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "weak-acid-ph-calculator",
+      "title": "약산 pH 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "weak-base-ph-calculator",
+      "title": "약염기 pH 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "buffer-henderson-hasselbalch-calculator",
+      "title": "완충용액 pH 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "acid-base-neutralization-calculator",
+      "title": "산염기 중화 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "solubility-product-calculator",
+      "title": "용해도곱 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "reaction-quotient-calculator",
+      "title": "반응지수 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "arrhenius-equation-calculator",
+      "title": "아레니우스 식 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "vanthoff-equation-calculator",
+      "title": "반트호프 식 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "gibbs-free-energy-calculator",
+      "title": "깁스 자유에너지 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "nernst-equation-calculator",
+      "title": "네른스트 식 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "faraday-electrolysis-calculator",
+      "title": "전기분해 석출량 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "osmotic-pressure-calculator",
+      "title": "삼투압 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "boiling-freezing-point-calculator",
+      "title": "끓는점·어는점 변화 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "carnot-efficiency-calculator",
+      "title": "카르노 효율 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "heat-engine-cop-calculator",
+      "title": "냉동기·열펌프 COP 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "ideal-gas-work-calculator",
+      "title": "등온 기체 일 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "adiabatic-gas-calculator",
+      "title": "단열 기체 변화 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "thermal-radiation-calculator",
+      "title": "복사 열전달 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "newton-cooling-calculator",
+      "title": "뉴턴 냉각 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "heat-mixing-equilibrium-calculator",
+      "title": "열혼합 평형온도 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "bernoulli-pressure-calculator",
+      "title": "베르누이 압력 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "venturi-flow-calculator",
+      "title": "벤투리 유량 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "pipe-pressure-loss-calculator",
+      "title": "관 마찰 압력손실 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "poiseuille-flow-calculator",
+      "title": "포아죄유 유량 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "hydraulic-power-calculator",
+      "title": "유압 동력 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "water-hammer-calculator",
+      "title": "수격 압력 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "capillary-rise-calculator",
+      "title": "모세관 상승 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "momentum-collision-calculator",
+      "title": "일차원 충돌 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "impulse-force-calculator",
+      "title": "충격량·평균힘 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "work-angle-calculator",
+      "title": "힘과 변위의 일 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "friction-incline-calculator",
+      "title": "마찰 경사면 가속도 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "banked-curve-calculator",
+      "title": "무마찰 뱅크 곡선 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "conical-pendulum-calculator",
+      "title": "원뿔진자 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "atwood-machine-calculator",
+      "title": "애트우드 장치 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "moment-inertia-shapes-calculator",
+      "title": "기본 물체 관성모멘트 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "angular-momentum-calculator",
+      "title": "각운동량 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "rolling-motion-calculator",
+      "title": "구름 운동 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "flywheel-energy-calculator",
+      "title": "플라이휠 저장에너지 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "gear-ratio-train-calculator",
+      "title": "다단 기어비 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "mechanical-advantage-pulley-calculator",
+      "title": "이상 도르래 힘 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    },
+    {
+      "slug": "centrifugal-rpm-rcf-calculator",
+      "title": "원심가속도·RPM 계산기",
+      "wasPublished": false,
+      "reason": "미배포 학습·이론 도구 초안 제외"
+    }
+  ],
+  "retainedHashes": [
+    {
+      "slug": "fraction-calculator",
+      "file": "tools/fraction-calculator.js",
+      "sha256": "23113745c4a5088519d7d5972dd946094c7b586853f69071c9dd2b9b4c4da827"
+    },
+    {
+      "slug": "average-calculator",
+      "file": "tools/average-calculator.js",
+      "sha256": "b3325dd7c8aa52974b796dd39a805eda993e415551f6ecb5bb076ee02613a9e8"
+    },
+    {
+      "slug": "gpa-calculator",
+      "file": "tools/gpa-calculator.js",
+      "sha256": "59f59a51dc603f50425b06e70a6aa9092103db82ff0b63c9bca29441e7bc3e48"
+    },
+    {
+      "slug": "geometry-calculator",
+      "file": "tools/geometry-calculator.js",
+      "sha256": "a56685314def8828aca85b0d4b029c3f680e021f4410d893154cc3a7b60c2eb5"
+    },
+    {
+      "slug": "speed-distance-time-calculator",
+      "file": "tools/speed-distance-time-calculator.js",
+      "sha256": "396cd17de2b4f0af1a2e536a684e33e8eeed7e00e0a7e2e43dbb2934df8486a2"
+    },
+    {
+      "slug": "ratio-calculator",
+      "file": "tools/ratio-calculator.js",
+      "sha256": "de68117434a81b0180f8767dfdfa80fb84bb840f6d0f81d2d5c9f6a7397e6543"
+    },
+    {
+      "slug": "pythagorean-calculator",
+      "file": "tools/pythagorean-calculator.js",
+      "sha256": "38d939a128b32d1fb4295417d4bfe75017febbbbfe4f64d2444a66c97c6d3cc8"
+    },
+    {
+      "slug": "volume-calculator",
+      "file": "tools/volume-calculator.js",
+      "sha256": "429156c4db6feadb54741abf3bbb646b5fe5246e56af1f67e57936c0ff8c49bd"
+    },
+    {
+      "slug": "decimal-fraction-converter",
+      "file": "tools/decimal-fraction-converter.js",
+      "sha256": "32da21c63468c9b0a4b1a631cf743ea660b2468fb6d895ee46737a3181dd30f8"
+    },
+    {
+      "slug": "statistics-calculator",
+      "file": "tools/statistics-calculator.js",
+      "sha256": "050f200cbd1d0135674f414a469a15ffe3442c0b66beb5988a3829a25eb1aeff"
+    },
+    {
+      "slug": "rounding-calculator",
+      "file": "tools/rounding-calculator.js",
+      "sha256": "be10e0dba5e399352e8d8f33918410e4d4119de0dbe8719dddbae26c5f5ba303"
+    },
+    {
+      "slug": "triangle-calculator",
+      "file": "tools/triangle-calculator.js",
+      "sha256": "0b53ce630d17b6271f3303c0cfb2bf99a724a07201f91ab4f868993643036c79"
+    },
+    {
+      "slug": "surface-area-calculator",
+      "file": "tools/surface-area-calculator.js",
+      "sha256": "2113fe73634d037c1471155163188e4ef35f5d6df2989932e0ef4cf1485710f9"
+    },
+    {
+      "slug": "weighted-average-calculator",
+      "file": "tools/weighted-average-calculator.js",
+      "sha256": "1bad064eb5ded41e7dae3e1011843132ea731ed2fe283e3f83cf97b52266c3e1"
+    },
+    {
+      "slug": "regression-calculator",
+      "file": "tools/regression-calculator.js",
+      "sha256": "287cb442ca04b1139bea23404a7bf4eb51a3f1aae9adc01dd6c171eb4ed4881a"
+    },
+    {
+      "slug": "ohms-law-calculator",
+      "file": "tools/ohms-law-calculator.js",
+      "sha256": "33ff3bec22ba58417c95e9bd93fd4f91cbc842db5e6df1cf2f6cdb6a76e302c8"
+    },
+    {
+      "slug": "electrical-power-calculator",
+      "file": "tools/electrical-power-calculator.js",
+      "sha256": "b9e2a8529ecf7d2822fef68bc755efdc72c92ba9022ce5aa09d03990a5c1252d"
+    },
+    {
+      "slug": "resistor-color-code",
+      "file": "tools/resistor-color-code.js",
+      "sha256": "1a06e1b013a00dce4bbd71bc29597677d46233562846d83e82c3e46905a129a2"
+    },
+    {
+      "slug": "resistor-series-parallel",
+      "file": "tools/resistor-series-parallel.js",
+      "sha256": "911533ac6aa8369110100df970893ab01fb37e48da0c23690def026b870f396b"
+    },
+    {
+      "slug": "led-resistor-calculator",
+      "file": "tools/led-resistor-calculator.js",
+      "sha256": "1423167866dbe0a8812c05f1a91985291ede9c975b4ced32469217470192842f"
+    },
+    {
+      "slug": "frequency-period-converter",
+      "file": "tools/frequency-period-converter.js",
+      "sha256": "c39bd83b4533d4d237e198be09bb9d7b8fa949e1f8e9a06d425d77b3cdbfd5b2"
+    },
+    {
+      "slug": "density-calculator",
+      "file": "tools/density-calculator.js",
+      "sha256": "d9887bb30979f14709b0ecb82f477e4f81004aaa88204266b2733f7c458eb041"
+    },
+    {
+      "slug": "angular-speed-converter",
+      "file": "tools/angular-speed-converter.js",
+      "sha256": "6c559137050b047c22661c19d8f1dda85143c9addc2ec92090ea7538a109f8c6"
+    },
+    {
+      "slug": "flow-rate-calculator",
+      "file": "tools/flow-rate-calculator.js",
+      "sha256": "5aadf23e0fd94b3fb1197bbcf0183d362e89bfe49670e3e73dd1e51c1dfb29c7"
+    },
+    {
+      "slug": "decibel-ratio-calculator",
+      "file": "tools/decibel-ratio-calculator.js",
+      "sha256": "da189f44e94c9315cc1bb07bd530bd40f349f2b596ec8f1f00b2f6a1ef147dcb"
+    },
+    {
+      "slug": "quantile-calculator",
+      "file": "tools/quantile-calculator.js",
+      "sha256": "5058090a851957547679ba237f7c081ffb7d1988cb5f9c6c52646ee185f09280"
+    },
+    {
+      "slug": "iqr-outlier-calculator",
+      "file": "tools/iqr-outlier-calculator.js",
+      "sha256": "103abef363c516e4bfaabce1b8bb201f45117ee34841d0f55d8ffa5726d1ea90"
+    },
+    {
+      "slug": "rank-calculator",
+      "file": "tools/rank-calculator.js",
+      "sha256": "e30f809c9bd0a008110d569a56185da793ffa010d77ffec7ad2393f3d629178d"
+    },
+    {
+      "slug": "frequency-table-calculator",
+      "file": "tools/frequency-table-calculator.js",
+      "sha256": "34a81b7be406d5d6c9032a21d8b97beeb8194c11934d034b3493766642765576"
+    },
+    {
+      "slug": "moving-average-calculator",
+      "file": "tools/moving-average-calculator.js",
+      "sha256": "f41834d03e5df9ce74e2ced7524434f7b04756b87d87daf528f1bb1099bcbab6"
+    },
+    {
+      "slug": "min-max-normalizer",
+      "file": "tools/min-max-normalizer.js",
+      "sha256": "13f8c837756a8f37515dffb65cf60dd0396c4d4c48b23b29425d423ccd4d86ed"
+    },
+    {
+      "slug": "error-metrics-calculator",
+      "file": "tools/error-metrics-calculator.js",
+      "sha256": "7514036ec05ed7d7b0eaf2a4cb492714806a5e0e2a578602755cdaf32f9aef0a"
+    },
+    {
+      "slug": "sample-size-calculator",
+      "file": "tools/sample-size-calculator.js",
+      "sha256": "5737cfd8125a834a383d5fc3a2af402d317143bf316f6eb7cbaa7e20a64ee4f8"
+    },
+    {
+      "slug": "ellipse-calculator",
+      "file": "tools/ellipse-calculator.js",
+      "sha256": "f5d632d1e5eee1a7a28136b78a7f8fda3322f59d4148ed3355c63f5b803afdd7"
+    },
+    {
+      "slug": "regular-polygon-calculator",
+      "file": "tools/regular-polygon-calculator.js",
+      "sha256": "ff52d32e041ef37fb69e16bbc3f29ffa9bbd6f3dd578f2eba9c20c63a3045d95"
+    },
+    {
+      "slug": "cone-frustum-calculator",
+      "file": "tools/cone-frustum-calculator.js",
+      "sha256": "afcc21421effc4732869e035d7a5da4d3daca5b306fce92c93d8c898dc906e50"
+    },
+    {
+      "slug": "belt-speed-calculator",
+      "file": "tools/belt-speed-calculator.js",
+      "sha256": "049a53ec1e10b9b4b8853f926399918d0ab3a85622d41cc4bc15aea8ff92a0f9"
+    },
+    {
+      "slug": "voltage-divider-calculator",
+      "file": "tools/voltage-divider-calculator.js",
+      "sha256": "19803cb2d8bbc9a82cd9b962c550b62d01519d43590115986cff15462e0c5b96"
+    },
+    {
+      "slug": "three-phase-power-calculator",
+      "file": "tools/three-phase-power-calculator.js",
+      "sha256": "37a0782d0d3eefd1802d958c5859416e5ef81be614202dadd243bc8083ff65b2"
+    },
+    {
+      "slug": "thermal-resistance-calculator",
+      "file": "tools/thermal-resistance-calculator.js",
+      "sha256": "952880cb6e913a645a9e7d9ef535656dfc4ea5c64ef47cd4bc13977e0e009c70"
+    }
+  ],
+  "archivedTests": [
+    "verify-math-100.js",
+    "verify-math-expansion.js",
+    "verify-math160.js",
+    "verify-science200.js",
+    "verify-science300.js",
+    "verify-science500.js"
+  ]
+}

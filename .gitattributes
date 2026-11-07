@@ -1,0 +1,2 @@
+# Keep reviewed third-party assets byte-identical across Windows and Cloudflare.
+tools/vendor/** -text

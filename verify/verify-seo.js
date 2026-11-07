@@ -17,6 +17,8 @@ try {
       }
     }
   }
+  // 파일 처리 도구가 참조하는 고정 버전 공개 라이브러리도 복사한다.
+  fs.cpSync(path.join(root, 'tools', 'vendor'), path.join(fixture, 'tools', 'vendor'), { recursive: true });
   // 다운로드 링크로 참조된 로컬 파일도 검사할 수 있게 복사한다.
   for (const dir of ['', 'tools', 'fun']) {
     for (const name of fs.readdirSync(path.join(root, dir))) {

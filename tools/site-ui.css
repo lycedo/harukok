@@ -108,7 +108,7 @@ main .tool-help strong{
 .error,.input-error{color:#A22A1F;font-weight:700;font-size:16px}
 
 /* 입력칸: 테두리가 확실히 보이게 */
-input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=file]),select,textarea{
+input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=file]),main select,main textarea,select,textarea{
   font-family:var(--font-body);font-size:18px;color:var(--ink);min-height:52px;
   border:2px solid var(--field-line);border-radius:var(--radius-sm);background:#fff;padding:10px 14px;
 }
