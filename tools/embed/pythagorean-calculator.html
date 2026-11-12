@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><base target="_top">
+<title>피타고라스 계산기 | 하루콕</title><meta name="description" content="직각삼각형의 두 변으로 빗변 또는 나머지 직각변 길이를 계산하세요. 같은 길이 단위로 입력합니다."><link rel="icon" type="image/png" href="/favicon.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+<link rel="stylesheet" href="/tools/everyday-tools.css?v=20261024-ux"><link rel="stylesheet" href="/tools/tool-controls.css?v=20261025-flow"><script src="/tools/pythagorean-calculator.js?v=20261104" defer></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/tools/site-ui.css?v=20261108-1000"><style>body{display:flow-root;padding:0;background:transparent}</style></head>
+<body><div class="wrap"><main><p class="tool-help"><strong>사용방법</strong> 구할 변을 고르고 두 길이를 넣으세요.</p><noscript><p>자바스크립트를 허용해 주세요.</p></noscript>
+<section class="sheet"><form id="calculator" novalidate><div class="field"><label for="mode">구할 변</label><select id="mode"><option value="hypotenuse">빗변</option><option value="leg">직각변</option></select></div><div class="fields"><div class="field" id="x-field"><label for="x">첫 번째 길이</label><input id="x" type="text" placeholder="예: 3" inputmode="decimal" autocomplete="off"></div><div class="field" id="y-field"><label for="y">두 번째 길이</label><input id="y" type="text" placeholder="예: 4" inputmode="decimal" autocomplete="off"></div></div><p class="hint">길이 0 초과~10억 · 같은 단위 사용</p><button class="primary" type="submit">계산하기</button><p id="error" class="error" role="alert"></p></form><section id="result" class="result" hidden aria-live="polite"><h2>결과</h2><div id="result-value" class="result-value"></div><label for="result-text">복사할 결과</label><textarea id="result-text" rows="4" readonly spellcheck="false"></textarea><button id="copy" class="secondary" type="button">결과 복사하기</button><p id="copy-status" class="hint" role="status"></p></section></section>
+
+<details class="tool-notes"><summary>계산 방법</summary><p>빗변은 √(a²+b²)입니다. 직각변을 구할 때는 첫 칸에 빗변, 둘째 칸에 다른 직각변을 입력합니다. 직각삼각형에만 적용하며 결과는 근삿값입니다.</p></details>
+</main></div></body></html>

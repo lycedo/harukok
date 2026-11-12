@@ -4,3 +4,7 @@
 
 /index.html
   Cache-Control: no-store, max-age=0, must-revalidate
+
+# 통합 도구가 끼워 넣는 조각 문서는 검색 결과에 올리지 않는다.
+/tools/embed/*
+  X-Robots-Tag: noindex

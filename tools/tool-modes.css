@@ -1,0 +1,9 @@
+/* 통합 도구의 기능 선택 영역. 색·글꼴은 site-ui.css 토큰만 쓴다. */
+.tool-modes{margin:0 0 18px}
+.tool-modes-title,.tool-modes label{display:block;margin:0 0 8px;font-size:17px;font-weight:700;color:var(--ink)}
+.tool-modes .mode-buttons{display:flex;flex-wrap:wrap;gap:8px}
+.tool-modes .mode-buttons button{flex:0 1 auto;width:auto;padding:8px 14px;text-align:left}
+.tool-modes select{width:100%}
+.tool-mode-frame{display:block;width:100%;height:360px;border:0;margin:0 0 8px;background:transparent}
+.tool-mode-frame[hidden]{display:none}
+.mode-off{display:none!important}

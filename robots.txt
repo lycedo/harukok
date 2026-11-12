@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /tools/embed/
 
 Sitemap: https://harukok.com/sitemap.xml

@@ -7,10 +7,10 @@
 <meta property="og:title" content="파일 용량 단위 변환기 - 바이트·KB·MB·GB·KiB 환산 | 하루콕"><meta property="og:description" content="파일 용량의 1,000배 단위와 1,024배 단위를 구분해 변환하고 복사하세요."><meta property="og:type" content="website"><meta property="og:site_name" content="하루콕"><meta property="og:url" content="https://harukok.com/tools/file-size-converter"><meta property="og:image" content="https://harukok.com/og-image.png">
 <link rel="stylesheet" href="/tools/everyday-tools.css?v=20261024-ux"><link rel="stylesheet" href="/tools/tool-controls.css?v=20261025-flow"><script src="/tools/file-size-converter.js?v=20261104-simple" defer></script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"파일 용량 단위 변환기","url":"https://harukok.com/tools/file-size-converter","description":"바이트와 십진·이진 파일 용량 단위를 구분해 변환하는 도구입니다.","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","inLanguage":"ko","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"}}</script>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/tools/site-ui.css?v=20261108-1000">
-</head><body><div class="wrap">
+<link rel="stylesheet" href="/tools/tool-modes.css?v=20261110-modes"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/tools/site-ui.css?v=20261108-1000">
+<script src="/tools/tool-modes.js?v=20261110-modes" defer></script></head><body><div class="wrap">
 <nav class="site-nav" aria-label="주요 메뉴"><a class="site-nav-brand" href="/">하루<span>콕</span></a><div class="site-nav-links"><a href="/#all-tools">전체 도구</a></div></nav>
-<main><h1>파일 용량 단위 변환기</h1>
+<main><h1>파일 용량 단위 변환기</h1><div id="tool-modes" class="tool-modes" role="group" aria-label="기능 선택"><p class="tool-modes-title">기능 선택</p><div class="mode-buttons"><button type="button" data-mode="file-size-converter" aria-pressed="true">파일 용량 단위 변환기</button><button type="button" data-mode="download-time-calculator" aria-pressed="false">다운로드 시간 계산기</button></div></div><iframe id="tool-mode-frame" class="tool-mode-frame" title="선택한 기능" hidden></iframe>
 <p class="tool-help"><strong>사용방법</strong> 용량과 단위를 고르고 ‘용량 변환하기’를 누르세요.</p>
 <noscript><p>계산하려면 자바스크립트를 허용해 주세요.</p></noscript>
 <section class="sheet" aria-label="파일 용량 변환"><form id="size-form" novalidate>
@@ -25,5 +25,5 @@
 <details><summary>1MB와 1MiB 환산 예시</summary><p>1MB는 1,000,000바이트이고, 1MiB는 1,048,576바이트입니다. 1GiB를 입력하면 1,073,741,824바이트, 1,024MiB, 약 1.073742GB가 나옵니다. 단위 이름만 바뀌는 것이 아니라 나누는 기준도 바뀝니다.</p></details>
 <details><summary>제출 사이트의 용량 제한과 비교하려면?</summary><p>제출처가 정한 KB·MB의 바이트 기준을 먼저 확인하세요. 프로그램에 따라 표시 이름과 실제 환산 기준이 다를 수 있으므로, 가능하면 파일의 실제 바이트 수를 B로 넣어 비교하세요. 이 도구는 파일 자체의 용량을 줄이지 않습니다.</p></details>
 <details><summary>인터넷 속도의 Mbps도 계산하나요?</summary><p>아니요. 여기서는 파일 크기인 바이트 단위만 변환합니다. 비트와 바이트는 다르며, 전송 속도나 다운로드 시간은 계산하지 않습니다. 입력값은 서버로 전송하거나 저장하지 않습니다.</p></details></section></details>
-<nav class="related" aria-label="함께 쓰는 도구"><a href="/tools/binary-split-file">큰 파일 나누기</a><a href="/tools/gzip-compress-file">GZIP 압축하기</a></nav>
+<nav class="related" aria-label="함께 쓰는 도구"><a href="/tools/zip-create-files">ZIP 압축·풀기</a></nav>
 </main><footer><a href="/about">소개</a> · <a href="/privacy">개인정보처리방침</a> · <a href="mailto:contact@harukok.com">의견 보내기</a><p>© 2026 하루콕</p></footer></div></body></html>

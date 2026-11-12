@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><base target="_top"><title>SRT 자막 시간 이동기 | 하루콕</title><meta name="description" content="SRT 자막의 시작·끝 시간을 밀리초 단위로 앞뒤로 옮기세요. 자막 내용과 줄바꿈을 유지합니다."><link rel="icon" type="image/png" href="/favicon.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+<link rel="stylesheet" href="/tools/everyday-tools.css?v=20261024-ux"><link rel="stylesheet" href="/tools/tool-controls.css?v=20261025-flow"><script src="/tools/srt-time-shifter.js?v=20261105-500" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/tools/site-ui.css?v=20261108-1000"><style>body{display:flow-root;padding:0;background:transparent}</style></head>
+<body><div class="wrap"><main><p class="tool-help"><strong>사용방법</strong> 입력 후 실행하세요.</p><noscript><p>자바스크립트를 허용해 주세요.</p></noscript>
+<section class="sheet"><form id="calculator" novalidate><div class="field"><label for="source">SRT 자막</label><textarea id="source" rows="5" maxlength="100000" placeholder="1
+00:00:01,000 --&gt; 00:00:03,000
+안녕하세요.
+
+2
+00:00:04,000 --&gt; 00:00:05,500
+하루콕입니다." spellcheck="false"></textarea></div><div class="field"><label for="shift">이동 밀리초 · 음수는 앞으로</label><input id="shift" type="text" maxlength="1000" placeholder="500" autocomplete="off"></div><p class="hint">표준 SRT만 지원. 최대 1,000개 자막. 이동 후 음수 시간은 허용하지 않습니다.</p><button class="primary" type="submit">실행하기</button><p id="error" class="error" role="alert"></p></form><section id="result" class="result" hidden aria-live="polite"><h2>결과</h2><div id="result-value" class="result-value"></div><label for="result-text">복사할 결과</label><textarea id="result-text" rows="5" class="code-output" wrap="off" readonly spellcheck="false"></textarea><button id="copy" class="secondary" type="button">결과 복사하기</button><p id="copy-status" class="hint" role="status"></p></section></section>
+
+<details class="tool-notes"><summary>참고</summary><p>SRT 자막의 시작·끝 시간을 밀리초 단위로 앞뒤로 옮기세요. 자막 내용과 줄바꿈을 유지합니다.</p></details>
+</main></div></body></html>

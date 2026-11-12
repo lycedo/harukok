@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><base target="_top"><title>텍스트 표 정렬 | 하루콕</title><meta name="description" content="탭 구분 표를 간격이 맞는 고정폭 텍스트 표로 바꾸세요. 완성형 한글과 CJK 글자 폭을 고려해 좌우·가운데 정렬합니다."><link rel="icon" type="image/png" href="/favicon.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+<link rel="stylesheet" href="/tools/everyday-tools.css?v=20261024-ux"><link rel="stylesheet" href="/tools/tool-controls.css?v=20261025-flow"><script src="/tools/text-table-aligner.js?v=20261108-1000" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/tools/site-ui.css?v=20261108-1000"><style>body{display:flow-root;padding:0;background:transparent}</style></head>
+<body><div class="wrap"><main><p class="tool-help"><strong>사용방법</strong> 탭으로 구분한 표를 붙여넣으세요.</p><noscript><p>자바스크립트를 허용해 주세요.</p></noscript>
+<section class="sheet"><form id="calculator" novalidate><div class="field"><label for="source">탭으로 구분한 표</label><textarea id="source" rows="5" maxlength="100000" placeholder="이름	점수
+하루	90
+콕	100" spellcheck="false"></textarea></div><div class="field"><label for="align">셀 정렬</label><select id="align"><option value="left">왼쪽</option><option value="right">오른쪽</option><option value="center">가운데</option></select></div><div class="field"><label for="header">첫 행 구분선</label><select id="header"><option value="yes">표시</option><option value="no">표시하지 않기</option></select></div><p class="hint">200행·30열 · 고정폭 글꼴 기준</p><button class="primary" type="submit">정렬하기</button><p id="error" class="error" role="alert"></p></form><section id="result" class="result" hidden aria-live="polite"><h2>결과</h2><div id="result-value" class="result-value"></div><label for="result-text">복사할 결과</label><textarea id="result-text" rows="5" class="code-output" wrap="off" readonly spellcheck="false"></textarea><button id="copy" class="secondary" type="button">결과 복사하기</button><p id="copy-status" class="hint" role="status"></p></section></section>
+
+<details class="tool-notes"><summary>참고</summary><p>완성형 한글·CJK·일반 이모지는 폭 2, 기본 라틴 문자는 1, 결합 기호는 0으로 가정합니다. 폰트·복합 이모지·모호한 문자 폭에 따라 실제 정렬은 달라질 수 있습니다.</p></details>
+</main></div></body></html>

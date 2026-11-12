@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><base target="_top">
+<title>텍스트 일괄 바꾸기 | 하루콕</title><meta name="description" content="찾을 글을 문자 그대로 검색해 한 번에 바꾸세요. 대소문자 구분과 빈 글자로 삭제를 선택하고 치환 횟수와 결과를 복사합니다."><link rel="icon" type="image/png" href="/favicon.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+<link rel="stylesheet" href="/tools/everyday-tools.css?v=20261024-ux"><link rel="stylesheet" href="/tools/tool-controls.css?v=20261025-flow"><script src="/tools/text-replacer.js?v=20261104" defer></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/tools/site-ui.css?v=20261108-1000">
+<style>body{display:flow-root;padding:0;background:transparent}</style></head><body><div class="wrap">
+<main><p class="tool-help"><strong>사용방법</strong> 원문과 찾을 글·바꿀 글을 넣으세요.</p><noscript><p>자바스크립트를 허용해 주세요.</p></noscript>
+<section class="sheet"><form id="converter" novalidate><div class="field"><label for="source">입력할 글</label><textarea id="source" rows="6" placeholder="하루콕에서 하루를 시작해요." spellcheck="false"></textarea></div><div class="field"><label for="search">찾을 글</label><textarea id="search" rows="2" placeholder="하루" spellcheck="false"></textarea></div><div class="field"><label for="replacement">바꿀 글 (비우면 삭제)</label><textarea id="replacement" rows="2" placeholder="오늘" spellcheck="false"></textarea></div><label class="check"><input id="case-sensitive" type="checkbox" checked>대소문자 구분</label><p class="hint">원문 200,000자 · 찾을 글 2,000자 · 정규식 미사용</p><button class="primary" id="run" type="submit">바꾸기</button><p id="error" class="error" role="alert"></p></form>
+<section id="result" class="result" hidden aria-live="polite"><h2>결과</h2><p id="summary" role="status"></p><label for="output">복사할 결과</label><textarea id="output" rows="6" readonly spellcheck="false"></textarea><div class="actions"><button class="secondary" id="copy" type="button">결과 복사</button></div><p id="copy-status" class="hint" role="status"></p></section></section>
+
+<details class="tool-notes"><summary>도움말</summary><p>정규식 기호와 $&amp; 같은 치환 기호도 문자 그대로 처리합니다. 겹치는 일치는 한 번만 바꾸며 원문 입력칸은 유지합니다. 결과가 2,000,000자를 넘으면 나누어 처리하세요.</p><p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace" target="_blank" rel="noopener noreferrer">변환 기준</a></p></details>
+</main></div></body></html>

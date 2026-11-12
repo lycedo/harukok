@@ -1,0 +1,4680 @@
+{
+ "recordedAt": "2026-11-12",
+ "baselineCommit": "3f4b41519f610468a37a5ee52111c9ef792af386",
+ "reason": "검색 수요가 없는 도구 정리와 같은 종류 도구 통합(사용자 승인 목록: internal/tool-triage-2026-11-10.md)",
+ "kept": [
+  "percent-calculator",
+  "date-calculator",
+  "business-day-calculator",
+  "time-duration-calculator",
+  "file-size-converter",
+  "age-calculator",
+  "area-calculator",
+  "unit-converter",
+  "recipe-scale-calculator",
+  "time-zone-converter",
+  "character-counter",
+  "text-line-cleaner",
+  "text-diff",
+  "json-formatter",
+  "url-encoder",
+  "base64-converter",
+  "csv-json-converter",
+  "unix-time-converter",
+  "uuid-generator",
+  "regex-tester",
+  "number-base-converter",
+  "password-generator",
+  "html-entity-converter",
+  "unicode-converter",
+  "hash-generator",
+  "text-case-converter",
+  "markdown-table-generator",
+  "jwt-decoder",
+  "fraction-calculator",
+  "average-calculator",
+  "gpa-calculator",
+  "geometry-calculator",
+  "speed-distance-time-calculator",
+  "ratio-calculator",
+  "salary-calculator",
+  "hourly-wage-calculator",
+  "work-time-calculator",
+  "weekly-holiday-pay-calculator",
+  "year-end-tax-calculator",
+  "severance-pay-calculator",
+  "unemployment-benefit-calculator",
+  "annual-leave-pay-calculator",
+  "image-resizer",
+  "background-remover",
+  "image-cropper",
+  "image-rotate-flip",
+  "image-merger",
+  "image-watermark",
+  "image-mosaic",
+  "aspect-ratio-calculator",
+  "image-color-picker",
+  "image-grid-splitter",
+  "image-filter",
+  "favicon-generator",
+  "lotto-generator",
+  "certificate-maker",
+  "food-picker",
+  "random-picker",
+  "random-number-generator",
+  "team-generator",
+  "fortune-today",
+  "name-compatibility",
+  "watch-picker",
+  "parental-leave-calculator",
+  "baby-name-generator",
+  "due-date-calculator",
+  "paint-color-mixer",
+  "paint-mixer-simulator",
+  "color-converter",
+  "paper-size-calculator",
+  "coupon-maker",
+  "box-shadow-generator",
+  "color-palette-generator",
+  "pet-age-calculator",
+  "pet-food-calculator",
+  "pet-name-generator",
+  "cron-expression-builder",
+  "morse-code-converter",
+  "pace-calculator",
+  "countdown-timer",
+  "stopwatch",
+  "fuel-consumption-calculator",
+  "unit-price-calculator",
+  "split-bill-calculator",
+  "shipping-volume-calculator",
+  "electricity-cost-calculator",
+  "video-storage-calculator",
+  "tile-calculator",
+  "ohms-law-calculator",
+  "email-extractor",
+  "sql-values-generator",
+  "chord-transposer",
+  "tone-generator",
+  "bpm-tapper",
+  "rotation-schedule-generator",
+  "dilution-calculator",
+  "ramp-slope-calculator",
+  "ipv4-subnet-calculator",
+  "korean-number-reader",
+  "loan-payment-calculator",
+  "compound-interest-calculator",
+  "inflation-calculator",
+  "roi-calculator",
+  "average-purchase-price-calculator",
+  "margin-markup-calculator",
+  "vat-calculator",
+  "calendar-month-calculator",
+  "book-spine-calculator",
+  "csv-column-selector",
+  "hangul-jamo-converter",
+  "korean-keyboard-converter",
+  "html-meta-generator",
+  "http-status-lookup",
+  "lease-deposit-converter",
+  "ad-roas-calculator",
+  "knitting-gauge-calculator",
+  "bakers-percentage-calculator",
+  "depth-of-field-calculator",
+  "xml-formatter",
+  "unix-permission-converter",
+  "lorem-ipsum-generator",
+  "round-robin-schedule-generator",
+  "shipping-address-labels",
+  "commercial-document-builder",
+  "resume-document-builder",
+  "organization-chart-builder",
+  "contact-vcard-converter",
+  "email-signature-builder",
+  "name-badge-card-builder",
+  "html-plain-text-extractor",
+  "markdown-html-converter",
+  "subtitle-srt-vtt-converter",
+  "teleprompter-script",
+  "announcement-poster-document",
+  "table-svg-chart-builder",
+  "printable-writing-paper",
+  "queue-number-tickets",
+  "attendance-signature-sheet",
+  "pdf-merge-files",
+  "pdf-split-ranges",
+  "pdf-add-page-numbers",
+  "pdf-crop-pages",
+  "pdf-document-info",
+  "pdf-extract-selectable-text",
+  "pdf-pages-to-png",
+  "zip-create-files",
+  "text-file-encoding-converter",
+  "docx-extract-text-file",
+  "csv-file-to-xlsx",
+  "image-metadata-stripper",
+  "images-to-pdf-file",
+  "image-perspective-fix",
+  "images-to-gif",
+  "audio-file-trimmer",
+  "qr-code-generator"
+ ],
+ "merged": [
+  {
+   "slug": "query-string-parser",
+   "into": "url-encoder"
+  },
+  {
+   "slug": "word-frequency-counter",
+   "into": "character-counter"
+  },
+  {
+   "slug": "text-sorter",
+   "into": "text-line-cleaner"
+  },
+  {
+   "slug": "text-replacer",
+   "into": "text-line-cleaner"
+  },
+  {
+   "slug": "pythagorean-calculator",
+   "into": "geometry-calculator"
+  },
+  {
+   "slug": "volume-calculator",
+   "into": "geometry-calculator"
+  },
+  {
+   "slug": "decimal-fraction-converter",
+   "into": "fraction-calculator"
+  },
+  {
+   "slug": "statistics-calculator",
+   "into": "average-calculator"
+  },
+  {
+   "slug": "image-rounded-corners",
+   "into": "image-cropper"
+  },
+  {
+   "slug": "image-border",
+   "into": "image-cropper"
+  },
+  {
+   "slug": "image-to-base64",
+   "into": "base64-converter"
+  },
+  {
+   "slug": "svg-to-png",
+   "into": "favicon-generator"
+  },
+  {
+   "slug": "mixing-amount-calculator",
+   "into": "paint-color-mixer"
+  },
+  {
+   "slug": "color-contrast-checker",
+   "into": "color-converter"
+  },
+  {
+   "slug": "gradient-generator",
+   "into": "box-shadow-generator"
+  },
+  {
+   "slug": "screen-ppi-calculator",
+   "into": "aspect-ratio-calculator"
+  },
+  {
+   "slug": "border-radius-generator",
+   "into": "box-shadow-generator"
+  },
+  {
+   "slug": "triangle-calculator",
+   "into": "geometry-calculator"
+  },
+  {
+   "slug": "surface-area-calculator",
+   "into": "geometry-calculator"
+  },
+  {
+   "slug": "weighted-average-calculator",
+   "into": "average-calculator"
+  },
+  {
+   "slug": "json-path-extractor",
+   "into": "json-formatter"
+  },
+  {
+   "slug": "json-flattener",
+   "into": "json-formatter"
+  },
+  {
+   "slug": "json-diff",
+   "into": "json-formatter"
+  },
+  {
+   "slug": "json-to-typescript",
+   "into": "csv-json-converter"
+  },
+  {
+   "slug": "ini-json-converter",
+   "into": "csv-json-converter"
+  },
+  {
+   "slug": "json-string-escape",
+   "into": "json-formatter"
+  },
+  {
+   "slug": "text-list-comparison",
+   "into": "text-diff"
+  },
+  {
+   "slug": "text-column-extractor",
+   "into": "csv-column-selector"
+  },
+  {
+   "slug": "text-prefix-suffix",
+   "into": "text-line-cleaner"
+  },
+  {
+   "slug": "text-numbering",
+   "into": "text-line-cleaner"
+  },
+  {
+   "slug": "text-chunk-splitter",
+   "into": "text-line-cleaner"
+  },
+  {
+   "slug": "text-transpose",
+   "into": "csv-column-selector"
+  },
+  {
+   "slug": "utf8-hex-converter",
+   "into": "unicode-converter"
+  },
+  {
+   "slug": "url-builder",
+   "into": "url-encoder"
+  },
+  {
+   "slug": "regex-escape-generator",
+   "into": "regex-tester"
+  },
+  {
+   "slug": "css-clamp-generator",
+   "into": "box-shadow-generator"
+  },
+  {
+   "slug": "css-grid-generator",
+   "into": "box-shadow-generator"
+  },
+  {
+   "slug": "css-flex-generator",
+   "into": "box-shadow-generator"
+  },
+  {
+   "slug": "decimal-hour-converter",
+   "into": "time-duration-calculator"
+  },
+  {
+   "slug": "reading-time-calculator",
+   "into": "character-counter"
+  },
+  {
+   "slug": "week-number-calculator",
+   "into": "date-calculator"
+  },
+  {
+   "slug": "download-time-calculator",
+   "into": "file-size-converter"
+  },
+  {
+   "slug": "wallpaper-calculator",
+   "into": "tile-calculator"
+  },
+  {
+   "slug": "electrical-power-calculator",
+   "into": "ohms-law-calculator"
+  },
+  {
+   "slug": "resistor-color-code",
+   "into": "ohms-law-calculator"
+  },
+  {
+   "slug": "resistor-series-parallel",
+   "into": "ohms-law-calculator"
+  },
+  {
+   "slug": "led-resistor-calculator",
+   "into": "ohms-law-calculator"
+  },
+  {
+   "slug": "data-uri-parser",
+   "into": "base64-converter"
+  },
+  {
+   "slug": "json-lines-converter",
+   "into": "csv-json-converter"
+  },
+  {
+   "slug": "json-schema-generator",
+   "into": "csv-json-converter"
+  },
+  {
+   "slug": "url-extractor",
+   "into": "email-extractor"
+  },
+  {
+   "slug": "text-between-extractor",
+   "into": "email-extractor"
+  },
+  {
+   "slug": "text-table-aligner",
+   "into": "markdown-table-generator"
+  },
+  {
+   "slug": "sql-in-clause-generator",
+   "into": "sql-values-generator"
+  },
+  {
+   "slug": "markdown-link-generator",
+   "into": "markdown-html-converter"
+  },
+  {
+   "slug": "html-table-generator",
+   "into": "markdown-table-generator"
+  },
+  {
+   "slug": "bpm-delay-calculator",
+   "into": "bpm-tapper"
+  },
+  {
+   "slug": "note-frequency-calculator",
+   "into": "tone-generator"
+  },
+  {
+   "slug": "date-list-generator",
+   "into": "date-calculator"
+  },
+  {
+   "slug": "expense-settlement-calculator",
+   "into": "split-bill-calculator"
+  },
+  {
+   "slug": "paint-coverage-calculator",
+   "into": "tile-calculator"
+  },
+  {
+   "slug": "ipv6-expander",
+   "into": "ipv4-subnet-calculator"
+  },
+  {
+   "slug": "cidr-range-calculator",
+   "into": "ipv4-subnet-calculator"
+  },
+  {
+   "slug": "uuid-inspector",
+   "into": "uuid-generator"
+  },
+  {
+   "slug": "ulid-generator",
+   "into": "uuid-generator"
+  },
+  {
+   "slug": "random-id-generator",
+   "into": "uuid-generator"
+  },
+  {
+   "slug": "bitwise-calculator",
+   "into": "number-base-converter"
+  },
+  {
+   "slug": "twos-complement-converter",
+   "into": "number-base-converter"
+  },
+  {
+   "slug": "crc32-calculator",
+   "into": "hash-generator"
+  },
+  {
+   "slug": "text-wrapper",
+   "into": "text-line-cleaner"
+  },
+  {
+   "slug": "text-indent-cleaner",
+   "into": "text-line-cleaner"
+  },
+  {
+   "slug": "tab-space-converter",
+   "into": "text-line-cleaner"
+  },
+  {
+   "slug": "fullwidth-halfwidth-converter",
+   "into": "unicode-converter"
+  },
+  {
+   "slug": "roman-numeral-converter",
+   "into": "korean-number-reader"
+  },
+  {
+   "slug": "number-to-english-words",
+   "into": "korean-number-reader"
+  },
+  {
+   "slug": "ngram-counter",
+   "into": "character-counter"
+  },
+  {
+   "slug": "sitemap-generator",
+   "into": "html-meta-generator"
+  },
+  {
+   "slug": "robots-txt-generator",
+   "into": "html-meta-generator"
+  },
+  {
+   "slug": "loan-comparison-calculator",
+   "into": "loan-payment-calculator"
+  },
+  {
+   "slug": "savings-goal-calculator",
+   "into": "compound-interest-calculator"
+  },
+  {
+   "slug": "recurring-savings-calculator",
+   "into": "compound-interest-calculator"
+  },
+  {
+   "slug": "effective-interest-calculator",
+   "into": "compound-interest-calculator"
+  },
+  {
+   "slug": "cagr-calculator",
+   "into": "roi-calculator"
+  },
+  {
+   "slug": "dividend-calculator",
+   "into": "roi-calculator"
+  },
+  {
+   "slug": "break-even-calculator",
+   "into": "margin-markup-calculator"
+  },
+  {
+   "slug": "business-day-duration-calculator",
+   "into": "time-duration-calculator"
+  },
+  {
+   "slug": "month-end-calculator",
+   "into": "date-calculator"
+  },
+  {
+   "slug": "date-overlap-calculator",
+   "into": "date-calculator"
+  },
+  {
+   "slug": "time-overlap-calculator",
+   "into": "time-zone-converter"
+  },
+  {
+   "slug": "timezone-overlap-calculator",
+   "into": "time-zone-converter"
+  },
+  {
+   "slug": "scale-generator",
+   "into": "chord-transposer"
+  },
+  {
+   "slug": "circle-of-fifths-generator",
+   "into": "chord-transposer"
+  },
+  {
+   "slug": "time-signature-calculator",
+   "into": "bpm-tapper"
+  },
+  {
+   "slug": "audio-storage-calculator",
+   "into": "video-storage-calculator"
+  },
+  {
+   "slug": "pixel-aspect-ratio-calculator",
+   "into": "aspect-ratio-calculator"
+  },
+  {
+   "slug": "print-sheet-layout-calculator",
+   "into": "book-spine-calculator"
+  },
+  {
+   "slug": "yarn-length-calculator",
+   "into": "knitting-gauge-calculator"
+  },
+  {
+   "slug": "wall-area-calculator",
+   "into": "tile-calculator"
+  },
+  {
+   "slug": "quantile-calculator",
+   "into": "average-calculator"
+  },
+  {
+   "slug": "ellipse-calculator",
+   "into": "geometry-calculator"
+  },
+  {
+   "slug": "regular-polygon-calculator",
+   "into": "geometry-calculator"
+  },
+  {
+   "slug": "cone-frustum-calculator",
+   "into": "geometry-calculator"
+  },
+  {
+   "slug": "voltage-divider-calculator",
+   "into": "ohms-law-calculator"
+  },
+  {
+   "slug": "csv-delimiter-converter",
+   "into": "csv-column-selector"
+  },
+  {
+   "slug": "csv-row-filter",
+   "into": "csv-column-selector"
+  },
+  {
+   "slug": "csv-sorter",
+   "into": "csv-column-selector"
+  },
+  {
+   "slug": "csv-deduplicator",
+   "into": "csv-column-selector"
+  },
+  {
+   "slug": "csv-joiner",
+   "into": "csv-column-selector"
+  },
+  {
+   "slug": "csv-group-sum",
+   "into": "csv-column-selector"
+  },
+  {
+   "slug": "csv-pivot-table",
+   "into": "csv-column-selector"
+  },
+  {
+   "slug": "csv-cell-trimmer",
+   "into": "csv-column-selector"
+  },
+  {
+   "slug": "csv-formula-guard",
+   "into": "csv-column-selector"
+  },
+  {
+   "slug": "json-key-sorter",
+   "into": "json-formatter"
+  },
+  {
+   "slug": "json-depth-analyzer",
+   "into": "json-formatter"
+  },
+  {
+   "slug": "unicode-normalizer",
+   "into": "unicode-converter"
+  },
+  {
+   "slug": "invisible-character-inspector",
+   "into": "unicode-converter"
+  },
+  {
+   "slug": "srt-time-shifter",
+   "into": "subtitle-srt-vtt-converter"
+  },
+  {
+   "slug": "character-frequency-counter",
+   "into": "character-counter"
+  },
+  {
+   "slug": "text-column-padding",
+   "into": "text-line-cleaner"
+  },
+  {
+   "slug": "text-substitution-mapper",
+   "into": "text-line-cleaner"
+  },
+  {
+   "slug": "css-unit-converter",
+   "into": "box-shadow-generator"
+  },
+  {
+   "slug": "css-transform-generator",
+   "into": "box-shadow-generator"
+  },
+  {
+   "slug": "css-animation-generator",
+   "into": "box-shadow-generator"
+  },
+  {
+   "slug": "css-triangle-generator",
+   "into": "box-shadow-generator"
+  },
+  {
+   "slug": "css-text-shadow-generator",
+   "into": "box-shadow-generator"
+  },
+  {
+   "slug": "css-filter-generator",
+   "into": "box-shadow-generator"
+  },
+  {
+   "slug": "web-app-manifest-generator",
+   "into": "html-meta-generator"
+  },
+  {
+   "slug": "regex-alternation-builder",
+   "into": "regex-tester"
+  },
+  {
+   "slug": "iso-duration-converter",
+   "into": "unix-time-converter"
+  },
+  {
+   "slug": "adler32-calculator",
+   "into": "hash-generator"
+  },
+  {
+   "slug": "url-normalizer",
+   "into": "url-encoder"
+  },
+  {
+   "slug": "ipv6-subnet-calculator",
+   "into": "ipv4-subnet-calculator"
+  },
+  {
+   "slug": "ipv4-integer-converter",
+   "into": "ipv4-subnet-calculator"
+  },
+  {
+   "slug": "mime-type-lookup",
+   "into": "http-status-lookup"
+  },
+  {
+   "slug": "early-loan-repayment-calculator",
+   "into": "loan-payment-calculator"
+  },
+  {
+   "slug": "debt-payoff-calculator",
+   "into": "loan-payment-calculator"
+  },
+  {
+   "slug": "rent-yield-calculator",
+   "into": "lease-deposit-converter"
+  },
+  {
+   "slug": "sales-commission-calculator",
+   "into": "margin-markup-calculator"
+  },
+  {
+   "slug": "target-selling-price-calculator",
+   "into": "margin-markup-calculator"
+  },
+  {
+   "slug": "ad-metrics-calculator",
+   "into": "ad-roas-calculator"
+  },
+  {
+   "slug": "portfolio-return-calculator",
+   "into": "roi-calculator"
+  },
+  {
+   "slug": "concrete-volume-calculator",
+   "into": "tile-calculator"
+  },
+  {
+   "slug": "soil-gravel-calculator",
+   "into": "tile-calculator"
+  },
+  {
+   "slug": "turf-roll-calculator",
+   "into": "tile-calculator"
+  },
+  {
+   "slug": "brick-quantity-calculator",
+   "into": "tile-calculator"
+  },
+  {
+   "slug": "grout-quantity-calculator",
+   "into": "tile-calculator"
+  },
+  {
+   "slug": "deck-board-calculator",
+   "into": "tile-calculator"
+  },
+  {
+   "slug": "dough-hydration-calculator",
+   "into": "bakers-percentage-calculator"
+  },
+  {
+   "slug": "baking-pan-converter",
+   "into": "bakers-percentage-calculator"
+  },
+  {
+   "slug": "brine-salinity-calculator",
+   "into": "dilution-calculator"
+  },
+  {
+   "slug": "exposure-value-calculator",
+   "into": "depth-of-field-calculator"
+  },
+  {
+   "slug": "nd-filter-calculator",
+   "into": "depth-of-field-calculator"
+  },
+  {
+   "slug": "exposure-equivalence-calculator",
+   "into": "depth-of-field-calculator"
+  },
+  {
+   "slug": "field-of-view-calculator",
+   "into": "depth-of-field-calculator"
+  },
+  {
+   "slug": "crop-factor-calculator",
+   "into": "depth-of-field-calculator"
+  },
+  {
+   "slug": "timelapse-calculator",
+   "into": "depth-of-field-calculator"
+  },
+  {
+   "slug": "print-bleed-calculator",
+   "into": "book-spine-calculator"
+  },
+  {
+   "slug": "chord-tone-generator",
+   "into": "chord-transposer"
+  },
+  {
+   "slug": "key-signature-calculator",
+   "into": "chord-transposer"
+  },
+  {
+   "slug": "csv-schema-profiler",
+   "into": "csv-column-selector"
+  },
+  {
+   "slug": "csv-column-renamer",
+   "into": "csv-column-selector"
+  },
+  {
+   "slug": "csv-row-numberer",
+   "into": "csv-column-selector"
+  },
+  {
+   "slug": "csv-unpivot",
+   "into": "csv-column-selector"
+  },
+  {
+   "slug": "csv-column-frequency",
+   "into": "csv-column-selector"
+  },
+  {
+   "slug": "csv-null-filler",
+   "into": "csv-column-selector"
+  },
+  {
+   "slug": "csv-cross-tab-count",
+   "into": "csv-column-selector"
+  },
+  {
+   "slug": "csv-to-sql-update",
+   "into": "sql-values-generator"
+  },
+  {
+   "slug": "csv-row-range",
+   "into": "csv-column-selector"
+  },
+  {
+   "slug": "csv-split-column",
+   "into": "csv-column-selector"
+  },
+  {
+   "slug": "csv-merge-columns",
+   "into": "csv-column-selector"
+  },
+  {
+   "slug": "csv-column-calculator",
+   "into": "csv-column-selector"
+  },
+  {
+   "slug": "csv-running-total",
+   "into": "csv-column-selector"
+  },
+  {
+   "slug": "csv-cell-case-converter",
+   "into": "csv-column-selector"
+  },
+  {
+   "slug": "csv-anti-join",
+   "into": "csv-column-selector"
+  },
+  {
+   "slug": "json-prune-empty",
+   "into": "json-formatter"
+  },
+  {
+   "slug": "json-to-env",
+   "into": "csv-json-converter"
+  },
+  {
+   "slug": "json-leaf-value-search",
+   "into": "json-formatter"
+  },
+  {
+   "slug": "json-structural-skeleton",
+   "into": "json-formatter"
+  },
+  {
+   "slug": "xml-json-converter",
+   "into": "csv-json-converter"
+  },
+  {
+   "slug": "json-xml-builder",
+   "into": "csv-json-converter"
+  },
+  {
+   "slug": "breadcrumb-jsonld-generator",
+   "into": "html-meta-generator"
+  },
+  {
+   "slug": "faq-jsonld-generator",
+   "into": "html-meta-generator"
+  },
+  {
+   "slug": "organization-jsonld-generator",
+   "into": "html-meta-generator"
+  },
+  {
+   "slug": "article-jsonld-generator",
+   "into": "html-meta-generator"
+  },
+  {
+   "slug": "event-jsonld-generator",
+   "into": "html-meta-generator"
+  },
+  {
+   "slug": "product-jsonld-generator",
+   "into": "html-meta-generator"
+  },
+  {
+   "slug": "video-jsonld-generator",
+   "into": "html-meta-generator"
+  },
+  {
+   "slug": "local-business-jsonld-generator",
+   "into": "html-meta-generator"
+  },
+  {
+   "slug": "css-aspect-ratio-generator",
+   "into": "box-shadow-generator"
+  },
+  {
+   "slug": "css-object-fit-generator",
+   "into": "box-shadow-generator"
+  },
+  {
+   "slug": "css-columns-generator",
+   "into": "box-shadow-generator"
+  },
+  {
+   "slug": "css-scroll-snap-generator",
+   "into": "box-shadow-generator"
+  },
+  {
+   "slug": "css-sticky-header-generator",
+   "into": "box-shadow-generator"
+  },
+  {
+   "slug": "css-custom-property-generator",
+   "into": "box-shadow-generator"
+  },
+  {
+   "slug": "css-cubic-bezier-evaluator",
+   "into": "box-shadow-generator"
+  },
+  {
+   "slug": "css-transform-origin-generator",
+   "into": "box-shadow-generator"
+  },
+  {
+   "slug": "css-outline-generator",
+   "into": "box-shadow-generator"
+  },
+  {
+   "slug": "css-border-generator",
+   "into": "box-shadow-generator"
+  },
+  {
+   "slug": "css-text-decoration-generator",
+   "into": "box-shadow-generator"
+  },
+  {
+   "slug": "css-font-shorthand-generator",
+   "into": "box-shadow-generator"
+  },
+  {
+   "slug": "css-background-size-generator",
+   "into": "box-shadow-generator"
+  },
+  {
+   "slug": "css-linear-mask-generator",
+   "into": "box-shadow-generator"
+  },
+  {
+   "slug": "css-clip-path-polygon-generator",
+   "into": "box-shadow-generator"
+  },
+  {
+   "slug": "css-counter-list-generator",
+   "into": "box-shadow-generator"
+  },
+  {
+   "slug": "paragraph-sorter",
+   "into": "text-line-cleaner"
+  },
+  {
+   "slug": "sentence-splitter",
+   "into": "text-line-cleaner"
+  },
+  {
+   "slug": "text-line-interleaver",
+   "into": "text-line-cleaner"
+  },
+  {
+   "slug": "text-line-unwrapper",
+   "into": "text-line-cleaner"
+  },
+  {
+   "slug": "text-find-line-positions",
+   "into": "text-line-cleaner"
+  },
+  {
+   "slug": "markdown-heading-outline",
+   "into": "markdown-html-converter"
+  },
+  {
+   "slug": "markdown-table-to-csv",
+   "into": "markdown-table-generator"
+  },
+  {
+   "slug": "punycode-converter",
+   "into": "url-encoder"
+  },
+  {
+   "slug": "url-list-tracking-remover",
+   "into": "url-encoder"
+  },
+  {
+   "slug": "robots-txt-auditor",
+   "into": "html-meta-generator"
+  },
+  {
+   "slug": "sitemap-xml-auditor",
+   "into": "html-meta-generator"
+  },
+  {
+   "slug": "http-basic-auth-converter",
+   "into": "base64-converter"
+  },
+  {
+   "slug": "cidr-subnet-splitter",
+   "into": "ipv4-subnet-calculator"
+  },
+  {
+   "slug": "http-date-converter",
+   "into": "unix-time-converter"
+  },
+  {
+   "slug": "ntp-timestamp-converter",
+   "into": "unix-time-converter"
+  },
+  {
+   "slug": "windows-filetime-converter",
+   "into": "unix-time-converter"
+  },
+  {
+   "slug": "excel-serial-date-converter",
+   "into": "unix-time-converter"
+  },
+  {
+   "slug": "unix-umask-calculator",
+   "into": "unix-permission-converter"
+  },
+  {
+   "slug": "csv-full-outer-join",
+   "into": "csv-column-selector"
+  },
+  {
+   "slug": "csv-row-update-by-key",
+   "into": "csv-column-selector"
+  },
+  {
+   "slug": "csv-dataset-diff",
+   "into": "csv-column-selector"
+  },
+  {
+   "slug": "csv-row-append",
+   "into": "csv-column-selector"
+  },
+  {
+   "slug": "csv-column-value-mapper",
+   "into": "csv-column-selector"
+  },
+  {
+   "slug": "csv-header-normalizer",
+   "into": "csv-column-selector"
+  },
+  {
+   "slug": "csv-drop-empty-rows-columns",
+   "into": "csv-column-selector"
+  },
+  {
+   "slug": "csv-cell-linebreak-cleaner",
+   "into": "csv-column-selector"
+  },
+  {
+   "slug": "dotenv-parser",
+   "into": "csv-json-converter"
+  },
+  {
+   "slug": "uuid-v5-generator",
+   "into": "uuid-generator"
+  },
+  {
+   "slug": "hmac-sha1-generator",
+   "into": "hash-generator"
+  },
+  {
+   "slug": "uuid-v7-generator",
+   "into": "uuid-generator"
+  },
+  {
+   "slug": "debt-income-ratio-calculator",
+   "into": "loan-payment-calculator"
+  },
+  {
+   "slug": "ordinal-date-converter",
+   "into": "date-calculator"
+  },
+  {
+   "slug": "weekday-occurrences-calculator",
+   "into": "date-calculator"
+  },
+  {
+   "slug": "nth-weekday-calculator",
+   "into": "date-calculator"
+  },
+  {
+   "slug": "recurring-date-scheduler",
+   "into": "date-calculator"
+  },
+  {
+   "slug": "time-interval-subtractor",
+   "into": "time-duration-calculator"
+  },
+  {
+   "slug": "deadline-backplanner",
+   "into": "business-day-calculator"
+  },
+  {
+   "slug": "knockout-bracket-generator",
+   "into": "round-robin-schedule-generator"
+  },
+  {
+   "slug": "league-standings-calculator",
+   "into": "round-robin-schedule-generator"
+  },
+  {
+   "slug": "laminate-course-layout-calculator",
+   "into": "tile-calculator"
+  },
+  {
+   "slug": "wallpaper-half-drop-calculator",
+   "into": "tile-calculator"
+  },
+  {
+   "slug": "starter-feeding-calculator",
+   "into": "bakers-percentage-calculator"
+  },
+  {
+   "slug": "preferment-flour-calculator",
+   "into": "bakers-percentage-calculator"
+  },
+  {
+   "slug": "flour-protein-blend-calculator",
+   "into": "bakers-percentage-calculator"
+  },
+  {
+   "slug": "yeast-conversion-calculator",
+   "into": "bakers-percentage-calculator"
+  },
+  {
+   "slug": "pizza-dough-ball-calculator",
+   "into": "bakers-percentage-calculator"
+  },
+  {
+   "slug": "bread-tin-dough-calculator",
+   "into": "bakers-percentage-calculator"
+  },
+  {
+   "slug": "beverage-dilution-calculator",
+   "into": "dilution-calculator"
+  },
+  {
+   "slug": "egg-mass-substitution-calculator",
+   "into": "recipe-scale-calculator"
+  },
+  {
+   "slug": "ingredient-volume-weight-calculator",
+   "into": "recipe-scale-calculator"
+  },
+  {
+   "slug": "yarn-substitution-calculator",
+   "into": "knitting-gauge-calculator"
+  },
+  {
+   "slug": "crochet-circle-increase-planner",
+   "into": "knitting-gauge-calculator"
+  },
+  {
+   "slug": "raglan-increase-calculator",
+   "into": "knitting-gauge-calculator"
+  },
+  {
+   "slug": "photo-backup-storage-calculator",
+   "into": "video-storage-calculator"
+  },
+  {
+   "slug": "video-bitrate-ladder-calculator",
+   "into": "video-storage-calculator"
+  },
+  {
+   "slug": "shopping-basket-store-comparison",
+   "into": "unit-price-calculator"
+  },
+  {
+   "slug": "bulk-usable-price-comparison",
+   "into": "unit-price-calculator"
+  },
+  {
+   "slug": "cash-installment-price-comparison",
+   "into": "loan-payment-calculator"
+  },
+  {
+   "slug": "purchase-pack-unit-cost",
+   "into": "unit-price-calculator"
+  },
+  {
+   "slug": "utility-occupancy-split",
+   "into": "split-bill-calculator"
+  },
+  {
+   "slug": "delivery-working-day-estimator",
+   "into": "business-day-calculator"
+  },
+  {
+   "slug": "trip-stay-cost-splitter",
+   "into": "split-bill-calculator"
+  },
+  {
+   "slug": "event-staff-rota-generator",
+   "into": "rotation-schedule-generator"
+  },
+  {
+   "slug": "cleaning-duty-rotation-generator",
+   "into": "rotation-schedule-generator"
+  },
+  {
+   "slug": "time-of-use-appliance-cost",
+   "into": "electricity-cost-calculator"
+  },
+  {
+   "slug": "cover-spread-calculator",
+   "into": "book-spine-calculator"
+  },
+  {
+   "slug": "paper-gsm-weight-calculator",
+   "into": "book-spine-calculator"
+  },
+  {
+   "slug": "korean-amount-word-audit",
+   "into": "korean-number-reader"
+  },
+  {
+   "slug": "vcard-file-merger",
+   "into": "contact-vcard-converter"
+  },
+  {
+   "slug": "contact-duplicate-merger",
+   "into": "contact-vcard-converter"
+  },
+  {
+   "slug": "html-table-tsv-extractor",
+   "into": "csv-file-to-xlsx"
+  },
+  {
+   "slug": "word-html-cleaner",
+   "into": "html-plain-text-extractor"
+  },
+  {
+   "slug": "markdown-plain-text-converter",
+   "into": "html-plain-text-extractor"
+  },
+  {
+   "slug": "ldif-contact-converter",
+   "into": "contact-vcard-converter"
+  },
+  {
+   "slug": "subtitle-sequence-renumber",
+   "into": "subtitle-srt-vtt-converter"
+  },
+  {
+   "slug": "subtitle-timing-audit",
+   "into": "subtitle-srt-vtt-converter"
+  },
+  {
+   "slug": "subtitle-transcript-extractor",
+   "into": "subtitle-srt-vtt-converter"
+  },
+  {
+   "slug": "subtitle-line-wrapper",
+   "into": "subtitle-srt-vtt-converter"
+  },
+  {
+   "slug": "subtitle-nearby-cue-merger",
+   "into": "subtitle-srt-vtt-converter"
+  },
+  {
+   "slug": "subtitle-speed-corrector",
+   "into": "subtitle-srt-vtt-converter"
+  },
+  {
+   "slug": "subtitle-speaker-report",
+   "into": "subtitle-srt-vtt-converter"
+  },
+  {
+   "slug": "large-print-document",
+   "into": "announcement-poster-document"
+  },
+  {
+   "slug": "tearoff-contact-flyer",
+   "into": "announcement-poster-document"
+  },
+  {
+   "slug": "two-column-review-document",
+   "into": "text-diff"
+  },
+  {
+   "slug": "barcode-label-document",
+   "into": "shipping-address-labels"
+  },
+  {
+   "slug": "ordered-list-change-report",
+   "into": "text-diff"
+  },
+  {
+   "slug": "pdf-extract-pages",
+   "into": "pdf-split-ranges"
+  },
+  {
+   "slug": "pdf-delete-pages",
+   "into": "pdf-split-ranges"
+  },
+  {
+   "slug": "pdf-reorder-pages",
+   "into": "pdf-split-ranges"
+  },
+  {
+   "slug": "pdf-rotate-pages",
+   "into": "pdf-split-ranges"
+  },
+  {
+   "slug": "pdf-insert-blank-page",
+   "into": "pdf-merge-files"
+  },
+  {
+   "slug": "pdf-interleave-scans",
+   "into": "pdf-merge-files"
+  },
+  {
+   "slug": "pdf-text-watermark",
+   "into": "pdf-add-page-numbers"
+  },
+  {
+   "slug": "pdf-image-watermark",
+   "into": "pdf-add-page-numbers"
+  },
+  {
+   "slug": "pdf-add-text",
+   "into": "pdf-add-page-numbers"
+  },
+  {
+   "slug": "pdf-add-margins",
+   "into": "pdf-crop-pages"
+  },
+  {
+   "slug": "pdf-resize-pages",
+   "into": "pdf-crop-pages"
+  },
+  {
+   "slug": "pdf-two-up-print",
+   "into": "pdf-crop-pages"
+  },
+  {
+   "slug": "pdf-booklet-layout",
+   "into": "pdf-crop-pages"
+  },
+  {
+   "slug": "pdf-insert-text-cover",
+   "into": "pdf-merge-files"
+  },
+  {
+   "slug": "pdf-flatten-form-fields",
+   "into": "pdf-document-info"
+  },
+  {
+   "slug": "pdf-remove-annotations",
+   "into": "pdf-document-info"
+  },
+  {
+   "slug": "pdf-edit-metadata",
+   "into": "pdf-document-info"
+  },
+  {
+   "slug": "pdf-export-links",
+   "into": "pdf-extract-selectable-text"
+  },
+  {
+   "slug": "pdf-contact-sheet",
+   "into": "pdf-pages-to-png"
+  },
+  {
+   "slug": "pdf-rasterize-pages",
+   "into": "pdf-pages-to-png"
+  },
+  {
+   "slug": "pdf-grayscale-pages",
+   "into": "pdf-pages-to-png"
+  },
+  {
+   "slug": "zip-extract-files",
+   "into": "zip-create-files"
+  },
+  {
+   "slug": "zip-merge-archives",
+   "into": "zip-create-files"
+  },
+  {
+   "slug": "zip-filter-files",
+   "into": "zip-create-files"
+  },
+  {
+   "slug": "zip-rename-entries",
+   "into": "zip-create-files"
+  },
+  {
+   "slug": "zip-remove-duplicate-files",
+   "into": "zip-create-files"
+  },
+  {
+   "slug": "zip-to-tar-file",
+   "into": "zip-create-files"
+  },
+  {
+   "slug": "tar-create-files",
+   "into": "zip-create-files"
+  },
+  {
+   "slug": "tar-extract-files",
+   "into": "zip-create-files"
+  },
+  {
+   "slug": "tar-to-zip-file",
+   "into": "zip-create-files"
+  },
+  {
+   "slug": "gzip-compress-file",
+   "into": "zip-create-files"
+  },
+  {
+   "slug": "gzip-decompress-file",
+   "into": "zip-create-files"
+  },
+  {
+   "slug": "file-sha256-manifest",
+   "into": "hash-generator"
+  },
+  {
+   "slug": "docx-extract-images",
+   "into": "docx-extract-text-file"
+  },
+  {
+   "slug": "pptx-extract-slide-text",
+   "into": "docx-extract-text-file"
+  },
+  {
+   "slug": "pptx-extract-images",
+   "into": "docx-extract-text-file"
+  },
+  {
+   "slug": "xlsx-export-csv-files",
+   "into": "csv-file-to-xlsx"
+  },
+  {
+   "slug": "xlsx-export-json-file",
+   "into": "csv-file-to-xlsx"
+  },
+  {
+   "slug": "image-ico-generator",
+   "into": "favicon-generator"
+  },
+  {
+   "slug": "image-contact-sheet",
+   "into": "image-merger"
+  },
+  {
+   "slug": "image-auto-trim",
+   "into": "background-remover"
+  },
+  {
+   "slug": "image-deskew",
+   "into": "image-cropper"
+  },
+  {
+   "slug": "image-scan-cleanup",
+   "into": "image-perspective-fix"
+  },
+  {
+   "slug": "image-gaussian-blur",
+   "into": "image-mosaic"
+  },
+  {
+   "slug": "image-unsharp-mask",
+   "into": "image-filter"
+  },
+  {
+   "slug": "image-median-denoise",
+   "into": "image-filter"
+  },
+  {
+   "slug": "image-color-replace",
+   "into": "image-filter"
+  },
+  {
+   "slug": "image-duotone",
+   "into": "image-filter"
+  },
+  {
+   "slug": "image-posterize",
+   "into": "image-filter"
+  },
+  {
+   "slug": "image-floyd-dither",
+   "into": "image-filter"
+  },
+  {
+   "slug": "image-halftone",
+   "into": "image-filter"
+  },
+  {
+   "slug": "image-auto-levels",
+   "into": "image-filter"
+  },
+  {
+   "slug": "image-gamma-adjust",
+   "into": "image-filter"
+  },
+  {
+   "slug": "image-layer-blender",
+   "into": "image-merger"
+  },
+  {
+   "slug": "long-screenshot-split",
+   "into": "image-grid-splitter"
+  },
+  {
+   "slug": "gif-frame-extractor",
+   "into": "images-to-gif"
+  },
+  {
+   "slug": "gif-file-editor",
+   "into": "images-to-gif"
+  },
+  {
+   "slug": "gif-to-apng",
+   "into": "images-to-gif"
+  },
+  {
+   "slug": "audio-file-merger",
+   "into": "audio-file-trimmer"
+  },
+  {
+   "slug": "audio-file-mixer",
+   "into": "audio-file-trimmer"
+  },
+  {
+   "slug": "audio-peak-normalizer",
+   "into": "audio-file-trimmer"
+  },
+  {
+   "slug": "audio-silence-trimmer",
+   "into": "audio-file-trimmer"
+  },
+  {
+   "slug": "audio-fade-editor",
+   "into": "audio-file-trimmer"
+  },
+  {
+   "slug": "audio-playback-speed",
+   "into": "audio-file-trimmer"
+  },
+  {
+   "slug": "audio-sample-rate-converter",
+   "into": "audio-file-trimmer"
+  },
+  {
+   "slug": "audio-mono-converter",
+   "into": "audio-file-trimmer"
+  },
+  {
+   "slug": "audio-file-reverser",
+   "into": "audio-file-trimmer"
+  },
+  {
+   "slug": "audio-peak-limiter",
+   "into": "audio-file-trimmer"
+  },
+  {
+   "slug": "audio-noise-gate",
+   "into": "audio-file-trimmer"
+  },
+  {
+   "slug": "audio-three-band-eq",
+   "into": "audio-file-trimmer"
+  },
+  {
+   "slug": "audio-waveform-image",
+   "into": "audio-file-trimmer"
+  },
+  {
+   "slug": "audio-file-analysis",
+   "into": "audio-file-trimmer"
+  },
+  {
+   "slug": "qr-code-reader",
+   "into": "qr-code-generator"
+  },
+  {
+   "slug": "random-date-generator",
+   "into": "random-number-generator"
+  }
+ ],
+ "deleted": [
+  "rounding-calculator",
+  "regression-calculator",
+  "clock-angle-calculator",
+  "meeting-cost-calculator",
+  "print-scaling-calculator",
+  "box-packing-calculator",
+  "frequency-period-converter",
+  "density-calculator",
+  "angular-speed-converter",
+  "base32-converter",
+  "base58-converter",
+  "http-header-parser",
+  "budget-allocation-calculator",
+  "flow-rate-calculator",
+  "decibel-ratio-calculator",
+  "mac-address-formatter",
+  "byte-order-converter",
+  "float32-inspector",
+  "luhn-checker",
+  "isbn-checker",
+  "ean-checker",
+  "hamming-distance-calculator",
+  "nato-phonetic-converter",
+  "levenshtein-calculator",
+  "jaccard-similarity-calculator",
+  "run-length-encoder",
+  "cashflow-npv-calculator",
+  "depreciation-calculator",
+  "inventory-turnover-calculator",
+  "profit-loss-calculator",
+  "musical-interval-calculator",
+  "envelope-size-calculator",
+  "iqr-outlier-calculator",
+  "rank-calculator",
+  "frequency-table-calculator",
+  "error-metrics-calculator",
+  "moving-average-calculator",
+  "min-max-normalizer",
+  "sample-size-calculator",
+  "thermal-resistance-calculator",
+  "belt-speed-calculator",
+  "three-phase-power-calculator",
+  "json-merge-patch",
+  "json-object-inverter",
+  "json-patch-tool",
+  "json-key-renamer",
+  "json-array-filter",
+  "json-array-sorter",
+  "json-array-grouper",
+  "json-array-projector",
+  "caesar-cipher",
+  "anagram-checker",
+  "palindrome-checker",
+  "alphabet-position-converter",
+  "html-iframe-generator",
+  "html-picture-generator",
+  "content-security-policy-builder",
+  "permissions-policy-builder",
+  "sql-identifier-quoter",
+  "sql-like-escaper",
+  "shell-argument-quoter",
+  "gitignore-generator",
+  "semver-comparator",
+  "cookie-parser",
+  "byte-frequency-analyzer",
+  "url-resolver",
+  "url-origin-analyzer",
+  "content-type-parser",
+  "email-header-decoder",
+  "quoted-printable-converter",
+  "http-range-parser",
+  "customer-lifetime-value-calculator",
+  "churn-rate-calculator",
+  "sales-funnel-calculator",
+  "equity-dilution-calculator",
+  "bond-price-calculator",
+  "currency-cross-rate-calculator",
+  "currency-exchange-fee-calculator",
+  "cash-denomination-calculator",
+  "cash-runway-calculator",
+  "inventory-reorder-calculator",
+  "economic-order-quantity-calculator",
+  "fence-post-calculator",
+  "stair-layout-calculator",
+  "stud-spacing-calculator",
+  "screw-spacing-calculator",
+  "curtain-fabric-calculator",
+  "fabric-shrinkage-calculator",
+  "quilt-binding-calculator",
+  "circle-skirt-calculator",
+  "food-cost-calculator",
+  "coffee-ratio-calculator",
+  "meal-batch-divider",
+  "layover-itinerary-calculator",
+  "baggage-weight-calculator",
+  "travel-budget-calculator",
+  "panorama-overlap-calculator",
+  "macro-extension-calculator",
+  "slow-motion-calculator",
+  "frame-timecode-converter",
+  "shutter-angle-calculator",
+  "audio-fade-plan-generator",
+  "sprite-sheet-layout-calculator",
+  "tuplet-duration-calculator",
+  "fret-position-calculator",
+  "string-tension-ratio-calculator",
+  "json-record-validator",
+  "json-mask-fields",
+  "json-key-case-converter",
+  "json-record-deduplicator",
+  "json-array-zip",
+  "json-array-chunker",
+  "json-numeric-aggregator",
+  "json-array-set-operations",
+  "json-array-join",
+  "json-array-to-object",
+  "json-object-to-pairs",
+  "json-record-key-coverage",
+  "xml-path-extractor",
+  "xml-element-counter",
+  "xml-text-extractor",
+  "xml-attribute-extractor",
+  "xml-namespace-inspector",
+  "dockerfile-generator",
+  "dockerignore-generator",
+  "nginx-static-config-generator",
+  "redirect-rule-generator",
+  "cors-header-builder",
+  "cache-control-builder",
+  "resource-hint-generator",
+  "service-worker-precache-generator",
+  "html-form-generator",
+  "html-select-generator",
+  "html-details-generator",
+  "html-progress-generator",
+  "html-media-generator",
+  "html-download-link-generator",
+  "html-description-list-generator",
+  "html-datalist-generator",
+  "text-acrostic-extractor",
+  "text-line-rotator",
+  "text-repeated-block-remover",
+  "markdown-text-escaper",
+  "markdown-link-extractor",
+  "markdown-codeblock-extractor",
+  "markdown-checklist-progress",
+  "markdown-frontmatter-splitter",
+  "markdown-fence-generator",
+  "ascii85-converter",
+  "base45-converter",
+  "base62-integer-converter",
+  "url-list-domain-grouper",
+  "hexdump-converter",
+  "file-signature-inspector",
+  "varint-converter",
+  "bcd-converter",
+  "gray-code-converter",
+  "bitmask-flags-generator",
+  "integer-byte-array-converter",
+  "protobuf-wire-inspector",
+  "accept-header-parser",
+  "accept-language-parser",
+  "set-cookie-parser",
+  "cache-control-parser",
+  "content-disposition-parser",
+  "link-header-parser",
+  "etag-comparator",
+  "url-query-comparator",
+  "url-template-expander",
+  "url-slug-generator",
+  "dns-reverse-name-converter",
+  "eui64-converter",
+  "dns-record-zone-generator",
+  "email-address-validator",
+  "posix-path-normalizer",
+  "glob-pattern-tester",
+  "dotenv-comparator",
+  "curl-request-generator",
+  "fetch-request-generator",
+  "http-request-file-generator",
+  "har-request-summary",
+  "curl-to-http-request-converter",
+  "access-log-status-summary",
+  "totp-generator",
+  "bech32-converter",
+  "fletcher16-calculator",
+  "package-json-dependency-list",
+  "git-conflict-marker-finder",
+  "log-level-counter",
+  "log-secret-redactor",
+  "log-time-difference",
+  "test-email-list-generator",
+  "json-fixture-generator",
+  "loan-value-ratio-calculator",
+  "current-ratio-calculator",
+  "quick-ratio-calculator",
+  "free-cash-flow-calculator",
+  "product-mix-break-even-calculator",
+  "sales-variance-calculator",
+  "refund-revenue-calculator",
+  "tiered-pricing-calculator",
+  "buy-x-get-y-calculator",
+  "coupon-stack-comparison",
+  "free-shipping-threshold-calculator",
+  "subscription-cost-calendar",
+  "vendor-discount-terms-calculator",
+  "receivables-aging-calculator",
+  "invoice-proration-calculator",
+  "usage-billing-calculator",
+  "lease-buy-comparison-calculator",
+  "supplier-quote-comparison",
+  "fiscal-quarter-calculator",
+  "julian-day-number-converter",
+  "date-interval-merger",
+  "availability-slot-finder",
+  "work-break-schedule-generator",
+  "interval-workout-planner",
+  "paver-bond-layout-calculator",
+  "gutter-segment-calculator",
+  "roof-area-calculator",
+  "roof-sheet-overlap-calculator",
+  "rafter-length-calculator",
+  "stair-stringer-calculator",
+  "blind-slat-layout-calculator",
+  "miter-angle-calculator",
+  "compound-miter-calculator",
+  "cut-list-layout-calculator",
+  "board-foot-calculator",
+  "pipe-insulation-material-calculator",
+  "acoustic-panel-coverage-calculator",
+  "ceiling-panel-layout-calculator",
+  "cabinet-door-overlay-calculator",
+  "drawer-box-calculator",
+  "shelf-spacing-calculator",
+  "hinge-spacing-calculator",
+  "picture-hanging-layout-calculator",
+  "seed-spacing-calculator",
+  "germination-seed-calculator",
+  "irrigation-runtime-calculator",
+  "planter-fill-calculator",
+  "chocolate-cocoa-blend-calculator",
+  "freezer-label-date-generator",
+  "jar-fill-capacity-calculator",
+  "catering-buffer-calculator",
+  "quilt-triangle-cut-calculator",
+  "quilt-block-grid-calculator",
+  "box-pouch-pattern-calculator",
+  "elastic-waistband-calculator",
+  "flash-guide-number-calculator",
+  "flash-power-distance-calculator",
+  "focus-stack-step-planner",
+  "exposure-bracket-planner",
+  "film-roll-frame-calculator",
+  "film-scan-resolution-calculator",
+  "shift-stitch-sensor-calculator",
+  "video-letterbox-calculator",
+  "video-safe-area-calculator",
+  "drop-frame-timecode-converter",
+  "edit-handle-calculator",
+  "multicam-sync-offset-calculator",
+  "audio-sample-time-converter",
+  "audio-playback-pitch-calculator",
+  "audio-buffer-latency-calculator",
+  "plugin-chain-latency-calculator",
+  "video-gop-duration-calculator",
+  "sku-profit-ledger",
+  "order-discount-allocation",
+  "shipping-weight-allocation",
+  "partial-refund-order-calculator",
+  "coupon-eligibility-checker",
+  "budget-actual-comparison",
+  "cash-envelope-budget-builder",
+  "installment-payment-scheduler",
+  "gift-card-balance-ledger",
+  "card-billing-cycle-calculator",
+  "subscription-renewal-planner",
+  "preorder-batch-profit-calculator",
+  "sales-target-calendar",
+  "price-per-use-comparison",
+  "coupon-expiry-list",
+  "roundup-savings-ledger",
+  "loyalty-points-redemption-comparison",
+  "cash-register-closeout",
+  "tax-inclusive-quote-comparison",
+  "invoice-payment-reconciliation",
+  "personal-debt-ledger",
+  "monthly-bill-date-forecast",
+  "appointment-buffer-conflict-checker",
+  "warranty-expiry-log",
+  "maintenance-due-log",
+  "moving-box-estimator",
+  "moving-vehicle-trip-planner",
+  "moving-cost-quote-comparison",
+  "hotel-room-allocation-calculator",
+  "event-ticket-budget-calculator",
+  "event-table-seating-planner",
+  "event-run-sheet-builder",
+  "equipment-rental-billing-calculator",
+  "household-chore-time-budget",
+  "laundry-detergent-dose-calculator",
+  "meal-shopping-pack-list",
+  "pantry-expiry-sorter",
+  "cooking-timeline-backplanner",
+  "kitchen-batch-capacity-planner",
+  "production-shot-list-builder",
+  "shooting-day-calltime-planner",
+  "freelance-project-quote-builder",
+  "client-revision-fee-calculator",
+  "media-delivery-spec-checker",
+  "photo-print-order-cost",
+  "zine-booklet-imposition-generator",
+  "saddle-stitch-creep-calculator",
+  "roll-print-layout-calculator",
+  "label-sheet-layout-calculator",
+  "poster-tile-print-calculator",
+  "ink-coverage-volume-calculator",
+  "screen-emulsion-volume-calculator",
+  "cross-stitch-fabric-calculator",
+  "paper-fold-panel-calculator",
+  "binding-hole-layout-calculator",
+  "table-required-field-audit",
+  "table-conflicting-duplicates",
+  "table-line-amount-check",
+  "table-percentage-total-check",
+  "ragged-table-repair",
+  "table-invisible-cleaner",
+  "table-code-rule-validator",
+  "upload-template-column-mapper",
+  "table-repeat-records",
+  "table-cell-list-exploder",
+  "table-subtotal-inserter",
+  "table-split-files",
+  "table-record-cards",
+  "table-document-mailmerge",
+  "table-latest-record-per-key",
+  "table-group-top-items",
+  "table-position-text-extractor",
+  "table-nth-delimiter-extractor",
+  "phone-list-normalizer",
+  "numeric-column-locale-normalizer",
+  "unicode-digit-column-normalizer",
+  "table-personal-data-masker",
+  "table-bracket-content-splitter",
+  "date-column-normalizer",
+  "time-column-normalizer",
+  "datetime-column-splitter",
+  "date-holiday-flagger",
+  "birthday-anniversary-list",
+  "date-pair-order-audit",
+  "date-list-gap-audit",
+  "date-week-month-labeler",
+  "spreadsheet-reference-locker",
+  "spreadsheet-formula-shifter",
+  "spreadsheet-reference-extractor",
+  "spreadsheet-formula-separators",
+  "spreadsheet-formula-syntax-audit",
+  "spreadsheet-formula-formatter",
+  "spreadsheet-range-list-converter",
+  "spreadsheet-external-reference-audit",
+  "order-picking-list",
+  "order-packing-list",
+  "parcel-weight-audit",
+  "order-dispatch-reconciliation",
+  "return-inspection-register",
+  "backorder-allocation-planner",
+  "carton-weight-batch-planner",
+  "stocktake-reconciliation",
+  "inventory-movement-audit",
+  "inventory-abc-classifier",
+  "inventory-fefo-allocation",
+  "storage-location-capacity",
+  "stock-transfer-document",
+  "asset-custody-timeline",
+  "equipment-loan-return-audit",
+  "purchase-pack-moq-planner",
+  "purchase-requisition-document",
+  "goods-receipt-document",
+  "purchase-price-history",
+  "supplier-lead-time-report",
+  "supplier-on-time-delivery",
+  "supplier-contact-directory",
+  "quotation-request-document",
+  "expense-claim-document",
+  "receipt-file-reconciliation",
+  "mileage-claim-document",
+  "project-timesheet-report",
+  "timesheet-overlap-audit",
+  "attendance-exception-report",
+  "shift-handover-document",
+  "leave-request-document",
+  "meeting-minutes-document",
+  "action-item-register",
+  "raci-matrix-builder",
+  "project-critical-path-plan",
+  "workload-capacity-report",
+  "task-load-balancer",
+  "task-priority-scoreboard",
+  "project-risk-register",
+  "issue-age-sla-report",
+  "decision-comparison-matrix",
+  "document-revision-register",
+  "document-number-audit",
+  "approval-route-builder",
+  "inspection-checklist-builder",
+  "finding-action-reconciliation",
+  "quality-lot-count-report",
+  "service-work-order-document",
+  "asset-handover-document",
+  "product-spec-comparison",
+  "service-completion-document",
+  "warranty-service-request",
+  "return-request-document",
+  "custom-print-form-builder",
+  "cover-letter-document-builder",
+  "job-application-tracker",
+  "interview-evaluation-document",
+  "skills-coverage-matrix",
+  "portfolio-index-document",
+  "career-project-document",
+  "email-recipient-role-cleaner",
+  "email-quote-cleaner",
+  "contact-birthday-calendar",
+  "calendar-csv-ics-converter",
+  "calendar-ics-merger",
+  "calendar-ics-deduplicator",
+  "calendar-conflict-report",
+  "calendar-time-shifter",
+  "calendar-recurrence-expander",
+  "calendar-freebusy-export",
+  "calendar-printable-agenda",
+  "rtf-text-converter",
+  "fixed-width-report-extractor",
+  "survey-print-document",
+  "survey-response-report",
+  "form-blocks-to-table",
+  "text-answer-pivot",
+  "record-review-assignment",
+  "multi-review-consensus",
+  "submission-file-checklist",
+  "keyword-response-classifier",
+  "speaker-note-cards",
+  "one-page-briefing-document",
+  "printer-test-page",
+  "print-cut-guide",
+  "receipt-mounting-sheet",
+  "archive-box-index",
+  "meeting-ranked-vote-report",
+  "meeting-time-poll-report",
+  "event-rsvp-report",
+  "document-expiry-register",
+  "filename-rule-audit",
+  "review-comment-register",
+  "hierarchical-outline-numberer",
+  "multi-currency-table-converter",
+  "measurement-table-converter",
+  "pdf-set-page-labels",
+  "pdf-fill-form-fields",
+  "pdf-export-form-fields",
+  "pdf-extract-attachments",
+  "pdf-remove-attachments",
+  "pdf-embed-attachment",
+  "binary-split-file",
+  "binary-join-files",
+  "binary-hex-patch-file",
+  "docx-remove-author-metadata",
+  "pptx-remove-speaker-notes",
+  "xlsx-remove-external-workbook-links",
+  "xlsx-formulas-to-cached-values",
+  "image-difference-map",
+  "image-ascii-art",
+  "image-histogram",
+  "image-channel-extractor",
+  "image-alpha-mask",
+  "sprite-atlas-builder",
+  "image-duplicate-finder",
+  "png-print-dpi-editor",
+  "audio-silence-inserter",
+  "audio-channel-splitter",
+  "audio-stereo-swap",
+  "audio-phase-inverter",
+  "audio-dc-offset-remover"
+ ],
+ "removedScripts": [
+  "tools/accept-header-parser.js",
+  "tools/accept-language-parser.js",
+  "tools/access-log-status-summary.js",
+  "tools/acoustic-panel-coverage-calculator.js",
+  "tools/action-item-register.js",
+  "tools/alphabet-position-converter.js",
+  "tools/anagram-checker.js",
+  "tools/angular-speed-converter.js",
+  "tools/appointment-buffer-conflict-checker.js",
+  "tools/approval-route-builder.js",
+  "tools/archive-box-index.js",
+  "tools/ascii85-converter.js",
+  "tools/asset-custody-timeline.js",
+  "tools/asset-handover-document.js",
+  "tools/attendance-exception-report.js",
+  "tools/audio-buffer-latency-calculator.js",
+  "tools/audio-channel-splitter.js",
+  "tools/audio-dc-offset-remover.js",
+  "tools/audio-fade-plan-generator.js",
+  "tools/audio-phase-inverter.js",
+  "tools/audio-playback-pitch-calculator.js",
+  "tools/audio-sample-time-converter.js",
+  "tools/audio-silence-inserter.js",
+  "tools/audio-stereo-swap.js",
+  "tools/availability-slot-finder.js",
+  "tools/backorder-allocation-planner.js",
+  "tools/baggage-weight-calculator.js",
+  "tools/base32-converter.js",
+  "tools/base45-converter.js",
+  "tools/base58-converter.js",
+  "tools/base62-integer-converter.js",
+  "tools/bcd-converter.js",
+  "tools/bech32-converter.js",
+  "tools/belt-speed-calculator.js",
+  "tools/binary-hex-patch-file.js",
+  "tools/binary-join-files.js",
+  "tools/binary-split-file.js",
+  "tools/binding-hole-layout-calculator.js",
+  "tools/birthday-anniversary-list.js",
+  "tools/bitmask-flags-generator.js",
+  "tools/blind-slat-layout-calculator.js",
+  "tools/board-foot-calculator.js",
+  "tools/bond-price-calculator.js",
+  "tools/box-packing-calculator.js",
+  "tools/box-pouch-pattern-calculator.js",
+  "tools/budget-actual-comparison.js",
+  "tools/budget-allocation-calculator.js",
+  "tools/buy-x-get-y-calculator.js",
+  "tools/byte-frequency-analyzer.js",
+  "tools/byte-order-converter.js",
+  "tools/cabinet-door-overlay-calculator.js",
+  "tools/cache-control-builder.js",
+  "tools/cache-control-parser.js",
+  "tools/caesar-cipher.js",
+  "tools/calendar-conflict-report.js",
+  "tools/calendar-csv-ics-converter.js",
+  "tools/calendar-freebusy-export.js",
+  "tools/calendar-ics-deduplicator.js",
+  "tools/calendar-ics-merger.js",
+  "tools/calendar-printable-agenda.js",
+  "tools/calendar-recurrence-expander.js",
+  "tools/calendar-time-shifter.js",
+  "tools/card-billing-cycle-calculator.js",
+  "tools/career-project-document.js",
+  "tools/carton-weight-batch-planner.js",
+  "tools/cash-denomination-calculator.js",
+  "tools/cash-envelope-budget-builder.js",
+  "tools/cash-register-closeout.js",
+  "tools/cash-runway-calculator.js",
+  "tools/cashflow-npv-calculator.js",
+  "tools/catering-buffer-calculator.js",
+  "tools/ceiling-panel-layout-calculator.js",
+  "tools/chocolate-cocoa-blend-calculator.js",
+  "tools/churn-rate-calculator.js",
+  "tools/circle-skirt-calculator.js",
+  "tools/client-revision-fee-calculator.js",
+  "tools/clock-angle-calculator.js",
+  "tools/coffee-ratio-calculator.js",
+  "tools/compound-miter-calculator.js",
+  "tools/contact-birthday-calendar.js",
+  "tools/content-disposition-parser.js",
+  "tools/content-security-policy-builder.js",
+  "tools/content-type-parser.js",
+  "tools/cookie-parser.js",
+  "tools/cooking-timeline-backplanner.js",
+  "tools/cors-header-builder.js",
+  "tools/coupon-eligibility-checker.js",
+  "tools/coupon-expiry-list.js",
+  "tools/coupon-stack-comparison.js",
+  "tools/cover-letter-document-builder.js",
+  "tools/cross-stitch-fabric-calculator.js",
+  "tools/curl-request-generator.js",
+  "tools/curl-to-http-request-converter.js",
+  "tools/currency-cross-rate-calculator.js",
+  "tools/currency-exchange-fee-calculator.js",
+  "tools/current-ratio-calculator.js",
+  "tools/curtain-fabric-calculator.js",
+  "tools/custom-print-form-builder.js",
+  "tools/customer-lifetime-value-calculator.js",
+  "tools/cut-list-layout-calculator.js",
+  "tools/date-column-normalizer.js",
+  "tools/date-holiday-flagger.js",
+  "tools/date-interval-merger.js",
+  "tools/date-list-gap-audit.js",
+  "tools/date-pair-order-audit.js",
+  "tools/date-week-month-labeler.js",
+  "tools/datetime-column-splitter.js",
+  "tools/decibel-ratio-calculator.js",
+  "tools/decision-comparison-matrix.js",
+  "tools/density-calculator.js",
+  "tools/depreciation-calculator.js",
+  "tools/dns-record-zone-generator.js",
+  "tools/dns-reverse-name-converter.js",
+  "tools/dockerfile-generator.js",
+  "tools/dockerignore-generator.js",
+  "tools/document-expiry-register.js",
+  "tools/document-number-audit.js",
+  "tools/document-revision-register.js",
+  "tools/docx-remove-author-metadata.js",
+  "tools/dotenv-comparator.js",
+  "tools/drawer-box-calculator.js",
+  "tools/drop-frame-timecode-converter.js",
+  "tools/ean-checker.js",
+  "tools/economic-order-quantity-calculator.js",
+  "tools/edit-handle-calculator.js",
+  "tools/elastic-waistband-calculator.js",
+  "tools/email-address-validator.js",
+  "tools/email-header-decoder.js",
+  "tools/email-quote-cleaner.js",
+  "tools/email-recipient-role-cleaner.js",
+  "tools/envelope-size-calculator.js",
+  "tools/equipment-loan-return-audit.js",
+  "tools/equipment-rental-billing-calculator.js",
+  "tools/equity-dilution-calculator.js",
+  "tools/error-metrics-calculator.js",
+  "tools/etag-comparator.js",
+  "tools/eui64-converter.js",
+  "tools/event-rsvp-report.js",
+  "tools/event-run-sheet-builder.js",
+  "tools/event-table-seating-planner.js",
+  "tools/event-ticket-budget-calculator.js",
+  "tools/expense-claim-document.js",
+  "tools/exposure-bracket-planner.js",
+  "tools/fabric-shrinkage-calculator.js",
+  "tools/fence-post-calculator.js",
+  "tools/fetch-request-generator.js",
+  "tools/file-signature-inspector.js",
+  "tools/filename-rule-audit.js",
+  "tools/film-roll-frame-calculator.js",
+  "tools/film-scan-resolution-calculator.js",
+  "tools/finding-action-reconciliation.js",
+  "tools/fiscal-quarter-calculator.js",
+  "tools/fixed-width-report-extractor.js",
+  "tools/flash-guide-number-calculator.js",
+  "tools/flash-power-distance-calculator.js",
+  "tools/fletcher16-calculator.js",
+  "tools/float32-inspector.js",
+  "tools/flow-rate-calculator.js",
+  "tools/focus-stack-step-planner.js",
+  "tools/food-cost-calculator.js",
+  "tools/form-blocks-to-table.js",
+  "tools/frame-timecode-converter.js",
+  "tools/free-cash-flow-calculator.js",
+  "tools/free-shipping-threshold-calculator.js",
+  "tools/freelance-project-quote-builder.js",
+  "tools/freezer-label-date-generator.js",
+  "tools/frequency-period-converter.js",
+  "tools/frequency-table-calculator.js",
+  "tools/fret-position-calculator.js",
+  "tools/germination-seed-calculator.js",
+  "tools/gift-card-balance-ledger.js",
+  "tools/git-conflict-marker-finder.js",
+  "tools/gitignore-generator.js",
+  "tools/glob-pattern-tester.js",
+  "tools/goods-receipt-document.js",
+  "tools/gray-code-converter.js",
+  "tools/gutter-segment-calculator.js",
+  "tools/hamming-distance-calculator.js",
+  "tools/har-request-summary.js",
+  "tools/hexdump-converter.js",
+  "tools/hierarchical-outline-numberer.js",
+  "tools/hinge-spacing-calculator.js",
+  "tools/hotel-room-allocation-calculator.js",
+  "tools/household-chore-time-budget.js",
+  "tools/html-datalist-generator.js",
+  "tools/html-description-list-generator.js",
+  "tools/html-details-generator.js",
+  "tools/html-download-link-generator.js",
+  "tools/html-form-generator.js",
+  "tools/html-iframe-generator.js",
+  "tools/html-media-generator.js",
+  "tools/html-picture-generator.js",
+  "tools/html-progress-generator.js",
+  "tools/html-select-generator.js",
+  "tools/http-header-parser.js",
+  "tools/http-range-parser.js",
+  "tools/http-request-file-generator.js",
+  "tools/image-alpha-mask.js",
+  "tools/image-ascii-art.js",
+  "tools/image-channel-extractor.js",
+  "tools/image-difference-map.js",
+  "tools/image-duplicate-finder.js",
+  "tools/image-histogram.js",
+  "tools/ink-coverage-volume-calculator.js",
+  "tools/inspection-checklist-builder.js",
+  "tools/installment-payment-scheduler.js",
+  "tools/integer-byte-array-converter.js",
+  "tools/interval-workout-planner.js",
+  "tools/interview-evaluation-document.js",
+  "tools/inventory-abc-classifier.js",
+  "tools/inventory-fefo-allocation.js",
+  "tools/inventory-movement-audit.js",
+  "tools/inventory-reorder-calculator.js",
+  "tools/inventory-turnover-calculator.js",
+  "tools/invoice-payment-reconciliation.js",
+  "tools/invoice-proration-calculator.js",
+  "tools/iqr-outlier-calculator.js",
+  "tools/irrigation-runtime-calculator.js",
+  "tools/isbn-checker.js",
+  "tools/issue-age-sla-report.js",
+  "tools/jaccard-similarity-calculator.js",
+  "tools/jar-fill-capacity-calculator.js",
+  "tools/job-application-tracker.js",
+  "tools/json-array-chunker.js",
+  "tools/json-array-filter.js",
+  "tools/json-array-grouper.js",
+  "tools/json-array-join.js",
+  "tools/json-array-projector.js",
+  "tools/json-array-set-operations.js",
+  "tools/json-array-sorter.js",
+  "tools/json-array-to-object.js",
+  "tools/json-array-zip.js",
+  "tools/json-fixture-generator.js",
+  "tools/json-key-case-converter.js",
+  "tools/json-key-renamer.js",
+  "tools/json-mask-fields.js",
+  "tools/json-merge-patch.js",
+  "tools/json-numeric-aggregator.js",
+  "tools/json-object-inverter.js",
+  "tools/json-object-to-pairs.js",
+  "tools/json-patch-tool.js",
+  "tools/json-record-deduplicator.js",
+  "tools/json-record-key-coverage.js",
+  "tools/json-record-validator.js",
+  "tools/julian-day-number-converter.js",
+  "tools/keyword-response-classifier.js",
+  "tools/kitchen-batch-capacity-planner.js",
+  "tools/label-sheet-layout-calculator.js",
+  "tools/laundry-detergent-dose-calculator.js",
+  "tools/layover-itinerary-calculator.js",
+  "tools/lease-buy-comparison-calculator.js",
+  "tools/leave-request-document.js",
+  "tools/levenshtein-calculator.js",
+  "tools/link-header-parser.js",
+  "tools/loan-value-ratio-calculator.js",
+  "tools/log-level-counter.js",
+  "tools/log-secret-redactor.js",
+  "tools/log-time-difference.js",
+  "tools/loyalty-points-redemption-comparison.js",
+  "tools/luhn-checker.js",
+  "tools/mac-address-formatter.js",
+  "tools/macro-extension-calculator.js",
+  "tools/maintenance-due-log.js",
+  "tools/markdown-checklist-progress.js",
+  "tools/markdown-codeblock-extractor.js",
+  "tools/markdown-fence-generator.js",
+  "tools/markdown-frontmatter-splitter.js",
+  "tools/markdown-link-extractor.js",
+  "tools/markdown-text-escaper.js",
+  "tools/meal-batch-divider.js",
+  "tools/meal-shopping-pack-list.js",
+  "tools/measurement-table-converter.js",
+  "tools/media-delivery-spec-checker.js",
+  "tools/meeting-cost-calculator.js",
+  "tools/meeting-minutes-document.js",
+  "tools/meeting-ranked-vote-report.js",
+  "tools/meeting-time-poll-report.js",
+  "tools/mileage-claim-document.js",
+  "tools/min-max-normalizer.js",
+  "tools/miter-angle-calculator.js",
+  "tools/monthly-bill-date-forecast.js",
+  "tools/moving-average-calculator.js",
+  "tools/moving-box-estimator.js",
+  "tools/moving-cost-quote-comparison.js",
+  "tools/moving-vehicle-trip-planner.js",
+  "tools/multi-currency-table-converter.js",
+  "tools/multi-review-consensus.js",
+  "tools/multicam-sync-offset-calculator.js",
+  "tools/musical-interval-calculator.js",
+  "tools/nato-phonetic-converter.js",
+  "tools/nginx-static-config-generator.js",
+  "tools/numeric-column-locale-normalizer.js",
+  "tools/office1000-dates.js",
+  "tools/office1000-formulas.js",
+  "tools/office1000-projects.js",
+  "tools/office1000-responses.js",
+  "tools/one-page-briefing-document.js",
+  "tools/order-discount-allocation.js",
+  "tools/order-dispatch-reconciliation.js",
+  "tools/order-packing-list.js",
+  "tools/order-picking-list.js",
+  "tools/package-json-dependency-list.js",
+  "tools/palindrome-checker.js",
+  "tools/panorama-overlap-calculator.js",
+  "tools/pantry-expiry-sorter.js",
+  "tools/paper-fold-panel-calculator.js",
+  "tools/parcel-weight-audit.js",
+  "tools/partial-refund-order-calculator.js",
+  "tools/paver-bond-layout-calculator.js",
+  "tools/pdf-embed-attachment.js",
+  "tools/pdf-export-form-fields.js",
+  "tools/pdf-extract-attachments.js",
+  "tools/pdf-fill-form-fields.js",
+  "tools/pdf-remove-attachments.js",
+  "tools/pdf-set-page-labels.js",
+  "tools/permissions-policy-builder.js",
+  "tools/personal-debt-ledger.js",
+  "tools/phone-list-normalizer.js",
+  "tools/photo-print-order-cost.js",
+  "tools/picture-hanging-layout-calculator.js",
+  "tools/pipe-insulation-material-calculator.js",
+  "tools/planter-fill-calculator.js",
+  "tools/plugin-chain-latency-calculator.js",
+  "tools/png-print-dpi-editor.js",
+  "tools/portfolio-index-document.js",
+  "tools/posix-path-normalizer.js",
+  "tools/poster-tile-print-calculator.js",
+  "tools/pptx-remove-speaker-notes.js",
+  "tools/preorder-batch-profit-calculator.js",
+  "tools/price-per-use-comparison.js",
+  "tools/print-cut-guide.js",
+  "tools/print-scaling-calculator.js",
+  "tools/printer-test-page.js",
+  "tools/product-mix-break-even-calculator.js",
+  "tools/product-spec-comparison.js",
+  "tools/production-shot-list-builder.js",
+  "tools/profit-loss-calculator.js",
+  "tools/project-critical-path-plan.js",
+  "tools/project-risk-register.js",
+  "tools/project-timesheet-report.js",
+  "tools/protobuf-wire-inspector.js",
+  "tools/purchase-pack-moq-planner.js",
+  "tools/purchase-price-history.js",
+  "tools/purchase-requisition-document.js",
+  "tools/quality-lot-count-report.js",
+  "tools/quick-ratio-calculator.js",
+  "tools/quilt-binding-calculator.js",
+  "tools/quilt-block-grid-calculator.js",
+  "tools/quilt-triangle-cut-calculator.js",
+  "tools/quotation-request-document.js",
+  "tools/quoted-printable-converter.js",
+  "tools/raci-matrix-builder.js",
+  "tools/rafter-length-calculator.js",
+  "tools/ragged-table-repair.js",
+  "tools/rank-calculator.js",
+  "tools/receipt-file-reconciliation.js",
+  "tools/receipt-mounting-sheet.js",
+  "tools/receivables-aging-calculator.js",
+  "tools/record-review-assignment.js",
+  "tools/redirect-rule-generator.js",
+  "tools/refund-revenue-calculator.js",
+  "tools/regression-calculator.js",
+  "tools/resource-hint-generator.js",
+  "tools/return-inspection-register.js",
+  "tools/return-request-document.js",
+  "tools/review-comment-register.js",
+  "tools/roll-print-layout-calculator.js",
+  "tools/roof-area-calculator.js",
+  "tools/roof-sheet-overlap-calculator.js",
+  "tools/rounding-calculator.js",
+  "tools/roundup-savings-ledger.js",
+  "tools/rtf-text-converter.js",
+  "tools/run-length-encoder.js",
+  "tools/saddle-stitch-creep-calculator.js",
+  "tools/sales-funnel-calculator.js",
+  "tools/sales-target-calendar.js",
+  "tools/sales-variance-calculator.js",
+  "tools/sample-size-calculator.js",
+  "tools/screen-emulsion-volume-calculator.js",
+  "tools/screw-spacing-calculator.js",
+  "tools/seed-spacing-calculator.js",
+  "tools/semver-comparator.js",
+  "tools/service-completion-document.js",
+  "tools/service-work-order-document.js",
+  "tools/service-worker-precache-generator.js",
+  "tools/set-cookie-parser.js",
+  "tools/shelf-spacing-calculator.js",
+  "tools/shell-argument-quoter.js",
+  "tools/shift-handover-document.js",
+  "tools/shift-stitch-sensor-calculator.js",
+  "tools/shipping-weight-allocation.js",
+  "tools/shooting-day-calltime-planner.js",
+  "tools/shutter-angle-calculator.js",
+  "tools/skills-coverage-matrix.js",
+  "tools/sku-profit-ledger.js",
+  "tools/slow-motion-calculator.js",
+  "tools/speaker-note-cards.js",
+  "tools/spreadsheet-external-reference-audit.js",
+  "tools/spreadsheet-formula-formatter.js",
+  "tools/spreadsheet-formula-separators.js",
+  "tools/spreadsheet-formula-shifter.js",
+  "tools/spreadsheet-formula-syntax-audit.js",
+  "tools/spreadsheet-range-list-converter.js",
+  "tools/spreadsheet-reference-extractor.js",
+  "tools/spreadsheet-reference-locker.js",
+  "tools/sprite-atlas-builder.js",
+  "tools/sprite-sheet-layout-calculator.js",
+  "tools/sql-identifier-quoter.js",
+  "tools/sql-like-escaper.js",
+  "tools/stair-layout-calculator.js",
+  "tools/stair-stringer-calculator.js",
+  "tools/stock-transfer-document.js",
+  "tools/stocktake-reconciliation.js",
+  "tools/storage-location-capacity.js",
+  "tools/string-tension-ratio-calculator.js",
+  "tools/stud-spacing-calculator.js",
+  "tools/submission-file-checklist.js",
+  "tools/subscription-cost-calendar.js",
+  "tools/subscription-renewal-planner.js",
+  "tools/supplier-contact-directory.js",
+  "tools/supplier-lead-time-report.js",
+  "tools/supplier-on-time-delivery.js",
+  "tools/supplier-quote-comparison.js",
+  "tools/survey-print-document.js",
+  "tools/survey-response-report.js",
+  "tools/table-bracket-content-splitter.js",
+  "tools/table-cell-list-exploder.js",
+  "tools/table-code-rule-validator.js",
+  "tools/table-conflicting-duplicates.js",
+  "tools/table-document-mailmerge.js",
+  "tools/table-group-top-items.js",
+  "tools/table-invisible-cleaner.js",
+  "tools/table-latest-record-per-key.js",
+  "tools/table-line-amount-check.js",
+  "tools/table-nth-delimiter-extractor.js",
+  "tools/table-percentage-total-check.js",
+  "tools/table-personal-data-masker.js",
+  "tools/table-position-text-extractor.js",
+  "tools/table-record-cards.js",
+  "tools/table-repeat-records.js",
+  "tools/table-required-field-audit.js",
+  "tools/table-split-files.js",
+  "tools/table-subtotal-inserter.js",
+  "tools/task-load-balancer.js",
+  "tools/task-priority-scoreboard.js",
+  "tools/tax-inclusive-quote-comparison.js",
+  "tools/test-email-list-generator.js",
+  "tools/text-acrostic-extractor.js",
+  "tools/text-answer-pivot.js",
+  "tools/text-line-rotator.js",
+  "tools/text-repeated-block-remover.js",
+  "tools/thermal-resistance-calculator.js",
+  "tools/three-phase-power-calculator.js",
+  "tools/tiered-pricing-calculator.js",
+  "tools/time-column-normalizer.js",
+  "tools/timesheet-overlap-audit.js",
+  "tools/totp-generator.js",
+  "tools/travel-budget-calculator.js",
+  "tools/tuplet-duration-calculator.js",
+  "tools/unicode-digit-column-normalizer.js",
+  "tools/upload-template-column-mapper.js",
+  "tools/url-list-domain-grouper.js",
+  "tools/url-origin-analyzer.js",
+  "tools/url-query-comparator.js",
+  "tools/url-resolver.js",
+  "tools/url-slug-generator.js",
+  "tools/url-template-expander.js",
+  "tools/usage-billing-calculator.js",
+  "tools/varint-converter.js",
+  "tools/vendor-discount-terms-calculator.js",
+  "tools/video-gop-duration-calculator.js",
+  "tools/video-letterbox-calculator.js",
+  "tools/video-safe-area-calculator.js",
+  "tools/warranty-expiry-log.js",
+  "tools/warranty-service-request.js",
+  "tools/work-break-schedule-generator.js",
+  "tools/workload-capacity-report.js",
+  "tools/xlsx-formulas-to-cached-values.js",
+  "tools/xlsx-remove-external-workbook-links.js",
+  "tools/xml-attribute-extractor.js",
+  "tools/xml-element-counter.js",
+  "tools/xml-namespace-inspector.js",
+  "tools/xml-path-extractor.js",
+  "tools/xml-text-extractor.js",
+  "tools/zine-booklet-imposition-generator.js"
+ ],
+ "retainedHashes": [
+  {
+   "file": "fun/baby-name-generator.js",
+   "sha256": "9dbd23d0c22befdf3ce9b6bdd1894e1b2f2faaf6e812d76ff5d906e1a475569e"
+  },
+  {
+   "file": "tools/ad-metrics-calculator.js",
+   "sha256": "2e6b4d44be3539e65ebaf058e97d48c7dfd11abc975018adc2e3686760c92310"
+  },
+  {
+   "file": "tools/ad-roas-calculator.js",
+   "sha256": "198102c09ab6c835e3671563beedba41d66d03a7c5c6aa277c0c07fa221ad17e"
+  },
+  {
+   "file": "tools/adler32-calculator.js",
+   "sha256": "ee465f1f5717cd2066bfccea3b64c8be3c2668dff51c83b19d82331ebaf0b02b"
+  },
+  {
+   "file": "tools/age-calculator.js",
+   "sha256": "cd0fb4764c3cbb016058bfb9e2eff811164166a02507857500219522ef37be12"
+  },
+  {
+   "file": "tools/announcement-poster-document.js",
+   "sha256": "89494aef0dd9651c3d93e31fda20083c31d2201f7b5baf60421355bae6518455"
+  },
+  {
+   "file": "tools/area-calculator.js",
+   "sha256": "1ace89683b6d3fbd01bd647bf5a38ac6e18a30a95551a6c1d15c1ae1bd5021d2"
+  },
+  {
+   "file": "tools/article-jsonld-generator.js",
+   "sha256": "2e84410ad365f31613398087912362f257d9cd27aa47a4afe4857bdeab6676c4"
+  },
+  {
+   "file": "tools/aspect-ratio-calculator.js",
+   "sha256": "5ea4b658c47923f9f2c46c66b664d5e0fc8393cb24c9e2a91e09c7164508c5cc"
+  },
+  {
+   "file": "tools/attendance-signature-sheet.js",
+   "sha256": "0ce64dc9277f9add53252eb80a32a2d60b25a7a0e872a46e87128ff167305e93"
+  },
+  {
+   "file": "tools/audio-fade-editor.js",
+   "sha256": "1510ecf740de0c57f1217ca341bb8cd2a5c43e27e89d8b4c502c551422b71ddf"
+  },
+  {
+   "file": "tools/audio-file-analysis.js",
+   "sha256": "7ee5ab6bc5247f9f19d11ebe528c2548c1099624fa3932fba8125ad188e1351e"
+  },
+  {
+   "file": "tools/audio-file-merger.js",
+   "sha256": "a50e3b2e031e1031c7a1927d25576b9e534332e4c1e0117a29b6c17584e947c5"
+  },
+  {
+   "file": "tools/audio-file-mixer.js",
+   "sha256": "5f234c3154ec324706dc72436f936eaef21debde688b1d60d75ad20c638e4c6a"
+  },
+  {
+   "file": "tools/audio-file-reverser.js",
+   "sha256": "75f555f9df28e76fdff1fc41fe62b19f9468b6cefc49f30a959797eeb6b9d674"
+  },
+  {
+   "file": "tools/audio-file-trimmer.js",
+   "sha256": "0877cd3ec1733175acf6a36c6c0a995e90d1a5b3d4f5a3341193f5471df8463d"
+  },
+  {
+   "file": "tools/audio-mono-converter.js",
+   "sha256": "61f02f2b89c1a3a7480a9181fa70000d055b6070055fbb84f61aefc0ac3af95b"
+  },
+  {
+   "file": "tools/audio-noise-gate.js",
+   "sha256": "c49539bb87e9888f498d40a26ebda71f291f0305027f7c19acf4e3c2a55cfeaa"
+  },
+  {
+   "file": "tools/audio-peak-limiter.js",
+   "sha256": "d7e39d75242ea44bb6948715793acbc8e9441edbe8406820208b1b523b294c19"
+  },
+  {
+   "file": "tools/audio-peak-normalizer.js",
+   "sha256": "4a8b2f52cfab5b0f7b5aefb6c558d2b3e0cb5d26d6e1927727f82a2f9a35bc0e"
+  },
+  {
+   "file": "tools/audio-playback-speed.js",
+   "sha256": "927a90163685c020dcca283db6f0227e535dcad2f542ada36d0d23d72e200536"
+  },
+  {
+   "file": "tools/audio-sample-rate-converter.js",
+   "sha256": "874512d363fda13e70993bed569bd7b00e12de70c2d431215d1f6a7b600c24be"
+  },
+  {
+   "file": "tools/audio-silence-trimmer.js",
+   "sha256": "4d401672b2f15b98092f9006ce0fa70c9867b6e9391b572d96d75571d59dad8d"
+  },
+  {
+   "file": "tools/audio-storage-calculator.js",
+   "sha256": "bdbd858794fc05be759c505ffe2e9ede50d75b12d4e2b05d7f31dc4530821b34"
+  },
+  {
+   "file": "tools/audio-three-band-eq.js",
+   "sha256": "32b364f31a4c7864cf803b8f37f5ed140921258b8549f7f7a38bb5701b7839d0"
+  },
+  {
+   "file": "tools/audio-waveform-image.js",
+   "sha256": "952b51d669cc31c423d8a28de78e8ca8dde9bb4b0f0fa8f9116ca4db09524d9a"
+  },
+  {
+   "file": "tools/average-calculator.js",
+   "sha256": "b3325dd7c8aa52974b796dd39a805eda993e415551f6ecb5bb076ee02613a9e8"
+  },
+  {
+   "file": "tools/average-purchase-price-calculator.js",
+   "sha256": "571b438600c979f738fa8d3556af007370fdda7171e586840e57b1a75ff022ff"
+  },
+  {
+   "file": "tools/background-remover.js",
+   "sha256": "2bfa8ab4044b0b1cccd8b863dbf79abc7b4dfabd5159fb06cea6ab45606c190a"
+  },
+  {
+   "file": "tools/bakers-percentage-calculator.js",
+   "sha256": "b0c07864953d74ee62164b08a968ea9bdf27e8a96d180ab9e45284b9b4259d40"
+  },
+  {
+   "file": "tools/baking-pan-converter.js",
+   "sha256": "c7f77ab1e81448310ee2d6188d9121fd110cb6f1f749fccecfc15f65355d9441"
+  },
+  {
+   "file": "tools/barcode-label-document.js",
+   "sha256": "dbc2d3378eed9fb02613de25c36ef85c4d525d0d3e058bbd56381ad9d7e21279"
+  },
+  {
+   "file": "tools/base64-converter.js",
+   "sha256": "f3b087806e31696e6b9d56847a31dfea44166e1b22c5a2ee919aad426d8fed10"
+  },
+  {
+   "file": "tools/beverage-dilution-calculator.js",
+   "sha256": "19de910f181ee50b42b669c4ad0d654c139ccd813052ab9fe8ae7f6ac96b0970"
+  },
+  {
+   "file": "tools/bitwise-calculator.js",
+   "sha256": "896aa6f87f48015d175e6034f422ec940c2a9ea775d4abe0d74eb1a740f40ae6"
+  },
+  {
+   "file": "tools/book-spine-calculator.js",
+   "sha256": "3e8805d439c88e3ccc1d67aa8b082e54d699814a3d50f7c2db05f98c5fcc65d3"
+  },
+  {
+   "file": "tools/border-radius-generator.js",
+   "sha256": "88e2fe18457e554cea8dc216d29848b6e2b99858cc404c92cf7b4eeeeaa01f48"
+  },
+  {
+   "file": "tools/box-shadow-generator.js",
+   "sha256": "316a4ca2fc0f0f025b8b2e5eadada2888625e4282a3748d2436363df30614c9e"
+  },
+  {
+   "file": "tools/bpm-delay-calculator.js",
+   "sha256": "da8fe9ebba0facc4d4c90bba4fbd89f46fe5d4d1f260a3de61f327f26905337d"
+  },
+  {
+   "file": "tools/bpm-tapper.js",
+   "sha256": "16f9e3bb3a43225bbebd719028ca5707997a14e557c91fc76ce5901621b30f18"
+  },
+  {
+   "file": "tools/bread-tin-dough-calculator.js",
+   "sha256": "42a7145c29a37a5480d864fd29bb590cf6363e3a145bd1dab210fe19341c9021"
+  },
+  {
+   "file": "tools/breadcrumb-jsonld-generator.js",
+   "sha256": "3f767541ccfb7e43e69a5c9c5da155c6566fedc3ac83c28a0ee2c11f67465f37"
+  },
+  {
+   "file": "tools/break-even-calculator.js",
+   "sha256": "35f20197802d651577b1a21c09b6a45b901a21ecd3f7feacc8920cde4f46ecdf"
+  },
+  {
+   "file": "tools/brick-quantity-calculator.js",
+   "sha256": "c8968c3e411c944334cc0c6c25ac47c3a1b8774550e7eb619c0e047d5c29f21e"
+  },
+  {
+   "file": "tools/brine-salinity-calculator.js",
+   "sha256": "50eb345eb89b7c1ed5cefc6609b7f9147fcd6fe9a4828614f927cec8dd764216"
+  },
+  {
+   "file": "tools/bulk-usable-price-comparison.js",
+   "sha256": "9a7f9bca7f93337950ff5a155afb4a546848a72483cefb24784f3ba52b99b203"
+  },
+  {
+   "file": "tools/business-day-calculator.js",
+   "sha256": "54930c6b382ca89de97e87778af4f30787830746c98e51a6e1b16c7dc936d28a"
+  },
+  {
+   "file": "tools/business-day-duration-calculator.js",
+   "sha256": "3f38668caf503156d2183d6d4a348a92ee121a3c6e890c16b1a85ea9d977df08"
+  },
+  {
+   "file": "tools/cagr-calculator.js",
+   "sha256": "a134c58525db8d94d1e09174bc4a301c319d21dc35945610065f2d2e3d3f62ed"
+  },
+  {
+   "file": "tools/calculator-inputs.js",
+   "sha256": "04ba739bae88c0914f14f3a2fc8c59fcfb4c2941c0729fe68e0f0a924aa9f752"
+  },
+  {
+   "file": "tools/calendar-month-calculator.js",
+   "sha256": "85ea9ee184528ffa4a426fa4c7366ba7193bc3cab3274e82a5113e24e478b193"
+  },
+  {
+   "file": "tools/cash-installment-price-comparison.js",
+   "sha256": "e95014d207614004338495e238ca32d077632dd99a6c07da23a8babe9aeb5a65"
+  },
+  {
+   "file": "tools/character-counter.js",
+   "sha256": "fc1937c798b1c9396ff71c8c8aed4a778921ef710a19ad487008e453bafcd970"
+  },
+  {
+   "file": "tools/character-frequency-counter.js",
+   "sha256": "06161b128c012d79751bb343cf3281d179c471c1dd7ca14376e468ad0554ab5d"
+  },
+  {
+   "file": "tools/chord-tone-generator.js",
+   "sha256": "f29327fd513300b09b0c995915d2de61fd983248a07c835cdbee551a1d8cb923"
+  },
+  {
+   "file": "tools/chord-transposer.js",
+   "sha256": "023710f84c896f4d28fe8c2e868cc5a039ecbceedcf71d78fc7a87f450bf9a0c"
+  },
+  {
+   "file": "tools/cidr-range-calculator.js",
+   "sha256": "92c2ba18c91bd32bf38d3400b1d1589a151c6bb0b22a7058df8d5619490dd056"
+  },
+  {
+   "file": "tools/cidr-subnet-splitter.js",
+   "sha256": "9b6de07f0ce976d591d51b91df858cd6d45c84b1bbf3bdcec6973589168c8a10"
+  },
+  {
+   "file": "tools/circle-of-fifths-generator.js",
+   "sha256": "113f8c680f7664e47d58ede5ed0089bafa9947efdbc1e254ebcdc2c43795e9a8"
+  },
+  {
+   "file": "tools/cleaning-duty-rotation-generator.js",
+   "sha256": "bdf7e50699e86b51fcc325d39211e0064eef3d0273f0581050817d9e287282aa"
+  },
+  {
+   "file": "tools/color-contrast-checker.js",
+   "sha256": "05960894fdba6128c1e7fba30714da1889091eeab6b7a69c53e7024d68deaf05"
+  },
+  {
+   "file": "tools/color-converter.js",
+   "sha256": "388f5047403d578717d748b62885d5353a8cfa339f0bdcce7d977501b5f18615"
+  },
+  {
+   "file": "tools/color-palette-generator.js",
+   "sha256": "75b07fdd05909c9787a2c8a848c829ba9e4f620fe0d81cd2e270738fd0725b5d"
+  },
+  {
+   "file": "tools/commercial-document-builder.js",
+   "sha256": "e5458adb7fc44725dd9b6f53269d1877788a88dad6f8e9027da794437d22fab5"
+  },
+  {
+   "file": "tools/compound-interest-calculator.js",
+   "sha256": "4414ad9445c7faf6b08ef781abc010d3333acfd3fd0ea1fb4a15167a4cf0f3c2"
+  },
+  {
+   "file": "tools/concrete-volume-calculator.js",
+   "sha256": "f6066088ed2d815f46a08e1b9dfa546b2571c3bd6b285bfe0f1e0254ae2f6f9d"
+  },
+  {
+   "file": "tools/cone-frustum-calculator.js",
+   "sha256": "afcc21421effc4732869e035d7a5da4d3daca5b306fce92c93d8c898dc906e50"
+  },
+  {
+   "file": "tools/contact-duplicate-merger.js",
+   "sha256": "e2eeb4cdf63ea0046805fc8102692a64e0532cd7a191f32c820d32152e453549"
+  },
+  {
+   "file": "tools/contact-vcard-converter.js",
+   "sha256": "ca0a12fb769a492cbcfd36fb9d5a221586ef2119dfefa8946bee562675fdadcd"
+  },
+  {
+   "file": "tools/countdown-timer.js",
+   "sha256": "a2706cb259c64d85cd6c023ab2f0228d4d96a670bbcb515813f801efd7130652"
+  },
+  {
+   "file": "tools/cover-spread-calculator.js",
+   "sha256": "b100544a88b0403055bd910ddf09ebc7dfc9378a5f715c8b6552b054e6424e99"
+  },
+  {
+   "file": "tools/crc32-calculator.js",
+   "sha256": "17e045069934da73b929ea452ecf8a42d39c064eb71d9d7998ff0d4277e63361"
+  },
+  {
+   "file": "tools/creative100-common.js",
+   "sha256": "86c5542638ec480e743b426a58acb4826923e2d3be3dc197748631e7dfb94afc"
+  },
+  {
+   "file": "tools/crochet-circle-increase-planner.js",
+   "sha256": "1be21a1197df29ef95c552c975bc35847e8a11c64e5830ac99853abd1d3ebc05"
+  },
+  {
+   "file": "tools/cron-expression-builder.js",
+   "sha256": "038cbdaaf672470d83652b08ce228903d9eb158996c71731abdcf0c5a21a4d09"
+  },
+  {
+   "file": "tools/crop-factor-calculator.js",
+   "sha256": "f5aaa5574c23f7ae2d24e47dc5522830e0875a21eac3c4298e9adc16c128e178"
+  },
+  {
+   "file": "tools/css-animation-generator.js",
+   "sha256": "2d6ff97372bcb7b523305c080a354077d1ed3bb178d4e1eb11a862c37b0fd0c8"
+  },
+  {
+   "file": "tools/css-aspect-ratio-generator.js",
+   "sha256": "2425a0ab5dd069ddb2ba0cad10d018212840ea8ebaa52562b08444febdb8b837"
+  },
+  {
+   "file": "tools/css-background-size-generator.js",
+   "sha256": "f4e5bc2bfa85e986bb58a4f85aec456eb4757341bafd363001a4eb763ebe9708"
+  },
+  {
+   "file": "tools/css-border-generator.js",
+   "sha256": "3ea884658a2578284abd74fa1cdddc064571191a5780af791ba8cd358c16bd3d"
+  },
+  {
+   "file": "tools/css-clamp-generator.js",
+   "sha256": "6a4b3cf61e01f63c817255333f7d53fc7889434ec60bf366dfa2c57037eb18be"
+  },
+  {
+   "file": "tools/css-clip-path-polygon-generator.js",
+   "sha256": "e5f2e70050d411ad7783f927b601f0ff66a227c38ee18dda7a547748648189e8"
+  },
+  {
+   "file": "tools/css-columns-generator.js",
+   "sha256": "4ad73c7c1b647212971c75c0dd8cdb4141c872f98fc3e239085ff59cac67ed2f"
+  },
+  {
+   "file": "tools/css-counter-list-generator.js",
+   "sha256": "8162b466c21047fbb84560461098dbd5259153fe1096a7b803be902fc8f54523"
+  },
+  {
+   "file": "tools/css-cubic-bezier-evaluator.js",
+   "sha256": "4d66a9f9dbca97a20c5590d90214b7330e14ebce3eedf41baa9762cc73037200"
+  },
+  {
+   "file": "tools/css-custom-property-generator.js",
+   "sha256": "c4e3e79129cf806c8f51f77dc1f2b3166cf5ae8a91a548c2fda19b80629d3c58"
+  },
+  {
+   "file": "tools/css-filter-generator.js",
+   "sha256": "bad63c0bc1a2792e5a194be7daf6e6c54e828a1f7745dd618fc6e9d461c9d7f7"
+  },
+  {
+   "file": "tools/css-flex-generator.js",
+   "sha256": "0eec6ce5808d5fbe0315b824ea5a79309ccb0183e772781777d41f7af237aaef"
+  },
+  {
+   "file": "tools/css-font-shorthand-generator.js",
+   "sha256": "91ce8f2e75e8994d4b684c17e3fba37ff11f23100158095967da4b59b2470675"
+  },
+  {
+   "file": "tools/css-grid-generator.js",
+   "sha256": "91890b03ea7496ed9197941e2af8ad5dd4e7d2ea502145ac688b34b962eaaae4"
+  },
+  {
+   "file": "tools/css-linear-mask-generator.js",
+   "sha256": "d44cb5f4c1f4faf5d45bc0735213f05a4cdcd6ef77dd176990af90845db72d4e"
+  },
+  {
+   "file": "tools/css-object-fit-generator.js",
+   "sha256": "5ccdaed84f9be8a6dded647cac41aae21563166a97ec4447dc61b86ba5697d0f"
+  },
+  {
+   "file": "tools/css-outline-generator.js",
+   "sha256": "4aa608d3f60d96618b37eb3e3f11c37e382517c5e1bef18c7db52d541e65be5f"
+  },
+  {
+   "file": "tools/css-scroll-snap-generator.js",
+   "sha256": "e0ffb91e0154ec841e597eb0a4360dd14f92e9c52ba0e4dbee662cbc941edfb2"
+  },
+  {
+   "file": "tools/css-sticky-header-generator.js",
+   "sha256": "12d8d21bbd20c217af0047af33e9c57b99f735f3f99fb3bf06d9f28c980505d2"
+  },
+  {
+   "file": "tools/css-text-decoration-generator.js",
+   "sha256": "f28c4d97c472ab2c709747ed9929313ecfc8543f77c2ed9289ddce98d15add56"
+  },
+  {
+   "file": "tools/css-text-shadow-generator.js",
+   "sha256": "32f8c93ef2b25bc80a3dcc8324eecbb1f4a48d91d9074bb586612860ca3c2ea0"
+  },
+  {
+   "file": "tools/css-transform-generator.js",
+   "sha256": "44706d0b43b43a99300f153583930a192f160c8443d2192f97d5ee45510cca4a"
+  },
+  {
+   "file": "tools/css-transform-origin-generator.js",
+   "sha256": "a2ef76f5f6586c783bae9c172668b4e6cee623502e87ec2f653b7ddcf6bd146c"
+  },
+  {
+   "file": "tools/css-triangle-generator.js",
+   "sha256": "78ea4d2ef1a750316617bcb2c479c854363a9c8476592d109a97ca3eaff48d1a"
+  },
+  {
+   "file": "tools/css-unit-converter.js",
+   "sha256": "5e52b43fab7a3d624c5eb5107a119634f42be4f1621330c25825962f6a7b52e2"
+  },
+  {
+   "file": "tools/csv-anti-join.js",
+   "sha256": "5ef0e36111ec84a79f359801cb978d6a68064989141acc0468c9cb65ae0307ed"
+  },
+  {
+   "file": "tools/csv-cell-case-converter.js",
+   "sha256": "d4c7980e3948d8d6c47ebda3cda67d2bb59ca8a1b6b61d6b9ef62e9fd24145ed"
+  },
+  {
+   "file": "tools/csv-cell-linebreak-cleaner.js",
+   "sha256": "e547f681ac4fb1b14a91ffdc66c44e06dd96860b29b1cd4c4468a1ce5a3342c6"
+  },
+  {
+   "file": "tools/csv-cell-trimmer.js",
+   "sha256": "4d497ad8207707b7a61855fe87693ecf62011c6350231b7c64c64cbd4ff0bb4d"
+  },
+  {
+   "file": "tools/csv-column-calculator.js",
+   "sha256": "516f41288e9795b8a6f93cbbc7d1a1cfe1a5e3effb8488645d9419e59b8a67ce"
+  },
+  {
+   "file": "tools/csv-column-frequency.js",
+   "sha256": "7e6dadf6cd8d50b783b6264bf49d6d9592a73c5c55627eaa881735ea3626b3a2"
+  },
+  {
+   "file": "tools/csv-column-renamer.js",
+   "sha256": "4690495da4e97b2c8fde005e1a2219df71ecd09c7409200abf09a29eb4b07140"
+  },
+  {
+   "file": "tools/csv-column-selector.js",
+   "sha256": "bd3da80b699a526102ef73668eea184c255ce75b9adecda1b46e44b2e5c768b7"
+  },
+  {
+   "file": "tools/csv-column-value-mapper.js",
+   "sha256": "1da5214c43241c1158a0ed99d17b6da6dbf3f64b418eb98c4e93c965f005032e"
+  },
+  {
+   "file": "tools/csv-cross-tab-count.js",
+   "sha256": "615d5619b3ceb32584907fdb037bf3a8cd654f3452b8e53929296d1a0c1de16b"
+  },
+  {
+   "file": "tools/csv-dataset-diff.js",
+   "sha256": "65ce67d2e0a75c49c5c9a56e8ceaa70f2fd10193bd192c6575cabf0a655131cc"
+  },
+  {
+   "file": "tools/csv-deduplicator.js",
+   "sha256": "8d411e2f1c0a8215efb61a79484dfdf3574aa97dd4c5a869b079e18ab1762a09"
+  },
+  {
+   "file": "tools/csv-delimiter-converter.js",
+   "sha256": "9513c1db1a9e76e0f41270b6176b664b59a2d7e5652df089c0e28f19bdd76830"
+  },
+  {
+   "file": "tools/csv-drop-empty-rows-columns.js",
+   "sha256": "3cefca06435592498e5304dae1af3afec1fe8bfdf89516c9224c3553874145ed"
+  },
+  {
+   "file": "tools/csv-file-to-xlsx.js",
+   "sha256": "12eddb465a4dc59be413c6e067da36fedd2cd49351a4c492ac31f164dba71b30"
+  },
+  {
+   "file": "tools/csv-formula-guard.js",
+   "sha256": "b05852e28004621c9ede25c35d8df9887ac62bd1eacfc2cec7be9c3ec9951ba2"
+  },
+  {
+   "file": "tools/csv-full-outer-join.js",
+   "sha256": "adf2ef2de12a096315255d1ba7ce5276d32b9844ff0f3339adced6faf0cbb159"
+  },
+  {
+   "file": "tools/csv-group-sum.js",
+   "sha256": "47120b2c4714eec196d8427d25aff7364ba9d90e23f31c5bc8cc09f7d622732d"
+  },
+  {
+   "file": "tools/csv-header-normalizer.js",
+   "sha256": "7f33eb3fb94bc0c9369c52bb3768fce4e02367ab88bdf20e4abc1dec088c5c4e"
+  },
+  {
+   "file": "tools/csv-joiner.js",
+   "sha256": "6cb6cd6cda86c8ca8b6afe43864d28478f626a78e1e54f661a35c79f9782da59"
+  },
+  {
+   "file": "tools/csv-json-converter.js",
+   "sha256": "720d5ad730017962193a6854e29a3b50b856ac638e32b68eca6a56453004c566"
+  },
+  {
+   "file": "tools/csv-merge-columns.js",
+   "sha256": "cb71d416c3d6dace57eefda9220b00ad7eb49d20b3546f86ce3d7775610a19f7"
+  },
+  {
+   "file": "tools/csv-null-filler.js",
+   "sha256": "28cde5bf3f215c9eb0400e5591563573f252f7d0acf4f488c35a9770a558d19a"
+  },
+  {
+   "file": "tools/csv-pivot-table.js",
+   "sha256": "8264c29138e211198c087a079a910a042fe8b1565aeed853aa992affb9222889"
+  },
+  {
+   "file": "tools/csv-row-append.js",
+   "sha256": "4703cce9af36000fd452e1f0127c4e944122bce2fb5a1e86d7c7100865c6290f"
+  },
+  {
+   "file": "tools/csv-row-filter.js",
+   "sha256": "33261410a2079b61e84374a8fc3ca7009bf3b4b2984f671f37bb4a2dc9a8f7fe"
+  },
+  {
+   "file": "tools/csv-row-numberer.js",
+   "sha256": "43dc4948e25b01003d648e0ac9e1dc4508cc5db06ff26c4f068d81a6c767730d"
+  },
+  {
+   "file": "tools/csv-row-range.js",
+   "sha256": "10cbea6bbdbe7da5d29839bae814fa49782d05fdf82e484403abb4241adb7138"
+  },
+  {
+   "file": "tools/csv-row-update-by-key.js",
+   "sha256": "378172553e925b74662a6aa76a1a266d111cf414a9a22baaf656ab26408096c2"
+  },
+  {
+   "file": "tools/csv-running-total.js",
+   "sha256": "f6cc38430f76f1f9b0f1978ef5c06745a1d22dff211b2d04370fcdf6e7712440"
+  },
+  {
+   "file": "tools/csv-schema-profiler.js",
+   "sha256": "5d9b57c0ab7bd2aa3fc89c0141169c1d60a406c733190b57b51ba012851ca6ee"
+  },
+  {
+   "file": "tools/csv-sorter.js",
+   "sha256": "5edc5be88ed808bcecada0067ade053b961809d36d5b6112e58373eaab8b36ce"
+  },
+  {
+   "file": "tools/csv-split-column.js",
+   "sha256": "1c910d23772e018ac81473d966bff0b4f79eb3ca517dcf37c7416db45f41ff03"
+  },
+  {
+   "file": "tools/csv-to-sql-update.js",
+   "sha256": "c81798bb855499e1d378c85518711ddefef46aecfd975a455d6c09d1e41f9e81"
+  },
+  {
+   "file": "tools/csv-unpivot.js",
+   "sha256": "e4b1481bc5ab6c83059c6c3fb0d56615663b676c0c107f238f9ece05bf1b01f8"
+  },
+  {
+   "file": "tools/data-uri-parser.js",
+   "sha256": "72760381875e53e6b2f279e2ab5ec2334908a772f6dd019d383406fd08446dd9"
+  },
+  {
+   "file": "tools/date-calculator.js",
+   "sha256": "70e6eb9e34b23a29485967fd817111df56efe7d3e8295e92de2e6a9cb11c8bc6"
+  },
+  {
+   "file": "tools/date-list-generator.js",
+   "sha256": "e3201b42ee46b24154136977addd4aab7192c927a3474e993ec92c79360230c0"
+  },
+  {
+   "file": "tools/date-overlap-calculator.js",
+   "sha256": "a7f41107ca625a1eeb35a6a5b5c74bdc592438d2aac2d3412ad28afedc3168f8"
+  },
+  {
+   "file": "tools/deadline-backplanner.js",
+   "sha256": "b2ee6a1ccc37d2102a6e74da2e814afb8dfc153077f77b3ec89bad987bf086de"
+  },
+  {
+   "file": "tools/debt-income-ratio-calculator.js",
+   "sha256": "6ea990d2cd0451212c1b93d16dba68adeb1715d1a1cec031e7c866d193f52d9c"
+  },
+  {
+   "file": "tools/debt-payoff-calculator.js",
+   "sha256": "4e3442b3ea53da01d8545995a4f75a53e15da25e5ec0381a4687cb73aeb40306"
+  },
+  {
+   "file": "tools/decimal-fraction-converter.js",
+   "sha256": "32da21c63468c9b0a4b1a631cf743ea660b2468fb6d895ee46737a3181dd30f8"
+  },
+  {
+   "file": "tools/decimal-hour-converter.js",
+   "sha256": "3b182f53ef9a4c5ed181376557b3a392e7a3fbbc814c3bac673a13351d775e4c"
+  },
+  {
+   "file": "tools/deck-board-calculator.js",
+   "sha256": "346f6f206c4ea93b14fe0f3302f00125c626c006180826cbc53e4be43ec4cf50"
+  },
+  {
+   "file": "tools/delivery-working-day-estimator.js",
+   "sha256": "54c119a4380fab8efb2342a13f21a03d24a387caa7ac5f84ad4c1225652f54ed"
+  },
+  {
+   "file": "tools/depth-of-field-calculator.js",
+   "sha256": "15a7257c77f37ff23332a23ffce084ac655f1901aabdcce05d4c2462de103490"
+  },
+  {
+   "file": "tools/dilution-calculator.js",
+   "sha256": "3a2f3d785acd8d85896ce9a37e531ac2544b9c2fc931c93c09df95873b19658a"
+  },
+  {
+   "file": "tools/dividend-calculator.js",
+   "sha256": "c9818bd0638abc9fbe27d88f617354b4fc62af036cb0b1f49473dda2159428a9"
+  },
+  {
+   "file": "tools/docx-extract-images.js",
+   "sha256": "fd3c8da1878de47e7a2c6952c21b0d81ce4391eadf00a105015d48f172a81fee"
+  },
+  {
+   "file": "tools/docx-extract-text-file.js",
+   "sha256": "b90a6338b2d5ced5955626938fffcebd1f067a70f150a5de9ba8980b07a4c65a"
+  },
+  {
+   "file": "tools/dotenv-parser.js",
+   "sha256": "834e54cd48f1670b886807e98437c821458d86ef173eaa5690655cb353b9e4bb"
+  },
+  {
+   "file": "tools/dough-hydration-calculator.js",
+   "sha256": "e1fc25550790b485f5f4cd1d2c931d09222a4181421330aa88eac9056c624b10"
+  },
+  {
+   "file": "tools/download-time-calculator.js",
+   "sha256": "828a6585a84b98393ff4f637f727b344769a529db82ea49df7310066fbdd5f92"
+  },
+  {
+   "file": "tools/early-loan-repayment-calculator.js",
+   "sha256": "262c9fb9c0bff1f1f4ebee054ad290485823d459c51b8b52ab03da93a21348d4"
+  },
+  {
+   "file": "tools/effective-interest-calculator.js",
+   "sha256": "2afc9936aa0c185820c0673bf47e519448feb69e8f254141c75973be2d6a5d89"
+  },
+  {
+   "file": "tools/egg-mass-substitution-calculator.js",
+   "sha256": "b01b08daf4752f362ffcb2f090ff81df6293c6e77c1823fe78a17b8b30a416e9"
+  },
+  {
+   "file": "tools/electrical-power-calculator.js",
+   "sha256": "b9e2a8529ecf7d2822fef68bc755efdc72c92ba9022ce5aa09d03990a5c1252d"
+  },
+  {
+   "file": "tools/electricity-cost-calculator.js",
+   "sha256": "6aad9f9d6b8ae1eb23ee0a9871ab5a90a50f8cf1bb9c6bd3c77b115521ac5a35"
+  },
+  {
+   "file": "tools/ellipse-calculator.js",
+   "sha256": "f5d632d1e5eee1a7a28136b78a7f8fda3322f59d4148ed3355c63f5b803afdd7"
+  },
+  {
+   "file": "tools/email-extractor.js",
+   "sha256": "4864e0c87f94a3332e2e5e8d109db4217bde9416721088a5ab0a386efe84f7b8"
+  },
+  {
+   "file": "tools/email-signature-builder.js",
+   "sha256": "c2e46f95ee65913e16dadfcef354fab1a1732d3438f8bfa1ffce54596f2a0d15"
+  },
+  {
+   "file": "tools/event-jsonld-generator.js",
+   "sha256": "72d9227c06537d7091647d681c092289f4a5021e365187e6ad6c4c28fcea7415"
+  },
+  {
+   "file": "tools/event-staff-rota-generator.js",
+   "sha256": "7803c2a5ba724d3473409c7c7fcf0ef049541f939e1bfdca9e63cdb05a42462e"
+  },
+  {
+   "file": "tools/excel-serial-date-converter.js",
+   "sha256": "cf20722414e864eeca8f7acc757d85c8092f4a8c6895dd78a0052c17ee967572"
+  },
+  {
+   "file": "tools/expense-settlement-calculator.js",
+   "sha256": "4c03abae6bfe2ca602bdcdd4b81314c8b0a09521bbad47941971ef128ea4148b"
+  },
+  {
+   "file": "tools/exposure-equivalence-calculator.js",
+   "sha256": "206aecfe5f3df311ffff54735d70735a0342fbb9ba2b8b31fa53882482036e78"
+  },
+  {
+   "file": "tools/exposure-value-calculator.js",
+   "sha256": "80c087fcb1a21da4628e0a8a7ce348a690a3b2e1acbd3ede60de819737a41d41"
+  },
+  {
+   "file": "tools/faq-jsonld-generator.js",
+   "sha256": "142911c1dcb534227bd5e117b7262947c647e799a56c57555e304f5b17c28281"
+  },
+  {
+   "file": "tools/favicon-generator.js",
+   "sha256": "2d7f1819096dbeadff13c088e34f70f75208c5c3d914959eeeca7dc577df1e7f"
+  },
+  {
+   "file": "tools/field-of-view-calculator.js",
+   "sha256": "f3e154b8c709f06b6e641b2b212e4b8b3ce786129dae81af14589a4c4264691e"
+  },
+  {
+   "file": "tools/file-sha256-manifest.js",
+   "sha256": "910a46cba755b34d472640d18b7152b76a38e4cf617df9b2e4c794c551af4ea1"
+  },
+  {
+   "file": "tools/file-size-converter.js",
+   "sha256": "4329d4f9fc92f84ff94f2f859c2dcafe848974ea36dabc44021b2e5de592d704"
+  },
+  {
+   "file": "tools/flour-protein-blend-calculator.js",
+   "sha256": "35843394ef3c6e15ed2be4e5c60f2a88f2548f6af2437da963742683888dbd52"
+  },
+  {
+   "file": "tools/fraction-calculator.js",
+   "sha256": "23113745c4a5088519d7d5972dd946094c7b586853f69071c9dd2b9b4c4da827"
+  },
+  {
+   "file": "tools/fuel-consumption-calculator.js",
+   "sha256": "7ae28e33d8aea9f03b1263ab27acc7de417e37e59a606bd51046571360a867ee"
+  },
+  {
+   "file": "tools/fullwidth-halfwidth-converter.js",
+   "sha256": "6676e444a71a09e59fc624317b72a5ce14e07734bdf8bc7a48fa46479565610a"
+  },
+  {
+   "file": "tools/geometry-calculator.js",
+   "sha256": "a56685314def8828aca85b0d4b029c3f680e021f4410d893154cc3a7b60c2eb5"
+  },
+  {
+   "file": "tools/gif-file-editor.js",
+   "sha256": "ce03b92f00e893db190c65bab5358077116deee6b8ce0e5a873295328b13827b"
+  },
+  {
+   "file": "tools/gif-frame-extractor.js",
+   "sha256": "5289c5b7a853a4253181c141683686bd0c4a829d5b1e1536f1608c2854a295a0"
+  },
+  {
+   "file": "tools/gif-to-apng.js",
+   "sha256": "746f969db6a4a04162e583df4bd246039ea98beeed4bd6d79b43120be97cfcba"
+  },
+  {
+   "file": "tools/gpa-calculator.js",
+   "sha256": "59f59a51dc603f50425b06e70a6aa9092103db82ff0b63c9bca29441e7bc3e48"
+  },
+  {
+   "file": "tools/gradient-generator.js",
+   "sha256": "dd98354e70bb8b3824b8bbb851660112735d99b9212675411a620fdab32865d6"
+  },
+  {
+   "file": "tools/grout-quantity-calculator.js",
+   "sha256": "5b7adb2f2efe49a40c1177b7a95ff9a7181539139b4c4071ee274451574d06b8"
+  },
+  {
+   "file": "tools/gzip-compress-file.js",
+   "sha256": "f8ea8a8075d8b10c872865af182dee1572d8463d04c6da813dc3780a9c4724cc"
+  },
+  {
+   "file": "tools/gzip-decompress-file.js",
+   "sha256": "7f035ca8dea0a7dae76b1faec7f2c6104f659d57f44b2eb3a9573bb9e4895f7a"
+  },
+  {
+   "file": "tools/hangul-jamo-converter.js",
+   "sha256": "766330359355ba8973f3e6b0c7268134ee4e6ff005589c5bef44dd75550065b2"
+  },
+  {
+   "file": "tools/hash-generator.js",
+   "sha256": "d12be0be9d43c1f98221d6840956b961022ebe0bd951af6052114e09293a3a7f"
+  },
+  {
+   "file": "tools/hmac-sha1-generator.js",
+   "sha256": "56a2c7ac2ff676dac5840a30637bc9b5a39f40a1dc2e70ec36206a03d281e151"
+  },
+  {
+   "file": "tools/html-entity-converter.js",
+   "sha256": "1d70fb1f0a0d286aad9042be15eb0829eea84b634f87ca8664850bb1970014a8"
+  },
+  {
+   "file": "tools/html-meta-generator.js",
+   "sha256": "a174dd895f88879cf12d8a8a84e6a75a883fae2d3c0c46a1f6b7521f1b77feb8"
+  },
+  {
+   "file": "tools/html-plain-text-extractor.js",
+   "sha256": "73ce733ef775dad840360006a7509afb8c5c59401150d594d398334940d249af"
+  },
+  {
+   "file": "tools/html-table-generator.js",
+   "sha256": "b6e3a1b249de9979fcc800ba962a67c3016a11103e6b314f3992e7afac4575ac"
+  },
+  {
+   "file": "tools/html-table-tsv-extractor.js",
+   "sha256": "9b6aac8ebeece8c1772c1cf7b518c9745c0d0c960d56937f0500d55080b18ede"
+  },
+  {
+   "file": "tools/http-basic-auth-converter.js",
+   "sha256": "f637285d6e80aa9052995a21de552a37407933a18b60a63c9995b447803d6b39"
+  },
+  {
+   "file": "tools/http-date-converter.js",
+   "sha256": "03a958c62252591cbd35fedb6068dd1683419fac3b4c365338a7cc99fd96cd56"
+  },
+  {
+   "file": "tools/http-status-lookup.js",
+   "sha256": "ed1988a44f36eca6f670c7874cad32857806128b00bcc73383c1b109fbb53612"
+  },
+  {
+   "file": "tools/image-auto-levels.js",
+   "sha256": "6760947d1e45a2c945e7f8f4aa2567cc50f10a40eadd9bf5bd0f42254b36f754"
+  },
+  {
+   "file": "tools/image-auto-trim.js",
+   "sha256": "277a1fd6e9b6b5167a2bf97950186c96aef44454a8d8b56979243339bdda3816"
+  },
+  {
+   "file": "tools/image-border.js",
+   "sha256": "021ffdba804266a2ee3d7c43a3cad3eeff9566c0d09454c86915eec9896fc807"
+  },
+  {
+   "file": "tools/image-color-picker.js",
+   "sha256": "ec53777caeecb639ecc15b54a7ffa620bea55a70319002e2b9e78ae6dd805693"
+  },
+  {
+   "file": "tools/image-color-replace.js",
+   "sha256": "daf06ab1822bcb773f63bd1d48c2de06793286239d6c7c49e77fccda7d8f5843"
+  },
+  {
+   "file": "tools/image-contact-sheet.js",
+   "sha256": "e782e6d977b3bedc68ced670ee05fa984be5eac03d2a0434f84e0b94d500bfb8"
+  },
+  {
+   "file": "tools/image-cropper.js",
+   "sha256": "5f84ca4c614f650a125714a77b8e9e89c75abc208bc1b7aca8491c7eb8ea2c3c"
+  },
+  {
+   "file": "tools/image-deskew.js",
+   "sha256": "219ffd94f2997ed72da4daa8e82796aac991138d5847794434703118a9270eb6"
+  },
+  {
+   "file": "tools/image-duotone.js",
+   "sha256": "a4cd12d5d5ad161343c18410284a60e235073e5479002f44522636d590296127"
+  },
+  {
+   "file": "tools/image-filter.js",
+   "sha256": "3725ea93cf8f067716ecc6a2a007ac40428eecea95826d990a355972515c9eb1"
+  },
+  {
+   "file": "tools/image-floyd-dither.js",
+   "sha256": "00dc41937d03851b69bf14a43af319dd7961af342268f5fcd549246c1b3bb733"
+  },
+  {
+   "file": "tools/image-gamma-adjust.js",
+   "sha256": "940cca59c747c2c18196634fdf944192060dfc79e890aeacf0f9845a29b46922"
+  },
+  {
+   "file": "tools/image-gaussian-blur.js",
+   "sha256": "2c160c0b0ef52a17fa343663e33bc2e35d594e55b2b6eacaf4f590d5f4c4e9ca"
+  },
+  {
+   "file": "tools/image-halftone.js",
+   "sha256": "a3749a4fc099c397158516eec56e68b870f82ea4838cdd629585771c953e855a"
+  },
+  {
+   "file": "tools/image-ico-generator.js",
+   "sha256": "4c1f62086b003a2e2beeef4967f118a8ba9a102c0cf87049dd85b73dc9934424"
+  },
+  {
+   "file": "tools/image-layer-blender.js",
+   "sha256": "383ae8359e653c9cf25011a0172d4a0af2fc28cef3f19417538cccabc9f268b2"
+  },
+  {
+   "file": "tools/image-median-denoise.js",
+   "sha256": "e6919f5fea90a94983cb36389feed6d6a77620d6e154f6924e30488936e4d614"
+  },
+  {
+   "file": "tools/image-merger.js",
+   "sha256": "c1c0f55728862de2bc16716a7dcbace6caf9965a9a27fc1b990b7f426c63016b"
+  },
+  {
+   "file": "tools/image-metadata-stripper.js",
+   "sha256": "cda4491883fa90df1b07ab56de5656268ba27a52640be229135450813fa899cb"
+  },
+  {
+   "file": "tools/image-mosaic.js",
+   "sha256": "ae4ea9c67dcbd91092c9fa19ab99ac5eba3ea17ec6be43726c299f8742efc895"
+  },
+  {
+   "file": "tools/image-perspective-fix.js",
+   "sha256": "14fe60a667d4989f9d8a22a48f5eeb331a4645c2f169c28312d54c121671a078"
+  },
+  {
+   "file": "tools/image-posterize.js",
+   "sha256": "e0ffe11814dd18e7f21d197c0b5a19bb876978b51f9f583d55a4666764a4812c"
+  },
+  {
+   "file": "tools/image-resizer.js",
+   "sha256": "45d05d7aafdf00df42c9b819ee8f3d22da099fd95cfd52a416bf69c199c526bf"
+  },
+  {
+   "file": "tools/image-rotate-flip.js",
+   "sha256": "f8fdab44657e8c947603c324042503fc7eb511255ca2227cbd50551a37968105"
+  },
+  {
+   "file": "tools/image-rounded-corners.js",
+   "sha256": "445c5a93115f6d546e45e545aac969d1f81784e8219e5747349bc98149c6342c"
+  },
+  {
+   "file": "tools/image-scan-cleanup.js",
+   "sha256": "76eb0de402b117ad265a2a48873d470334e0d0198bf4f6cfd53737b8aa6c0b29"
+  },
+  {
+   "file": "tools/image-to-base64.js",
+   "sha256": "1f11aab4942f225deb6ba758dc881c9179dcbdccf954c2a626e7b75669dafb6c"
+  },
+  {
+   "file": "tools/image-unsharp-mask.js",
+   "sha256": "f81fbe99c2b09d3e70bc9bf12e530c8704f6f6bb61c3bc88182b8fee1a7ecd75"
+  },
+  {
+   "file": "tools/image-watermark.js",
+   "sha256": "f3825113edfb6a252a1d315eefed932ae98d81e4597bd8a1e08f8809af772309"
+  },
+  {
+   "file": "tools/images-to-gif.js",
+   "sha256": "555067c9c7c55a14809f7653944ea105abfe5a4409fe3b2afb31e55933eb5543"
+  },
+  {
+   "file": "tools/images-to-pdf-file.js",
+   "sha256": "2a2be9d6c38e700caa27dff5749d91104689cc9f5d353754897b9b08e242a98d"
+  },
+  {
+   "file": "tools/inflation-calculator.js",
+   "sha256": "540b5bf5656dba3c0706a5b5cc26fe11ae759eb8b82e109b9a73f96d5b88ae55"
+  },
+  {
+   "file": "tools/ingredient-volume-weight-calculator.js",
+   "sha256": "d8620f79a3cf3582ad456d2a5aee4f0e06cabd7e0971468e349afc0858dfd4f7"
+  },
+  {
+   "file": "tools/ini-json-converter.js",
+   "sha256": "bdbea07dc0b23615dd77a6fdd06d33e5109f8bddf96a81a4c2f46705fb29f2b0"
+  },
+  {
+   "file": "tools/invisible-character-inspector.js",
+   "sha256": "33df392d6f8fe66a5037a8547ff6153657cd3786ed59d0d7af75f295b2093ad8"
+  },
+  {
+   "file": "tools/ipv4-integer-converter.js",
+   "sha256": "bd1d5ce10c1dab1f774ba6758867d3403bf193814315f14a29e2a8be738fb58e"
+  },
+  {
+   "file": "tools/ipv4-subnet-calculator.js",
+   "sha256": "199551360af398ec1318f8118a9de13342642941917717bc112d342412fbc934"
+  },
+  {
+   "file": "tools/ipv6-expander.js",
+   "sha256": "3dddf4c680090e8734a21240df01740cf1c091310ee96328789d5700f4b76bd5"
+  },
+  {
+   "file": "tools/ipv6-subnet-calculator.js",
+   "sha256": "70ebd3b0f3ee35dfa7bc2b7de27baad02fddb77fad37e976b7130714deb7cf8c"
+  },
+  {
+   "file": "tools/iso-duration-converter.js",
+   "sha256": "6310b34dc5297553ff1e3d06635ce028bc1fd0aeac6081dc7f0bdf40deb01b01"
+  },
+  {
+   "file": "tools/json-depth-analyzer.js",
+   "sha256": "4985fb8bfb5d71109418c4794b9c4e1fa7841fa776c56e116e589ec1fe321b29"
+  },
+  {
+   "file": "tools/json-diff.js",
+   "sha256": "355975d074bc09024d095fc33069ed768940029e37da72f24e85b7c4daec8725"
+  },
+  {
+   "file": "tools/json-flattener.js",
+   "sha256": "9d417e7770bb7eb49a862f88a02266849eeea3a969c98eccd648576971d13015"
+  },
+  {
+   "file": "tools/json-formatter.js",
+   "sha256": "52314748b35482cbccfdefee808c22ab87f36b974f98ef95a14c66549933088c"
+  },
+  {
+   "file": "tools/json-key-sorter.js",
+   "sha256": "1db0676b81ffde7587797e4ec7b3b05b1c60247cc600560719a96c6f741f7ad9"
+  },
+  {
+   "file": "tools/json-leaf-value-search.js",
+   "sha256": "1fcfe0d67e4d5d3b696510d09cec867e6e460f70109eb37355dbe716548c22e5"
+  },
+  {
+   "file": "tools/json-lines-converter.js",
+   "sha256": "34ee2121bc60e2bf5d6507d7152004f2e0ebf1dfe696a6288f88e702caf7df21"
+  },
+  {
+   "file": "tools/json-path-extractor.js",
+   "sha256": "9a33ed3c54ab477d982a5671f1a19945eaf59e729521eadd76258470375aec43"
+  },
+  {
+   "file": "tools/json-prune-empty.js",
+   "sha256": "234e01a414055911ee780d10f97e307760335891d446008b8edbe6c62f2a0193"
+  },
+  {
+   "file": "tools/json-schema-generator.js",
+   "sha256": "7d7bfc8314499d742d52dece5c91726ab55d92fcfa662ed28397f2d810f02107"
+  },
+  {
+   "file": "tools/json-string-escape.js",
+   "sha256": "3cbd158173ce824afc778ea7ca94df2635bef42410a7f11046e27be28e8910b4"
+  },
+  {
+   "file": "tools/json-structural-skeleton.js",
+   "sha256": "972b1b80beb5248c3cff492b8ad43652b8fddea98ed2fc6e38284bb720426ebb"
+  },
+  {
+   "file": "tools/json-to-env.js",
+   "sha256": "343491b45c6923112301164c7aac1fa081f109cefe1749c305aa6f0d60e11dd7"
+  },
+  {
+   "file": "tools/json-to-typescript.js",
+   "sha256": "6b3c3a137d5b8a1761163fb35d3d4cd23c5d387da5f4be236aa3243d99b65ce1"
+  },
+  {
+   "file": "tools/json-xml-builder.js",
+   "sha256": "959ba25860265d1a64280cd19462d3125b0b54a2ff1c4049cd45c7b0e88535da"
+  },
+  {
+   "file": "tools/jwt-decoder.js",
+   "sha256": "4a38f4157028f4699b0f9fb90d1cf9a7665a9f3e61f8ab7cb5c38ebb57ce562d"
+  },
+  {
+   "file": "tools/key-signature-calculator.js",
+   "sha256": "6041c6aae7e5c2eeac50a5b7d472598937c58857fc8816672e9318cc4fac8c8a"
+  },
+  {
+   "file": "tools/knitting-gauge-calculator.js",
+   "sha256": "821e5f29c57eb02b560c0405bccf3df343a2638712168cd262377411830247fd"
+  },
+  {
+   "file": "tools/knockout-bracket-generator.js",
+   "sha256": "d75401ec240586b7e5cfe77c3733a88689bc8dcb9d03c2171025a660a837de9f"
+  },
+  {
+   "file": "tools/korean-amount-word-audit.js",
+   "sha256": "059dbb968b540394f158cf9d0705a8e13d7be3cf2569729d25dbb56e27751c91"
+  },
+  {
+   "file": "tools/korean-keyboard-converter.js",
+   "sha256": "1ba1def5c6383af5e155d6731953f018d3516ea7a6d7dca6d83827474851bed7"
+  },
+  {
+   "file": "tools/korean-number-reader.js",
+   "sha256": "44d7e49e83125d0446784eb05435a907356669c3365f0928cc8e0bab63a5b096"
+  },
+  {
+   "file": "tools/laminate-course-layout-calculator.js",
+   "sha256": "e893d5fd1e94af6986a72dff7be6ca8a626905c968db40f21947a83b9e6ff1e3"
+  },
+  {
+   "file": "tools/large-print-document.js",
+   "sha256": "feeea84c0536847e4fe292e24e0468bebe5778355ce00ff176620291f61a6035"
+  },
+  {
+   "file": "tools/ldif-contact-converter.js",
+   "sha256": "362c600858149aea5e30e3392e879e1587d39e9fa0b9afeb56e0bd26e9b2f932"
+  },
+  {
+   "file": "tools/league-standings-calculator.js",
+   "sha256": "3c5bd8801ff72a1696e669d04147c1ad24ee8b14b7135736d016d9ce0e9985ae"
+  },
+  {
+   "file": "tools/lease-deposit-converter.js",
+   "sha256": "67e7a475d49c16301e9242ff09714362829f730307ee666f5a07ab0dd4da8752"
+  },
+  {
+   "file": "tools/led-resistor-calculator.js",
+   "sha256": "1423167866dbe0a8812c05f1a91985291ede9c975b4ced32469217470192842f"
+  },
+  {
+   "file": "tools/loan-comparison-calculator.js",
+   "sha256": "d01a5c59727a46202dccba82c7261f27a8a7736500932be8ac9b9e35067d5e30"
+  },
+  {
+   "file": "tools/loan-payment-calculator.js",
+   "sha256": "e825aaa22ee832195f74080b0b495bc3abfa2c9126d3152fe91e848000dfe6d3"
+  },
+  {
+   "file": "tools/local-business-jsonld-generator.js",
+   "sha256": "8853ab1d726b6ce4ac0a893f5ffe9860c134b45b11ca8ed088fe12df32691eda"
+  },
+  {
+   "file": "tools/long-screenshot-split.js",
+   "sha256": "662be0f90686f9bfab0a4d0b77a07ff88fe580f9528fd833305534692a3474c4"
+  },
+  {
+   "file": "tools/lorem-ipsum-generator.js",
+   "sha256": "9c8a1d4c38aecb28dcf42ba8d127a6b83641bea5596e566c2126e04efa600bdd"
+  },
+  {
+   "file": "tools/margin-markup-calculator.js",
+   "sha256": "7391497d9cd29744610757854c570d1c6e27ac0bde9a54c6d52fe629ff0b05e4"
+  },
+  {
+   "file": "tools/markdown-heading-outline.js",
+   "sha256": "96fe60faa08251437c9792b45ab44c4c9389c7a524884a9601139da1de9c1a8d"
+  },
+  {
+   "file": "tools/markdown-html-converter.js",
+   "sha256": "c8d9d5ed05e3ba4206c3fa7bd57296541ef0b7534aa4eaec38a7b5fea40e6151"
+  },
+  {
+   "file": "tools/markdown-link-generator.js",
+   "sha256": "52684ae927c66b64fc7362254fe598092eb07db8503644f51009205c2f352c00"
+  },
+  {
+   "file": "tools/markdown-plain-text-converter.js",
+   "sha256": "5332cbf0f6f0db3a2229de79e60964333900e33436212f66af9768e8159f6a99"
+  },
+  {
+   "file": "tools/markdown-table-generator.js",
+   "sha256": "c8ccb02dcee016fbd50a869b1e0138a3f19d482192461e680c72b6601f267034"
+  },
+  {
+   "file": "tools/markdown-table-to-csv.js",
+   "sha256": "33b28ad2e6f9be77463fcd9f0238995b8625894fc7633c9f13f03e2be8de5b7e"
+  },
+  {
+   "file": "tools/mime-type-lookup.js",
+   "sha256": "67b57254f9546579d5ac4287dfc77fc196b5db1c460a19de9738997e74b85575"
+  },
+  {
+   "file": "tools/mixing-amount-calculator.js",
+   "sha256": "33060877452d4d862e12c52df38dfc354bb01f642fbdd01c561f00627dc4bcef"
+  },
+  {
+   "file": "tools/month-end-calculator.js",
+   "sha256": "65d95c33ab81cb1f5093342f2146a7985dd94613df11439dea1442ef975da622"
+  },
+  {
+   "file": "tools/morse-code-converter.js",
+   "sha256": "27146752734bc4ead4a6e9189590d0e3731e3aa2ce290a9b4afe7153e3fa8dc1"
+  },
+  {
+   "file": "tools/name-badge-card-builder.js",
+   "sha256": "195447734d6675daedbfe4ee1d1d050491ea84e0cfb61fb88977d6892e0149c8"
+  },
+  {
+   "file": "tools/native1000-audio.js",
+   "sha256": "508b702b69aeacbe132ff2302775e3a2758eaa8c1a323b1212a2e15b7c01e920"
+  },
+  {
+   "file": "tools/native1000-media.js",
+   "sha256": "d1d7619af1d989e1efa83d5de44df9a33146d960dc406153b990cd00a18599b0"
+  },
+  {
+   "file": "tools/native1000-office.js",
+   "sha256": "8e959abdb90c15d1adefef0795972080456f336c69b53cbd96e3a073cbb21c15"
+  },
+  {
+   "file": "tools/native1000-pdf.js",
+   "sha256": "8ab18acc9a12c8efcee27eb0f572207e4ce1221b4452a6dd691b6f7df7cd6bed"
+  },
+  {
+   "file": "tools/native1000-ui.js",
+   "sha256": "953a5c9c254083842ffda38833ac39bc303bdcb3d4d7a04f3ae841e17cd5355f"
+  },
+  {
+   "file": "tools/nd-filter-calculator.js",
+   "sha256": "0f8d7134e472655d018bfdc630231353d08e509e6279541c9563fd2358f6517f"
+  },
+  {
+   "file": "tools/ngram-counter.js",
+   "sha256": "0bba03f2094a82b635022e351b7e85753bc402128357519ad51f33f9b93172db"
+  },
+  {
+   "file": "tools/note-frequency-calculator.js",
+   "sha256": "423b147f71fdb551fc4854da2d2e59fde039ca47e0b478711cdf3ae5cd874261"
+  },
+  {
+   "file": "tools/nth-weekday-calculator.js",
+   "sha256": "3e06aaa2e5e52fd2d5d7f934675d767b2bfd2f6bdb263b4f329f579f59396533"
+  },
+  {
+   "file": "tools/ntp-timestamp-converter.js",
+   "sha256": "b17fc7d8229cdf3598a5f526415df2e2f8e9d976ebc99d3137ca09911c7a4af6"
+  },
+  {
+   "file": "tools/number-base-converter.js",
+   "sha256": "6f762f1485eda76be37f6fcabda001786eae14e8d334fd37bf7b988fd96100c2"
+  },
+  {
+   "file": "tools/number-to-english-words.js",
+   "sha256": "a1a0c478c62449e81e5874d2ff3ba8df444d869e35e8f9092325c5663f9bfb3f"
+  },
+  {
+   "file": "tools/office1000-contact-calendar.js",
+   "sha256": "401fc7260cc86069a28fef9f28fec76f3cc308aa63564d1989c9b09fdad3d571"
+  },
+  {
+   "file": "tools/office1000-core.js",
+   "sha256": "8b71400442964afa813da0839af174c81249c176c39e76ea157bfce94c91ac86"
+  },
+  {
+   "file": "tools/office1000-documents.js",
+   "sha256": "423b816a1a9a197eeb37ac1d8e1d854819873a7f5d7d5f6512eb13cf4de2e46c"
+  },
+  {
+   "file": "tools/office1000-formats.js",
+   "sha256": "871ca7454a12af3da955dd0d275294420d32a05338ec63c5d113bfb812a60155"
+  },
+  {
+   "file": "tools/office1000-lists.js",
+   "sha256": "dfcec5e28ae16445bb45cc45fe882f59eac19318f3638f1f9e869516600c6452"
+  },
+  {
+   "file": "tools/office1000-records.js",
+   "sha256": "f5f49837b4ff361a6834a92823a9023b8c119b219bf34961ce6b57d7c0248ad0"
+  },
+  {
+   "file": "tools/office1000-subtitles.js",
+   "sha256": "50bb50e60d32133c782dfaa7bbc7a9eed4f419f18d1c609490e784064f352de1"
+  },
+  {
+   "file": "tools/office1000-tables.js",
+   "sha256": "dc58ff7c3bf5bb625d0a6baa8606920cc9e350b8688ddee47234266bb4a0e5b3"
+  },
+  {
+   "file": "tools/office1000-visuals.js",
+   "sha256": "34b2cd125503c0f18f03f0b53c67792bd48f20ebb3c65f2634f2f0156bab54fb"
+  },
+  {
+   "file": "tools/ohms-law-calculator.js",
+   "sha256": "33ff3bec22ba58417c95e9bd93fd4f91cbc842db5e6df1cf2f6cdb6a76e302c8"
+  },
+  {
+   "file": "tools/ordered-list-change-report.js",
+   "sha256": "7934c66aa1502253ccfa12ed3945e536a2605d3187dd2dfbc8fd8e77bdb6e8db"
+  },
+  {
+   "file": "tools/ordinal-date-converter.js",
+   "sha256": "18e60e248e5422f06db6c57af45d0ad5460df5b235ca0056096c0a78e27dc69c"
+  },
+  {
+   "file": "tools/organization-chart-builder.js",
+   "sha256": "5526adc379438f85a8d6a439eac92ebf67416af3fab8713588b1a9d0051e87c8"
+  },
+  {
+   "file": "tools/organization-jsonld-generator.js",
+   "sha256": "d584810392ebe61fd1550334d4c5fa3175d044bd4fd2db913634c30e863e3f8e"
+  },
+  {
+   "file": "tools/pace-calculator.js",
+   "sha256": "79afedc307bfbd769516aa2410308280670d50f9dc3d27d005ec8ded50e9f727"
+  },
+  {
+   "file": "tools/paint-coverage-calculator.js",
+   "sha256": "8ac2b1456ea6cab01a7b8ee4289f124041d52e2554746c2296f368102c4c2f02"
+  },
+  {
+   "file": "tools/paper-gsm-weight-calculator.js",
+   "sha256": "66cbd20e5a3739a5e5cceb754e95157f60754335c3a629773767789b6b2cb4d5"
+  },
+  {
+   "file": "tools/paper-size-calculator.js",
+   "sha256": "81ab86e3c74f2e3a5f8375cfb0f8adcac70ddd759a2f5e19420a7ea1fad37a0f"
+  },
+  {
+   "file": "tools/paragraph-sorter.js",
+   "sha256": "aa88f63b09b7fe8a830f69d50ab85448d319622683616959e66f6c01adc8a0d4"
+  },
+  {
+   "file": "tools/pdf-add-margins.js",
+   "sha256": "84d446e88e9b0b5b9a394e22ae4aae896f56e2a0c4f3255b670b180a496b847c"
+  },
+  {
+   "file": "tools/pdf-add-page-numbers.js",
+   "sha256": "4972575d30b8c84ffb7996de6c46388336b0f9acc8d4bbd8dea5323e235f8bc1"
+  },
+  {
+   "file": "tools/pdf-add-text.js",
+   "sha256": "5ded531e108d4b31e87a59a801468da755a88f9b1c0aa33d424efea07c4c0350"
+  },
+  {
+   "file": "tools/pdf-booklet-layout.js",
+   "sha256": "24938d05f368f9e43a0c7cd631e5260694ca884e8f6f79b777ace0f528173da8"
+  },
+  {
+   "file": "tools/pdf-contact-sheet.js",
+   "sha256": "83de27bcfd6a6078f1590e5c049267245f3e577d4224af6663c87d83417bc2b7"
+  },
+  {
+   "file": "tools/pdf-crop-pages.js",
+   "sha256": "2bf05732bcd22e3315eb07c6879c410af4a384575f78a11fdb210715847ed19c"
+  },
+  {
+   "file": "tools/pdf-delete-pages.js",
+   "sha256": "4238b61139c3b8b1e08018d89a89bb323b4d66068b1edfda30bf2d6ae9308aed"
+  },
+  {
+   "file": "tools/pdf-document-info.js",
+   "sha256": "516d6d2931e0670da9498c66038eae3bd42fb31a9a37a3842da1291c0a851e66"
+  },
+  {
+   "file": "tools/pdf-edit-metadata.js",
+   "sha256": "f85f3a585221879b2fa96c75896e4fe49668c7ed977d963297116a03a8218089"
+  },
+  {
+   "file": "tools/pdf-export-links.js",
+   "sha256": "0aa07ff68e4c84c88bf6262d35724723d3559c3cc7703b636789e368679cd8bd"
+  },
+  {
+   "file": "tools/pdf-extract-pages.js",
+   "sha256": "0e128316c1b511c5ba08e909456c3b90282751e6b6e65d11af4db1eb60183d2b"
+  },
+  {
+   "file": "tools/pdf-extract-selectable-text.js",
+   "sha256": "cefa36825c2058ec27e0e4dd362710cc5f501b152ec3d3827fec0ec9df253994"
+  },
+  {
+   "file": "tools/pdf-flatten-form-fields.js",
+   "sha256": "90e8bc1e660e12403c4eb7127a8715efb2e4bd111f1cda38bd33c57bb58fab39"
+  },
+  {
+   "file": "tools/pdf-grayscale-pages.js",
+   "sha256": "906b2977ecd81edf309e8651d3f3c7119ffadf51465b9cecdcf6484d42906cd8"
+  },
+  {
+   "file": "tools/pdf-image-watermark.js",
+   "sha256": "5f03db87ff7c41f04acc846e07798c5e493241ae752665ab309292dec546f732"
+  },
+  {
+   "file": "tools/pdf-insert-blank-page.js",
+   "sha256": "f5887c7f34472c078c1215940b87e9efb6dc8bd76b74e2c803305ed1553bcf31"
+  },
+  {
+   "file": "tools/pdf-insert-text-cover.js",
+   "sha256": "48d430aea57c16447deea3fc370451fd05200a7193302df5351ac9b73a8df1bd"
+  },
+  {
+   "file": "tools/pdf-interleave-scans.js",
+   "sha256": "14c4d14a5e96d70b2ed3577491c2c228bc0bb9ffdc7e3418cc58986d9c1204e7"
+  },
+  {
+   "file": "tools/pdf-merge-files.js",
+   "sha256": "0dcf6d97cc09ba1def2e93b4df501e73a6c9b2f4ecd92dbae55d005a437c6ad8"
+  },
+  {
+   "file": "tools/pdf-pages-to-png.js",
+   "sha256": "9f052e25431f9c183ce0413001dd9d63ceea9e3267c0423174b5ecda97f4a4a7"
+  },
+  {
+   "file": "tools/pdf-rasterize-pages.js",
+   "sha256": "964f0dc69ab3aba4a5565c2882226097b02e279c877621d24ee5eb9731f25f0c"
+  },
+  {
+   "file": "tools/pdf-remove-annotations.js",
+   "sha256": "c02c04e7a9f99c584573c1ee45559ea707dffbb50113183b97452453a2f41971"
+  },
+  {
+   "file": "tools/pdf-reorder-pages.js",
+   "sha256": "71cc61d2ea16cdefdec82905ff031268448fcbdbd5a462c8e1a0d2e0df3afc13"
+  },
+  {
+   "file": "tools/pdf-resize-pages.js",
+   "sha256": "345a138e89e492fd5d8d80128a9d60aa155fb072ee92e55a0d0895148dd4c4f3"
+  },
+  {
+   "file": "tools/pdf-rotate-pages.js",
+   "sha256": "4a9fcf96ae74ec7a07b76bbc8117bcae223a35427913f1887f381088b5314f33"
+  },
+  {
+   "file": "tools/pdf-split-ranges.js",
+   "sha256": "8e9d332264797bbcdbe70e6627034eb3e7d415a8a103124dba79e47d4df83b8b"
+  },
+  {
+   "file": "tools/pdf-text-watermark.js",
+   "sha256": "a8e0e60645102153757a7b516e7dc50bc44489472343f2e80adbbdbbc3fa0afc"
+  },
+  {
+   "file": "tools/pdf-two-up-print.js",
+   "sha256": "76508e8f504552fe3d46eac4912feb5ed2b7adea2eaeee895eb457c4ddde5caf"
+  },
+  {
+   "file": "tools/percent-calculator.js",
+   "sha256": "194b7a50224f22a0dff78e95e87121c2b85298832262698f9adae660947d253b"
+  },
+  {
+   "file": "tools/photo-backup-storage-calculator.js",
+   "sha256": "ac81746ffb3a0844e07386342afed4ed306e5ca238014b821dcc62e10bfa9d51"
+  },
+  {
+   "file": "tools/pixel-aspect-ratio-calculator.js",
+   "sha256": "d15f94372ef91577ea2312c694fc22850049f307bca2e99c09830372950ec0f1"
+  },
+  {
+   "file": "tools/pizza-dough-ball-calculator.js",
+   "sha256": "a88ec1a81a5365aa594c2158ee9cc57334830948557ddaba9b4007fb9fe9ea8d"
+  },
+  {
+   "file": "tools/portfolio-return-calculator.js",
+   "sha256": "17c8bcb3a0fcfabaae3e6b14e27fc19107149f8e259bbfd630c5c4a3f167f3d9"
+  },
+  {
+   "file": "tools/pptx-extract-images.js",
+   "sha256": "27b49c2c1c97d56f408ddeb4f393a8d83bdefa2e6a4adafb761cbcc8e754d011"
+  },
+  {
+   "file": "tools/pptx-extract-slide-text.js",
+   "sha256": "9eb92c65d37cdbb9e600885d5018cac92e8120e975ceaf4674c42137ad2a9e96"
+  },
+  {
+   "file": "tools/preferment-flour-calculator.js",
+   "sha256": "22fa306e6dd73db99010e4192996673da1b35bc8b29782a1278241fac472f881"
+  },
+  {
+   "file": "tools/print-bleed-calculator.js",
+   "sha256": "8b9f9f25ef6d20fe7f9b16940ab3214d63b1d14c4e1941f1447c7604681f29ee"
+  },
+  {
+   "file": "tools/print-sheet-layout-calculator.js",
+   "sha256": "4b8b8c894df390d9153d71dca4861b28ebb061407d044ae927b84527f672a40c"
+  },
+  {
+   "file": "tools/printable-writing-paper.js",
+   "sha256": "9cb5b71bdf8a67b979e1f90c3aa508e53391309037039283d33161f54477ce10"
+  },
+  {
+   "file": "tools/product-jsonld-generator.js",
+   "sha256": "5b824fb2894faf7ad219b3e811c3b34a1cb728888b58defad931ebd81b4f0ff3"
+  },
+  {
+   "file": "tools/punycode-converter.js",
+   "sha256": "b5b9d28e67b1ff1297cbd32c2607daf520123cc7037b3e6c08f1008a5bdd9eec"
+  },
+  {
+   "file": "tools/purchase-pack-unit-cost.js",
+   "sha256": "bacc366703d1121a67b6aa2f7721a903971667cf24e71336900b45462c4a8806"
+  },
+  {
+   "file": "tools/pythagorean-calculator.js",
+   "sha256": "38d939a128b32d1fb4295417d4bfe75017febbbbfe4f64d2444a66c97c6d3cc8"
+  },
+  {
+   "file": "tools/qr-code-generator.js",
+   "sha256": "be28d5e9a0b908909a5364a8ecd2993c17f2ff8c7084df650d33b5c30492b9de"
+  },
+  {
+   "file": "tools/qr-code-reader.js",
+   "sha256": "a4b26dfb37535019ca5472cbc926e30fca27b8274734bfaa1f1fd53d1a5170fb"
+  },
+  {
+   "file": "tools/quantile-calculator.js",
+   "sha256": "5058090a851957547679ba237f7c081ffb7d1988cb5f9c6c52646ee185f09280"
+  },
+  {
+   "file": "tools/query-string-parser.js",
+   "sha256": "e1dee70183ea20ea8a34c5bf84ca5ef9a3811f591f7c4dc7b2962ee01623ee84"
+  },
+  {
+   "file": "tools/queue-number-tickets.js",
+   "sha256": "828475a582eb52a86eb476ea755e095fef72e3dce1a0080c15f408f7fad33723"
+  },
+  {
+   "file": "tools/raglan-increase-calculator.js",
+   "sha256": "a96bf8ae98c23180cd0015b764bee000ce4c011b74924bcc109692ebd1869a38"
+  },
+  {
+   "file": "tools/ramp-slope-calculator.js",
+   "sha256": "ed9c3dbf50abd6a7402fc6a8e37d969ffd6970084b69a430eb3e85f5a1b745c9"
+  },
+  {
+   "file": "tools/random-date-generator.js",
+   "sha256": "8b7aff39563fec1cb501dcd7f9275e60679952371f232d84ce683543e035dd0b"
+  },
+  {
+   "file": "tools/random-id-generator.js",
+   "sha256": "083469731cce420fa4a07e74f1f0bac1cd6aeeb9d31b259561d80908d61aa744"
+  },
+  {
+   "file": "tools/random-number-generator.js",
+   "sha256": "defa64f3d224f21824adc95959ed61cde877bb692a7e6e765b67e0b1b0c5362e"
+  },
+  {
+   "file": "tools/random-tools.js",
+   "sha256": "3a174ba7bd8ab4c30d63d5df96ac934e4dc86e10d0802d698d03e72c178b523d"
+  },
+  {
+   "file": "tools/ratio-calculator.js",
+   "sha256": "de68117434a81b0180f8767dfdfa80fb84bb840f6d0f81d2d5c9f6a7397e6543"
+  },
+  {
+   "file": "tools/reading-time-calculator.js",
+   "sha256": "37665fe84423fff8c73368cb87271b4204fe0da4893aa7683495476cc9ea9767"
+  },
+  {
+   "file": "tools/recipe-scale-calculator.js",
+   "sha256": "1ab399c0c6e8f1d2c7ec7a78a3bb23a16f6a94588f9e85eccafea8cef16525e2"
+  },
+  {
+   "file": "tools/recurring-date-scheduler.js",
+   "sha256": "ca2189606145a8ecf2e5c22ec6fb3d21ec890665314429fb0992639bf3352fe2"
+  },
+  {
+   "file": "tools/recurring-savings-calculator.js",
+   "sha256": "52a83876b35fbc46f98f505db32fd77ebf6df256238315a92dd46b21969c8f07"
+  },
+  {
+   "file": "tools/regex-alternation-builder.js",
+   "sha256": "2d6c850a78aa612dea3da5a76756406064cf3641e01f8726f56b5ec3e407bb66"
+  },
+  {
+   "file": "tools/regex-escape-generator.js",
+   "sha256": "b587247ef2b8e65e183aa1f619a0d85ccf98fb61fe1719db4e0d9842c403a2cd"
+  },
+  {
+   "file": "tools/regex-tester.js",
+   "sha256": "6d6d4bd78e094844c0ca4d853c49bf4514b6dcfd0aac71460b3897da6a085916"
+  },
+  {
+   "file": "tools/regex-worker.js",
+   "sha256": "275c5b2e754c1991ace90955ba4aee539e4cdc177396a006e9846012820de7a6"
+  },
+  {
+   "file": "tools/regular-polygon-calculator.js",
+   "sha256": "ff52d32e041ef37fb69e16bbc3f29ffa9bbd6f3dd578f2eba9c20c63a3045d95"
+  },
+  {
+   "file": "tools/rent-yield-calculator.js",
+   "sha256": "1fe1a2a4b6760abec9ac38496432234386c5d2783d78aae0e9b8a6644ad8fa8e"
+  },
+  {
+   "file": "tools/resistor-color-code.js",
+   "sha256": "1a06e1b013a00dce4bbd71bc29597677d46233562846d83e82c3e46905a129a2"
+  },
+  {
+   "file": "tools/resistor-series-parallel.js",
+   "sha256": "911533ac6aa8369110100df970893ab01fb37e48da0c23690def026b870f396b"
+  },
+  {
+   "file": "tools/restored-tool-flow.js",
+   "sha256": "3960e17c4e9d023d3dcf47c5570494bbe1160033393ba1bfd391ab4e879ffb38"
+  },
+  {
+   "file": "tools/resume-document-builder.js",
+   "sha256": "8d88702a4c659ff48f6495bfb6e7e6fadda77c4df2adc4cb30ec48ffe034e2e6"
+  },
+  {
+   "file": "tools/robots-txt-auditor.js",
+   "sha256": "d9279114a4df2a64e9a78cc3e264bb8864ced510ae9a27e8a2644313a8e80574"
+  },
+  {
+   "file": "tools/robots-txt-generator.js",
+   "sha256": "1db2c71cfcd9e8cb58b6d4a2b6624b22bdf6a129803f5abfe0387e7e48f6217b"
+  },
+  {
+   "file": "tools/roi-calculator.js",
+   "sha256": "0340fcdcf63afc093d3fc4f3312c6e7d83c7b02539f01845e06712e7b741643d"
+  },
+  {
+   "file": "tools/roman-numeral-converter.js",
+   "sha256": "535860e501fe994f1f7cd363e6704a4dab6477873f2b48820df7832a80e40f35"
+  },
+  {
+   "file": "tools/rotation-schedule-generator.js",
+   "sha256": "6aa140c271dc8472d274836dd18f1cebb164a783ae591902821490a5e2ba6c50"
+  },
+  {
+   "file": "tools/round-robin-schedule-generator.js",
+   "sha256": "4139057769c77c049e3ba9c2f86aac5a1af0cd3d5c4e76fa321bb40069b13da4"
+  },
+  {
+   "file": "tools/sales-commission-calculator.js",
+   "sha256": "fbd8ef94b0ec6f071aceaa668028d6ed097b93ca53930bbe23059bbce5cb2f87"
+  },
+  {
+   "file": "tools/savings-goal-calculator.js",
+   "sha256": "8c3741530b09bcdd1d382745fc2597305446cc1d9500265074100d8577b22bc4"
+  },
+  {
+   "file": "tools/scale-generator.js",
+   "sha256": "82ecece04fd15d00a52dec14d454baa43cf18d067ff554992122adc7be3b4477"
+  },
+  {
+   "file": "tools/screen-ppi-calculator.js",
+   "sha256": "662045559457311d85a9dec83c5701b3f07245905f5fde629475c6face7e3e88"
+  },
+  {
+   "file": "tools/sentence-splitter.js",
+   "sha256": "a0979a8e0fdf84592f9e01f18be5e9660cddb9d8ffdb6d2cf7bf4a6ca6c59832"
+  },
+  {
+   "file": "tools/shipping-address-labels.js",
+   "sha256": "3296e69fbeb4f973a1271b7e877ed777c05cfab1490be1da5336cdc328f842df"
+  },
+  {
+   "file": "tools/shipping-volume-calculator.js",
+   "sha256": "ff4d51806ad09bebbc0dc08a987c4526048fb375393bd40ddaeb2a3cd5038697"
+  },
+  {
+   "file": "tools/shopping-basket-store-comparison.js",
+   "sha256": "b5563915b3617a57ba70b5a0837fac75875f01a1f10c8c2aaf0505b2fb2e39ae"
+  },
+  {
+   "file": "tools/sitemap-generator.js",
+   "sha256": "df06d308cb437a6dd52835496e4674cd5c504fcdc19d865bf7c363a89b1d451a"
+  },
+  {
+   "file": "tools/sitemap-xml-auditor.js",
+   "sha256": "e661bacc16cd1e202fe5498a445851c7547c135c89f7bb9bbac6e7d974d39772"
+  },
+  {
+   "file": "tools/soil-gravel-calculator.js",
+   "sha256": "39348502d1cb6f690634dff2b0eda35a55516aeb6ae7378f62c9b004eebdc33a"
+  },
+  {
+   "file": "tools/speed-distance-time-calculator.js",
+   "sha256": "396cd17de2b4f0af1a2e536a684e33e8eeed7e00e0a7e2e43dbb2934df8486a2"
+  },
+  {
+   "file": "tools/split-bill-calculator.js",
+   "sha256": "4e8a227fec70cae084988fd62417eb0605e1af67a76802f4f9d4fb782c19ad1a"
+  },
+  {
+   "file": "tools/sql-in-clause-generator.js",
+   "sha256": "3ff5cf7f6247bfa985d7183ba29912c3265e8f7bceaa1686b2d88c0e13c25702"
+  },
+  {
+   "file": "tools/sql-values-generator.js",
+   "sha256": "c6953b2b1b3823d78564d73c574986cce6bc59f7df0cc5029856b0cb536ee726"
+  },
+  {
+   "file": "tools/srt-time-shifter.js",
+   "sha256": "1aa6e7e1c9ccfdf2a029d0b9ecacdc45c3168a5af76f0afba883e6e1f4ea0c5e"
+  },
+  {
+   "file": "tools/starter-feeding-calculator.js",
+   "sha256": "f7deb64ec480c85c70806d2998cf59a0c9f38c593a51abcc7b588a8d66826f65"
+  },
+  {
+   "file": "tools/statistics-calculator.js",
+   "sha256": "050f200cbd1d0135674f414a469a15ffe3442c0b66beb5988a3829a25eb1aeff"
+  },
+  {
+   "file": "tools/stopwatch.js",
+   "sha256": "5ed779d4a40e0f8f7bbe796269b048b0705adf745de33b6bf4ffd230f0758730"
+  },
+  {
+   "file": "tools/subtitle-line-wrapper.js",
+   "sha256": "596961fb1f3a67c0ae15096c828316ccf32f70349ad7343b409ccf8c8c78856a"
+  },
+  {
+   "file": "tools/subtitle-nearby-cue-merger.js",
+   "sha256": "9ede1a3be422c88207efb5d5b745a171b022162529d028a276a0f7f43600ec28"
+  },
+  {
+   "file": "tools/subtitle-sequence-renumber.js",
+   "sha256": "1211e61aadcd4d0a4da5fb8a1b4df87b9b4c91156761e3dc3c4b675054f934f2"
+  },
+  {
+   "file": "tools/subtitle-speaker-report.js",
+   "sha256": "35848dc6ecd25a47609f429d8effbc2ee2f8f83ceab4d5eab2c3e1f6afd71bb6"
+  },
+  {
+   "file": "tools/subtitle-speed-corrector.js",
+   "sha256": "5ece59be031308ffdc3a9b714aefeae29f57eea6a5ebbf79f18d9126d478fcb3"
+  },
+  {
+   "file": "tools/subtitle-srt-vtt-converter.js",
+   "sha256": "81f27bccf641c9b2ae19b7d7f0762df50d7be29f60cc938bcadeab4dda14c48a"
+  },
+  {
+   "file": "tools/subtitle-timing-audit.js",
+   "sha256": "fc2ff9fa9c216c309cf0feebf055c1e7c13e22c9adc53ff2a27d42029b9615ee"
+  },
+  {
+   "file": "tools/subtitle-transcript-extractor.js",
+   "sha256": "ad314675b39d36dd0dca854df13b618747cda15c59a6f5a0332425643a4cd8fe"
+  },
+  {
+   "file": "tools/surface-area-calculator.js",
+   "sha256": "2113fe73634d037c1471155163188e4ef35f5d6df2989932e0ef4cf1485710f9"
+  },
+  {
+   "file": "tools/svg-to-png.js",
+   "sha256": "893546cc24480ef31eadaf6fc6872679f313b2216881bae96226febd99f5b823"
+  },
+  {
+   "file": "tools/tab-space-converter.js",
+   "sha256": "0d9f9f83f4e281180fc9fb20d6dcab22f0041d0daa9dda30cd7a3bc363e447d7"
+  },
+  {
+   "file": "tools/table-svg-chart-builder.js",
+   "sha256": "bdd0aab2d3c4456ef7a601f8ecd4d104bb3535a9cff2833923570ba5e1cff160"
+  },
+  {
+   "file": "tools/tar-create-files.js",
+   "sha256": "fd541ae3120551d0e405fe34ca39ac86c33013914abc7a303002bb5a3bb9066a"
+  },
+  {
+   "file": "tools/tar-extract-files.js",
+   "sha256": "8ac40277c3268855ce6286f960805060a0822b626a35d41940bfdb95749463d9"
+  },
+  {
+   "file": "tools/tar-to-zip-file.js",
+   "sha256": "e5c9ba088d40dc858359eae9ce2aaaaea9f0709e5fb14c481f647f0068a17049"
+  },
+  {
+   "file": "tools/target-selling-price-calculator.js",
+   "sha256": "4afa31b17611c72275371db3f07f9fe4ae116877db1fc4fb410ec215ba9f16f2"
+  },
+  {
+   "file": "tools/tearoff-contact-flyer.js",
+   "sha256": "abd1007538420d273b776c244178a50be6a3e11ebbd29a131d072693d9f5c642"
+  },
+  {
+   "file": "tools/teleprompter-script.js",
+   "sha256": "62c505338192bd271a43264cc957720902a3ce2816ef701bedeabadfc9d65642"
+  },
+  {
+   "file": "tools/text-between-extractor.js",
+   "sha256": "363eb1c33e9d5e4a8c2cdf97ef9f005c0cc47054611e767c1bdbf350437744ff"
+  },
+  {
+   "file": "tools/text-case-converter.js",
+   "sha256": "538c6744a9e53e1c8400e490e29475a91aa3d867b69ced7b5cab814066826c93"
+  },
+  {
+   "file": "tools/text-chunk-splitter.js",
+   "sha256": "dd1cfe316cae4f7a42392a7ffa841593ba47f757716b87e88e94ff1226046139"
+  },
+  {
+   "file": "tools/text-column-extractor.js",
+   "sha256": "32d473b71a1e99546fb4f23868ff10944bc6db1ee8c41cf5ae972282cc912830"
+  },
+  {
+   "file": "tools/text-column-padding.js",
+   "sha256": "50dec62b8cb410c9856f272b7bacedec1e991cbad76f482e164299ec1263b4cb"
+  },
+  {
+   "file": "tools/text-diff.js",
+   "sha256": "cd4872318e86e322414792f9977f87dc7926d7c7ac8ee45155a39587902e6bed"
+  },
+  {
+   "file": "tools/text-file-encoding-converter.js",
+   "sha256": "1281aa5d22a9519ab5bfaf2896d671cd9858aa0ed8bd70a766ac50a7034ddd4f"
+  },
+  {
+   "file": "tools/text-find-line-positions.js",
+   "sha256": "ee1613970e0d51085efe6dfc97310a96bc1ee9c4caa9d55e2b2c109891526596"
+  },
+  {
+   "file": "tools/text-indent-cleaner.js",
+   "sha256": "5f7d4ae38483abae956292d3feb85af87fc6943f10f00c6a15c6581fede06baa"
+  },
+  {
+   "file": "tools/text-line-cleaner.js",
+   "sha256": "69b300d5959dd4372eb311cd50d6c59f9b707276f718862abab3f1f2ec7f3d07"
+  },
+  {
+   "file": "tools/text-line-interleaver.js",
+   "sha256": "fabfe46a5eb2a1e1b9e1a4b299296a1ad32e1d53e26e242c39d9e5fac67e256e"
+  },
+  {
+   "file": "tools/text-line-unwrapper.js",
+   "sha256": "af12ad49541867ae2c4b7df9fde73c110cf454ca6be388a915066f7ee8661e86"
+  },
+  {
+   "file": "tools/text-list-comparison.js",
+   "sha256": "14ff49c3a9aef4e3613ebfbae011ce414d6e41610ab15bf6a7c4de667f438bd8"
+  },
+  {
+   "file": "tools/text-numbering.js",
+   "sha256": "6db4ddfd4ce277553a780a41e6f18e4d8d7dd12bef0903b51159f8c638d4c8c3"
+  },
+  {
+   "file": "tools/text-prefix-suffix.js",
+   "sha256": "942e4e652719ef9c2442b513d45687c9cbff754ecc9b4537e4b71e3b7a4bca29"
+  },
+  {
+   "file": "tools/text-replacer.js",
+   "sha256": "95037d9242c2bd4dc56f53b05f4c5a98dca112c1142539b5834f598716cdfb45"
+  },
+  {
+   "file": "tools/text-sorter.js",
+   "sha256": "91071ff7143c39d883970c65e502ce08a9d24773f746ad34c77596aaf2b1375a"
+  },
+  {
+   "file": "tools/text-substitution-mapper.js",
+   "sha256": "7e36ba878eb25d36bcfe0d19834dc2ef01d9de5f65d10cb5700a1d7f8162c9ce"
+  },
+  {
+   "file": "tools/text-table-aligner.js",
+   "sha256": "3b07c75303c22db090d92211f4aae37b53cf394b0402378be1fc5570692b82bf"
+  },
+  {
+   "file": "tools/text-transpose.js",
+   "sha256": "88649385081f61c31297261a819782961f9ad096362ca591065d72e618d50caf"
+  },
+  {
+   "file": "tools/text-wrapper.js",
+   "sha256": "ba595f07f4396b6d3a3db3b298a8ec7bd9f2704a637e7a404e50465a7dc1c1ec"
+  },
+  {
+   "file": "tools/tile-calculator.js",
+   "sha256": "347f6e8eddecbeae999aac5d57d02604eb4abc6e298559c02299f76da2d12709"
+  },
+  {
+   "file": "tools/time-duration-calculator.js",
+   "sha256": "fbdcaaa3e83a3ca9f0eda54d4e99bb5e5faabacfa0d382a9a861215e5df3e069"
+  },
+  {
+   "file": "tools/time-interval-subtractor.js",
+   "sha256": "45f29b571fb45a200d6799c150e05dbd6d1d5a13655544959b324c17985ace7a"
+  },
+  {
+   "file": "tools/time-of-use-appliance-cost.js",
+   "sha256": "aab808bffe6e18b72b9ad8b1aa7553ea4fcc257def4ec93f2ad054ce1edd9e9e"
+  },
+  {
+   "file": "tools/time-overlap-calculator.js",
+   "sha256": "5a725817f0c8e8adb0c5574825c77c87793a2e7492dd71de05e56571a6dd037d"
+  },
+  {
+   "file": "tools/time-signature-calculator.js",
+   "sha256": "259ae62f9793081e4fd808a292c800868a895b21d59d54d64c304de246e3fe29"
+  },
+  {
+   "file": "tools/time-zone-converter.js",
+   "sha256": "5e4b4da36d7710cb007eda0e7272c43b59df0c3ab9fad38eac86ed550bd7b846"
+  },
+  {
+   "file": "tools/timelapse-calculator.js",
+   "sha256": "67848d5d12fddfc0ceee128b091eeb051911a7ba213a607f8d2f29d83e06eff4"
+  },
+  {
+   "file": "tools/timezone-overlap-calculator.js",
+   "sha256": "8cc632a64663311b5dc9760852b68eabc2cb16af89b83aafc467c0f667db4e72"
+  },
+  {
+   "file": "tools/tone-generator.js",
+   "sha256": "ea0efe3b555c3b445db5aa75c9b5c72bca4d41ef41dc2abd2b5864b1c4f79784"
+  },
+  {
+   "file": "tools/tool-directory.js",
+   "sha256": "35986b4dd27c45c10a5d501224406d0289e34545b8c1fb0ee1776b069f934ee6"
+  },
+  {
+   "file": "tools/tool-flow.js",
+   "sha256": "59a3858bdbe04399282bdae9911bcf0c70a012ded109e842cc29fcbfd2eedcc7"
+  },
+  {
+   "file": "tools/triangle-calculator.js",
+   "sha256": "0b53ce630d17b6271f3303c0cfb2bf99a724a07201f91ab4f868993643036c79"
+  },
+  {
+   "file": "tools/trip-stay-cost-splitter.js",
+   "sha256": "de260826ebfd3c34c4b064103313ee6b1a569f50ab65eed25dcf6e28b403dc30"
+  },
+  {
+   "file": "tools/turf-roll-calculator.js",
+   "sha256": "455b98d29c8bc81b5be8810f1ae4b69e31c2f662b0bb9768a93f25a2e8a50592"
+  },
+  {
+   "file": "tools/two-column-review-document.js",
+   "sha256": "f24a653d9f403e9a1697aabb050a369af02957c7bb305a01ffdf9ca0a373e160"
+  },
+  {
+   "file": "tools/twos-complement-converter.js",
+   "sha256": "5e65ff9b0a7dcc32843cadb00f635dbc084e071c704cd79205c3af922d3f201d"
+  },
+  {
+   "file": "tools/ulid-generator.js",
+   "sha256": "2c8eed57d94ee608add89eaac240d6daf742fa3e0b9620e8b9a24d46496d448a"
+  },
+  {
+   "file": "tools/unicode-converter.js",
+   "sha256": "6744a31d2f9b56ead4e76b0352ce59b83343c6708e31a7a84478d523cd4744c3"
+  },
+  {
+   "file": "tools/unicode-normalizer.js",
+   "sha256": "dde9f44ebeb0998837181bc986ea6e27c8fadfddc350abe43d3d10b341fc5879"
+  },
+  {
+   "file": "tools/unit-price-calculator.js",
+   "sha256": "6058568413e60f6eb4d2cea705c0459d27b11080fb65485ecb4520b2e9c05460"
+  },
+  {
+   "file": "tools/unix-permission-converter.js",
+   "sha256": "2711170d6de81f8b04d005535825ef3f261b24b3658cb01f3d50e8268bc2a556"
+  },
+  {
+   "file": "tools/unix-time-converter.js",
+   "sha256": "1ec59e339943d521d6ad98fa5b3c25757d43fba28d5c0b14a3b4ed464253725a"
+  },
+  {
+   "file": "tools/unix-umask-calculator.js",
+   "sha256": "76fd95f43d0ae24396218a9d3ddfaf81fd1c7962ccd70afd3c19d9dc18940944"
+  },
+  {
+   "file": "tools/url-builder.js",
+   "sha256": "0b4c8a745e0b8e76f290fe0fe1cd2d4d716ddbf9fa30a58789c14e0e994b2012"
+  },
+  {
+   "file": "tools/url-encoder.js",
+   "sha256": "7f4b89630a7a81e65cac90fb26b2ad770697deb4bc1d324ced510385400634dc"
+  },
+  {
+   "file": "tools/url-extractor.js",
+   "sha256": "db44a49232e1ffe859f5e5fe37d957afeeb83d4f84799f1e61d5323a7f429946"
+  },
+  {
+   "file": "tools/url-list-tracking-remover.js",
+   "sha256": "8c1407f1260e250ecad5a229c752ff26266dd811f4cd8eb78bec7f82e7583299"
+  },
+  {
+   "file": "tools/url-normalizer.js",
+   "sha256": "108169801773cd5cda9a97db2312fc42d355d6734f13a400d3e2c978307222d4"
+  },
+  {
+   "file": "tools/utf8-hex-converter.js",
+   "sha256": "b9f5e2afa9b5e2461c8c102d1cd5262ac6fe890fb1cf169652ff45e075006441"
+  },
+  {
+   "file": "tools/utility-occupancy-split.js",
+   "sha256": "adc78791f110fcf864ad726fdb62e0d4d1633925d13a85e8b49635717abccf9f"
+  },
+  {
+   "file": "tools/uuid-generator.js",
+   "sha256": "a528a786b52b91718aabdd4a527bcb3ac184d972166506b7afaab24cb0b29f2f"
+  },
+  {
+   "file": "tools/uuid-inspector.js",
+   "sha256": "e2002550ab97488c99dac8f5661a715785184cf7903044b5a1b4bd02410e0887"
+  },
+  {
+   "file": "tools/uuid-v5-generator.js",
+   "sha256": "3d67aac1d5dc5561d68ebce2c775901e4765149b01eaadb8e85d07f63d51123f"
+  },
+  {
+   "file": "tools/uuid-v7-generator.js",
+   "sha256": "ffa7e1a7d89aabcc6032d747da9cb8080405145eba13b0341a553436b103cb3c"
+  },
+  {
+   "file": "tools/vat-calculator.js",
+   "sha256": "055a0c43f20dcaefa1586ac040b2fa74f23bef4d62cceaedf9153f8860239208"
+  },
+  {
+   "file": "tools/vcard-file-merger.js",
+   "sha256": "af3779482dc3a7087ba9692e35ab3a96a14f22cd1966ed309747e4aa7a63728b"
+  },
+  {
+   "file": "tools/vendor/fflate-0.8.3.js",
+   "sha256": "462ef8041fc970e3615a20a9dd2b2e3047a073b2da729ef4f02b634bba8b7b83"
+  },
+  {
+   "file": "tools/vendor/fontkit-1.1.1.min.js",
+   "sha256": "d8df561b9fba98e24f2e5130e40948809281bbbc55a20c412359f1a0a5eb35a6"
+  },
+  {
+   "file": "tools/vendor/jsbarcode-3.12.1.min.js",
+   "sha256": "9c6d079b69a763191e38de8f3d69a252cb2413ea8f35af15478a5a870c7edfa2"
+  },
+  {
+   "file": "tools/vendor/jsqr-1.4.0.js",
+   "sha256": "bc40c8a15196236b2314db0856f72ca0b49980cd5413b8c852a7349f5fee0859"
+  },
+  {
+   "file": "tools/vendor/omggif-1.0.10.js",
+   "sha256": "bd898d5b7e43038c7b4c26bf1e1057fe23a44f90312469d802a4e7caf3ae3b12"
+  },
+  {
+   "file": "tools/vendor/pdf-lib-1.17.1.min.js",
+   "sha256": "0f9a5cad07941f0826586c94e089d89b918c46e5c17cf2d5a3c6f666e3bc694f"
+  },
+  {
+   "file": "tools/vendor/qrcode-generator-2.0.4.js",
+   "sha256": "79ec86f82856005b1c887905cfccfcfbec3821ca61c7fd5a952faa5f778f791c"
+  },
+  {
+   "file": "tools/vendor/qrcode-utf8-2.0.4.js",
+   "sha256": "e522d64003b332e29271fdce4993ed3ae2934c8947f41654bd324ddcfa2de301"
+  },
+  {
+   "file": "tools/video-bitrate-ladder-calculator.js",
+   "sha256": "32f3e6378873a4fa91ccaa19a83582d254214956a01e39f77622b1d0b9be0990"
+  },
+  {
+   "file": "tools/video-jsonld-generator.js",
+   "sha256": "a2e76277f69391eb6b906bc78ba5d2b5335c75868d5d89c3bafed0141ad497d9"
+  },
+  {
+   "file": "tools/video-storage-calculator.js",
+   "sha256": "5cbeacff61577ceb1f37fc3c51cb8b72995ad163d6f62aebdaa5cd80586ff257"
+  },
+  {
+   "file": "tools/voltage-divider-calculator.js",
+   "sha256": "19803cb2d8bbc9a82cd9b962c550b62d01519d43590115986cff15462e0c5b96"
+  },
+  {
+   "file": "tools/volume-calculator.js",
+   "sha256": "429156c4db6feadb54741abf3bbb646b5fe5246e56af1f67e57936c0ff8c49bd"
+  },
+  {
+   "file": "tools/wall-area-calculator.js",
+   "sha256": "72568fef585bea60e72a9100a7a41d5ea1bf610b66384e2c40df216811405947"
+  },
+  {
+   "file": "tools/wallpaper-calculator.js",
+   "sha256": "97105806c860558c449c1c47deb25d058fa04bb892a3096c4b729111c6bbf9fe"
+  },
+  {
+   "file": "tools/wallpaper-half-drop-calculator.js",
+   "sha256": "2feb65466146ea9760331f80c791aa89a6e81401a80510bac451014343e06aca"
+  },
+  {
+   "file": "tools/web-app-manifest-generator.js",
+   "sha256": "5fd95e047704a3a36f619460efa3acf0f7f015bd27e5b967bb3cdbc3906f0241"
+  },
+  {
+   "file": "tools/week-number-calculator.js",
+   "sha256": "4d6b45311aca6e0960cd2cdb545b676ae033efcf7a615439cddc982add4e1f7c"
+  },
+  {
+   "file": "tools/weekday-occurrences-calculator.js",
+   "sha256": "08d6937f724a462966172f2b76184a52df66c1974ea09b4e4775de93b24ab2b1"
+  },
+  {
+   "file": "tools/weighted-average-calculator.js",
+   "sha256": "1bad064eb5ded41e7dae3e1011843132ea731ed2fe283e3f83cf97b52266c3e1"
+  },
+  {
+   "file": "tools/windows-filetime-converter.js",
+   "sha256": "1c1613b1677670775dcad1aec8453d5ba7e41c9f2bb13d01d7090d2909763f50"
+  },
+  {
+   "file": "tools/word-frequency-counter.js",
+   "sha256": "19a410a8337abf33e7c49e0643938360f8441f2667a4021d9040ba5511b22ce8"
+  },
+  {
+   "file": "tools/word-html-cleaner.js",
+   "sha256": "96450923895cf5ea889dfd0d9c0051a364cbf47cb94fd7ca31ec08de55c0f409"
+  },
+  {
+   "file": "tools/work-time-calculator.js",
+   "sha256": "3c67f5c6d6955785218003eb55ee9448e58c6525a9b2a38f2dc77fe8642b0399"
+  },
+  {
+   "file": "tools/xlsx-export-csv-files.js",
+   "sha256": "da34135fc883165f1f25210c7675072ce865ed198b58f9fc9262be79db8e012a"
+  },
+  {
+   "file": "tools/xlsx-export-json-file.js",
+   "sha256": "34ba30fd0349792002d09e22c3984357ff3519b24d1994d616d590664110e6c0"
+  },
+  {
+   "file": "tools/xml-formatter.js",
+   "sha256": "4e7856f005d5e29bcd367225ada300d4a9abb08ac37ea1ba3845e6f44e48ea05"
+  },
+  {
+   "file": "tools/xml-json-converter.js",
+   "sha256": "2f2eab711a3a34c0b0f3452728c0e2c3ae4d095a1243e31e77085395ffa006eb"
+  },
+  {
+   "file": "tools/yarn-length-calculator.js",
+   "sha256": "093868ad6eae05140f09a7c87f95a4eaae54540a3643c22b69a8e25ecc3bb5bd"
+  },
+  {
+   "file": "tools/yarn-substitution-calculator.js",
+   "sha256": "b82f9194c065719d98c74aff20acab82c72253782753fa7ec7bd5357d44ec892"
+  },
+  {
+   "file": "tools/yeast-conversion-calculator.js",
+   "sha256": "42fb2ead75f9541769a098b03362ef524519ce27afe8aaa8fd48911af7bf7528"
+  },
+  {
+   "file": "tools/zip-create-files.js",
+   "sha256": "669bbec7c8484bf1240b9ef8ac2516780d3b164eef03c66583b94a6a33bb9f18"
+  },
+  {
+   "file": "tools/zip-extract-files.js",
+   "sha256": "f417d581606a6b96d28039e7c99a1a2fb310040f0e901697afbb6475d2d65aa4"
+  },
+  {
+   "file": "tools/zip-filter-files.js",
+   "sha256": "cecccb5f13a1b198afb6288a2667ba69520e92ffc7b9f158fc5586c7c611402e"
+  },
+  {
+   "file": "tools/zip-merge-archives.js",
+   "sha256": "14b6705457756b2e5816c2446bb4985ba505748202fae47b315bf7e43a5fee32"
+  },
+  {
+   "file": "tools/zip-remove-duplicate-files.js",
+   "sha256": "ed3db3140f645667728850d514ab33aad3b209de1a8046474a35c4e6156b2d8c"
+  },
+  {
+   "file": "tools/zip-rename-entries.js",
+   "sha256": "7b91ab2266232485f53d988894d27cdb6802d0e4ee6ff73ed7bd4dd36fe65a74"
+  },
+  {
+   "file": "tools/zip-to-tar-file.js",
+   "sha256": "23521be1aa97e0008f28910f09933024c2bbdcbeca723696cc1b69512b8267f9"
+  }
+ ]
+}

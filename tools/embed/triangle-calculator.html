@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><base target="_top">
+<title>삼각형 계산기 | 하루콕</title><meta name="description" content="삼각형의 세 변으로 넓이·둘레·세 각을 구하세요. 헤론의 공식으로 내접원과 외접원의 반지름도 계산합니다."><link rel="icon" type="image/png" href="/favicon.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+<link rel="stylesheet" href="/tools/everyday-tools.css?v=20261024-ux"><link rel="stylesheet" href="/tools/tool-controls.css?v=20261025-flow"><script src="/tools/triangle-calculator.js?v=20261104-160" defer></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/tools/site-ui.css?v=20261108-1000"><style>body{display:flow-root;padding:0;background:transparent}</style></head>
+<body><div class="wrap"><main><p class="tool-help"><strong>사용방법</strong> 같은 단위로 세 변의 길이를 넣으세요.</p><noscript><p>자바스크립트를 허용해 주세요.</p></noscript>
+<section class="sheet"><form id="calculator" novalidate><div class="fields"><div class="field" id="a-field"><label for="a">변 a</label><input id="a" type="text" inputmode="decimal" autocomplete="off" placeholder="예: 3"></div><div class="field" id="b-field"><label for="b">변 b</label><input id="b" type="text" inputmode="decimal" autocomplete="off" placeholder="예: 4"></div><div class="field" id="c-field"><label for="c">변 c</label><input id="c" type="text" inputmode="decimal" autocomplete="off" placeholder="예: 5"></div></div><p class="hint">길이 0.000001~10억 · 넓이는 입력 단위의 제곱</p><button class="primary" type="submit">계산하기</button><p id="error" class="error" role="alert"></p></form><section id="result" class="result" hidden aria-live="polite"><h2>결과</h2><div id="result-value" class="result-value"></div><label for="result-text">복사할 결과</label><textarea id="result-text" rows="4" readonly spellcheck="false"></textarea><button id="copy" class="secondary" type="button">결과 복사하기</button><p id="copy-status" class="hint" role="status"></p></section></section>
+
+<details class="tool-notes"><summary>계산 방법</summary><p>각 A는 변 a의 맞은편 각입니다. 헤론의 공식을 안정적인 곱셈 형태로 사용하며, 길이가 일직선을 만드는 퇴화 삼각형은 제외합니다.</p></details>
+</main></div></body></html>

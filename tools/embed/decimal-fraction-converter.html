@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><base target="_top">
+<title>소수·분수 변환기 | 하루콕</title><meta name="description" content="유한소수를 기약분수로 바꾸고 분수를 소수로 확인하세요. 반복되는 소수는 20자리 근삿값으로 구분합니다."><link rel="icon" type="image/png" href="/favicon.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+<link rel="stylesheet" href="/tools/everyday-tools.css?v=20261024-ux"><link rel="stylesheet" href="/tools/tool-controls.css?v=20261025-flow"><script src="/tools/decimal-fraction-converter.js?v=20261104" defer></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/tools/site-ui.css?v=20261108-1000"><style>body{display:flow-root;padding:0;background:transparent}</style></head>
+<body><div class="wrap"><main><p class="tool-help"><strong>사용방법</strong> 소수나 분수를 넣고 방향을 고르세요.</p><noscript><p>자바스크립트를 허용해 주세요.</p></noscript>
+<section class="sheet"><form id="calculator" novalidate><div class="field" id="source-field"><label for="source">변환할 수</label><input id="source" type="text" placeholder="예: 0.125 또는 1/8" inputmode="decimal" autocomplete="off"></div><div class="field"><label for="mode">변환 방향</label><select id="mode"><option value="fraction">소수 → 분수</option><option value="decimal">분수 → 소수</option></select></div><p class="hint">최대 200자리 · 반복 소수는 20자리 참고값</p><button class="primary" type="submit">계산하기</button><p id="error" class="error" role="alert"></p></form><section id="result" class="result" hidden aria-live="polite"><h2>결과</h2><div id="result-value" class="result-value"></div><label for="result-text">복사할 결과</label><textarea id="result-text" rows="4" readonly spellcheck="false"></textarea><button id="copy" class="secondary" type="button">결과 복사하기</button><p id="copy-status" class="hint" role="status"></p></section></section>
+
+<details class="tool-notes"><summary>계산 방법</summary><p>소수의 자릿수만큼 10의 거듭제곱을 분모로 두고 약분합니다. 유한소수는 정확히 표시하고, 반복 소수는 20자리 뒤에 …와 ≈를 붙입니다.</p></details>
+</main></div></body></html>

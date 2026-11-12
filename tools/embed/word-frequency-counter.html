@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><base target="_top">
+<title>단어 빈도수 세기 | 하루콕</title><meta name="description" content="글에 자주 나오는 단어와 횟수를 확인하세요. 한글·영문·숫자를 단어로 묶고 대소문자 구분을 선택해 빈도순 결과를 복사합니다."><link rel="icon" type="image/png" href="/favicon.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+<link rel="stylesheet" href="/tools/everyday-tools.css?v=20261024-ux"><link rel="stylesheet" href="/tools/tool-controls.css?v=20261025-flow"><script src="/tools/word-frequency-counter.js?v=20261104" defer></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/tools/site-ui.css?v=20261108-1000">
+<style>body{display:flow-root;padding:0;background:transparent}</style></head><body><div class="wrap">
+<main><p class="tool-help"><strong>사용방법</strong> 글을 넣고 자주 나온 단어를 확인하세요.</p><noscript><p>자바스크립트를 허용해 주세요.</p></noscript>
+<section class="sheet"><form id="converter" novalidate><div class="field"><label for="source">입력할 글</label><textarea id="source" rows="6" placeholder="사과 바나나 사과
+Apple apple" spellcheck="false"></textarea></div><label class="check"><input id="case-sensitive" type="checkbox">대소문자 구분</label><p class="hint">최대 200,000자 · 빈도 상위 1,000개 표시</p><button class="primary" id="run" type="submit">단어 세기</button><p id="error" class="error" role="alert"></p></form>
+<section id="result" class="result" hidden aria-live="polite"><h2>결과</h2><p id="summary" role="status"></p><label for="output">복사할 결과</label><textarea id="output" rows="6" readonly spellcheck="false"></textarea><div class="actions"><button class="secondary" id="copy" type="button">결과 복사</button></div><p id="copy-status" class="hint" role="status"></p></section></section>
+
+<details class="tool-notes"><summary>도움말</summary><p>문자·숫자 묶음을 단어로 셉니다. 한글 형태소 분석은 하지 않아 ‘사과’와 ‘사과를’은 다릅니다. 같은 횟수는 처음 나온 순서이며 총 단어 수와 종류 수는 전체 기준입니다.</p><p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Regular_expressions/Unicode_character_class_escape" target="_blank" rel="noopener noreferrer">변환 기준</a></p></details>
+</main></div></body></html>

@@ -1,0 +1,3605 @@
+[
+ {
+  "slug": "ad-metrics-calculator",
+  "fields": {
+   "spend": "100000",
+   "impressions": "10000",
+   "clicks": "500",
+   "conversions": "25"
+  },
+  "selects": {},
+  "expected": "CPC: 200원"
+ },
+ {
+  "slug": "ad-roas-calculator",
+  "fields": {
+   "spend": "100000",
+   "revenue": "500000",
+   "margin": "30"
+  },
+  "selects": {},
+  "expected": "광고비 차감 이익: 50,000원"
+ },
+ {
+  "slug": "adler32-calculator",
+  "fields": {
+   "source": "Wikipedia"
+  },
+  "selects": {
+   "mode": "text"
+  },
+  "expected": "11e60398"
+ },
+ {
+  "slug": "announcement-poster-document",
+  "fields": {
+   "title": "회의실 사용 안내",
+   "subtitle": "11월8일 점검",
+   "details": "오후2~4시 사용이 어렵습니다.",
+   "contact": "운영팀 내선123"
+  },
+  "selects": {},
+  "expected": "오후2~4시"
+ },
+ {
+  "slug": "article-jsonld-generator",
+  "fields": {
+   "title": "소식",
+   "url": "https://example.com/post",
+   "author": "하루",
+   "published": "2026-11-07",
+   "modified": ""
+  },
+  "selects": {},
+  "expected": "\"datePublished\": \"2026-11-07\""
+ },
+ {
+  "slug": "attendance-signature-sheet",
+  "fields": {
+   "source": "이름,소속\n하루,운영팀\n콕,개발팀",
+   "title": "운영 회의",
+   "date": "2026-11-08",
+   "location": "회의실"
+  },
+  "selects": {},
+  "expected": "서명"
+ },
+ {
+  "slug": "audio-storage-calculator",
+  "fields": {
+   "sampleRate": "48000",
+   "channels": "2",
+   "seconds": "60"
+  },
+  "selects": {
+   "bits": "16"
+  },
+  "expected": "PCM 데이터: 11,520,000바이트"
+ },
+ {
+  "slug": "average-purchase-price-calculator",
+  "fields": {
+   "purchases": "10000,10\n12000,20",
+   "fees": "0"
+  },
+  "selects": {},
+  "expected": "총 취득 원가: 340,000원"
+ },
+ {
+  "slug": "bakers-percentage-calculator",
+  "fields": {
+   "weight": "1000",
+   "ingredients": "물,70\n소금,2\n이스트,1"
+  },
+  "selects": {
+   "mode": "flour"
+  },
+  "expected": "반죽 합계: 1,730g"
+ },
+ {
+  "slug": "baking-pan-converter",
+  "fields": {
+   "oldWidth": "20",
+   "oldHeight": "20",
+   "oldDepth": "4",
+   "newWidth": "24",
+   "newHeight": "24",
+   "newDepth": "4"
+  },
+  "selects": {
+   "oldShape": "round",
+   "newShape": "round"
+  },
+  "expected": "레시피 배수: 1.44배"
+ },
+ {
+  "slug": "barcode-label-document",
+  "fields": {
+   "source": "코드,상품명,매수\n8801234567893,수첩,2",
+   "height": "20"
+  },
+  "selects": {
+   "format": "EAN13"
+  },
+  "expected": "8801234567893"
+ },
+ {
+  "slug": "beverage-dilution-calculator",
+  "fields": {
+   "concentrate": "100",
+   "percent": "20",
+   "water": "100",
+   "ice": "100",
+   "melt": "50"
+  },
+  "selects": {},
+  "expected": "최종 액체 질량농도: 8%"
+ },
+ {
+  "slug": "bitwise-calculator",
+  "fields": {
+   "a": "255",
+   "b": "15"
+  },
+  "selects": {
+   "width": "8",
+   "mode": "and"
+  },
+  "expected": "10진수: 15"
+ },
+ {
+  "slug": "book-spine-calculator",
+  "fields": {
+   "pages": "200",
+   "thickness": "100",
+   "allowance": ".5"
+  },
+  "selects": {},
+  "expected": "책등 추정 폭: 10.5mm"
+ },
+ {
+  "slug": "bpm-delay-calculator",
+  "fields": {
+   "bpm": "120"
+  },
+  "selects": {
+   "note": "8",
+   "feel": "dotted"
+  },
+  "expected": "음표 길이: 375ms"
+ },
+ {
+  "slug": "bpm-tapper",
+  "fields": {
+   "intervals": "500\n500\n500"
+  },
+  "selects": {},
+  "expected": "평균 BPM: 120"
+ },
+ {
+  "slug": "bread-tin-dough-calculator",
+  "fields": {
+   "length": "20",
+   "width": "10",
+   "height": "10",
+   "fill": "50",
+   "density": "1"
+  },
+  "selects": {},
+  "expected": "반죽 투입 질량: 1,000g"
+ },
+ {
+  "slug": "breadcrumb-jsonld-generator",
+  "fields": {
+   "source": "홈,https://example.com/"
+  },
+  "selects": {},
+  "expected": "\"position\": 1"
+ },
+ {
+  "slug": "break-even-calculator",
+  "fields": {
+   "fixed": "1000000",
+   "price": "10000",
+   "variable": "6000"
+  },
+  "selects": {},
+  "expected": "손익분기 판매량: 250개"
+ },
+ {
+  "slug": "brick-quantity-calculator",
+  "fields": {
+   "area": "10",
+   "width": "190",
+   "height": "57",
+   "joint": "10",
+   "waste": "5"
+  },
+  "selects": {},
+  "expected": "여유 포함 벽돌: 784장"
+ },
+ {
+  "slug": "brine-salinity-calculator",
+  "fields": {
+   "water": "1000",
+   "percent": "10"
+  },
+  "selects": {
+   "basis": "water"
+  },
+  "expected": "필요 소금: 100g"
+ },
+ {
+  "slug": "bulk-usable-price-comparison",
+  "fields": {
+   "items": "소포장,500,4000,100\n대용량,2000,10000,50"
+  },
+  "selects": {},
+  "expected": "소포장: 실사용 500단위 / 단가 8원"
+ },
+ {
+  "slug": "business-day-duration-calculator",
+  "fields": {
+   "start": "2026-11-02",
+   "end": "2026-11-08",
+   "weekly": "1,8\n2,8\n3,8\n4,8\n5,6",
+   "excluded": "2026-11-03"
+  },
+  "selects": {},
+  "expected": "총 예정 근무시간: 30시간"
+ },
+ {
+  "slug": "cagr-calculator",
+  "fields": {
+   "initial": "100",
+   "final": "121",
+   "years": "2"
+  },
+  "selects": {},
+  "expected": "연평균 성장률: 10%"
+ },
+ {
+  "slug": "calendar-month-calculator",
+  "fields": {
+   "year": "2024",
+   "month": "2"
+  },
+  "selects": {
+   "first": "mon"
+  },
+  "expected": "29"
+ },
+ {
+  "slug": "cash-installment-price-comparison",
+  "fields": {
+   "price": "1000000",
+   "discount": "50000",
+   "monthly": "90000",
+   "months": "12",
+   "fee": "0"
+  },
+  "selects": {},
+  "expected": "할부−일시불: 130,000원"
+ },
+ {
+  "slug": "character-frequency-counter",
+  "fields": {
+   "source": "가가😀"
+  },
+  "selects": {},
+  "expected": "\"가\"\t2"
+ },
+ {
+  "slug": "chord-tone-generator",
+  "fields": {},
+  "selects": {
+   "root": "C",
+   "quality": "major"
+  },
+  "expected": "화음 구성음: C E G"
+ },
+ {
+  "slug": "chord-transposer",
+  "fields": {
+   "source": "C Am F G\nC/E Dm7 G7 C",
+   "semitones": "2"
+  },
+  "selects": {
+   "spelling": "sharp"
+  },
+  "expected": "D Bm G A"
+ },
+ {
+  "slug": "cidr-range-calculator",
+  "fields": {
+   "from": "192.168.1.0",
+   "to": "192.168.1.255"
+  },
+  "selects": {},
+  "expected": "192.168.1.0/24"
+ },
+ {
+  "slug": "cidr-subnet-splitter",
+  "fields": {
+   "source": "192.168.1.0/24",
+   "prefix": "26"
+  },
+  "selects": {},
+  "expected": "192.168.1.192/26"
+ },
+ {
+  "slug": "circle-of-fifths-generator",
+  "fields": {},
+  "selects": {
+   "root": "C",
+   "direction": "fifths"
+  },
+  "expected": "2. G / Em"
+ },
+ {
+  "slug": "cleaning-duty-rotation-generator",
+  "fields": {
+   "people": "A\nB\nC",
+   "chores": "주방\n욕실\n거실",
+   "weeks": "3"
+  },
+  "selects": {},
+  "expected": "주방: B"
+ },
+ {
+  "slug": "commercial-document-builder",
+  "fields": {
+   "source": "품명,규격,수량,단가,세율%\n연필,HB,3,1000,10",
+   "number": "Q-20261108-01",
+   "date": "2026-11-08",
+   "from": "하루상사 · hello@example.com",
+   "to": "콕회사",
+   "currency": "KRW",
+   "digits": "0",
+   "terms": "납기7일 · 배송비 포함"
+  },
+  "selects": {
+   "kind": "quote"
+  },
+  "expected": "3300"
+ },
+ {
+  "slug": "compound-interest-calculator",
+  "fields": {
+   "principal": "1000000",
+   "rate": "10",
+   "years": "2"
+  },
+  "selects": {
+   "frequency": "1"
+  },
+  "expected": "미래 금액: 1,210,000원"
+ },
+ {
+  "slug": "concrete-volume-calculator",
+  "fields": {
+   "length": "3",
+   "width": "2",
+   "depth": "10",
+   "waste": "10",
+   "yield": "12"
+  },
+  "selects": {},
+  "expected": "필요 포대: 55포"
+ },
+ {
+  "slug": "cone-frustum-calculator",
+  "fields": {
+   "r1": "3",
+   "r2": "1",
+   "height": "4"
+  },
+  "selects": {},
+  "expected": "부피: 54.4542726622"
+ },
+ {
+  "slug": "contact-duplicate-merger",
+  "fields": {
+   "source": "이름,전화,이메일,회사,생일\n하루,01012345678,hello@example.com,하루상사,\n하루님,010-1234-5678,other@example.com,,"
+  },
+  "selects": {
+   "key": "either"
+  },
+  "expected": "하루|하루님"
+ },
+ {
+  "slug": "contact-vcard-converter",
+  "fields": {
+   "source": "이름,전화,이메일,회사,생일\n하루,01012345678,hello@example.com,하루상사,2000-11-08"
+  },
+  "selects": {
+   "direction": "to-vcard"
+  },
+  "expected": "BEGIN:VCARD"
+ },
+ {
+  "slug": "countdown-timer",
+  "fields": {
+   "minutes": "5",
+   "seconds": "0"
+  },
+  "selects": {},
+  "expected": "남은 시간:"
+ },
+ {
+  "slug": "cover-spread-calculator",
+  "fields": {
+   "width": "148",
+   "height": "210",
+   "spine": "10",
+   "flap": "0",
+   "bleed": "3"
+  },
+  "selects": {},
+  "expected": "전체 펼침: 312 × 216mm"
+ },
+ {
+  "slug": "crc32-calculator",
+  "fields": {
+   "source": "123456789"
+  },
+  "selects": {
+   "mode": "text"
+  },
+  "expected": "CBF43926"
+ },
+ {
+  "slug": "crochet-circle-increase-planner",
+  "fields": {
+   "stitches": "24",
+   "increases": "6"
+  },
+  "selects": {},
+  "expected": "2코를 뜰 기존 코 번호: 4, 8, 12, 16, 20, 24"
+ },
+ {
+  "slug": "cron-expression-builder",
+  "fields": {
+   "minute": "*/15",
+   "hour": "9-18",
+   "day": "*",
+   "month": "*",
+   "weekday": "1-5"
+  },
+  "selects": {},
+  "expected": "*/15 9-18 * * 1-5"
+ },
+ {
+  "slug": "crop-factor-calculator",
+  "fields": {
+   "width": "24",
+   "height": "16",
+   "focal": "35"
+  },
+  "selects": {},
+  "expected": "35mm 환산 초점거리: 52.5mm"
+ },
+ {
+  "slug": "css-animation-generator",
+  "fields": {
+   "name": "fadeIn",
+   "duration": "1",
+   "fromOpacity": "0",
+   "toOpacity": "1",
+   "fromY": "20",
+   "toY": "0"
+  },
+  "selects": {
+   "repeat": "1"
+  },
+  "expected": "@keyframes fadeIn"
+ },
+ {
+  "slug": "css-aspect-ratio-generator",
+  "fields": {
+   "width": "16",
+   "height": "9",
+   "max": "960"
+  },
+  "selects": {},
+  "expected": "aspect-ratio: 16 / 9;"
+ },
+ {
+  "slug": "css-background-size-generator",
+  "fields": {
+   "url": "https://example.com/a.jpg",
+   "x": "50",
+   "y": "50"
+  },
+  "selects": {
+   "size": "cover",
+   "repeat": "no-repeat"
+  },
+  "expected": "background-size: cover;"
+ },
+ {
+  "slug": "css-border-generator",
+  "fields": {
+   "width": "2",
+   "color": "#123"
+  },
+  "selects": {
+   "style": "dashed",
+   "side": "bottom"
+  },
+  "expected": "border-bottom: 2px dashed #123;"
+ },
+ {
+  "slug": "css-clamp-generator",
+  "fields": {
+   "minimum": "16",
+   "maximum": "24",
+   "from": "320",
+   "to": "960"
+  },
+  "selects": {},
+  "expected": "clamp(16px, calc(12px + 1.25vw), 24px)"
+ },
+ {
+  "slug": "css-clip-path-polygon-generator",
+  "fields": {
+   "points": "50 0\n100 100\n0 100"
+  },
+  "selects": {},
+  "expected": "polygon(50% 0%, 100% 100%, 0% 100%)"
+ },
+ {
+  "slug": "css-columns-generator",
+  "fields": {
+   "count": "3",
+   "width": "240",
+   "gap": "24"
+  },
+  "selects": {},
+  "expected": "column-count: 3;"
+ },
+ {
+  "slug": "css-counter-list-generator",
+  "fields": {
+   "start": "1",
+   "prefix": "제 ",
+   "suffix": "장. "
+  },
+  "selects": {},
+  "expected": "counter-reset: item 0"
+ },
+ {
+  "slug": "css-cubic-bezier-evaluator",
+  "fields": {
+   "x1": "0",
+   "y1": "0",
+   "x2": "1",
+   "y2": "1",
+   "progress": "0.5"
+  },
+  "selects": {},
+  "expected": "결과 진행률: 0.5"
+ },
+ {
+  "slug": "css-custom-property-generator",
+  "fields": {
+   "source": "brand,#fff"
+  },
+  "selects": {},
+  "expected": "--brand: #fff;"
+ },
+ {
+  "slug": "css-filter-generator",
+  "fields": {
+   "brightness": "100",
+   "contrast": "100",
+   "saturate": "100",
+   "grayscale": "0",
+   "blur": "0"
+  },
+  "selects": {},
+  "expected": "brightness(100%)"
+ },
+ {
+  "slug": "css-flex-generator",
+  "fields": {
+   "gap": "12"
+  },
+  "selects": {
+   "direction": "row",
+   "wrap": "wrap",
+   "justify": "center",
+   "align": "center"
+  },
+  "expected": "justify-content: center;"
+ },
+ {
+  "slug": "css-font-shorthand-generator",
+  "fields": {
+   "family": "Noto Sans KR",
+   "weight": "400",
+   "size": "18",
+   "line": "1.5"
+  },
+  "selects": {
+   "style": "normal"
+  },
+  "expected": "18px/1.5 \"Noto Sans KR\""
+ },
+ {
+  "slug": "css-grid-generator",
+  "fields": {
+   "columns": "3",
+   "gap": "16",
+   "minimum": "200"
+  },
+  "selects": {
+   "mode": "fixed"
+  },
+  "expected": "grid-template-columns: repeat(3, minmax(0, 1fr));"
+ },
+ {
+  "slug": "css-linear-mask-generator",
+  "fields": {
+   "start": "10",
+   "end": "90"
+  },
+  "selects": {
+   "axis": "bottom"
+  },
+  "expected": "#000 10%, #000 90%"
+ },
+ {
+  "slug": "css-object-fit-generator",
+  "fields": {
+   "width": "640",
+   "height": "360",
+   "x": "50",
+   "y": "25"
+  },
+  "selects": {
+   "fit": "cover"
+  },
+  "expected": "object-position: 50% 25%;"
+ },
+ {
+  "slug": "css-outline-generator",
+  "fields": {
+   "width": "3",
+   "offset": "3",
+   "color": "#16233d"
+  },
+  "selects": {},
+  "expected": "outline: 3px solid #16233d;"
+ },
+ {
+  "slug": "css-scroll-snap-generator",
+  "fields": {
+   "size": "300",
+   "gap": "16"
+  },
+  "selects": {
+   "axis": "x",
+   "strict": "mandatory",
+   "align": "start"
+  },
+  "expected": "scroll-snap-type: x mandatory;"
+ },
+ {
+  "slug": "css-sticky-header-generator",
+  "fields": {
+   "top": "0",
+   "z": "100",
+   "color": "#fff",
+   "padding": "16"
+  },
+  "selects": {},
+  "expected": "position: sticky;"
+ },
+ {
+  "slug": "css-text-decoration-generator",
+  "fields": {
+   "color": "#123",
+   "width": "2",
+   "offset": "4"
+  },
+  "selects": {
+   "line": "underline",
+   "style": "wavy"
+  },
+  "expected": "text-decoration-style: wavy;"
+ },
+ {
+  "slug": "css-text-shadow-generator",
+  "fields": {
+   "x": "2",
+   "y": "2",
+   "blur": "4",
+   "color": "#586070"
+  },
+  "selects": {},
+  "expected": "text-shadow: 2px 2px 4px"
+ },
+ {
+  "slug": "css-transform-generator",
+  "fields": {
+   "x": "20",
+   "y": "10",
+   "rotate": "45",
+   "scaleX": "1",
+   "scaleY": "1"
+  },
+  "selects": {},
+  "expected": "rotate(45deg)"
+ },
+ {
+  "slug": "css-transform-origin-generator",
+  "fields": {
+   "x": "0",
+   "y": "100",
+   "z": "0"
+  },
+  "selects": {},
+  "expected": "transform-origin: 0% 100% 0px;"
+ },
+ {
+  "slug": "css-triangle-generator",
+  "fields": {
+   "width": "40",
+   "height": "30",
+   "color": "#16233D"
+  },
+  "selects": {
+   "direction": "up"
+  },
+  "expected": "border-bottom: 30px"
+ },
+ {
+  "slug": "css-unit-converter",
+  "fields": {
+   "value": "32",
+   "root": "16",
+   "font": "16",
+   "width": "1280",
+   "height": "900"
+  },
+  "selects": {
+   "from": "px",
+   "to": "rem"
+  },
+  "expected": "2rem"
+ },
+ {
+  "slug": "csv-anti-join",
+  "fields": {
+   "source": "id,name\n1,a\n2,b",
+   "right": "id\n1",
+   "leftKey": "id",
+   "rightKey": "id"
+  },
+  "selects": {},
+  "expected": "2,b"
+ },
+ {
+  "slug": "csv-cell-case-converter",
+  "fields": {
+   "source": "a,b\nhello,x",
+   "columns": "a"
+  },
+  "selects": {
+   "mode": "upper"
+  },
+  "expected": "HELLO,x"
+ },
+ {
+  "slug": "csv-cell-linebreak-cleaner",
+  "fields": {
+   "source": "id,note\n1,\"a\nb\"",
+   "columns": "note",
+   "replacement": " "
+  },
+  "selects": {},
+  "expected": "1,a b"
+ },
+ {
+  "slug": "csv-cell-trimmer",
+  "fields": {
+   "source": "이름,점수\n 하루 , 90 "
+  },
+  "selects": {},
+  "expected": "하루,90"
+ },
+ {
+  "slug": "csv-column-calculator",
+  "fields": {
+   "source": "a,b\n0.1,0.2",
+   "left": "a",
+   "right": "b",
+   "name": "c"
+  },
+  "selects": {
+   "op": "add"
+  },
+  "expected": "0.1,0.2,0.3"
+ },
+ {
+  "slug": "csv-column-frequency",
+  "fields": {
+   "source": "a\nx\nx\ny",
+   "column": "a"
+  },
+  "selects": {},
+  "expected": "x,2"
+ },
+ {
+  "slug": "csv-column-renamer",
+  "fields": {
+   "source": "a,b\n1,2",
+   "mapping": "a,alpha"
+  },
+  "selects": {},
+  "expected": "alpha,b"
+ },
+ {
+  "slug": "csv-column-selector",
+  "fields": {
+   "source": "이름,점수\n하루,90",
+   "columns": "점수\n이름"
+  },
+  "selects": {},
+  "expected": "점수,이름"
+ },
+ {
+  "slug": "csv-column-value-mapper",
+  "fields": {
+   "source": "id,status\n1,A\n2,B",
+   "column": "status",
+   "mapping": "A,완료\nB,진행"
+  },
+  "selects": {
+   "mode": "keep"
+  },
+  "expected": "1,완료"
+ },
+ {
+  "slug": "csv-cross-tab-count",
+  "fields": {
+   "source": "팀,완료\nA,Y\nA,Y\nB,N",
+   "rows": "팀",
+   "columns": "완료"
+  },
+  "selects": {},
+  "expected": "A,2,0"
+ },
+ {
+  "slug": "csv-dataset-diff",
+  "fields": {
+   "source": "id,name\n1,a\n2,b",
+   "right": "name,id\na,1\nc,3",
+   "key": "id"
+  },
+  "selects": {},
+  "expected": "\"status\": \"삭제\""
+ },
+ {
+  "slug": "csv-deduplicator",
+  "fields": {
+   "source": "이름,점수\n하루,90\n하루,80",
+   "columns": "이름"
+  },
+  "selects": {},
+  "expected": "하루,90"
+ },
+ {
+  "slug": "csv-delimiter-converter",
+  "fields": {
+   "source": "이름,점수\n하루,90"
+  },
+  "selects": {
+   "from": ",",
+   "to": "\t"
+  },
+  "expected": "이름\t점수"
+ },
+ {
+  "slug": "csv-drop-empty-rows-columns",
+  "fields": {
+   "source": "a,b\n1,\n,\n2,"
+  },
+  "selects": {
+   "scope": "both",
+   "space": "empty"
+  },
+  "expected": "a\r\n1\r\n2"
+ },
+ {
+  "slug": "csv-formula-guard",
+  "fields": {
+   "source": "이름,값\n하루,=1+1"
+  },
+  "selects": {},
+  "expected": "하루,'=1+1"
+ },
+ {
+  "slug": "csv-full-outer-join",
+  "fields": {
+   "source": "id,a\n1,x\n2,y",
+   "right": "id,b\n2,z\n3,q",
+   "leftKey": "id",
+   "rightKey": "id"
+  },
+  "selects": {},
+  "expected": "3,,q"
+ },
+ {
+  "slug": "csv-group-sum",
+  "fields": {
+   "source": "분류,금액\nA,0.1\nA,0.2",
+   "group": "분류",
+   "amount": "금액"
+  },
+  "selects": {},
+  "expected": "A,0.3"
+ },
+ {
+  "slug": "csv-header-normalizer",
+  "fields": {
+   "source": " First Name , SCORE\n하루,90"
+  },
+  "selects": {
+   "mode": "snake"
+  },
+  "expected": "first_name,score"
+ },
+ {
+  "slug": "csv-joiner",
+  "fields": {
+   "source": "ID,이름\n1,하루\n2,콕",
+   "right": "ID,점수\n1,90",
+   "leftKey": "ID",
+   "rightKey": "ID"
+  },
+  "selects": {},
+  "expected": "1,하루,90"
+ },
+ {
+  "slug": "csv-merge-columns",
+  "fields": {
+   "source": "a,b\nx,1",
+   "columns": "a\nb",
+   "delimiter": "-",
+   "name": "c"
+  },
+  "selects": {},
+  "expected": "x,1,x-1"
+ },
+ {
+  "slug": "csv-null-filler",
+  "fields": {
+   "source": "a,b\nx,\ny,2",
+   "columns": "b",
+   "fill": "0"
+  },
+  "selects": {
+   "mode": "empty"
+  },
+  "expected": "x,0"
+ },
+ {
+  "slug": "csv-pivot-table",
+  "fields": {
+   "source": "지역,품목,수량\n서울,사과,2\n서울,배,3\n부산,사과,4",
+   "rows": "지역",
+   "columns": "품목",
+   "amount": "수량"
+  },
+  "selects": {},
+  "expected": "서울,2,3"
+ },
+ {
+  "slug": "csv-row-append",
+  "fields": {
+   "source": "a,b\n1,x",
+   "right": "b,a\ny,2"
+  },
+  "selects": {},
+  "expected": "2,y"
+ },
+ {
+  "slug": "csv-row-filter",
+  "fields": {
+   "source": "이름,점수\n하루,90\n콕,80",
+   "column": "점수",
+   "value": "80"
+  },
+  "selects": {
+   "mode": "gt"
+  },
+  "expected": "하루,90"
+ },
+ {
+  "slug": "csv-row-numberer",
+  "fields": {
+   "source": "a\nx\ny",
+   "name": "n",
+   "start": "10",
+   "step": "2"
+  },
+  "selects": {},
+  "expected": "12,y"
+ },
+ {
+  "slug": "csv-row-range",
+  "fields": {
+   "source": "a\nx\ny\nz",
+   "start": "2",
+   "end": "3"
+  },
+  "selects": {},
+  "expected": "a\r\ny\r\nz"
+ },
+ {
+  "slug": "csv-row-update-by-key",
+  "fields": {
+   "source": "id,name,keep\n1,a,x\n2,b,y",
+   "right": "id,name\n2,new\n3,c",
+   "key": "id"
+  },
+  "selects": {
+   "mode": "append"
+  },
+  "expected": "2,new,y"
+ },
+ {
+  "slug": "csv-running-total",
+  "fields": {
+   "source": "v\n0.1\n0.2",
+   "column": "v",
+   "name": "sum"
+  },
+  "selects": {},
+  "expected": "0.2,0.3"
+ },
+ {
+  "slug": "csv-schema-profiler",
+  "fields": {
+   "source": "a,b\n1,x\n2,"
+  },
+  "selects": {},
+  "expected": "숫자 합계 3"
+ },
+ {
+  "slug": "csv-sorter",
+  "fields": {
+   "source": "이름,점수\n하루,90\n콕,80",
+   "column": "점수"
+  },
+  "selects": {
+   "type": "number",
+   "direction": "asc"
+  },
+  "expected": "콕,80"
+ },
+ {
+  "slug": "csv-split-column",
+  "fields": {
+   "source": "a,b\nx-y,1\nz,2",
+   "column": "a",
+   "delimiter": "-"
+  },
+  "selects": {},
+  "expected": "x,y,1"
+ },
+ {
+  "slug": "csv-to-sql-update",
+  "fields": {
+   "source": "id,name\n1,하루",
+   "table": "items",
+   "key": "id"
+  },
+  "selects": {},
+  "expected": "WHERE \"id\" = '1';"
+ },
+ {
+  "slug": "csv-unpivot",
+  "fields": {
+   "source": "이름,월,화\n하루,1,2",
+   "ids": "이름",
+   "keyName": "요일",
+   "valueName": "수량"
+  },
+  "selects": {},
+  "expected": "하루,화,2"
+ },
+ {
+  "slug": "data-uri-parser",
+  "fields": {
+   "source": "data:text/plain;charset=UTF-8,%ED%95%98%EB%A3%A8%EC%BD%95"
+  },
+  "selects": {},
+  "expected": "\"text\": \"하루콕\""
+ },
+ {
+  "slug": "date-list-generator",
+  "fields": {
+   "start": "2026-11-02",
+   "end": "2026-11-08",
+   "interval": "1",
+   "weekdays": "1,2,3,4,5",
+   "limit": "100"
+  },
+  "selects": {},
+  "expected": "2026-11-06"
+ },
+ {
+  "slug": "date-overlap-calculator",
+  "fields": {
+   "startA": "2026-11-01",
+   "endA": "2026-11-10",
+   "startB": "2026-11-05",
+   "endB": "2026-11-15"
+  },
+  "selects": {},
+  "expected": "겹치는 일수: 6일"
+ },
+ {
+  "slug": "deadline-backplanner",
+  "fields": {
+   "deadline": "2026-01-09",
+   "tasks": "초안,2\n검토,1",
+   "excluded": "2026-01-08"
+  },
+  "selects": {},
+  "expected": "첫 작업 시작: 2026-01-06"
+ },
+ {
+  "slug": "debt-income-ratio-calculator",
+  "fields": {
+   "debt": "500000",
+   "income": "2500000"
+  },
+  "selects": {},
+  "expected": "소득 대비 상환비율: 20%"
+ },
+ {
+  "slug": "debt-payoff-calculator",
+  "fields": {
+   "principal": "1000",
+   "annual": "0",
+   "payment": "300"
+  },
+  "selects": {},
+  "expected": "마지막 납입액: 100원"
+ },
+ {
+  "slug": "decimal-fraction-converter",
+  "fields": {
+   "source": "0.125"
+  },
+  "selects": {
+   "mode": "fraction"
+  },
+  "expected": "1/8"
+ },
+ {
+  "slug": "decimal-hour-converter",
+  "fields": {
+   "source": "1.5"
+  },
+  "selects": {
+   "mode": "decimal"
+  },
+  "expected": "시:분:초: 01:30:00"
+ },
+ {
+  "slug": "deck-board-calculator",
+  "fields": {
+   "length": "4",
+   "width": "3",
+   "boardWidth": "140",
+   "gap": "5",
+   "boardLength": "2",
+   "waste": "10"
+  },
+  "selects": {},
+  "expected": "여유 포함 판재: 47장"
+ },
+ {
+  "slug": "delivery-working-day-estimator",
+  "fields": {
+   "date": "2026-01-09",
+   "time": "16:00",
+   "cutoff": "14:00",
+   "preparation": "0",
+   "transit": "1",
+   "excluded": "2026-01-01"
+  },
+  "selects": {},
+  "expected": "가정 도착일: 2026-01-13"
+ },
+ {
+  "slug": "depth-of-field-calculator",
+  "fields": {
+   "focal": "50",
+   "aperture": "8",
+   "distance": "3",
+   "coc": "0.03"
+  },
+  "selects": {},
+  "expected": "과초점거리: 10.4666666667m"
+ },
+ {
+  "slug": "dilution-calculator",
+  "fields": {
+   "stock": "10",
+   "target": "2",
+   "volume": "100"
+  },
+  "selects": {
+   "concentrationUnit": "percent",
+   "volumeUnit": "mL"
+  },
+  "expected": "필요 원액: 20mL"
+ },
+ {
+  "slug": "dividend-calculator",
+  "fields": {
+   "shares": "100",
+   "dividend": "500",
+   "payments": "4",
+   "deduction": "0",
+   "price": "20000"
+  },
+  "selects": {},
+  "expected": "가정 연간 순배당: 200,000원"
+ },
+ {
+  "slug": "dotenv-parser",
+  "fields": {
+   "source": "APP_NAME=\"하루콕\"\nPORT=3000"
+  },
+  "selects": {},
+  "expected": "\"PORT\": \"3000\""
+ },
+ {
+  "slug": "dough-hydration-calculator",
+  "fields": {
+   "flour": "500",
+   "water": "300",
+   "starter": "100",
+   "hydration": "100"
+  },
+  "selects": {},
+  "expected": "전체 수분율: 63.6363636364%"
+ },
+ {
+  "slug": "download-time-calculator",
+  "fields": {
+   "size": "1",
+   "rate": "100"
+  },
+  "selects": {
+   "sizeUnit": "GB",
+   "rateUnit": "Mbps"
+  },
+  "expected": "정밀 시간: 80초"
+ },
+ {
+  "slug": "early-loan-repayment-calculator",
+  "fields": {
+   "principal": "10000000",
+   "annual": "0",
+   "months": "10",
+   "prepay": "2000000",
+   "fee": "1"
+  },
+  "selects": {},
+  "expected": "수수료 차감 절감액: -20,000원"
+ },
+ {
+  "slug": "effective-interest-calculator",
+  "fields": {
+   "rate": "12"
+  },
+  "selects": {
+   "mode": "effective",
+   "frequency": "12"
+  },
+  "expected": "실효 연이율: 12.6825030132%"
+ },
+ {
+  "slug": "egg-mass-substitution-calculator",
+  "fields": {
+   "count": "3",
+   "original": "50",
+   "replacement": "60"
+  },
+  "selects": {},
+  "expected": "대체 크기 환산: 2.5개"
+ },
+ {
+  "slug": "electrical-power-calculator",
+  "fields": {
+   "power": "60",
+   "voltage": "12"
+  },
+  "selects": {},
+  "expected": "전류: 5A"
+ },
+ {
+  "slug": "electricity-cost-calculator",
+  "fields": {
+   "watts": "1000",
+   "hours": "3",
+   "days": "30",
+   "price": "200"
+  },
+  "selects": {},
+  "expected": "단순 사용 비용: 18,000원"
+ },
+ {
+  "slug": "ellipse-calculator",
+  "fields": {
+   "a": "5",
+   "b": "3"
+  },
+  "selects": {},
+  "expected": "넓이: 47.1238898038"
+ },
+ {
+  "slug": "email-extractor",
+  "fields": {
+   "source": "하루 <hello@example.com>, 문의 help@example.org"
+  },
+  "selects": {
+   "duplicates": "unique"
+  },
+  "expected": "hello@example.com\nhelp@example.org"
+ },
+ {
+  "slug": "email-signature-builder",
+  "fields": {
+   "name": "하루",
+   "role": "운영 담당",
+   "company": "하루상사",
+   "email": "hello@example.com",
+   "phone": "010-1234-5678",
+   "url": "https://example.com"
+  },
+  "selects": {},
+  "expected": "운영 담당"
+ },
+ {
+  "slug": "event-jsonld-generator",
+  "fields": {
+   "name": "모임",
+   "url": "https://example.com/event",
+   "start": "2026-12-01T10:00:00+09:00",
+   "end": "2026-12-01T12:00:00+09:00",
+   "place": "공간",
+   "address": "서울"
+  },
+  "selects": {},
+  "expected": "\"@type\": \"Event\""
+ },
+ {
+  "slug": "event-staff-rota-generator",
+  "fields": {
+   "people": "A\nB\nC\nD",
+   "start": "09:00",
+   "slots": "4",
+   "minutes": "60",
+   "perSlot": "2"
+  },
+  "selects": {},
+  "expected": "09:00 ~ 10:00 A, B"
+ },
+ {
+  "slug": "excel-serial-date-converter",
+  "fields": {
+   "source": "1970-01-01T00:00:00Z"
+  },
+  "selects": {
+   "system": "1900",
+   "mode": "encode"
+  },
+  "expected": "25569"
+ },
+ {
+  "slug": "expense-settlement-calculator",
+  "fields": {
+   "expenses": "민수,30000\n지연,10000\n수아,20000"
+  },
+  "selects": {},
+  "expected": "지연 → 민수: 10,000원"
+ },
+ {
+  "slug": "exposure-equivalence-calculator",
+  "fields": {
+   "oldAperture": "4",
+   "oldIso": "100",
+   "oldShutter": "1/125",
+   "newAperture": "8",
+   "newIso": "200"
+  },
+  "selects": {},
+  "expected": "새 등가 셔터시간: 0.016초"
+ },
+ {
+  "slug": "exposure-value-calculator",
+  "fields": {
+   "aperture": "8",
+   "shutter": "1/128",
+   "iso": "100"
+  },
+  "selects": {},
+  "expected": "설정 노출값 EV: 13"
+ },
+ {
+  "slug": "faq-jsonld-generator",
+  "fields": {
+   "source": "운영 시간은?,오전9시부터입니다."
+  },
+  "selects": {},
+  "expected": "\"@type\": \"Question\""
+ },
+ {
+  "slug": "field-of-view-calculator",
+  "fields": {
+   "width": "36",
+   "height": "24",
+   "focal": "18",
+   "distance": "10"
+  },
+  "selects": {},
+  "expected": "수평 화각: 90°"
+ },
+ {
+  "slug": "flour-protein-blend-calculator",
+  "fields": {
+   "total": "1000",
+   "low": "10",
+   "high": "14",
+   "target": "12"
+  },
+  "selects": {},
+  "expected": "고단백 밀가루: 500g"
+ },
+ {
+  "slug": "fuel-consumption-calculator",
+  "fields": {
+   "distance": "500",
+   "fuel": "40",
+   "price": "1700"
+  },
+  "selects": {},
+  "expected": "연비: 12.5km/L"
+ },
+ {
+  "slug": "fullwidth-halfwidth-converter",
+  "fields": {
+   "source": "ＡＢＣ１２３　！"
+  },
+  "selects": {
+   "mode": "half"
+  },
+  "expected": "ABC123 !"
+ },
+ {
+  "slug": "grout-quantity-calculator",
+  "fields": {
+   "area": "1",
+   "width": "90",
+   "height": "90",
+   "joint": "10",
+   "depth": "1",
+   "density": "1",
+   "waste": "0"
+  },
+  "selects": {},
+  "expected": "여유 포함 줄눈재: 0.19kg"
+ },
+ {
+  "slug": "hangul-jamo-converter",
+  "fields": {
+   "source": "하루콕"
+  },
+  "selects": {
+   "mode": "initial"
+  },
+  "expected": "ㅎㄹㅋ"
+ },
+ {
+  "slug": "hmac-sha1-generator",
+  "fields": {
+   "key": "0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b",
+   "source": "Hi There"
+  },
+  "selects": {
+   "format": "hex"
+  },
+  "expected": "b617318655057264e28bc0b6fb378c8ef146be00"
+ },
+ {
+  "slug": "html-meta-generator",
+  "fields": {
+   "title": "하루콕",
+   "description": "무료 도구",
+   "url": "https://example.com/",
+   "image": ""
+  },
+  "selects": {},
+  "expected": "<title>하루콕</title>"
+ },
+ {
+  "slug": "html-plain-text-extractor",
+  "fields": {
+   "source": "<h1>제목</h1><p>하루 &amp; 콕<br>내용</p><script>alert(1)</script>"
+  },
+  "selects": {},
+  "expected": "하루 & 콕"
+ },
+ {
+  "slug": "html-table-generator",
+  "fields": {
+   "source": "이름\t점수\n하루\t90\n콕\t100",
+   "caption": "점수표"
+  },
+  "selects": {
+   "header": "yes"
+  },
+  "expected": "<th scope=\"col\">이름</th>"
+ },
+ {
+  "slug": "html-table-tsv-extractor",
+  "fields": {
+   "source": "<table><tr><th>이름</th><th>수량</th></tr><tr><td rowspan=\"2\">하루</td><td>2</td></tr><tr><td>3</td></tr></table>",
+   "index": "1"
+  },
+  "selects": {},
+  "expected": "하루"
+ },
+ {
+  "slug": "http-basic-auth-converter",
+  "fields": {
+   "source": "Aladdin:open sesame"
+  },
+  "selects": {
+   "mode": "encode"
+  },
+  "expected": "Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ=="
+ },
+ {
+  "slug": "http-date-converter",
+  "fields": {
+   "source": "1994-11-06T08:49:37Z"
+  },
+  "selects": {
+   "mode": "encode"
+  },
+  "expected": "Sun, 06 Nov 1994 08:49:37 GMT"
+ },
+ {
+  "slug": "http-status-lookup",
+  "fields": {
+   "code": "404"
+  },
+  "selects": {},
+  "expected": "404 Not Found"
+ },
+ {
+  "slug": "inflation-calculator",
+  "fields": {
+   "amount": "1000000",
+   "rate": "10",
+   "years": "2"
+  },
+  "selects": {},
+  "expected": "미래 가격: 1,210,000원"
+ },
+ {
+  "slug": "ingredient-volume-weight-calculator",
+  "fields": {
+   "amount": "240",
+   "density": "0.5"
+  },
+  "selects": {
+   "mode": "volume"
+  },
+  "expected": "환산량: 120g"
+ },
+ {
+  "slug": "ini-json-converter",
+  "fields": {
+   "source": "[server]\nhost=localhost\nport=8080"
+  },
+  "selects": {
+   "mode": "ini"
+  },
+  "expected": "\"port\": \"8080\""
+ },
+ {
+  "slug": "invisible-character-inspector",
+  "fields": {
+   "source": "하루​콕"
+  },
+  "selects": {
+   "mode": "inspect"
+  },
+  "expected": "U+200B"
+ },
+ {
+  "slug": "ipv4-integer-converter",
+  "fields": {
+   "source": "192.168.1.1"
+  },
+  "selects": {
+   "mode": "toInt"
+  },
+  "expected": "3232235777"
+ },
+ {
+  "slug": "ipv4-subnet-calculator",
+  "fields": {
+   "source": "192.168.1.10/24"
+  },
+  "selects": {},
+  "expected": "네트워크: 192.168.1.0/24"
+ },
+ {
+  "slug": "ipv6-expander",
+  "fields": {
+   "source": "2001:db8::1"
+  },
+  "selects": {},
+  "expected": "2001:0db8:0000:0000:0000:0000:0000:0001"
+ },
+ {
+  "slug": "ipv6-subnet-calculator",
+  "fields": {
+   "source": "2001:db8::1234",
+   "prefix": "64"
+  },
+  "selects": {},
+  "expected": "네트워크: 2001:db8::/64"
+ },
+ {
+  "slug": "iso-duration-converter",
+  "fields": {
+   "source": "P1DT2H3M4.5S"
+  },
+  "selects": {
+   "mode": "toSeconds"
+  },
+  "expected": "93784.5초"
+ },
+ {
+  "slug": "json-depth-analyzer",
+  "fields": {
+   "source": "{\"a\":[1,true,null]}"
+  },
+  "selects": {},
+  "expected": "최대 깊이: 2"
+ },
+ {
+  "slug": "json-diff",
+  "fields": {
+   "before": "{\"name\":\"하루\",\"count\":1}",
+   "after": "{\"count\":2,\"name\":\"하루\"}"
+  },
+  "selects": {},
+  "expected": "변경 /count: 1 → 2"
+ },
+ {
+  "slug": "json-flattener",
+  "fields": {
+   "source": "{\"user\":{\"name\":\"하루\"},\"tags\":[\"도구\"]}"
+  },
+  "selects": {},
+  "expected": "\"/user/name\": \"하루\""
+ },
+ {
+  "slug": "json-key-sorter",
+  "fields": {
+   "source": "{\"b\":2,\"a\":1}"
+  },
+  "selects": {},
+  "expected": "\"a\": 1"
+ },
+ {
+  "slug": "json-leaf-value-search",
+  "fields": {
+   "source": "{\"a/b\":[1,2]}",
+   "value": "2"
+  },
+  "selects": {},
+  "expected": "\"/a~1b/1\""
+ },
+ {
+  "slug": "json-lines-converter",
+  "fields": {
+   "source": "{\"id\":9007199254740993}\n{\"id\":2}"
+  },
+  "selects": {
+   "mode": "toArray",
+   "empty": "reject"
+  },
+  "expected": "9007199254740993"
+ },
+ {
+  "slug": "json-path-extractor",
+  "fields": {
+   "source": "{\"users\":[{\"name\":\"하루\"}]}",
+   "path": "/users/0/name"
+  },
+  "selects": {},
+  "expected": "\"하루\""
+ },
+ {
+  "slug": "json-prune-empty",
+  "fields": {
+   "source": "{\"a\":null,\"b\":0,\"c\":false}"
+  },
+  "selects": {},
+  "expected": "\"b\": 0"
+ },
+ {
+  "slug": "json-schema-generator",
+  "fields": {
+   "source": "{\"id\":1,\"name\":\"하루\",\"tags\":[\"도구\"]}"
+  },
+  "selects": {
+   "required": "all"
+  },
+  "expected": "\"$schema\": \"https://json-schema.org/draft/2020-12/schema\""
+ },
+ {
+  "slug": "json-string-escape",
+  "fields": {
+   "source": "안녕 \"하루\"\n다음 줄"
+  },
+  "selects": {
+   "mode": "encode"
+  },
+  "expected": "\\n"
+ },
+ {
+  "slug": "json-structural-skeleton",
+  "fields": {
+   "source": "{\"a\":1,\"b\":null}"
+  },
+  "selects": {},
+  "expected": "\"a\": \"number\""
+ },
+ {
+  "slug": "json-to-env",
+  "fields": {
+   "source": "{\"PORT\":8080}"
+  },
+  "selects": {},
+  "expected": "PORT=\"8080\""
+ },
+ {
+  "slug": "json-to-typescript",
+  "fields": {
+   "source": "{\"id\":1,\"name\":\"하루\",\"active\":true}",
+   "name": "User"
+  },
+  "selects": {},
+  "expected": "export type User = "
+ },
+ {
+  "slug": "json-xml-builder",
+  "fields": {
+   "source": "{\"name\":\"a\",\"attributes\":{\"id\":\"1\"},\"children\":[\"<&\"]}"
+  },
+  "selects": {
+   "mode": "pretty"
+  },
+  "expected": "<a id=\"1\">&lt;&amp;</a>"
+ },
+ {
+  "slug": "key-signature-calculator",
+  "fields": {},
+  "selects": {
+   "key": "major:D"
+  },
+  "expected": "붙는 음 순서: F# C#"
+ },
+ {
+  "slug": "knitting-gauge-calculator",
+  "fields": {
+   "width": "40",
+   "height": "50",
+   "stitches": "22",
+   "rows": "30",
+   "repeat": "4",
+   "edge": "2"
+  },
+  "selects": {},
+  "expected": "시작 코 수: 90코"
+ },
+ {
+  "slug": "knockout-bracket-generator",
+  "fields": {
+   "names": "A\nB\nC\nD\nE"
+  },
+  "selects": {},
+  "expected": "대진 크기: 8명"
+ },
+ {
+  "slug": "korean-amount-word-audit",
+  "fields": {
+   "source": "금액,한글\n12345,일만이천삼백사십오원",
+   "amount": "금액",
+   "words": "한글"
+  },
+  "selects": {},
+  "expected": "일치"
+ },
+ {
+  "slug": "korean-keyboard-converter",
+  "fields": {
+   "source": "dkssudgktpdy"
+  },
+  "selects": {
+   "mode": "toKo"
+  },
+  "expected": "안녕하세요"
+ },
+ {
+  "slug": "korean-number-reader",
+  "fields": {
+   "source": "12345.60"
+  },
+  "selects": {},
+  "expected": "일만 이천삼백사십오점육영"
+ },
+ {
+  "slug": "laminate-course-layout-calculator",
+  "fields": {
+   "width": "3100",
+   "plank": "200",
+   "gap": "10",
+   "minimum": "50"
+  },
+  "selects": {},
+  "expected": "끝 줄 폭: 80mm"
+ },
+ {
+  "slug": "large-print-document",
+  "fields": {
+   "source": "안내 말씀드립니다.\n오늘 오후3시에 시작합니다.",
+   "title": "행사 안내",
+   "size": "24",
+   "spacing": "1.8"
+  },
+  "selects": {},
+  "expected": "오늘 오후"
+ },
+ {
+  "slug": "ldif-contact-converter",
+  "fields": {
+   "source": "version: 1\n\ndn: cn=Harukok,dc=example,dc=com\ncn: Harukok\nsn: Kim\nmail: hello@example.com"
+  },
+  "selects": {
+   "direction": "to-table"
+  },
+  "expected": "hello@example.com"
+ },
+ {
+  "slug": "league-standings-calculator",
+  "fields": {
+   "teams": "A,2,1,0,5,2\nB,2,1,0,4,2",
+   "win": "3",
+   "draw": "1"
+  },
+  "selects": {},
+  "expected": "1. A | 승점 7 | 득실 3"
+ },
+ {
+  "slug": "lease-deposit-converter",
+  "fields": {
+   "difference": "12000000",
+   "annual": "5"
+  },
+  "selects": {
+   "mode": "deposit"
+  },
+  "expected": "월세 차이: 50,000원"
+ },
+ {
+  "slug": "led-resistor-calculator",
+  "fields": {
+   "supply": "5",
+   "forward": "2",
+   "count": "1",
+   "current": "20"
+  },
+  "selects": {},
+  "expected": "직렬 저항: 150Ω"
+ },
+ {
+  "slug": "loan-comparison-calculator",
+  "fields": {
+   "principal": "1200000",
+   "rateA": "0",
+   "monthsA": "12",
+   "feeA": "10000",
+   "rateB": "0",
+   "monthsB": "12",
+   "feeB": "0"
+  },
+  "selects": {},
+  "expected": "B 총비용이 적음"
+ },
+ {
+  "slug": "loan-payment-calculator",
+  "fields": {
+   "principal": "1200000",
+   "rate": "0",
+   "months": "12"
+  },
+  "selects": {
+   "mode": "annuity"
+  },
+  "expected": "총 이자: 0원"
+ },
+ {
+  "slug": "local-business-jsonld-generator",
+  "fields": {
+   "name": "공방",
+   "url": "https://example.com/",
+   "phone": "+82-2-1234-5678",
+   "street": "예시로1",
+   "city": "서울",
+   "country": "KR"
+  },
+  "selects": {},
+  "expected": "\"@type\": \"LocalBusiness\""
+ },
+ {
+  "slug": "lorem-ipsum-generator",
+  "fields": {
+   "words": "5",
+   "paragraphs": "1"
+  },
+  "selects": {},
+  "expected": "Lorem ipsum dolor sit amet."
+ },
+ {
+  "slug": "margin-markup-calculator",
+  "fields": {
+   "cost": "6000",
+   "price": "10000"
+  },
+  "selects": {},
+  "expected": "판매가 기준 마진율: 40%"
+ },
+ {
+  "slug": "markdown-heading-outline",
+  "fields": {
+   "source": "# 첫째\n### 셋째\n```\n# 코드\n```"
+  },
+  "selects": {},
+  "expected": "    - 셋째"
+ },
+ {
+  "slug": "markdown-html-converter",
+  "fields": {
+   "source": "# 회의\n- **결정** 확인\n- [하루콕](https://harukok.com)"
+  },
+  "selects": {},
+  "expected": "<strong>결정</strong>"
+ },
+ {
+  "slug": "markdown-link-generator",
+  "fields": {
+   "source": "하루콕\thttps://harukok.com/\n예시\thttps://example.com/a(b)?x=1&y=2"
+  },
+  "selects": {},
+  "expected": "[하루콕](<https://harukok.com/>)"
+ },
+ {
+  "slug": "markdown-plain-text-converter",
+  "fields": {
+   "source": "# 회의\n**결정** 확인\n[하루콕](https://harukok.com)"
+  },
+  "selects": {},
+  "expected": "결정 확인"
+ },
+ {
+  "slug": "markdown-table-to-csv",
+  "fields": {
+   "source": "| a | b |\n| --- | --- |\n| x\\|y | 1 |"
+  },
+  "selects": {},
+  "expected": "x|y,1"
+ },
+ {
+  "slug": "mime-type-lookup",
+  "fields": {
+   "source": "photo.webp"
+  },
+  "selects": {
+   "mode": "extension"
+  },
+  "expected": "image/webp"
+ },
+ {
+  "slug": "month-end-calculator",
+  "fields": {
+   "base": "2024-02-29",
+   "offset": "1",
+   "count": "1"
+  },
+  "selects": {
+   "mode": "add",
+   "rule": "end"
+  },
+  "expected": "개월 가감 결과: 2024-03-31"
+ },
+ {
+  "slug": "morse-code-converter",
+  "fields": {
+   "source": "SOS HELP"
+  },
+  "selects": {
+   "mode": "encode"
+  },
+  "expected": "... --- ... / .... . .-.. .--."
+ },
+ {
+  "slug": "name-badge-card-builder",
+  "fields": {
+   "source": "이름,소속,추가문구\n하루,운영팀,참석자\n콕,개발팀,발표자",
+   "width": "90",
+   "height": "55"
+  },
+  "selects": {},
+  "expected": "발표자"
+ },
+ {
+  "slug": "nd-filter-calculator",
+  "fields": {
+   "shutter": "1/125",
+   "strength": "6"
+  },
+  "selects": {
+   "mode": "stops"
+  },
+  "expected": "새 노출시간: 0.512초"
+ },
+ {
+  "slug": "ngram-counter",
+  "fields": {
+   "source": "하루 콕 하루 콕 하루",
+   "n": "2"
+  },
+  "selects": {
+   "mode": "words",
+   "case": "lower"
+  },
+  "expected": "\"하루 콕\"\t2"
+ },
+ {
+  "slug": "note-frequency-calculator",
+  "fields": {
+   "source": "A4",
+   "reference": "440"
+  },
+  "selects": {
+   "mode": "note"
+  },
+  "expected": "주파수: 440Hz"
+ },
+ {
+  "slug": "nth-weekday-calculator",
+  "fields": {
+   "date": "2026-02-01",
+   "weekday": "1"
+  },
+  "selects": {
+   "nth": "last"
+  },
+  "expected": "해당 날짜: 2026-02-23"
+ },
+ {
+  "slug": "ntp-timestamp-converter",
+  "fields": {
+   "source": "1900-01-01T00:00:00Z",
+   "era": "0"
+  },
+  "selects": {
+   "mode": "encode"
+  },
+  "expected": "0:0"
+ },
+ {
+  "slug": "number-to-english-words",
+  "fields": {
+   "source": "1234.50"
+  },
+  "selects": {},
+  "expected": "one thousand two hundred thirty-four point five zero"
+ },
+ {
+  "slug": "ohms-law-calculator",
+  "fields": {
+   "voltage": "12",
+   "current": "0.02"
+  },
+  "selects": {},
+  "expected": "저항: 600Ω"
+ },
+ {
+  "slug": "ordered-list-change-report",
+  "fields": {
+   "source": "A\nB\nC",
+   "after": "B\nA\nD"
+  },
+  "selects": {},
+  "expected": "삭제"
+ },
+ {
+  "slug": "ordinal-date-converter",
+  "fields": {
+   "source": "2026-02-01"
+  },
+  "selects": {
+   "mode": "date"
+  },
+  "expected": "변환 결과: 2026-032"
+ },
+ {
+  "slug": "organization-chart-builder",
+  "fields": {
+   "source": "ID,이름,직책,상위ID\nA,하루,팀장,\nB,콕,팀원,A",
+   "title": "운영팀"
+  },
+  "selects": {},
+  "expected": "팀장"
+ },
+ {
+  "slug": "organization-jsonld-generator",
+  "fields": {
+   "name": "하루콕",
+   "url": "https://example.com/",
+   "logo": ""
+  },
+  "selects": {},
+  "expected": "\"@type\": \"Organization\""
+ },
+ {
+  "slug": "pace-calculator",
+  "fields": {
+   "distance": "5",
+   "hours": "0",
+   "minutes": "25",
+   "seconds": "0"
+  },
+  "selects": {},
+  "expected": "평균 페이스: 5분 0초/km"
+ },
+ {
+  "slug": "paint-coverage-calculator",
+  "fields": {
+   "area": "30",
+   "coats": "2",
+   "coverage": "10",
+   "container": "4"
+  },
+  "selects": {},
+  "expected": "용기 개수: 2개"
+ },
+ {
+  "slug": "paper-gsm-weight-calculator",
+  "fields": {
+   "width": "210",
+   "height": "297",
+   "gsm": "80",
+   "sheets": "500"
+  },
+  "selects": {},
+  "expected": "총무게: 2,494.8g"
+ },
+ {
+  "slug": "paragraph-sorter",
+  "fields": {
+   "source": "b\n\na"
+  },
+  "selects": {
+   "direction": "asc"
+  },
+  "expected": "a\n\nb"
+ },
+ {
+  "slug": "photo-backup-storage-calculator",
+  "fields": {
+   "shots": "1000",
+   "raw": "30",
+   "jpeg": "10",
+   "copies": "2",
+   "overhead": "10",
+   "drive": "1"
+  },
+  "selects": {},
+  "expected": "준비할 총 저장 용량: 0.088TB"
+ },
+ {
+  "slug": "pixel-aspect-ratio-calculator",
+  "fields": {
+   "width": "720",
+   "height": "576",
+   "sarN": "16",
+   "sarD": "15"
+  },
+  "selects": {},
+  "expected": "표시 종횡비 DAR: 4:3"
+ },
+ {
+  "slug": "pizza-dough-ball-calculator",
+  "fields": {
+   "diameter": "30",
+   "density": "0.3",
+   "count": "4",
+   "waste": "0"
+  },
+  "selects": {},
+  "expected": "한 판 기준 볼: 212.057504117g"
+ },
+ {
+  "slug": "portfolio-return-calculator",
+  "fields": {
+   "assets": "예금,1000000,3\n주식,1000000,-5"
+  },
+  "selects": {},
+  "expected": "전체 수익률: -1%"
+ },
+ {
+  "slug": "preferment-flour-calculator",
+  "fields": {
+   "flour": "500",
+   "preferment": "20",
+   "starterHydration": "100",
+   "hydration": "70"
+  },
+  "selects": {},
+  "expected": "본반죽 추가 물: 250g"
+ },
+ {
+  "slug": "print-bleed-calculator",
+  "fields": {
+   "width": "90",
+   "height": "50",
+   "bleed": "3",
+   "safe": "3",
+   "dpi": "300"
+  },
+  "selects": {},
+  "expected": "작업 픽셀 (올림): 1134 × 662px"
+ },
+ {
+  "slug": "print-sheet-layout-calculator",
+  "fields": {
+   "sheetWidth": "210",
+   "sheetHeight": "297",
+   "itemWidth": "90",
+   "itemHeight": "50",
+   "margin": "10",
+   "gap": "2"
+  },
+  "selects": {
+   "rotation": "allow"
+  },
+  "expected": "용지당 배치: 10개"
+ },
+ {
+  "slug": "printable-writing-paper",
+  "fields": {
+   "title": "하루의 메모",
+   "gap": "7"
+  },
+  "selects": {
+   "type": "ruled"
+  },
+  "expected": "간격 7mm"
+ },
+ {
+  "slug": "product-jsonld-generator",
+  "fields": {
+   "name": "노트",
+   "url": "https://example.com/product",
+   "price": "12000"
+  },
+  "selects": {
+   "currency": "KRW",
+   "stock": "InStock"
+  },
+  "expected": "\"price\": \"12000\""
+ },
+ {
+  "slug": "punycode-converter",
+  "fields": {
+   "source": "bücher.example"
+  },
+  "selects": {
+   "mode": "encode"
+  },
+  "expected": "xn--bcher-kva.example"
+ },
+ {
+  "slug": "purchase-pack-unit-cost",
+  "fields": {
+   "boxes": "2",
+   "packs": "12",
+   "quantity": "500",
+   "usable": "90",
+   "cost": "54000"
+  },
+  "selects": {},
+  "expected": "실사용 단위 원가: 5원/기본단위"
+ },
+ {
+  "slug": "pythagorean-calculator",
+  "fields": {
+   "x": "3",
+   "y": "4"
+  },
+  "selects": {
+   "mode": "hypotenuse"
+  },
+  "expected": "빗변: 5"
+ },
+ {
+  "slug": "qr-code-generator",
+  "fields": {
+   "text": "https://harukok.com",
+   "level": "M"
+  },
+  "selects": {},
+  "expected": "완료"
+ },
+ {
+  "slug": "quantile-calculator",
+  "fields": {
+   "values": "1,2,3,4,5",
+   "percent": "25"
+  },
+  "selects": {},
+  "expected": "백분위수: 2"
+ },
+ {
+  "slug": "queue-number-tickets",
+  "fields": {
+   "title": "상담 대기",
+   "prefix": "A-",
+   "start": "1",
+   "end": "20",
+   "repeat": "1",
+   "memo": "번호를 부르면 입장해 주세요."
+  },
+  "selects": {},
+  "expected": "A-001"
+ },
+ {
+  "slug": "raglan-increase-calculator",
+  "fields": {
+   "current": "100",
+   "target": "180",
+   "per": "8",
+   "interval": "2"
+  },
+  "selects": {},
+  "expected": "첫 늘림부터 마지막까지: 19단"
+ },
+ {
+  "slug": "ramp-slope-calculator",
+  "fields": {
+   "rise": "1",
+   "run": "10"
+  },
+  "selects": {},
+  "expected": "경사도: 10%"
+ },
+ {
+  "slug": "random-date-generator",
+  "fields": {
+   "start": "2026-11-04",
+   "end": "2026-11-04",
+   "count": "1"
+  },
+  "selects": {
+   "mode": "all"
+  },
+  "expected": "2026-11-04"
+ },
+ {
+  "slug": "random-id-generator",
+  "fields": {
+   "custom": "ABCD0123",
+   "length": "12",
+   "count": "3"
+  },
+  "selects": {
+   "alphabet": "hex"
+  },
+  "expected": "\n"
+ },
+ {
+  "slug": "ratio-calculator",
+  "fields": {
+   "a": "2",
+   "b": "3",
+   "c": "4"
+  },
+  "selects": {},
+  "expected": "D = 6"
+ },
+ {
+  "slug": "reading-time-calculator",
+  "fields": {
+   "source": "하루콕 도구",
+   "speed": "5"
+  },
+  "selects": {
+   "mode": "chars"
+  },
+  "expected": "정밀 시간: 60초"
+ },
+ {
+  "slug": "recurring-date-scheduler",
+  "fields": {
+   "start": "2026-01-01",
+   "every": "1",
+   "count": "3",
+   "days": "15,31",
+   "excluded": "2026-02-15"
+  },
+  "selects": {},
+  "expected": "반복 일정: 5회"
+ },
+ {
+  "slug": "recurring-savings-calculator",
+  "fields": {
+   "monthly": "100000",
+   "months": "12",
+   "rate": "0"
+  },
+  "selects": {
+   "timing": "end"
+  },
+  "expected": "납입 원금: 1,200,000원"
+ },
+ {
+  "slug": "regex-alternation-builder",
+  "fields": {
+   "source": "apple\na+b"
+  },
+  "selects": {
+   "mode": "whole"
+  },
+  "expected": "a\\+b"
+ },
+ {
+  "slug": "regex-escape-generator",
+  "fields": {
+   "source": "a+b (test)."
+  },
+  "selects": {},
+  "expected": "\\x61\\+b\\x20\\(test\\)\\."
+ },
+ {
+  "slug": "regular-polygon-calculator",
+  "fields": {
+   "n": "4",
+   "side": "2"
+  },
+  "selects": {},
+  "expected": "넓이: 4"
+ },
+ {
+  "slug": "rent-yield-calculator",
+  "fields": {
+   "price": "200000000",
+   "acquisition": "0",
+   "deposit": "20000000",
+   "loan": "100000000",
+   "annual": "4",
+   "rent": "1000000",
+   "vacancy": "0",
+   "expenses": "0"
+  },
+  "selects": {},
+  "expected": "자기자본 기준 연수익률: 10%"
+ },
+ {
+  "slug": "resistor-color-code",
+  "fields": {},
+  "selects": {
+   "bands": "4",
+   "first": "yellow",
+   "second": "violet",
+   "third": "black",
+   "multiplier": "red",
+   "tolerance": "gold"
+  },
+  "expected": "저항: 4.7kΩ"
+ },
+ {
+  "slug": "resistor-series-parallel",
+  "fields": {
+   "source": "100\n200\n300"
+  },
+  "selects": {
+   "unit": "ohm"
+  },
+  "expected": "직렬 합성 저항: 600Ω"
+ },
+ {
+  "slug": "resume-document-builder",
+  "fields": {
+   "source": "기간,소속,역할,주요성과\n2023~2026,하루회사,운영,처리시간 단축",
+   "name": "하루",
+   "contact": "hello@example.com",
+   "profile": "운영 업무3년",
+   "skills": "Excel · 문서 작성"
+  },
+  "selects": {},
+  "expected": "이력서"
+ },
+ {
+  "slug": "robots-txt-auditor",
+  "fields": {
+   "source": "User-agent: *\nAllow: /\nSitemap: https://example.com/sitemap.xml"
+  },
+  "selects": {},
+  "expected": "지원 문법에서 문제가 발견되지 않았습니다."
+ },
+ {
+  "slug": "robots-txt-generator",
+  "fields": {
+   "agent": "*",
+   "allow": "/public/",
+   "disallow": "/private/",
+   "sitemap": "https://example.com/sitemap.xml"
+  },
+  "selects": {},
+  "expected": "Disallow: /private/"
+ },
+ {
+  "slug": "roi-calculator",
+  "fields": {
+   "cost": "1000000",
+   "value": "1100000",
+   "income": "20000",
+   "fees": "10000"
+  },
+  "selects": {},
+  "expected": "단순 ROI: 11%"
+ },
+ {
+  "slug": "roman-numeral-converter",
+  "fields": {
+   "source": "2026"
+  },
+  "selects": {
+   "mode": "encode"
+  },
+  "expected": "MMXXVI"
+ },
+ {
+  "slug": "rotation-schedule-generator",
+  "fields": {
+   "start": "2026-11-01",
+   "end": "2026-11-04",
+   "pattern": "주간\n야간\n비번\n휴무",
+   "offset": "1"
+  },
+  "selects": {},
+  "expected": "2026-11-04 (수) 휴무"
+ },
+ {
+  "slug": "round-robin-schedule-generator",
+  "fields": {
+   "teams": "A\nB\nC\nD"
+  },
+  "selects": {},
+  "expected": "3라운드"
+ },
+ {
+  "slug": "sales-commission-calculator",
+  "fields": {
+   "amount": "10000",
+   "rate": "10",
+   "fixed": "500"
+  },
+  "selects": {
+   "mode": "net"
+  },
+  "expected": "판매가: 11,667원"
+ },
+ {
+  "slug": "savings-goal-calculator",
+  "fields": {
+   "initial": "0",
+   "target": "1200000",
+   "months": "12",
+   "rate": "0"
+  },
+  "selects": {},
+  "expected": "월말 필요 납입: 100,000원"
+ },
+ {
+  "slug": "scale-generator",
+  "fields": {},
+  "selects": {
+   "root": "C",
+   "scale": "major"
+  },
+  "expected": "구성음: C D E F G A B"
+ },
+ {
+  "slug": "sentence-splitter",
+  "fields": {
+   "source": "안녕하세요. 반갑습니다!"
+  },
+  "selects": {
+   "locale": "ko"
+  },
+  "expected": "안녕하세요.\n반갑습니다!"
+ },
+ {
+  "slug": "shipping-address-labels",
+  "fields": {
+   "source": "받는분,우편번호,주소,전화\n하루,12345,서울시 하루로1,01012345678"
+  },
+  "selects": {},
+  "expected": "[12345] 하루"
+ },
+ {
+  "slug": "shipping-volume-calculator",
+  "fields": {
+   "width": "50",
+   "length": "40",
+   "height": "30",
+   "count": "2",
+   "divisor": "6000"
+  },
+  "selects": {},
+  "expected": "전체 부피: 0.12CBM"
+ },
+ {
+  "slug": "shopping-basket-store-comparison",
+  "fields": {
+   "needs": "우유,3\n빵,2",
+   "quotes": "A,우유,2,3000\nA,빵,1,2000\nB,우유,1,1800\nB,빵,2,3500"
+  },
+  "selects": {},
+  "expected": "B: 8,900원"
+ },
+ {
+  "slug": "sitemap-generator",
+  "fields": {
+   "source": "https://example.com/\nhttps://example.com/tools",
+   "lastmod": "2026-11-04"
+  },
+  "selects": {},
+  "expected": "<loc>https://example.com/tools</loc>"
+ },
+ {
+  "slug": "sitemap-xml-auditor",
+  "fields": {
+   "source": "<urlset><url><loc>https://example.com/</loc><lastmod>2026-11-07</lastmod></url></urlset>",
+   "origin": "https://example.com"
+  },
+  "selects": {},
+  "expected": "URL·중복·날짜 형식 검사 통과"
+ },
+ {
+  "slug": "soil-gravel-calculator",
+  "fields": {
+   "area": "10",
+   "depth": "5",
+   "density": "1500",
+   "bag": "20",
+   "waste": "10"
+  },
+  "selects": {},
+  "expected": "필요 포대: 42포"
+ },
+ {
+  "slug": "split-bill-calculator",
+  "fields": {
+   "amount": "10000",
+   "people": "3",
+   "tip": "0"
+  },
+  "selects": {},
+  "expected": "2명 × 3,333원"
+ },
+ {
+  "slug": "sql-in-clause-generator",
+  "fields": {
+   "source": "하루\nO'Reilly\n콕",
+   "column": "name"
+  },
+  "selects": {
+   "duplicates": "keep"
+  },
+  "expected": "\"name\" IN (E'하루', E'O''Reilly', E'콕')"
+ },
+ {
+  "slug": "sql-values-generator",
+  "fields": {
+   "name": "public.users",
+   "source": "name\tcity\n하루\t서울\n콕\t부산"
+  },
+  "selects": {},
+  "expected": "INSERT INTO \"public\".\"users\" (\"name\", \"city\")"
+ },
+ {
+  "slug": "srt-time-shifter",
+  "fields": {
+   "source": "1\n00:00:01,000 --> 00:00:03,000\n안녕하세요.",
+   "shift": "500"
+  },
+  "selects": {},
+  "expected": "00:00:01,500 --> 00:00:03,500"
+ },
+ {
+  "slug": "starter-feeding-calculator",
+  "fields": {
+   "starter": "20",
+   "hydration": "100",
+   "flourRatio": "2",
+   "waterRatio": "2"
+  },
+  "selects": {},
+  "expected": "급여 후 총질량: 100g"
+ },
+ {
+  "slug": "statistics-calculator",
+  "fields": {
+   "source": "2, 4, 4, 4, 5, 5, 7, 9"
+  },
+  "selects": {
+   "mode": "population"
+  },
+  "expected": "표준편차: 2"
+ },
+ {
+  "slug": "stopwatch",
+  "fields": {},
+  "selects": {},
+  "expected": "경과 시간:"
+ },
+ {
+  "slug": "subtitle-line-wrapper",
+  "fields": {
+   "source": "5\n00:00:01,000 --> 00:00:03,000\n하루: 안녕하세요.\n\n9\n00:00:03,200 --> 00:00:05,000\n콕: 반갑습니다.",
+   "width": "10"
+  },
+  "selects": {},
+  "expected": "안녕하세요."
+ },
+ {
+  "slug": "subtitle-nearby-cue-merger",
+  "fields": {
+   "source": "5\n00:00:01,000 --> 00:00:03,000\n하루: 안녕하세요.\n\n9\n00:00:03,200 --> 00:00:05,000\n콕: 반갑습니다.",
+   "gap": "0.3",
+   "max": "100"
+  },
+  "selects": {},
+  "expected": "00:00:05,000"
+ },
+ {
+  "slug": "subtitle-sequence-renumber",
+  "fields": {
+   "source": "5\n00:00:01,000 --> 00:00:03,000\n하루: 안녕하세요.\n\n9\n00:00:03,200 --> 00:00:05,000\n콕: 반갑습니다."
+  },
+  "selects": {},
+  "expected": "1\n00:00:01,000"
+ },
+ {
+  "slug": "subtitle-speaker-report",
+  "fields": {
+   "source": "5\n00:00:01,000 --> 00:00:03,000\n하루: 안녕하세요.\n\n9\n00:00:03,200 --> 00:00:05,000\n콕: 반갑습니다."
+  },
+  "selects": {},
+  "expected": "하루"
+ },
+ {
+  "slug": "subtitle-speed-corrector",
+  "fields": {
+   "source": "5\n00:00:01,000 --> 00:00:03,000\n하루: 안녕하세요.\n\n9\n00:00:03,200 --> 00:00:05,000\n콕: 반갑습니다.",
+   "cps": "12",
+   "minimum": "1"
+  },
+  "selects": {
+   "mode": "fit"
+  },
+  "expected": "하루:"
+ },
+ {
+  "slug": "subtitle-srt-vtt-converter",
+  "fields": {
+   "source": "5\n00:00:01,000 --> 00:00:03,000\n하루: 안녕하세요.\n\n9\n00:00:03,200 --> 00:00:05,000\n콕: 반갑습니다."
+  },
+  "selects": {
+   "direction": "vtt"
+  },
+  "expected": "WEBVTT"
+ },
+ {
+  "slug": "subtitle-timing-audit",
+  "fields": {
+   "source": "5\n00:00:01,000 --> 00:00:03,000\n하루: 안녕하세요.\n\n9\n00:00:03,200 --> 00:00:05,000\n콕: 반갑습니다.",
+   "cps": "15"
+  },
+  "selects": {},
+  "expected": "정상"
+ },
+ {
+  "slug": "subtitle-transcript-extractor",
+  "fields": {
+   "source": "5\n00:00:01,000 --> 00:00:03,000\n하루: 안녕하세요.\n\n9\n00:00:03,200 --> 00:00:05,000\n콕: 반갑습니다."
+  },
+  "selects": {
+   "timestamps": "yes"
+  },
+  "expected": "[00:00:01,000]"
+ },
+ {
+  "slug": "surface-area-calculator",
+  "fields": {
+   "a": "3",
+   "b": "4",
+   "c": "5"
+  },
+  "selects": {
+   "shape": "box",
+   "unit": "cm"
+  },
+  "expected": "94cm²"
+ },
+ {
+  "slug": "tab-space-converter",
+  "fields": {
+   "source": "a\tb",
+   "width": "4"
+  },
+  "selects": {
+   "mode": "expand"
+  },
+  "expected": "a   b"
+ },
+ {
+  "slug": "table-svg-chart-builder",
+  "fields": {
+   "source": "이름,값\n1월,30\n2월,45\n3월,25",
+   "title": "월별 신청"
+  },
+  "selects": {
+   "type": "bar"
+  },
+  "expected": "2월"
+ },
+ {
+  "slug": "target-selling-price-calculator",
+  "fields": {
+   "cost": "5000",
+   "shipping": "3000",
+   "fixed": "500",
+   "profit": "2000",
+   "rate": "10"
+  },
+  "selects": {},
+  "expected": "최소 판매가: 11,667원"
+ },
+ {
+  "slug": "tearoff-contact-flyer",
+  "fields": {
+   "source": "주말 기초 문서 수업\n토요일 오후2시",
+   "title": "수업 안내",
+   "contact": "하루 · 01012345678",
+   "tabs": "8"
+  },
+  "selects": {},
+  "expected": "주말"
+ },
+ {
+  "slug": "teleprompter-script",
+  "fields": {
+   "source": "안녕하세요.\n오늘 발표를 시작하겠습니다.",
+   "title": "서비스 소개",
+   "size": "48",
+   "speed": "20"
+  },
+  "selects": {},
+  "expected": "발표를"
+ },
+ {
+  "slug": "text-between-extractor",
+  "fields": {
+   "source": "<name>하루</name> <name>콕</name>",
+   "from": "<name>",
+   "to": "</name>"
+  },
+  "selects": {
+   "mode": "all"
+  },
+  "expected": "\"하루\",\n  \"콕\""
+ },
+ {
+  "slug": "text-chunk-splitter",
+  "fields": {
+   "source": "가나다라마바사아자차",
+   "size": "3"
+  },
+  "selects": {
+   "mode": "characters"
+  },
+  "expected": "[1]\n가나다\n\n[2]\n라마바"
+ },
+ {
+  "slug": "text-column-extractor",
+  "fields": {
+   "source": "이름\t나이\t지역\n하루\t20\t서울",
+   "columns": "1,3"
+  },
+  "selects": {},
+  "expected": "이름\t지역\n하루\t서울"
+ },
+ {
+  "slug": "text-column-padding",
+  "fields": {
+   "source": "7\n42",
+   "width": "4",
+   "fill": "0"
+  },
+  "selects": {
+   "side": "start"
+  },
+  "expected": "0007\n0042"
+ },
+ {
+  "slug": "text-find-line-positions",
+  "fields": {
+   "source": "abc\nx\nabc def",
+   "needle": "abc"
+  },
+  "selects": {
+   "mode": "exact"
+  },
+  "expected": "3\tabc def"
+ },
+ {
+  "slug": "text-indent-cleaner",
+  "fields": {
+   "source": "    a\n      b\n    c"
+  },
+  "selects": {},
+  "expected": "a\n  b\nc"
+ },
+ {
+  "slug": "text-line-interleaver",
+  "fields": {
+   "a": "a\nb",
+   "b": "1\n2\n3"
+  },
+  "selects": {},
+  "expected": "a\n1\nb\n2\n3"
+ },
+ {
+  "slug": "text-line-unwrapper",
+  "fields": {
+   "source": "a\nb\n\nc\nd"
+  },
+  "selects": {},
+  "expected": "a b\n\nc d"
+ },
+ {
+  "slug": "text-list-comparison",
+  "fields": {
+   "a": "사과\n배\n포도",
+   "b": "배\n포도\n귤"
+  },
+  "selects": {
+   "mode": "intersection",
+   "space": "exact"
+  },
+  "expected": "배\n포도"
+ },
+ {
+  "slug": "text-numbering",
+  "fields": {
+   "source": "준비\n검토\n완료",
+   "start": "1",
+   "step": "1",
+   "separator": ". "
+  },
+  "selects": {
+   "empty": "skip"
+  },
+  "expected": "1. 준비\n2. 검토"
+ },
+ {
+  "slug": "text-prefix-suffix",
+  "fields": {
+   "source": "사과\n배\n귤",
+   "prefix": "\"",
+   "suffix": "\","
+  },
+  "selects": {
+   "empty": "keep"
+  },
+  "expected": "\"사과\",\n\"배\","
+ },
+ {
+  "slug": "text-substitution-mapper",
+  "fields": {
+   "source": "ABC CAB",
+   "from": "ABC",
+   "to": "123"
+  },
+  "selects": {},
+  "expected": "123 312"
+ },
+ {
+  "slug": "text-table-aligner",
+  "fields": {
+   "source": "이름\t점수\n하루\t90\n콕\t100"
+  },
+  "selects": {
+   "align": "left",
+   "header": "yes"
+  },
+  "expected": "콕   | 100 "
+ },
+ {
+  "slug": "text-transpose",
+  "fields": {
+   "source": "이름\t하루\t메모\n점수\t90\t80"
+  },
+  "selects": {},
+  "expected": "이름\t점수\n하루\t90"
+ },
+ {
+  "slug": "text-wrapper",
+  "fields": {
+   "source": "alpha beta gamma",
+   "width": "10"
+  },
+  "selects": {
+   "mode": "words"
+  },
+  "expected": "alpha beta\ngamma"
+ },
+ {
+  "slug": "tile-calculator",
+  "fields": {
+   "width": "3",
+   "length": "3",
+   "tileWidth": "30",
+   "tileLength": "30",
+   "gap": "0",
+   "waste": "10"
+  },
+  "selects": {},
+  "expected": "여유 포함 수량: 110장"
+ },
+ {
+  "slug": "time-interval-subtractor",
+  "fields": {
+   "available": "09:00,18:00",
+   "busy": "12:00,13:00\n16:00,18:00"
+  },
+  "selects": {},
+  "expected": "남은 시간: 360분"
+ },
+ {
+  "slug": "time-of-use-appliance-cost",
+  "fields": {
+   "items": "세탁기,500,2,100\n건조기,1000,1,200",
+   "days": "30"
+  },
+  "selects": {},
+  "expected": "변동 전력비 합계: 9,000원"
+ },
+ {
+  "slug": "time-overlap-calculator",
+  "fields": {
+   "startA": "22:00",
+   "endA": "02:00",
+   "startB": "01:00",
+   "endB": "03:00"
+  },
+  "selects": {},
+  "expected": "겹치는 시간: 60분"
+ },
+ {
+  "slug": "time-signature-calculator",
+  "fields": {
+   "numerator": "4",
+   "bars": "4",
+   "bpm": "120"
+  },
+  "selects": {
+   "denominator": "4",
+   "beat": "4",
+   "feel": "plain"
+  },
+  "expected": "전체 길이: 8초"
+ },
+ {
+  "slug": "time-zone-converter",
+  "fields": {
+   "source": "2026-07-01T12:00"
+  },
+  "selects": {
+   "source-zone": "KST",
+   "target-zone": "America/New_York"
+  },
+  "expected": "2026. 06. 30."
+ },
+ {
+  "slug": "timelapse-calculator",
+  "fields": {
+   "duration": "3600",
+   "interval": "10",
+   "fps": "30",
+   "exposure": "1"
+  },
+  "selects": {},
+  "expected": "촬영 장수: 361장"
+ },
+ {
+  "slug": "timezone-overlap-calculator",
+  "fields": {
+   "dateA": "2026-11-04",
+   "startA": "09:00",
+   "endA": "18:00",
+   "dateB": "2026-11-04",
+   "startB": "00:00",
+   "endB": "09:00"
+  },
+  "selects": {
+   "zoneA": "Asia/Seoul",
+   "zoneB": "UTC"
+  },
+  "expected": "겹치는 시간: 9시간"
+ },
+ {
+  "slug": "tone-generator",
+  "fields": {
+   "frequency": "440",
+   "seconds": ".1",
+   "level": "5"
+  },
+  "selects": {},
+  "expected": "주파수: 440Hz"
+ },
+ {
+  "slug": "triangle-calculator",
+  "fields": {
+   "a": "3",
+   "b": "4",
+   "c": "5"
+  },
+  "selects": {},
+  "expected": "넓이: 6"
+ },
+ {
+  "slug": "trip-stay-cost-splitter",
+  "fields": {
+   "nights": "2026-01-01,10000\n2026-01-02,12000",
+   "people": "A,2026-01-01,2026-01-03\nB,2026-01-01,2026-01-02"
+  },
+  "selects": {},
+  "expected": "A: 17,000원"
+ },
+ {
+  "slug": "turf-roll-calculator",
+  "fields": {
+   "area": "25",
+   "width": "0.5",
+   "length": "2",
+   "waste": "10"
+  },
+  "selects": {},
+  "expected": "필요 롤 수: 28롤"
+ },
+ {
+  "slug": "two-column-review-document",
+  "fields": {
+   "source": "원문,검토의견\n11월말 출시,담당자 확인 필요",
+   "title": "출시 계획 검토"
+  },
+  "selects": {},
+  "expected": "담당자 확인"
+ },
+ {
+  "slug": "twos-complement-converter",
+  "fields": {
+   "source": "-1"
+  },
+  "selects": {
+   "mode": "encode",
+   "width": "8"
+  },
+  "expected": "비트열: 11111111"
+ },
+ {
+  "slug": "ulid-generator",
+  "fields": {
+   "count": "3",
+   "timestamp": "0"
+  },
+  "selects": {},
+  "expected": "0000000000"
+ },
+ {
+  "slug": "unicode-normalizer",
+  "fields": {
+   "source": "하루"
+  },
+  "selects": {
+   "mode": "NFC"
+  },
+  "expected": "하루"
+ },
+ {
+  "slug": "unit-price-calculator",
+  "fields": {
+   "priceA": "3000",
+   "amountA": "500",
+   "priceB": "4000",
+   "amountB": "800"
+  },
+  "selects": {
+   "unit": "g"
+  },
+  "expected": "상품 B가 저렴"
+ },
+ {
+  "slug": "unix-permission-converter",
+  "fields": {
+   "source": "755"
+  },
+  "selects": {
+   "mode": "symbol"
+  },
+  "expected": "rwxr-xr-x"
+ },
+ {
+  "slug": "unix-umask-calculator",
+  "fields": {
+   "source": "022"
+  },
+  "selects": {},
+  "expected": "일반 파일: 644"
+ },
+ {
+  "slug": "url-builder",
+  "fields": {
+   "base": "https://example.com/search",
+   "params": "q\t하루 콕\npage\t1",
+   "fragment": "results"
+  },
+  "selects": {
+   "mode": "replace"
+  },
+  "expected": "q=%ED%95%98%EB%A3%A8+%EC%BD%95&page=1#results"
+ },
+ {
+  "slug": "url-extractor",
+  "fields": {
+   "source": "참고: https://example.com/a 와 https://example.org/"
+  },
+  "selects": {
+   "punctuation": "trim",
+   "duplicates": "unique"
+  },
+  "expected": "https://example.com/a\nhttps://example.org/"
+ },
+ {
+  "slug": "url-list-tracking-remover",
+  "fields": {
+   "source": "https://example.com/?a=1&utm_source=x&fbclid=y",
+   "keys": ""
+  },
+  "selects": {
+   "hash": "keep"
+  },
+  "expected": "https://example.com/?a=1"
+ },
+ {
+  "slug": "url-normalizer",
+  "fields": {
+   "source": "HTTPS://EXAMPLE.COM:443/a/../b?z=1&a=2#top"
+  },
+  "selects": {
+   "query": "keep",
+   "hash": "keep"
+  },
+  "expected": "https://example.com/b?z=1&a=2#top"
+ },
+ {
+  "slug": "utf8-hex-converter",
+  "fields": {
+   "source": "하루콕"
+  },
+  "selects": {
+   "mode": "encode"
+  },
+  "expected": "ED 95 98"
+ },
+ {
+  "slug": "utility-occupancy-split",
+  "fields": {
+   "total": "10000",
+   "equal": "2000",
+   "people": "A,30\nB,10"
+  },
+  "selects": {},
+  "expected": "A: 7,000원"
+ },
+ {
+  "slug": "uuid-inspector",
+  "fields": {
+   "source": "550e8400-e29b-41d4-a716-446655440000"
+  },
+  "selects": {},
+  "expected": "버전: 4"
+ },
+ {
+  "slug": "uuid-v5-generator",
+  "fields": {
+   "namespace": "DNS",
+   "source": "www.example.com"
+  },
+  "selects": {},
+  "expected": "2ed6657d-e927-568b-95e1-2665a8aea6a2"
+ },
+ {
+  "slug": "uuid-v7-generator",
+  "fields": {
+   "timestamp": "0",
+   "count": "3"
+  },
+  "selects": {},
+  "expected": "00000000-0000-7"
+ },
+ {
+  "slug": "vat-calculator",
+  "fields": {
+   "amount": "110000",
+   "rate": "10"
+  },
+  "selects": {
+   "mode": "gross"
+  },
+  "expected": "공급가액: 100,000원"
+ },
+ {
+  "slug": "vcard-file-merger",
+  "fields": {
+   "source": "BEGIN:VCARD\nVERSION:4.0\nFN:하루\nTEL;VALUE=text:01012345678\nEMAIL:hello@example.com\nBDAY:2000-11-08\nEND:VCARD\nBEGIN:VCARD\nVERSION:4.0\nFN:콕\nTEL;VALUE=text:01012345678\nEMAIL:hello@example.com\nBDAY:2000-11-08\nEND:VCARD"
+  },
+  "selects": {},
+  "expected": "FN:콕"
+ },
+ {
+  "slug": "video-bitrate-ladder-calculator",
+  "fields": {
+   "width": "1920",
+   "height": "1080",
+   "fps": "30",
+   "bitrate": "6000",
+   "exponent": "1",
+   "targets": "1280,720,30\n640,360,30"
+  },
+  "selects": {},
+  "expected": "1280,720,30,2667"
+ },
+ {
+  "slug": "video-jsonld-generator",
+  "fields": {
+   "name": "소개",
+   "description": "사용 화면",
+   "thumbnail": "https://example.com/a.jpg",
+   "uploaded": "2026-11-07T10:00:00+09:00",
+   "seconds": "90",
+   "url": "https://example.com/a.mp4"
+  },
+  "selects": {},
+  "expected": "\"duration\": \"PT90S\""
+ },
+ {
+  "slug": "video-storage-calculator",
+  "fields": {
+   "video": "8",
+   "audio": "0",
+   "minutes": "60",
+   "count": "1"
+  },
+  "selects": {},
+  "expected": "전체 용량: 3.6GB"
+ },
+ {
+  "slug": "voltage-divider-calculator",
+  "fields": {
+   "voltage": "12",
+   "top": "1000",
+   "bottom": "2000",
+   "load": "0"
+  },
+  "selects": {},
+  "expected": "출력 전압(V): 8"
+ },
+ {
+  "slug": "volume-calculator",
+  "fields": {
+   "a": "3",
+   "b": "4",
+   "c": "5"
+  },
+  "selects": {
+   "shape": "box",
+   "unit": "cm"
+  },
+  "expected": "60cm³"
+ },
+ {
+  "slug": "wall-area-calculator",
+  "fields": {
+   "length": "4",
+   "width": "3",
+   "height": "2.4",
+   "openings": "0.9,2,1\n1.5,1.2,2"
+  },
+  "selects": {},
+  "expected": "문·창문 제외 벽면적: 28.2m²"
+ },
+ {
+  "slug": "wallpaper-calculator",
+  "fields": {
+   "width": "5",
+   "height": "2.4",
+   "rollWidth": "0.5",
+   "rollLength": "10",
+   "pattern": "0",
+   "trim": "10"
+  },
+  "selects": {},
+  "expected": "필요 롤 수: 3롤"
+ },
+ {
+  "slug": "wallpaper-half-drop-calculator",
+  "fields": {
+   "height": "250",
+   "repeat": "60",
+   "roll": "1000",
+   "drops": "6"
+  },
+  "selects": {},
+  "expected": "필요 롤: 3롤"
+ },
+ {
+  "slug": "web-app-manifest-generator",
+  "fields": {
+   "name": "하루콕",
+   "short": "하루콕",
+   "start": "/",
+   "color": "#16233D",
+   "background": "#F4F0E6",
+   "icon": "https://example.com/icon-512.png"
+  },
+  "selects": {
+   "display": "standalone"
+  },
+  "expected": "\"display\": \"standalone\""
+ },
+ {
+  "slug": "week-number-calculator",
+  "fields": {
+   "date": "2021-01-01"
+  },
+  "selects": {},
+  "expected": "ISO 주차: 2020-W53"
+ },
+ {
+  "slug": "weekday-occurrences-calculator",
+  "fields": {
+   "start": "2026-01-01",
+   "end": "2026-01-10",
+   "weekdays": "1,3,5",
+   "excluded": "2026-01-02"
+  },
+  "selects": {},
+  "expected": "선택 날짜: 3일"
+ },
+ {
+  "slug": "weighted-average-calculator",
+  "fields": {
+   "pairs": "80, 30\n90, 70"
+  },
+  "selects": {},
+  "expected": "가중평균: 87"
+ },
+ {
+  "slug": "windows-filetime-converter",
+  "fields": {
+   "source": "1970-01-01T00:00:00Z"
+  },
+  "selects": {
+   "mode": "encode"
+  },
+  "expected": "116444736000000000"
+ },
+ {
+  "slug": "word-html-cleaner",
+  "fields": {
+   "source": "<p class=\"MsoNormal\" style=\"color:red\"><b>회의</b> 내용</p>"
+  },
+  "selects": {},
+  "expected": "<b>회의</b>"
+ },
+ {
+  "slug": "xml-formatter",
+  "fields": {
+   "source": "<a><b>하루 &amp; 콕</b></a>"
+  },
+  "selects": {
+   "mode": "pretty"
+  },
+  "expected": "하루 &amp; 콕"
+ },
+ {
+  "slug": "xml-json-converter",
+  "fields": {
+   "source": "<a id=\"1\">하루<b/>콕</a>"
+  },
+  "selects": {},
+  "expected": "\"name\": \"b\""
+ },
+ {
+  "slug": "yarn-length-calculator",
+  "fields": {
+   "width": "10",
+   "height": "10",
+   "weight": "5",
+   "area": "1",
+   "ballWeight": "50",
+   "ballLength": "100",
+   "waste": "10"
+  },
+  "selects": {
+   "areaUnit": "m2"
+  },
+  "expected": "필요 볼 수: 11볼"
+ },
+ {
+  "slug": "yarn-substitution-calculator",
+  "fields": {
+   "oldBalls": "5",
+   "oldLength": "100",
+   "newLength": "120",
+   "extra": "10"
+  },
+  "selects": {},
+  "expected": "필요 대체 실: 5볼"
+ },
+ {
+  "slug": "yeast-conversion-calculator",
+  "fields": {
+   "amount": "30",
+   "ratio": "0.33"
+  },
+  "selects": {
+   "mode": "fresh"
+  },
+  "expected": "환산 이스트 질량: 9.9g"
+ }
+]

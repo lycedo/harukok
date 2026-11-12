@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><base target="_top"><title>CSV 값 대응표 바꾸기 | 하루콕</title><meta name="description" content="CSV 한 열의 코드를 대응표 값으로 바꾸세요. 대응하지 않는 값을 유지하거나 오류로 확인합니다."><link rel="icon" type="image/png" href="/favicon.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+<link rel="stylesheet" href="/tools/everyday-tools.css?v=20261024-ux"><link rel="stylesheet" href="/tools/tool-controls.css?v=20261025-flow"><script src="/tools/csv-column-value-mapper.js?v=20261107-1000" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/tools/site-ui.css?v=20261108-1000"><style>body{display:flow-root;padding:0;background:transparent}</style></head>
+<body><div class="wrap"><main><p class="tool-help"><strong>사용방법</strong> 입력 후 실행하세요.</p><noscript><p>자바스크립트를 허용해 주세요.</p></noscript>
+<section class="sheet"><form id="calculator" novalidate><div class="field"><label for="source">기준 CSV</label><textarea id="source" rows="5" maxlength="100000" placeholder="id,이름
+1,하루
+2,콕" spellcheck="false"></textarea></div><div class="field"><label for="column">바꿀 열</label><input id="column" type="text" maxlength="1000" placeholder="이름" autocomplete="off"></div><div class="field"><label for="mapping">기존값,새값 · 한 줄씩</label><textarea id="mapping" rows="5" maxlength="100000" placeholder="하루,이름1
+콕,이름2" spellcheck="false"></textarea></div><div class="field"><label for="mode">대응하지 않는 값</label><select id="mode"><option value="keep">유지</option><option value="error">오류로 알림</option></select></div><p class="hint">CSV 최대1,000행·50열. 키는 글자 그대로 비교하며 중복 키는 거부합니다.</p><button class="primary" type="submit">실행하기</button><p id="error" class="error" role="alert"></p></form><section id="result" class="result" hidden aria-live="polite"><h2>결과</h2><div id="result-value" class="result-value"></div><label for="result-text">복사할 결과</label><textarea id="result-text" rows="5" class="code-output" wrap="off" readonly spellcheck="false"></textarea><button id="copy" class="secondary" type="button">결과 복사하기</button><p id="copy-status" class="hint" role="status"></p></section></section>
+
+<details class="tool-notes"><summary>참고</summary><p>CSV 한 열의 코드를 대응표 값으로 바꾸세요. 대응하지 않는 값을 유지하거나 오류로 확인합니다.</p></details>
+</main></div></body></html>

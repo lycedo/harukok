@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><base target="_top">
+<title>텍스트 줄 정렬기 | 하루콕</title><meta name="description" content="목록을 가나다·알파벳 또는 정확한 숫자 크기로 정렬하세요. 오름차순·내림차순과 큰 정수·소수 비교를 지원하며 같은 값의 순서를 유지합니다."><link rel="icon" type="image/png" href="/favicon.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+<link rel="stylesheet" href="/tools/everyday-tools.css?v=20261024-ux"><link rel="stylesheet" href="/tools/tool-controls.css?v=20261025-flow"><script src="/tools/text-sorter.js?v=20261104" defer></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/tools/site-ui.css?v=20261108-1000">
+<style>body{display:flow-root;padding:0;background:transparent}</style></head><body><div class="wrap">
+<main><p class="tool-help"><strong>사용방법</strong> 한 줄에 하나씩 넣고 정렬하세요.</p><noscript><p>자바스크립트를 허용해 주세요.</p></noscript>
+<section class="sheet"><form id="converter" novalidate><div class="field"><label for="source">입력할 글</label><textarea id="source" rows="6" placeholder="10
+2
+1.5" spellcheck="false"></textarea></div><div class="field"><label for="mode">정렬 기준</label><select id="mode"><option value="text">가나다·알파벳</option><option value="number">숫자 크기</option></select></div><div class="field"><label for="direction">순서</label><select id="direction"><option value="asc">오름차순</option><option value="desc">내림차순</option></select></div><p class="hint">최대 200,000자·10,000줄 · 숫자는 줄당 200자</p><button class="primary" id="run" type="submit">정렬하기</button><p id="error" class="error" role="alert"></p></form>
+<section id="result" class="result" hidden aria-live="polite"><h2>결과</h2><p id="summary" role="status"></p><label for="output">복사할 결과</label><textarea id="output" rows="6" readonly spellcheck="false"></textarea><div class="actions"><button class="secondary" id="copy" type="button">결과 복사</button></div><p id="copy-status" class="hint" role="status"></p></section></section>
+
+<details class="tool-notes"><summary>도움말</summary><p>숫자는 쉼표·지수 없이 정수나 소수로 입력하세요. 숫자 비교는 자릿수를 직접 비교해 큰 정수의 정밀도를 유지합니다. 중복을 지우거나 원문 표기를 바꾸지 않습니다. 글자 순서는 브라우저의 한국어 정렬 기준입니다.</p><p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/Collator" target="_blank" rel="noopener noreferrer">변환 기준</a></p></details>
+</main></div></body></html>

@@ -15,6 +15,7 @@
 | --- | --- |
 | `tools/site-ui.css` | **모든 페이지가 마지막에 불러오는 공통 규칙.** 글꼴·색·크기·버튼·입력창·접기·푸터·메뉴. |
 | `tools/home.css` | 홈 화면 전용(검색·분류 버튼·도구 카드 배치)만 담당 |
+| `tools/tool-modes.css`, `tools/tool-modes.js` | 통합 도구의 기능 선택. 고른 기능의 조각 문서(`tools/embed/`)를 같은 자리에 보여 준다. 조각 문서는 페이지 틀 없이 도구 본문만 둔다 |
 | `tools/everyday-tools.css`, `tool-controls.css`, `image-tools.css` | 도구 종류별 보조 배치. 색·글꼴을 새로 정의하지 않는다 |
 | 각 페이지 `<style>` | 그 페이지에만 있는 부품(로또 공, 상장 미리보기, 음식 캡슐 등)만 |
 
@@ -147,3 +148,4 @@ for f in verify/verify-*.js; do node $f; done   # 기능 검증(모두 통과해
 
 - 2026-10-25: 공통 CSS(`tools/site-ui.css`) 도입. 제목 글꼴을 Do Hyeon으로, 본문을 Noto Sans KR로 통일.
   작은 글자(11~15px)를 13~16px로 올림. 실행 버튼을 남색 한 가지로 통일. 소개·개인정보 페이지에 상단 메뉴 추가.
+- 2026-11-12: 도구를 155개로 정리하면서 통합 도구용 기능 선택(`tool-modes`)과 조각 문서 폴더(`tools/embed/`)를 추가.
