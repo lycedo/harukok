@@ -4,7 +4,12 @@
   const rail = slot.classList.contains('ad-rail-slot');
   const strip = slot.classList.contains('ad-strip-slot');
   const availableWidth = slot.clientWidth;
-  if (availableWidth < (rail ? 160 : strip ? 320 : 300)) {
+  // 세로 띠는 격자의 둘째 칸에 있어, 문서를 읽는 중인 이 시점에는 폭이 아직 0으로 나온다.
+  // 그래서 자리를 재는 대신 CSS가 이 자리를 보여 주는 기준(1320px)을 그대로 본다.
+  const fits = rail
+    ? matchMedia('(min-width:1320px)').matches
+    : availableWidth >= (strip ? 320 : 300);
+  if (!fits) {
     slot.parentElement.hidden = true;
     return;
   }

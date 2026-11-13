@@ -7,10 +7,10 @@ const source = fs.readFileSync(path.join(root, 'ad-banner-isolated.js'), 'utf8')
 const wrapper = fs.readFileSync(path.join(root, 'ad-frame.html'), 'utf8');
 const sandbox = 'allow-scripts allow-same-origin';
 // slotClass는 실제 마크업의 클래스 이름이다. 띠·사각형·세로 띠를 구분해야 하므로 이름을 그대로 넘긴다.
-function run(available, slotClass, origin = 'https://harukok.com') {
+function run(available, slotClass, origin = 'https://harukok.com', wide = true) {
   const slot = { clientWidth: available, classList: { contains: name => name === slotClass }, style: {}, parentElement: {}, children: [], appendChild(f) { this.children.push(f); } };
   const window = {};
-  vm.runInNewContext(source, { window, location: new URL(origin), document: {
+  vm.runInNewContext(source, { window, matchMedia: () => ({ matches: wide }), location: new URL(origin), document: {
     currentScript: { parentElement: slot },
     createElement: tag => ({ tag, style: {}, attrs: {}, setAttribute(k,v) { this.attrs[k]=v; } }),
     write: () => assert.fail('Third-party script must not execute in the host page')
@@ -30,9 +30,10 @@ for (const [available, expected] of [[280, 0], [319, 0], [320, 320], [390, 320],
   assert.equal(frame.attrs.allow, "fullscreen 'none'; autoplay 'none'");
   assert.equal(slot.style.overflow, 'hidden');
 }
-// 세로 띠는 옆자리 전용이다: 160px 미만이면 숨고, 그 위로는 늘 160x600이다.
-for (const [available, expected] of [[120, 0], [159, 0], [160, 160], [200, 160], [900, 160]]) {
-  const { slot, frame } = run(available, 'ad-rail-slot');
+// 세로 띠는 좁은 창에서는 아예 나오지 않고, 넓은 창에서는 자리 폭을 못 재도(0) 160x600으로 붙는다.
+// 문서를 읽는 중이라 격자 칸 폭이 0으로 나오는 것이 정상이므로, 창 기준만 보고 판단해야 한다.
+for (const [available, wide, expected] of [[0, false, 0], [900, false, 0], [0, true, 160], [160, true, 160], [900, true, 160]]) {
+  const { slot, frame } = run(available, 'ad-rail-slot', 'https://harukok.com', wide);
   assert.equal(slot.children.length, expected ? 1 : 0);
   if (!expected) { assert.equal(slot.parentElement.hidden, true); continue; }
   assert.equal(frame.width, 160);
@@ -82,7 +83,7 @@ for (const page of pages) {
   assert.ok(html.includes('class="ad-banner'), 'Missing banner: ' + page);
   // 홈만 본문 배너와 옆자리 세로 띠 두 개를 쓴다. 도구 페이지는 하나뿐이다.
   const expectedBanners = page === 'index.html' ? 2 : 1;
-  assert.equal((html.match(/src="\/ad-banner-isolated\.js\?v=20261113-rect"/g)||[]).length,expectedBanners,page);
+  assert.equal((html.match(/src="\/ad-banner-isolated\.js\?v=20261113-rail"/g)||[]).length,expectedBanners,page);
   if (page === 'index.html') assert.ok(html.includes('class="ad-rail-slot"'), 'Home must keep the side rail slot');
   else assert.ok(!html.includes('ad-rail-slot'), 'Side rail belongs to the home page only: ' + page);
   checked++;
