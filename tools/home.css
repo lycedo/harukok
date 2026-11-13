@@ -24,3 +24,19 @@ footer{text-align:center;font-size:14px;color:var(--muted);padding-top:20px;bord
 /* Size grid spans from each card so the next category fills the first gap. */
 .goal-card{height:fit-content;margin:0}
 .goal-grid.masonry-ready{grid-auto-rows:8px;grid-auto-flow:row dense}
+
+/* 넓은 화면에서는 목록을 더 펼친다. 640px에 묶여 있으면 도구 155개를 보는 데 6화면을 내려야 한다.
+   공통 CSS가 뒤에 실리므로 .wrap은 body를 붙여 우선순위를 높인다. 도구 페이지는 좁은 폭 그대로 둔다. */
+@media(min-width:1024px){
+  body .wrap{max-width:900px}
+  .site-nav{max-width:900px}
+  .goal-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
+@media(min-width:1320px){
+  body .wrap{max-width:1140px}
+  .site-nav{max-width:1140px}
+  .goal-grid{grid-template-columns:repeat(5,minmax(0,1fr))}
+}
+/* 설명 글은 넓어져도 한 줄이 길어지지 않게 묶어 둔다. */
+.home-about p,.home-about h2{max-width:720px}
+.search-row{max-width:720px;margin-left:auto;margin-right:auto}
