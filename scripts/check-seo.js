@@ -121,8 +121,12 @@ function checkSite(root) {
       if (Number(count) !== toolCount) fail('index.html', '검색·공유 설명의 도구 수가 오래됨: ' + count);
     }
   }
+  // 홈 위쪽 인기 도구 카드가 아니라 전체 도구 목록 안에 있어야 한다(목록에서 빠진 도구를 카드가 가리지 않도록).
+  const directory = (home?.html.match(/<div class="goal-grid" id="tool-directory">([\s\S]*?)\n\s*<\/div>/) || [])[1] || '';
+  const directoryLinks = new Set([...directory.matchAll(/<a\b[^>]*\bhref="([^"]+)"/gi)]
+    .map(match => decodeURIComponent(new URL(match[1], ORIGIN).pathname).replace(/\.html$/, '')));
   for (const [url, page] of pages) {
-    if (/^\/(tools|fun)\//.test(url) && !home?.links.has(url)) fail(page.file, '홈 전체 도구 목록에 링크 누락');
+    if (/^\/(tools|fun)\//.test(url) && !directoryLinks.has(url)) fail(page.file, '홈 전체 도구 목록에 링크 누락');
   }
   const robots = fs.readFileSync(path.join(root, 'robots.txt'), 'utf8');
   if (!robots.includes('Sitemap: ' + ORIGIN + '/sitemap.xml')) fail('robots.txt', '사이트맵 주소 누락');

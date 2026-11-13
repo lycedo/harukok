@@ -16,7 +16,7 @@
 <meta property="og:image" content="https://harukok.com/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<link rel="stylesheet" href="/tools/home.css?v=20261104-simple">
+<link rel="stylesheet" href="/tools/home.css?v=20261113-content">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -25,7 +25,7 @@
   "url": "https://harukok.com/"
 }
 </script>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/tools/site-ui.css?v=20261108-1000">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/tools/site-ui.css?v=20261113-content">
 </head>
 <body>
 <div class="wrap">
@@ -34,7 +34,7 @@
     <div class="site-nav-links"><a id="show-all-tools" href="#all-tools">전체 도구</a></div>
   </nav>
   <main id="all-tools">
-    <header><h1 class="brand">하루<span>콕</span></h1></header>
+    <header><h1 class="brand">하루<span>콕</span></h1><p class="brand-tagline">회원가입도 설치도 없이 바로 쓰는 <strong>무료 도구 155개</strong>. 연봉·퇴직금 계산, PDF 합치기, 사진 크기 줄이기까지 브라우저에서 바로 처리합니다.</p></header>
     <div id="directory-controls" hidden>
       <div class="search-row">
         <label for="tool-search">도구 검색</label>
@@ -56,12 +56,7 @@
         <button type="button" data-category-filter="family" aria-pressed="false">육아</button>
       </div>
     </div>
-    <div class="quick-section" id="featured-tools">
-      <div class="cards">
-        <a class="card fun" href="/fun/lotto-generator"><span class="icon" aria-hidden="true">🎱</span><span class="name">로또 번호 생성기</span></a>
-        <a class="card utility" href="/tools/certificate-maker"><span class="icon" aria-hidden="true">🏅</span><span class="name">상장 만들기</span></a>
-      </div>
-    </div>
+    <div class="quick-section" id="featured-tools"><h2 class="section-label">자주 찾는 도구</h2><div class="cards"><a class="card fun" href="/fun/lotto-generator"><span class="icon" aria-hidden="true">🎱</span><span class="name">로또 번호 생성기</span></a><a class="card utility" href="/tools/salary-calculator"><span class="icon" aria-hidden="true">💰</span><span class="name">연봉 실수령액 계산기</span></a><a class="card utility" href="/tools/image-resizer"><span class="icon" aria-hidden="true">🖼️</span><span class="name">사진 크기·용량 줄이기</span></a><a class="card utility" href="/tools/pdf-merge-files"><span class="icon" aria-hidden="true">📄</span><span class="name">PDF 합치기</span></a><a class="card fun" href="/tools/certificate-maker"><span class="icon" aria-hidden="true">🏅</span><span class="name">상장 만들기</span></a><a class="card utility" href="/tools/percent-calculator"><span class="icon" aria-hidden="true">％</span><span class="name">퍼센트·할인율 계산기</span></a></div></div>
     <h2 id="directory-status" class="section-label" role="status" aria-live="polite">전체 도구 155개</h2>
     <div class="goal-grid" id="tool-directory">
       <section class="goal-card" id="random-tools" data-tool-group="random" aria-labelledby="random-title">
@@ -160,15 +155,13 @@
       <section class="goal-card" id="file-tools" data-tool-group="document" aria-labelledby="file-title">
         <h3 class="goal-title" id="file-title">PDF·파일</h3>
         <ul class="goal-links">
-          <li data-keywords="url 인코딩 디코딩 encode decode 퍼센트 문자열 쿼리스트링 분석기 URL 쿼리 만들기 URL 추적 매개변수 지우기 URL 정규화 도구 퓨니코드 도메인 변환기"><a href="/tools/url-encoder">URL 인코딩·디코딩</a></li>
-          <li data-keywords="base64 인코딩 디코딩 utf8 한글 문자열 사진 Base64 변환 Data URI 분석기 Basic 인증 문자열 변환기"><a href="/tools/base64-converter">Base64 인코딩·디코딩</a></li>
           <li data-keywords="고른 순서로 PDF 파일을 하나로 합칩니다. PDF 페이지  pdf merge files PDF 앞뒤 스캔 합치기 PDF 표지 넣기 PDF 빈 페이지 넣기"><a href="/tools/pdf-merge-files">PDF 합치기</a></li>
           <li data-keywords="한 줄에 적은 페이지 묶음마다 PDF를 만듭니다. PDF 페이지  pdf split ranges PDF 나누기 PDF 페이지 추출 PDF 페이지 삭제 PDF 페이지 순서 바꾸기 PDF 회전"><a href="/tools/pdf-split-ranges">PDF 나누기·페이지 정리</a></li>
           <li data-keywords="선택한 페이지 아래에 번호를 넣습니다. PDF 편집  pdf add page numbers PDF 페이지 번호 넣기 PDF 글자 워터마크 PDF 이미지 워터마크 PDF 글자 추가"><a href="/tools/pdf-add-page-numbers">PDF 번호·워터마크 넣기</a></li>
           <li data-keywords="선택 가능한 글자를 TXT로 추출합니다. 스캔 OCR은 지원하지 않습니다. PDF 변환  pdf extract selectable text PDF 링크 추출"><a href="/tools/pdf-extract-selectable-text">PDF 글자 추출</a></li>
           <li data-keywords="고른 페이지를 PNG 이미지로 저장합니다. 최대 30페이지입니다. PDF 변환  pdf pages to png PDF를 PNG로 PDF 미리보기 모음 PDF를 이미지 PDF로 PDF 흑백 변환"><a href="/tools/pdf-pages-to-png">PDF를 이미지로</a></li>
           <li data-keywords="여러 파일을 ZIP 하나로 압축합니다. ZIP 파일  zip create files ZIP 압축하기 ZIP 압축 풀기 ZIP 파일 합치기 ZIP 파일 골라 저장 ZIP 안 파일 이름 바꾸기 ZIP 중복 파일 제거 ZIP을 TAR로 변환 TAR 파일 만들기 TAR 압축 풀기 TAR를 ZIP으로 변환 GZIP 압축하기 GZIP 압축 풀기"><a href="/tools/zip-create-files">ZIP 압축·풀기</a></li>
-          <li data-keywords="UTF-8·UTF-16LE·UTF-16BE 텍스트 파일을 변환합니다. 파일 편집  text file encoding converter 텍스트 파일 인코딩 변환"><a href="/tools/text-file-encoding-converter">한글 깨짐 복구(인코딩 변환)</a></li>
+          <li data-keywords="UTF-8·UTF-16LE·UTF-16BE 텍스트 파일을 변환합니다. 파일 편집  text file encoding converter 텍스트 파일 인코딩 변환"><a href="/tools/text-file-encoding-converter">텍스트 파일 인코딩 변환</a></li>
           <li data-keywords="UTF-8 CSV를 수식 실행 없이 텍스트 셀로 XLSX에 저장합니다. Excel 파일  csv file to xlsx CSV 파일을 Excel로 변환 Excel을 CSV로 변환 Excel을 JSON으로 변환 HTML 표를 엑셀 표로"><a href="/tools/csv-file-to-xlsx">엑셀·CSV 변환</a></li>
           <li data-keywords="QR 코드 만들기로 파일을 브라우저에서 처리하고 결과를 저장하세요. QR 코드  qr code generator QR 코드 만들기 사진 QR 코드 읽기"><a href="/tools/qr-code-generator">QR 코드 만들기·읽기</a></li>
           <li data-keywords="페이지 네 방향을 지정한 만큼 가립니다. 숨긴 내용은 파일에 남습니다. PDF 편집  pdf crop pages PDF 여백 자르기 PDF 여백 추가 PDF 용지 크기 변경 PDF 두 쪽 모아찍기 PDF 소책자 배열"><a href="/tools/pdf-crop-pages">PDF 여백·용지 크기</a></li>
@@ -269,6 +262,8 @@
       <section class="goal-card" id="dev-tools" data-tool-group="document" aria-labelledby="dev-title">
         <h3 class="goal-title" id="dev-title">개발·데이터</h3>
         <ul class="goal-links">
+          <li data-keywords="base64 인코딩 디코딩 utf8 한글 문자열 사진 Base64 변환 Data URI 분석기 Basic 인증 문자열 변환기"><a href="/tools/base64-converter">Base64 인코딩·디코딩</a></li>
+          <li data-keywords="url 인코딩 디코딩 encode decode 퍼센트 문자열 쿼리스트링 분석기 URL 쿼리 만들기 URL 추적 매개변수 지우기 URL 정규화 도구 퓨니코드 도메인 변환기"><a href="/tools/url-encoder">URL 인코딩·디코딩</a></li>
           <li data-keywords="json 정렬 포맷 들여쓰기 압축 문법 검사 JSON 키 정렬기 JSON 비교 도구 JSON 경로 추출기 JSON 평탄화 도구 JSON 문자열 이스케이프 JSON 빈 값 제거기 JSON 깊이·자료형 분석기 JSON 구조 뼈대 만들기 JSON 값 위치 찾기"><a href="/tools/json-formatter">JSON 정리·검사</a></li>
           <li data-keywords="csv json 변환 표 데이터 쉼표 따옴표 CSV·JSON 변환기 JSONL·JSON 변환기 INI·JSON 변환기 JSON TypeScript 변환기 JSON Schema 만들기 XML JSON 트리 변환기 JSON 트리 XML 만들기 환경변수 파일 JSON 변환기 JSON 환경변수 파일 만들기"><a href="/tools/csv-json-converter">JSON 변환기</a></li>
           <li data-keywords="unix timestamp 타임스탬프 초 밀리초 시간 utc kst ISO 8601 기간·초 변환기 HTTP 날짜 변환기 엑셀 일련 날짜 변환기 NTP 타임스탬프 변환기 Windows FILETIME 변환기"><a href="/tools/unix-time-converter">유닉스 시간 변환기</a></li>
@@ -292,7 +287,7 @@
     </div>
     <div id="empty-search" class="empty-search" hidden><p>맞는 도구가 없어요. 다른 검색어나 분류를 선택해 보세요.</p><button id="empty-reset" type="button">전체 도구 보기</button></div>
 
-    <aside class="ad-banner ad-banner-strip" aria-label="광고"><p class="ad-label">광고</p><div class="ad-strip-slot"><script src="/ad-banner-isolated.js?v=20261027-banner"></script></div></aside>
+    <section class="home-about" aria-labelledby="home-about-title"><h2 id="home-about-title">하루콕은 어떤 곳인가요?</h2><p>하루콕은 한국어로 된 무료 온라인 도구 모음입니다. 회원가입이나 프로그램 설치 없이 주소만 열면 바로 쓸 수 있습니다.</p><p><strong>올린 파일은 서버로 보내지 않습니다.</strong> PDF·사진·압축 파일을 다루는 도구는 모두 여러분의 브라우저 안에서 처리하고, 결과만 내려받습니다. 계산기에 넣은 금액이나 개인정보도 저장하지 않습니다.</p><p>급여·세금 계산기는 공개된 기준에 따른 예상값입니다. 실제 지급액이나 신고 금액과는 차이가 있을 수 있으니 참고용으로 쓰세요. 자세한 운영 기준은 <a href="/about">소개</a>와 <a href="/privacy">개인정보처리방침</a>에서 확인할 수 있습니다.</p><p>찾는 도구가 없거나 계산이 이상하면 <a href="mailto:contact@harukok.com">contact@harukok.com</a>으로 알려 주세요.</p></section><aside class="ad-banner ad-banner-strip" aria-label="광고"><p class="ad-label">광고</p><div class="ad-strip-slot"><script src="/ad-banner-isolated.js?v=20261027-banner"></script></div></aside>
   </main>
   <footer><nav aria-label="사이트 안내"><a href="/about">소개</a><a href="/privacy">개인정보처리방침</a><a href="mailto:contact@harukok.com?subject=%5B%ED%95%98%EB%A3%A8%EC%BD%95%20%EC%9D%98%EA%B2%AC%5D%20%EB%A9%94%EC%9D%B8">의견 보내기</a></nav><p>© 2026 하루콕</p></footer>
 </div>

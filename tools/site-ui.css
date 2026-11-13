@@ -206,8 +206,19 @@ article h3{font-size:21px;margin:26px 0 8px}
 .example-box,.warn-box,.lead-note{border-radius:var(--radius-sm)}
 .sources,.sources li,.sources a{font-size:15px;line-height:1.7}
 
+/* ---------- 도구 설명 블록 ---------- */
+.tool-about{clear:both;border-top:1px solid var(--line);margin:28px 0 0;padding-top:20px}
+.tool-about h2{font-family:var(--font-display);font-weight:400;font-size:21px;margin:0 0 8px;color:var(--ink)}
+.tool-about p{font-size:16px;line-height:1.7;color:var(--ink-soft);margin:0 0 12px}
+.tool-about>details{margin:0}
+.tool-about>details>summary{font-size:16px;min-height:48px;display:flex;align-items:center}
+.tool-about-list{list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 14px;padding:0;margin:8px 0 0}
+.tool-about-list a{display:flex;align-items:center;min-height:44px;font-size:16px;word-break:keep-all;color:var(--ink-soft)}
+@media(max-width:480px){.tool-about-list{grid-template-columns:1fr}}
+
 /* ---------- 관련 도구·가이드 링크 ---------- */
-.related,.related-links{border-top-color:var(--line)}
+.related,.related-links{border-top:1px solid var(--line);padding-top:20px;margin:28px 0 0}
+.related-title{margin:0 0 4px}
 .related-title{font-family:var(--font-display);font-weight:400;font-size:20px;color:var(--ink)}
 .related a,.related-links a,.tool-jumps a,.guide-callout a,.guide-callout{font-size:16px}
 .related a,.related-links a{min-height:48px;display:flex;align-items:center}

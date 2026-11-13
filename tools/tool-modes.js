@@ -9,7 +9,7 @@
   const buttons = [...picker.querySelectorAll('button[data-mode]')];
   const modes = select ? [...select.options].map(option => option.value) : buttons.map(button => button.dataset.mode);
   const own = modes[0];
-  const ownParts = [...main.children].filter(el => !el.matches('h1, #tool-modes, #tool-mode-frame, .ad-banner, nav.related'));
+  const ownParts = [...main.children].filter(el => !el.matches('h1, #tool-modes, #tool-mode-frame, .ad-banner, nav.related, .tool-about'));
   let observer = null, mutations = null;
 
   function fit() {
@@ -52,6 +52,16 @@
   }
 
   for (const button of buttons) button.addEventListener('click', () => show(button.dataset.mode, true));
+  // 아래 기능 목록도 같은 자리에서 바뀌게 한다(새로 고침 없이).
+  for (const link of main.querySelectorAll('.tool-about-list a')) {
+    link.addEventListener('click', event => {
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.button) return;
+      const mode = new URL(link.href).searchParams.get('mode') || own;
+      event.preventDefault();
+      show(mode, true);
+      (picker.querySelector('button[aria-pressed="true"]') || picker).scrollIntoView({ block: 'nearest' });
+    });
+  }
   if (select) select.addEventListener('change', () => show(select.value, true));
   show(new URLSearchParams(location.search).get('mode') || own, false);
 })();
