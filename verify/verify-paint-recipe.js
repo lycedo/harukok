@@ -25,6 +25,9 @@ get('targetColorHex').value='#FFFFFF';get('targetColorHex').dispatchEvent({type:
 get('calcBtn').click();get('saveRecipeBtn').click();assert((await blobs[1].text()).includes('목표 색상: #FFFFFF'));
 navigator.clipboard=undefined;get('copyRecipeBtn').click();await flush();assert(get('saveStatus').textContent.includes('복사하지 못했어요'));get('pigmentGrid').children[2].click();assert(get('saveRecipeBtn').disabled);assert(get('copyRecipeBtn').disabled);
 assert.equal((html.match(/class="ad-banner ad-banner-strip"/g)||[]).length,1);
-assert(html.indexOf('<aside class="ad-banner')<html.indexOf('<button class="secondary" id="saveRecipeBtn"'));
-console.log('PASS - recipe contents, download, stale input, URL cleanup, single banner before save');
+// 광고가 사각형(300x250)으로 커져, 결과와 저장 버튼 사이에 끼면 버튼을 밀어낸다.
+// 다른 154개 도구와 같이 배너는 조작부 아래·관련 도구 위에 둔다.
+assert(html.indexOf('<aside class="ad-banner')>html.indexOf('<button class="secondary" id="saveRecipeBtn"'));
+assert(html.indexOf('<aside class="ad-banner')<html.indexOf('<nav class="related"'));
+console.log('PASS - recipe contents, download, stale input, URL cleanup, single banner below controls');
 })().catch(e=>{console.error(e);process.exitCode=1;});

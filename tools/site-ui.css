@@ -300,5 +300,7 @@ textarea[readonly]{min-height:140px}
 .tool-notes{clear:both;margin:20px 0}
 .tool-notes>summary{font-size:17px}
 .tool-notes .info-block h2{font-size:21px;margin:16px 0 8px}
+.tool-notes .info-block h3{font-size:18px;margin:18px 0 6px;color:var(--ink)}
+.tool-notes .info-block h3:first-child{margin-top:4px}
 .tool-notes .info-block p{font-size:16px;line-height:1.7}
 textarea.code-output{font-family:var(--font-code);white-space:pre;tab-size:4}

@@ -130,7 +130,7 @@ async function verifyUI() {
   checks++; console.log('PASS - invalid JSON replaces a prior successful result with an error');
   for (const config of configurations) {
     const html = fs.readFileSync(path.join(__dirname, '../tools/' + config.name + '.html'), 'utf8');
-    assert.equal((html.match(/ad-banner-isolated\.js\?v=20261027-banner/g) || []).length, 1);
+    assert.equal((html.match(/ad-banner-isolated\.js\?v=20261113-rect/g) || []).length, 1);
     assert.ok(!html.includes('maxlength='));
     assert.ok(!fs.readFileSync(path.join(__dirname, '../tools/' + config.name + '.js'), 'utf8').includes('innerHTML'));
     assert.match(html, new RegExp('rel="canonical" href="https://harukok.com/tools/' + config.name + '"'));

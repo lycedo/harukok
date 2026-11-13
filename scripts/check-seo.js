@@ -7,6 +7,9 @@ const fs = require('node:fs');
 const path = require('node:path');
 const ORIGIN = 'https://harukok.com';
 const EXCLUDED = new Set(['404.html', 'ad-frame.html']);
+// 본문이 얇은 도구 페이지는 Google이 "발견됨 - 현재 색인이 생성되지 않음"으로 두고 색인하지 않는다.
+// 2026-11 유입 급감의 원인이었으므로 최소 분량을 빌드에서 지킨다.
+const MIN_BODY_CHARS = 600;
 
 function attrs(tag) {
   return Object.fromEntries([...tag.matchAll(/([\w:-]+)\s*=\s*(["'])(.*?)\2/gs)]
@@ -52,6 +55,11 @@ function checkSite(root) {
     if (/^(tools|fun)\//.test(file)) {
       const ads = [...html.matchAll(/<script\b[^>]*\bsrc=["']\/ad-banner-isolated\.js(?:\?[^"']*)?["'][^>]*>/gi)];
       if (ads.length !== 1) fail(file, '도구 광고 스크립트는 하나여야 함');
+      const body = (html.match(/<main[\s\S]*?<\/main>/i) || [''])[0]
+        .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, ' ')
+        .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, ' ')
+        .replace(/<[^>]+>/g, ' ').replace(/&[a-z]+;/gi, ' ').replace(/\s+/g, ' ').trim();
+      if (body.length < MIN_BODY_CHARS) fail(file, '본문이 너무 짧음: ' + body.length + '자(최소 ' + MIN_BODY_CHARS + '자)');
     }
     for (const [, src] of html.matchAll(/<script\b[^>]*\bsrc=["']([^"']+)["'][^>]*>/gi)) {
       const asset = new URL(src, canonical);

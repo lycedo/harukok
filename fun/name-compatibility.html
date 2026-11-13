@@ -132,8 +132,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/tools/site-ui.css?v=20261113-content">
-</head>
+<link rel="stylesheet" href="/tools/site-ui.css?v=20261113-faq">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"같은 이름을 다시 넣으면 점수가 달라지나요?","acceptedAnswer":{"@type":"Answer","text":"달라지지 않습니다. 두 이름을 하나의 문자열로 합쳐 글자 코드로 해시를 만든 뒤 101로 나눈 나머지를 점수로 쓰기 때문에, 같은 조합이면 늘 같은 0~100 사이 숫자가 나옵니다."}},{"@type":"Question","name":"이름 순서를 바꿔 넣으면 결과가 바뀌나요?","acceptedAnswer":{"@type":"Answer","text":"바뀌지 않습니다. 점수를 내기 전에 두 이름을 정렬해서 합치기 때문에 누구를 먼저 적어도 같은 값이 나옵니다. 궁합은 두 사람 사이의 값이라고 보고 그렇게 맞춰 둔 것입니다."}},{"@type":"Question","name":"점수에 따라 한줄평이 어떻게 갈리나요?","acceptedAnswer":{"@type":"Answer","text":"70점 이상이면 찰떡궁합, 40점에서 69점은 괜찮은 궁합, 39점 이하는 노력이 필요해요로 표시됩니다. 구간마다 준비된 한줄평 다섯 개 중 하나가 무작위로 뽑히고 오늘의 팁은 여섯 개 중 하나가 나옵니다."}},{"@type":"Question","name":"결과를 이미지로 저장할 수 있나요?","acceptedAnswer":{"@type":"Answer","text":"뽑기 뒤에 나타나는 이미지로 저장 버튼을 누르면 결과 카드를 가로 420픽셀 PNG 파일로 내려받습니다. 저장은 외부 라이브러리를 불러와 처리하므로 아직 준비되지 않았다는 알림이 뜨면 잠시 뒤 다시 누르면 됩니다."}},{"@type":"Question","name":"이름은 몇 글자까지 넣을 수 있나요?","acceptedAnswer":{"@type":"Answer","text":"두 입력칸이 각각 10자까지 받습니다. 한 칸이라도 비어 있으면 알림만 뜨고 뽑기가 진행되지 않습니다. 재미로 만든 점수라서 실제 관계를 판단하는 기준으로 쓰기는 어렵습니다."}}]}</script></head>
 <body class="restored-tool">
 
 
@@ -181,8 +181,8 @@
 
 
   <p class="disclaimer">이름으로 만든 재미용 점수이며 실제 관계를 판단하는 기준이 아닙니다.</p>
-<aside class="ad-banner ad-banner-strip" aria-label="광고"><p class="ad-label">광고</p><div class="ad-strip-slot"><script src="/ad-banner-isolated.js?v=20261027-banner"></script></div></aside>
-<nav class="related" aria-label="함께 쓰는 도구"><h2 class="related-title">함께 쓰는 도구</h2><a href="/fun/lotto-generator">로또 번호 생성기</a><a href="/tools/certificate-maker">상장 만들기</a><a href="/fun/fortune-today">오늘의 운세</a><a href="/fun/food-picker">오늘 뭐 먹지?</a><a href="/tools/team-generator">팀 나누기</a></nav></main>
+<aside class="ad-banner ad-banner-strip" aria-label="광고"><p class="ad-label">광고</p><div class="ad-strip-slot"><script src="/ad-banner-isolated.js?v=20261113-rect"></script></div></aside>
+<details class="tool-notes tool-faq" open><summary>자주 묻는 질문</summary><div class="info-block"><h3>같은 이름을 다시 넣으면 점수가 달라지나요?</h3><p>달라지지 않습니다. 두 이름을 하나의 문자열로 합쳐 글자 코드로 해시를 만든 뒤 101로 나눈 나머지를 점수로 쓰기 때문에, 같은 조합이면 늘 같은 0~100 사이 숫자가 나옵니다.</p><h3>이름 순서를 바꿔 넣으면 결과가 바뀌나요?</h3><p>바뀌지 않습니다. 점수를 내기 전에 두 이름을 정렬해서 합치기 때문에 누구를 먼저 적어도 같은 값이 나옵니다. 궁합은 두 사람 사이의 값이라고 보고 그렇게 맞춰 둔 것입니다.</p><h3>점수에 따라 한줄평이 어떻게 갈리나요?</h3><p>70점 이상이면 찰떡궁합, 40점에서 69점은 괜찮은 궁합, 39점 이하는 노력이 필요해요로 표시됩니다. 구간마다 준비된 한줄평 다섯 개 중 하나가 무작위로 뽑히고 오늘의 팁은 여섯 개 중 하나가 나옵니다.</p><h3>결과를 이미지로 저장할 수 있나요?</h3><p>뽑기 뒤에 나타나는 이미지로 저장 버튼을 누르면 결과 카드를 가로 420픽셀 PNG 파일로 내려받습니다. 저장은 외부 라이브러리를 불러와 처리하므로 아직 준비되지 않았다는 알림이 뜨면 잠시 뒤 다시 누르면 됩니다.</p><h3>이름은 몇 글자까지 넣을 수 있나요?</h3><p>두 입력칸이 각각 10자까지 받습니다. 한 칸이라도 비어 있으면 알림만 뜨고 뽑기가 진행되지 않습니다. 재미로 만든 점수라서 실제 관계를 판단하는 기준으로 쓰기는 어렵습니다.</p></div></details><nav class="related" aria-label="함께 쓰는 도구"><h2 class="related-title">함께 쓰는 도구</h2><a href="/fun/lotto-generator">로또 번호 생성기</a><a href="/tools/certificate-maker">상장 만들기</a><a href="/fun/fortune-today">오늘의 운세</a><a href="/fun/food-picker">오늘 뭐 먹지?</a><a href="/tools/team-generator">팀 나누기</a></nav></main>
 <footer><a href="/about">소개</a> · <a href="/privacy">개인정보처리방침</a> · <a href="mailto:contact@harukok.com">의견 보내기</a><p>© 2026 하루콕</p></footer>
 </div>
 

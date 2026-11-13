@@ -16,13 +16,14 @@ function run(available, strip, origin = 'https://harukok.com') {
   } });
   return { slot, window, frame: slot.children[0] };
 }
-for (const [available, expected] of [[280, 0], [319, 0], [320, 320], [390, 320], [467, 320], [468, 468], [720, 468]]) {
+// 넓은 화면은 300x250 사각형, 좁은 화면은 320x50 띠, 그보다 좁으면 표시하지 않는다.
+for (const [available, expected] of [[280, 0], [319, 0], [320, 320], [390, 320], [467, 320], [468, 300], [720, 300]]) {
   const { slot, frame, window } = run(available, true);
   assert.equal(slot.children.length, expected ? 1 : 0);
   assert.equal(window.atOptions, undefined);
   if (!expected) { assert.equal(slot.parentElement.hidden, true); continue; }
   assert.equal(frame.width, expected);
-  assert.equal(frame.height, expected === 468 ? 60 : 50);
+  assert.equal(frame.height, expected === 300 ? 250 : 50);
   assert.equal(frame.attrs.sandbox, sandbox);
   for (const forbidden of ['allow-top-navigation', 'allow-popups', 'allow-modals', 'allow-downloads']) assert.ok(!frame.attrs.sandbox.includes(forbidden));
   assert.equal(frame.attrs.allow, "fullscreen 'none'; autoplay 'none'");
@@ -66,7 +67,7 @@ for (const page of pages) {
     continue;
   }
   assert.ok(html.includes('class="ad-banner'), 'Missing banner: ' + page);
-  assert.equal((html.match(/src="\/ad-banner-isolated\.js\?v=20261027-banner"/g)||[]).length,1,page);
+  assert.equal((html.match(/src="\/ad-banner-isolated\.js\?v=20261113-rect"/g)||[]).length,1,page);
   checked++;
 }
 assert.equal(checked, pages.length - pagesWithoutBanner.size);

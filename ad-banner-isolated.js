@@ -8,9 +8,10 @@
     return;
   }
 
+  // 넓은 화면에서는 가로 띠 대신 사각형을 쓴다(같은 자리, 더 나은 단가).
   const desktop = availableWidth >= 468;
-  const width = !strip ? 300 : desktop ? 468 : 320;
-  const height = !strip ? 250 : desktop ? 60 : 50;
+  const width = !strip || desktop ? 300 : 320;
+  const height = !strip || desktop ? 250 : 50;
   slot.style.width = width + 'px';
   slot.style.minHeight = height + 'px';
   slot.style.height = height + 'px';
