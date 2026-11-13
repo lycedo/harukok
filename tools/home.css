@@ -49,7 +49,9 @@ footer{text-align:center;font-size:14px;color:var(--muted);padding-top:20px;bord
 .ad-rail{display:none}
 @media(min-width:1320px){.ad-rail{display:block}}
 .ad-rail .ad-label{text-align:left}
-.ad-rail-slot{margin:0}
+/* 폭을 명시해 둔다. 광고 스크립트는 문서를 읽는 중에 바로 실행되는데,
+   그때 격자 배치가 끝나지 않았으면 slot.clientWidth가 0으로 나와 자리를 숨겨 버린다. */
+.ad-rail-slot{width:160px;margin:0}
 /* 설명 글은 넓어져도 한 줄이 길어지지 않게 묶어 둔다. */
 .home-about p,.home-about h2{max-width:720px}
 .search-row{max-width:720px;margin-left:auto;margin-right:auto}
