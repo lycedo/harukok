@@ -1,17 +1,18 @@
 // Third-party code stays in a fixed-size, cross-origin sandbox, never the page.
 (() => {
   const slot = document.currentScript.parentElement;
+  const rail = slot.classList.contains('ad-rail-slot');
   const strip = slot.classList.contains('ad-strip-slot');
   const availableWidth = slot.clientWidth;
-  if (availableWidth < (strip ? 320 : 300)) {
+  if (availableWidth < (rail ? 160 : strip ? 320 : 300)) {
     slot.parentElement.hidden = true;
     return;
   }
 
-  // 넓은 화면에서는 가로 띠 대신 사각형을 쓴다(같은 자리, 더 나은 단가).
+  // 세로 띠는 넓은 화면의 옆자리 전용이고, 그 밖에는 넓으면 사각형·좁으면 가로 띠를 쓴다.
   const desktop = availableWidth >= 468;
-  const width = !strip || desktop ? 300 : 320;
-  const height = !strip || desktop ? 250 : 50;
+  const width = rail ? 160 : !strip || desktop ? 300 : 320;
+  const height = rail ? 600 : !strip || desktop ? 250 : 50;
   slot.style.width = width + 'px';
   slot.style.minHeight = height + 'px';
   slot.style.height = height + 'px';

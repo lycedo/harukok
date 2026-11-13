@@ -14,7 +14,8 @@
   const units = {
     '300x250': ['9a224ed3f9be50f7dc6b2978be88e726', 300, 250],
     '320x50': ['8638d9c4926952e027a455d5690c215a', 320, 50],
-    '468x60': ['67f80acb076e583798c7200553e3ff1d', 468, 60]
+    '468x60': ['67f80acb076e583798c7200553e3ff1d', 468, 60],
+    '160x600': ['7103a0235554dba904e1128a0e0e24e4', 160, 600]
   };
   const size = new URLSearchParams(location.search).get('size');
   if (!Object.hasOwn(units, size)) return;

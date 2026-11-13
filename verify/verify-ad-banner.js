@@ -6,8 +6,9 @@ const root = path.join(__dirname, '..');
 const source = fs.readFileSync(path.join(root, 'ad-banner-isolated.js'), 'utf8');
 const wrapper = fs.readFileSync(path.join(root, 'ad-frame.html'), 'utf8');
 const sandbox = 'allow-scripts allow-same-origin';
-function run(available, strip, origin = 'https://harukok.com') {
-  const slot = { clientWidth: available, classList: { contains: () => strip }, style: {}, parentElement: {}, children: [], appendChild(f) { this.children.push(f); } };
+// slotClass는 실제 마크업의 클래스 이름이다. 띠·사각형·세로 띠를 구분해야 하므로 이름을 그대로 넘긴다.
+function run(available, slotClass, origin = 'https://harukok.com') {
+  const slot = { clientWidth: available, classList: { contains: name => name === slotClass }, style: {}, parentElement: {}, children: [], appendChild(f) { this.children.push(f); } };
   const window = {};
   vm.runInNewContext(source, { window, location: new URL(origin), document: {
     currentScript: { parentElement: slot },
@@ -18,7 +19,7 @@ function run(available, strip, origin = 'https://harukok.com') {
 }
 // 넓은 화면은 300x250 사각형, 좁은 화면은 320x50 띠, 그보다 좁으면 표시하지 않는다.
 for (const [available, expected] of [[280, 0], [319, 0], [320, 320], [390, 320], [467, 320], [468, 300], [720, 300]]) {
-  const { slot, frame, window } = run(available, true);
+  const { slot, frame, window } = run(available, 'ad-strip-slot');
   assert.equal(slot.children.length, expected ? 1 : 0);
   assert.equal(window.atOptions, undefined);
   if (!expected) { assert.equal(slot.parentElement.hidden, true); continue; }
@@ -29,8 +30,20 @@ for (const [available, expected] of [[280, 0], [319, 0], [320, 320], [390, 320],
   assert.equal(frame.attrs.allow, "fullscreen 'none'; autoplay 'none'");
   assert.equal(slot.style.overflow, 'hidden');
 }
+// 세로 띠는 옆자리 전용이다: 160px 미만이면 숨고, 그 위로는 늘 160x600이다.
+for (const [available, expected] of [[120, 0], [159, 0], [160, 160], [200, 160], [900, 160]]) {
+  const { slot, frame } = run(available, 'ad-rail-slot');
+  assert.equal(slot.children.length, expected ? 1 : 0);
+  if (!expected) { assert.equal(slot.parentElement.hidden, true); continue; }
+  assert.equal(frame.width, 160);
+  assert.equal(frame.height, 600);
+  assert.equal(new URL(frame.src).searchParams.get('size'), '160x600');
+  assert.equal(frame.attrs.sandbox, sandbox);
+  for (const forbidden of ['allow-top-navigation', 'allow-popups', 'allow-modals', 'allow-downloads']) assert.ok(!frame.attrs.sandbox.includes(forbidden));
+  assert.notEqual(new URL(frame.src).origin, 'https://harukok.com', 'The ad must never share the host origin');
+}
 for (const origin of ['https://harukok.com', 'https://www.harukok.com', 'https://harukok.pages.dev', 'https://dev.harukok.pages.dev', 'http://127.0.0.1:8765']) {
-  const { frame } = run(300, false, origin);
+  const { frame } = run(300, 'ad-rect-slot', origin);
   assert.equal(frame.width, 300);
   assert.equal(frame.height, 250);
   assert.equal(frame.srcdoc, undefined);
@@ -38,9 +51,9 @@ for (const origin of ['https://harukok.com', 'https://www.harukok.com', 'https:/
   assert.equal(new URL(frame.src).searchParams.get('size'), '300x250');
 }
 const code = wrapper.match(/<script>([\s\S]*?)<\/script>/)[1];
-assert.equal(run(285,false).frame,undefined);
-assert.equal(run(285,false).slot.parentElement.hidden,true);
-for (const size of ['300x250', '320x50', '468x60', 'bad', '__proto__']) {
+assert.equal(run(285,'ad-rect-slot').frame,undefined);
+assert.equal(run(285,'ad-rect-slot').slot.parentElement.hidden,true);
+for (const size of ['300x250', '320x50', '468x60', '160x600', 'bad', '__proto__']) {
   for (const active of [false, true]) {
     let opens = 0;
     const scripts = [];
@@ -67,7 +80,11 @@ for (const page of pages) {
     continue;
   }
   assert.ok(html.includes('class="ad-banner'), 'Missing banner: ' + page);
-  assert.equal((html.match(/src="\/ad-banner-isolated\.js\?v=20261113-rect"/g)||[]).length,1,page);
+  // 홈만 본문 배너와 옆자리 세로 띠 두 개를 쓴다. 도구 페이지는 하나뿐이다.
+  const expectedBanners = page === 'index.html' ? 2 : 1;
+  assert.equal((html.match(/src="\/ad-banner-isolated\.js\?v=20261113-rect"/g)||[]).length,expectedBanners,page);
+  if (page === 'index.html') assert.ok(html.includes('class="ad-rail-slot"'), 'Home must keep the side rail slot');
+  else assert.ok(!html.includes('ad-rail-slot'), 'Side rail belongs to the home page only: ' + page);
   checked++;
 }
 assert.equal(checked, pages.length - pagesWithoutBanner.size);
