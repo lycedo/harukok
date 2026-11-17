@@ -55,7 +55,7 @@ try {
   mutation('Wrong about category sum', 'about.html', html => html.replace(/<li>생활 계산 \d+개<\/li>/, '<li>생활 계산 1개</li>'), /소개 페이지 분류별 합계가 실제와 다름/);
   mutation('Stale og:title', 'tools/percent-calculator.html', html => html.replace(/(property="og:title" content=")[^"]*(")/, (m, a, b) => a + '옛 제목' + b), /og:title이 검색 제목과 다름/);
   // 본문을 얇게 만들면 색인 거부로 이어지므로 빌드에서 막혀야 한다.
-  mutation('Thin tool body', 'tools/percent-calculator.html', html => html.replace(/<main[\s\S]*?<\/main>/, '<main><h1>퍼센트 계산기</h1><p>값을 넣으세요.</p><script src="/ad-banner-isolated.js?v=20261113-rail"></script></main>'), /본문이 너무 짧음/);
+  mutation('Thin tool body', 'tools/percent-calculator.html', html => html.replace(/<main[\s\S]*?<\/main>/, '<main><h1>퍼센트 계산기</h1><p>값을 넣으세요.</p><script src="/ad-banner-isolated.js?v=20261117-paused"></script></main>'), /본문이 너무 짧음/);
   mutation('Missing local script', 'tools/percent-calculator.html', html => html.replace('</head>', '<script src="/tools/missing-expansion.js"></script></head>'), /없는 로컬 스크립트/);
   mutation('Accidental noindex', 'tools/percent-calculator.html', html => html.replace('</head>', '<meta name="robots" content="noindex"></head>'), /공개 콘텐츠에 noindex/);
   mutation('Malformed structured data', 'tools/percent-calculator.html', html => html.replace('"@context":', '"@context" '), /JSON 문법 오류/);

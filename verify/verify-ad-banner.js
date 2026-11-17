@@ -3,19 +3,31 @@ const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
 const root = path.join(__dirname, '..');
-const source = fs.readFileSync(path.join(root, 'ad-banner-isolated.js'), 'utf8');
+const paused = fs.readFileSync(path.join(root, 'ad-banner-isolated.js'), 'utf8');
+// 심사 기간에는 PAUSED가 켜져 있다. 크기·격리 규칙은 계속 검사해야 하므로 끈 사본으로도 돌린다.
+assert.match(paused, /^ {2}const PAUSED = (true|false);$/m, 'PAUSED switch must stay findable and stay inside the IIFE');
+// 홈은 이 파일을 두 번 싣는다. 선언이 바깥에 있으면 두 번째가 중복 선언으로 죽으므로 그것부터 막는다.
+assert.ok(!/^const PAUSED/m.test(paused), 'PAUSED must not be a top-level declaration (home loads this twice)');
+const source = paused.replace('const PAUSED = true;', 'const PAUSED = false;');
 const wrapper = fs.readFileSync(path.join(root, 'ad-frame.html'), 'utf8');
 const sandbox = 'allow-scripts allow-same-origin';
 // slotClass는 실제 마크업의 클래스 이름이다. 띠·사각형·세로 띠를 구분해야 하므로 이름을 그대로 넘긴다.
-function run(available, slotClass, origin = 'https://harukok.com', wide = true) {
+function run(available, slotClass, origin = 'https://harukok.com', wide = true, code = source) {
   const slot = { clientWidth: available, classList: { contains: name => name === slotClass }, style: {}, parentElement: {}, children: [], appendChild(f) { this.children.push(f); } };
   const window = {};
-  vm.runInNewContext(source, { window, matchMedia: () => ({ matches: wide }), location: new URL(origin), document: {
+  vm.runInNewContext(code, { window, matchMedia: () => ({ matches: wide }), location: new URL(origin), document: {
     currentScript: { parentElement: slot },
     createElement: tag => ({ tag, style: {}, attrs: {}, setAttribute(k,v) { this.attrs[k]=v; } }),
     write: () => assert.fail('Third-party script must not execute in the host page')
   } });
   return { slot, window, frame: slot.children[0] };
+}
+// 지금 배포되는 파일은 어떤 자리에서도 광고를 붙이지 않고 영역을 숨겨야 한다.
+for (const slotClass of ['ad-strip-slot', 'ad-rail-slot', 'ad-rect-slot']) {
+  const { slot, frame } = run(1200, slotClass, 'https://harukok.com', true, paused);
+  assert.equal(frame, undefined, 'Ads are paused: ' + slotClass);
+  assert.equal(slot.children.length, 0, 'Ads are paused: ' + slotClass);
+  assert.equal(slot.parentElement.hidden, true, 'Paused slot must be hidden: ' + slotClass);
 }
 // 넓은 화면은 300x250 사각형, 좁은 화면은 320x50 띠, 그보다 좁으면 표시하지 않는다.
 for (const [available, expected] of [[280, 0], [319, 0], [320, 320], [390, 320], [467, 320], [468, 300], [720, 300]]) {
@@ -83,7 +95,7 @@ for (const page of pages) {
   assert.ok(html.includes('class="ad-banner'), 'Missing banner: ' + page);
   // 홈만 본문 배너와 옆자리 세로 띠 두 개를 쓴다. 도구 페이지는 하나뿐이다.
   const expectedBanners = page === 'index.html' ? 2 : 1;
-  assert.equal((html.match(/src="\/ad-banner-isolated\.js\?v=20261113-rail"/g)||[]).length,expectedBanners,page);
+  assert.equal((html.match(/src="\/ad-banner-isolated\.js\?v=20261117-paused"/g)||[]).length,expectedBanners,page);
   if (page === 'index.html') assert.ok(html.includes('class="ad-rail-slot"'), 'Home must keep the side rail slot');
   else assert.ok(!html.includes('ad-rail-slot'), 'Side rail belongs to the home page only: ' + page);
   checked++;

@@ -45,9 +45,14 @@ footer{text-align:center;font-size:14px;color:var(--muted);padding-top:20px;bord
   body .wrap{max-width:1380px}
   .goal-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
 }
-/* 세로 광고는 자리가 있는 넓은 화면에서만 나온다. */
+/* 세로 광고는 자리가 있는 넓은 화면에서만 나온다.
+   2026-11-17부터 애드센스 심사 동안 광고를 내려 두었으므로 넓은 화면에서도 띄우지 않는다.
+   다시 달 때 아래 두 줄의 주석을 풀면 된다(격자도 같이 두 칸으로 돌아간다). */
 .ad-rail{display:none}
-@media(min-width:1320px){.ad-rail{display:block}}
+/* @media(min-width:1320px){.ad-rail{display:block}} */
+/* 광고를 내려 둔 동안에는 옆자리 칸을 비워 두지 않는다. 자바스크립트가 아니라 CSS로 정해
+   처음 그릴 때부터 한 칸이므로 화면이 밀리지 않는다. */
+@media(min-width:1320px){body .wrap{grid-template-columns:minmax(0,1fr)}}
 .ad-rail .ad-label{text-align:left}
 /* 폭을 명시해 둔다. 광고 스크립트는 문서를 읽는 중에 바로 실행되는데,
    그때 격자 배치가 끝나지 않았으면 slot.clientWidth가 0으로 나와 자리를 숨겨 버린다. */

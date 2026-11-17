@@ -1,6 +1,14 @@
 // Third-party code stays in a fixed-size, cross-origin sandbox, never the page.
 (() => {
+  // 애드센스 심사를 받는 동안 광고를 내려 둔다(2026-11-17). 다시 달려면 PAUSED를 false로 바꾸면 되고,
+  // 아래 크기·격리·팝업 차단 규칙은 그대로 살아 있다.
+  // 홈은 이 파일을 두 번 불러오므로 선언은 반드시 이 함수 안에 둔다(바깥에 두면 두 번째가 중복 선언으로 멈춘다).
+  const PAUSED = true;
   const slot = document.currentScript.parentElement;
+  if (PAUSED) {
+    slot.parentElement.hidden = true;
+    return;
+  }
   const rail = slot.classList.contains('ad-rail-slot');
   const strip = slot.classList.contains('ad-strip-slot');
   const availableWidth = slot.clientWidth;
