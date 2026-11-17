@@ -132,6 +132,19 @@ function checkSite(root) {
       if (Number(count) !== toolCount) fail('index.html', '검색·공유 설명의 도구 수가 오래됨: ' + count);
     }
   }
+  // 소개 페이지가 적어 둔 도구 수와 분류별 숫자도 실제와 맞아야 한다(손으로 적은 값이라 쉽게 낡는다).
+  const about = pages.get('/about');
+  if (about) {
+    // 지금 개수를 말하는 자리만 본다. 본문의 "도구 17개로 시작해" 같은 과거 서술은 건드리지 않는다.
+    const nowSaid = [(about.html.match(/<p class="lead">[\s\S]*?<\/p>/) || [''])[0],
+      ...about.meta.filter(tag => tag.name === 'description' || tag.property === 'og:description').map(tag => tag.content || '')].join(' ');
+    for (const [, count] of nowSaid.matchAll(/도구\s*(\d+)개/g)) {
+      if (Number(count) !== toolCount) fail('about.html', '소개 페이지의 도구 수가 오래됨: ' + count + ' (실제 ' + toolCount + ')');
+    }
+    const listed = [...(about.html.match(/<ul class="cat-list">[\s\S]*?<\/ul>/) || [''])[0]
+      .matchAll(/(\d+)개<\/li>/g)].reduce((sum, match) => sum + Number(match[1]), 0);
+    if (listed && listed !== toolCount) fail('about.html', '소개 페이지 분류별 합계가 실제와 다름: ' + listed + ' (실제 ' + toolCount + ')');
+  }
   // 홈 위쪽 인기 도구 카드가 아니라 전체 도구 목록 안에 있어야 한다(목록에서 빠진 도구를 카드가 가리지 않도록).
   const directory = (home?.html.match(/<div class="goal-grid" id="tool-directory">([\s\S]*?)\n\s*<\/div>/) || [])[1] || '';
   const directoryLinks = new Set([...directory.matchAll(/<a\b[^>]*\bhref="([^"]+)"/gi)]

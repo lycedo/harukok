@@ -51,6 +51,8 @@ try {
   mutation('Wrong canonical', 'tools/percent-calculator.html', html => html.replace('rel="canonical" href="https://harukok.com/tools/percent-calculator"', 'rel="canonical" href="https://example.com/"'), /canonical은 실제/);
   mutation('Missing tool ad', 'tools/percent-calculator.html', html => html.replace(/<script src="\/ad-banner-isolated\.js[^"\n]*"><\/script>/, ''), /도구 광고 스크립트는 하나/);
   mutation('Duplicate tool ad', 'tools/percent-calculator.html', html => html.replace('</main>', '<script src="/ad-banner-isolated.js?v=20261027-banner"></script></main>'), /도구 광고 스크립트는 하나/);
+  mutation('Stale about tool count', 'about.html', html => html.replace(/(<p class="lead">[\s\S]*?)도구 \d+개/, (m, a) => a + '도구 1개'), /소개 페이지의 도구 수가 오래됨/);
+  mutation('Wrong about category sum', 'about.html', html => html.replace(/<li>생활 계산 \d+개<\/li>/, '<li>생활 계산 1개</li>'), /소개 페이지 분류별 합계가 실제와 다름/);
   mutation('Stale og:title', 'tools/percent-calculator.html', html => html.replace(/(property="og:title" content=")[^"]*(")/, (m, a, b) => a + '옛 제목' + b), /og:title이 검색 제목과 다름/);
   // 본문을 얇게 만들면 색인 거부로 이어지므로 빌드에서 막혀야 한다.
   mutation('Thin tool body', 'tools/percent-calculator.html', html => html.replace(/<main[\s\S]*?<\/main>/, '<main><h1>퍼센트 계산기</h1><p>값을 넣으세요.</p><script src="/ad-banner-isolated.js?v=20261113-rail"></script></main>'), /본문이 너무 짧음/);
