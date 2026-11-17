@@ -51,6 +51,9 @@ function checkSite(root) {
     descriptions.add(description);
     const ogURLs = meta.filter(tag => tag.property === 'og:url');
     if (ogURLs.length !== 1 || ogURLs[0].content !== canonical) fail(file, 'og:url이 canonical과 일치하지 않음');
+    // 제목을 고칠 때 og:title만 옛 문구로 남는 일이 있었다. 둘을 같이 유지한다.
+    const ogTitles = meta.filter(tag => tag.property === 'og:title');
+    if (ogTitles.length && ogTitles[0].content !== title) fail(file, 'og:title이 검색 제목과 다름: ' + ogTitles[0].content);
     if ((html.match(/<h1\b/gi) || []).length !== 1) fail(file, '페이지 제목 h1은 하나여야 함');
     if (/^(tools|fun)\//.test(file)) {
       const ads = [...html.matchAll(/<script\b[^>]*\bsrc=["']\/ad-banner-isolated\.js(?:\?[^"']*)?["'][^>]*>/gi)];
