@@ -67,6 +67,25 @@ try {
   mutation('Stale search description', 'index.html', html => html.replace('name="description" content="', 'name="description" content="무료 도구 0개. '), /검색·공유 설명의 도구 수/);
   mutation('Crawler block', 'robots.txt', html => html + '\nDisallow: /\n', /전체 사이트 크롤링 차단/);
   mutation('Nonexistent sitemap date', 'sitemap.xml', html => html.replace(/<lastmod>.*?<\/lastmod>/, '<lastmod>2026-02-30</lastmod>'), /올바른 lastmod/);
+  // 한 도구로 오는 링크를 다른 도구 페이지 전부에서 지우면, 홈 목록만 남은 그 도구를 검사가 잡아야 한다.
+  {
+    const starved = '/tools/percent-calculator';
+    const saved = new Map();
+    try {
+      for (const dir of ['tools', 'fun']) {
+        for (const name of fs.readdirSync(path.join(fixture, dir))) {
+          if (!name.endsWith('.html') || '/' + dir + '/' + name === starved + '.html') continue;
+          const target = path.join(fixture, dir, name);
+          const original = fs.readFileSync(target, 'utf8');
+          const changed = original.replace(new RegExp('<a href="' + starved + '">[^<]*</a>', 'g'), '');
+          if (changed !== original) { saved.set(target, original); fs.writeFileSync(target, changed); }
+        }
+      }
+      assert.ok(saved.size >= 3, 'the fixture must start with at least three tools linking to ' + starved);
+      assert.ok(checkSite(fixture).errors.some(error => /percent-calculator\.html: 다른 도구에서 받는 링크가 0개뿐/.test(error)), 'Tool starved of inbound links');
+      checks++;
+    } finally { for (const [target, original] of saved) fs.writeFileSync(target, original); }
+  }
   console.log('PASS - ' + checks + ' SEO checks including deliberate sitemap, canonical, noindex, JSON, link, count and robots failures');
 } finally {
   // 이 실행이 생성한 임시 폴더만 정리한다.

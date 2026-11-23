@@ -10,6 +10,9 @@ const EXCLUDED = new Set(['404.html', 'ad-frame.html']);
 // 본문이 얇은 도구 페이지는 Google이 "발견됨 - 현재 색인이 생성되지 않음"으로 두고 색인하지 않는다.
 // 2026-11 유입 급감의 원인이었으므로 최소 분량을 빌드에서 지킨다.
 const MIN_BODY_CHARS = 600;
+// 홈 목록 말고는 들어오는 길이 없는 도구가 생기지 않게 한다. 예전에는 "함께 쓰는 도구"가 인기 도구 5개에 몰려
+// 155개 중 66개가 다른 도구에서 링크를 하나도 받지 못했다. 고칠 때는 node scripts/related-links.js 를 돌린다.
+const MIN_INBOUND_LINKS = 3;
 
 function attrs(tag) {
   return Object.fromEntries([...tag.matchAll(/([\w:-]+)\s*=\s*(["'])(.*?)\2/gs)]
@@ -121,6 +124,16 @@ function checkSite(root) {
   }
   visit('/');
   for (const [url, page] of pages) if (!reachable.has(url)) fail(page.file, '홈에서 정적 링크로 도달할 수 없음');
+  const isTool = url => /^\/(tools|fun)\//.test(url);
+  const inbound = new Map();
+  for (const [url, page] of pages) {
+    if (!isTool(url)) continue;
+    for (const link of page.links) if (link !== url && isTool(link)) inbound.set(link, (inbound.get(link) || 0) + 1);
+  }
+  for (const [url, page] of pages) {
+    const received = inbound.get(url) || 0;
+    if (isTool(url) && received < MIN_INBOUND_LINKS) fail(page.file, '다른 도구에서 받는 링크가 ' + received + '개뿐임(최소 ' + MIN_INBOUND_LINKS + '개)');
+  }
   const home = pages.get('/');
   if (/home-guides-title|계산이\s*헷갈릴\s*때\s*가이드/.test(home?.html || '')) fail('index.html', '삭제한 홈 가이드 영역이 남아 있음');
   const toolCount = [...pages.keys()].filter(url => /^\/(tools|fun)\//.test(url)).length;
