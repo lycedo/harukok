@@ -66,7 +66,22 @@
 
 ## 남은 것
 
-- `www.harukok.com`이 DNS에 없어 접속되지 않습니다(Googlebot도 4번 시도해 DNS 오류). Cloudflare에서 레코드를 추가해야 합니다.
+- ~~`www.harukok.com`이 DNS에 없어 접속되지 않습니다(Googlebot도 4번 시도해 DNS 오류).~~ **11-24에 해결.** 아래 "www 주소" 참고.
 - 네이버 `site:harukok.com`은 결과 0건이고 서치어드바이저 등록 흔적이 없습니다. 사용자가 등록하지 않기로 했습니다.
 - 애드센스: harukok.com은 11-17 재검토 요청 뒤 여전히 "준비 중", Ads.txt 상태는 "승인됨"으로 바뀜. 지급 정보 미입력.
 - 회복 신호는 **브랜드가 아닌 검색어의 노출이 다시 생기는지**입니다. 그동안 도구를 대량으로 추가·삭제하지 않습니다.
+
+## www 주소 (11-24, Cloudflare 대시보드에서 설정 — 저장소에는 없음)
+
+사용자가 "DNS 추가해줘"라고 해 Cloudflare에 두 가지를 넣었습니다. 저장소 파일이 아니라 Cloudflare 설정이라 여기에 적어 둡니다.
+
+| 위치 | 넣은 것 |
+| --- | --- |
+| DNS → 레코드 | `www` · A · `192.0.2.1` · 프록시 켬. 실제 서버가 아니라 Cloudflare가 요청을 받게 하려는 자리 레코드입니다(메모도 달아 둠). |
+| 규칙 → 리디렉션 규칙 | 이름 "www를 harukok.com으로 넘김". `http*://www.harukok.com/*` → `https://harukok.com/${2}`, 301. "쿼리 문자열 유지"는 꺼 둠(패턴의 `*`에 이미 포함됨). |
+
+확인한 것: `www.harukok.com`이 Cloudflare 주소로 풀리고, http·https 모두 **한 번에** 같은 경로·쿼리의 `https://harukok.com/…`으로 301 됩니다
+(`/`, `/tools/salary-calculator`, `/tools/date-calculator?mode=d-day`, `/fun/lotto-generator`). 원래 주소와 메일(MX) 레코드는 그대로입니다.
+
+- www를 Pages 사용자 설정 도메인으로 붙이지 않은 이유: 그러면 같은 내용이 두 주소로 보입니다. 넘기기만 하는 쪽이 맞습니다.
+- 되돌리려면 리디렉션 규칙을 끄고 `www` 레코드를 지우면 됩니다. 규칙만 끄고 레코드를 남기면 받아 줄 서버가 없어 www가 오류 화면을 냅니다.
